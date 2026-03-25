@@ -42,15 +42,14 @@ type MedianAbsoluteDeviationAggregation struct {
 	// ExecutionHint The default implementation of TDigest is optimized for performance, scaling
 	// to millions or even billions of sample values while maintaining acceptable
 	// accuracy levels (close to 1% relative error for millions of samples in some
-	// cases).
-	// To use an implementation optimized for accuracy, set this parameter to
-	// high_accuracy instead.
+	// cases). To use an implementation optimized for accuracy, set this parameter
+	// to high_accuracy instead.
 	ExecutionHint *tdigestexecutionhint.TDigestExecutionHint `json:"execution_hint,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	Script  *Script `json:"script,omitempty"`
 }

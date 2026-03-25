@@ -37,17 +37,16 @@ type IntervalsMatch struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Filter An optional interval filter.
 	Filter *IntervalsFilter `json:"filter,omitempty"`
-	// MaxGaps Maximum number of positions between the matching terms.
-	// Terms further apart than this are not considered matches.
+	// MaxGaps Maximum number of positions between the matching terms. Terms further apart
+	// than this are not considered matches.
 	MaxGaps *int `json:"max_gaps,omitempty"`
 	// Ordered If `true`, matching terms must appear in their specified order.
 	Ordered *bool `json:"ordered,omitempty"`
 	// Query Text you wish to find in the provided field.
 	Query string `json:"query"`
 	// UseField If specified, match intervals from this field rather than the top-level
-	// field.
-	// The `term` is normalized using the search analyzer from this field, unless
-	// `analyzer` is specified separately.
+	// field. The `term` is normalized using the search analyzer from this field,
+	// unless `analyzer` is specified separately.
 	UseField *string `json:"use_field,omitempty"`
 }
 

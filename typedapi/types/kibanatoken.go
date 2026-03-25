@@ -35,8 +35,8 @@ import (
 type KibanaToken struct {
 	// Name The name of the bearer token for the `elastic/kibana` service account.
 	Name string `json:"name"`
-	// Value The value of the bearer token for the `elastic/kibana` service account.
-	// Use this value to authenticate the service account with Elasticsearch.
+	// Value The value of the bearer token for the `elastic/kibana` service account. Use
+	// this value to authenticate the service account with Elasticsearch.
 	Value string `json:"value"`
 }
 

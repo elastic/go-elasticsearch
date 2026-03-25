@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// DoubleTermsAggregate type.
+// Result of a `terms` aggregation when the field is some kind of decimal number
+// like a float, double, or distance.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/Aggregate.ts#L451-L456
 type DoubleTermsAggregate struct {

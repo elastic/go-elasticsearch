@@ -222,7 +222,7 @@ func (r PutOpenai) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_openai")
+			ctx = instrument.Start(providedCtx, "inference.put_openai")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -320,9 +320,9 @@ func (r *PutOpenai) Header(key, value string) *PutOpenai {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform.
-// NOTE: The `chat_completion` task type only supports streaming and only
-// through the _stream API.
+// TaskType The type of the inference task that the model will perform. NOTE: The
+// `chat_completion` task type only supports streaming and only through the
+// _stream API.
 // API Name: tasktype
 func (r *PutOpenai) _tasktype(tasktype string) *PutOpenai {
 	r.paramSet |= tasktypeMask
@@ -372,11 +372,9 @@ func (r *PutOpenai) FilterPath(filterpaths ...string) *PutOpenai {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutOpenai) Human(human bool) *PutOpenai {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -384,8 +382,8 @@ func (r *PutOpenai) Human(human bool) *PutOpenai {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutOpenai) Pretty(pretty bool) *PutOpenai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -430,8 +428,8 @@ func (r *PutOpenai) ServiceSettings(servicesettings *types.OpenAIServiceSettings
 	return r
 }
 
-// TaskSettings Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// TaskSettings Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutOpenai) TaskSettings(tasksettings *types.OpenAITaskSettings) *PutOpenai {
 	if r.req == nil {

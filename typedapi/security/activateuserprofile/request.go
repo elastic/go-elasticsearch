@@ -31,21 +31,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/activate_user_profile/Request.ts#L23-L76
 type Request struct {
-	// AccessToken The user's Elasticsearch access token or JWT.
-	// Both `access` and `id` JWT token types are supported and they depend on the
-	// underlying JWT realm configuration.
-	// If you specify the `access_token` grant type, this parameter is required.
-	// It is not valid with other grant types.
+	// AccessToken The user's Elasticsearch access token or JWT. Both `access` and `id` JWT
+	// token types are supported and they depend on the underlying JWT realm
+	// configuration. If you specify the `access_token` grant type, this parameter
+	// is required. It is not valid with other grant types.
 	AccessToken *string `json:"access_token,omitempty"`
 	// GrantType The type of grant.
 	GrantType granttype.GrantType `json:"grant_type"`
-	// Password The user's password.
-	// If you specify the `password` grant type, this parameter is required.
-	// It is not valid with other grant types.
+	// Password The user's password. If you specify the `password` grant type, this parameter
+	// is required. It is not valid with other grant types.
 	Password *string `json:"password,omitempty"`
-	// Username The username that identifies the user.
-	// If you specify the `password` grant type, this parameter is required.
-	// It is not valid with other grant types.
+	// Username The username that identifies the user. If you specify the `password` grant
+	// type, this parameter is required. It is not valid with other grant types.
 	Username *string `json:"username,omitempty"`
 }
 

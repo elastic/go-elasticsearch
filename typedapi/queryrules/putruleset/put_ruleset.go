@@ -18,16 +18,15 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Create or update a query ruleset.
-// There is a limit of 100 rules per ruleset.
+// Create or update a query ruleset. There is a limit of 100 rules per ruleset.
 // This limit can be increased by using the
 // `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only select
-// documents using `ids` or `docs`, but cannot use both in single rule.
-// It is advised to use one or the other in query rulesets, to avoid errors.
-// Additionally, pinned queries have a maximum limit of 100 pinned hits.
-// If multiple matching rules pin more than 100 documents, only the first 100
+// documents using `ids` or `docs`, but cannot use both in single rule. It is
+// advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits. If
+// multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 package putruleset
 
@@ -91,16 +90,15 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 	}
 }
 
-// Create or update a query ruleset.
-// There is a limit of 100 rules per ruleset.
+// Create or update a query ruleset. There is a limit of 100 rules per ruleset.
 // This limit can be increased by using the
 // `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only select
-// documents using `ids` or `docs`, but cannot use both in single rule.
-// It is advised to use one or the other in query rulesets, to avoid errors.
-// Additionally, pinned queries have a maximum limit of 100 pinned hits.
-// If multiple matching rules pin more than 100 documents, only the first 100
+// documents using `ids` or `docs`, but cannot use both in single rule. It is
+// advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits. If
+// multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-query-ruleset.html
@@ -224,7 +222,7 @@ func (r PutRuleset) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.put_ruleset")
+			ctx = instrument.Start(providedCtx, "query_rules.put_ruleset")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -354,11 +352,9 @@ func (r *PutRuleset) FilterPath(filterpaths ...string) *PutRuleset {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutRuleset) Human(human bool) *PutRuleset {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -366,8 +362,8 @@ func (r *PutRuleset) Human(human bool) *PutRuleset {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutRuleset) Pretty(pretty bool) *PutRuleset {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -153,7 +153,7 @@ func (r PutBehavioralAnalytics) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.put_behavioral_analytics")
+			ctx = instrument.Start(providedCtx, "search_application.put_behavioral_analytics")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -322,11 +322,9 @@ func (r *PutBehavioralAnalytics) FilterPath(filterpaths ...string) *PutBehaviora
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutBehavioralAnalytics) Human(human bool) *PutBehavioralAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -334,8 +332,8 @@ func (r *PutBehavioralAnalytics) Human(human bool) *PutBehavioralAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutBehavioralAnalytics) Pretty(pretty bool) *PutBehavioralAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

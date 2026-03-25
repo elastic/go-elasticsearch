@@ -26,9 +26,8 @@ package createcrossclusterapikey
 type Response struct {
 	// ApiKey Generated API key.
 	ApiKey string `json:"api_key"`
-	// Encoded API key credentials which is the base64-encoding of
-	// the UTF-8 representation of `id` and `api_key` joined
-	// by a colon (`:`).
+	// Encoded API key credentials which is the base64-encoding of the UTF-8 representation
+	// of `id` and `api_key` joined by a colon (`:`).
 	Encoded string `json:"encoded"`
 	// Expiration Expiration in milliseconds for the API key.
 	Expiration *int64 `json:"expiration,omitempty"`

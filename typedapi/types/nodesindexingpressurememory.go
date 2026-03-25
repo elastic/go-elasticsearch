@@ -35,11 +35,11 @@ import (
 type NodesIndexingPressureMemory struct {
 	// Current Contains statistics for current indexing load.
 	Current *PressureMemory `json:"current,omitempty"`
-	// Limit Configured memory limit for the indexing requests.
-	// Replica requests have an automatic limit that is 1.5x this value.
+	// Limit Configured memory limit for the indexing requests. Replica requests have an
+	// automatic limit that is 1.5x this value.
 	Limit ByteSize `json:"limit,omitempty"`
-	// LimitInBytes Configured memory limit, in bytes, for the indexing requests.
-	// Replica requests have an automatic limit that is 1.5x this value.
+	// LimitInBytes Configured memory limit, in bytes, for the indexing requests. Replica
+	// requests have an automatic limit that is 1.5x this value.
 	LimitInBytes *int64 `json:"limit_in_bytes,omitempty"`
 	// Total Contains statistics for the cumulative indexing load since the node started.
 	Total *PressureMemory `json:"total,omitempty"`

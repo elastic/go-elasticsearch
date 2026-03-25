@@ -29,20 +29,46 @@ type DenseVectorIndexOptionsType struct {
 }
 
 var (
+
+	// Bbqflat This utilizes a brute-force search algorithm in addition to automatically
+	// quantizing to binary vectors. Only supports `element_type` of `float`.
 	Bbqflat = DenseVectorIndexOptionsType{"bbq_flat"}
 
+	// Bbqhnsw This utilizes the HNSW algorithm in addition to automatic binary quantization
+	// for scalable approximate kNN search with `element_type` of `float`.
+	//
+	// This can reduce the memory footprint by nearly 32x at the cost of some
+	// accuracy.
 	Bbqhnsw = DenseVectorIndexOptionsType{"bbq_hnsw"}
 
+	// Flat This utilizes a brute-force search algorithm for exact kNN search. This
+	// supports all `element_type` values.
 	Flat = DenseVectorIndexOptionsType{"flat"}
 
+	// Hnsw This utilizes the HNSW algorithm for scalable approximate kNN search. This
+	// supports all `element_type` values.
 	Hnsw = DenseVectorIndexOptionsType{"hnsw"}
 
+	// Int4flat This utilizes a brute-force search algorithm in addition to automatically
+	// half-byte scalar quantization. Only supports `element_type` of `float`.
 	Int4flat = DenseVectorIndexOptionsType{"int4_flat"}
 
+	// Int4hnsw This utilizes the HNSW algorithm in addition to automatically scalar
+	// quantization for scalable approximate kNN search with `element_type` of
+	// `float`.
+	//
+	// This can reduce the memory footprint by 8x at the cost of some accuracy.
 	Int4hnsw = DenseVectorIndexOptionsType{"int4_hnsw"}
 
+	// Int8flat This utilizes a brute-force search algorithm in addition to automatically
+	// scalar quantization. Only supports `element_type` of `float`.
 	Int8flat = DenseVectorIndexOptionsType{"int8_flat"}
 
+	// Int8hnsw The default index type for `float` vectors. This utilizes the HNSW algorithm
+	// in addition to automatically scalar quantization for scalable approximate kNN
+	// search with `element_type` of `float`.
+	//
+	// This can reduce the memory footprint by 4x at the cost of some accuracy.
 	Int8hnsw = DenseVectorIndexOptionsType{"int8_hnsw"}
 )
 

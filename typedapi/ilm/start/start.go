@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Start the ILM plugin.
-// Start the index lifecycle management plugin if it is currently stopped.
-// ILM is started automatically when the cluster is formed.
+// Start the ILM plugin. Start the index lifecycle management plugin if it is
+// currently stopped. ILM is started automatically when the cluster is formed.
 // Restarting ILM is necessary only when it has been stopped using the stop ILM
 // API.
 package start
@@ -72,9 +71,8 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 	}
 }
 
-// Start the ILM plugin.
-// Start the index lifecycle management plugin if it is currently stopped.
-// ILM is started automatically when the cluster is formed.
+// Start the ILM plugin. Start the index lifecycle management plugin if it is
+// currently stopped. ILM is started automatically when the cluster is formed.
 // Restarting ILM is necessary only when it has been stopped using the stop ILM
 // API.
 //
@@ -147,7 +145,7 @@ func (r Start) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.start")
+			ctx = instrument.Start(providedCtx, "ilm.start")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -325,11 +323,9 @@ func (r *Start) FilterPath(filterpaths ...string) *Start {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Start) Human(human bool) *Start {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +333,8 @@ func (r *Start) Human(human bool) *Start {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Start) Pretty(pretty bool) *Start {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

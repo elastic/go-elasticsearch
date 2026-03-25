@@ -29,8 +29,11 @@ type GeoDistanceType struct {
 }
 
 var (
+
+	// Arc The `arc` calculation is the most accurate.
 	Arc = GeoDistanceType{"arc"}
 
+	// Plane The `plane` calculation is faster but less accurate.
 	Plane = GeoDistanceType{"plane"}
 )
 

@@ -20,20 +20,16 @@
 
 // Get remote cluster information.
 //
-// Get information about configured remote clusters.
-// The API returns connection and endpoint information keyed by the configured
-// remote cluster alias.
+// Get information about configured remote clusters. The API returns connection
+// and endpoint information keyed by the configured remote cluster alias.
 //
-// > info
-// > This API returns information that reflects current state on the local
-// cluster.
-// > The `connected` field does not necessarily reflect whether a remote cluster
-// is down or unavailable, only whether there is currently an open connection to
-// it.
-// > Elasticsearch does not spontaneously try to reconnect to a disconnected
-// remote cluster.
-// > To trigger a reconnection, attempt a cross-cluster search, ES|QL
-// cross-cluster search, or try the `/_resolve/cluster` endpoint.
+// > info > This API returns information that reflects current state on the
+// local cluster. > The `connected` field does not necessarily reflect whether a
+// remote cluster is down or unavailable, only whether there is currently an
+// open connection to it. > Elasticsearch does not spontaneously try to
+// reconnect to a disconnected remote cluster. > To trigger a reconnection,
+// attempt a cross-cluster search, ES|QL cross-cluster search, or try the
+// `/_resolve/cluster` endpoint.
 package remoteinfo
 
 import (
@@ -85,20 +81,16 @@ func NewRemoteInfoFunc(tp elastictransport.Interface) NewRemoteInfo {
 
 // Get remote cluster information.
 //
-// Get information about configured remote clusters.
-// The API returns connection and endpoint information keyed by the configured
-// remote cluster alias.
+// Get information about configured remote clusters. The API returns connection
+// and endpoint information keyed by the configured remote cluster alias.
 //
-// > info
-// > This API returns information that reflects current state on the local
-// cluster.
-// > The `connected` field does not necessarily reflect whether a remote cluster
-// is down or unavailable, only whether there is currently an open connection to
-// it.
-// > Elasticsearch does not spontaneously try to reconnect to a disconnected
-// remote cluster.
-// > To trigger a reconnection, attempt a cross-cluster search, ES|QL
-// cross-cluster search, or try the `/_resolve/cluster` endpoint.
+// > info > This API returns information that reflects current state on the
+// local cluster. > The `connected` field does not necessarily reflect whether a
+// remote cluster is down or unavailable, only whether there is currently an
+// open connection to it. > Elasticsearch does not spontaneously try to
+// reconnect to a disconnected remote cluster. > To trigger a reconnection,
+// attempt a cross-cluster search, ES|QL cross-cluster search, or try the
+// `/_resolve/cluster` endpoint.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-remote-info.html
 func New(tp elastictransport.Interface) *RemoteInfo {
@@ -169,7 +161,7 @@ func (r RemoteInfo) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.remote_info")
+			ctx = instrument.Start(providedCtx, "cluster.remote_info")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -329,11 +321,9 @@ func (r *RemoteInfo) FilterPath(filterpaths ...string) *RemoteInfo {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RemoteInfo) Human(human bool) *RemoteInfo {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -341,8 +331,8 @@ func (r *RemoteInfo) Human(human bool) *RemoteInfo {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RemoteInfo) Pretty(pretty bool) *RemoteInfo {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

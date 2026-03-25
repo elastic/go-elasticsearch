@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get async EQL search results.
-// Get the current status and available results for an async EQL search or a
-// stored synchronous EQL search.
+// Get async EQL search results. Get the current status and available results
+// for an async EQL search or a stored synchronous EQL search.
 package get
 
 import (
@@ -78,9 +77,8 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Get async EQL search results.
-// Get the current status and available results for an async EQL search or a
-// stored synchronous EQL search.
+// Get async EQL search results. Get the current status and available results
+// for an async EQL search or a stored synchronous EQL search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
 func New(tp elastictransport.Interface) *Get {
@@ -157,7 +155,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.get")
+			ctx = instrument.Start(providedCtx, "eql.get")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -304,7 +302,8 @@ func (r *Get) _id(id string) *Get {
 }
 
 // KeepAlive Period for which the search and its results are stored on the cluster.
-// Defaults to the keep_alive value set by the search’s EQL search API request.
+// Defaults to the keep_alive value set by the search’s EQL search API
+// request.
 // API name: keep_alive
 func (r *Get) KeepAlive(duration string) *Get {
 	r.values.Set("keep_alive", duration)
@@ -312,9 +311,8 @@ func (r *Get) KeepAlive(duration string) *Get {
 	return r
 }
 
-// WaitForCompletionTimeout Timeout duration to wait for the request to finish.
-// Defaults to no timeout, meaning the request waits for complete search
-// results.
+// WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
+// meaning the request waits for complete search results.
 // API name: wait_for_completion_timeout
 func (r *Get) WaitForCompletionTimeout(duration string) *Get {
 	r.values.Set("wait_for_completion_timeout", duration)
@@ -345,11 +343,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -357,8 +353,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

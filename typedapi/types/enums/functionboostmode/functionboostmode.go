@@ -29,16 +29,23 @@ type FunctionBoostMode struct {
 }
 
 var (
+
+	// Multiply Query score and function score are multiplied
 	Multiply = FunctionBoostMode{"multiply"}
 
+	// Replace Only the function score is used. The query score is ignored.
 	Replace = FunctionBoostMode{"replace"}
 
+	// Sum Query score and function score are added
 	Sum = FunctionBoostMode{"sum"}
 
+	// Avg Query score and function score are averaged
 	Avg = FunctionBoostMode{"avg"}
 
+	// Max Max of query score and function score
 	Max = FunctionBoostMode{"max"}
 
+	// Min Min of query score and function score
 	Min = FunctionBoostMode{"min"}
 )
 

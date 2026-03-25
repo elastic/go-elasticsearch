@@ -20,10 +20,10 @@
 
 // Get node information.
 //
-// Get information about the nodes in a cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the nodes info API.
+// Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
+// intended for human consumption using the command line or Kibana console. They
+// are not intended for use by applications. For application consumption, use
+// the nodes info API.
 package nodes
 
 import (
@@ -78,10 +78,10 @@ func NewNodesFunc(tp elastictransport.Interface) NewNodes {
 
 // Get node information.
 //
-// Get information about the nodes in a cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the nodes info API.
+// Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
+// intended for human consumption using the command line or Kibana console. They
+// are not intended for use by applications. For application consumption, use
+// the nodes info API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
 func New(tp elastictransport.Interface) *Nodes {
@@ -152,7 +152,7 @@ func (r Nodes) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.nodes")
+			ctx = instrument.Start(providedCtx, "cat.nodes")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -314,8 +314,8 @@ func (r *Nodes) IncludeUnloadedSegments(includeunloadedsegments bool) *Nodes {
 	return r
 }
 
-// H A comma-separated list of columns names to display.
-// It supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
 func (r *Nodes) H(catnodecolumns ...catnodecolumn.CatNodeColumn) *Nodes {
 	tmp := []string{}
@@ -328,9 +328,8 @@ func (r *Nodes) H(catnodecolumns ...catnodecolumn.CatNodeColumn) *Nodes {
 }
 
 // S A comma-separated list of column names or aliases that determines the sort
-// order.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// order. Sorting defaults to ascending and can be changed by setting `:asc` or
+// `:desc` as a suffix to the column name.
 // API name: s
 func (r *Nodes) S(names ...string) *Nodes {
 	r.values.Set("s", strings.Join(names, ","))
@@ -354,8 +353,8 @@ func (r *Nodes) Time(time timeunit.TimeUnit) *Nodes {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Nodes) Format(format string) *Nodes {
 	r.values.Set("format", format)
@@ -363,8 +362,8 @@ func (r *Nodes) Format(format string) *Nodes {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Nodes) Help(help bool) *Nodes {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -403,11 +402,9 @@ func (r *Nodes) FilterPath(filterpaths ...string) *Nodes {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Nodes) Human(human bool) *Nodes {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -415,8 +412,8 @@ func (r *Nodes) Human(human bool) *Nodes {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Nodes) Pretty(pretty bool) *Nodes {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

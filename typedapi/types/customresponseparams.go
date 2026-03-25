@@ -29,12 +29,11 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L987-L1125
 type CustomResponseParams struct {
 	// JsonParser Specifies the JSON parser that is used to parse the response from the custom
-	// service.
-	// Different task types require different json_parser parameters.
-	// For example:
-	// ```
-	// # text_embedding
-	// # For a response like this:
+	// service. Different task types require different json_parser parameters. For
+	// example:
+	//
+	//	# text_embedding
+	//	# For a response like this:
 	//
 	//	{
 	//	 "object": "list",
@@ -55,7 +54,7 @@ type CustomResponseParams struct {
 	//	 }
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -63,8 +62,8 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # sparse_embedding
-	// # For a response like this:
+	//	# sparse_embedding
+	//	# For a response like this:
 	//
 	//	{
 	//	  "request_id": "75C50B5B-E79E-4930-****-F48DBB392231",
@@ -91,7 +90,7 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -100,8 +99,8 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # rerank
-	// # For a response like this:
+	//	# rerank
+	//	# For a response like this:
 	//
 	//	{
 	//	  "results": [
@@ -123,7 +122,7 @@ type CustomResponseParams struct {
 	//	  ],
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{
@@ -133,8 +132,8 @@ type CustomResponseParams struct {
 	//	  }
 	//	}
 	//
-	// # completion
-	// # For a response like this:
+	//	# completion
+	//	# For a response like this:
 	//
 	//	{
 	//	 "id": "chatcmpl-B9MBs8CjcvOU2jLn4n570S5qMJKcT",
@@ -156,7 +155,7 @@ type CustomResponseParams struct {
 	//	 ]
 	//	}
 	//
-	// # the json_parser definition should look like this:
+	//	# the json_parser definition should look like this:
 	//
 	//	"response":{
 	//	  "json_parser":{

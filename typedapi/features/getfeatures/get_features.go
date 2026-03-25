@@ -18,24 +18,20 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get the features.
-// Get a list of features that can be included in snapshots using the
-// `feature_states` field when creating a snapshot.
-// You can use this API to determine which feature states to include when taking
-// a snapshot.
-// By default, all feature states are included in a snapshot if that snapshot
+// Get the features. Get a list of features that can be included in snapshots
+// using the `feature_states` field when creating a snapshot. You can use this
+// API to determine which feature states to include when taking a snapshot. By
+// default, all feature states are included in a snapshot if that snapshot
 // includes the global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
-// feature to function.
-// In order to ensure data integrity, all system indices that comprise a feature
-// state are snapshotted and restored together.
+// feature to function. In order to ensure data integrity, all system indices
+// that comprise a feature state are snapshotted and restored together.
 //
 // The features listed by this API are a combination of built-in features and
-// features defined by plugins.
-// In order for a feature state to be listed in this API and recognized as a
-// valid feature state by the create snapshot API, the plugin that defines that
-// feature must be installed on the master node.
+// features defined by plugins. In order for a feature state to be listed in
+// this API and recognized as a valid feature state by the create snapshot API,
+// the plugin that defines that feature must be installed on the master node.
 package getfeatures
 
 import (
@@ -85,24 +81,20 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 	}
 }
 
-// Get the features.
-// Get a list of features that can be included in snapshots using the
-// `feature_states` field when creating a snapshot.
-// You can use this API to determine which feature states to include when taking
-// a snapshot.
-// By default, all feature states are included in a snapshot if that snapshot
+// Get the features. Get a list of features that can be included in snapshots
+// using the `feature_states` field when creating a snapshot. You can use this
+// API to determine which feature states to include when taking a snapshot. By
+// default, all feature states are included in a snapshot if that snapshot
 // includes the global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
-// feature to function.
-// In order to ensure data integrity, all system indices that comprise a feature
-// state are snapshotted and restored together.
+// feature to function. In order to ensure data integrity, all system indices
+// that comprise a feature state are snapshotted and restored together.
 //
 // The features listed by this API are a combination of built-in features and
-// features defined by plugins.
-// In order for a feature state to be listed in this API and recognized as a
-// valid feature state by the create snapshot API, the plugin that defines that
-// feature must be installed on the master node.
+// features defined by plugins. In order for a feature state to be listed in
+// this API and recognized as a valid feature state by the create snapshot API,
+// the plugin that defines that feature must be installed on the master node.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-features-api.html
 func New(tp elastictransport.Interface) *GetFeatures {
@@ -171,7 +163,7 @@ func (r GetFeatures) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "features.get_features")
+			ctx = instrument.Start(providedCtx, "features.get_features")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -339,11 +331,9 @@ func (r *GetFeatures) FilterPath(filterpaths ...string) *GetFeatures {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetFeatures) Human(human bool) *GetFeatures {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -351,8 +341,8 @@ func (r *GetFeatures) Human(human bool) *GetFeatures {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetFeatures) Pretty(pretty bool) *GetFeatures {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -29,8 +29,15 @@ type GrantType struct {
 }
 
 var (
+
+	// Password In this type of grant, you must supply the user ID and password for which you
+	// want to create the API key.
 	Password = GrantType{"password"}
 
+	// Accesstoken In this type of grant, you must supply an access token that was created by
+	// the Elasticsearch token service. If you are activating a user profile, you
+	// can alternatively supply a JWT (either a JWT `access_token` or a JWT
+	// `id_token`).
 	Accesstoken = GrantType{"access_token"}
 )
 

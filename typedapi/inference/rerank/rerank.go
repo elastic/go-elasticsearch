@@ -206,7 +206,7 @@ func (r Rerank) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.rerank")
+			ctx = instrument.Start(providedCtx, "inference.rerank")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -344,11 +344,9 @@ func (r *Rerank) FilterPath(filterpaths ...string) *Rerank {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Rerank) Human(human bool) *Rerank {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +354,8 @@ func (r *Rerank) Human(human bool) *Rerank {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Rerank) Pretty(pretty bool) *Rerank {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -365,12 +363,11 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 	return r
 }
 
-// Input The text on which you want to perform the inference task.
-// It can be a single string or an array.
+// Input The text on which you want to perform the inference task. It can be a single
+// string or an array.
 //
-// > info
-// > Inference endpoints for the `completion` task type currently only support a
-// single string as input.
+// > info > Inference endpoints for the `completion` task type currently only
+// support a single string as input.
 // API name: input
 func (r *Rerank) Input(inputs ...string) *Rerank {
 	if r.req == nil {
@@ -393,9 +390,9 @@ func (r *Rerank) Query(query string) *Rerank {
 	return r
 }
 
-// TaskSettings Task settings for the individual inference request.
-// These settings are specific to the task type you specified and override the
-// task settings specified when initializing the service.
+// TaskSettings Task settings for the individual inference request. These settings are
+// specific to the task type you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *Rerank) TaskSettings(tasksettings json.RawMessage) *Rerank {
 	if r.req == nil {

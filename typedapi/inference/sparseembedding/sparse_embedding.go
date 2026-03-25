@@ -206,7 +206,7 @@ func (r SparseEmbedding) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.sparse_embedding")
+			ctx = instrument.Start(providedCtx, "inference.sparse_embedding")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -344,11 +344,9 @@ func (r *SparseEmbedding) FilterPath(filterpaths ...string) *SparseEmbedding {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SparseEmbedding) Human(human bool) *SparseEmbedding {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +354,8 @@ func (r *SparseEmbedding) Human(human bool) *SparseEmbedding {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SparseEmbedding) Pretty(pretty bool) *SparseEmbedding {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -365,8 +363,7 @@ func (r *SparseEmbedding) Pretty(pretty bool) *SparseEmbedding {
 	return r
 }
 
-// Input Inference input.
-// Either a string or an array of strings.
+// Input Inference input. Either a string or an array of strings.
 // API name: input
 func (r *SparseEmbedding) Input(inputs ...string) *SparseEmbedding {
 	if r.req == nil {

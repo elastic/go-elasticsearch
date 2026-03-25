@@ -236,7 +236,7 @@ func (r GetCategories) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_categories")
+			ctx = instrument.Start(providedCtx, "ml.get_categories")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -346,8 +346,8 @@ func (r *GetCategories) _jobid(jobid string) *GetCategories {
 // CategoryId Identifier for the category, which is unique in the job. If you specify
 // neither the category ID nor the partition_field_value, the API returns
 // information about all categories. If you specify only the
-// partition_field_value, it returns information about all categories for
-// the specified partition.
+// partition_field_value, it returns information about all categories for the
+// specified partition.
 // API Name: categoryid
 func (r *GetCategories) CategoryId(categoryid string) *GetCategories {
 	r.paramSet |= categoryidMask
@@ -403,11 +403,9 @@ func (r *GetCategories) FilterPath(filterpaths ...string) *GetCategories {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetCategories) Human(human bool) *GetCategories {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -415,8 +413,8 @@ func (r *GetCategories) Human(human bool) *GetCategories {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetCategories) Pretty(pretty bool) *GetCategories {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -424,8 +422,7 @@ func (r *GetCategories) Pretty(pretty bool) *GetCategories {
 	return r
 }
 
-// Page Configures pagination.
-// This parameter has the `from` and `size` properties.
+// Page Configures pagination. This parameter has the `from` and `size` properties.
 // API name: page
 func (r *GetCategories) Page(page *types.Page) *GetCategories {
 	if r.req == nil {

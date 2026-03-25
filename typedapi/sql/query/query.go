@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get SQL search results.
-// Run an SQL request.
+// Get SQL search results. Run an SQL request.
 package query
 
 import (
@@ -75,8 +74,7 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 	}
 }
 
-// Get SQL search results.
-// Run an SQL request.
+// Get SQL search results. Run an SQL request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html
 func New(tp elastictransport.Interface) *Query {
@@ -193,7 +191,7 @@ func (r Query) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.query")
+			ctx = instrument.Start(providedCtx, "sql.query")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -291,10 +289,9 @@ func (r *Query) Header(key, value string) *Query {
 	return r
 }
 
-// Format The format for the response.
-// You can also specify a format using the `Accept` HTTP header.
-// If you specify both this parameter and the `Accept` HTTP header, this
-// parameter takes precedence.
+// Format The format for the response. You can also specify a format using the `Accept`
+// HTTP header. If you specify both this parameter and the `Accept` HTTP header,
+// this parameter takes precedence.
 // API name: format
 func (r *Query) Format(format sqlformat.SqlFormat) *Query {
 	r.values.Set("format", format.String())
@@ -325,11 +322,9 @@ func (r *Query) FilterPath(filterpaths ...string) *Query {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Query) Human(human bool) *Query {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +332,8 @@ func (r *Query) Human(human bool) *Query {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Query) Pretty(pretty bool) *Query {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -347,8 +342,8 @@ func (r *Query) Pretty(pretty bool) *Query {
 }
 
 // AllowPartialSearchResults If `true`, the response has partial results when there are shard request
-// timeouts or shard failures.
-// If `false`, the API returns an error with no partial results.
+// timeouts or shard failures. If `false`, the API returns an error with no
+// partial results.
 // API name: allow_partial_search_results
 func (r *Query) AllowPartialSearchResults(allowpartialsearchresults bool) *Query {
 	if r.req == nil {
@@ -359,8 +354,8 @@ func (r *Query) AllowPartialSearchResults(allowpartialsearchresults bool) *Query
 	return r
 }
 
-// Catalog The default catalog (cluster) for queries.
-// If unspecified, the queries execute on the data in the local cluster only.
+// Catalog The default catalog (cluster) for queries. If unspecified, the queries
+// execute on the data in the local cluster only.
 // API name: catalog
 func (r *Query) Catalog(catalog string) *Query {
 	if r.req == nil {
@@ -373,9 +368,8 @@ func (r *Query) Catalog(catalog string) *Query {
 }
 
 // Columnar If `true`, the results are in a columnar fashion: one row represents all the
-// values of a certain column from the current page of results.
-// The API supports this parameter only for CBOR, JSON, SMILE, and YAML
-// responses.
+// values of a certain column from the current page of results. The API supports
+// this parameter only for CBOR, JSON, SMILE, and YAML responses.
 // API name: columnar
 func (r *Query) Columnar(columnar bool) *Query {
 	if r.req == nil {
@@ -386,10 +380,9 @@ func (r *Query) Columnar(columnar bool) *Query {
 	return r
 }
 
-// Cursor The cursor used to retrieve a set of paginated results.
-// If you specify a cursor, the API only uses the `columnar` and `time_zone`
-// request body parameters.
-// It ignores other request body parameters.
+// Cursor The cursor used to retrieve a set of paginated results. If you specify a
+// cursor, the API only uses the `columnar` and `time_zone` request body
+// parameters. It ignores other request body parameters.
 // API name: cursor
 func (r *Query) Cursor(cursor string) *Query {
 	if r.req == nil {
@@ -413,9 +406,8 @@ func (r *Query) FetchSize(fetchsize int) *Query {
 }
 
 // FieldMultiValueLeniency If `false`, the API returns an exception when encountering multiple values
-// for a field.
-// If `true`, the API is lenient and returns the first value from the array with
-// no guarantee of consistent results.
+// for a field. If `true`, the API is lenient and returns the first value from
+// the array with no guarantee of consistent results.
 // API name: field_multi_value_leniency
 func (r *Query) FieldMultiValueLeniency(fieldmultivalueleniency bool) *Query {
 	if r.req == nil {
@@ -461,9 +453,9 @@ func (r *Query) KeepAlive(duration types.Duration) *Query {
 }
 
 // KeepOnCompletion If `true`, Elasticsearch stores synchronous searches if you also specify the
-// `wait_for_completion_timeout` parameter.
-// If `false`, Elasticsearch only stores async searches that don't finish before
-// the `wait_for_completion_timeout`.
+// `wait_for_completion_timeout` parameter. If `false`, Elasticsearch only
+// stores async searches that don't finish before the
+// `wait_for_completion_timeout`.
 // API name: keep_on_completion
 func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
 	if r.req == nil {
@@ -474,11 +466,10 @@ func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
 	return r
 }
 
-// PageTimeout The minimum retention period for the scroll cursor.
-// After this time period, a pagination request might fail because the scroll
-// cursor is no longer available.
-// Subsequent scroll requests prolong the lifetime of the scroll cursor by the
-// duration of `page_timeout` in the scroll request.
+// PageTimeout The minimum retention period for the scroll cursor. After this time period, a
+// pagination request might fail because the scroll cursor is no longer
+// available. Subsequent scroll requests prolong the lifetime of the scroll
+// cursor by the duration of `page_timeout` in the scroll request.
 // API name: page_timeout
 func (r *Query) PageTimeout(duration types.Duration) *Query {
 	if r.req == nil {
@@ -523,8 +514,8 @@ func (r *Query) RequestTimeout(duration types.Duration) *Query {
 	return r
 }
 
-// RuntimeMappings One or more runtime fields for the search request.
-// These fields take precedence over mapped fields with the same name.
+// RuntimeMappings One or more runtime fields for the search request. These fields take
+// precedence over mapped fields with the same name.
 // API name: runtime_mappings
 func (r *Query) RuntimeMappings(runtimefields types.RuntimeFields) *Query {
 	if r.req == nil {
@@ -546,10 +537,9 @@ func (r *Query) TimeZone(timezone string) *Query {
 	return r
 }
 
-// WaitForCompletionTimeout The period to wait for complete results.
-// It defaults to no timeout, meaning the request waits for complete search
-// results.
-// If the search doesn't finish within this period, the search becomes async.
+// WaitForCompletionTimeout The period to wait for complete results. It defaults to no timeout, meaning
+// the request waits for complete search results. If the search doesn't finish
+// within this period, the search becomes async.
 //
 // To save a synchronous search, you must specify this parameter and the
 // `keep_on_completion` parameter.

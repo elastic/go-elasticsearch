@@ -18,19 +18,20 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get the rollup job capabilities.
-// Get the capabilities of any rollup jobs that have been configured for a
-// specific index or index pattern.
+// Get the rollup job capabilities. Get the capabilities of any rollup jobs that
+// have been configured for a specific index or index pattern.
 //
 // This API is useful because a rollup job is often configured to rollup only a
-// subset of fields from the source index.
-// Furthermore, only certain aggregations can be configured for various fields,
-// leading to a limited subset of functionality depending on that configuration.
-// This API enables you to inspect an index and determine:
+// subset of fields from the source index. Furthermore, only certain
+// aggregations can be configured for various fields, leading to a limited
+// subset of functionality depending on that configuration. This API enables you
+// to inspect an index and determine:
 //
-// 1. Does this index have associated rollup data somewhere in the cluster?
-// 2. If yes to the first question, what fields were rolled up, what
-// aggregations can be performed, and where does the data live?
+// 1. Does this index have associated rollup data somewhere in the cluster? 2.
+// If yes to the first question, what fields were rolled up, what aggregations
+// can be performed, and where does the data live?
+//
+// Deprecated: Since 8.11.0.
 package getrollupcaps
 
 import (
@@ -86,21 +87,22 @@ func NewGetRollupCapsFunc(tp elastictransport.Interface) NewGetRollupCaps {
 	}
 }
 
-// Get the rollup job capabilities.
-// Get the capabilities of any rollup jobs that have been configured for a
-// specific index or index pattern.
+// Get the rollup job capabilities. Get the capabilities of any rollup jobs that
+// have been configured for a specific index or index pattern.
 //
 // This API is useful because a rollup job is often configured to rollup only a
-// subset of fields from the source index.
-// Furthermore, only certain aggregations can be configured for various fields,
-// leading to a limited subset of functionality depending on that configuration.
-// This API enables you to inspect an index and determine:
+// subset of fields from the source index. Furthermore, only certain
+// aggregations can be configured for various fields, leading to a limited
+// subset of functionality depending on that configuration. This API enables you
+// to inspect an index and determine:
 //
-// 1. Does this index have associated rollup data somewhere in the cluster?
-// 2. If yes to the first question, what fields were rolled up, what
-// aggregations can be performed, and where does the data live?
+// 1. Does this index have associated rollup data somewhere in the cluster? 2.
+// If yes to the first question, what fields were rolled up, what aggregations
+// can be performed, and where does the data live?
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-get-rollup-caps.html
+//
+// Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *GetRollupCaps {
 	r := &GetRollupCaps{
 		transport: tp,
@@ -182,7 +184,7 @@ func (r GetRollupCaps) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "rollup.get_rollup_caps")
+			ctx = instrument.Start(providedCtx, "rollup.get_rollup_caps")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -319,8 +321,8 @@ func (r *GetRollupCaps) Header(key, value string) *GetRollupCaps {
 	return r
 }
 
-// Id Index, indices or index-pattern to return rollup capabilities for.
-// `_all` may be used to fetch rollup capabilities from all jobs.
+// Id Index, indices or index-pattern to return rollup capabilities for. `_all` may
+// be used to fetch rollup capabilities from all jobs.
 // API Name: id
 func (r *GetRollupCaps) Id(id string) *GetRollupCaps {
 	r.paramSet |= idMask
@@ -352,11 +354,9 @@ func (r *GetRollupCaps) FilterPath(filterpaths ...string) *GetRollupCaps {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetRollupCaps) Human(human bool) *GetRollupCaps {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -364,8 +364,8 @@ func (r *GetRollupCaps) Human(human bool) *GetRollupCaps {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetRollupCaps) Pretty(pretty bool) *GetRollupCaps {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

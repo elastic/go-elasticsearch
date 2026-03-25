@@ -40,9 +40,9 @@ type Request struct {
 	// Dest The destination for the transform.
 	Dest *types.TransformDestination `json:"dest,omitempty"`
 	// Frequency The interval between checks for changes in the source indices when the
-	// transform is running continuously. Also determines the retry interval in
-	// the event of transient failures while the transform is searching or
-	// indexing. The minimum value is 1s and the maximum is 1h.
+	// transform is running continuously. Also determines the retry interval in the
+	// event of transient failures while the transform is searching or indexing. The
+	// minimum value is 1s and the maximum is 1h.
 	Frequency types.Duration `json:"frequency,omitempty"`
 	// Meta_ Defines optional transform metadata.
 	Meta_ types.Metadata `json:"_meta,omitempty"`

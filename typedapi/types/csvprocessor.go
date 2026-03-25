@@ -33,13 +33,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Processors.ts#L694-L727
 type CsvProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// EmptyValue Value used to fill empty fields.
-	// Empty fields are skipped if this is not provided.
-	// An empty field is one with no value (2 consecutive separators) or empty
-	// quotes (`""`).
+	// EmptyValue Value used to fill empty fields. Empty fields are skipped if this is not
+	// provided. An empty field is one with no value (2 consecutive separators) or
+	// empty quotes (`""`).
 	EmptyValue json.RawMessage `json:"empty_value,omitempty"`
 	// Field The field to extract data from.
 	Field string `json:"field"`
@@ -56,8 +55,7 @@ type CsvProcessor struct {
 	Quote *string `json:"quote,omitempty"`
 	// Separator Separator used in CSV, has to be single character string.
 	Separator *string `json:"separator,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetFields The array of fields to assign extracted values to.
 	TargetFields []string `json:"target_fields"`

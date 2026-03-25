@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Processors.ts#L1284-L1295
 type PipelineProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// If Conditionally execute the processor.
 	If *string `json:"if,omitempty"`
@@ -42,13 +42,11 @@ type PipelineProcessor struct {
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// IgnoreMissingPipeline Whether to ignore missing pipelines instead of failing.
 	IgnoreMissingPipeline *bool `json:"ignore_missing_pipeline,omitempty"`
-	// Name The name of the pipeline to execute.
-	// Supports template snippets.
+	// Name The name of the pipeline to execute. Supports template snippets.
 	Name string `json:"name"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

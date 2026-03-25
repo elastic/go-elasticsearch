@@ -18,14 +18,13 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Check in a connector sync job.
-// Check in a connector sync job and set the `last_seen` field to the current
-// time before updating it in the internal index.
+// Check in a connector sync job. Check in a connector sync job and set the
+// `last_seen` field to the current time before updating it in the internal
+// index.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package syncjobcheckin
 
 import (
@@ -83,14 +82,13 @@ func NewSyncJobCheckInFunc(tp elastictransport.Interface) NewSyncJobCheckIn {
 	}
 }
 
-// Check in a connector sync job.
-// Check in a connector sync job and set the `last_seen` field to the current
-// time before updating it in the internal index.
+// Check in a connector sync job. Check in a connector sync job and set the
+// `last_seen` field to the current time before updating it in the internal
+// index.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/check-in-connector-sync-job-api.html
 func New(tp elastictransport.Interface) *SyncJobCheckIn {
@@ -169,7 +167,7 @@ func (r SyncJobCheckIn) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_check_in")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_check_in")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -338,11 +336,9 @@ func (r *SyncJobCheckIn) FilterPath(filterpaths ...string) *SyncJobCheckIn {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobCheckIn) Human(human bool) *SyncJobCheckIn {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -350,8 +346,8 @@ func (r *SyncJobCheckIn) Human(human bool) *SyncJobCheckIn {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobCheckIn) Pretty(pretty bool) *SyncJobCheckIn {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

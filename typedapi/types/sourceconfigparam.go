@@ -25,5 +25,9 @@ package types
 //	bool
 //	[]string
 //
+// Defines how to fetch a source. Fetching can be disabled entirely, or the
+// source can be filtered. Used as a query parameter along with the
+// `_source_includes` and `_source_excludes` parameters.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search/_types/SourceFilter.ts#L56-L62
 type SourceConfigParam any

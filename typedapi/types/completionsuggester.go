@@ -33,14 +33,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search/_types/suggester.ts#L163-L181
 type CompletionSuggester struct {
-	// Analyzer The analyzer to analyze the suggest text with.
-	// Defaults to the search analyzer of the suggest field.
+	// Analyzer The analyzer to analyze the suggest text with. Defaults to the search
+	// analyzer of the suggest field.
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Contexts A value, geo point object, or a geo hash string to filter or boost the
 	// suggestion on.
 	Contexts map[string][]CompletionContext `json:"contexts,omitempty"`
-	// Field The field to fetch the candidate suggestions from.
-	// Needs to be set globally or per suggestion.
+	// Field The field to fetch the candidate suggestions from. Needs to be set globally
+	// or per suggestion.
 	Field string `json:"field"`
 	// Fuzzy Enables fuzziness, meaning you can have a typo in your search and still get
 	// results back.

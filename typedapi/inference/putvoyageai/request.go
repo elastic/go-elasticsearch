@@ -40,8 +40,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `voyageai` service.
 	ServiceSettings types.VoyageAIServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.VoyageAITaskSettings `json:"task_settings,omitempty"`
 }
 

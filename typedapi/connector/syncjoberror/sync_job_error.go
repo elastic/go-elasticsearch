@@ -18,14 +18,12 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Set a connector sync job error.
-// Set the `error` field for a connector sync job and set its `status` to
-// `error`.
+// Set a connector sync job error. Set the `error` field for a connector sync
+// job and set its `status` to `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 package syncjoberror
 
 import (
@@ -88,14 +86,12 @@ func NewSyncJobErrorFunc(tp elastictransport.Interface) NewSyncJobError {
 	}
 }
 
-// Set a connector sync job error.
-// Set the `error` field for a connector sync job and set its `status` to
-// `error`.
+// Set a connector sync job error. Set the `error` field for a connector sync
+// job and set its `status` to `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
-// connector service on your own infrastructure.
-// This service runs automatically on Elastic Cloud for Elastic managed
-// connectors.
+// connector service on your own infrastructure. This service runs automatically
+// on Elastic Cloud for Elastic managed connectors.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/set-connector-sync-job-error-api.html
 func New(tp elastictransport.Interface) *SyncJobError {
@@ -222,7 +218,7 @@ func (r SyncJobError) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_error")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_error")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -352,11 +348,9 @@ func (r *SyncJobError) FilterPath(filterpaths ...string) *SyncJobError {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobError) Human(human bool) *SyncJobError {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -364,8 +358,8 @@ func (r *SyncJobError) Human(human bool) *SyncJobError {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobError) Pretty(pretty bool) *SyncJobError {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

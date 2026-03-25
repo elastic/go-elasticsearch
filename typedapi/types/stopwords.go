@@ -25,5 +25,10 @@ package types
 //	stopwordlanguage.StopWordLanguage
 //	[]string
 //
+// Language value, such as _arabic_ or _thai_. Defaults to _english_. Each
+// language value corresponds to a predefined list of stop words in Lucene. See
+// Stop words by language for supported language values and their stop words.
+// Also accepts an array of stop words.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/analysis/StopWords.ts#L60-L66
 type StopWords any

@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get all synonym sets.
-// Get a summary of all defined synonym sets.
+// Get all synonym sets. Get a summary of all defined synonym sets.
 package getsynonymssets
 
 import (
@@ -69,8 +68,7 @@ func NewGetSynonymsSetsFunc(tp elastictransport.Interface) NewGetSynonymsSets {
 	}
 }
 
-// Get all synonym sets.
-// Get a summary of all defined synonym sets.
+// Get all synonym sets. Get a summary of all defined synonym sets.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonyms-set.html
 func New(tp elastictransport.Interface) *GetSynonymsSets {
@@ -139,7 +137,7 @@ func (r GetSynonymsSets) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
+			ctx = instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -315,11 +313,9 @@ func (r *GetSynonymsSets) FilterPath(filterpaths ...string) *GetSynonymsSets {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetSynonymsSets) Human(human bool) *GetSynonymsSets {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -327,8 +323,8 @@ func (r *GetSynonymsSets) Human(human bool) *GetSynonymsSets {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetSynonymsSets) Pretty(pretty bool) *GetSynonymsSets {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

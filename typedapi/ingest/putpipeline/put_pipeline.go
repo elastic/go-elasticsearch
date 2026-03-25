@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Create or update a pipeline.
-// Changes made using this API take effect immediately.
+// Create or update a pipeline. Changes made using this API take effect
+// immediately.
 package putpipeline
 
 import (
@@ -82,8 +82,8 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 	}
 }
 
-// Create or update a pipeline.
-// Changes made using this API take effect immediately.
+// Create or update a pipeline. Changes made using this API take effect
+// immediately.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
 func New(tp elastictransport.Interface) *PutPipeline {
@@ -208,7 +208,7 @@ func (r PutPipeline) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.put_pipeline")
+			ctx = instrument.Start(providedCtx, "ingest.put_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -364,11 +364,9 @@ func (r *PutPipeline) FilterPath(filterpaths ...string) *PutPipeline {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutPipeline) Human(human bool) *PutPipeline {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +374,8 @@ func (r *PutPipeline) Human(human bool) *PutPipeline {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -385,10 +383,9 @@ func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	return r
 }
 
-// Deprecated Marks this ingest pipeline as deprecated.
-// When a deprecated ingest pipeline is referenced as the default or final
-// pipeline when creating or updating a non-deprecated index template,
-// Elasticsearch will emit a deprecation warning.
+// Deprecated Marks this ingest pipeline as deprecated. When a deprecated ingest pipeline
+// is referenced as the default or final pipeline when creating or updating a
+// non-deprecated index template, Elasticsearch will emit a deprecation warning.
 // API name: deprecated
 func (r *PutPipeline) Deprecated(deprecated bool) *PutPipeline {
 	if r.req == nil {

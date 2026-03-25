@@ -34,8 +34,8 @@ import (
 type MultiTermLookup struct {
 	// Field A fields from which to retrieve terms.
 	Field string `json:"field"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 }
 

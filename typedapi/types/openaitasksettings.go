@@ -34,8 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L1598-L1604
 type OpenAITaskSettings struct {
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
-	// request.
-	// This information can be used for abuse detection.
+	// request. This information can be used for abuse detection.
 	User *string `json:"user,omitempty"`
 }
 

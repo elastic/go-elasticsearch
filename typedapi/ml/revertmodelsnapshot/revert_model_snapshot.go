@@ -18,14 +18,14 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Revert to a snapshot.
-// The machine learning features react quickly to anomalous input, learning new
-// behaviors in data. Highly anomalous input increases the variance in the
-// models whilst the system learns whether this is a new step-change in behavior
-// or a one-off event. In the case where this anomalous input is known to be a
-// one-off, then it might be appropriate to reset the model state to a time
-// before this event. For example, you might consider reverting to a saved
-// snapshot after Black Friday or a critical system failure.
+// Revert to a snapshot. The machine learning features react quickly to
+// anomalous input, learning new behaviors in data. Highly anomalous input
+// increases the variance in the models whilst the system learns whether this is
+// a new step-change in behavior or a one-off event. In the case where this
+// anomalous input is known to be a one-off, then it might be appropriate to
+// reset the model state to a time before this event. For example, you might
+// consider reverting to a saved snapshot after Black Friday or a critical
+// system failure.
 package revertmodelsnapshot
 
 import (
@@ -93,14 +93,14 @@ func NewRevertModelSnapshotFunc(tp elastictransport.Interface) NewRevertModelSna
 	}
 }
 
-// Revert to a snapshot.
-// The machine learning features react quickly to anomalous input, learning new
-// behaviors in data. Highly anomalous input increases the variance in the
-// models whilst the system learns whether this is a new step-change in behavior
-// or a one-off event. In the case where this anomalous input is known to be a
-// one-off, then it might be appropriate to reset the model state to a time
-// before this event. For example, you might consider reverting to a saved
-// snapshot after Black Friday or a critical system failure.
+// Revert to a snapshot. The machine learning features react quickly to
+// anomalous input, learning new behaviors in data. Highly anomalous input
+// increases the variance in the models whilst the system learns whether this is
+// a new step-change in behavior or a one-off event. In the case where this
+// anomalous input is known to be a one-off, then it might be appropriate to
+// reset the model state to a time before this event. For example, you might
+// consider reverting to a saved snapshot after Black Friday or a critical
+// system failure.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-revert-snapshot.html
 func New(tp elastictransport.Interface) *RevertModelSnapshot {
@@ -235,7 +235,7 @@ func (r RevertModelSnapshot) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.revert_model_snapshot")
+			ctx = instrument.Start(providedCtx, "ml.revert_model_snapshot")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -342,9 +342,9 @@ func (r *RevertModelSnapshot) _jobid(jobid string) *RevertModelSnapshot {
 	return r
 }
 
-// SnapshotId You can specify `empty` as the <snapshot_id>. Reverting to the empty
-// snapshot means the anomaly detection job starts learning a new model from
-// scratch when it is started.
+// SnapshotId You can specify `empty` as the <snapshot_id>. Reverting to the empty snapshot
+// means the anomaly detection job starts learning a new model from scratch when
+// it is started.
 // API Name: snapshotid
 func (r *RevertModelSnapshot) _snapshotid(snapshotid string) *RevertModelSnapshot {
 	r.paramSet |= snapshotidMask
@@ -376,11 +376,9 @@ func (r *RevertModelSnapshot) FilterPath(filterpaths ...string) *RevertModelSnap
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RevertModelSnapshot) Human(human bool) *RevertModelSnapshot {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +386,8 @@ func (r *RevertModelSnapshot) Human(human bool) *RevertModelSnapshot {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RevertModelSnapshot) Pretty(pretty bool) *RevertModelSnapshot {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -20,12 +20,10 @@
 
 // Pause a follower.
 //
-// Pause a cross-cluster replication follower index.
-// The follower index will not fetch any additional operations from the leader
-// index.
-// You can resume following with the resume follower API.
-// You can pause and resume a follower index to change the configuration of the
-// following task.
+// Pause a cross-cluster replication follower index. The follower index will not
+// fetch any additional operations from the leader index. You can resume
+// following with the resume follower API. You can pause and resume a follower
+// index to change the configuration of the following task.
 package pausefollow
 
 import (
@@ -85,12 +83,10 @@ func NewPauseFollowFunc(tp elastictransport.Interface) NewPauseFollow {
 
 // Pause a follower.
 //
-// Pause a cross-cluster replication follower index.
-// The follower index will not fetch any additional operations from the leader
-// index.
-// You can resume following with the resume follower API.
-// You can pause and resume a follower index to change the configuration of the
-// following task.
+// Pause a cross-cluster replication follower index. The follower index will not
+// fetch any additional operations from the leader index. You can resume
+// following with the resume follower API. You can pause and resume a follower
+// index to change the configuration of the following task.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
 func New(tp elastictransport.Interface) *PauseFollow {
@@ -167,7 +163,7 @@ func (r PauseFollow) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ccr.pause_follow")
+			ctx = instrument.Start(providedCtx, "ccr.pause_follow")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -313,10 +309,10 @@ func (r *PauseFollow) _index(index string) *PauseFollow {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If the master node is not available before the timeout expires, the request
-// fails and returns an error.
-// It can also be set to `-1` to indicate that the request should never timeout.
+// MasterTimeout The period to wait for a connection to the master node. If the master node is
+// not available before the timeout expires, the request fails and returns an
+// error. It can also be set to `-1` to indicate that the request should never
+// timeout.
 // API name: master_timeout
 func (r *PauseFollow) MasterTimeout(duration string) *PauseFollow {
 	r.values.Set("master_timeout", duration)
@@ -347,11 +343,9 @@ func (r *PauseFollow) FilterPath(filterpaths ...string) *PauseFollow {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PauseFollow) Human(human bool) *PauseFollow {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -359,8 +353,8 @@ func (r *PauseFollow) Human(human bool) *PauseFollow {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PauseFollow) Pretty(pretty bool) *PauseFollow {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

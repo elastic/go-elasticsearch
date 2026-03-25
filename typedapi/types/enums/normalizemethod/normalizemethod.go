@@ -29,16 +29,29 @@ type NormalizeMethod struct {
 }
 
 var (
+
+	// Rescale01 This method rescales the data such that the minimum number is 0, and the
+	// maximum number is 1, with the rest normalized linearly in-between.
 	Rescale01 = NormalizeMethod{"rescale_0_1"}
 
+	// Rescale0100 This method rescales the data such that the minimum number is 0, and the
+	// maximum number is 100, with the rest normalized linearly in-between.
 	Rescale0100 = NormalizeMethod{"rescale_0_100"}
 
+	// Percentofsum This method normalizes each value so that it represents a percentage of the
+	// total sum it attributes to.
 	Percentofsum = NormalizeMethod{"percent_of_sum"}
 
+	// Mean This method normalizes such that each value is normalized by how much it
+	// differs from the average.
 	Mean = NormalizeMethod{"mean"}
 
+	// Zscore This method normalizes such that each value represents how far it is from the
+	// mean relative to the standard deviation.
 	Zscore = NormalizeMethod{"z-score"}
 
+	// Softmax This method normalizes such that each value is exponentiated and relative to
+	// the sum of the exponents of the original values.
 	Softmax = NormalizeMethod{"softmax"}
 )
 

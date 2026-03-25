@@ -20,10 +20,10 @@
 
 // Get shard information.
 //
-// Get information about the shards in a cluster.
-// For data streams, the API returns information about the backing indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications.
+// Get information about the shards in a cluster. For data streams, the API
+// returns information about the backing indices. IMPORTANT: cat APIs are only
+// intended for human consumption using the command line or Kibana console. They
+// are not intended for use by applications.
 package shards
 
 import (
@@ -84,10 +84,10 @@ func NewShardsFunc(tp elastictransport.Interface) NewShards {
 
 // Get shard information.
 //
-// Get information about the shards in a cluster.
-// For data streams, the API returns information about the backing indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications.
+// Get information about the shards in a cluster. For data streams, the API
+// returns information about the backing indices. IMPORTANT: cat APIs are only
+// intended for human consumption using the command line or Kibana console. They
+// are not intended for use by applications.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-shards.html
 func New(tp elastictransport.Interface) *Shards {
@@ -171,7 +171,7 @@ func (r Shards) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.shards")
+			ctx = instrument.Start(providedCtx, "cat.shards")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -309,10 +309,8 @@ func (r *Shards) Header(key, value string) *Shards {
 }
 
 // Index A comma-separated list of data streams, indices, and aliases used to limit
-// the request.
-// Supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// the request. Supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Shards) Index(index string) *Shards {
 	r.paramSet |= indexMask
@@ -342,9 +340,8 @@ func (r *Shards) H(catshardcolumns ...catshardcolumn.CatShardColumn) *Shards {
 }
 
 // S A comma-separated list of column names or aliases that determines the sort
-// order.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// order. Sorting defaults to ascending and can be changed by setting `:asc` or
+// `:desc` as a suffix to the column name.
 // API name: s
 func (r *Shards) S(names ...string) *Shards {
 	r.values.Set("s", strings.Join(names, ","))
@@ -368,8 +365,8 @@ func (r *Shards) Time(time timeunit.TimeUnit) *Shards {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Shards) Format(format string) *Shards {
 	r.values.Set("format", format)
@@ -377,8 +374,8 @@ func (r *Shards) Format(format string) *Shards {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Shards) Help(help bool) *Shards {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -417,11 +414,9 @@ func (r *Shards) FilterPath(filterpaths ...string) *Shards {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Shards) Human(human bool) *Shards {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -429,8 +424,8 @@ func (r *Shards) Human(human bool) *Shards {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Shards) Pretty(pretty bool) *Shards {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

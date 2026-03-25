@@ -158,7 +158,7 @@ func (r GetDataLifecycle) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_lifecycle")
+			ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -295,9 +295,8 @@ func (r *GetDataLifecycle) Header(key, value string) *GetDataLifecycle {
 	return r
 }
 
-// Name Comma-separated list of data streams to limit the request.
-// Supports wildcards (`*`).
-// To target all data streams, omit this parameter or use `*` or `_all`.
+// Name Comma-separated list of data streams to limit the request. Supports wildcards
+// (`*`). To target all data streams, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *GetDataLifecycle) _name(name string) *GetDataLifecycle {
 	r.paramSet |= nameMask
@@ -306,8 +305,8 @@ func (r *GetDataLifecycle) _name(name string) *GetDataLifecycle {
 	return r
 }
 
-// ExpandWildcards Type of data stream that wildcard patterns can match.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of data stream that wildcard patterns can match. Supports
+// comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetDataLifecycle {
 	tmp := []string{}
@@ -359,11 +358,9 @@ func (r *GetDataLifecycle) FilterPath(filterpaths ...string) *GetDataLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataLifecycle) Human(human bool) *GetDataLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -371,8 +368,8 @@ func (r *GetDataLifecycle) Human(human bool) *GetDataLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataLifecycle) Pretty(pretty bool) *GetDataLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

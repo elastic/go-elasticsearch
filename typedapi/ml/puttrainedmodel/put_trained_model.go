@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Create a trained model.
-// Enable you to supply a trained model that is not created by data frame
-// analytics.
+// Create a trained model. Enable you to supply a trained model that is not
+// created by data frame analytics.
 package puttrainedmodel
 
 import (
@@ -84,9 +83,8 @@ func NewPutTrainedModelFunc(tp elastictransport.Interface) NewPutTrainedModel {
 	}
 }
 
-// Create a trained model.
-// Enable you to supply a trained model that is not created by data frame
-// analytics.
+// Create a trained model. Enable you to supply a trained model that is not
+// created by data frame analytics.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models.html
 func New(tp elastictransport.Interface) *PutTrainedModel {
@@ -211,7 +209,7 @@ func (r PutTrainedModel) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -318,9 +316,8 @@ func (r *PutTrainedModel) _modelid(modelid string) *PutTrainedModel {
 	return r
 }
 
-// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided,
-// the request defers definition decompression and skips relevant
-// validations.
+// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided, the request
+// defers definition decompression and skips relevant validations.
 // API name: defer_definition_decompression
 func (r *PutTrainedModel) DeferDefinitionDecompression(deferdefinitiondecompression bool) *PutTrainedModel {
 	r.values.Set("defer_definition_decompression", strconv.FormatBool(deferdefinitiondecompression))
@@ -328,8 +325,7 @@ func (r *PutTrainedModel) DeferDefinitionDecompression(deferdefinitiondecompress
 	return r
 }
 
-// WaitForCompletion Whether to wait for all child operations (e.g. model download)
-// to complete.
+// WaitForCompletion Whether to wait for all child operations (e.g. model download) to complete.
 // API name: wait_for_completion
 func (r *PutTrainedModel) WaitForCompletion(waitforcompletion bool) *PutTrainedModel {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -360,11 +356,9 @@ func (r *PutTrainedModel) FilterPath(filterpaths ...string) *PutTrainedModel {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutTrainedModel) Human(human bool) *PutTrainedModel {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +366,8 @@ func (r *PutTrainedModel) Human(human bool) *PutTrainedModel {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutTrainedModel) Pretty(pretty bool) *PutTrainedModel {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -420,10 +414,10 @@ func (r *PutTrainedModel) Description(description string) *PutTrainedModel {
 	return r
 }
 
-// InferenceConfig The default configuration for inference. This can be either a regression
-// or classification configuration. It must match the underlying
-// definition.trained_model's target_type. For pre-packaged models such as
-// ELSER the config is not required.
+// InferenceConfig The default configuration for inference. This can be either a regression or
+// classification configuration. It must match the underlying
+// definition.trained_model's target_type. For pre-packaged models such as ELSER
+// the config is not required.
 // API name: inference_config
 func (r *PutTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigCreateContainer) *PutTrainedModel {
 	if r.req == nil {
@@ -474,9 +468,9 @@ func (r *PutTrainedModel) Metadata(metadata any) *PutTrainedModel {
 	return r
 }
 
-// ModelSizeBytes The estimated memory usage in bytes to keep the trained model in memory.
-// This property is supported only if defer_definition_decompression is true
-// or the model definition is not supplied.
+// ModelSizeBytes The estimated memory usage in bytes to keep the trained model in memory. This
+// property is supported only if defer_definition_decompression is true or the
+// model definition is not supplied.
 // API name: model_size_bytes
 func (r *PutTrainedModel) ModelSizeBytes(modelsizebytes int64) *PutTrainedModel {
 	if r.req == nil {
@@ -503,12 +497,10 @@ func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType)
 // only works on one platform, because it is heavily optimized for a particular
 // processor architecture and OS combination, then this field specifies which.
 // The format of the string must match the platform identifiers used by
-// Elasticsearch,
-// so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
-// `darwin-aarch64`,
-// or `windows-x86_64`. For portable models (those that work independent of
-// processor
-// architecture or OS features), leave this field unset.
+// Elasticsearch, so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
+// `darwin-aarch64`, or `windows-x86_64`. For portable models (those that work
+// independent of processor architecture or OS features), leave this field
+// unset.
 // API name: platform_architecture
 func (r *PutTrainedModel) PlatformArchitecture(platformarchitecture string) *PutTrainedModel {
 	if r.req == nil {

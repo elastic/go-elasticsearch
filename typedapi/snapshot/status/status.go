@@ -18,25 +18,21 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get the snapshot status.
-// Get a detailed description of the current state for each shard participating
-// in the snapshot.
-// Note that this API should be used only to obtain detailed shard-level
-// information for ongoing snapshots.
-// If this detail is not needed or you want to obtain information about one or
-// more existing snapshots, use the get snapshot API.
+// Get the snapshot status. Get a detailed description of the current state for
+// each shard participating in the snapshot. Note that this API should be used
+// only to obtain detailed shard-level information for ongoing snapshots. If
+// this detail is not needed or you want to obtain information about one or more
+// existing snapshots, use the get snapshot API.
 //
 // WARNING: Using the API to return the status of any snapshots other than
-// currently running snapshots can be expensive.
-// The API requires a read from the repository for each shard in each snapshot.
-// For example, if you have 100 snapshots with 1,000 shards each, an API request
-// that includes all snapshots will require 100,000 reads (100 snapshots x 1,000
-// shards).
+// currently running snapshots can be expensive. The API requires a read from
+// the repository for each shard in each snapshot. For example, if you have 100
+// snapshots with 1,000 shards each, an API request that includes all snapshots
+// will require 100,000 reads (100 snapshots x 1,000 shards).
 //
 // Depending on the latency of your storage, such requests can take an extremely
-// long time to return results.
-// These requests can also tax machine resources and, when using cloud storage,
-// incur high processing costs.
+// long time to return results. These requests can also tax machine resources
+// and, when using cloud storage, incur high processing costs.
 package status
 
 import (
@@ -95,25 +91,21 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 	}
 }
 
-// Get the snapshot status.
-// Get a detailed description of the current state for each shard participating
-// in the snapshot.
-// Note that this API should be used only to obtain detailed shard-level
-// information for ongoing snapshots.
-// If this detail is not needed or you want to obtain information about one or
-// more existing snapshots, use the get snapshot API.
+// Get the snapshot status. Get a detailed description of the current state for
+// each shard participating in the snapshot. Note that this API should be used
+// only to obtain detailed shard-level information for ongoing snapshots. If
+// this detail is not needed or you want to obtain information about one or more
+// existing snapshots, use the get snapshot API.
 //
 // WARNING: Using the API to return the status of any snapshots other than
-// currently running snapshots can be expensive.
-// The API requires a read from the repository for each shard in each snapshot.
-// For example, if you have 100 snapshots with 1,000 shards each, an API request
-// that includes all snapshots will require 100,000 reads (100 snapshots x 1,000
-// shards).
+// currently running snapshots can be expensive. The API requires a read from
+// the repository for each shard in each snapshot. For example, if you have 100
+// snapshots with 1,000 shards each, an API request that includes all snapshots
+// will require 100,000 reads (100 snapshots x 1,000 shards).
 //
 // Depending on the latency of your storage, such requests can take an extremely
-// long time to return results.
-// These requests can also tax machine resources and, when using cloud storage,
-// incur high processing costs.
+// long time to return results. These requests can also tax machine resources
+// and, when using cloud storage, incur high processing costs.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-snapshot-status-api.html
 func New(tp elastictransport.Interface) *Status {
@@ -216,7 +208,7 @@ func (r Status) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.status")
+			ctx = instrument.Start(providedCtx, "snapshot.status")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -411,11 +403,9 @@ func (r *Status) FilterPath(filterpaths ...string) *Status {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Status) Human(human bool) *Status {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -423,8 +413,8 @@ func (r *Status) Human(human bool) *Status {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Status) Pretty(pretty bool) *Status {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

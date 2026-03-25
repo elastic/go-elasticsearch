@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Clone a snapshot.
-// Clone part of all of a snapshot into another snapshot in the same repository.
+// Clone a snapshot. Clone part of all of a snapshot into another snapshot in
+// the same repository.
 package clone
 
 import (
@@ -92,8 +92,8 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	}
 }
 
-// Clone a snapshot.
-// Clone part of all of a snapshot into another snapshot in the same repository.
+// Clone a snapshot. Clone part of all of a snapshot into another snapshot in
+// the same repository.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clone-snapshot-api.html
 func New(tp elastictransport.Interface) *Clone {
@@ -230,7 +230,7 @@ func (r Clone) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.clone")
+			ctx = instrument.Start(providedCtx, "snapshot.clone")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -386,11 +386,9 @@ func (r *Clone) FilterPath(filterpaths ...string) *Clone {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Clone) Human(human bool) *Clone {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +396,8 @@ func (r *Clone) Human(human bool) *Clone {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Clone) Pretty(pretty bool) *Clone {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

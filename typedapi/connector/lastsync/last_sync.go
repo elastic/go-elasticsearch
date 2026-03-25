@@ -20,8 +20,8 @@
 
 // Update the connector last sync stats.
 //
-// Update the fields related to the last sync of a connector.
-// This action is used for analytics and monitoring.
+// Update the fields related to the last sync of a connector. This action is
+// used for analytics and monitoring.
 package lastsync
 
 import (
@@ -87,8 +87,8 @@ func NewLastSyncFunc(tp elastictransport.Interface) NewLastSync {
 
 // Update the connector last sync stats.
 //
-// Update the fields related to the last sync of a connector.
-// This action is used for analytics and monitoring.
+// Update the fields related to the last sync of a connector. This action is
+// used for analytics and monitoring.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-last-sync-api.html
 func New(tp elastictransport.Interface) *LastSync {
@@ -213,7 +213,7 @@ func (r LastSync) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.last_sync")
+			ctx = instrument.Start(providedCtx, "connector.last_sync")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -343,11 +343,9 @@ func (r *LastSync) FilterPath(filterpaths ...string) *LastSync {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *LastSync) Human(human bool) *LastSync {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -355,8 +353,8 @@ func (r *LastSync) Human(human bool) *LastSync {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *LastSync) Pretty(pretty bool) *LastSync {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

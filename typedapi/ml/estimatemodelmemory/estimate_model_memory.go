@@ -22,8 +22,7 @@
 //
 // Make an estimation of the memory usage for an anomaly detection job model.
 // The estimate is based on analysis configuration details for the job and
-// cardinality
-// estimates for the fields it references.
+// cardinality estimates for the fields it references.
 package estimatemodelmemory
 
 import (
@@ -82,8 +81,7 @@ func NewEstimateModelMemoryFunc(tp elastictransport.Interface) NewEstimateModelM
 //
 // Make an estimation of the memory usage for an anomaly detection job model.
 // The estimate is based on analysis configuration details for the job and
-// cardinality
-// estimates for the fields it references.
+// cardinality estimates for the fields it references.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-estimate-model-memory.html
 func New(tp elastictransport.Interface) *EstimateModelMemory {
@@ -204,7 +202,7 @@ func (r EstimateModelMemory) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.estimate_model_memory")
+			ctx = instrument.Start(providedCtx, "ml.estimate_model_memory")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -325,11 +323,9 @@ func (r *EstimateModelMemory) FilterPath(filterpaths ...string) *EstimateModelMe
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *EstimateModelMemory) Human(human bool) *EstimateModelMemory {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +333,8 @@ func (r *EstimateModelMemory) Human(human bool) *EstimateModelMemory {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *EstimateModelMemory) Pretty(pretty bool) *EstimateModelMemory {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -346,8 +342,8 @@ func (r *EstimateModelMemory) Pretty(pretty bool) *EstimateModelMemory {
 	return r
 }
 
-// AnalysisConfig For a list of the properties that you can specify in the
-// `analysis_config` component of the body of this API.
+// AnalysisConfig For a list of the properties that you can specify in the `analysis_config`
+// component of the body of this API.
 // API name: analysis_config
 func (r *EstimateModelMemory) AnalysisConfig(analysisconfig *types.AnalysisConfig) *EstimateModelMemory {
 	if r.req == nil {
@@ -359,11 +355,11 @@ func (r *EstimateModelMemory) AnalysisConfig(analysisconfig *types.AnalysisConfi
 	return r
 }
 
-// MaxBucketCardinality Estimates of the highest cardinality in a single bucket that is observed
-// for influencer fields over the time period that the job analyzes data.
-// To produce a good answer, values must be provided for all influencer
-// fields. Providing values for fields that are not listed as `influencers`
-// has no effect on the estimation.
+// MaxBucketCardinality Estimates of the highest cardinality in a single bucket that is observed for
+// influencer fields over the time period that the job analyzes data. To produce
+// a good answer, values must be provided for all influencer fields. Providing
+// values for fields that are not listed as `influencers` has no effect on the
+// estimation.
 // API name: max_bucket_cardinality
 func (r *EstimateModelMemory) MaxBucketCardinality(maxbucketcardinality map[string]int64) *EstimateModelMemory {
 	if r.req == nil {
@@ -375,13 +371,13 @@ func (r *EstimateModelMemory) MaxBucketCardinality(maxbucketcardinality map[stri
 	return r
 }
 
-// OverallCardinality Estimates of the cardinality that is observed for fields over the whole
-// time period that the job analyzes data. To produce a good answer, values
-// must be provided for fields referenced in the `by_field_name`,
-// `over_field_name` and `partition_field_name` of any detectors. Providing
-// values for other fields has no effect on the estimation. It can be
-// omitted from the request if no detectors have a `by_field_name`,
-// `over_field_name` or `partition_field_name`.
+// OverallCardinality Estimates of the cardinality that is observed for fields over the whole time
+// period that the job analyzes data. To produce a good answer, values must be
+// provided for fields referenced in the `by_field_name`, `over_field_name` and
+// `partition_field_name` of any detectors. Providing values for other fields
+// has no effect on the estimation. It can be omitted from the request if no
+// detectors have a `by_field_name`, `over_field_name` or
+// `partition_field_name`.
 // API name: overall_cardinality
 func (r *EstimateModelMemory) OverallCardinality(overallcardinality map[string]int64) *EstimateModelMemory {
 	if r.req == nil {

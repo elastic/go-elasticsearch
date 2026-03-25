@@ -25,24 +25,23 @@
 // If the Elasticsearch security features are enabled, you must have the `index`
 // or `write` index privilege for the target index or index alias.
 //
-// The script can update, delete, or skip modifying the document.
-// The API also supports passing a partial document, which is merged into the
-// existing document.
-// To fully replace an existing document, use the index API.
-// This operation:
+// The script can update, delete, or skip modifying the document. The API also
+// supports passing a partial document, which is merged into the existing
+// document. To fully replace an existing document, use the index API. This
+// operation:
 //
-// * Gets the document (collocated with the shard) from the index.
-// * Runs the specified script.
-// * Indexes the result.
+//   - Gets the document (collocated with the shard) from the index.
+//   - Runs the specified script.
+//   - Indexes the result.
 //
 // The document must still be reindexed, but using this API removes some network
 // roundtrips and reduces chances of version conflicts between the GET and the
 // index operation.
 //
-// The `_source` field must be enabled to use this API.
-// In addition to `_source`, you can access the following variables through the
-// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
-// current timestamp).
+// The `_source` field must be enabled to use this API. In addition to
+// `_source`, you can access the following variables through the `ctx` map:
+// `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the current
+// timestamp).
 package update
 
 import (
@@ -118,24 +117,23 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 // If the Elasticsearch security features are enabled, you must have the `index`
 // or `write` index privilege for the target index or index alias.
 //
-// The script can update, delete, or skip modifying the document.
-// The API also supports passing a partial document, which is merged into the
-// existing document.
-// To fully replace an existing document, use the index API.
-// This operation:
+// The script can update, delete, or skip modifying the document. The API also
+// supports passing a partial document, which is merged into the existing
+// document. To fully replace an existing document, use the index API. This
+// operation:
 //
-// * Gets the document (collocated with the shard) from the index.
-// * Runs the specified script.
-// * Indexes the result.
+//   - Gets the document (collocated with the shard) from the index.
+//   - Runs the specified script.
+//   - Indexes the result.
 //
 // The document must still be reindexed, but using this API removes some network
 // roundtrips and reduces chances of version conflicts between the GET and the
 // index operation.
 //
-// The `_source` field must be enabled to use this API.
-// In addition to `_source`, you can access the following variables through the
-// `ctx` map: `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the
-// current timestamp).
+// The `_source` field must be enabled to use this API. In addition to
+// `_source`, you can access the following variables through the `ctx` map:
+// `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the current
+// timestamp).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
 func New(tp elastictransport.Interface) *Update {
@@ -264,7 +262,7 @@ func (r Update) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "update")
+			ctx = instrument.Start(providedCtx, "update")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -371,8 +369,8 @@ func (r *Update) _id(id string) *Update {
 	return r
 }
 
-// Index The name of the target index.
-// By default, the index is created automatically if it doesn't exist.
+// Index The name of the target index. By default, the index is created automatically
+// if it doesn't exist.
 // API Name: index
 func (r *Update) _index(index string) *Update {
 	r.paramSet |= indexMask
@@ -415,10 +413,8 @@ func (r *Update) Lang(lang string) *Update {
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search.
-// If 'wait_for', it waits for a refresh to make this operation visible to
-// search.
-// If 'false', it does nothing with refreshes.
+// visible to search. If 'wait_for', it waits for a refresh to make this
+// operation visible to search. If 'false', it does nothing with refreshes.
 // API name: refresh
 func (r *Update) Refresh(refresh refresh.Refresh) *Update {
 	r.values.Set("refresh", refresh.String())
@@ -451,9 +447,9 @@ func (r *Update) Routing(routing string) *Update {
 }
 
 // Timeout The period to wait for the following operations: dynamic mapping updates and
-// waiting for active shards.
-// Elasticsearch waits for at least the timeout period before failing.
-// The actual wait time could be longer, particularly when multiple waits occur.
+// waiting for active shards. Elasticsearch waits for at least the timeout
+// period before failing. The actual wait time could be longer, particularly
+// when multiple waits occur.
 // API name: timeout
 func (r *Update) Timeout(duration string) *Update {
 	r.values.Set("timeout", duration)
@@ -462,10 +458,9 @@ func (r *Update) Timeout(duration string) *Update {
 }
 
 // WaitForActiveShards The number of copies of each shard that must be active before proceeding with
-// the operation.
-// Set to 'all' or any positive integer up to the total number of shards in the
-// index (`number_of_replicas`+1).
-// The default value of `1` means it waits for each primary shard to be active.
+// the operation. Set to 'all' or any positive integer up to the total number of
+// shards in the index (`number_of_replicas`+1). The default value of `1` means
+// it waits for each primary shard to be active.
 // API name: wait_for_active_shards
 func (r *Update) WaitForActiveShards(waitforactiveshards string) *Update {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -512,11 +507,9 @@ func (r *Update) FilterPath(filterpaths ...string) *Update {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Update) Human(human bool) *Update {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -524,8 +517,8 @@ func (r *Update) Human(human bool) *Update {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Update) Pretty(pretty bool) *Update {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -545,8 +538,8 @@ func (r *Update) DetectNoop(detectnoop bool) *Update {
 	return r
 }
 
-// Doc A partial update to an existing document.
-// If both `doc` and `script` are specified, `doc` is ignored.
+// Doc A partial update to an existing document. If both `doc` and `script` are
+// specified, `doc` is ignored.
 // API name: doc
 //
 // doc should be a json.RawMessage or a structure
@@ -573,8 +566,8 @@ func (r *Update) Doc(doc any) *Update {
 	return r
 }
 
-// DocAsUpsert If `true`, use the contents of 'doc' as the value of 'upsert'.
-// NOTE: Using ingest pipelines with `doc_as_upsert` is not supported.
+// DocAsUpsert If `true`, use the contents of 'doc' as the value of 'upsert'. NOTE: Using
+// ingest pipelines with `doc_as_upsert` is not supported.
 // API name: doc_as_upsert
 func (r *Update) DocAsUpsert(docasupsert bool) *Update {
 	if r.req == nil {
@@ -608,9 +601,8 @@ func (r *Update) ScriptedUpsert(scriptedupsert bool) *Update {
 	return r
 }
 
-// Source_ If `false`, turn off source retrieval.
-// You can also specify a comma-separated list of the fields you want to
-// retrieve.
+// Source_ If `false`, turn off source retrieval. You can also specify a comma-separated
+// list of the fields you want to retrieve.
 // API name: _source
 func (r *Update) Source_(sourceconfig types.SourceConfig) *Update {
 	if r.req == nil {
@@ -622,8 +614,7 @@ func (r *Update) Source_(sourceconfig types.SourceConfig) *Update {
 }
 
 // Upsert If the document does not already exist, the contents of 'upsert' are inserted
-// as a new document.
-// If the document exists, the 'script' is run.
+// as a new document. If the document exists, the 'script' is run.
 // API name: upsert
 //
 // upsert should be a json.RawMessage or a structure

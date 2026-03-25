@@ -29,9 +29,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L1138-L1152
 type CustomTaskSettings struct {
 	// Parameters Specifies parameters that are required to run the custom service. The
-	// parameters depend on the model your custom service uses.
-	// For example:
-	// ```
+	// parameters depend on the model your custom service uses. For example:
 	//
 	//	"task_settings":{
 	//	  "parameters":{
@@ -39,8 +37,6 @@ type CustomTaskSettings struct {
 	//	    "return_token":true
 	//	  }
 	//	}
-	//
-	// ```
 	Parameters json.RawMessage `json:"parameters,omitempty"`
 }
 

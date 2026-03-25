@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Test a Grok pattern.
-// Test a Grok pattern on one or more lines of text.
-// The API indicates whether the lines match the pattern together with the
-// offsets and lengths of the matched substrings.
+// Test a Grok pattern. Test a Grok pattern on one or more lines of text. The
+// API indicates whether the lines match the pattern together with the offsets
+// and lengths of the matched substrings.
 package testgrokpattern
 
 import (
@@ -76,10 +75,9 @@ func NewTestGrokPatternFunc(tp elastictransport.Interface) NewTestGrokPattern {
 	}
 }
 
-// Test a Grok pattern.
-// Test a Grok pattern on one or more lines of text.
-// The API indicates whether the lines match the pattern together with the
-// offsets and lengths of the matched substrings.
+// Test a Grok pattern. Test a Grok pattern on one or more lines of text. The
+// API indicates whether the lines match the pattern together with the offsets
+// and lengths of the matched substrings.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/test-grok-pattern.html
 func New(tp elastictransport.Interface) *TestGrokPattern {
@@ -198,7 +196,7 @@ func (r TestGrokPattern) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "text_structure.test_grok_pattern")
+			ctx = instrument.Start(providedCtx, "text_structure.test_grok_pattern")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -296,10 +294,10 @@ func (r *TestGrokPattern) Header(key, value string) *TestGrokPattern {
 	return r
 }
 
-// EcsCompatibility The mode of compatibility with ECS compliant Grok patterns.
-// Use this parameter to specify whether to use ECS Grok patterns instead of
-// legacy ones when the structure finder creates a Grok pattern.
-// Valid values are `disabled` and `v1`.
+// EcsCompatibility The mode of compatibility with ECS compliant Grok patterns. Use this
+// parameter to specify whether to use ECS Grok patterns instead of legacy ones
+// when the structure finder creates a Grok pattern. Valid values are `disabled`
+// and `v1`.
 // API name: ecs_compatibility
 func (r *TestGrokPattern) EcsCompatibility(ecscompatibility string) *TestGrokPattern {
 	r.values.Set("ecs_compatibility", ecscompatibility)
@@ -330,11 +328,9 @@ func (r *TestGrokPattern) FilterPath(filterpaths ...string) *TestGrokPattern {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *TestGrokPattern) Human(human bool) *TestGrokPattern {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -342,8 +338,8 @@ func (r *TestGrokPattern) Human(human bool) *TestGrokPattern {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *TestGrokPattern) Pretty(pretty bool) *TestGrokPattern {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

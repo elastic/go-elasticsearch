@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Delete a synonym rule.
-// Delete a synonym rule from a synonym set.
+// Delete a synonym rule. Delete a synonym rule from a synonym set.
 package deletesynonymrule
 
 import (
@@ -82,8 +81,7 @@ func NewDeleteSynonymRuleFunc(tp elastictransport.Interface) NewDeleteSynonymRul
 	}
 }
 
-// Delete a synonym rule.
-// Delete a synonym rule from a synonym set.
+// Delete a synonym rule. Delete a synonym rule from a synonym set.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-synonym-rule.html
 func New(tp elastictransport.Interface) *DeleteSynonymRule {
@@ -170,7 +168,7 @@ func (r DeleteSynonymRule) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.delete_synonym_rule")
+			ctx = instrument.Start(providedCtx, "synonyms.delete_synonym_rule")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -348,11 +346,9 @@ func (r *DeleteSynonymRule) FilterPath(filterpaths ...string) *DeleteSynonymRule
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteSynonymRule) Human(human bool) *DeleteSynonymRule {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -360,8 +356,8 @@ func (r *DeleteSynonymRule) Human(human bool) *DeleteSynonymRule {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteSynonymRule) Pretty(pretty bool) *DeleteSynonymRule {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

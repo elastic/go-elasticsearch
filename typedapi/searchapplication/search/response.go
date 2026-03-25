@@ -45,11 +45,10 @@ type Response struct {
 	NumReducePhases *int64             `json:"num_reduce_phases,omitempty"`
 	PitId           *string            `json:"pit_id,omitempty"`
 	Profile         *types.Profile     `json:"profile,omitempty"`
-	// ScrollId_ The identifier for the search and its search context.
-	// You can use this scroll ID with the scroll API to retrieve the next batch of
-	// search results for the request.
-	// This property is returned only if the `scroll` query parameter is specified
-	// in the request.
+	// ScrollId_ The identifier for the search and its search context. You can use this scroll
+	// ID with the scroll API to retrieve the next batch of search results for the
+	// request. This property is returned only if the `scroll` query parameter is
+	// specified in the request.
 	ScrollId_ *string `json:"_scroll_id,omitempty"`
 	// Shards_ A count of shards used for the request.
 	Shards_         types.ShardStatistics      `json:"_shards"`
@@ -58,21 +57,20 @@ type Response struct {
 	// TimedOut If `true`, the request timed out before completion; returned results may be
 	// partial or empty.
 	TimedOut bool `json:"timed_out"`
-	// Took The number of milliseconds it took Elasticsearch to run the request.
-	// This value is calculated by measuring the time elapsed between receipt of a
+	// Took The number of milliseconds it took Elasticsearch to run the request. This
+	// value is calculated by measuring the time elapsed between receipt of a
 	// request on the coordinating node and the time at which the coordinating node
-	// is ready to send the response.
-	// It includes:
+	// is ready to send the response. It includes:
 	//
-	// * Communication time between the coordinating node and data nodes
-	// * Time the request spends in the search thread pool, queued for execution
-	// * Actual run time
+	//   - Communication time between the coordinating node and data nodes
+	//   - Time the request spends in the search thread pool, queued for execution
+	//   - Actual run time
 	//
 	// It does not include:
 	//
-	// * Time needed to send the request to Elasticsearch
-	// * Time needed to serialize the JSON response
-	// * Time needed to send the response to a client
+	//   - Time needed to send the request to Elasticsearch
+	//   - Time needed to serialize the JSON response
+	//   - Time needed to send the response to a client
 	Took int64 `json:"took"`
 }
 

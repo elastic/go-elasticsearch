@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Create or update a lifecycle policy.
-// If the specified policy exists, it is replaced and the policy version is
-// incremented.
+// Create or update a lifecycle policy. If the specified policy exists, it is
+// replaced and the policy version is incremented.
 //
 // NOTE: Only the latest version of the policy is stored, you cannot revert to
 // previous versions.
@@ -86,9 +85,8 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 	}
 }
 
-// Create or update a lifecycle policy.
-// If the specified policy exists, it is replaced and the policy version is
-// incremented.
+// Create or update a lifecycle policy. If the specified policy exists, it is
+// replaced and the policy version is incremented.
 //
 // NOTE: Only the latest version of the policy is stored, you cannot revert to
 // previous versions.
@@ -216,7 +214,7 @@ func (r PutLifecycle) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.put_lifecycle")
+			ctx = instrument.Start(providedCtx, "ilm.put_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -364,11 +362,9 @@ func (r *PutLifecycle) FilterPath(filterpaths ...string) *PutLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutLifecycle) Human(human bool) *PutLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -376,8 +372,8 @@ func (r *PutLifecycle) Human(human bool) *PutLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutLifecycle) Pretty(pretty bool) *PutLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

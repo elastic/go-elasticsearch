@@ -23,9 +23,9 @@
 // Enable a Kibana instance to configure itself for communication with a secured
 // Elasticsearch cluster.
 //
-// NOTE: This API is currently intended for internal use only by Kibana.
-// Kibana uses this API internally to configure itself for communications with
-// an Elasticsearch cluster that already has security features enabled.
+// NOTE: This API is currently intended for internal use only by Kibana. Kibana
+// uses this API internally to configure itself for communications with an
+// Elasticsearch cluster that already has security features enabled.
 package enrollkibana
 
 import (
@@ -80,9 +80,9 @@ func NewEnrollKibanaFunc(tp elastictransport.Interface) NewEnrollKibana {
 // Enable a Kibana instance to configure itself for communication with a secured
 // Elasticsearch cluster.
 //
-// NOTE: This API is currently intended for internal use only by Kibana.
-// Kibana uses this API internally to configure itself for communications with
-// an Elasticsearch cluster that already has security features enabled.
+// NOTE: This API is currently intended for internal use only by Kibana. Kibana
+// uses this API internally to configure itself for communications with an
+// Elasticsearch cluster that already has security features enabled.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-kibana-enrollment.html
 func New(tp elastictransport.Interface) *EnrollKibana {
@@ -161,7 +161,7 @@ func (r EnrollKibana) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.enroll_kibana")
+			ctx = instrument.Start(providedCtx, "security.enroll_kibana")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -321,11 +321,9 @@ func (r *EnrollKibana) FilterPath(filterpaths ...string) *EnrollKibana {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *EnrollKibana) Human(human bool) *EnrollKibana {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -333,8 +331,8 @@ func (r *EnrollKibana) Human(human bool) *EnrollKibana {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *EnrollKibana) Pretty(pretty bool) *EnrollKibana {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

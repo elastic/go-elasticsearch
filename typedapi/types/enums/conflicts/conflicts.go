@@ -29,8 +29,11 @@ type Conflicts struct {
 }
 
 var (
+
+	// Abort Stop reindexing if there are conflicts.
 	Abort = Conflicts{"abort"}
 
+	// Proceed Continue reindexing even if there are conflicts.
 	Proceed = Conflicts{"proceed"}
 )
 

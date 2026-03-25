@@ -18,16 +18,15 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Stop the ILM plugin.
-// Halt all lifecycle management operations and stop the index lifecycle
-// management plugin.
-// This is useful when you are performing maintenance on the cluster and need to
-// prevent ILM from performing any actions on your indices.
+// Stop the ILM plugin. Halt all lifecycle management operations and stop the
+// index lifecycle management plugin. This is useful when you are performing
+// maintenance on the cluster and need to prevent ILM from performing any
+// actions on your indices.
 //
 // The API returns as soon as the stop request has been acknowledged, but the
 // plugin might continue to run until in-progress operations complete and the
-// plugin can be safely stopped.
-// Use the get ILM status API to check whether ILM is running.
+// plugin can be safely stopped. Use the get ILM status API to check whether ILM
+// is running.
 package stop
 
 import (
@@ -77,16 +76,15 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 	}
 }
 
-// Stop the ILM plugin.
-// Halt all lifecycle management operations and stop the index lifecycle
-// management plugin.
-// This is useful when you are performing maintenance on the cluster and need to
-// prevent ILM from performing any actions on your indices.
+// Stop the ILM plugin. Halt all lifecycle management operations and stop the
+// index lifecycle management plugin. This is useful when you are performing
+// maintenance on the cluster and need to prevent ILM from performing any
+// actions on your indices.
 //
 // The API returns as soon as the stop request has been acknowledged, but the
 // plugin might continue to run until in-progress operations complete and the
-// plugin can be safely stopped.
-// Use the get ILM status API to check whether ILM is running.
+// plugin can be safely stopped. Use the get ILM status API to check whether ILM
+// is running.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html
 func New(tp elastictransport.Interface) *Stop {
@@ -157,7 +155,7 @@ func (r Stop) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.stop")
+			ctx = instrument.Start(providedCtx, "ilm.stop")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -335,11 +333,9 @@ func (r *Stop) FilterPath(filterpaths ...string) *Stop {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Stop) Human(human bool) *Stop {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -347,8 +343,8 @@ func (r *Stop) Human(human bool) *Stop {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Stop) Pretty(pretty bool) *Stop {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

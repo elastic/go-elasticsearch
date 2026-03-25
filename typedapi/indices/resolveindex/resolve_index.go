@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Resolve indices.
-// Resolve the names and/or index patterns for indices, aliases, and data
-// streams.
-// Multiple patterns and remote clusters are supported.
+// Resolve indices. Resolve the names and/or index patterns for indices,
+// aliases, and data streams. Multiple patterns and remote clusters are
+// supported.
 package resolveindex
 
 import (
@@ -80,10 +79,9 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 	}
 }
 
-// Resolve indices.
-// Resolve the names and/or index patterns for indices, aliases, and data
-// streams.
-// Multiple patterns and remote clusters are supported.
+// Resolve indices. Resolve the names and/or index patterns for indices,
+// aliases, and data streams. Multiple patterns and remote clusters are
+// supported.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-resolve-index-api.html
 func New(tp elastictransport.Interface) *ResolveIndex {
@@ -160,7 +158,7 @@ func (r ResolveIndex) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.resolve_index")
+			ctx = instrument.Start(providedCtx, "indices.resolve_index")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -298,9 +296,8 @@ func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 }
 
 // Name Comma-separated name(s) or index pattern(s) of the indices, aliases, and data
-// streams to resolve.
-// Resources on remote clusters can be specified using the `<cluster>`:`<name>`
-// syntax.
+// streams to resolve. Resources on remote clusters can be specified using the
+// `<cluster>`:`<name>` syntax.
 // API Name: name
 func (r *ResolveIndex) _name(name string) *ResolveIndex {
 	r.paramSet |= nameMask
@@ -309,10 +306,9 @@ func (r *ResolveIndex) _name(name string) *ResolveIndex {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *ResolveIndex) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ResolveIndex {
 	tmp := []string{}
@@ -334,10 +330,10 @@ func (r *ResolveIndex) IgnoreUnavailable(ignoreunavailable bool) *ResolveIndex {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices. For example, a
+// request targeting `foo*,bar*` returns an error if an index starts with `foo`
+// but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *ResolveIndex) AllowNoIndices(allownoindices bool) *ResolveIndex {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -368,11 +364,9 @@ func (r *ResolveIndex) FilterPath(filterpaths ...string) *ResolveIndex {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ResolveIndex) Human(human bool) *ResolveIndex {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -380,8 +374,8 @@ func (r *ResolveIndex) Human(human bool) *ResolveIndex {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ResolveIndex) Pretty(pretty bool) *ResolveIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

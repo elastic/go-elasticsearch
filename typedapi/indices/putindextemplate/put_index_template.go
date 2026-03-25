@@ -18,25 +18,22 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Create or update an index template.
-// Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
+// Create or update an index template. Index templates define settings,
+// mappings, and aliases that can be applied automatically to new indices.
 //
 // Elasticsearch applies templates to new indices based on an wildcard pattern
-// that matches the index name.
-// Index templates are applied during data stream or index creation.
-// For data streams, these settings and mappings are applied when the stream's
-// backing indices are created.
-// Settings and mappings specified in a create index API request override any
-// settings or mappings specified in an index template.
-// Changes to index templates do not affect existing indices, including the
-// existing backing indices of a data stream.
+// that matches the index name. Index templates are applied during data stream
+// or index creation. For data streams, these settings and mappings are applied
+// when the stream's backing indices are created. Settings and mappings
+// specified in a create index API request override any settings or mappings
+// specified in an index template. Changes to index templates do not affect
+// existing indices, including the existing backing indices of a data stream.
 //
-// You can use C-style `/* *\/` block comments in index templates.
-// You can include comments anywhere in the request body, except before the
-// opening curly bracket.
+// You can use C-style `/* *\/` block comments in index templates. You can
+// include comments anywhere in the request body, except before the opening
+// curly bracket.
 //
-// **Multiple matching templates**
+// # Multiple matching templates
 //
 // If multiple index templates match the name of a new index or data stream, the
 // template with the highest priority is used.
@@ -45,25 +42,22 @@
 // not allowed and an error will be thrown when attempting to create a template
 // matching an existing index template at identical priorities.
 //
-// **Composing aliases, mappings, and settings**
+// # Composing aliases, mappings, and settings
 //
 // When multiple component templates are specified in the `composed_of` field
 // for an index template, they are merged in the order specified, meaning that
-// later component templates override earlier component templates.
-// Any mappings, settings, or aliases from the parent index template are merged
-// in next.
-// Finally, any configuration on the index request itself is merged.
-// Mapping definitions are merged recursively, which means that later mapping
-// components can introduce new field mappings and update the mapping
-// configuration.
-// If a field mapping is already contained in an earlier component, its
-// definition will be completely overwritten by the later one.
-// This recursive merging strategy applies not only to field mappings, but also
-// root options like `dynamic_templates` and `meta`.
-// If an earlier component contains a `dynamic_templates` block, then by default
-// new `dynamic_templates` entries are appended onto the end.
-// If an entry already exists with the same key, then it is overwritten by the
-// new definition.
+// later component templates override earlier component templates. Any mappings,
+// settings, or aliases from the parent index template are merged in next.
+// Finally, any configuration on the index request itself is merged. Mapping
+// definitions are merged recursively, which means that later mapping components
+// can introduce new field mappings and update the mapping configuration. If a
+// field mapping is already contained in an earlier component, its definition
+// will be completely overwritten by the later one. This recursive merging
+// strategy applies not only to field mappings, but also root options like
+// `dynamic_templates` and `meta`. If an earlier component contains a
+// `dynamic_templates` block, then by default new `dynamic_templates` entries
+// are appended onto the end. If an entry already exists with the same key, then
+// it is overwritten by the new definition.
 package putindextemplate
 
 import (
@@ -126,25 +120,22 @@ func NewPutIndexTemplateFunc(tp elastictransport.Interface) NewPutIndexTemplate 
 	}
 }
 
-// Create or update an index template.
-// Index templates define settings, mappings, and aliases that can be applied
-// automatically to new indices.
+// Create or update an index template. Index templates define settings,
+// mappings, and aliases that can be applied automatically to new indices.
 //
 // Elasticsearch applies templates to new indices based on an wildcard pattern
-// that matches the index name.
-// Index templates are applied during data stream or index creation.
-// For data streams, these settings and mappings are applied when the stream's
-// backing indices are created.
-// Settings and mappings specified in a create index API request override any
-// settings or mappings specified in an index template.
-// Changes to index templates do not affect existing indices, including the
-// existing backing indices of a data stream.
+// that matches the index name. Index templates are applied during data stream
+// or index creation. For data streams, these settings and mappings are applied
+// when the stream's backing indices are created. Settings and mappings
+// specified in a create index API request override any settings or mappings
+// specified in an index template. Changes to index templates do not affect
+// existing indices, including the existing backing indices of a data stream.
 //
-// You can use C-style `/* *\/` block comments in index templates.
-// You can include comments anywhere in the request body, except before the
-// opening curly bracket.
+// You can use C-style `/* *\/` block comments in index templates. You can
+// include comments anywhere in the request body, except before the opening
+// curly bracket.
 //
-// **Multiple matching templates**
+// # Multiple matching templates
 //
 // If multiple index templates match the name of a new index or data stream, the
 // template with the highest priority is used.
@@ -153,25 +144,22 @@ func NewPutIndexTemplateFunc(tp elastictransport.Interface) NewPutIndexTemplate 
 // not allowed and an error will be thrown when attempting to create a template
 // matching an existing index template at identical priorities.
 //
-// **Composing aliases, mappings, and settings**
+// # Composing aliases, mappings, and settings
 //
 // When multiple component templates are specified in the `composed_of` field
 // for an index template, they are merged in the order specified, meaning that
-// later component templates override earlier component templates.
-// Any mappings, settings, or aliases from the parent index template are merged
-// in next.
-// Finally, any configuration on the index request itself is merged.
-// Mapping definitions are merged recursively, which means that later mapping
-// components can introduce new field mappings and update the mapping
-// configuration.
-// If a field mapping is already contained in an earlier component, its
-// definition will be completely overwritten by the later one.
-// This recursive merging strategy applies not only to field mappings, but also
-// root options like `dynamic_templates` and `meta`.
-// If an earlier component contains a `dynamic_templates` block, then by default
-// new `dynamic_templates` entries are appended onto the end.
-// If an entry already exists with the same key, then it is overwritten by the
-// new definition.
+// later component templates override earlier component templates. Any mappings,
+// settings, or aliases from the parent index template are merged in next.
+// Finally, any configuration on the index request itself is merged. Mapping
+// definitions are merged recursively, which means that later mapping components
+// can introduce new field mappings and update the mapping configuration. If a
+// field mapping is already contained in an earlier component, its definition
+// will be completely overwritten by the later one. This recursive merging
+// strategy applies not only to field mappings, but also root options like
+// `dynamic_templates` and `meta`. If an earlier component contains a
+// `dynamic_templates` block, then by default new `dynamic_templates` entries
+// are appended onto the end. If an entry already exists with the same key, then
+// it is overwritten by the new definition.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-put-index-template
 func New(tp elastictransport.Interface) *PutIndexTemplate {
@@ -294,7 +282,7 @@ func (r PutIndexTemplate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_index_template")
+			ctx = instrument.Start(providedCtx, "indices.put_index_template")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -409,9 +397,8 @@ func (r *PutIndexTemplate) Create(create bool) *PutIndexTemplate {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutIndexTemplate) MasterTimeout(duration string) *PutIndexTemplate {
 	r.values.Set("master_timeout", duration)
@@ -450,11 +437,9 @@ func (r *PutIndexTemplate) FilterPath(filterpaths ...string) *PutIndexTemplate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutIndexTemplate) Human(human bool) *PutIndexTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -462,8 +447,8 @@ func (r *PutIndexTemplate) Human(human bool) *PutIndexTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutIndexTemplate) Pretty(pretty bool) *PutIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -472,12 +457,11 @@ func (r *PutIndexTemplate) Pretty(pretty bool) *PutIndexTemplate {
 }
 
 // AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
-// setting.
-// If set to `true` in a template, then indices can be automatically created
-// using that template even if auto-creation of indices is disabled via
-// `actions.auto_create_index`.
-// If set to `false`, then indices or data streams matching the template must
-// always be explicitly created, and may never be automatically created.
+// setting. If set to `true` in a template, then indices can be automatically
+// created using that template even if auto-creation of indices is disabled via
+// `actions.auto_create_index`. If set to `false`, then indices or data streams
+// matching the template must always be explicitly created, and may never be
+// automatically created.
 // API name: allow_auto_create
 func (r *PutIndexTemplate) AllowAutoCreate(allowautocreate bool) *PutIndexTemplate {
 	if r.req == nil {
@@ -488,9 +472,9 @@ func (r *PutIndexTemplate) AllowAutoCreate(allowautocreate bool) *PutIndexTempla
 	return r
 }
 
-// ComposedOf An ordered list of component template names.
-// Component templates are merged in the order specified, meaning that the last
-// component template specified has the highest precedence.
+// ComposedOf An ordered list of component template names. Component templates are merged
+// in the order specified, meaning that the last component template specified
+// has the highest precedence.
 // API name: composed_of
 func (r *PutIndexTemplate) ComposedOf(composedofs ...string) *PutIndexTemplate {
 	if r.req == nil {
@@ -502,9 +486,8 @@ func (r *PutIndexTemplate) ComposedOf(composedofs ...string) *PutIndexTemplate {
 }
 
 // DataStream If this object is included, the template is used to create data streams and
-// their backing indices.
-// Supports an empty object.
-// Data streams require a matching index template with a `data_stream` object.
+// their backing indices. Supports an empty object. Data streams require a
+// matching index template with a `data_stream` object.
 // API name: data_stream
 func (r *PutIndexTemplate) DataStream(datastream *types.DataStreamVisibility) *PutIndexTemplate {
 	if r.req == nil {
@@ -517,9 +500,8 @@ func (r *PutIndexTemplate) DataStream(datastream *types.DataStreamVisibility) *P
 }
 
 // Deprecated Marks this index template as deprecated. When creating or updating a
-// non-deprecated index template
-// that uses deprecated components, Elasticsearch will emit a deprecation
-// warning.
+// non-deprecated index template that uses deprecated components, Elasticsearch
+// will emit a deprecation warning.
 // API name: deprecated
 func (r *PutIndexTemplate) Deprecated(deprecated bool) *PutIndexTemplate {
 	if r.req == nil {
@@ -531,8 +513,7 @@ func (r *PutIndexTemplate) Deprecated(deprecated bool) *PutIndexTemplate {
 }
 
 // IgnoreMissingComponentTemplates The configuration option ignore_missing_component_templates can be used when
-// an index template
-// references a component template that might not exist
+// an index template references a component template that might not exist
 // API name: ignore_missing_component_templates
 func (r *PutIndexTemplate) IgnoreMissingComponentTemplates(ignoremissingcomponenttemplates ...string) *PutIndexTemplate {
 	if r.req == nil {
@@ -554,12 +535,10 @@ func (r *PutIndexTemplate) IndexPatterns(indices ...string) *PutIndexTemplate {
 	return r
 }
 
-// Meta_ Optional user metadata about the index template.
-// It may have any contents.
-// It is not automatically generated or used by Elasticsearch.
-// This user-defined object is stored in the cluster state, so keeping it short
-// is preferable
-// To unset the metadata, replace the template without specifying it.
+// Meta_ Optional user metadata about the index template. It may have any contents. It
+// is not automatically generated or used by Elasticsearch. This user-defined
+// object is stored in the cluster state, so keeping it short is preferable To
+// unset the metadata, replace the template without specifying it.
 // API name: _meta
 func (r *PutIndexTemplate) Meta_(metadata types.Metadata) *PutIndexTemplate {
 	if r.req == nil {
@@ -571,11 +550,10 @@ func (r *PutIndexTemplate) Meta_(metadata types.Metadata) *PutIndexTemplate {
 }
 
 // Priority Priority to determine index template precedence when a new data stream or
-// index is created.
-// The index template with the highest priority is chosen.
-// If no priority is specified the template is treated as though it is of
-// priority 0 (lowest priority).
-// This number is not automatically generated by Elasticsearch.
+// index is created. The index template with the highest priority is chosen. If
+// no priority is specified the template is treated as though it is of priority
+// 0 (lowest priority). This number is not automatically generated by
+// Elasticsearch.
 // API name: priority
 func (r *PutIndexTemplate) Priority(priority int64) *PutIndexTemplate {
 	if r.req == nil {
@@ -587,9 +565,8 @@ func (r *PutIndexTemplate) Priority(priority int64) *PutIndexTemplate {
 	return r
 }
 
-// Template Template to be applied.
-// It may optionally include an `aliases`, `mappings`, or `settings`
-// configuration.
+// Template Template to be applied. It may optionally include an `aliases`, `mappings`,
+// or `settings` configuration.
 // API name: template
 func (r *PutIndexTemplate) Template(template *types.IndexTemplateMapping) *PutIndexTemplate {
 	if r.req == nil {
@@ -601,11 +578,10 @@ func (r *PutIndexTemplate) Template(template *types.IndexTemplateMapping) *PutIn
 	return r
 }
 
-// Version Version number used to manage index templates externally.
-// This number is not automatically generated by Elasticsearch.
-// External systems can use these version numbers to simplify template
-// management.
-// To unset a version, replace the template without specifying one.
+// Version Version number used to manage index templates externally. This number is not
+// automatically generated by Elasticsearch. External systems can use these
+// version numbers to simplify template management. To unset a version, replace
+// the template without specifying one.
 // API name: version
 func (r *PutIndexTemplate) Version(versionnumber int64) *PutIndexTemplate {
 	if r.req == nil {

@@ -18,25 +18,22 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Promote a data stream.
-// Promote a data stream from a replicated data stream managed by cross-cluster
-// replication (CCR) to a regular data stream.
+// Promote a data stream. Promote a data stream from a replicated data stream
+// managed by cross-cluster replication (CCR) to a regular data stream.
 //
 // With CCR auto following, a data stream from a remote cluster can be
-// replicated to the local cluster.
-// These data streams can't be rolled over in the local cluster.
-// These replicated data streams roll over only if the upstream data stream
-// rolls over.
-// In the event that the remote cluster is no longer available, the data stream
-// in the local cluster can be promoted to a regular data stream, which allows
-// these data streams to be rolled over in the local cluster.
+// replicated to the local cluster. These data streams can't be rolled over in
+// the local cluster. These replicated data streams roll over only if the
+// upstream data stream rolls over. In the event that the remote cluster is no
+// longer available, the data stream in the local cluster can be promoted to a
+// regular data stream, which allows these data streams to be rolled over in the
+// local cluster.
 //
 // NOTE: When promoting a data stream, ensure the local cluster has a data
-// stream enabled index template that matches the data stream.
-// If this is missing, the data stream will not be able to roll over until a
-// matching index template is created.
-// This will affect the lifecycle management of the data stream and interfere
-// with the data stream size and retention.
+// stream enabled index template that matches the data stream. If this is
+// missing, the data stream will not be able to roll over until a matching index
+// template is created. This will affect the lifecycle management of the data
+// stream and interfere with the data stream size and retention.
 package promotedatastream
 
 import (
@@ -94,25 +91,22 @@ func NewPromoteDataStreamFunc(tp elastictransport.Interface) NewPromoteDataStrea
 	}
 }
 
-// Promote a data stream.
-// Promote a data stream from a replicated data stream managed by cross-cluster
-// replication (CCR) to a regular data stream.
+// Promote a data stream. Promote a data stream from a replicated data stream
+// managed by cross-cluster replication (CCR) to a regular data stream.
 //
 // With CCR auto following, a data stream from a remote cluster can be
-// replicated to the local cluster.
-// These data streams can't be rolled over in the local cluster.
-// These replicated data streams roll over only if the upstream data stream
-// rolls over.
-// In the event that the remote cluster is no longer available, the data stream
-// in the local cluster can be promoted to a regular data stream, which allows
-// these data streams to be rolled over in the local cluster.
+// replicated to the local cluster. These data streams can't be rolled over in
+// the local cluster. These replicated data streams roll over only if the
+// upstream data stream rolls over. In the event that the remote cluster is no
+// longer available, the data stream in the local cluster can be promoted to a
+// regular data stream, which allows these data streams to be rolled over in the
+// local cluster.
 //
 // NOTE: When promoting a data stream, ensure the local cluster has a data
-// stream enabled index template that matches the data stream.
-// If this is missing, the data stream will not be able to roll over until a
-// matching index template is created.
-// This will affect the lifecycle management of the data stream and interfere
-// with the data stream size and retention.
+// stream enabled index template that matches the data stream. If this is
+// missing, the data stream will not be able to roll over until a matching index
+// template is created. This will affect the lifecycle management of the data
+// stream and interfere with the data stream size and retention.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-promote-data-stream
 func New(tp elastictransport.Interface) *PromoteDataStream {
@@ -189,7 +183,7 @@ func (r PromoteDataStream) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.promote_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.promote_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -367,11 +361,9 @@ func (r *PromoteDataStream) FilterPath(filterpaths ...string) *PromoteDataStream
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PromoteDataStream) Human(human bool) *PromoteDataStream {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -379,8 +371,8 @@ func (r *PromoteDataStream) Human(human bool) *PromoteDataStream {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PromoteDataStream) Pretty(pretty bool) *PromoteDataStream {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

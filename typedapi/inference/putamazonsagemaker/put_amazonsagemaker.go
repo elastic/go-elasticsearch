@@ -222,7 +222,7 @@ func (r PutAmazonsagemaker) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_amazonsagemaker")
+			ctx = instrument.Start(providedCtx, "inference.put_amazonsagemaker")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +370,9 @@ func (r *PutAmazonsagemaker) FilterPath(filterpaths ...string) *PutAmazonsagemak
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAmazonsagemaker) Human(human bool) *PutAmazonsagemaker {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +380,8 @@ func (r *PutAmazonsagemaker) Human(human bool) *PutAmazonsagemaker {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAmazonsagemaker) Pretty(pretty bool) *PutAmazonsagemaker {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -415,9 +413,8 @@ func (r *PutAmazonsagemaker) Service(service amazonsagemakerservicetype.AmazonSa
 	return r
 }
 
-// ServiceSettings Settings used to install the inference model.
-// These settings are specific to the `amazon_sagemaker` service and
-// `service_settings.api` you specified.
+// ServiceSettings Settings used to install the inference model. These settings are specific to
+// the `amazon_sagemaker` service and `service_settings.api` you specified.
 // API name: service_settings
 func (r *PutAmazonsagemaker) ServiceSettings(servicesettings *types.AmazonSageMakerServiceSettings) *PutAmazonsagemaker {
 	if r.req == nil {
@@ -429,9 +426,8 @@ func (r *PutAmazonsagemaker) ServiceSettings(servicesettings *types.AmazonSageMa
 	return r
 }
 
-// TaskSettings Settings to configure the inference task.
-// These settings are specific to the task type and `service_settings.api` you
-// specified.
+// TaskSettings Settings to configure the inference task. These settings are specific to the
+// task type and `service_settings.api` you specified.
 // API name: task_settings
 func (r *PutAmazonsagemaker) TaskSettings(tasksettings *types.AmazonSageMakerTaskSettings) *PutAmazonsagemaker {
 	if r.req == nil {

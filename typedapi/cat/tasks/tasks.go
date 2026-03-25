@@ -20,10 +20,10 @@
 
 // Get task information.
 //
-// Get information about tasks currently running in the cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the task management API.
+// Get information about tasks currently running in the cluster. IMPORTANT: cat
+// APIs are only intended for human consumption using the command line or Kibana
+// console. They are not intended for use by applications. For application
+// consumption, use the task management API.
 package tasks
 
 import (
@@ -76,10 +76,10 @@ func NewTasksFunc(tp elastictransport.Interface) NewTasks {
 
 // Get task information.
 //
-// Get information about tasks currently running in the cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the task management API.
+// Get information about tasks currently running in the cluster. IMPORTANT: cat
+// APIs are only intended for human consumption using the command line or Kibana
+// console. They are not intended for use by applications. For application
+// consumption, use the task management API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-tasks.html
 func New(tp elastictransport.Interface) *Tasks {
@@ -150,7 +150,7 @@ func (r Tasks) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.tasks")
+			ctx = instrument.Start(providedCtx, "cat.tasks")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -335,9 +335,9 @@ func (r *Tasks) H(names ...string) *Tasks {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Tasks) S(names ...string) *Tasks {
 	r.values.Set("s", strings.Join(names, ","))
@@ -353,9 +353,8 @@ func (r *Tasks) Time(time timeunit.TimeUnit) *Tasks {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Tasks) Timeout(duration string) *Tasks {
 	r.values.Set("timeout", duration)
@@ -371,8 +370,8 @@ func (r *Tasks) WaitForCompletion(waitforcompletion bool) *Tasks {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Tasks) Format(format string) *Tasks {
 	r.values.Set("format", format)
@@ -380,8 +379,8 @@ func (r *Tasks) Format(format string) *Tasks {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Tasks) Help(help bool) *Tasks {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -420,11 +419,9 @@ func (r *Tasks) FilterPath(filterpaths ...string) *Tasks {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Tasks) Human(human bool) *Tasks {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -432,8 +429,8 @@ func (r *Tasks) Human(human bool) *Tasks {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Tasks) Pretty(pretty bool) *Tasks {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

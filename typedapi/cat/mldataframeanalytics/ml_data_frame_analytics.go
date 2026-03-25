@@ -183,7 +183,7 @@ func (r MlDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "cat.ml_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -379,8 +379,8 @@ func (r *MlDataFrameAnalytics) Time(time timeunit.TimeUnit) *MlDataFrameAnalytic
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *MlDataFrameAnalytics) Format(format string) *MlDataFrameAnalytics {
 	r.values.Set("format", format)
@@ -388,8 +388,8 @@ func (r *MlDataFrameAnalytics) Format(format string) *MlDataFrameAnalytics {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *MlDataFrameAnalytics) Help(help bool) *MlDataFrameAnalytics {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -428,11 +428,9 @@ func (r *MlDataFrameAnalytics) FilterPath(filterpaths ...string) *MlDataFrameAna
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MlDataFrameAnalytics) Human(human bool) *MlDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -440,8 +438,8 @@ func (r *MlDataFrameAnalytics) Human(human bool) *MlDataFrameAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MlDataFrameAnalytics) Pretty(pretty bool) *MlDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -41,17 +41,16 @@ type AsyncSearch struct {
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
 	Hits         HitsMetadata               `json:"hits"`
 	MaxScore     *Float64                   `json:"max_score,omitempty"`
-	// NumReducePhases Indicates how many reductions of the results have been performed.
-	// If this number increases compared to the last retrieved results for a get
-	// asynch search request, you can expect additional results included in the
-	// search response.
+	// NumReducePhases Indicates how many reductions of the results have been performed. If this
+	// number increases compared to the last retrieved results for a get asynch
+	// search request, you can expect additional results included in the search
+	// response.
 	NumReducePhases *int64   `json:"num_reduce_phases,omitempty"`
 	PitId           *string  `json:"pit_id,omitempty"`
 	Profile         *Profile `json:"profile,omitempty"`
 	ScrollId_       *string  `json:"_scroll_id,omitempty"`
-	// Shards_ Indicates how many shards have run the query.
-	// Note that in order for shard results to be included in the search response,
-	// they need to be reduced first.
+	// Shards_ Indicates how many shards have run the query. Note that in order for shard
+	// results to be included in the search response, they need to be reduced first.
 	Shards_         ShardStatistics      `json:"_shards"`
 	Suggest         map[string][]Suggest `json:"suggest,omitempty"`
 	TerminatedEarly *bool                `json:"terminated_early,omitempty"`

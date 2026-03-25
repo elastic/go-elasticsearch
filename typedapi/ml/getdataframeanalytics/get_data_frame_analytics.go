@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get data frame analytics job configuration info.
-// You can get information for multiple data frame analytics jobs in a single
-// API request by using a comma-separated list of data frame analytics jobs or a
-// wildcard expression.
+// Get data frame analytics job configuration info. You can get information for
+// multiple data frame analytics jobs in a single API request by using a
+// comma-separated list of data frame analytics jobs or a wildcard expression.
 package getdataframeanalytics
 
 import (
@@ -77,10 +76,9 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 	}
 }
 
-// Get data frame analytics job configuration info.
-// You can get information for multiple data frame analytics jobs in a single
-// API request by using a comma-separated list of data frame analytics jobs or a
-// wildcard expression.
+// Get data frame analytics job configuration info. You can get information for
+// multiple data frame analytics jobs in a single API request by using a
+// comma-separated list of data frame analytics jobs or a wildcard expression.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html
 func New(tp elastictransport.Interface) *GetDataFrameAnalytics {
@@ -168,7 +166,7 @@ func (r GetDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.get_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -318,15 +316,14 @@ func (r *GetDataFrameAnalytics) Id(id string) *GetDataFrameAnalytics {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no data frame analytics
-// jobs that match.
-// 2. Contains the `_all` string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no data frame analytics jobs
+// that match. 2. Contains the `_all` string or no identifiers and there are no
+// matches. 3. Contains wildcard expressions and there are only partial matches.
 //
-// The default value returns an empty data_frame_analytics array when there
-// are no matches and the subset of results when there are partial matches.
-// If this parameter is `false`, the request returns a 404 status code when
-// there are no matches or only partial matches.
+// The default value returns an empty data_frame_analytics array when there are
+// no matches and the subset of results when there are partial matches. If this
+// parameter is `false`, the request returns a 404 status code when there are no
+// matches or only partial matches.
 // API name: allow_no_match
 func (r *GetDataFrameAnalytics) AllowNoMatch(allownomatch bool) *GetDataFrameAnalytics {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -351,8 +348,8 @@ func (r *GetDataFrameAnalytics) Size(size int) *GetDataFrameAnalytics {
 }
 
 // ExcludeGenerated Indicates if certain fields should be removed from the configuration on
-// retrieval. This allows the configuration to be in an acceptable format to
-// be retrieved and then added to another cluster.
+// retrieval. This allows the configuration to be in an acceptable format to be
+// retrieved and then added to another cluster.
 // API name: exclude_generated
 func (r *GetDataFrameAnalytics) ExcludeGenerated(excludegenerated bool) *GetDataFrameAnalytics {
 	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
@@ -383,11 +380,9 @@ func (r *GetDataFrameAnalytics) FilterPath(filterpaths ...string) *GetDataFrameA
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataFrameAnalytics) Human(human bool) *GetDataFrameAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -395,8 +390,8 @@ func (r *GetDataFrameAnalytics) Human(human bool) *GetDataFrameAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataFrameAnalytics) Pretty(pretty bool) *GetDataFrameAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -20,11 +20,10 @@
 
 // Get anomaly detection jobs.
 //
-// Get configuration and usage information for anomaly detection jobs.
-// This API returns a maximum of 10,000 jobs.
-// If the Elasticsearch security features are enabled, you must have
-// `monitor_ml`,
-// `monitor`, `manage_ml`, or `manage` cluster privileges to use this API.
+// Get configuration and usage information for anomaly detection jobs. This API
+// returns a maximum of 10,000 jobs. If the Elasticsearch security features are
+// enabled, you must have `monitor_ml`, `monitor`, `manage_ml`, or `manage`
+// cluster privileges to use this API.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
@@ -89,11 +88,10 @@ func NewMlJobsFunc(tp elastictransport.Interface) NewMlJobs {
 
 // Get anomaly detection jobs.
 //
-// Get configuration and usage information for anomaly detection jobs.
-// This API returns a maximum of 10,000 jobs.
-// If the Elasticsearch security features are enabled, you must have
-// `monitor_ml`,
-// `monitor`, `manage_ml`, or `manage` cluster privileges to use this API.
+// Get configuration and usage information for anomaly detection jobs. This API
+// returns a maximum of 10,000 jobs. If the Elasticsearch security features are
+// enabled, you must have `monitor_ml`, `monitor`, `manage_ml`, or `manage`
+// cluster privileges to use this API.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
@@ -185,7 +183,7 @@ func (r MlJobs) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_jobs")
+			ctx = instrument.Start(providedCtx, "cat.ml_jobs")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -333,15 +331,13 @@ func (r *MlJobs) JobId(jobid string) *MlJobs {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// * Contains wildcard expressions and there are no jobs that match.
-// * Contains the `_all` string or no identifiers and there are no matches.
-// * Contains wildcard expressions and there are only partial matches.
+//   - Contains wildcard expressions and there are no jobs that match.
+//   - Contains the `_all` string or no identifiers and there are no matches.
+//   - Contains wildcard expressions and there are only partial matches.
 //
 // If `true`, the API returns an empty jobs array when there are no matches and
-// the subset of results when there
-// are partial matches. If `false`, the API returns a 404 status code when there
-// are no matches or only partial
-// matches.
+// the subset of results when there are partial matches. If `false`, the API
+// returns a 404 status code when there are no matches or only partial matches.
 // API name: allow_no_match
 func (r *MlJobs) AllowNoMatch(allownomatch bool) *MlJobs {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -390,8 +386,8 @@ func (r *MlJobs) Time(time timeunit.TimeUnit) *MlJobs {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *MlJobs) Format(format string) *MlJobs {
 	r.values.Set("format", format)
@@ -399,8 +395,8 @@ func (r *MlJobs) Format(format string) *MlJobs {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *MlJobs) Help(help bool) *MlJobs {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -439,11 +435,9 @@ func (r *MlJobs) FilterPath(filterpaths ...string) *MlJobs {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MlJobs) Human(human bool) *MlJobs {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -451,8 +445,8 @@ func (r *MlJobs) Human(human bool) *MlJobs {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MlJobs) Pretty(pretty bool) *MlJobs {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

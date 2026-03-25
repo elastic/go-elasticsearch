@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// InferenceEndpoint type.
+// Configuration options when storing the inference endpoint
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/Services.ts#L45-L65
 type InferenceEndpoint struct {

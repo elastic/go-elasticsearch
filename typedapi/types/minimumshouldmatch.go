@@ -25,5 +25,7 @@ package types
 //	int
 //	string
 //
+// # The minimum number of terms that should match as integer, percentage or range
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/common.ts#L167-L171
 type MinimumShouldMatch any

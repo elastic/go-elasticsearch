@@ -35,12 +35,11 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Scripting.ts#L47-L59
 type StoredScript struct {
-	// Lang The language the script is written in.
-	// For serach templates, use `mustache`.
+	// Lang The language the script is written in. For serach templates, use `mustache`.
 	Lang    scriptlanguage.ScriptLanguage `json:"lang"`
 	Options map[string]string             `json:"options,omitempty"`
-	// Source The script source.
-	// For search templates, an object containing the search template.
+	// Source The script source. For search templates, an object containing the search
+	// template.
 	Source string `json:"source"`
 }
 

@@ -24,22 +24,20 @@
 // API key based remote cluster access.
 //
 // To use this API, you must have at least the `manage_security` cluster
-// privilege.
-// Users can only update API keys that they created.
-// To update another user's API key, use the `run_as` feature to submit a
-// request on behalf of another user.
+// privilege. Users can only update API keys that they created. To update
+// another user's API key, use the `run_as` feature to submit a request on
+// behalf of another user.
 //
 // IMPORTANT: It's not possible to use an API key as the authentication
-// credential for this API.
-// To update an API key, the owner user's credentials are required.
+// credential for this API. To update an API key, the owner user's credentials
+// are required.
 //
 // It's not possible to update expired API keys, or API keys that have been
 // invalidated by the invalidate API key API.
 //
 // This API supports updates to an API key's access scope, metadata, and
-// expiration.
-// The owner user's information, such as the `username` and `realm`, is also
-// updated automatically on every call.
+// expiration. The owner user's information, such as the `username` and `realm`,
+// is also updated automatically on every call.
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
@@ -111,22 +109,20 @@ func NewUpdateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewUpdateCro
 // API key based remote cluster access.
 //
 // To use this API, you must have at least the `manage_security` cluster
-// privilege.
-// Users can only update API keys that they created.
-// To update another user's API key, use the `run_as` feature to submit a
-// request on behalf of another user.
+// privilege. Users can only update API keys that they created. To update
+// another user's API key, use the `run_as` feature to submit a request on
+// behalf of another user.
 //
 // IMPORTANT: It's not possible to use an API key as the authentication
-// credential for this API.
-// To update an API key, the owner user's credentials are required.
+// credential for this API. To update an API key, the owner user's credentials
+// are required.
 //
 // It's not possible to update expired API keys, or API keys that have been
 // invalidated by the invalidate API key API.
 //
 // This API supports updates to an API key's access scope, metadata, and
-// expiration.
-// The owner user's information, such as the `username` and `realm`, is also
-// updated automatically on every call.
+// expiration. The owner user's information, such as the `username` and `realm`,
+// is also updated automatically on every call.
 //
 // NOTE: This API cannot update REST API keys, which should be updated by either
 // the update API key or bulk update API keys API.
@@ -256,7 +252,7 @@ func (r UpdateCrossClusterApiKey) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.update_cross_cluster_api_key")
+			ctx = instrument.Start(providedCtx, "security.update_cross_cluster_api_key")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -386,11 +382,9 @@ func (r *UpdateCrossClusterApiKey) FilterPath(filterpaths ...string) *UpdateCros
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateCrossClusterApiKey) Human(human bool) *UpdateCrossClusterApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +392,8 @@ func (r *UpdateCrossClusterApiKey) Human(human bool) *UpdateCrossClusterApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateCrossClusterApiKey) Pretty(pretty bool) *UpdateCrossClusterApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -407,12 +401,10 @@ func (r *UpdateCrossClusterApiKey) Pretty(pretty bool) *UpdateCrossClusterApiKey
 	return r
 }
 
-// Access The access to be granted to this API key.
-// The access is composed of permissions for cross cluster search and cross
-// cluster replication.
-// At least one of them must be specified.
-// When specified, the new access assignment fully replaces the previously
-// assigned access.
+// Access The access to be granted to this API key. The access is composed of
+// permissions for cross cluster search and cross cluster replication. At least
+// one of them must be specified. When specified, the new access assignment
+// fully replaces the previously assigned access.
 // API name: access
 func (r *UpdateCrossClusterApiKey) Access(access *types.Access) *UpdateCrossClusterApiKey {
 	if r.req == nil {
@@ -424,9 +416,8 @@ func (r *UpdateCrossClusterApiKey) Access(access *types.Access) *UpdateCrossClus
 	return r
 }
 
-// Expiration The expiration time for the API key.
-// By default, API keys never expire. This property can be omitted to leave the
-// value unchanged.
+// Expiration The expiration time for the API key. By default, API keys never expire. This
+// property can be omitted to leave the value unchanged.
 // API name: expiration
 func (r *UpdateCrossClusterApiKey) Expiration(duration types.Duration) *UpdateCrossClusterApiKey {
 	if r.req == nil {
@@ -437,12 +428,10 @@ func (r *UpdateCrossClusterApiKey) Expiration(duration types.Duration) *UpdateCr
 	return r
 }
 
-// Metadata Arbitrary metadata that you want to associate with the API key.
-// It supports nested data structure.
-// Within the metadata object, keys beginning with `_` are reserved for system
-// usage.
-// When specified, this information fully replaces metadata previously
-// associated with the API key.
+// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+// nested data structure. Within the metadata object, keys beginning with `_`
+// are reserved for system usage. When specified, this information fully
+// replaces metadata previously associated with the API key.
 // API name: metadata
 func (r *UpdateCrossClusterApiKey) Metadata(metadata types.Metadata) *UpdateCrossClusterApiKey {
 	if r.req == nil {

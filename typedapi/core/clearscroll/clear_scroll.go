@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Clear a scrolling search.
-// Clear the search context and results for a scrolling search.
+// Clear a scrolling search. Clear the search context and results for a
+// scrolling search.
 package clearscroll
 
 import (
@@ -77,8 +77,8 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 	}
 }
 
-// Clear a scrolling search.
-// Clear the search context and results for a scrolling search.
+// Clear a scrolling search. Clear the search context and results for a
+// scrolling search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
 func New(tp elastictransport.Interface) *ClearScroll {
@@ -197,7 +197,7 @@ func (r ClearScroll) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "clear_scroll")
+			ctx = instrument.Start(providedCtx, "clear_scroll")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -319,11 +319,9 @@ func (r *ClearScroll) FilterPath(filterpaths ...string) *ClearScroll {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClearScroll) Human(human bool) *ClearScroll {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -331,8 +329,8 @@ func (r *ClearScroll) Human(human bool) *ClearScroll {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -340,8 +338,7 @@ func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
 	return r
 }
 
-// ScrollId The scroll IDs to clear.
-// To clear all scroll IDs, use `_all`.
+// ScrollId The scroll IDs to clear. To clear all scroll IDs, use `_all`.
 // API name: scroll_id
 func (r *ClearScroll) ScrollId(scrollids ...string) *ClearScroll {
 	if r.req == nil {

@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenizationtruncate"
 )
 
-// NlpBertTokenizationConfig type.
+// BERT and MPNet tokenization configuration options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ml/_types/inference.ts#L188-L189
 type NlpBertTokenizationConfig struct {

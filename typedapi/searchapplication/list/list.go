@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get search applications.
-// Get information about search applications.
+// Get search applications. Get information about search applications.
 package list
 
 import (
@@ -69,8 +68,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 	}
 }
 
-// Get search applications.
-// Get information about search applications.
+// Get search applications. Get information about search applications.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/list-analytics-collection.html
 func New(tp elastictransport.Interface) *List {
@@ -141,7 +139,7 @@ func (r List) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.list")
+			ctx = instrument.Start(providedCtx, "search_application.list")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -325,11 +323,9 @@ func (r *List) FilterPath(filterpaths ...string) *List {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *List) Human(human bool) *List {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -337,8 +333,8 @@ func (r *List) Human(human bool) *List {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *List) Pretty(pretty bool) *List {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

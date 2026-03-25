@@ -20,12 +20,11 @@
 
 // Get thread pool statistics.
 //
-// Get thread pool statistics for each node in a cluster.
-// Returned information includes all built-in thread pools and custom thread
-// pools.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the nodes info API.
+// Get thread pool statistics for each node in a cluster. Returned information
+// includes all built-in thread pools and custom thread pools. IMPORTANT: cat
+// APIs are only intended for human consumption using the command line or Kibana
+// console. They are not intended for use by applications. For application
+// consumption, use the nodes info API.
 package threadpool
 
 import (
@@ -85,12 +84,11 @@ func NewThreadPoolFunc(tp elastictransport.Interface) NewThreadPool {
 
 // Get thread pool statistics.
 //
-// Get thread pool statistics for each node in a cluster.
-// Returned information includes all built-in thread pools and custom thread
-// pools.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the nodes info API.
+// Get thread pool statistics for each node in a cluster. Returned information
+// includes all built-in thread pools and custom thread pools. IMPORTANT: cat
+// APIs are only intended for human consumption using the command line or Kibana
+// console. They are not intended for use by applications. For application
+// consumption, use the nodes info API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-thread-pool.html
 func New(tp elastictransport.Interface) *ThreadPool {
@@ -174,7 +172,7 @@ func (r ThreadPool) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.thread_pool")
+			ctx = instrument.Start(providedCtx, "cat.thread_pool")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -334,9 +332,8 @@ func (r *ThreadPool) H(catthreadpoolcolumns ...catthreadpoolcolumn.CatThreadPool
 }
 
 // S A comma-separated list of column names or aliases that determines the sort
-// order.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// order. Sorting defaults to ascending and can be changed by setting `:asc` or
+// `:desc` as a suffix to the column name.
 // API name: s
 func (r *ThreadPool) S(names ...string) *ThreadPool {
 	r.values.Set("s", strings.Join(names, ","))
@@ -352,10 +349,10 @@ func (r *ThreadPool) Time(time timeunit.TimeUnit) *ThreadPool {
 	return r
 }
 
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
+// Local If `true`, the request computes the list of selected nodes from the local
+// cluster state. If `false` the list of selected nodes are computed from the
+// cluster state of the master node. In both cases the coordinating node will
+// send requests for further information to each selected node.
 // API name: local
 func (r *ThreadPool) Local(local bool) *ThreadPool {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -371,8 +368,8 @@ func (r *ThreadPool) MasterTimeout(duration string) *ThreadPool {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *ThreadPool) Format(format string) *ThreadPool {
 	r.values.Set("format", format)
@@ -380,8 +377,8 @@ func (r *ThreadPool) Format(format string) *ThreadPool {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *ThreadPool) Help(help bool) *ThreadPool {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -420,11 +417,9 @@ func (r *ThreadPool) FilterPath(filterpaths ...string) *ThreadPool {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ThreadPool) Human(human bool) *ThreadPool {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -432,8 +427,8 @@ func (r *ThreadPool) Human(human bool) *ThreadPool {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ThreadPool) Pretty(pretty bool) *ThreadPool {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

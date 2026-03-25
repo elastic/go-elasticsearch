@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Stop transforms.
-// Stops one or more transforms.
+// Stop transforms. Stops one or more transforms.
 package stoptransform
 
 import (
@@ -77,8 +76,7 @@ func NewStopTransformFunc(tp elastictransport.Interface) NewStopTransform {
 	}
 }
 
-// Stop transforms.
-// Stops one or more transforms.
+// Stop transforms. Stops one or more transforms.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html
 func New(tp elastictransport.Interface) *StopTransform {
@@ -155,7 +153,7 @@ func (r StopTransform) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.stop_transform")
+			ctx = instrument.Start(providedCtx, "transform.stop_transform")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -293,8 +291,8 @@ func (r *StopTransform) Header(key, value string) *StopTransform {
 }
 
 // TransformId Identifier for the transform. To stop multiple transforms, use a
-// comma-separated list or a wildcard expression.
-// To stop all transforms, use `_all` or `*` as the identifier.
+// comma-separated list or a wildcard expression. To stop all transforms, use
+// `_all` or `*` as the identifier.
 // API Name: transformid
 func (r *StopTransform) _transformid(transformid string) *StopTransform {
 	r.paramSet |= transformidMask
@@ -304,14 +302,13 @@ func (r *StopTransform) _transformid(transformid string) *StopTransform {
 }
 
 // AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
-// there are no transforms that match;
-// contains the `_all` string or no identifiers and there are no matches;
-// contains wildcard expressions and there
+// there are no transforms that match; contains the `_all` string or no
+// identifiers and there are no matches; contains wildcard expressions and there
 // are only partial matches.
 //
 // If it is true, the API returns a successful acknowledgement message when
-// there are no matches. When there are
-// only partial matches, the API stops the appropriate transforms.
+// there are no matches. When there are only partial matches, the API stops the
+// appropriate transforms.
 //
 // If it is false, the request returns a 404 status code when there are no
 // matches or only partial matches.
@@ -331,10 +328,9 @@ func (r *StopTransform) Force(force bool) *StopTransform {
 }
 
 // Timeout Period to wait for a response when `wait_for_completion` is `true`. If no
-// response is received before the
-// timeout expires, the request returns a timeout exception. However, the
-// request continues processing and
-// eventually moves the transform to a STOPPED state.
+// response is received before the timeout expires, the request returns a
+// timeout exception. However, the request continues processing and eventually
+// moves the transform to a STOPPED state.
 // API name: timeout
 func (r *StopTransform) Timeout(duration string) *StopTransform {
 	r.values.Set("timeout", duration)
@@ -343,8 +339,8 @@ func (r *StopTransform) Timeout(duration string) *StopTransform {
 }
 
 // WaitForCheckpoint If it is true, the transform does not completely stop until the current
-// checkpoint is completed. If it is false,
-// the transform stops as soon as possible.
+// checkpoint is completed. If it is false, the transform stops as soon as
+// possible.
 // API name: wait_for_checkpoint
 func (r *StopTransform) WaitForCheckpoint(waitforcheckpoint bool) *StopTransform {
 	r.values.Set("wait_for_checkpoint", strconv.FormatBool(waitforcheckpoint))
@@ -353,8 +349,8 @@ func (r *StopTransform) WaitForCheckpoint(waitforcheckpoint bool) *StopTransform
 }
 
 // WaitForCompletion If it is true, the API blocks until the indexer state completely stops. If it
-// is false, the API returns
-// immediately and the indexer is stopped asynchronously in the background.
+// is false, the API returns immediately and the indexer is stopped
+// asynchronously in the background.
 // API name: wait_for_completion
 func (r *StopTransform) WaitForCompletion(waitforcompletion bool) *StopTransform {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -385,11 +381,9 @@ func (r *StopTransform) FilterPath(filterpaths ...string) *StopTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StopTransform) Human(human bool) *StopTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -397,8 +391,8 @@ func (r *StopTransform) Human(human bool) *StopTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StopTransform) Pretty(pretty bool) *StopTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

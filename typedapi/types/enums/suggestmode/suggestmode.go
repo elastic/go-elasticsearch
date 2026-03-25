@@ -29,10 +29,15 @@ type SuggestMode struct {
 }
 
 var (
+
+	// Missing Only generate suggestions for terms that are not in the shard.
 	Missing = SuggestMode{"missing"}
 
+	// Popular Only suggest terms that occur in more docs on the shard than the original
+	// term.
 	Popular = SuggestMode{"popular"}
 
+	// Always Suggest any matching suggestions based on terms in the suggest text.
 	Always = SuggestMode{"always"}
 )
 

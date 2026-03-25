@@ -24,26 +24,28 @@
 // API.
 //
 // Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-// the matching documents.
-// Given a query vector, the API finds the k closest vectors and returns those
-// documents as search hits.
+// the matching documents. Given a query vector, the API finds the k closest
+// vectors and returns those documents as search hits.
 //
-// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-// result accuracy for improved search speed.
-// This means the results returned are not always the true k closest neighbors.
+// Elasticsearch uses the HNSW algorithm to support efficient kNN search. Like
+// most kNN algorithms, HNSW is an approximate method that sacrifices result
+// accuracy for improved search speed. This means the results returned are not
+// always the true k closest neighbors.
 //
-// The kNN search API supports restricting the search using a filter.
-// The search will return the top k documents that also match the filter query.
+// The kNN search API supports restricting the search using a filter. The search
+// will return the top k documents that also match the filter query.
 //
 // A kNN search response has the exact same structure as a search API response.
 // However, certain sections have a meaning specific to kNN search:
 //
-// * The document `_score` is determined by the similarity between the query and
-// document vector.
-// * The `hits.total` object contains the total number of nearest neighbor
-// candidates considered, which is `num_candidates * num_shards`. The
-// `hits.total.relation` will always be `eq`, indicating an exact value.
+//   - The document `_score` is determined by the similarity between the query
+//     and document vector.
+//   - The `hits.total` object contains the total number of nearest neighbor
+//     candidates considered, which is `num_candidates * num_shards`. The
+//     `hits.total.relation` will always be `eq`, indicating an exact value.
+//
+// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
+// option in the search API.
 package knnsearch
 
 import (
@@ -112,28 +114,30 @@ func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
 // API.
 //
 // Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
-// the matching documents.
-// Given a query vector, the API finds the k closest vectors and returns those
-// documents as search hits.
+// the matching documents. Given a query vector, the API finds the k closest
+// vectors and returns those documents as search hits.
 //
-// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
-// Like most kNN algorithms, HNSW is an approximate method that sacrifices
-// result accuracy for improved search speed.
-// This means the results returned are not always the true k closest neighbors.
+// Elasticsearch uses the HNSW algorithm to support efficient kNN search. Like
+// most kNN algorithms, HNSW is an approximate method that sacrifices result
+// accuracy for improved search speed. This means the results returned are not
+// always the true k closest neighbors.
 //
-// The kNN search API supports restricting the search using a filter.
-// The search will return the top k documents that also match the filter query.
+// The kNN search API supports restricting the search using a filter. The search
+// will return the top k documents that also match the filter query.
 //
 // A kNN search response has the exact same structure as a search API response.
 // However, certain sections have a meaning specific to kNN search:
 //
-// * The document `_score` is determined by the similarity between the query and
-// document vector.
-// * The `hits.total` object contains the total number of nearest neighbor
-// candidates considered, which is `num_candidates * num_shards`. The
-// `hits.total.relation` will always be `eq`, indicating an exact value.
+//   - The document `_score` is determined by the similarity between the query
+//     and document vector.
+//   - The `hits.total` object contains the total number of nearest neighbor
+//     candidates considered, which is `num_candidates * num_shards`. The
+//     `hits.total.relation` will always be `eq`, indicating an exact value.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
+//
+// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
+// option in the search API.
 func New(tp elastictransport.Interface) *KnnSearch {
 	r := &KnnSearch{
 		transport: tp,
@@ -254,7 +258,7 @@ func (r KnnSearch) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "knn_search")
+			ctx = instrument.Start(providedCtx, "knn_search")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -352,8 +356,8 @@ func (r *KnnSearch) Header(key, value string) *KnnSearch {
 	return r
 }
 
-// Index A comma-separated list of index names to search;
-// use `_all` or to perform the operation on all indices.
+// Index A comma-separated list of index names to search; use `_all` or to perform the
+// operation on all indices.
 // API Name: index
 func (r *KnnSearch) _index(index string) *KnnSearch {
 	r.paramSet |= indexMask
@@ -393,11 +397,9 @@ func (r *KnnSearch) FilterPath(filterpaths ...string) *KnnSearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *KnnSearch) Human(human bool) *KnnSearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -405,8 +407,8 @@ func (r *KnnSearch) Human(human bool) *KnnSearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -414,9 +416,8 @@ func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	return r
 }
 
-// DocvalueFields The request returns doc values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
+// DocvalueFields The request returns doc values for field names matching these patterns in the
+// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 // API name: docvalue_fields
 func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormat) *KnnSearch {
 	if r.req == nil {
@@ -427,9 +428,8 @@ func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormat) *KnnS
 	return r
 }
 
-// Fields The request returns values for field names matching these patterns
-// in the `hits.fields` property of the response.
-// It accepts wildcard (`*`) patterns.
+// Fields The request returns values for field names matching these patterns in the
+// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.
 // API name: fields
 func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
 	if r.req == nil {
@@ -441,11 +441,9 @@ func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
 }
 
 // Filter A query to filter the documents that can match. The kNN search will return
-// the top
-// `k` documents that also match this filter. The value can be a single query or
-// a
-// list of queries. If `filter` isn't provided, all documents are allowed to
-// match.
+// the top `k` documents that also match this filter. The value can be a single
+// query or a list of queries. If `filter` isn't provided, all documents are
+// allowed to match.
 // API name: filter
 func (r *KnnSearch) Filter(filters ...types.Query) *KnnSearch {
 	if r.req == nil {
@@ -481,12 +479,10 @@ func (r *KnnSearch) Source_(sourceconfig types.SourceConfig) *KnnSearch {
 }
 
 // StoredFields A list of stored fields to return as part of a hit. If no fields are
-// specified,
-// no stored fields are included in the response. If this field is specified,
-// the `_source`
-// parameter defaults to `false`. You can pass `_source: true` to return both
-// source fields
-// and stored fields in the search response.
+// specified, no stored fields are included in the response. If this field is
+// specified, the `_source` parameter defaults to `false`. You can pass
+// `_source: true` to return both source fields and stored fields in the search
+// response.
 // API name: stored_fields
 func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
 	if r.req == nil {

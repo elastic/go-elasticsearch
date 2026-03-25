@@ -159,7 +159,7 @@ func (r GetDataStream) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.get_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -296,9 +296,8 @@ func (r *GetDataStream) Header(key, value string) *GetDataStream {
 	return r
 }
 
-// Name Comma-separated list of data stream names used to limit the request.
-// Wildcard (`*`) expressions are supported. If omitted, all data streams are
-// returned.
+// Name Comma-separated list of data stream names used to limit the request. Wildcard
+// (`*`) expressions are supported. If omitted, all data streams are returned.
 // API Name: name
 func (r *GetDataStream) Name(name string) *GetDataStream {
 	r.paramSet |= nameMask
@@ -307,8 +306,8 @@ func (r *GetDataStream) Name(name string) *GetDataStream {
 	return r
 }
 
-// ExpandWildcards Type of data stream that wildcard patterns can match.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of data stream that wildcard patterns can match. Supports
+// comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *GetDataStream) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetDataStream {
 	tmp := []string{}
@@ -369,11 +368,9 @@ func (r *GetDataStream) FilterPath(filterpaths ...string) *GetDataStream {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataStream) Human(human bool) *GetDataStream {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -381,8 +378,8 @@ func (r *GetDataStream) Human(human bool) *GetDataStream {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataStream) Pretty(pretty bool) *GetDataStream {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

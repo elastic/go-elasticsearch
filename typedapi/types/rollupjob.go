@@ -27,9 +27,8 @@ type RollupJob struct {
 	// Config The rollup job configuration.
 	Config RollupJobConfiguration `json:"config"`
 	// Stats Transient statistics about the rollup job, such as how many documents have
-	// been processed and how many rollup summary docs have been indexed.
-	// These stats are not persisted.
-	// If a node is restarted, these stats are reset.
+	// been processed and how many rollup summary docs have been indexed. These
+	// stats are not persisted. If a node is restarted, these stats are reset.
 	Stats RollupJobStats `json:"stats"`
 	// Status The current status of the indexer for the rollup job.
 	Status RollupJobStatus `json:"status"`

@@ -51,17 +51,16 @@ type RoleDescriptor struct {
 	// Metadata Optional meta-data. Within the metadata object, keys that begin with `_` are
 	// reserved for system usage.
 	Metadata Metadata `json:"metadata,omitempty"`
-	// RemoteCluster A list of cluster permissions for remote clusters.
-	// NOTE: This is limited a subset of the cluster permissions.
+	// RemoteCluster A list of cluster permissions for remote clusters. NOTE: This is limited a
+	// subset of the cluster permissions.
 	RemoteCluster []RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
 	// RemoteIndices A list of indices permissions for remote clusters.
 	RemoteIndices []RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
 	// Restriction Restriction for when the role descriptor is allowed to be effective.
 	Restriction *Restriction `json:"restriction,omitempty"`
-	// RunAs A list of users that the API keys can impersonate.
-	// NOTE: In Elastic Cloud Serverless, the run-as feature is disabled.
-	// For API compatibility, you can still specify an empty `run_as` field, but a
-	// non-empty list will be rejected.
+	// RunAs A list of users that the API keys can impersonate. NOTE: In Elastic Cloud
+	// Serverless, the run-as feature is disabled. For API compatibility, you can
+	// still specify an empty `run_as` field, but a non-empty list will be rejected.
 	RunAs             []string                   `json:"run_as,omitempty"`
 	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
 }

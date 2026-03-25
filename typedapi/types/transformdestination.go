@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/transform/_types/Transform.ts#L34-L45
 type TransformDestination struct {
 	// Index The destination index for the transform. The mappings of the destination
-	// index are deduced based on the source
-	// fields when possible. If alternate mappings are required, use the create
-	// index API prior to starting the
+	// index are deduced based on the source fields when possible. If alternate
+	// mappings are required, use the create index API prior to starting the
 	// transform.
 	Index *string `json:"index,omitempty"`
 	// Pipeline The unique identifier for an ingest pipeline.
