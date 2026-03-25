@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// CumulativeCardinalityAggregate type.
+// Result of the `cumulative_cardinality` aggregation
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L930-L938
 type CumulativeCardinalityAggregate struct {

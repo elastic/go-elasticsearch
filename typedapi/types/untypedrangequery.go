@@ -36,10 +36,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/query_dsl/term.ts#L147-L156
 type UntypedRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Format Date format used to convert `date` values in the query.
 	Format *string `json:"format,omitempty"`
@@ -158,6 +157,9 @@ func (s *UntypedRangeQuery) UntypedRangeQueryCaster() *UntypedRangeQuery {
 }
 
 func (s *UntypedRangeQuery) RangeQueryCaster() *RangeQuery {
+	if s == nil {
+		return nil
+	}
 	o := RangeQuery(s)
 	return &o
 }

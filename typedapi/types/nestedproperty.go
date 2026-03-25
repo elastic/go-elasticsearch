@@ -911,6 +911,9 @@ func (s *NestedProperty) NestedPropertyCaster() *NestedProperty {
 }
 
 func (s *NestedProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

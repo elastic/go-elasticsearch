@@ -53,9 +53,11 @@ func (s *_topMetricsAggregation) Size(size int) *_topMetricsAggregation {
 
 func (s *_topMetricsAggregation) Sort(sorts ...types.SortCombinationsVariant) *_topMetricsAggregation {
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		s.v.Sort = append(s.v.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	s.v.Sort = convertedItems
 
 	return s
 }

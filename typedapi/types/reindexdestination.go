@@ -47,13 +47,11 @@ type ReindexDestination struct {
 	// Pipeline The name of the pipeline to use.
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Routing By default, a document's routing is preserved unless it's changed by the
-	// script.
-	// If it is `keep`, the routing on the bulk request sent for each match is set
-	// to the routing on the match.
-	// If it is `discard`, the routing on the bulk request sent for each match is
-	// set to `null`.
-	// If it is `=value`, the routing on the bulk request sent for each match is set
-	// to all value specified after the equals sign (`=`).
+	// script. If it is `keep`, the routing on the bulk request sent for each match
+	// is set to the routing on the match. If it is `discard`, the routing on the
+	// bulk request sent for each match is set to `null`. If it is `=value`, the
+	// routing on the bulk request sent for each match is set to all value specified
+	// after the equals sign (`=`).
 	Routing []string `json:"routing,omitempty"`
 	// VersionType The versioning to use for the indexing operation.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`

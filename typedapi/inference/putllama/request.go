@@ -32,9 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/put_llama/PutLlamaRequest.ts#L30-L83
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `text_embedding` task type.
-	// Not applicable to the `completion` or `chat_completion` task types.
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `completion` or `chat_completion` task types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `llama`.

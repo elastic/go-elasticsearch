@@ -61,6 +61,9 @@ func (s *IncludedInValidation) IncludedInValidationCaster() *IncludedInValidatio
 }
 
 func (s *IncludedInValidation) ValidationCaster() *Validation {
+	if s == nil {
+		return nil
+	}
 	o := Validation(s)
 	return &o
 }

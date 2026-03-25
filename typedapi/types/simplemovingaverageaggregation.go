@@ -37,9 +37,8 @@ import (
 type SimpleMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
-	// Format `DecimalFormat` pattern for the output value.
-	// If specified, the formatted value is returned in the aggregation’s
-	// `value_as_string` property.
+	// Format `DecimalFormat` pattern for the output value. If specified, the formatted
+	// value is returned in the aggregation’s `value_as_string` property.
 	Format *string `json:"format,omitempty"`
 	// GapPolicy Policy to apply when gaps are found in the data.
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
@@ -183,6 +182,9 @@ func (s *SimpleMovingAverageAggregation) SimpleMovingAverageAggregationCaster() 
 }
 
 func (s *SimpleMovingAverageAggregation) MovingAverageAggregationCaster() *MovingAverageAggregation {
+	if s == nil {
+		return nil
+	}
 	o := MovingAverageAggregation(s)
 	return &o
 }

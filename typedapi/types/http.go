@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/nodes/_types/Stats.ts#L671-L690
 type Http struct {
-	// Clients Information on current and recently-closed HTTP client connections.
-	// Clients that have been closed longer than the
+	// Clients Information on current and recently-closed HTTP client connections. Clients
+	// that have been closed longer than the
 	// `http.client_stats.closed_channels.max_age` setting will not be represented
 	// here.
 	Clients []Client `json:"clients,omitempty"`

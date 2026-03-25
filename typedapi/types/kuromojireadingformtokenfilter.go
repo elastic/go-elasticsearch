@@ -112,6 +112,9 @@ func (s *KuromojiReadingFormTokenFilter) KuromojiReadingFormTokenFilterCaster() 
 }
 
 func (s *KuromojiReadingFormTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

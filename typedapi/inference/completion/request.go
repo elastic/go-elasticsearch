@@ -32,8 +32,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/completion/CompletionRequest.ts#L25-L72
 type Request struct {
-	// Input Inference input.
-	// Either a string or an array of strings.
+	// Input Inference input. Either a string or an array of strings.
 	Input []string `json:"input"`
 	// TaskSettings Task settings for the individual inference request. These settings are
 	// specific to the <task_type> you specified and override the task settings

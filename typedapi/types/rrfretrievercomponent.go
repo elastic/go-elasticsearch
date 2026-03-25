@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RRFRetrieverComponent type.
+// Wraps a retriever with an optional weight for RRF scoring.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Retriever.ts#L145-L156
 type RRFRetrieverComponent struct {
@@ -98,6 +98,9 @@ func (s *RRFRetrieverComponent) RRFRetrieverComponentCaster() *RRFRetrieverCompo
 }
 
 func (s *RRFRetrieverComponent) RRFRetrieverEntryCaster() *RRFRetrieverEntry {
+	if s == nil {
+		return nil
+	}
 	o := RRFRetrieverEntry(s)
 	return &o
 }

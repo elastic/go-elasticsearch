@@ -40,25 +40,25 @@ type Request struct {
 	DateDetection *bool `json:"date_detection,omitempty"`
 	// Dynamic Controls whether new fields are added dynamically.
 	Dynamic *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	// DynamicDateFormats If date detection is enabled then new string fields are checked
-	// against 'dynamic_date_formats' and if the value matches then
-	// a new date field is added instead of string.
+	// DynamicDateFormats If date detection is enabled then new string fields are checked against
+	// 'dynamic_date_formats' and if the value matches then a new date field is
+	// added instead of string.
 	DynamicDateFormats []string `json:"dynamic_date_formats,omitempty"`
 	// DynamicTemplates Specify dynamic templates for the mapping.
 	DynamicTemplates []map[string]types.DynamicTemplate `json:"dynamic_templates,omitempty"`
 	// FieldNames_ Control whether field names are enabled for the index.
 	FieldNames_ *types.FieldNamesField `json:"_field_names,omitempty"`
-	// Meta_ A mapping type can have custom meta data associated with it. These are
-	// not used at all by Elasticsearch, but can be used to store
-	// application-specific metadata.
+	// Meta_ A mapping type can have custom meta data associated with it. These are not
+	// used at all by Elasticsearch, but can be used to store application-specific
+	// metadata.
 	Meta_ types.Metadata `json:"_meta,omitempty"`
 	// NumericDetection Automatically map strings into numeric data types for all fields.
 	NumericDetection *bool `json:"numeric_detection,omitempty"`
 	// Properties Mapping for a field. For new fields, this mapping can include:
 	//
-	// - Field name
-	// - Field data type
-	// - Mapping parameters
+	//   - Field name
+	//   - Field data type
+	//   - Mapping parameters
 	Properties map[string]types.Property `json:"properties,omitempty"`
 	// Routing_ Enable making a routing value required on indexed documents.
 	Routing_ *types.RoutingField `json:"_routing,omitempty"`

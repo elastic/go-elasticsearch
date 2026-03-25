@@ -20,7 +20,8 @@
 
 package types
 
-// DataStreamOptions type.
+// Data stream options contain the configuration of data stream level features
+// for a given data stream, for example, the failure store configuration.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/_types/DataStreamOptions.ts#L25-L34
 type DataStreamOptions struct {

@@ -117,6 +117,9 @@ func (s *TurkishAnalyzer) TurkishAnalyzerCaster() *TurkishAnalyzer {
 }
 
 func (s *TurkishAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

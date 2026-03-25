@@ -76,7 +76,9 @@ func NewGetBuiltinPrivilegesFunc(tp elastictransport.Interface) NewGetBuiltinPri
 // Get the list of cluster privileges and index privileges that are available in
 // this version of Elasticsearch.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-builtin-privileges
 func New(tp elastictransport.Interface) *GetBuiltinPrivileges {
 	r := &GetBuiltinPrivileges{
 		transport: tp,
@@ -147,7 +149,7 @@ func (r GetBuiltinPrivileges) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_builtin_privileges")
+			ctx = instrument.Start(providedCtx, "security.get_builtin_privileges")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -307,11 +309,9 @@ func (r *GetBuiltinPrivileges) FilterPath(filterpaths ...string) *GetBuiltinPriv
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetBuiltinPrivileges) Human(human bool) *GetBuiltinPrivileges {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -319,8 +319,8 @@ func (r *GetBuiltinPrivileges) Human(human bool) *GetBuiltinPrivileges {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetBuiltinPrivileges) Pretty(pretty bool) *GetBuiltinPrivileges {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

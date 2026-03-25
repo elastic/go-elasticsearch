@@ -42,21 +42,19 @@ type AzureAiStudioTaskSettings struct {
 	// ReturnDocuments For a `rerank` task, return doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// Temperature For a `completion` task, control the apparent creativity of generated
-	// completions with a sampling temperature.
-	// It must be a number in the range of 0.0 to 2.0.
-	// It should not be used if `top_p` is specified.
+	// completions with a sampling temperature. It must be a number in the range of
+	// 0.0 to 2.0. It should not be used if `top_p` is specified.
 	Temperature *float32 `json:"temperature,omitempty"`
-	// TopN For a `rerank` task, the number of most relevant documents to return.
-	// It defaults to the number of the documents.
+	// TopN For a `rerank` task, the number of most relevant documents to return. It
+	// defaults to the number of the documents.
 	TopN *int `json:"top_n,omitempty"`
 	// TopP For a `completion` task, make the model consider the results of the tokens
-	// with nucleus sampling probability.
-	// It is an alternative value to `temperature` and must be a number in the range
-	// of 0.0 to 2.0.
-	// It should not be used if `temperature` is specified.
+	// with nucleus sampling probability. It is an alternative value to
+	// `temperature` and must be a number in the range of 0.0 to 2.0. It should not
+	// be used if `temperature` is specified.
 	TopP *float32 `json:"top_p,omitempty"`
-	// User For a `text_embedding` task, specify the user issuing the request.
-	// This information can be used for abuse detection.
+	// User For a `text_embedding` task, specify the user issuing the request. This
+	// information can be used for abuse detection.
 	User *string `json:"user,omitempty"`
 }
 

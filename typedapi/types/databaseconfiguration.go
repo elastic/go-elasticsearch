@@ -28,7 +28,13 @@ import (
 	"io"
 )
 
-// DatabaseConfiguration type.
+// The configuration necessary to identify which IP geolocation provider to use
+// to download a database, as well as any provider-specific configuration
+// necessary for such downloading. At present, the only supported providers are
+// `maxmind` and `ipinfo`, and the `maxmind` provider requires that an
+// `account_id` (string) is configured. A provider (either `maxmind` or
+// `ipinfo`) must be specified. The web and local providers can be returned as
+// read only configurations.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ingest/_types/Database.ts#L22-L37
 type DatabaseConfiguration struct {

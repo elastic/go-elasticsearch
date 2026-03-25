@@ -879,6 +879,9 @@ func (s *Murmur3HashProperty) Murmur3HashPropertyCaster() *Murmur3HashProperty {
 }
 
 func (s *Murmur3HashProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

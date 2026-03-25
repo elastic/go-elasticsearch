@@ -35,13 +35,11 @@ type Response struct {
 	// Deleted The number of documents that were successfully deleted.
 	Deleted *int64 `json:"deleted,omitempty"`
 	// Failures If there were any unrecoverable errors during the process, it is an array of
-	// those failures.
-	// If this array is not empty, the request ended because of those failures.
-	// Reindex is implemented using batches and any failure causes the entire
-	// process to end but all failures in the current batch are collected into the
-	// array.
-	// You can use the `conflicts` option to prevent the reindex from ending on
-	// version conflicts.
+	// those failures. If this array is not empty, the request ended because of
+	// those failures. Reindex is implemented using batches and any failure causes
+	// the entire process to end but all failures in the current batch are collected
+	// into the array. You can use the `conflicts` option to prevent the reindex
+	// from ending on version conflicts.
 	Failures []types.BulkIndexByScrollFailure `json:"failures,omitempty"`
 	// Noops The number of documents that were ignored because the script used for the
 	// reindex returned a `noop` value for `ctx.op`.
@@ -57,10 +55,10 @@ type Response struct {
 	// ThrottledMillis The number of milliseconds the request slept to conform to
 	// `requests_per_second`.
 	ThrottledMillis *int64 `json:"throttled_millis,omitempty"`
-	// ThrottledUntilMillis This field should always be equal to zero in a reindex response.
-	// It has meaning only when using the task API, where it indicates the next time
-	// (in milliseconds since epoch) that a throttled request will be run again in
-	// order to conform to `requests_per_second`.
+	// ThrottledUntilMillis This field should always be equal to zero in a reindex response. It has
+	// meaning only when using the task API, where it indicates the next time (in
+	// milliseconds since epoch) that a throttled request will be run again in order
+	// to conform to `requests_per_second`.
 	ThrottledUntilMillis *int64 `json:"throttled_until_millis,omitempty"`
 	// TimedOut If any of the requests that ran during the reindex timed out, it is `true`.
 	TimedOut *bool `json:"timed_out,omitempty"`
@@ -68,9 +66,8 @@ type Response struct {
 	Took *int64 `json:"took,omitempty"`
 	// Total The number of documents that were successfully processed.
 	Total *int64 `json:"total,omitempty"`
-	// Updated The number of documents that were successfully updated.
-	// That is to say, a document with the same ID already existed before the
-	// reindex updated it.
+	// Updated The number of documents that were successfully updated. That is to say, a
+	// document with the same ID already existed before the reindex updated it.
 	Updated *int64 `json:"updated,omitempty"`
 	// VersionConflicts The number of version conflicts that occurred.
 	VersionConflicts *int64 `json:"version_conflicts,omitempty"`

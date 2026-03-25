@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ingest/_types/Processors.ts#L649-L710
 type CommunityIDProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// DestinationIp Field containing the destination IP address.
 	DestinationIp *string `json:"destination_ip,omitempty"`
@@ -63,8 +63,7 @@ type CommunityIDProcessor struct {
 	SourceIp *string `json:"source_ip,omitempty"`
 	// SourcePort Field containing the source port.
 	SourcePort *string `json:"source_port,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField Output field for the community ID.
 	TargetField *string `json:"target_field,omitempty"`

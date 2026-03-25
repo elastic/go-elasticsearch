@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// CompletionTool type.
+// A list of tools that the model can call.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L278-L290
 type CompletionTool struct {

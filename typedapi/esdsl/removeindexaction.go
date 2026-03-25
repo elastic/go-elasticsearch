@@ -26,8 +26,7 @@ type _removeIndexAction struct {
 	v *types.RemoveIndexAction
 }
 
-// Deletes an index.
-// You cannot use this action on aliases or data streams.
+// Deletes an index. You cannot use this action on aliases or data streams.
 func NewRemoveIndexAction() *_removeIndexAction {
 
 	return &_removeIndexAction{v: types.NewRemoveIndexAction()}

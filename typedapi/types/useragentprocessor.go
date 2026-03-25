@@ -35,8 +35,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ingest/_types/Processors.ts#L537-L568
 type UserAgentProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// ExtractDeviceType Extracts device type from the user agent string on a best-effort basis.
 	ExtractDeviceType *bool `json:"extract_device_type,omitempty"`
@@ -59,8 +59,7 @@ type UserAgentProcessor struct {
 	// specified, ingest-user-agent will use the `regexes.yaml` from uap-core it
 	// ships with.
 	RegexFile *string `json:"regex_file,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField The field that will be filled with the user agent details.
 	TargetField *string `json:"target_field,omitempty"`

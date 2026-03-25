@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Knn.ts#L108-L117
 type TextEmbedding struct {
-	// ModelId Model ID is required for all dense_vector fields but
-	// may be inferred for semantic_text fields
+	// ModelId Model ID is required for all dense_vector fields but may be inferred for
+	// semantic_text fields
 	ModelId   *string `json:"model_id,omitempty"`
 	ModelText string  `json:"model_text"`
 }

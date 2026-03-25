@@ -175,6 +175,9 @@ func (s *CustomAnalyzer) CustomAnalyzerCaster() *CustomAnalyzer {
 }
 
 func (s *CustomAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

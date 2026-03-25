@@ -40,11 +40,9 @@ type Request struct {
 	// objects.
 	IndexTemplateSubstitutions map[string]types.IndexTemplate `json:"index_template_substitutions,omitempty"`
 	MappingAddition            *types.TypeMapping             `json:"mapping_addition,omitempty"`
-	// PipelineSubstitutions Pipelines to test.
-	// If you don’t specify the `pipeline` request path parameter, this parameter is
-	// required.
-	// If you specify both this and the request path parameter, the API only uses
-	// the request path parameter.
+	// PipelineSubstitutions Pipelines to test. If you don’t specify the `pipeline` request path
+	// parameter, this parameter is required. If you specify both this and the
+	// request path parameter, the API only uses the request path parameter.
 	PipelineSubstitutions map[string]types.IngestPipeline `json:"pipeline_substitutions,omitempty"`
 }
 

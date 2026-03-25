@@ -110,6 +110,9 @@ func (s *GreekAnalyzer) GreekAnalyzerCaster() *GreekAnalyzer {
 }
 
 func (s *GreekAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

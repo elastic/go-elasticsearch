@@ -105,6 +105,9 @@ func (s *LowercaseTokenFilter) LowercaseTokenFilterCaster() *LowercaseTokenFilte
 }
 
 func (s *LowercaseTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

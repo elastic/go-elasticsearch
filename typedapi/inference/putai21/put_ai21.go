@@ -95,7 +95,9 @@ func NewPutAi21Func(tp elastictransport.Interface) NewPutAi21 {
 // Create an inference endpoint to perform an inference task with the `ai21`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-ai21
 func New(tp elastictransport.Interface) *PutAi21 {
 	r := &PutAi21{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAi21) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_ai21")
+			ctx = instrument.Start(providedCtx, "inference.put_ai21")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +372,9 @@ func (r *PutAi21) FilterPath(filterpaths ...string) *PutAi21 {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAi21) Human(human bool) *PutAi21 {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +382,8 @@ func (r *PutAi21) Human(human bool) *PutAi21 {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAi21) Pretty(pretty bool) *PutAi21 {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

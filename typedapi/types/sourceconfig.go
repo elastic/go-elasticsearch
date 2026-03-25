@@ -25,6 +25,9 @@ package types
 //	bool
 //	SourceFilter
 //
+// Defines how to fetch a source. Fetching can be disabled entirely, or the
+// source can be filtered.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/search/_types/SourceFilter.ts#L50-L54
 type SourceConfig any
 

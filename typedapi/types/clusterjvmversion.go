@@ -46,9 +46,8 @@ type ClusterJvmVersion struct {
 	VmName string `json:"vm_name"`
 	// VmVendor Vendor of the JVM.
 	VmVendor string `json:"vm_vendor"`
-	// VmVersion Full version number of JVM.
-	// The full version number includes a plus sign (+) followed by the build
-	// number.
+	// VmVersion Full version number of JVM. The full version number includes a plus sign (+)
+	// followed by the build number.
 	VmVersion string `json:"vm_version"`
 }
 

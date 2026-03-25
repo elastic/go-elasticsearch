@@ -43,27 +43,23 @@ type Request struct {
 	FullName *string `json:"full_name,omitempty"`
 	// Metadata Arbitrary metadata that you want to associate with the user.
 	Metadata types.Metadata `json:"metadata,omitempty"`
-	// Password The user's password.
-	// Passwords must be at least 6 characters long.
-	// When adding a user, one of `password` or `password_hash` is required.
-	// When updating an existing user, the password is optional, so that other
-	// fields on the user (such as their roles) may be updated without modifying the
-	// user's password
+	// Password The user's password. Passwords must be at least 6 characters long. When
+	// adding a user, one of `password` or `password_hash` is required. When
+	// updating an existing user, the password is optional, so that other fields on
+	// the user (such as their roles) may be updated without modifying the user's
+	// password
 	Password *string `json:"password,omitempty"`
-	// PasswordHash A hash of the user's password.
-	// This must be produced using the same hashing algorithm as has been configured
-	// for password storage.
-	// For more details, see the explanation of the
-	// `xpack.security.authc.password_hashing.algorithm` setting in the user cache
-	// and password hash algorithm documentation.
-	// Using this parameter allows the client to pre-hash the password for
-	// performance and/or confidentiality reasons.
-	// The `password` parameter and the `password_hash` parameter cannot be used in
-	// the same request.
+	// PasswordHash A hash of the user's password. This must be produced using the same hashing
+	// algorithm as has been configured for password storage. For more details, see
+	// the explanation of the `xpack.security.authc.password_hashing.algorithm`
+	// setting in the user cache and password hash algorithm documentation. Using
+	// this parameter allows the client to pre-hash the password for performance
+	// and/or confidentiality reasons. The `password` parameter and the
+	// `password_hash` parameter cannot be used in the same request.
 	PasswordHash *string `json:"password_hash,omitempty"`
-	// Roles A set of roles the user has.
-	// The roles determine the user's access permissions.
-	// To create a user without any roles, specify an empty list (`[]`).
+	// Roles A set of roles the user has. The roles determine the user's access
+	// permissions. To create a user without any roles, specify an empty list
+	// (`[]`).
 	Roles    []string `json:"roles,omitempty"`
 	Username *string  `json:"username,omitempty"`
 }

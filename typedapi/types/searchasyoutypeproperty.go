@@ -985,6 +985,9 @@ func (s *SearchAsYouTypeProperty) SearchAsYouTypePropertyCaster() *SearchAsYouTy
 }
 
 func (s *SearchAsYouTypeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

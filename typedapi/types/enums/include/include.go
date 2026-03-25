@@ -29,14 +29,25 @@ type Include struct {
 }
 
 var (
+
+	// Definition Includes the model definition.
 	Definition = Include{"definition"}
 
+	// Featureimportancebaseline Includes the baseline for feature importance values.
 	Featureimportancebaseline = Include{"feature_importance_baseline"}
 
+	// Hyperparameters Includes the information about hyperparameters used to train the model. This
+	// information consists of the value, the absolute and relative importance of
+	// the hyperparameter as well as an indicator of whether it was specified by the
+	// user or tuned during hyperparameter optimization.
 	Hyperparameters = Include{"hyperparameters"}
 
+	// Totalfeatureimportance Includes the total feature importance for the training data set. The baseline
+	// and total feature importance values are returned in the metadata field in the
+	// response body.
 	Totalfeatureimportance = Include{"total_feature_importance"}
 
+	// Definitionstatus Includes the model definition status.
 	Definitionstatus = Include{"definition_status"}
 )
 

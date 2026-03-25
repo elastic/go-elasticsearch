@@ -95,6 +95,9 @@ func (s *RemoveDuplicatesTokenFilter) RemoveDuplicatesTokenFilterCaster() *Remov
 }
 
 func (s *RemoveDuplicatesTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

@@ -43,22 +43,21 @@ type Request struct {
 	Field string `json:"field"`
 	// IndexFilter Filter an index shard if the provided query rewrites to `match_none`.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
-	// SearchAfter The string after which terms in the index should be returned.
-	// It allows for a form of pagination if the last result from one request is
-	// passed as the `search_after` parameter for a subsequent request.
+	// SearchAfter The string after which terms in the index should be returned. It allows for a
+	// form of pagination if the last result from one request is passed as the
+	// `search_after` parameter for a subsequent request.
 	SearchAfter *string `json:"search_after,omitempty"`
 	// Size The number of matching terms to return.
 	Size *int `json:"size,omitempty"`
-	// String The string to match at the start of indexed terms.
-	// If it is not provided, all terms in the field are considered.
+	// String The string to match at the start of indexed terms. If it is not provided, all
+	// terms in the field are considered.
 	//
-	// > info
-	// > The prefix string cannot be larger than the largest possible keyword value,
-	// which is Lucene's term byte-length limit of 32766.
+	// > info > The prefix string cannot be larger than the largest possible keyword
+	// value, which is Lucene's term byte-length limit of 32766.
 	String *string `json:"string,omitempty"`
-	// Timeout The maximum length of time to spend collecting results.
-	// If the timeout is exceeded the `complete` flag set to `false` in the response
-	// and the results may be partial or empty.
+	// Timeout The maximum length of time to spend collecting results. If the timeout is
+	// exceeded the `complete` flag set to `false` in the response and the results
+	// may be partial or empty.
 	Timeout types.Duration `json:"timeout,omitempty"`
 }
 

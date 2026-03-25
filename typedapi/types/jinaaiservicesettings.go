@@ -39,33 +39,29 @@ type JinaAIServiceSettings struct {
 	// ApiKey A valid API key of your JinaAI account.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// Dimensions For a `text_embedding` task, the number of dimensions the resulting output
-	// embeddings should have.
-	// By default, the model's standard output dimension is used.
-	// Refer to the Jina documentation for more information.
+	// embeddings should have. By default, the model's standard output dimension is
+	// used. Refer to the Jina documentation for more information.
 	Dimensions *int `json:"dimensions,omitempty"`
-	// ElementType For a `text_embedding` task, the data type returned by the model.
-	// Use `bit` for binary embeddings, which are encoded as bytes with signed int8
-	// precision.
+	// ElementType For a `text_embedding` task, the data type returned by the model. Use `bit`
+	// for binary embeddings, which are encoded as bytes with signed int8 precision.
 	// Use `binary` for binary embeddings, which are encoded as bytes with signed
-	// int8 precision (this is a synonym of `bit`).
-	// Use `float` for the default float embeddings.
+	// int8 precision (this is a synonym of `bit`). Use `float` for the default
+	// float embeddings.
 	ElementType *jinaaielementtype.JinaAIElementType `json:"element_type,omitempty"`
 	// ModelId The name of the model to use for the inference task.
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// JinaAI.
-	// By default, the `jinaai` service sets the number of requests allowed per
-	// minute to 2000 for all task types.
+	// JinaAI. By default, the `jinaai` service sets the number of requests allowed
+	// per minute to 2000 for all task types.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
-	// dot_product, l2_norm.
-	// The default values varies with the embedding type.
-	// For example, a float embedding type uses a `dot_product` similarity measure
-	// by default.
+	// dot_product, l2_norm. The default values varies with the embedding type. For
+	// example, a float embedding type uses a `dot_product` similarity measure by
+	// default.
 	Similarity *jinaaisimilaritytype.JinaAISimilarityType `json:"similarity,omitempty"`
 }
 

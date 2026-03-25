@@ -976,6 +976,9 @@ func (s *IpProperty) IpPropertyCaster() *IpProperty {
 }
 
 func (s *IpProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

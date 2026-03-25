@@ -102,6 +102,9 @@ func (s *HtmlStripCharFilter) HtmlStripCharFilterCaster() *HtmlStripCharFilter {
 }
 
 func (s *HtmlStripCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

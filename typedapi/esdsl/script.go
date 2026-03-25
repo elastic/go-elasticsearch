@@ -31,8 +31,8 @@ type _script struct {
 	v *types.Script
 }
 
-// Script used to return matching documents.
-// This script must return a boolean value: `true` or `false`.
+// Script used to return matching documents. This script must return a boolean
+// value: `true` or `false`.
 func NewScript() *_script {
 
 	return &_script{v: types.NewScript()}

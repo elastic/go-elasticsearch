@@ -33,10 +33,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/snapshot/_types/SnapshotStats.ts#L23-L42
 type SnapshotStats struct {
 	// Incremental The number and size of files that still need to be copied as part of the
-	// incremental snapshot.
-	// For completed snapshots, this property indicates the number and size of files
-	// that were not already in the repository and were copied as part of the
-	// incremental snapshot.
+	// incremental snapshot. For completed snapshots, this property indicates the
+	// number and size of files that were not already in the repository and were
+	// copied as part of the incremental snapshot.
 	Incremental FileCountSnapshotStats `json:"incremental"`
 	// StartTimeInMillis The time, in milliseconds, when the snapshot creation process started.
 	StartTimeInMillis int64    `json:"start_time_in_millis"`

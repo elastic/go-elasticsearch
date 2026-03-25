@@ -32,9 +32,9 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L33-L40
 type CompactNodeInfo struct {
-	// Name A human-readable name for the node.
-	// You can set this name using the `node.name` property in `elasticsearch.yml`.
-	// The default value is the machine's hostname.
+	// Name A human-readable name for the node. You can set this name using the
+	// `node.name` property in `elasticsearch.yml`. The default value is the
+	// machine's hostname.
 	Name string `json:"name"`
 }
 

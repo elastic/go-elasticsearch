@@ -21,8 +21,7 @@
 // Stop datafeeds.
 //
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
-// datafeed can be started and stopped
-// multiple times throughout its lifecycle.
+// datafeed can be started and stopped multiple times throughout its lifecycle.
 package stopdatafeed
 
 import (
@@ -88,10 +87,11 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 // Stop datafeeds.
 //
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
-// datafeed can be started and stopped
-// multiple times throughout its lifecycle.
+// datafeed can be started and stopped multiple times throughout its lifecycle.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-datafeed
 func New(tp elastictransport.Interface) *StopDatafeed {
 	r := &StopDatafeed{
 		transport: tp,
@@ -216,7 +216,7 @@ func (r StopDatafeed) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.stop_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.stop_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -315,10 +315,9 @@ func (r *StopDatafeed) Header(key, value string) *StopDatafeed {
 }
 
 // DatafeedId Identifier for the datafeed. You can stop multiple datafeeds in a single API
-// request by using a comma-separated
-// list of datafeeds or a wildcard expression. You can close all datafeeds by
-// using `_all` or by specifying `*` as
-// the identifier.
+// request by using a comma-separated list of datafeeds or a wildcard
+// expression. You can close all datafeeds by using `_all` or by specifying `*`
+// as the identifier.
 // API Name: datafeedid
 func (r *StopDatafeed) _datafeedid(datafeedid string) *StopDatafeed {
 	r.paramSet |= datafeedidMask
@@ -350,11 +349,9 @@ func (r *StopDatafeed) FilterPath(filterpaths ...string) *StopDatafeed {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StopDatafeed) Human(human bool) *StopDatafeed {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -362,8 +359,8 @@ func (r *StopDatafeed) Human(human bool) *StopDatafeed {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StopDatafeed) Pretty(pretty bool) *StopDatafeed {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

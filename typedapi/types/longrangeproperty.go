@@ -929,6 +929,9 @@ func (s *LongRangeProperty) LongRangePropertyCaster() *LongRangeProperty {
 }
 
 func (s *LongRangeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

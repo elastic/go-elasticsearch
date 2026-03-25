@@ -114,6 +114,9 @@ func (s *KeywordTokenizer) KeywordTokenizerCaster() *KeywordTokenizer {
 }
 
 func (s *KeywordTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

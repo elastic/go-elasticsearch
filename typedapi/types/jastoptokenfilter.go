@@ -102,6 +102,9 @@ func (s *JaStopTokenFilter) JaStopTokenFilterCaster() *JaStopTokenFilter {
 }
 
 func (s *JaStopTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

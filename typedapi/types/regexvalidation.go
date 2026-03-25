@@ -103,6 +103,9 @@ func (s *RegexValidation) RegexValidationCaster() *RegexValidation {
 }
 
 func (s *RegexValidation) ValidationCaster() *Validation {
+	if s == nil {
+		return nil
+	}
 	o := Validation(s)
 	return &o
 }

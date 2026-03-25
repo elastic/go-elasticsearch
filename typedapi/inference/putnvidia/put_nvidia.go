@@ -95,7 +95,9 @@ func NewPutNvidiaFunc(tp elastictransport.Interface) NewPutNvidia {
 // Create an inference endpoint to perform an inference task with the `nvidia`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-nvidia
 func New(tp elastictransport.Interface) *PutNvidia {
 	r := &PutNvidia{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r PutNvidia) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_nvidia")
+			ctx = instrument.Start(providedCtx, "inference.put_nvidia")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -310,9 +312,9 @@ func (r *PutNvidia) Header(key, value string) *PutNvidia {
 	return r
 }
 
-// TaskType The type of the inference task that the model will perform.
-// NOTE: The `chat_completion` task type only supports streaming and only
-// through the _stream API.
+// TaskType The type of the inference task that the model will perform. NOTE: The
+// `chat_completion` task type only supports streaming and only through the
+// _stream API.
 // API Name: tasktype
 func (r *PutNvidia) _tasktype(tasktype string) *PutNvidia {
 	r.paramSet |= tasktypeMask
@@ -362,11 +364,9 @@ func (r *PutNvidia) FilterPath(filterpaths ...string) *PutNvidia {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutNvidia) Human(human bool) *PutNvidia {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -374,8 +374,8 @@ func (r *PutNvidia) Human(human bool) *PutNvidia {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutNvidia) Pretty(pretty bool) *PutNvidia {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -383,9 +383,8 @@ func (r *PutNvidia) Pretty(pretty bool) *PutNvidia {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
 // types.
 // API name: chunking_settings
 func (r *PutNvidia) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutNvidia {
@@ -425,11 +424,10 @@ func (r *PutNvidia) ServiceSettings(servicesettings types.NvidiaServiceSettingsV
 	return r
 }
 
-// Settings to configure the inference task.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-// types.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. Applies only to the
+// `text_embedding` task type. Not applicable to the `rerank`, `completion`, or
+// `chat_completion` task types. These settings are specific to the task type
+// you specified.
 // API name: task_settings
 func (r *PutNvidia) TaskSettings(tasksettings types.NvidiaTaskSettingsVariant) *PutNvidia {
 	// Initialize the request if it is not already initialized

@@ -29,12 +29,19 @@ type DeploymentAssignmentState struct {
 }
 
 var (
+
+	// Started The deployment is usable; at least one node has the model allocated.
 	Started = DeploymentAssignmentState{"started"}
 
+	// Starting The deployment has recently started but is not yet usable; the model is not
+	// allocated on any nodes.
 	Starting = DeploymentAssignmentState{"starting"}
 
+	// Stopping The deployment is preparing to stop and deallocate the model from the
+	// relevant nodes.
 	Stopping = DeploymentAssignmentState{"stopping"}
 
+	// Failed The deployment is on a failed state and must be re-deployed.
 	Failed = DeploymentAssignmentState{"failed"}
 )
 

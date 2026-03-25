@@ -78,7 +78,9 @@ func NewDeleteTransformFunc(tp elastictransport.Interface) NewDeleteTransform {
 
 // Delete a transform.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-delete-transform
 func New(tp elastictransport.Interface) *DeleteTransform {
 	r := &DeleteTransform{
 		transport: tp,
@@ -151,7 +153,7 @@ func (r DeleteTransform) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.delete_transform")
+			ctx = instrument.Start(providedCtx, "transform.delete_transform")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -298,8 +300,7 @@ func (r *DeleteTransform) _transformid(transformid string) *DeleteTransform {
 }
 
 // Force If this value is false, the transform must be stopped before it can be
-// deleted. If true, the transform is
-// deleted regardless of its current state.
+// deleted. If true, the transform is deleted regardless of its current state.
 // API name: force
 func (r *DeleteTransform) Force(force bool) *DeleteTransform {
 	r.values.Set("force", strconv.FormatBool(force))
@@ -308,8 +309,7 @@ func (r *DeleteTransform) Force(force bool) *DeleteTransform {
 }
 
 // DeleteDestIndex If this value is true, the destination index is deleted together with the
-// transform. If false, the destination
-// index will not be deleted
+// transform. If false, the destination index will not be deleted
 // API name: delete_dest_index
 func (r *DeleteTransform) DeleteDestIndex(deletedestindex bool) *DeleteTransform {
 	r.values.Set("delete_dest_index", strconv.FormatBool(deletedestindex))
@@ -349,11 +349,9 @@ func (r *DeleteTransform) FilterPath(filterpaths ...string) *DeleteTransform {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteTransform) Human(human bool) *DeleteTransform {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +359,8 @@ func (r *DeleteTransform) Human(human bool) *DeleteTransform {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteTransform) Pretty(pretty bool) *DeleteTransform {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

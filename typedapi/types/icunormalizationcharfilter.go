@@ -127,6 +127,9 @@ func (s *IcuNormalizationCharFilter) IcuNormalizationCharFilterCaster() *IcuNorm
 }
 
 func (s *IcuNormalizationCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

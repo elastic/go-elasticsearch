@@ -107,6 +107,9 @@ func (s *LessThanValidation) LessThanValidationCaster() *LessThanValidation {
 }
 
 func (s *LessThanValidation) ValidationCaster() *Validation {
+	if s == nil {
+		return nil
+	}
 	o := Validation(s)
 	return &o
 }

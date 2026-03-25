@@ -95,6 +95,9 @@ func (s *DecimalDigitTokenFilter) DecimalDigitTokenFilterCaster() *DecimalDigitT
 }
 
 func (s *DecimalDigitTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

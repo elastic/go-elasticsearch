@@ -29,7 +29,10 @@ import (
 	"strconv"
 )
 
-// RankedDocument type.
+// The rerank result object representing a single ranked document id: the
+// original index of the document in the request relevance_score: the
+// relevance_score of the document relative to the query text: Optional, the
+// text of the document, if requested
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/Results.ts#L95-L105
 type RankedDocument struct {

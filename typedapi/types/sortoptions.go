@@ -145,6 +145,9 @@ func (s *SortOptions) SortOptionsCaster() *SortOptions {
 }
 
 func (s *SortOptions) SortCombinationsCaster() *SortCombinations {
+	if s == nil {
+		return nil
+	}
 	o := SortCombinations(s)
 	return &o
 }

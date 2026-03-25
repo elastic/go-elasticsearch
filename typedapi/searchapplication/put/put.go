@@ -83,7 +83,9 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 
 // Create or update a search application.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-put
 func New(tp elastictransport.Interface) *Put {
 	r := &Put{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r Put) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.put")
+			ctx = instrument.Start(providedCtx, "search_application.put")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -345,11 +347,9 @@ func (r *Put) FilterPath(filterpaths ...string) *Put {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Put) Human(human bool) *Put {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -357,8 +357,8 @@ func (r *Put) Human(human bool) *Put {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Put) Pretty(pretty bool) *Put {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

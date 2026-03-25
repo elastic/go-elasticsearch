@@ -997,6 +997,9 @@ func (s *GeoPointProperty) GeoPointPropertyCaster() *GeoPointProperty {
 }
 
 func (s *GeoPointProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

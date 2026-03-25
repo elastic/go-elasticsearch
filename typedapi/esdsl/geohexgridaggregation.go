@@ -27,9 +27,8 @@ type _geohexGridAggregation struct {
 }
 
 // A multi-bucket aggregation that groups `geo_point` and `geo_shape` values
-// into buckets that represent a grid.
-// Each cell corresponds to a H3 cell index and is labeled using the H3Index
-// representation.
+// into buckets that represent a grid. Each cell corresponds to a H3 cell index
+// and is labeled using the H3Index representation.
 func NewGeohexGridAggregation() *_geohexGridAggregation {
 
 	return &_geohexGridAggregation{v: types.NewGeohexGridAggregation()}

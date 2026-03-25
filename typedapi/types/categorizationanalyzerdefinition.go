@@ -742,6 +742,9 @@ func (s *CategorizationAnalyzerDefinition) CategorizationAnalyzerDefinitionCaste
 }
 
 func (s *CategorizationAnalyzerDefinition) CategorizationAnalyzerCaster() *CategorizationAnalyzer {
+	if s == nil {
+		return nil
+	}
 	o := CategorizationAnalyzer(s)
 	return &o
 }

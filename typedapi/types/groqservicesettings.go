@@ -36,20 +36,19 @@ type GroqServiceSettings struct {
 	// ApiKey A valid API key for accessing Groq API.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey *string `json:"api_key,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the Groq model documentation for the list of supported models and
-	// versions.
-	// Service has been tested and confirmed to be working for `completion` and
-	// `chat_completion` tasks with the following models:
-	// * `llama-3.3-70b-versatile`
+	// ModelId The name of the model to use for the inference task. Refer to the Groq model
+	// documentation for the list of supported models and versions. Service has been
+	// tested and confirmed to be working for `completion` and `chat_completion`
+	// tasks with the following models:
+	//
+	//   - `llama-3.3-70b-versatile`
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// the Groq API.
-	// By default, the `groq` service sets the number of requests allowed per minute
-	// to 1000. Refer to Groq documentation for more details.
+	// the Groq API. By default, the `groq` service sets the number of requests
+	// allowed per minute to 1000. Refer to Groq documentation for more details.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

@@ -103,6 +103,9 @@ func (s *NoriPartOfSpeechTokenFilter) NoriPartOfSpeechTokenFilterCaster() *NoriP
 }
 
 func (s *NoriPartOfSpeechTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

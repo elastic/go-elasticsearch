@@ -26,9 +26,8 @@ type _indexAndDataStreamAction struct {
 	v *types.IndexAndDataStreamAction
 }
 
-// Removes a backing index from a data stream.
-// The index is unhidden as part of this operation.
-// A data stream’s write index cannot be removed.
+// Removes a backing index from a data stream. The index is unhidden as part of
+// this operation. A data stream’s write index cannot be removed.
 func NewIndexAndDataStreamAction() *_indexAndDataStreamAction {
 
 	return &_indexAndDataStreamAction{v: types.NewIndexAndDataStreamAction()}

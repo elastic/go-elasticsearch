@@ -38,8 +38,8 @@ type CompositeAggregation struct {
 	After CompositeAggregateKey `json:"after,omitempty"`
 	// Size The number of composite buckets that should be returned.
 	Size *int `json:"size,omitempty"`
-	// Sources The value sources used to build composite buckets.
-	// Keys are returned in the order of the `sources` definition.
+	// Sources The value sources used to build composite buckets. Keys are returned in the
+	// order of the `sources` definition.
 	Sources []map[string]CompositeAggregationSource `json:"sources,omitempty"`
 }
 

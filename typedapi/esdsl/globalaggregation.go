@@ -27,9 +27,8 @@ type _globalAggregation struct {
 }
 
 // Defines a single bucket of all the documents within the search execution
-// context.
-// This context is defined by the indices and the document types you’re
-// searching on, but is not influenced by the search query itself.
+// context. This context is defined by the indices and the document types
+// you’re searching on, but is not influenced by the search query itself.
 func NewGlobalAggregation() *_globalAggregation {
 
 	return &_globalAggregation{v: types.NewGlobalAggregation()}

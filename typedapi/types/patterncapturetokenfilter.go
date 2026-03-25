@@ -111,6 +111,9 @@ func (s *PatternCaptureTokenFilter) PatternCaptureTokenFilterCaster() *PatternCa
 }
 
 func (s *PatternCaptureTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

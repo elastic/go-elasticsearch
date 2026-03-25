@@ -61,8 +61,7 @@ type Stats struct {
 	// Jvm JVM stats, memory pool information, garbage collection, buffer pools, number
 	// of loaded/unloaded classes.
 	Jvm *Jvm `json:"jvm,omitempty"`
-	// Name Human-readable identifier for the node.
-	// Based on the node name setting.
+	// Name Human-readable identifier for the node. Based on the node name setting.
 	Name *string `json:"name,omitempty"`
 	// Os Operating system stats, load average, mem, swap.
 	Os *OperatingSystem `json:"os,omitempty"`

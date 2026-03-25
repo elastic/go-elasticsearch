@@ -27,8 +27,7 @@ type _terminateProcessor struct {
 }
 
 // Terminates the current ingest pipeline, causing no further processors to be
-// run.
-// This will normally be executed conditionally, using the `if` option.
+// run. This will normally be executed conditionally, using the `if` option.
 func NewTerminateProcessor() *_terminateProcessor {
 
 	return &_terminateProcessor{v: types.NewTerminateProcessor()}

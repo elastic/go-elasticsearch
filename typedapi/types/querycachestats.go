@@ -34,8 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Stats.ts#L219-L253
 type QueryCacheStats struct {
 	// CacheCount Total number of entries added to the query cache across all shards assigned
-	// to selected nodes.
-	// This number includes current and evicted entries.
+	// to selected nodes. This number includes current and evicted entries.
 	CacheCount int64 `json:"cache_count"`
 	// CacheSize Total number of entries currently in the query cache across all shards
 	// assigned to selected nodes.

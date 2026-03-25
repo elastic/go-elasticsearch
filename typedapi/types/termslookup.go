@@ -105,6 +105,9 @@ func (s *TermsLookup) TermsLookupCaster() *TermsLookup {
 }
 
 func (s *TermsLookup) TermsQueryFieldCaster() *TermsQueryField {
+	if s == nil {
+		return nil
+	}
 	o := TermsQueryField(s)
 	return &o
 }

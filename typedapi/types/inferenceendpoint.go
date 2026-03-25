@@ -29,14 +29,13 @@ import (
 	"strconv"
 )
 
-// InferenceEndpoint type.
+// Configuration options when storing the inference endpoint
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/Services.ts#L51-L73
 type InferenceEndpoint struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `sparse_embedding` and `text_embedding` task types.
-	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-	// types.
+	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` and
+	// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or
+	// `chat_completion` task types.
 	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The service type
 	Service string `json:"service"`

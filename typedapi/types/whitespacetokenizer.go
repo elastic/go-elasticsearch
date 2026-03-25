@@ -114,6 +114,9 @@ func (s *WhitespaceTokenizer) WhitespaceTokenizerCaster() *WhitespaceTokenizer {
 }
 
 func (s *WhitespaceTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

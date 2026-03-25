@@ -1065,6 +1065,9 @@ func (s *TextProperty) TextPropertyCaster() *TextProperty {
 }
 
 func (s *TextProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

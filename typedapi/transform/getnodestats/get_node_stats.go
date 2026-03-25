@@ -74,7 +74,9 @@ func NewGetNodeStatsFunc(tp elastictransport.Interface) NewGetNodeStats {
 //
 // Get per-node information about transform usage.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-node-stats
 func New(tp elastictransport.Interface) *GetNodeStats {
 	r := &GetNodeStats{
 		transport: tp,
@@ -143,7 +145,7 @@ func (r GetNodeStats) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.get_node_stats")
+			ctx = instrument.Start(providedCtx, "transform.get_node_stats")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -303,11 +305,9 @@ func (r *GetNodeStats) FilterPath(filterpaths ...string) *GetNodeStats {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetNodeStats) Human(human bool) *GetNodeStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -315,8 +315,8 @@ func (r *GetNodeStats) Human(human bool) *GetNodeStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetNodeStats) Pretty(pretty bool) *GetNodeStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

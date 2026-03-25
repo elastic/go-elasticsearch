@@ -95,7 +95,9 @@ func NewPutGooglevertexaiFunc(tp elastictransport.Interface) NewPutGooglevertexa
 // Create an inference endpoint to perform an inference task with the
 // `googlevertexai` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-googlevertexai
 func New(tp elastictransport.Interface) *PutGooglevertexai {
 	r := &PutGooglevertexai{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutGooglevertexai) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_googlevertexai")
+			ctx = instrument.Start(providedCtx, "inference.put_googlevertexai")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +372,9 @@ func (r *PutGooglevertexai) FilterPath(filterpaths ...string) *PutGooglevertexai
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutGooglevertexai) Human(human bool) *PutGooglevertexai {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +382,8 @@ func (r *PutGooglevertexai) Human(human bool) *PutGooglevertexai {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutGooglevertexai) Pretty(pretty bool) *PutGooglevertexai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -391,9 +391,8 @@ func (r *PutGooglevertexai) Pretty(pretty bool) *PutGooglevertexai {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank`, `completion`, or `chat_completion` task
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
 // types.
 // API name: chunking_settings
 func (r *PutGooglevertexai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutGooglevertexai {
@@ -433,8 +432,8 @@ func (r *PutGooglevertexai) ServiceSettings(servicesettings types.GoogleVertexAI
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutGooglevertexai) TaskSettings(tasksettings types.GoogleVertexAITaskSettingsVariant) *PutGooglevertexai {
 	// Initialize the request if it is not already initialized

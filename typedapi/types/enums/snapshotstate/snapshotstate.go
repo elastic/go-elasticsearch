@@ -29,14 +29,20 @@ type SnapshotState struct {
 }
 
 var (
+
+	// INPROGRESS The snapshot process has started.
 	INPROGRESS = SnapshotState{"IN_PROGRESS"}
 
+	// SUCCESS The snapshot process completed successfully.
 	SUCCESS = SnapshotState{"SUCCESS"}
 
+	// FAILED The snapshot failed.
 	FAILED = SnapshotState{"FAILED"}
 
+	// PARTIAL The snapshot was partially successful.
 	PARTIAL = SnapshotState{"PARTIAL"}
 
+	// INCOMPATIBLE The snapshot is incompatible with the current version of the cluster.
 	INCOMPATIBLE = SnapshotState{"INCOMPATIBLE"}
 )
 

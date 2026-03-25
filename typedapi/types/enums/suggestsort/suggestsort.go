@@ -29,8 +29,12 @@ type SuggestSort struct {
 }
 
 var (
+
+	// Score Sort by score first, then document frequency and then the term itself.
 	Score = SuggestSort{"score"}
 
+	// Frequency Sort by document frequency first, then similarity score and then the term
+	// itself.
 	Frequency = SuggestSort{"frequency"}
 )
 

@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indicatorhealthstatus"
 )
 
-// ShardsAvailabilityIndicator type.
+// SHARDS_AVAILABILITY
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/health_report/types.ts#L107-L111
 type ShardsAvailabilityIndicator struct {

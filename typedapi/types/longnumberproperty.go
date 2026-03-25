@@ -1005,6 +1005,9 @@ func (s *LongNumberProperty) LongNumberPropertyCaster() *LongNumberProperty {
 }
 
 func (s *LongNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

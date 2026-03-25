@@ -29,19 +29,17 @@ import (
 	"strconv"
 )
 
-// FillMaskInferenceOptions type.
+// Fill mask inference options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/_types/inference.ts#L286-L303
 type FillMaskInferenceOptions struct {
 	// MaskToken The string/token which will be removed from incoming documents and replaced
-	// with the inference prediction(s).
-	// In a response, this field contains the mask token for the specified
-	// model/tokenizer. Each model and tokenizer
-	// has a predefined mask token which cannot be changed. Thus, it is recommended
-	// not to set this value in requests.
-	// However, if this field is present in a request, its value must match the
-	// predefined value for that model/tokenizer,
-	// otherwise the request will fail.
+	// with the inference prediction(s). In a response, this field contains the mask
+	// token for the specified model/tokenizer. Each model and tokenizer has a
+	// predefined mask token which cannot be changed. Thus, it is recommended not to
+	// set this value in requests. However, if this field is present in a request,
+	// its value must match the predefined value for that model/tokenizer, otherwise
+	// the request will fail.
 	MaskToken *string `json:"mask_token,omitempty"`
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`

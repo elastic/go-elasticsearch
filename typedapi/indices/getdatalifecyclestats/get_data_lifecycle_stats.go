@@ -145,7 +145,7 @@ func (r GetDataLifecycleStats) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_lifecycle_stats")
+			ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle_stats")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -305,11 +305,9 @@ func (r *GetDataLifecycleStats) FilterPath(filterpaths ...string) *GetDataLifecy
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetDataLifecycleStats) Human(human bool) *GetDataLifecycleStats {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -317,8 +315,8 @@ func (r *GetDataLifecycleStats) Human(human bool) *GetDataLifecycleStats {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetDataLifecycleStats) Pretty(pretty bool) *GetDataLifecycleStats {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

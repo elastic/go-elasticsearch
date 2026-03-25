@@ -87,7 +87,9 @@ func NewUpdateConfigurationFunc(tp elastictransport.Interface) NewUpdateConfigur
 //
 // Update the configuration field in the connector document.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-configuration
 func New(tp elastictransport.Interface) *UpdateConfiguration {
 	r := &UpdateConfiguration{
 		transport: tp,
@@ -210,7 +212,7 @@ func (r UpdateConfiguration) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_configuration")
+			ctx = instrument.Start(providedCtx, "connector.update_configuration")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -340,11 +342,9 @@ func (r *UpdateConfiguration) FilterPath(filterpaths ...string) *UpdateConfigura
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateConfiguration) Human(human bool) *UpdateConfiguration {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -352,8 +352,8 @@ func (r *UpdateConfiguration) Human(human bool) *UpdateConfiguration {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateConfiguration) Pretty(pretty bool) *UpdateConfiguration {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

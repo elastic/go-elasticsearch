@@ -29,14 +29,13 @@ import (
 	"strconv"
 )
 
-// ValueCountAggregate type.
+// Value count aggregation result. `value` is always present.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L236-L241
 type ValueCountAggregate struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
-	// aggregate,
-	// unless specified otherwise.
+	// aggregate, unless specified otherwise.
 	Value         *Float64 `json:"value,omitempty"`
 	ValueAsString *string  `json:"value_as_string,omitempty"`
 }

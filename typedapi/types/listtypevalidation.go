@@ -103,6 +103,9 @@ func (s *ListTypeValidation) ListTypeValidationCaster() *ListTypeValidation {
 }
 
 func (s *ListTypeValidation) ValidationCaster() *Validation {
+	if s == nil {
+		return nil
+	}
 	o := Validation(s)
 	return &o
 }

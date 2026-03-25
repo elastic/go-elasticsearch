@@ -26,9 +26,8 @@ type _urlDecodeProcessor struct {
 	v *types.UrlDecodeProcessor
 }
 
-// URL-decodes a string.
-// If the field is an array of strings, all members of the array will be
-// decoded.
+// URL-decodes a string. If the field is an array of strings, all members of the
+// array will be decoded.
 func NewUrlDecodeProcessor() *_urlDecodeProcessor {
 
 	return &_urlDecodeProcessor{v: types.NewUrlDecodeProcessor()}

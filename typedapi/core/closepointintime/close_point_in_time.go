@@ -21,12 +21,10 @@
 // Close a point in time.
 //
 // A point in time must be opened explicitly before being used in search
-// requests.
-// The `keep_alive` parameter tells Elasticsearch how long it should persist.
-// A point in time is automatically closed when the `keep_alive` period has
-// elapsed.
-// However, keeping points in time has a cost; close them as soon as they are no
-// longer required for search requests.
+// requests. The `keep_alive` parameter tells Elasticsearch how long it should
+// persist. A point in time is automatically closed when the `keep_alive` period
+// has elapsed. However, keeping points in time has a cost; close them as soon
+// as they are no longer required for search requests.
 package closepointintime
 
 import (
@@ -85,14 +83,14 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 // Close a point in time.
 //
 // A point in time must be opened explicitly before being used in search
-// requests.
-// The `keep_alive` parameter tells Elasticsearch how long it should persist.
-// A point in time is automatically closed when the `keep_alive` period has
-// elapsed.
-// However, keeping points in time has a cost; close them as soon as they are no
-// longer required for search requests.
+// requests. The `keep_alive` parameter tells Elasticsearch how long it should
+// persist. A point in time is automatically closed when the `keep_alive` period
+// has elapsed. However, keeping points in time has a cost; close them as soon
+// as they are no longer required for search requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func New(tp elastictransport.Interface) *ClosePointInTime {
 	r := &ClosePointInTime{
 		transport: tp,
@@ -207,7 +205,7 @@ func (r ClosePointInTime) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "close_point_in_time")
+			ctx = instrument.Start(providedCtx, "close_point_in_time")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -329,11 +327,9 @@ func (r *ClosePointInTime) FilterPath(filterpaths ...string) *ClosePointInTime {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ClosePointInTime) Human(human bool) *ClosePointInTime {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -341,8 +337,8 @@ func (r *ClosePointInTime) Human(human bool) *ClosePointInTime {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ClosePointInTime) Pretty(pretty bool) *ClosePointInTime {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

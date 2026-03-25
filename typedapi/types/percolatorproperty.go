@@ -829,6 +829,9 @@ func (s *PercolatorProperty) PercolatorPropertyCaster() *PercolatorProperty {
 }
 
 func (s *PercolatorProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

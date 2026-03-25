@@ -24,9 +24,9 @@ package types
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/cluster/stats/types.ts#L787-L802
 type CCSStats struct {
-	// Clusters Contains remote cluster settings and metrics collected from them.
-	// The keys are cluster names, and the values are per-cluster data.
-	// Only present if `include_remotes` option is set to true.
+	// Clusters Contains remote cluster settings and metrics collected from them. The keys
+	// are cluster names, and the values are per-cluster data. Only present if
+	// `include_remotes` option is set to true.
 	Clusters map[string]RemoteClusterInfo `json:"clusters,omitempty"`
 	// Esql_ Information about ES|QL cross-cluster query usage.
 	Esql_ *CCSUsageStats `json:"_esql,omitempty"`

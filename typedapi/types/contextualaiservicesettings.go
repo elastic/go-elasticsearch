@@ -36,18 +36,16 @@ type ContextualAIServiceSettings struct {
 	// ApiKey A valid API key for your Contexutual AI account.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
-	// ModelId The name of the model to use for the inference task.
-	// Refer to the Contextual AI documentation for the list of available rerank
-	// models.
+	// ModelId The name of the model to use for the inference task. Refer to the Contextual
+	// AI documentation for the list of available rerank models.
 	ModelId string `json:"model_id"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Contextual AI.
-	// The `contextualai` service sets a default number of requests allowed per
-	// minute depending on the task type.
-	// For `rerank`, it is set to `1000`.
+	// Contextual AI. The `contextualai` service sets a default number of requests
+	// allowed per minute depending on the task type. For `rerank`, it is set to
+	// `1000`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

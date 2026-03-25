@@ -114,6 +114,9 @@ func (s *ClassicTokenizer) ClassicTokenizerCaster() *ClassicTokenizer {
 }
 
 func (s *ClassicTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

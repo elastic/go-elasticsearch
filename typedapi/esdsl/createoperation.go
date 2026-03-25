@@ -29,8 +29,8 @@ type _createOperation struct {
 	v *types.CreateOperation
 }
 
-// Index the specified document if it does not already exist.
-// The following line must contain the source data to be indexed.
+// Index the specified document if it does not already exist. The following line
+// must contain the source data to be indexed.
 func NewCreateOperation() *_createOperation {
 
 	return &_createOperation{v: types.NewCreateOperation()}

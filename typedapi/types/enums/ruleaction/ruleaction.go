@@ -29,8 +29,16 @@ type RuleAction struct {
 }
 
 var (
+
+	// Skipresult The result will not be created. Unless you also specify `skip_model_update`,
+	// the model will be updated as usual with the corresponding series value.
 	Skipresult = RuleAction{"skip_result"}
 
+	// Skipmodelupdate The value for that series will not be used to update the model. Unless you
+	// also specify `skip_result`, the results will be created as usual. This action
+	// is suitable when certain values are expected to be consistently anomalous and
+	// they affect the model in a way that negatively impacts the rest of the
+	// results.
 	Skipmodelupdate = RuleAction{"skip_model_update"}
 )
 

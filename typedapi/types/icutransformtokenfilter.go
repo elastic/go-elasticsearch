@@ -119,6 +119,9 @@ func (s *IcuTransformTokenFilter) IcuTransformTokenFilterCaster() *IcuTransformT
 }
 
 func (s *IcuTransformTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

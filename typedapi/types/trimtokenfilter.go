@@ -95,6 +95,9 @@ func (s *TrimTokenFilter) TrimTokenFilterCaster() *TrimTokenFilter {
 }
 
 func (s *TrimTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

@@ -34,8 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L811-L817
 type AzureOpenAITaskSettings struct {
 	// User For a `completion`, `chat_completion` or `text_embedding` task, specify the
-	// user issuing the request.
-	// This information can be used for abuse detection.
+	// user issuing the request. This information can be used for abuse detection.
 	User *string `json:"user,omitempty"`
 }
 

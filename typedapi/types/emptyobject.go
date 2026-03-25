@@ -20,7 +20,7 @@
 
 package types
 
-// EmptyObject type.
+// For empty Class assignments
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/common.ts#L152-L153
 type EmptyObject struct {

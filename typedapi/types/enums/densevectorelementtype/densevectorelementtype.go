@@ -29,12 +29,21 @@ type DenseVectorElementType struct {
 }
 
 var (
+
+	// Bit Indexes a single bit per dimension. Useful for very high-dimensional vectors
+	// or models that specifically support bit vectors.
+	//
+	// NOTE: when using `bit`, the number of dimensions must be a multiple of `8`
+	// and must represent the number of bits.
 	Bit = DenseVectorElementType{"bit"}
 
+	// Byte Indexes a 1-byte integer value per dimension.
 	Byte = DenseVectorElementType{"byte"}
 
+	// Float Indexes a 4-byte floating-point value per dimension.
 	Float = DenseVectorElementType{"float"}
 
+	// Bfloat16 Indexes a 2-byte floating-point value per dimension.
 	Bfloat16 = DenseVectorElementType{"bfloat16"}
 )
 

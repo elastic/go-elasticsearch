@@ -42,9 +42,8 @@ type TDigest struct {
 	// ExecutionHint The default implementation of TDigest is optimized for performance, scaling
 	// to millions or even billions of sample values while maintaining acceptable
 	// accuracy levels (close to 1% relative error for millions of samples in some
-	// cases).
-	// To use an implementation optimized for accuracy, set this parameter to
-	// high_accuracy instead.
+	// cases). To use an implementation optimized for accuracy, set this parameter
+	// to high_accuracy instead.
 	ExecutionHint *tdigestexecutionhint.TDigestExecutionHint `json:"execution_hint,omitempty"`
 }
 

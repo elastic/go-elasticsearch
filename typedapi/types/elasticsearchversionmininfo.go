@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// ElasticsearchVersionMinInfo type.
+// Reduced (minimal) info ElasticsearchVersion
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Base.ts#L125-L133
 type ElasticsearchVersionMinInfo struct {

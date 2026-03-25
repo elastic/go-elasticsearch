@@ -103,7 +103,9 @@ func NewPutJinaaiFunc(tp elastictransport.Interface) NewPutJinaai {
 // To review the available `text_embedding` models, refer to the
 // <https://jina.ai/embeddings/>.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-jinaai
 func New(tp elastictransport.Interface) *PutJinaai {
 	r := &PutJinaai{
 		transport: tp,
@@ -230,7 +232,7 @@ func (r PutJinaai) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_jinaai")
+			ctx = instrument.Start(providedCtx, "inference.put_jinaai")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -378,11 +380,9 @@ func (r *PutJinaai) FilterPath(filterpaths ...string) *PutJinaai {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutJinaai) Human(human bool) *PutJinaai {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -390,8 +390,8 @@ func (r *PutJinaai) Human(human bool) *PutJinaai {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutJinaai) Pretty(pretty bool) *PutJinaai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -399,9 +399,8 @@ func (r *PutJinaai) Pretty(pretty bool) *PutJinaai {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `rerank` task type.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutJinaai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutJinaai {
 	// Initialize the request if it is not already initialized
@@ -440,8 +439,8 @@ func (r *PutJinaai) ServiceSettings(servicesettings types.JinaAIServiceSettingsV
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutJinaai) TaskSettings(tasksettings types.JinaAITaskSettingsVariant) *PutJinaai {
 	// Initialize the request if it is not already initialized

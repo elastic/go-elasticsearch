@@ -220,7 +220,7 @@ func (r ChangePassword) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.change_password")
+			ctx = instrument.Start(providedCtx, "security.change_password")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -361,11 +361,9 @@ func (r *ChangePassword) FilterPath(filterpaths ...string) *ChangePassword {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ChangePassword) Human(human bool) *ChangePassword {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +371,8 @@ func (r *ChangePassword) Human(human bool) *ChangePassword {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ChangePassword) Pretty(pretty bool) *ChangePassword {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -397,9 +395,8 @@ func (r *ChangePassword) Password(password string) *ChangePassword {
 
 // A hash of the new password value. This must be produced using the same
 // hashing algorithm as has been configured for password storage. For more
-// details,
-// see the explanation of the `xpack.security.authc.password_hashing.algorithm`
-// setting.
+// details, see the explanation of the
+// `xpack.security.authc.password_hashing.algorithm` setting.
 // API name: password_hash
 func (r *ChangePassword) PasswordHash(passwordhash string) *ChangePassword {
 	// Initialize the request if it is not already initialized

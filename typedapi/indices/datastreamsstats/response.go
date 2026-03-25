@@ -38,8 +38,8 @@ type Response struct {
 	Shards_ types.ShardStatistics `json:"_shards"`
 	// TotalStoreSizeBytes Total size, in bytes, of all shards for the selected data streams.
 	TotalStoreSizeBytes int64 `json:"total_store_size_bytes"`
-	// TotalStoreSizes Total size of all shards for the selected data streams.
-	// This property is included only if the `human` query parameter is `true`
+	// TotalStoreSizes Total size of all shards for the selected data streams. This property is
+	// included only if the `human` query parameter is `true`
 	TotalStoreSizes types.ByteSize `json:"total_store_sizes,omitempty"`
 }
 

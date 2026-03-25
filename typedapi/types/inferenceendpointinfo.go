@@ -31,14 +31,13 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/tasktype"
 )
 
-// InferenceEndpointInfo type.
+// Represents an inference endpoint as returned by the GET API
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/Services.ts#L75-L87
 type InferenceEndpointInfo struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `sparse_embedding` and `text_embedding` task types.
-	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-	// types.
+	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` and
+	// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or
+	// `chat_completion` task types.
 	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`

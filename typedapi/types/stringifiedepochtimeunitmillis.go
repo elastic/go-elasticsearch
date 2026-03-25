@@ -25,6 +25,13 @@ package types
 //	int64
 //	string
 //
+// Some APIs will return values such as numbers also as a string (notably epoch
+// timestamps). This behavior is used to capture this behavior while keeping the
+// semantics of the field type.
+//
+// Depending on the target language, code generators can keep the union or
+// remove it and leniently parse strings to the target type.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_spec_utils/Stringified.ts#L20-L27
 type StringifiedEpochTimeUnitMillis any
 

@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// SamplingConfiguration type.
+// Sampling configuration as returned by the API.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/_types/SampleConfiguration.ts#L24-L64
 type SamplingConfiguration struct {

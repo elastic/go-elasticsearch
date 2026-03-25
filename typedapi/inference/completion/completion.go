@@ -20,8 +20,8 @@
 
 // Perform completion inference on the service.
 //
-// Get responses for completion tasks.
-// This API works only with the completion task type.
+// Get responses for completion tasks. This API works only with the completion
+// task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -98,8 +98,8 @@ func NewCompletionFunc(tp elastictransport.Interface) NewCompletion {
 
 // Perform completion inference on the service.
 //
-// Get responses for completion tasks.
-// This API works only with the completion task type.
+// Get responses for completion tasks. This API works only with the completion
+// task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -113,7 +113,9 @@ func NewCompletionFunc(tp elastictransport.Interface) NewCompletion {
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Completion {
 	r := &Completion{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r Completion) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.completion")
+			ctx = instrument.Start(providedCtx, "inference.completion")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -374,11 +376,9 @@ func (r *Completion) FilterPath(filterpaths ...string) *Completion {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Completion) Human(human bool) *Completion {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -386,8 +386,8 @@ func (r *Completion) Human(human bool) *Completion {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Completion) Pretty(pretty bool) *Completion {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -395,8 +395,7 @@ func (r *Completion) Pretty(pretty bool) *Completion {
 	return r
 }
 
-// Inference input.
-// Either a string or an array of strings.
+// Inference input. Either a string or an array of strings.
 // API name: input
 func (r *Completion) Input(inputs ...string) *Completion {
 	// Initialize the request if it is not already initialized

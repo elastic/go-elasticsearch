@@ -95,6 +95,9 @@ func (s *LetterTokenizer) LetterTokenizerCaster() *LetterTokenizer {
 }
 
 func (s *LetterTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

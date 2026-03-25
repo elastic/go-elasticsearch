@@ -83,7 +83,9 @@ func NewStopTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStopTra
 
 // Stop a trained model deployment.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-trained-model-deployment
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-trained-model-deployment
 func New(tp elastictransport.Interface) *StopTrainedModelDeployment {
 	r := &StopTrainedModelDeployment{
 		transport: tp,
@@ -210,7 +212,7 @@ func (r StopTrainedModelDeployment) Perform(providedCtx context.Context) (*http.
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.stop_trained_model_deployment")
+			ctx = instrument.Start(providedCtx, "ml.stop_trained_model_deployment")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -340,11 +342,9 @@ func (r *StopTrainedModelDeployment) FilterPath(filterpaths ...string) *StopTrai
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *StopTrainedModelDeployment) Human(human bool) *StopTrainedModelDeployment {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -352,8 +352,8 @@ func (r *StopTrainedModelDeployment) Human(human bool) *StopTrainedModelDeployme
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *StopTrainedModelDeployment) Pretty(pretty bool) *StopTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -362,14 +362,12 @@ func (r *StopTrainedModelDeployment) Pretty(pretty bool) *StopTrainedModelDeploy
 }
 
 // Specifies what to do when the request: contains wildcard expressions and
-// there are no deployments that match;
-// contains the  `_all` string or no identifiers and there are no matches; or
-// contains wildcard expressions and
+// there are no deployments that match; contains the `_all` string or no
+// identifiers and there are no matches; or contains wildcard expressions and
 // there are only partial matches. By default, it returns an empty array when
 // there are no matches and the subset of results when there are partial
-// matches.
-// If `false`, the request returns a 404 status code when there are no matches
-// or only partial matches.
+// matches. If `false`, the request returns a 404 status code when there are no
+// matches or only partial matches.
 // API name: allow_no_match
 func (r *StopTrainedModelDeployment) AllowNoMatch(allownomatch bool) *StopTrainedModelDeployment {
 	// Initialize the request if it is not already initialized
@@ -383,8 +381,7 @@ func (r *StopTrainedModelDeployment) AllowNoMatch(allownomatch bool) *StopTraine
 }
 
 // Forcefully stops the deployment, even if it is used by ingest pipelines. You
-// can't use these pipelines until you
-// restart the model deployment.
+// can't use these pipelines until you restart the model deployment.
 // API name: force
 func (r *StopTrainedModelDeployment) Force(force bool) *StopTrainedModelDeployment {
 	// Initialize the request if it is not already initialized

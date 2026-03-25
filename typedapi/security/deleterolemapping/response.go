@@ -24,8 +24,8 @@ package deleterolemapping
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/delete_role_mapping/SecurityDeleteRoleMappingResponse.ts#L20-L28
 type Response struct {
-	// Found If the mapping is successfully deleted, `found` is `true`.
-	// Otherwise, `found` is `false`.
+	// Found If the mapping is successfully deleted, `found` is `true`. Otherwise, `found`
+	// is `false`.
 	Found bool `json:"found"`
 }
 

@@ -28,7 +28,7 @@ import (
 	"io"
 )
 
-// TextEmbeddingResult type.
+// The text embedding result object
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/Results.ts#L64-L69
 type TextEmbeddingResult struct {

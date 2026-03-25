@@ -95,6 +95,9 @@ func (s *SimpleAnalyzer) SimpleAnalyzerCaster() *SimpleAnalyzer {
 }
 
 func (s *SimpleAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

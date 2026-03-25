@@ -47,8 +47,7 @@ type IpPrefixAggregation struct {
 	// response.
 	MinDocCount *int64 `json:"min_doc_count,omitempty"`
 	// PrefixLength Length of the network prefix. For IPv4 addresses the accepted range is [0,
-	// 32].
-	// For IPv6 addresses the accepted range is [0, 128].
+	// 32]. For IPv6 addresses the accepted range is [0, 128].
 	PrefixLength int `json:"prefix_length"`
 }
 

@@ -51,8 +51,8 @@ type RoleDescriptorRead struct {
 	// Metadata Optional meta-data. Within the metadata object, keys that begin with `_` are
 	// reserved for system usage.
 	Metadata Metadata `json:"metadata,omitempty"`
-	// RemoteCluster A list of cluster permissions for remote clusters.
-	// NOTE: This is limited a subset of the cluster permissions.
+	// RemoteCluster A list of cluster permissions for remote clusters. NOTE: This is limited a
+	// subset of the cluster permissions.
 	RemoteCluster []RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
 	// RemoteIndices A list of indices permissions for remote clusters.
 	RemoteIndices []RemoteIndicesPrivileges `json:"remote_indices,omitempty"`

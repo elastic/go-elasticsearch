@@ -25,5 +25,9 @@ package types
 //	map[string]SignificantStringTermsBucket
 //	[]SignificantStringTermsBucket
 //
+// Aggregation buckets. By default they are returned as an array, but if the
+// aggregation has keys configured for the different buckets, the result is a
+// dictionary.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L362-L371
 type BucketsSignificantStringTermsBucket any

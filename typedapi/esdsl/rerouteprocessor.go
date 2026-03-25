@@ -26,12 +26,12 @@ type _rerouteProcessor struct {
 	v *types.RerouteProcessor
 }
 
-// Routes a document to another target index or data stream.
-// When setting the `destination` option, the target is explicitly specified and
-// the dataset and namespace options can’t be set.
-// When the `destination` option is not set, this processor is in a data stream
-// mode. Note that in this mode, the reroute processor can only be used on data
-// streams that follow the data stream naming scheme.
+// Routes a document to another target index or data stream. When setting the
+// `destination` option, the target is explicitly specified and the dataset and
+// namespace options can’t be set. When the `destination` option is not set,
+// this processor is in a data stream mode. Note that in this mode, the reroute
+// processor can only be used on data streams that follow the data stream naming
+// scheme.
 func NewRerouteProcessor() *_rerouteProcessor {
 
 	return &_rerouteProcessor{v: types.NewRerouteProcessor()}

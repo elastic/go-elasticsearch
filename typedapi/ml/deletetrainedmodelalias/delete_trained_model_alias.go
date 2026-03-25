@@ -91,7 +91,9 @@ func NewDeleteTrainedModelAliasFunc(tp elastictransport.Interface) NewDeleteTrai
 // the model alias is missing or refers to a model other than the one identified
 // by the `model_id`, this API returns an error.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-trained-model-alias
 func New(tp elastictransport.Interface) *DeleteTrainedModelAlias {
 	r := &DeleteTrainedModelAlias{
 		transport: tp,
@@ -180,7 +182,7 @@ func (r DeleteTrainedModelAlias) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_trained_model_alias")
+			ctx = instrument.Start(providedCtx, "ml.delete_trained_model_alias")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -358,11 +360,9 @@ func (r *DeleteTrainedModelAlias) FilterPath(filterpaths ...string) *DeleteTrain
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteTrainedModelAlias) Human(human bool) *DeleteTrainedModelAlias {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +370,8 @@ func (r *DeleteTrainedModelAlias) Human(human bool) *DeleteTrainedModelAlias {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteTrainedModelAlias) Pretty(pretty bool) *DeleteTrainedModelAlias {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

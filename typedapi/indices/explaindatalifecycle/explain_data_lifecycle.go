@@ -88,7 +88,9 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 // configuration managing the index, or any errors encountered during lifecycle
 // execution.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-explain-data-lifecycle
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r ExplainDataLifecycle) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.explain_data_lifecycle")
+			ctx = instrument.Start(providedCtx, "indices.explain_data_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -349,11 +351,9 @@ func (r *ExplainDataLifecycle) FilterPath(filterpaths ...string) *ExplainDataLif
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ExplainDataLifecycle) Human(human bool) *ExplainDataLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +361,8 @@ func (r *ExplainDataLifecycle) Human(human bool) *ExplainDataLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ExplainDataLifecycle) Pretty(pretty bool) *ExplainDataLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

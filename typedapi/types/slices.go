@@ -25,5 +25,7 @@ package types
 //	int
 //	slicescalculation.SlicesCalculation
 //
+// Slices configuration used to parallelize a process.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/common.ts#L378-L383
 type Slices any

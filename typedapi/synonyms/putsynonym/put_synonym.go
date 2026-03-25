@@ -20,14 +20,13 @@
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
-// If you need to manage more synonym rules, you can create multiple synonym
-// sets.
+// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
+// you need to manage more synonym rules, you can create multiple synonym sets.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
-// synonyms set are reloaded automatically for all indices.
-// This is equivalent to invoking the reload search analyzers API for all
-// indices that use the synonyms set.
+// synonyms set are reloaded automatically for all indices. This is equivalent
+// to invoking the reload search analyzers API for all indices that use the
+// synonyms set.
 //
 // For practical examples of how to create or update a synonyms set, refer to
 // the External documentation.
@@ -95,19 +94,20 @@ func NewPutSynonymFunc(tp elastictransport.Interface) NewPutSynonym {
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
-// If you need to manage more synonym rules, you can create multiple synonym
-// sets.
+// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
+// you need to manage more synonym rules, you can create multiple synonym sets.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
-// synonyms set are reloaded automatically for all indices.
-// This is equivalent to invoking the reload search analyzers API for all
-// indices that use the synonyms set.
+// synonyms set are reloaded automatically for all indices. This is equivalent
+// to invoking the reload search analyzers API for all indices that use the
+// synonyms set.
 //
 // For practical examples of how to create or update a synonyms set, refer to
 // the External documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym
 func New(tp elastictransport.Interface) *PutSynonym {
 	r := &PutSynonym{
 		transport: tp,
@@ -228,7 +228,7 @@ func (r PutSynonym) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.put_synonym")
+			ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -336,8 +336,8 @@ func (r *PutSynonym) _id(id string) *PutSynonym {
 }
 
 // Refresh If `true`, the request will refresh the analyzers with the new synonyms set
-// and wait for the new synonyms to be available before returning.
-// If `false`, analyzers will not be reloaded with the new synonym set
+// and wait for the new synonyms to be available before returning. If `false`,
+// analyzers will not be reloaded with the new synonym set
 // API name: refresh
 func (r *PutSynonym) Refresh(refresh bool) *PutSynonym {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -368,11 +368,9 @@ func (r *PutSynonym) FilterPath(filterpaths ...string) *PutSynonym {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutSynonym) Human(human bool) *PutSynonym {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -380,8 +378,8 @@ func (r *PutSynonym) Human(human bool) *PutSynonym {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutSynonym) Pretty(pretty bool) *PutSynonym {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

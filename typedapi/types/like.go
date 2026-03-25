@@ -25,6 +25,9 @@ package types
 //	string
 //	LikeDocument
 //
+// Text that we want similar documents for or a lookup to a document's field for
+// the text.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/query_dsl/specialized.ts#L198-L203
 type Like any
 

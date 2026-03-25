@@ -30,8 +30,8 @@ type _rateAggregation struct {
 	v *types.RateAggregation
 }
 
-// Calculates a rate of documents or a field in each bucket.
-// Can only be used inside a `date_histogram` or `composite` aggregation.
+// Calculates a rate of documents or a field in each bucket. Can only be used
+// inside a `date_histogram` or `composite` aggregation.
 func NewRateAggregation() *_rateAggregation {
 
 	return &_rateAggregation{v: types.NewRateAggregation()}

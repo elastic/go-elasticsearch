@@ -26,8 +26,8 @@ type _splitProcessor struct {
 	v *types.SplitProcessor
 }
 
-// Splits a field into an array using a separator character.
-// Only works on string fields.
+// Splits a field into an array using a separator character. Only works on
+// string fields.
 func NewSplitProcessor(separator string) *_splitProcessor {
 
 	tmp := &_splitProcessor{v: types.NewSplitProcessor()}

@@ -22,9 +22,8 @@
 //
 // Generate and run an Elasticsearch query that uses the specified query
 // parameteter and the search template associated with the search application or
-// default template.
-// Unspecified template parameters are assigned their default values if
-// applicable.
+// default template. Unspecified template parameters are assigned their default
+// values if applicable.
 package search
 
 import (
@@ -91,11 +90,12 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 //
 // Generate and run an Elasticsearch query that uses the specified query
 // parameteter and the search template associated with the search application or
-// default template.
-// Unspecified template parameters are assigned their default values if
-// applicable.
+// default template. Unspecified template parameters are assigned their default
+// values if applicable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -220,7 +220,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.search")
+			ctx = instrument.Start(providedCtx, "search_application.search")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -361,11 +361,9 @@ func (r *Search) FilterPath(filterpaths ...string) *Search {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Search) Human(human bool) *Search {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +371,8 @@ func (r *Search) Human(human bool) *Search {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Search) Pretty(pretty bool) *Search {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

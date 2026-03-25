@@ -55,10 +55,10 @@ type ReindexStatus struct {
 	// ThrottledMillis Number of milliseconds the request slept to conform to `requests_per_second`.
 	ThrottledMillis int64    `json:"throttled_millis"`
 	ThrottledUntil  Duration `json:"throttled_until,omitempty"`
-	// ThrottledUntilMillis This field should always be equal to zero in a `_reindex` response.
-	// It only has meaning when using the Task API, where it indicates the next time
-	// (in milliseconds since epoch) a throttled request will be executed again in
-	// order to conform to `requests_per_second`.
+	// ThrottledUntilMillis This field should always be equal to zero in a `_reindex` response. It only
+	// has meaning when using the Task API, where it indicates the next time (in
+	// milliseconds since epoch) a throttled request will be executed again in order
+	// to conform to `requests_per_second`.
 	ThrottledUntilMillis int64 `json:"throttled_until_millis"`
 	// Total The number of documents that were successfully processed.
 	Total int64 `json:"total"`

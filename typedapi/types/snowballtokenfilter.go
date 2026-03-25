@@ -105,6 +105,9 @@ func (s *SnowballTokenFilter) SnowballTokenFilterCaster() *SnowballTokenFilter {
 }
 
 func (s *SnowballTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

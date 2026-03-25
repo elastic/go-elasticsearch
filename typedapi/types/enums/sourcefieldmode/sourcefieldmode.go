@@ -33,6 +33,8 @@ var (
 
 	Stored = SourceFieldMode{"stored"}
 
+	// Synthetic Instead of storing source documents on disk exactly as you send them,
+	// Elasticsearch can reconstruct source content on the fly upon retrieval.
 	Synthetic = SourceFieldMode{"synthetic"}
 )
 

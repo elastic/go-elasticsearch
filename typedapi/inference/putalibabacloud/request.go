@@ -32,9 +32,9 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/put_alibabacloud/PutAlibabaCloudRequest.ts#L31-L89
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `sparse_embedding` or `text_embedding` task types.
-	// Not applicable to the `rerank` or `completion` task types.
+	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` or
+	// `text_embedding` task types. Not applicable to the `rerank` or `completion`
+	// task types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `alibabacloud-ai-search`.
@@ -42,8 +42,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `alibabacloud-ai-search` service.
 	ServiceSettings types.AlibabaCloudServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.AlibabaCloudTaskSettings `json:"task_settings,omitempty"`
 }
 
