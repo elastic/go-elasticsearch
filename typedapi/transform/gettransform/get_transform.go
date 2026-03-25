@@ -80,7 +80,9 @@ func NewGetTransformFunc(tp elastictransport.Interface) NewGetTransform {
 //
 // Get configuration information for transforms.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-transform
 func New(tp elastictransport.Interface) *GetTransform {
 	r := &GetTransform{
 		transport: tp,
@@ -158,7 +160,7 @@ func (r GetTransform) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.get_transform")
+			ctx = instrument.Start(providedCtx, "transform.get_transform")
 			defer instrument.Close(ctx)
 		}
 	}

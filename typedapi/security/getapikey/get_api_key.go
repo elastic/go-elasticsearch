@@ -82,7 +82,9 @@ func NewGetApiKeyFunc(tp elastictransport.Interface) NewGetApiKey {
 // (including `manage_security`), this API returns all API keys regardless of
 // ownership.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-api-key
 func New(tp elastictransport.Interface) *GetApiKey {
 	r := &GetApiKey{
 		transport: tp,
@@ -151,7 +153,7 @@ func (r GetApiKey) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_api_key")
+			ctx = instrument.Start(providedCtx, "security.get_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

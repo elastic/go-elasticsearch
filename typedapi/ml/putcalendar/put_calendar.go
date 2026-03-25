@@ -83,7 +83,9 @@ func NewPutCalendarFunc(tp elastictransport.Interface) NewPutCalendar {
 
 // Create a calendar.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-calendar
 func New(tp elastictransport.Interface) *PutCalendar {
 	r := &PutCalendar{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r PutCalendar) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_calendar")
+			ctx = instrument.Start(providedCtx, "ml.put_calendar")
 			defer instrument.Close(ctx)
 		}
 	}

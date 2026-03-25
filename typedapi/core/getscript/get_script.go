@@ -82,7 +82,9 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 //
 // Retrieves a stored script or search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get-script
 func New(tp elastictransport.Interface) *GetScript {
 	r := &GetScript{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r GetScript) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "get_script")
+			ctx = instrument.Start(providedCtx, "get_script")
 			defer instrument.Close(ctx)
 		}
 	}

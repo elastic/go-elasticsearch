@@ -86,7 +86,9 @@ func NewResetTransformFunc(tp elastictransport.Interface) NewResetTransform {
 // query parameter. If the destination index was created by the transform, it is
 // deleted.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-reset-transform
 func New(tp elastictransport.Interface) *ResetTransform {
 	r := &ResetTransform{
 		transport: tp,
@@ -161,7 +163,7 @@ func (r ResetTransform) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.reset_transform")
+			ctx = instrument.Start(providedCtx, "transform.reset_transform")
 			defer instrument.Close(ctx)
 		}
 	}

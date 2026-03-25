@@ -151,7 +151,7 @@ func (r DeleteSecret) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "fleet.delete_secret")
+			ctx = instrument.Start(providedCtx, "fleet.delete_secret")
 			defer instrument.Close(ctx)
 		}
 	}

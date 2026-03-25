@@ -82,7 +82,9 @@ func NewCancelMigrateReindexFunc(tp elastictransport.Interface) NewCancelMigrate
 //
 // Cancel a migration reindex attempt for a data stream or index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-cancel-migrate-reindex
 func New(tp elastictransport.Interface) *CancelMigrateReindex {
 	r := &CancelMigrateReindex{
 		transport: tp,
@@ -165,7 +167,7 @@ func (r CancelMigrateReindex) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.cancel_migrate_reindex")
+			ctx = instrument.Start(providedCtx, "indices.cancel_migrate_reindex")
 			defer instrument.Close(ctx)
 		}
 	}

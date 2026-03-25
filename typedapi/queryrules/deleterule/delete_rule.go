@@ -91,7 +91,9 @@ func NewDeleteRuleFunc(tp elastictransport.Interface) NewDeleteRule {
 // is only recoverable by re-adding the same rule with the create or update
 // query rule API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-delete-rule
 func New(tp elastictransport.Interface) *DeleteRule {
 	r := &DeleteRule{
 		transport: tp,
@@ -172,7 +174,7 @@ func (r DeleteRule) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.delete_rule")
+			ctx = instrument.Start(providedCtx, "query_rules.delete_rule")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -386,7 +386,9 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // indexing throughput for large bulk requests. Refer to the linked
 // documentation for step-by-step instructions using the index settings API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-bulk
 func New(tp elastictransport.Interface) *Bulk {
 	r := &Bulk{
 		transport: tp,
@@ -517,7 +519,7 @@ func (r Bulk) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "bulk")
+			ctx = instrument.Start(providedCtx, "bulk")
 			defer instrument.Close(ctx)
 		}
 	}

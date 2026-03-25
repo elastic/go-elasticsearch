@@ -161,7 +161,7 @@ func (r DeleteAutoscalingPolicy) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "autoscaling.delete_autoscaling_policy")
+			ctx = instrument.Start(providedCtx, "autoscaling.delete_autoscaling_policy")
 			defer instrument.Close(ctx)
 		}
 	}

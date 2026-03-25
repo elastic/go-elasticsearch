@@ -171,7 +171,7 @@ func (r AsyncQueryDelete) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.async_query_delete")
+			ctx = instrument.Start(providedCtx, "esql.async_query_delete")
 			defer instrument.Close(ctx)
 		}
 	}

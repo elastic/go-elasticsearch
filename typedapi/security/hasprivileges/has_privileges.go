@@ -90,7 +90,9 @@ func NewHasPrivilegesFunc(tp elastictransport.Interface) NewHasPrivileges {
 // users can use this API, but only to determine their own privileges. To check
 // the privileges of other users, you must use the run as feature.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-has-privileges
 func New(tp elastictransport.Interface) *HasPrivileges {
 	r := &HasPrivileges{
 		transport: tp,
@@ -224,7 +226,7 @@ func (r HasPrivileges) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.has_privileges")
+			ctx = instrument.Start(providedCtx, "security.has_privileges")
 			defer instrument.Close(ctx)
 		}
 	}

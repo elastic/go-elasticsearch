@@ -181,7 +181,7 @@ func (r GetAutoscalingCapacity) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "autoscaling.get_autoscaling_capacity")
+			ctx = instrument.Start(providedCtx, "autoscaling.get_autoscaling_capacity")
 			defer instrument.Close(ctx)
 		}
 	}

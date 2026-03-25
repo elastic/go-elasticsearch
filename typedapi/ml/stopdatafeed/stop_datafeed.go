@@ -89,7 +89,9 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped multiple times throughout its lifecycle.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-datafeed
 func New(tp elastictransport.Interface) *StopDatafeed {
 	r := &StopDatafeed{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r StopDatafeed) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.stop_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.stop_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

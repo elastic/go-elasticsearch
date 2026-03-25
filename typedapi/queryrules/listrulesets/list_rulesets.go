@@ -74,7 +74,9 @@ func NewListRulesetsFunc(tp elastictransport.Interface) NewListRulesets {
 //
 // Get summarized information about the query rulesets.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-list-rulesets
 func New(tp elastictransport.Interface) *ListRulesets {
 	r := &ListRulesets{
 		transport: tp,
@@ -141,7 +143,7 @@ func (r ListRulesets) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.list_rulesets")
+			ctx = instrument.Start(providedCtx, "query_rules.list_rulesets")
 			defer instrument.Close(ctx)
 		}
 	}

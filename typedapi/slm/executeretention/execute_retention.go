@@ -147,7 +147,7 @@ func (r ExecuteRetention) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "slm.execute_retention")
+			ctx = instrument.Start(providedCtx, "slm.execute_retention")
 			defer instrument.Close(ctx)
 		}
 	}

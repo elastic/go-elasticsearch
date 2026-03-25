@@ -145,7 +145,7 @@ func (r GetDataLifecycleStats) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_lifecycle_stats")
+			ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle_stats")
 			defer instrument.Close(ctx)
 		}
 	}

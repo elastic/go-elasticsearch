@@ -95,7 +95,9 @@ func NewPutOpenshiftAiFunc(tp elastictransport.Interface) NewPutOpenshiftAi {
 // Create an inference endpoint to perform an inference task with the
 // `openshift_ai` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openshift-ai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openshift-ai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-openshift-ai
 func New(tp elastictransport.Interface) *PutOpenshiftAi {
 	r := &PutOpenshiftAi{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutOpenshiftAi) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_openshift_ai")
+			ctx = instrument.Start(providedCtx, "inference.put_openshift_ai")
 			defer instrument.Close(ctx)
 		}
 	}

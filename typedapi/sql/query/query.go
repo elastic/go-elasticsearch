@@ -80,7 +80,9 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 //
 // Run an SQL request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-query
 func New(tp elastictransport.Interface) *Query {
 	r := &Query{
 		transport: tp,
@@ -195,7 +197,7 @@ func (r Query) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.query")
+			ctx = instrument.Start(providedCtx, "sql.query")
 			defer instrument.Close(ctx)
 		}
 	}

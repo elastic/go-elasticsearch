@@ -74,7 +74,9 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //
 // Get information about search applications.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,
@@ -143,7 +145,7 @@ func (r List) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.list")
+			ctx = instrument.Start(providedCtx, "search_application.list")
 			defer instrument.Close(ctx)
 		}
 	}

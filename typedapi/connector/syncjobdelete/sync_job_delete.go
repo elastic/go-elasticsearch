@@ -84,7 +84,9 @@ func NewSyncJobDeleteFunc(tp elastictransport.Interface) NewSyncJobDelete {
 // Remove a connector sync job and its associated data. This is a destructive
 // action that is not recoverable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-delete
 func New(tp elastictransport.Interface) *SyncJobDelete {
 	r := &SyncJobDelete{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r SyncJobDelete) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_delete")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_delete")
 			defer instrument.Close(ctx)
 		}
 	}

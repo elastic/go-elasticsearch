@@ -89,7 +89,9 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 // Create a pipeline that is used for Logstash Central Management. If the
 // specified pipeline exists, it is replaced.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-put-pipeline
 func New(tp elastictransport.Interface) *PutPipeline {
 	r := &PutPipeline{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r PutPipeline) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "logstash.put_pipeline")
+			ctx = instrument.Start(providedCtx, "logstash.put_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}

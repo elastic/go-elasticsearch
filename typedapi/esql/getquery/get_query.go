@@ -82,7 +82,9 @@ func NewGetQueryFunc(tp elastictransport.Interface) NewGetQuery {
 //
 // Returns an object extended information about a running ES|QL query.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-query
 func New(tp elastictransport.Interface) *GetQuery {
 	r := &GetQuery{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r GetQuery) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.get_query")
+			ctx = instrument.Start(providedCtx, "esql.get_query")
 			defer instrument.Close(ctx)
 		}
 	}

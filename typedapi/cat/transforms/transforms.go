@@ -91,7 +91,9 @@ func NewTransformsFunc(tp elastictransport.Interface) NewTransforms {
 // command line. They are not intended for use by applications. For application
 // consumption, use the get transform statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-transforms
 func New(tp elastictransport.Interface) *Transforms {
 	r := &Transforms{
 		transport: tp,
@@ -173,7 +175,7 @@ func (r Transforms) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.transforms")
+			ctx = instrument.Start(providedCtx, "cat.transforms")
 			defer instrument.Close(ctx)
 		}
 	}

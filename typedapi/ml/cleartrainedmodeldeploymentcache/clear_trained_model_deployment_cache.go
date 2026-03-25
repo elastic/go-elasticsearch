@@ -177,7 +177,7 @@ func (r ClearTrainedModelDeploymentCache) Perform(providedCtx context.Context) (
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.clear_trained_model_deployment_cache")
+			ctx = instrument.Start(providedCtx, "ml.clear_trained_model_deployment_cache")
 			defer instrument.Close(ctx)
 		}
 	}

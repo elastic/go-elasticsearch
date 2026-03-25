@@ -216,7 +216,7 @@ func (r AllocationExplain) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.allocation_explain")
+			ctx = instrument.Start(providedCtx, "cluster.allocation_explain")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -99,7 +99,9 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 // generated, an error occurs. The `_analyze` endpoint without a specified index
 // will always use `10000` as its limit.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
 	r := &Analyze{
 		transport: tp,
@@ -225,7 +227,7 @@ func (r Analyze) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.analyze")
+			ctx = instrument.Start(providedCtx, "indices.analyze")
 			defer instrument.Close(ctx)
 		}
 	}

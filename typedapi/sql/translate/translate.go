@@ -83,7 +83,9 @@ func NewTranslateFunc(tp elastictransport.Interface) NewTranslate {
 // accepts the same request body parameters as the SQL search API, excluding
 // `cursor`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-translate
 func New(tp elastictransport.Interface) *Translate {
 	r := &Translate{
 		transport: tp,
@@ -200,7 +202,7 @@ func (r Translate) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.translate")
+			ctx = instrument.Start(providedCtx, "sql.translate")
 			defer instrument.Close(ctx)
 		}
 	}

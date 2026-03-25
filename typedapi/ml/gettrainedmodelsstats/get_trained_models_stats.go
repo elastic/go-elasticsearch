@@ -84,7 +84,9 @@ func NewGetTrainedModelsStatsFunc(tp elastictransport.Interface) NewGetTrainedMo
 // request by using a comma-separated list of model IDs or a wildcard
 // expression.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models-stats
 func New(tp elastictransport.Interface) *GetTrainedModelsStats {
 	r := &GetTrainedModelsStats{
 		transport: tp,
@@ -170,7 +172,7 @@ func (r GetTrainedModelsStats) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_trained_models_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_trained_models_stats")
 			defer instrument.Close(ctx)
 		}
 	}

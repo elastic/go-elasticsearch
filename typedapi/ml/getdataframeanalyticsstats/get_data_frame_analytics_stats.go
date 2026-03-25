@@ -76,7 +76,9 @@ func NewGetDataFrameAnalyticsStatsFunc(tp elastictransport.Interface) NewGetData
 
 // Get data frame analytics job stats.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics-stats
 func New(tp elastictransport.Interface) *GetDataFrameAnalyticsStats {
 	r := &GetDataFrameAnalyticsStats{
 		transport: tp,
@@ -166,7 +168,7 @@ func (r GetDataFrameAnalyticsStats) Perform(providedCtx context.Context) (*http.
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_data_frame_analytics_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_data_frame_analytics_stats")
 			defer instrument.Close(ctx)
 		}
 	}

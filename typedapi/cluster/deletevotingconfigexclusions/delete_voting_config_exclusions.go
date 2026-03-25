@@ -141,7 +141,7 @@ func (r DeleteVotingConfigExclusions) Perform(providedCtx context.Context) (*htt
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.delete_voting_config_exclusions")
+			ctx = instrument.Start(providedCtx, "cluster.delete_voting_config_exclusions")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -179,7 +179,9 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 // `routing` only to hit a particular shard. Refer to the linked documentation
 // for detailed examples of how to use this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-termvectors
 func New(tp elastictransport.Interface) *Termvectors {
 	r := &Termvectors{
 		transport: tp,
@@ -317,7 +319,7 @@ func (r Termvectors) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "termvectors")
+			ctx = instrument.Start(providedCtx, "termvectors")
 			defer instrument.Close(ctx)
 		}
 	}

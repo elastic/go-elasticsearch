@@ -91,7 +91,9 @@ func NewPutTrainedModelVocabularyFunc(tp elastictransport.Interface) NewPutTrain
 // vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-vocabulary
 func New(tp elastictransport.Interface) *PutTrainedModelVocabulary {
 	r := &PutTrainedModelVocabulary{
 		transport: tp,
@@ -216,7 +218,7 @@ func (r PutTrainedModelVocabulary) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model_vocabulary")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model_vocabulary")
 			defer instrument.Close(ctx)
 		}
 	}

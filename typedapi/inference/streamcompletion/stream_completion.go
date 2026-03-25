@@ -242,7 +242,7 @@ func (r StreamCompletion) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.stream_completion")
+			ctx = instrument.Start(providedCtx, "inference.stream_completion")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -82,7 +82,9 @@ func NewCreateDataStreamFunc(tp elastictransport.Interface) NewCreateDataStream 
 //
 // You must have a matching index template with data stream enabled.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-data-stream
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-data-stream
 func New(tp elastictransport.Interface) *CreateDataStream {
 	r := &CreateDataStream{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r CreateDataStream) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.create_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.create_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}

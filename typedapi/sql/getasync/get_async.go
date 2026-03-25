@@ -90,7 +90,9 @@ func NewGetAsyncFunc(tp elastictransport.Interface) NewGetAsync {
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-get-async
 func New(tp elastictransport.Interface) *GetAsync {
 	r := &GetAsync{
 		transport: tp,
@@ -165,7 +167,7 @@ func (r GetAsync) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.get_async")
+			ctx = instrument.Start(providedCtx, "sql.get_async")
 			defer instrument.Close(ctx)
 		}
 	}

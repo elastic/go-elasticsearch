@@ -95,7 +95,9 @@ func NewPutGooglevertexaiFunc(tp elastictransport.Interface) NewPutGooglevertexa
 // Create an inference endpoint to perform an inference task with the
 // `googlevertexai` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-googlevertexai
 func New(tp elastictransport.Interface) *PutGooglevertexai {
 	r := &PutGooglevertexai{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutGooglevertexai) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_googlevertexai")
+			ctx = instrument.Start(providedCtx, "inference.put_googlevertexai")
 			defer instrument.Close(ctx)
 		}
 	}

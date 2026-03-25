@@ -94,7 +94,9 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 // line or the Kibana console. They are not intended for use by applications.
 // For application consumption, use the aliases API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-aliases
 func New(tp elastictransport.Interface) *Aliases {
 	r := &Aliases{
 		transport: tp,
@@ -176,7 +178,7 @@ func (r Aliases) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.aliases")
+			ctx = instrument.Start(providedCtx, "cat.aliases")
 			defer instrument.Close(ctx)
 		}
 	}

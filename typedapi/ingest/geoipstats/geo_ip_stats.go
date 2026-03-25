@@ -147,7 +147,7 @@ func (r GeoIpStats) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.geo_ip_stats")
+			ctx = instrument.Start(providedCtx, "ingest.geo_ip_stats")
 			defer instrument.Close(ctx)
 		}
 	}

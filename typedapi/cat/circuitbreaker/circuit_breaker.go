@@ -167,7 +167,7 @@ func (r CircuitBreaker) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.circuit_breaker")
+			ctx = instrument.Start(providedCtx, "cat.circuit_breaker")
 			defer instrument.Close(ctx)
 		}
 	}

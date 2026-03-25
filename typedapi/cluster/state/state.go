@@ -241,7 +241,7 @@ func (r State) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.state")
+			ctx = instrument.Start(providedCtx, "cluster.state")
 			defer instrument.Close(ctx)
 		}
 	}

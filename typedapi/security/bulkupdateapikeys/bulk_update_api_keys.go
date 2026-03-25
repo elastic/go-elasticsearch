@@ -248,7 +248,7 @@ func (r BulkUpdateApiKeys) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.bulk_update_api_keys")
+			ctx = instrument.Start(providedCtx, "security.bulk_update_api_keys")
 			defer instrument.Close(ctx)
 		}
 	}

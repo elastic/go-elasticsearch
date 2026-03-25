@@ -122,7 +122,9 @@ func NewStartTransformFunc(tp elastictransport.Interface) NewStartTransform {
 // on the source and destination indices, the transform fails when it attempts
 // unauthorized operations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-start-transform
 func New(tp elastictransport.Interface) *StartTransform {
 	r := &StartTransform{
 		transport: tp,
@@ -197,7 +199,7 @@ func (r StartTransform) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.start_transform")
+			ctx = instrument.Start(providedCtx, "transform.start_transform")
 			defer instrument.Close(ctx)
 		}
 	}

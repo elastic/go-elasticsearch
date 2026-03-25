@@ -250,7 +250,7 @@ func (r GrantApiKey) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.grant_api_key")
+			ctx = instrument.Start(providedCtx, "security.grant_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

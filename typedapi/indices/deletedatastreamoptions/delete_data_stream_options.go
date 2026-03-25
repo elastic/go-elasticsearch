@@ -158,7 +158,7 @@ func (r DeleteDataStreamOptions) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_data_stream_options")
+			ctx = instrument.Start(providedCtx, "indices.delete_data_stream_options")
 			defer instrument.Close(ctx)
 		}
 	}

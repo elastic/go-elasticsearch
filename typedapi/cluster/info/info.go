@@ -82,7 +82,9 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 //
 // Returns basic information about the cluster.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r Info) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.info")
+			ctx = instrument.Start(providedCtx, "cluster.info")
 			defer instrument.Close(ctx)
 		}
 	}

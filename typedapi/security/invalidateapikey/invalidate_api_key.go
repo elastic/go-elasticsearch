@@ -113,7 +113,9 @@ func NewInvalidateApiKeyFunc(tp elastictransport.Interface) NewInvalidateApiKey 
 //   - Or, if the request is issued by an API key, that is to say an API key
 //     invalidates itself, specify its ID in the `ids` field.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-invalidate-api-key
 func New(tp elastictransport.Interface) *InvalidateApiKey {
 	r := &InvalidateApiKey{
 		transport: tp,
@@ -230,7 +232,7 @@ func (r InvalidateApiKey) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.invalidate_api_key")
+			ctx = instrument.Start(providedCtx, "security.invalidate_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

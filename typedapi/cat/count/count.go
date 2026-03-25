@@ -108,7 +108,9 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // method. This is primarily intended for project routing in serverless
 // environments.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-count
 func New(tp elastictransport.Interface) *Count {
 	r := &Count{
 		transport: tp,
@@ -232,7 +234,7 @@ func (r Count) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.count")
+			ctx = instrument.Start(providedCtx, "cat.count")
 			defer instrument.Close(ctx)
 		}
 	}

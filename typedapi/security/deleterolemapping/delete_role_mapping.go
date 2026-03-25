@@ -164,7 +164,7 @@ func (r DeleteRoleMapping) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.delete_role_mapping")
+			ctx = instrument.Start(providedCtx, "security.delete_role_mapping")
 			defer instrument.Close(ctx)
 		}
 	}

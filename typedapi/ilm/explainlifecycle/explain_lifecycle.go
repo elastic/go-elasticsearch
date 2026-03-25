@@ -167,7 +167,7 @@ func (r ExplainLifecycle) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.explain_lifecycle")
+			ctx = instrument.Start(providedCtx, "ilm.explain_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}

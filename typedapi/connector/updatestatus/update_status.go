@@ -84,7 +84,9 @@ func NewUpdateStatusFunc(tp elastictransport.Interface) NewUpdateStatus {
 
 // Update the connector status.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-status
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-status
 func New(tp elastictransport.Interface) *UpdateStatus {
 	r := &UpdateStatus{
 		transport: tp,
@@ -207,7 +209,7 @@ func (r UpdateStatus) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_status")
+			ctx = instrument.Start(providedCtx, "connector.update_status")
 			defer instrument.Close(ctx)
 		}
 	}

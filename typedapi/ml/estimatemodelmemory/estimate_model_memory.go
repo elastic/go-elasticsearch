@@ -83,7 +83,9 @@ func NewEstimateModelMemoryFunc(tp elastictransport.Interface) NewEstimateModelM
 // The estimate is based on analysis configuration details for the job and
 // cardinality estimates for the fields it references.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-estimate-model-memory
 func New(tp elastictransport.Interface) *EstimateModelMemory {
 	r := &EstimateModelMemory{
 		transport: tp,
@@ -202,7 +204,7 @@ func (r EstimateModelMemory) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.estimate_model_memory")
+			ctx = instrument.Start(providedCtx, "ml.estimate_model_memory")
 			defer instrument.Close(ctx)
 		}
 	}

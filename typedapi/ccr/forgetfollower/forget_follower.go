@@ -250,7 +250,7 @@ func (r ForgetFollower) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ccr.forget_follower")
+			ctx = instrument.Start(providedCtx, "ccr.forget_follower")
 			defer instrument.Close(ctx)
 		}
 	}

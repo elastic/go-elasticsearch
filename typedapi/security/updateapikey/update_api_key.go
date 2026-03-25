@@ -137,7 +137,9 @@ func NewUpdateApiKeyFunc(tp elastictransport.Interface) NewUpdateApiKey {
 // if the owner user's permissions have changed since the API key was created or
 // last modified.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-update-api-key
 func New(tp elastictransport.Interface) *UpdateApiKey {
 	r := &UpdateApiKey{
 		transport: tp,
@@ -260,7 +262,7 @@ func (r UpdateApiKey) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.update_api_key")
+			ctx = instrument.Start(providedCtx, "security.update_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

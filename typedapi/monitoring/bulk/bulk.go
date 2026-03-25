@@ -201,7 +201,7 @@ func (r Bulk) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "monitoring.bulk")
+			ctx = instrument.Start(providedCtx, "monitoring.bulk")
 			defer instrument.Close(ctx)
 		}
 	}

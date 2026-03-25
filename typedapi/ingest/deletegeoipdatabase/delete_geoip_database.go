@@ -159,7 +159,7 @@ func (r DeleteGeoipDatabase) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.delete_geoip_database")
+			ctx = instrument.Start(providedCtx, "ingest.delete_geoip_database")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -163,7 +163,7 @@ func (r ClearCachedPrivileges) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.clear_cached_privileges")
+			ctx = instrument.Start(providedCtx, "security.clear_cached_privileges")
 			defer instrument.Close(ctx)
 		}
 	}

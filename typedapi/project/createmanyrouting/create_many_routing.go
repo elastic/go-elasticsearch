@@ -74,6 +74,10 @@ func NewCreateManyRoutingFunc(tp elastictransport.Interface) NewCreateManyRoutin
 }
 
 // Create or update project routing expressions.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-routing-create-many
 func New(tp elastictransport.Interface) *CreateManyRouting {
 	r := &CreateManyRouting{
 		transport: tp,
@@ -188,7 +192,7 @@ func (r CreateManyRouting) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "project.create_many_routing")
+			ctx = instrument.Start(providedCtx, "project.create_many_routing")
 			defer instrument.Close(ctx)
 		}
 	}

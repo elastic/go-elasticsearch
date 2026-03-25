@@ -84,7 +84,9 @@ func NewDeleteComponentTemplateFunc(tp elastictransport.Interface) NewDeleteComp
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *DeleteComponentTemplate {
 	r := &DeleteComponentTemplate{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeleteComponentTemplate) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.delete_component_template")
+			ctx = instrument.Start(providedCtx, "cluster.delete_component_template")
 			defer instrument.Close(ctx)
 		}
 	}

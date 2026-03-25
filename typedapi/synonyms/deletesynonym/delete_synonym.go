@@ -120,7 +120,9 @@ func NewDeleteSynonymFunc(tp elastictransport.Interface) NewDeleteSynonym {
 // index. When the synonyms set is not used in analyzers, you will be able to
 // delete it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-delete-synonym
 func New(tp elastictransport.Interface) *DeleteSynonym {
 	r := &DeleteSynonym{
 		transport: tp,
@@ -193,7 +195,7 @@ func (r DeleteSynonym) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.delete_synonym")
+			ctx = instrument.Start(providedCtx, "synonyms.delete_synonym")
 			defer instrument.Close(ctx)
 		}
 	}

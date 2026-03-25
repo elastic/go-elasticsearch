@@ -159,7 +159,7 @@ func (r ClearCachedRoles) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.clear_cached_roles")
+			ctx = instrument.Start(providedCtx, "security.clear_cached_roles")
 			defer instrument.Close(ctx)
 		}
 	}

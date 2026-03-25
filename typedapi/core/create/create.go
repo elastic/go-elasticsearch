@@ -316,7 +316,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 // still succeed on the primary. The `_shards` section of the API response
 // reveals the number of shard copies on which replication succeeded and failed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func New(tp elastictransport.Interface) *Create {
 	r := &Create{
 		transport: tp,
@@ -450,7 +452,7 @@ func (r Create) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "create")
+			ctx = instrument.Start(providedCtx, "create")
 			defer instrument.Close(ctx)
 		}
 	}

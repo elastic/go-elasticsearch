@@ -87,7 +87,9 @@ func NewDeleteAliasFunc(tp elastictransport.Interface) NewDeleteAlias {
 //
 // Removes a data stream or index from an alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-alias
 func New(tp elastictransport.Interface) *DeleteAlias {
 	r := &DeleteAlias{
 		transport: tp,
@@ -183,7 +185,7 @@ func (r DeleteAlias) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_alias")
+			ctx = instrument.Start(providedCtx, "indices.delete_alias")
 			defer instrument.Close(ctx)
 		}
 	}

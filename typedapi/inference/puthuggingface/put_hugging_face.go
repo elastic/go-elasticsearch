@@ -177,7 +177,9 @@ func NewPutHuggingFaceFunc(tp elastictransport.Interface) NewPutHuggingFace {
 //   - `bge-reranker-base`
 //   - `jina-reranker-v1-turbo-en-GGUF`
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-hugging-face
 func New(tp elastictransport.Interface) *PutHuggingFace {
 	r := &PutHuggingFace{
 		transport: tp,
@@ -304,7 +306,7 @@ func (r PutHuggingFace) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_hugging_face")
+			ctx = instrument.Start(providedCtx, "inference.put_hugging_face")
 			defer instrument.Close(ctx)
 		}
 	}

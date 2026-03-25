@@ -246,7 +246,7 @@ func (r CreateCrossClusterApiKey) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.create_cross_cluster_api_key")
+			ctx = instrument.Start(providedCtx, "security.create_cross_cluster_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

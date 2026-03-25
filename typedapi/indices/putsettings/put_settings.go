@@ -197,7 +197,9 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 // indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
 // for step-by-step examples.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-settings
 func New(tp elastictransport.Interface) *PutSettings {
 	r := &PutSettings{
 		transport: tp,
@@ -323,7 +325,7 @@ func (r PutSettings) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_settings")
+			ctx = instrument.Start(providedCtx, "indices.put_settings")
 			defer instrument.Close(ctx)
 		}
 	}

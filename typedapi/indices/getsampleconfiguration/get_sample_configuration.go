@@ -157,7 +157,7 @@ func (r GetSampleConfiguration) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_sample_configuration")
+			ctx = instrument.Start(providedCtx, "indices.get_sample_configuration")
 			defer instrument.Close(ctx)
 		}
 	}

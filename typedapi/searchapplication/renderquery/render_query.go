@@ -228,7 +228,7 @@ func (r RenderQuery) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.render_query")
+			ctx = instrument.Start(providedCtx, "search_application.render_query")
 			defer instrument.Close(ctx)
 		}
 	}

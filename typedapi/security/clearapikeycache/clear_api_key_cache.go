@@ -161,7 +161,7 @@ func (r ClearApiKeyCache) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.clear_api_key_cache")
+			ctx = instrument.Start(providedCtx, "security.clear_api_key_cache")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -83,7 +83,9 @@ func NewUpdateTrainedModelDeploymentFunc(tp elastictransport.Interface) NewUpdat
 
 // Update a trained model deployment.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-trained-model-deployment
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-trained-model-deployment
 func New(tp elastictransport.Interface) *UpdateTrainedModelDeployment {
 	r := &UpdateTrainedModelDeployment{
 		transport: tp,
@@ -210,7 +212,7 @@ func (r UpdateTrainedModelDeployment) Perform(providedCtx context.Context) (*htt
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_trained_model_deployment")
+			ctx = instrument.Start(providedCtx, "ml.update_trained_model_deployment")
 			defer instrument.Close(ctx)
 		}
 	}

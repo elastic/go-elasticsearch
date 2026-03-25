@@ -113,7 +113,9 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 // request. When a datafeed that has a specified end date stops, it
 // automatically closes its associated job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-close-job
 func New(tp elastictransport.Interface) *CloseJob {
 	r := &CloseJob{
 		transport: tp,
@@ -238,7 +240,7 @@ func (r CloseJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.close_job")
+			ctx = instrument.Start(providedCtx, "ml.close_job")
 			defer instrument.Close(ctx)
 		}
 	}

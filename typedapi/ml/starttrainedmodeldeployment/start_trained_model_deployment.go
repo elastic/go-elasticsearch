@@ -89,7 +89,9 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 //
 // It allocates the model to every machine learning node.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-trained-model-deployment
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
 	r := &StartTrainedModelDeployment{
 		transport: tp,
@@ -216,7 +218,7 @@ func (r StartTrainedModelDeployment) Perform(providedCtx context.Context) (*http
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.start_trained_model_deployment")
+			ctx = instrument.Start(providedCtx, "ml.start_trained_model_deployment")
 			defer instrument.Close(ctx)
 		}
 	}

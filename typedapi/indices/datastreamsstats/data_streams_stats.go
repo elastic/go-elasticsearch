@@ -163,7 +163,7 @@ func (r DataStreamsStats) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.data_streams_stats")
+			ctx = instrument.Start(providedCtx, "indices.data_streams_stats")
 			defer instrument.Close(ctx)
 		}
 	}

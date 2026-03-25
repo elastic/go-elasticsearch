@@ -227,7 +227,7 @@ func (r DeleteExpiredData) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_expired_data")
+			ctx = instrument.Start(providedCtx, "ml.delete_expired_data")
 			defer instrument.Close(ctx)
 		}
 	}

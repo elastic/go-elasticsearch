@@ -82,7 +82,9 @@ func NewGetDataStreamMappingsFunc(tp elastictransport.Interface) NewGetDataStrea
 //
 // Get mapping information for one or more data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-mappings
 func New(tp elastictransport.Interface) *GetDataStreamMappings {
 	r := &GetDataStreamMappings{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r GetDataStreamMappings) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_stream_mappings")
+			ctx = instrument.Start(providedCtx, "indices.get_data_stream_mappings")
 			defer instrument.Close(ctx)
 		}
 	}

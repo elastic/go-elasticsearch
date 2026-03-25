@@ -77,6 +77,10 @@ func NewGetRoutingFunc(tp elastictransport.Interface) NewGetRouting {
 }
 
 // Get a project routing expression.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-routing-get
 func New(tp elastictransport.Interface) *GetRouting {
 	r := &GetRouting{
 		transport: tp,
@@ -149,7 +153,7 @@ func (r GetRouting) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "project.get_routing")
+			ctx = instrument.Start(providedCtx, "project.get_routing")
 			defer instrument.Close(ctx)
 		}
 	}

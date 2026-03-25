@@ -218,7 +218,7 @@ func (r ResumeFollow) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ccr.resume_follow")
+			ctx = instrument.Start(providedCtx, "ccr.resume_follow")
 			defer instrument.Close(ctx)
 		}
 	}

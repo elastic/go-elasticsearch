@@ -91,7 +91,9 @@ func NewDeleteTrainedModelAliasFunc(tp elastictransport.Interface) NewDeleteTrai
 // the model alias is missing or refers to a model other than the one identified
 // by the `model_id`, this API returns an error.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-trained-model-alias
 func New(tp elastictransport.Interface) *DeleteTrainedModelAlias {
 	r := &DeleteTrainedModelAlias{
 		transport: tp,
@@ -180,7 +182,7 @@ func (r DeleteTrainedModelAlias) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_trained_model_alias")
+			ctx = instrument.Start(providedCtx, "ml.delete_trained_model_alias")
 			defer instrument.Close(ctx)
 		}
 	}

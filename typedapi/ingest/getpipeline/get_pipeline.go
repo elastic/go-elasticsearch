@@ -82,7 +82,9 @@ func NewGetPipelineFunc(tp elastictransport.Interface) NewGetPipeline {
 // Get information about one or more ingest pipelines. This API returns a local
 // reference of the pipeline.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-get-pipeline
 func New(tp elastictransport.Interface) *GetPipeline {
 	r := &GetPipeline{
 		transport: tp,
@@ -164,7 +166,7 @@ func (r GetPipeline) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.get_pipeline")
+			ctx = instrument.Start(providedCtx, "ingest.get_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -87,7 +87,9 @@ func NewGetRuleFunc(tp elastictransport.Interface) NewGetRule {
 //
 // Get details about a query rule within a query ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-get-rule
 func New(tp elastictransport.Interface) *GetRule {
 	r := &GetRule{
 		transport: tp,
@@ -168,7 +170,7 @@ func (r GetRule) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.get_rule")
+			ctx = instrument.Start(providedCtx, "query_rules.get_rule")
 			defer instrument.Close(ctx)
 		}
 	}

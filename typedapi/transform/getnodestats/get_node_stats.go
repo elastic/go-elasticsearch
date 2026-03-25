@@ -74,7 +74,9 @@ func NewGetNodeStatsFunc(tp elastictransport.Interface) NewGetNodeStats {
 //
 // Get per-node information about transform usage.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-node-stats
 func New(tp elastictransport.Interface) *GetNodeStats {
 	r := &GetNodeStats{
 		transport: tp,
@@ -143,7 +145,7 @@ func (r GetNodeStats) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.get_node_stats")
+			ctx = instrument.Start(providedCtx, "transform.get_node_stats")
 			defer instrument.Close(ctx)
 		}
 	}

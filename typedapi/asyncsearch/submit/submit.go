@@ -110,7 +110,9 @@ func NewSubmitFunc(tp elastictransport.Interface) NewSubmit {
 // maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Submit {
 	r := &Submit{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r Submit) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "async_search.submit")
+			ctx = instrument.Start(providedCtx, "async_search.submit")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -165,7 +165,9 @@ func NewPutIndexTemplateFunc(tp elastictransport.Interface) NewPutIndexTemplate 
 // are appended onto the end. If an entry already exists with the same key, then
 // it is overwritten by the new definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-index-template
 func New(tp elastictransport.Interface) *PutIndexTemplate {
 	r := &PutIndexTemplate{
 		transport: tp,
@@ -286,7 +288,7 @@ func (r PutIndexTemplate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_index_template")
+			ctx = instrument.Start(providedCtx, "indices.put_index_template")
 			defer instrument.Close(ctx)
 		}
 	}

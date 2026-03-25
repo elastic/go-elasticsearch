@@ -94,7 +94,9 @@ func NewExistsSourceFunc(tp elastictransport.Interface) NewExistsSource {
 //
 // A document's source is not available if it is disabled in the mapping.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func New(tp elastictransport.Interface) *ExistsSource {
 	r := &ExistsSource{
 		transport: tp,
@@ -173,7 +175,7 @@ func (r ExistsSource) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "exists_source")
+			ctx = instrument.Start(providedCtx, "exists_source")
 			defer instrument.Close(ctx)
 		}
 	}

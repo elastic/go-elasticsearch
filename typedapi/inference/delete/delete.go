@@ -87,7 +87,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // This API requires the manage_inference cluster privilege (the built-in
 // `inference_admin` role grants this privilege).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -177,7 +179,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.delete")
+			ctx = instrument.Start(providedCtx, "inference.delete")
 			defer instrument.Close(ctx)
 		}
 	}

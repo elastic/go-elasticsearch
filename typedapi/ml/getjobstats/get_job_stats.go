@@ -76,7 +76,9 @@ func NewGetJobStatsFunc(tp elastictransport.Interface) NewGetJobStats {
 
 // Get anomaly detection job stats.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-job-stats
 func New(tp elastictransport.Interface) *GetJobStats {
 	r := &GetJobStats{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r GetJobStats) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_job_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_job_stats")
 			defer instrument.Close(ctx)
 		}
 	}

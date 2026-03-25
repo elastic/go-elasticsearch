@@ -361,7 +361,9 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // documentation for examples of how to update documents using the
 // `_update_by_query` API:
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update-by-query
 func New(tp elastictransport.Interface) *UpdateByQuery {
 	r := &UpdateByQuery{
 		transport: tp,
@@ -482,7 +484,7 @@ func (r UpdateByQuery) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "update_by_query")
+			ctx = instrument.Start(providedCtx, "update_by_query")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -143,7 +143,7 @@ func (r Info) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "info")
+			ctx = instrument.Start(providedCtx, "info")
 			defer instrument.Close(ctx)
 		}
 	}

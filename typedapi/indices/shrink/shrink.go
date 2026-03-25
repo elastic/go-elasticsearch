@@ -321,7 +321,7 @@ func (r Shrink) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.shrink")
+			ctx = instrument.Start(providedCtx, "indices.shrink")
 			defer instrument.Close(ctx)
 		}
 	}

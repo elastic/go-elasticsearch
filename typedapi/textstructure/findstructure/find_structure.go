@@ -248,7 +248,7 @@ func (r FindStructure) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "text_structure.find_structure")
+			ctx = instrument.Start(providedCtx, "text_structure.find_structure")
 			defer instrument.Close(ctx)
 		}
 	}

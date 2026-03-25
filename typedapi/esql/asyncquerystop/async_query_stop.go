@@ -163,7 +163,7 @@ func (r AsyncQueryStop) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.async_query_stop")
+			ctx = instrument.Start(providedCtx, "esql.async_query_stop")
 			defer instrument.Close(ctx)
 		}
 	}

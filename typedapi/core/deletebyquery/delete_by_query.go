@@ -317,7 +317,9 @@ func NewDeleteByQueryFunc(tp elastictransport.Interface) NewDeleteByQuery {
 // status API will continue to list the delete by query task until this task
 // checks that it has been cancelled and terminates itself.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-by-query
 func New(tp elastictransport.Interface) *DeleteByQuery {
 	r := &DeleteByQuery{
 		transport: tp,
@@ -438,7 +440,7 @@ func (r DeleteByQuery) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "delete_by_query")
+			ctx = instrument.Start(providedCtx, "delete_by_query")
 			defer instrument.Close(ctx)
 		}
 	}

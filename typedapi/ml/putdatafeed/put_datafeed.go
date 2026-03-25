@@ -114,7 +114,9 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 // directly to the `.ml-config` index. Do not give users `write` privileges on
 // the `.ml-config` index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-datafeed
 func New(tp elastictransport.Interface) *PutDatafeed {
 	r := &PutDatafeed{
 		transport: tp,
@@ -237,7 +239,7 @@ func (r PutDatafeed) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.put_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -95,7 +95,9 @@ func NewPutAmazonsagemakerFunc(tp elastictransport.Interface) NewPutAmazonsagema
 // Create an inference endpoint to perform an inference task with the
 // `amazon_sagemaker` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonsagemaker
 func New(tp elastictransport.Interface) *PutAmazonsagemaker {
 	r := &PutAmazonsagemaker{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAmazonsagemaker) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_amazonsagemaker")
+			ctx = instrument.Start(providedCtx, "inference.put_amazonsagemaker")
 			defer instrument.Close(ctx)
 		}
 	}

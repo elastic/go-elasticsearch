@@ -84,7 +84,9 @@ func NewGetAsyncStatusFunc(tp elastictransport.Interface) NewGetAsyncStatus {
 // Get the current status of an async SQL search or a stored synchronous SQL
 // search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-get-async-status
 func New(tp elastictransport.Interface) *GetAsyncStatus {
 	r := &GetAsyncStatus{
 		transport: tp,
@@ -161,7 +163,7 @@ func (r GetAsyncStatus) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.get_async_status")
+			ctx = instrument.Start(providedCtx, "sql.get_async_status")
 			defer instrument.Close(ctx)
 		}
 	}

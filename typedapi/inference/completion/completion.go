@@ -113,7 +113,9 @@ func NewCompletionFunc(tp elastictransport.Interface) NewCompletion {
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Completion {
 	r := &Completion{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r Completion) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.completion")
+			ctx = instrument.Start(providedCtx, "inference.completion")
 			defer instrument.Close(ctx)
 		}
 	}

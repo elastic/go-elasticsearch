@@ -88,7 +88,9 @@ func NewPutDataStreamOptionsFunc(tp elastictransport.Interface) NewPutDataStream
 //
 // Update the data stream options of the specified data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-options
 func New(tp elastictransport.Interface) *PutDataStreamOptions {
 	r := &PutDataStreamOptions{
 		transport: tp,
@@ -211,7 +213,7 @@ func (r PutDataStreamOptions) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_data_stream_options")
+			ctx = instrument.Start(providedCtx, "indices.put_data_stream_options")
 			defer instrument.Close(ctx)
 		}
 	}

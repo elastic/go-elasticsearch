@@ -207,7 +207,7 @@ func (r PostVotingConfigExclusions) Perform(providedCtx context.Context) (*http.
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.post_voting_config_exclusions")
+			ctx = instrument.Start(providedCtx, "cluster.post_voting_config_exclusions")
 			defer instrument.Close(ctx)
 		}
 	}

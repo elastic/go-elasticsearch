@@ -76,7 +76,9 @@ func NewListQueriesFunc(tp elastictransport.Interface) NewListQueries {
 // Returns an object containing IDs and other information about the running
 // ES|QL queries.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-list-queries
 func New(tp elastictransport.Interface) *ListQueries {
 	r := &ListQueries{
 		transport: tp,
@@ -151,7 +153,7 @@ func (r ListQueries) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.list_queries")
+			ctx = instrument.Start(providedCtx, "esql.list_queries")
 			defer instrument.Close(ctx)
 		}
 	}

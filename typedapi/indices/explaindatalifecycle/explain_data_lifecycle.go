@@ -88,7 +88,9 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 // configuration managing the index, or any errors encountered during lifecycle
 // execution.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-explain-data-lifecycle
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r ExplainDataLifecycle) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.explain_data_lifecycle")
+			ctx = instrument.Start(providedCtx, "indices.explain_data_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}

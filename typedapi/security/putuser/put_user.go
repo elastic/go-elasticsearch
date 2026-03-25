@@ -215,7 +215,7 @@ func (r PutUser) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.put_user")
+			ctx = instrument.Start(providedCtx, "security.put_user")
 			defer instrument.Close(ctx)
 		}
 	}

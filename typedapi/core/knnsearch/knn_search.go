@@ -216,7 +216,7 @@ func (r KnnSearch) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "knn_search")
+			ctx = instrument.Start(providedCtx, "knn_search")
 			defer instrument.Close(ctx)
 		}
 	}

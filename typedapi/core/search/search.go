@@ -139,7 +139,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // situation can occur because the splitting criterion is based on Lucene
 // document IDs, which are not stable across changes to the index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -265,7 +267,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search")
+			ctx = instrument.Start(providedCtx, "search")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -95,7 +95,9 @@ func NewPutNvidiaFunc(tp elastictransport.Interface) NewPutNvidia {
 // Create an inference endpoint to perform an inference task with the `nvidia`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-nvidia
 func New(tp elastictransport.Interface) *PutNvidia {
 	r := &PutNvidia{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r PutNvidia) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_nvidia")
+			ctx = instrument.Start(providedCtx, "inference.put_nvidia")
 			defer instrument.Close(ctx)
 		}
 	}

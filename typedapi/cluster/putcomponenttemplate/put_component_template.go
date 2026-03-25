@@ -137,7 +137,9 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 // be applied, a component template must be included in an index template's
 // `composed_of` list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *PutComponentTemplate {
 	r := &PutComponentTemplate{
 		transport: tp,
@@ -258,7 +260,7 @@ func (r PutComponentTemplate) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.put_component_template")
+			ctx = instrument.Start(providedCtx, "cluster.put_component_template")
 			defer instrument.Close(ctx)
 		}
 	}

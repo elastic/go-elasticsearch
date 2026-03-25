@@ -84,7 +84,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Get the current status and available results for an async EQL search or a
 // stored synchronous EQL search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.get")
+			ctx = instrument.Start(providedCtx, "eql.get")
 			defer instrument.Close(ctx)
 		}
 	}

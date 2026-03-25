@@ -248,7 +248,7 @@ func (r PutSettings) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.put_settings")
+			ctx = instrument.Start(providedCtx, "cluster.put_settings")
 			defer instrument.Close(ctx)
 		}
 	}

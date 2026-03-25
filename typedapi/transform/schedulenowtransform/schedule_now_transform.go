@@ -88,7 +88,9 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 // frequency interval. After the API is called, the transform will be processed
 // again at `now + frequency` unless the API is called again in the meantime.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-schedule-now-transform
 func New(tp elastictransport.Interface) *ScheduleNowTransform {
 	r := &ScheduleNowTransform{
 		transport: tp,
@@ -169,7 +171,7 @@ func (r ScheduleNowTransform) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.schedule_now_transform")
+			ctx = instrument.Start(providedCtx, "transform.schedule_now_transform")
 			defer instrument.Close(ctx)
 		}
 	}

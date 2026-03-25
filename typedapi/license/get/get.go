@@ -84,7 +84,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // API may return a `404 Not Found` response. > If you receive an unexpected 404
 // response after cluster startup, wait a short period and retry the request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-license-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -151,7 +153,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "license.get")
+			ctx = instrument.Start(providedCtx, "license.get")
 			defer instrument.Close(ctx)
 		}
 	}

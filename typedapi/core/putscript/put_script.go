@@ -90,7 +90,9 @@ func NewPutScriptFunc(tp elastictransport.Interface) NewPutScript {
 //
 // Creates or updates a stored script or search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-put-script
 func New(tp elastictransport.Interface) *PutScript {
 	r := &PutScript{
 		transport: tp,
@@ -228,7 +230,7 @@ func (r PutScript) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "put_script")
+			ctx = instrument.Start(providedCtx, "put_script")
 			defer instrument.Close(ctx)
 		}
 	}

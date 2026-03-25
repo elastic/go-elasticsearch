@@ -248,7 +248,7 @@ func (r MoveToStep) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.move_to_step")
+			ctx = instrument.Start(providedCtx, "ilm.move_to_step")
 			defer instrument.Close(ctx)
 		}
 	}

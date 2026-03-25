@@ -453,7 +453,9 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 // simplified if external versioning is used, as only the latest version will be
 // used if the index operations arrive out of order.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func New(tp elastictransport.Interface) *Index {
 	r := &Index{
 		transport: tp,
@@ -598,7 +600,7 @@ func (r Index) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "index")
+			ctx = instrument.Start(providedCtx, "index")
 			defer instrument.Close(ctx)
 		}
 	}

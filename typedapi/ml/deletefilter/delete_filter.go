@@ -84,7 +84,9 @@ func NewDeleteFilterFunc(tp elastictransport.Interface) NewDeleteFilter {
 // If an anomaly detection job references the filter, you cannot delete the
 // filter. You must update or delete the job before you can delete the filter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-filter
 func New(tp elastictransport.Interface) *DeleteFilter {
 	r := &DeleteFilter{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r DeleteFilter) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_filter")
+			ctx = instrument.Start(providedCtx, "ml.delete_filter")
 			defer instrument.Close(ctx)
 		}
 	}

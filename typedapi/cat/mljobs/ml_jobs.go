@@ -97,7 +97,9 @@ func NewMlJobsFunc(tp elastictransport.Interface) NewMlJobs {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get anomaly detection job statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-jobs
 func New(tp elastictransport.Interface) *MlJobs {
 	r := &MlJobs{
 		transport: tp,
@@ -183,7 +185,7 @@ func (r MlJobs) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_jobs")
+			ctx = instrument.Start(providedCtx, "cat.ml_jobs")
 			defer instrument.Close(ctx)
 		}
 	}

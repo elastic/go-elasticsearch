@@ -88,7 +88,9 @@ func NewPutTrainedModelDefinitionPartFunc(tp elastictransport.Interface) NewPutT
 
 // Create part of a trained model definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-definition-part
 func New(tp elastictransport.Interface) *PutTrainedModelDefinitionPart {
 	r := &PutTrainedModelDefinitionPart{
 		transport: tp,
@@ -219,7 +221,7 @@ func (r PutTrainedModelDefinitionPart) Perform(providedCtx context.Context) (*ht
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model_definition_part")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model_definition_part")
 			defer instrument.Close(ctx)
 		}
 	}

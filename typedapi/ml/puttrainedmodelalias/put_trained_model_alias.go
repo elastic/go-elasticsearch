@@ -111,7 +111,9 @@ func NewPutTrainedModelAliasFunc(tp elastictransport.Interface) NewPutTrainedMod
 // are very few input fields in common between the old and new trained models
 // for the model alias, the API returns a warning.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-alias
 func New(tp elastictransport.Interface) *PutTrainedModelAlias {
 	r := &PutTrainedModelAlias{
 		transport: tp,
@@ -200,7 +202,7 @@ func (r PutTrainedModelAlias) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model_alias")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model_alias")
 			defer instrument.Close(ctx)
 		}
 	}

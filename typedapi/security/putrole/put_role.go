@@ -95,7 +95,9 @@ func NewPutRoleFunc(tp elastictransport.Interface) NewPutRole {
 // update roles API cannot update roles that are defined in roles files.
 // File-based role management is not available in Elastic Serverless.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-put-role
 func New(tp elastictransport.Interface) *PutRole {
 	r := &PutRole{
 		transport: tp,
@@ -218,7 +220,7 @@ func (r PutRole) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.put_role")
+			ctx = instrument.Start(providedCtx, "security.put_role")
 			defer instrument.Close(ctx)
 		}
 	}

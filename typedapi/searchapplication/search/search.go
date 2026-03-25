@@ -93,7 +93,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // default template. Unspecified template parameters are assigned their default
 // values if applicable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -218,7 +220,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.search")
+			ctx = instrument.Start(providedCtx, "search_application.search")
 			defer instrument.Close(ctx)
 		}
 	}

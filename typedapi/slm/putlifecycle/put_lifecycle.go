@@ -214,7 +214,7 @@ func (r PutLifecycle) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "slm.put_lifecycle")
+			ctx = instrument.Start(providedCtx, "slm.put_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}

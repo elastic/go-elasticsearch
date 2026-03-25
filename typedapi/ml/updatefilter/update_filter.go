@@ -89,7 +89,9 @@ func NewUpdateFilterFunc(tp elastictransport.Interface) NewUpdateFilter {
 // Updates the description of a filter, adds items, or removes items from the
 // list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-filter
 func New(tp elastictransport.Interface) *UpdateFilter {
 	r := &UpdateFilter{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r UpdateFilter) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_filter")
+			ctx = instrument.Start(providedCtx, "ml.update_filter")
 			defer instrument.Close(ctx)
 		}
 	}

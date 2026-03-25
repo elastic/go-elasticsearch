@@ -226,7 +226,7 @@ func (r MigrateToDataTiers) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.migrate_to_data_tiers")
+			ctx = instrument.Start(providedCtx, "ilm.migrate_to_data_tiers")
 			defer instrument.Close(ctx)
 		}
 	}

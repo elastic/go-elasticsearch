@@ -117,7 +117,9 @@ func NewGetOverallBucketsFunc(tp elastictransport.Interface) NewGetOverallBucket
 // of the overall buckets that have a span equal to the jobs' largest bucket
 // span.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-overall-buckets
 func New(tp elastictransport.Interface) *GetOverallBuckets {
 	r := &GetOverallBuckets{
 		transport: tp,
@@ -244,7 +246,7 @@ func (r GetOverallBuckets) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_overall_buckets")
+			ctx = instrument.Start(providedCtx, "ml.get_overall_buckets")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -237,7 +237,7 @@ func (r ActivateUserProfile) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.activate_user_profile")
+			ctx = instrument.Start(providedCtx, "security.activate_user_profile")
 			defer instrument.Close(ctx)
 		}
 	}

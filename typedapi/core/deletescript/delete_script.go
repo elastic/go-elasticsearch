@@ -82,7 +82,9 @@ func NewDeleteScriptFunc(tp elastictransport.Interface) NewDeleteScript {
 //
 // Deletes a stored script or search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-script
 func New(tp elastictransport.Interface) *DeleteScript {
 	r := &DeleteScript{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r DeleteScript) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "delete_script")
+			ctx = instrument.Start(providedCtx, "delete_script")
 			defer instrument.Close(ctx)
 		}
 	}

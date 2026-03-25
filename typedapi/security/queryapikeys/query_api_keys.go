@@ -95,7 +95,9 @@ func NewQueryApiKeysFunc(tp elastictransport.Interface) NewQueryApiKeys {
 // `manage_security`), this API returns all API keys regardless of ownership.
 // Refer to the linked documentation for examples of how to find API keys:
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-api-keys
 func New(tp elastictransport.Interface) *QueryApiKeys {
 	r := &QueryApiKeys{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r QueryApiKeys) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.query_api_keys")
+			ctx = instrument.Start(providedCtx, "security.query_api_keys")
 			defer instrument.Close(ctx)
 		}
 	}

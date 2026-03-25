@@ -95,7 +95,9 @@ func NewPutAzureaistudioFunc(tp elastictransport.Interface) NewPutAzureaistudio 
 // Create an inference endpoint to perform an inference task with the
 // `azureaistudio` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-azureaistudio
 func New(tp elastictransport.Interface) *PutAzureaistudio {
 	r := &PutAzureaistudio{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAzureaistudio) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_azureaistudio")
+			ctx = instrument.Start(providedCtx, "inference.put_azureaistudio")
 			defer instrument.Close(ctx)
 		}
 	}

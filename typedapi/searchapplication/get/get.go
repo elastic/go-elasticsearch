@@ -78,7 +78,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 
 // Get search application details.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -153,7 +155,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.get")
+			ctx = instrument.Start(providedCtx, "search_application.get")
 			defer instrument.Close(ctx)
 		}
 	}

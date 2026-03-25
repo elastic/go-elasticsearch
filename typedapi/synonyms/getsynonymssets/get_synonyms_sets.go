@@ -74,7 +74,9 @@ func NewGetSynonymsSetsFunc(tp elastictransport.Interface) NewGetSynonymsSets {
 //
 // Get a summary of all defined synonym sets.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym
 func New(tp elastictransport.Interface) *GetSynonymsSets {
 	r := &GetSynonymsSets{
 		transport: tp,
@@ -141,7 +143,7 @@ func (r GetSynonymsSets) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
+			ctx = instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
 			defer instrument.Close(ctx)
 		}
 	}

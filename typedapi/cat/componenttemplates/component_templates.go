@@ -95,7 +95,9 @@ func NewComponentTemplatesFunc(tp elastictransport.Interface) NewComponentTempla
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get component template API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-component-templates
 func New(tp elastictransport.Interface) *ComponentTemplates {
 	r := &ComponentTemplates{
 		transport: tp,
@@ -177,7 +179,7 @@ func (r ComponentTemplates) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.component_templates")
+			ctx = instrument.Start(providedCtx, "cat.component_templates")
 			defer instrument.Close(ctx)
 		}
 	}

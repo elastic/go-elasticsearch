@@ -85,7 +85,9 @@ func NewEvaluateDataFrameFunc(tp elastictransport.Interface) NewEvaluateDataFram
 // created by data frame analytics. Evaluation requires both a ground truth
 // field and an analytics result field to be present.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-evaluate-data-frame
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-evaluate-data-frame
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-evaluate-data-frame
 func New(tp elastictransport.Interface) *EvaluateDataFrame {
 	r := &EvaluateDataFrame{
 		transport: tp,
@@ -204,7 +206,7 @@ func (r EvaluateDataFrame) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.evaluate_data_frame")
+			ctx = instrument.Start(providedCtx, "ml.evaluate_data_frame")
 			defer instrument.Close(ctx)
 		}
 	}

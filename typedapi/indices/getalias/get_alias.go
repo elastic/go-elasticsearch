@@ -84,7 +84,9 @@ func NewGetAliasFunc(tp elastictransport.Interface) NewGetAlias {
 //
 // Retrieves information for one or more data stream or index aliases.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-alias
 func New(tp elastictransport.Interface) *GetAlias {
 	r := &GetAlias{
 		transport: tp,
@@ -190,7 +192,7 @@ func (r GetAlias) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_alias")
+			ctx = instrument.Start(providedCtx, "indices.get_alias")
 			defer instrument.Close(ctx)
 		}
 	}

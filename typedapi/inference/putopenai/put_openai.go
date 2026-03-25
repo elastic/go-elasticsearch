@@ -95,7 +95,9 @@ func NewPutOpenaiFunc(tp elastictransport.Interface) NewPutOpenai {
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-openai
 func New(tp elastictransport.Interface) *PutOpenai {
 	r := &PutOpenai{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutOpenai) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_openai")
+			ctx = instrument.Start(providedCtx, "inference.put_openai")
 			defer instrument.Close(ctx)
 		}
 	}

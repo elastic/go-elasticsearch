@@ -102,7 +102,9 @@ func NewGetSourceFunc(tp elastictransport.Interface) NewGetSource {
 //
 //	GET my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func New(tp elastictransport.Interface) *GetSource {
 	r := &GetSource{
 		transport: tp,
@@ -181,7 +183,7 @@ func (r GetSource) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "get_source")
+			ctx = instrument.Start(providedCtx, "get_source")
 			defer instrument.Close(ctx)
 		}
 	}

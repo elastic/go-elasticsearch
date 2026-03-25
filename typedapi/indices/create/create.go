@@ -145,7 +145,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 // changing this setting will also affect the `wait_for_active_shards` value on
 // all subsequent write operations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create
 func New(tp elastictransport.Interface) *Create {
 	r := &Create{
 		transport: tp,
@@ -264,7 +266,7 @@ func (r Create) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.create")
+			ctx = instrument.Start(providedCtx, "indices.create")
 			defer instrument.Close(ctx)
 		}
 	}

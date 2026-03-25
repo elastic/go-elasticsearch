@@ -87,7 +87,9 @@ func NewPutPolicyFunc(tp elastictransport.Interface) NewPutPolicy {
 //
 // Creates an enrich policy.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-put-policy
 func New(tp elastictransport.Interface) *PutPolicy {
 	r := &PutPolicy{
 		transport: tp,
@@ -210,7 +212,7 @@ func (r PutPolicy) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.put_policy")
+			ctx = instrument.Start(providedCtx, "enrich.put_policy")
 			defer instrument.Close(ctx)
 		}
 	}

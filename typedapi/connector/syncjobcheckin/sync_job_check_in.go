@@ -169,7 +169,7 @@ func (r SyncJobCheckIn) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_check_in")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_check_in")
 			defer instrument.Close(ctx)
 		}
 	}

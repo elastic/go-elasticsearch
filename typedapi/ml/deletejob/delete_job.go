@@ -92,7 +92,9 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 // delete datafeed API with the same timeout and force parameters as the delete
 // job request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-job
 func New(tp elastictransport.Interface) *DeleteJob {
 	r := &DeleteJob{
 		transport: tp,
@@ -167,7 +169,7 @@ func (r DeleteJob) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_job")
+			ctx = instrument.Start(providedCtx, "ml.delete_job")
 			defer instrument.Close(ctx)
 		}
 	}

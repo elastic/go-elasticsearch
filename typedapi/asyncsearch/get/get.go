@@ -89,7 +89,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // a specific async search is restricted to the user or API key that submitted
 // it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "async_search.get")
+			ctx = instrument.Start(providedCtx, "async_search.get")
 			defer instrument.Close(ctx)
 		}
 	}

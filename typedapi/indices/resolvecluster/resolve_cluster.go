@@ -309,7 +309,7 @@ func (r ResolveCluster) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.resolve_cluster")
+			ctx = instrument.Start(providedCtx, "indices.resolve_cluster")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -175,7 +175,7 @@ func (r SamlServiceProviderMetadata) Perform(providedCtx context.Context) (*http
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.saml_service_provider_metadata")
+			ctx = instrument.Start(providedCtx, "security.saml_service_provider_metadata")
 			defer instrument.Close(ctx)
 		}
 	}

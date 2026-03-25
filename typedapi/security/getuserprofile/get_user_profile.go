@@ -169,7 +169,7 @@ func (r GetUserProfile) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_user_profile")
+			ctx = instrument.Start(providedCtx, "security.get_user_profile")
 			defer instrument.Close(ctx)
 		}
 	}

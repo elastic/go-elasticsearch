@@ -167,7 +167,7 @@ func (r GetFeatures) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "features.get_features")
+			ctx = instrument.Start(providedCtx, "features.get_features")
 			defer instrument.Close(ctx)
 		}
 	}

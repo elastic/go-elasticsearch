@@ -200,7 +200,7 @@ func (r TestGrokPattern) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "text_structure.test_grok_pattern")
+			ctx = instrument.Start(providedCtx, "text_structure.test_grok_pattern")
 			defer instrument.Close(ctx)
 		}
 	}

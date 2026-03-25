@@ -258,7 +258,7 @@ func (r List) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "tasks.list")
+			ctx = instrument.Start(providedCtx, "tasks.list")
 			defer instrument.Close(ctx)
 		}
 	}

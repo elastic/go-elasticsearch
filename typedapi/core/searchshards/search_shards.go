@@ -173,7 +173,7 @@ func (r SearchShards) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_shards")
+			ctx = instrument.Start(providedCtx, "search_shards")
 			defer instrument.Close(ctx)
 		}
 	}

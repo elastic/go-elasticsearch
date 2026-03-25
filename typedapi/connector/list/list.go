@@ -74,7 +74,9 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //
 // Get information about all connectors.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-list
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-list
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-list
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,
@@ -141,7 +143,7 @@ func (r List) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.list")
+			ctx = instrument.Start(providedCtx, "connector.list")
 			defer instrument.Close(ctx)
 		}
 	}

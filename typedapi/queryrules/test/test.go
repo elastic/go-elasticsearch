@@ -89,7 +89,9 @@ func NewTestFunc(tp elastictransport.Interface) NewTest {
 // Evaluate match criteria against a query ruleset to identify the rules that
 // would match that criteria.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-test
 func New(tp elastictransport.Interface) *Test {
 	r := &Test{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r Test) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.test")
+			ctx = instrument.Start(providedCtx, "query_rules.test")
 			defer instrument.Close(ctx)
 		}
 	}

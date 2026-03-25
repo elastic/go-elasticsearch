@@ -244,7 +244,7 @@ func (r RollupSearch) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "rollup.rollup_search")
+			ctx = instrument.Start(providedCtx, "rollup.rollup_search")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -222,7 +222,7 @@ func (r InvalidateToken) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.invalidate_token")
+			ctx = instrument.Start(providedCtx, "security.invalidate_token")
 			defer instrument.Close(ctx)
 		}
 	}

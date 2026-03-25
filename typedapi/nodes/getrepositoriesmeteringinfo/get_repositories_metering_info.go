@@ -165,7 +165,7 @@ func (r GetRepositoriesMeteringInfo) Perform(providedCtx context.Context) (*http
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "nodes.get_repositories_metering_info")
+			ctx = instrument.Start(providedCtx, "nodes.get_repositories_metering_info")
 			defer instrument.Close(ctx)
 		}
 	}

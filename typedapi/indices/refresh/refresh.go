@@ -125,7 +125,9 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // `refresh=wait_for` query parameter option. This option ensures the indexing
 // operation waits for a periodic refresh before running the search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-refresh
 func New(tp elastictransport.Interface) *Refresh {
 	r := &Refresh{
 		transport: tp,
@@ -203,7 +205,7 @@ func (r Refresh) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.refresh")
+			ctx = instrument.Start(providedCtx, "indices.refresh")
 			defer instrument.Close(ctx)
 		}
 	}

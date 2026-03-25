@@ -232,7 +232,7 @@ func (r ChatCompletionUnified) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.chat_completion_unified")
+			ctx = instrument.Start(providedCtx, "inference.chat_completion_unified")
 			defer instrument.Close(ctx)
 		}
 	}

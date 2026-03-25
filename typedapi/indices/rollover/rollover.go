@@ -188,7 +188,9 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 // you roll over the alias on May 7, 2099, the new index's name is
 // `my-index-2099.05.07-000002`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-rollover
 func New(tp elastictransport.Interface) *Rollover {
 	r := &Rollover{
 		transport: tp,
@@ -326,7 +328,7 @@ func (r Rollover) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.rollover")
+			ctx = instrument.Start(providedCtx, "indices.rollover")
 			defer instrument.Close(ctx)
 		}
 	}

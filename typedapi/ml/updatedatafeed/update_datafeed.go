@@ -96,7 +96,9 @@ func NewUpdateDatafeedFunc(tp elastictransport.Interface) NewUpdateDatafeed {
 // query using those same roles. If you provide secondary authorization headers,
 // those credentials are used instead.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-datafeed
 func New(tp elastictransport.Interface) *UpdateDatafeed {
 	r := &UpdateDatafeed{
 		transport: tp,
@@ -221,7 +223,7 @@ func (r UpdateDatafeed) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.update_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -91,7 +91,9 @@ func NewMlTrainedModelsFunc(tp elastictransport.Interface) NewMlTrainedModels {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get trained models statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-trained-models
 func New(tp elastictransport.Interface) *MlTrainedModels {
 	r := &MlTrainedModels{
 		transport: tp,
@@ -177,7 +179,7 @@ func (r MlTrainedModels) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_trained_models")
+			ctx = instrument.Start(providedCtx, "cat.ml_trained_models")
 			defer instrument.Close(ctx)
 		}
 	}

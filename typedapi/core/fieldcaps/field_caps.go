@@ -96,7 +96,9 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 // a runtime field with a type of keyword is returned the same as any other
 // field that belongs to the `keyword` family.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-field-caps
 func New(tp elastictransport.Interface) *FieldCaps {
 	r := &FieldCaps{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r FieldCaps) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "field_caps")
+			ctx = instrument.Start(providedCtx, "field_caps")
 			defer instrument.Close(ctx)
 		}
 	}

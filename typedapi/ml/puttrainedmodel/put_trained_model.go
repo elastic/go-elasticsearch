@@ -90,7 +90,9 @@ func NewPutTrainedModelFunc(tp elastictransport.Interface) NewPutTrainedModel {
 // Enable you to supply a trained model that is not created by data frame
 // analytics.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model
 func New(tp elastictransport.Interface) *PutTrainedModel {
 	r := &PutTrainedModel{
 		transport: tp,
@@ -213,7 +215,7 @@ func (r PutTrainedModel) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model")
 			defer instrument.Close(ctx)
 		}
 	}

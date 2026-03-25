@@ -194,7 +194,7 @@ func (r ReloadSearchAnalyzers) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.reload_search_analyzers")
+			ctx = instrument.Start(providedCtx, "indices.reload_search_analyzers")
 			defer instrument.Close(ctx)
 		}
 	}

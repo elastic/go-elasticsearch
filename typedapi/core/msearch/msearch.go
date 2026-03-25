@@ -115,7 +115,9 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // sending requests to this endpoint the `Content-Type` header should be set to
 // `application/x-ndjson`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,
@@ -246,7 +248,7 @@ func (r Msearch) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "msearch")
+			ctx = instrument.Start(providedCtx, "msearch")
 			defer instrument.Close(ctx)
 		}
 	}

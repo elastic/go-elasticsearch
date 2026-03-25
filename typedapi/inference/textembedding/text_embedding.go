@@ -83,7 +83,9 @@ func NewTextEmbeddingFunc(tp elastictransport.Interface) NewTextEmbedding {
 
 // Perform text embedding inference on the service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *TextEmbedding {
 	r := &TextEmbedding{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r TextEmbedding) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.text_embedding")
+			ctx = instrument.Start(providedCtx, "inference.text_embedding")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -94,7 +94,9 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 //   - The user or API key that submitted the original async search request.
 //   - Users that have the `monitor` cluster privilege or greater privileges.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Status {
 	r := &Status{
 		transport: tp,
@@ -169,7 +171,7 @@ func (r Status) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "async_search.status")
+			ctx = instrument.Start(providedCtx, "async_search.status")
 			defer instrument.Close(ctx)
 		}
 	}

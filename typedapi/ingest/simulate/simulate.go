@@ -89,7 +89,9 @@ func NewSimulateFunc(tp elastictransport.Interface) NewSimulate {
 // specify an existing pipeline to use with the provided documents or supply a
 // pipeline definition in the body of the request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-simulate
 func New(tp elastictransport.Interface) *Simulate {
 	r := &Simulate{
 		transport: tp,
@@ -223,7 +225,7 @@ func (r Simulate) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.simulate")
+			ctx = instrument.Start(providedCtx, "ingest.simulate")
 			defer instrument.Close(ctx)
 		}
 	}

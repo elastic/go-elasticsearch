@@ -162,7 +162,7 @@ func (r GetAutoFollowPattern) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ccr.get_auto_follow_pattern")
+			ctx = instrument.Start(providedCtx, "ccr.get_auto_follow_pattern")
 			defer instrument.Close(ctx)
 		}
 	}

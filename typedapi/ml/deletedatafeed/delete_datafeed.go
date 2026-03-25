@@ -78,7 +78,9 @@ func NewDeleteDatafeedFunc(tp elastictransport.Interface) NewDeleteDatafeed {
 
 // Delete a datafeed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-datafeed
 func New(tp elastictransport.Interface) *DeleteDatafeed {
 	r := &DeleteDatafeed{
 		transport: tp,
@@ -153,7 +155,7 @@ func (r DeleteDatafeed) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.delete_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

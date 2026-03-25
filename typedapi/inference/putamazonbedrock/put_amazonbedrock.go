@@ -109,7 +109,9 @@ func NewPutAmazonbedrockFunc(tp elastictransport.Interface) NewPutAmazonbedrock 
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonbedrock
 func New(tp elastictransport.Interface) *PutAmazonbedrock {
 	r := &PutAmazonbedrock{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r PutAmazonbedrock) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_amazonbedrock")
+			ctx = instrument.Start(providedCtx, "inference.put_amazonbedrock")
 			defer instrument.Close(ctx)
 		}
 	}

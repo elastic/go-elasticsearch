@@ -198,7 +198,7 @@ func (r SecretPut) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.secret_put")
+			ctx = instrument.Start(providedCtx, "connector.secret_put")
 			defer instrument.Close(ctx)
 		}
 	}

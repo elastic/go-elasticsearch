@@ -89,7 +89,9 @@ func NewUpdateIndexNameFunc(tp elastictransport.Interface) NewUpdateIndexName {
 // Update the `index_name` field of a connector, specifying the index where the
 // data ingested by the connector is stored.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-index-name
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-index-name
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-index-name
 func New(tp elastictransport.Interface) *UpdateIndexName {
 	r := &UpdateIndexName{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r UpdateIndexName) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_index_name")
+			ctx = instrument.Start(providedCtx, "connector.update_index_name")
 			defer instrument.Close(ctx)
 		}
 	}

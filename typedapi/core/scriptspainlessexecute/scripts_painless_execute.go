@@ -217,7 +217,7 @@ func (r ScriptsPainlessExecute) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "scripts_painless_execute")
+			ctx = instrument.Start(providedCtx, "scripts_painless_execute")
 			defer instrument.Close(ctx)
 		}
 	}

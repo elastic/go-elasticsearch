@@ -119,7 +119,9 @@ func NewScrollFunc(tp elastictransport.Interface) NewScroll {
 // the time of the initial search request. Subsequent indexing or document
 // changes only affect later search and scroll requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-scroll
 func New(tp elastictransport.Interface) *Scroll {
 	r := &Scroll{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r Scroll) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "scroll")
+			ctx = instrument.Start(providedCtx, "scroll")
 			defer instrument.Close(ctx)
 		}
 	}

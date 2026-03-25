@@ -222,7 +222,7 @@ func (r SyncJobError) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_error")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_error")
 			defer instrument.Close(ctx)
 		}
 	}

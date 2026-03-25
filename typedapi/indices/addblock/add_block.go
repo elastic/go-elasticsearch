@@ -90,7 +90,9 @@ func NewAddBlockFunc(tp elastictransport.Interface) NewAddBlock {
 // Add an index block to an index. Index blocks limit the operations allowed on
 // an index by blocking specific operation types.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-add-block
 func New(tp elastictransport.Interface) *AddBlock {
 	r := &AddBlock{
 		transport: tp,
@@ -169,7 +171,7 @@ func (r AddBlock) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.add_block")
+			ctx = instrument.Start(providedCtx, "indices.add_block")
 			defer instrument.Close(ctx)
 		}
 	}

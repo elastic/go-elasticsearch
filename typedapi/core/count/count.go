@@ -111,7 +111,9 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // replica is chosen and the search is run against it. This means that replicas
 // increase the scalability of the count.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-count
 func New(tp elastictransport.Interface) *Count {
 	r := &Count{
 		transport: tp,
@@ -237,7 +239,7 @@ func (r Count) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "count")
+			ctx = instrument.Start(providedCtx, "count")
 			defer instrument.Close(ctx)
 		}
 	}

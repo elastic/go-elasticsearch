@@ -82,6 +82,10 @@ func NewCreateRoutingFunc(tp elastictransport.Interface) NewCreateRouting {
 }
 
 // Create or update a project routing expression.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-routing-create
 func New(tp elastictransport.Interface) *CreateRouting {
 	r := &CreateRouting{
 		transport: tp,
@@ -202,7 +206,7 @@ func (r CreateRouting) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "project.create_routing")
+			ctx = instrument.Start(providedCtx, "project.create_routing")
 			defer instrument.Close(ctx)
 		}
 	}

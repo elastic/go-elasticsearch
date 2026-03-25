@@ -86,7 +86,9 @@ func NewSyncJobCancelFunc(tp elastictransport.Interface) NewSyncJobCancel {
 // `cancellation_requested_at` to the current time. The connector service is
 // then responsible for setting the status of connector sync jobs to cancelled.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-cancel
 func New(tp elastictransport.Interface) *SyncJobCancel {
 	r := &SyncJobCancel{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r SyncJobCancel) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_cancel")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_cancel")
 			defer instrument.Close(ctx)
 		}
 	}

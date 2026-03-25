@@ -241,7 +241,7 @@ func (r PutPrivileges) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.put_privileges")
+			ctx = instrument.Start(providedCtx, "security.put_privileges")
 			defer instrument.Close(ctx)
 		}
 	}

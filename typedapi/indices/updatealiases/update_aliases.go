@@ -79,7 +79,9 @@ func NewUpdateAliasesFunc(tp elastictransport.Interface) NewUpdateAliases {
 //
 // Adds a data stream or index to an alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-update-aliases
 func New(tp elastictransport.Interface) *UpdateAliases {
 	r := &UpdateAliases{
 		transport: tp,
@@ -194,7 +196,7 @@ func (r UpdateAliases) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.update_aliases")
+			ctx = instrument.Start(providedCtx, "indices.update_aliases")
 			defer instrument.Close(ctx)
 		}
 	}

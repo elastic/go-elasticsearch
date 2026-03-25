@@ -160,7 +160,7 @@ func (r DeleteDataLifecycle) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_data_lifecycle")
+			ctx = instrument.Start(providedCtx, "indices.delete_data_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}

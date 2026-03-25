@@ -155,7 +155,7 @@ func (r DeleteIpLocationDatabase) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.delete_ip_location_database")
+			ctx = instrument.Start(providedCtx, "ingest.delete_ip_location_database")
 			defer instrument.Close(ctx)
 		}
 	}

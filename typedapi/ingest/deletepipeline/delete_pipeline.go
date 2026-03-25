@@ -82,7 +82,9 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 //
 // Delete one or more ingest pipelines.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-delete-pipeline
 func New(tp elastictransport.Interface) *DeletePipeline {
 	r := &DeletePipeline{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeletePipeline) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.delete_pipeline")
+			ctx = instrument.Start(providedCtx, "ingest.delete_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}

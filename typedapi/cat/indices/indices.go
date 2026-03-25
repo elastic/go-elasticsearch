@@ -123,7 +123,9 @@ func NewIndicesFunc(tp elastictransport.Interface) NewIndices {
 // Kibana console. They are not intended for use by applications. For
 // application consumption, use an index endpoint.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-indices
 func New(tp elastictransport.Interface) *Indices {
 	r := &Indices{
 		transport: tp,
@@ -205,7 +207,7 @@ func (r Indices) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.indices")
+			ctx = instrument.Start(providedCtx, "cat.indices")
 			defer instrument.Close(ctx)
 		}
 	}

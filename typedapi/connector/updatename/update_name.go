@@ -83,7 +83,9 @@ func NewUpdateNameFunc(tp elastictransport.Interface) NewUpdateName {
 
 // Update the connector name and description.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-name
 func New(tp elastictransport.Interface) *UpdateName {
 	r := &UpdateName{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r UpdateName) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_name")
+			ctx = instrument.Start(providedCtx, "connector.update_name")
 			defer instrument.Close(ctx)
 		}
 	}

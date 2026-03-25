@@ -92,7 +92,9 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 // the source index. If you include a `datafeed_config` but do not provide a
 // query, the datafeed uses `{"match_all": {"boost": 1}}`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-job
 func New(tp elastictransport.Interface) *PutJob {
 	r := &PutJob{
 		transport: tp,
@@ -215,7 +217,7 @@ func (r PutJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_job")
+			ctx = instrument.Start(providedCtx, "ml.put_job")
 			defer instrument.Close(ctx)
 		}
 	}

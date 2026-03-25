@@ -90,7 +90,9 @@ func NewRemoveBlockFunc(tp elastictransport.Interface) NewRemoveBlock {
 // Remove an index block from an index. Index blocks limit the operations
 // allowed on an index by blocking specific operation types.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-remove-block
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-remove-block
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-remove-block
 func New(tp elastictransport.Interface) *RemoveBlock {
 	r := &RemoveBlock{
 		transport: tp,
@@ -169,7 +171,7 @@ func (r RemoveBlock) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.remove_block")
+			ctx = instrument.Start(providedCtx, "indices.remove_block")
 			defer instrument.Close(ctx)
 		}
 	}

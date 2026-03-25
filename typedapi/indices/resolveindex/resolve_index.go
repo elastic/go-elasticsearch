@@ -91,7 +91,9 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams. Multiple patterns and remote clusters are supported.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-resolve-index
 func New(tp elastictransport.Interface) *ResolveIndex {
 	r := &ResolveIndex{
 		transport: tp,
@@ -208,7 +210,7 @@ func (r ResolveIndex) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.resolve_index")
+			ctx = instrument.Start(providedCtx, "indices.resolve_index")
 			defer instrument.Close(ctx)
 		}
 	}

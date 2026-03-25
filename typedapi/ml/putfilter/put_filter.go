@@ -91,7 +91,9 @@ func NewPutFilterFunc(tp elastictransport.Interface) NewPutFilter {
 // detection jobs. Specifically, filters are referenced in the `custom_rules`
 // property of detector configuration objects.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-filter
 func New(tp elastictransport.Interface) *PutFilter {
 	r := &PutFilter{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r PutFilter) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_filter")
+			ctx = instrument.Start(providedCtx, "ml.put_filter")
 			defer instrument.Close(ctx)
 		}
 	}

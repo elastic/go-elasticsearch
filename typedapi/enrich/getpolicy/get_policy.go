@@ -80,7 +80,9 @@ func NewGetPolicyFunc(tp elastictransport.Interface) NewGetPolicy {
 //
 // Returns information about an enrich policy.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-get-policy
 func New(tp elastictransport.Interface) *GetPolicy {
 	r := &GetPolicy{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r GetPolicy) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.get_policy")
+			ctx = instrument.Start(providedCtx, "enrich.get_policy")
 			defer instrument.Close(ctx)
 		}
 	}

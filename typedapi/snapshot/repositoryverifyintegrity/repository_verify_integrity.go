@@ -277,7 +277,7 @@ func (r RepositoryVerifyIntegrity) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.repository_verify_integrity")
+			ctx = instrument.Start(providedCtx, "snapshot.repository_verify_integrity")
 			defer instrument.Close(ctx)
 		}
 	}

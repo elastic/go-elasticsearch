@@ -168,7 +168,7 @@ func (r GetRoleMapping) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_role_mapping")
+			ctx = instrument.Start(providedCtx, "security.get_role_mapping")
 			defer instrument.Close(ctx)
 		}
 	}

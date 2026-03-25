@@ -87,7 +87,9 @@ func NewDeleteRoleFunc(tp elastictransport.Interface) NewDeleteRole {
 // preferred way to manage roles, rather than using file-based role management.
 // The delete roles API cannot remove roles that are defined in roles files.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-delete-role
 func New(tp elastictransport.Interface) *DeleteRole {
 	r := &DeleteRole{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r DeleteRole) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.delete_role")
+			ctx = instrument.Start(providedCtx, "security.delete_role")
 			defer instrument.Close(ctx)
 		}
 	}

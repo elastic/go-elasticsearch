@@ -152,7 +152,7 @@ func (r PendingTasks) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.pending_tasks")
+			ctx = instrument.Start(providedCtx, "cat.pending_tasks")
 			defer instrument.Close(ctx)
 		}
 	}

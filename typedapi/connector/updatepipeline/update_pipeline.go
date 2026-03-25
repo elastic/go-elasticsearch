@@ -89,7 +89,9 @@ func NewUpdatePipelineFunc(tp elastictransport.Interface) NewUpdatePipeline {
 // When you create a new connector, the configuration of an ingest pipeline is
 // populated with default settings.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-pipeline
 func New(tp elastictransport.Interface) *UpdatePipeline {
 	r := &UpdatePipeline{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r UpdatePipeline) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_pipeline")
+			ctx = instrument.Start(providedCtx, "connector.update_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -80,7 +80,9 @@ func NewGetIndexTemplateFunc(tp elastictransport.Interface) NewGetIndexTemplate 
 //
 // Get information about one or more index templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-index-template
 func New(tp elastictransport.Interface) *GetIndexTemplate {
 	r := &GetIndexTemplate{
 		transport: tp,
@@ -158,7 +160,7 @@ func (r GetIndexTemplate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_index_template")
+			ctx = instrument.Start(providedCtx, "indices.get_index_template")
 			defer instrument.Close(ctx)
 		}
 	}

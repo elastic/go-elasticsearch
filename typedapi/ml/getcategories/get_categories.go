@@ -236,7 +236,7 @@ func (r GetCategories) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_categories")
+			ctx = instrument.Start(providedCtx, "ml.get_categories")
 			defer instrument.Close(ctx)
 		}
 	}

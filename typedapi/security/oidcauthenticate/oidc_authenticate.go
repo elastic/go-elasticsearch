@@ -212,7 +212,7 @@ func (r OidcAuthenticate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.oidc_authenticate")
+			ctx = instrument.Start(providedCtx, "security.oidc_authenticate")
 			defer instrument.Close(ctx)
 		}
 	}

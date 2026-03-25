@@ -122,7 +122,9 @@ func NewInferenceFunc(tp elastictransport.Interface) NewInference {
 // models or if you want to use non-NLP models, use the machine learning trained
 // model APIs.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Inference {
 	r := &Inference{
 		transport: tp,
@@ -260,7 +262,7 @@ func (r Inference) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.inference")
+			ctx = instrument.Start(providedCtx, "inference.inference")
 			defer instrument.Close(ctx)
 		}
 	}

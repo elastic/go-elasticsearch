@@ -175,7 +175,7 @@ func (r DeleteWatch) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "watcher.delete_watch")
+			ctx = instrument.Start(providedCtx, "watcher.delete_watch")
 			defer instrument.Close(ctx)
 		}
 	}

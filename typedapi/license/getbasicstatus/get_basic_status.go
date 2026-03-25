@@ -139,7 +139,7 @@ func (r GetBasicStatus) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "license.get_basic_status")
+			ctx = instrument.Start(providedCtx, "license.get_basic_status")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -78,7 +78,9 @@ func NewSyncJobListFunc(tp elastictransport.Interface) NewSyncJobList {
 // Get information about all stored connector sync jobs listed by their creation
 // date in ascending order.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-list
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-list
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-list
 func New(tp elastictransport.Interface) *SyncJobList {
 	r := &SyncJobList{
 		transport: tp,
@@ -147,7 +149,7 @@ func (r SyncJobList) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_list")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_list")
 			defer instrument.Close(ctx)
 		}
 	}

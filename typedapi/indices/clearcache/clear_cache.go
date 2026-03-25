@@ -173,7 +173,7 @@ func (r ClearCache) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.clear_cache")
+			ctx = instrument.Start(providedCtx, "indices.clear_cache")
 			defer instrument.Close(ctx)
 		}
 	}

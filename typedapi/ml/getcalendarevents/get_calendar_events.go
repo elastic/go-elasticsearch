@@ -78,7 +78,9 @@ func NewGetCalendarEventsFunc(tp elastictransport.Interface) NewGetCalendarEvent
 
 // Get info about events in calendars.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendar-events
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendar-events
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-calendar-events
 func New(tp elastictransport.Interface) *GetCalendarEvents {
 	r := &GetCalendarEvents{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r GetCalendarEvents) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_calendar_events")
+			ctx = instrument.Start(providedCtx, "ml.get_calendar_events")
 			defer instrument.Close(ctx)
 		}
 	}

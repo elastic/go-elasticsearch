@@ -95,7 +95,9 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 // Get information about why a specific document matches, or doesn't match, a
 // query. It computes a score explanation for a query and a specific document.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-explain
 func New(tp elastictransport.Interface) *Explain {
 	r := &Explain{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r Explain) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "explain")
+			ctx = instrument.Start(providedCtx, "explain")
 			defer instrument.Close(ctx)
 		}
 	}

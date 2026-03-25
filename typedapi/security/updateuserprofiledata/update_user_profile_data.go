@@ -257,7 +257,7 @@ func (r UpdateUserProfileData) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.update_user_profile_data")
+			ctx = instrument.Start(providedCtx, "security.update_user_profile_data")
 			defer instrument.Close(ctx)
 		}
 	}

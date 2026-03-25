@@ -92,7 +92,9 @@ func NewPutAliasFunc(tp elastictransport.Interface) NewPutAlias {
 //
 // Adds a data stream or index to an alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-alias
 func New(tp elastictransport.Interface) *PutAlias {
 	r := &PutAlias{
 		transport: tp,
@@ -236,7 +238,7 @@ func (r PutAlias) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_alias")
+			ctx = instrument.Start(providedCtx, "indices.put_alias")
 			defer instrument.Close(ctx)
 		}
 	}

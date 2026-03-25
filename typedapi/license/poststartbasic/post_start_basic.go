@@ -165,7 +165,7 @@ func (r PostStartBasic) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "license.post_start_basic")
+			ctx = instrument.Start(providedCtx, "license.post_start_basic")
 			defer instrument.Close(ctx)
 		}
 	}

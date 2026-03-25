@@ -238,7 +238,7 @@ func (r SamlAuthenticate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.saml_authenticate")
+			ctx = instrument.Start(providedCtx, "security.saml_authenticate")
 			defer instrument.Close(ctx)
 		}
 	}

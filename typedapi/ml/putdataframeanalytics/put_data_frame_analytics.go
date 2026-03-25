@@ -105,7 +105,9 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 // hyperparameter optimization occurs. It determines a value for each of the
 // undefined parameters.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-data-frame-analytics
 func New(tp elastictransport.Interface) *PutDataFrameAnalytics {
 	r := &PutDataFrameAnalytics{
 		transport: tp,
@@ -230,7 +232,7 @@ func (r PutDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.put_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

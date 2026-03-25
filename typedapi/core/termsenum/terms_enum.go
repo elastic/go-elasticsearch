@@ -99,7 +99,9 @@ func NewTermsEnumFunc(tp elastictransport.Interface) NewTermsEnum {
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-terms-enum
 func New(tp elastictransport.Interface) *TermsEnum {
 	r := &TermsEnum{
 		transport: tp,
@@ -220,7 +222,7 @@ func (r TermsEnum) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "terms_enum")
+			ctx = instrument.Start(providedCtx, "terms_enum")
 			defer instrument.Close(ctx)
 		}
 	}

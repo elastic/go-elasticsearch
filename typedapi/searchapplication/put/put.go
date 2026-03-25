@@ -83,7 +83,9 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 
 // Create or update a search application.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-put
 func New(tp elastictransport.Interface) *Put {
 	r := &Put{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r Put) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.put")
+			ctx = instrument.Start(providedCtx, "search_application.put")
 			defer instrument.Close(ctx)
 		}
 	}

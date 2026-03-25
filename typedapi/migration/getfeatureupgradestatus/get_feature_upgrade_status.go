@@ -153,7 +153,7 @@ func (r GetFeatureUpgradeStatus) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "migration.get_feature_upgrade_status")
+			ctx = instrument.Start(providedCtx, "migration.get_feature_upgrade_status")
 			defer instrument.Close(ctx)
 		}
 	}

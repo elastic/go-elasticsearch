@@ -78,7 +78,9 @@ func NewDeleteTransformFunc(tp elastictransport.Interface) NewDeleteTransform {
 
 // Delete a transform.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-delete-transform
 func New(tp elastictransport.Interface) *DeleteTransform {
 	r := &DeleteTransform{
 		transport: tp,
@@ -151,7 +153,7 @@ func (r DeleteTransform) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.delete_transform")
+			ctx = instrument.Start(providedCtx, "transform.delete_transform")
 			defer instrument.Close(ctx)
 		}
 	}

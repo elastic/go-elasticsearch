@@ -82,7 +82,9 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 //
 // Clear the search context and results for a scrolling search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-clear-scroll
 func New(tp elastictransport.Interface) *ClearScroll {
 	r := &ClearScroll{
 		transport: tp,
@@ -199,7 +201,7 @@ func (r ClearScroll) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "clear_scroll")
+			ctx = instrument.Start(providedCtx, "clear_scroll")
 			defer instrument.Close(ctx)
 		}
 	}

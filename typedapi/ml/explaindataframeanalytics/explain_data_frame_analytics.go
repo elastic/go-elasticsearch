@@ -239,7 +239,7 @@ func (r ExplainDataFrameAnalytics) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.explain_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.explain_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

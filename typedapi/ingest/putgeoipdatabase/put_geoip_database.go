@@ -212,7 +212,7 @@ func (r PutGeoipDatabase) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.put_geoip_database")
+			ctx = instrument.Start(providedCtx, "ingest.put_geoip_database")
 			defer instrument.Close(ctx)
 		}
 	}

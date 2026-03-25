@@ -93,7 +93,9 @@ func NewMlDataFrameAnalyticsFunc(tp elastictransport.Interface) NewMlDataFrameAn
 // application consumption, use the get data frame analytics jobs statistics
 // API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-data-frame-analytics
 func New(tp elastictransport.Interface) *MlDataFrameAnalytics {
 	r := &MlDataFrameAnalytics{
 		transport: tp,
@@ -183,7 +185,7 @@ func (r MlDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "cat.ml_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

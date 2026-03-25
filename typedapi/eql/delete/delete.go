@@ -84,7 +84,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // Delete an async EQL search or a stored synchronous EQL search. The API also
 // deletes results for the search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.delete")
+			ctx = instrument.Start(providedCtx, "eql.delete")
 			defer instrument.Close(ctx)
 		}
 	}

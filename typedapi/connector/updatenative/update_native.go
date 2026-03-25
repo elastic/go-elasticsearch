@@ -83,7 +83,9 @@ func NewUpdateNativeFunc(tp elastictransport.Interface) NewUpdateNative {
 
 // Update the connector is_native flag.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-native
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-native
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-native
 func New(tp elastictransport.Interface) *UpdateNative {
 	r := &UpdateNative{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r UpdateNative) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_native")
+			ctx = instrument.Start(providedCtx, "connector.update_native")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -141,7 +141,7 @@ func (r GetScriptContext) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "get_script_context")
+			ctx = instrument.Start(providedCtx, "get_script_context")
 			defer instrument.Close(ctx)
 		}
 	}

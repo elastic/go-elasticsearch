@@ -80,7 +80,9 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 //
 // Get information about component templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *GetComponentTemplate {
 	r := &GetComponentTemplate{
 		transport: tp,
@@ -158,7 +160,7 @@ func (r GetComponentTemplate) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.get_component_template")
+			ctx = instrument.Start(providedCtx, "cluster.get_component_template")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -104,7 +104,9 @@ func NewFlushJobFunc(tp elastictransport.Interface) NewFlushJob {
 // persists the model state to disk and the job must be opened again before
 // analyzing further data.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-flush-job
 //
 // Deprecated: Since 9.1.0. Forcing any buffered data to be processed is
 // deprecated, in a future major version a datafeed will be required.
@@ -232,7 +234,7 @@ func (r FlushJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.flush_job")
+			ctx = instrument.Start(providedCtx, "ml.flush_job")
 			defer instrument.Close(ctx)
 		}
 	}

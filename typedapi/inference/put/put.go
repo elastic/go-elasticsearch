@@ -170,7 +170,9 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 //   - VoyageAI (`rerank`, `text_embedding`)
 //   - Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put
 func New(tp elastictransport.Interface) *Put {
 	r := &Put{
 		transport: tp,
@@ -308,7 +310,7 @@ func (r Put) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put")
+			ctx = instrument.Start(providedCtx, "inference.put")
 			defer instrument.Close(ctx)
 		}
 	}

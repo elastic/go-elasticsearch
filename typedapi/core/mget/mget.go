@@ -123,7 +123,9 @@ func NewMgetFunc(tp elastictransport.Interface) NewMget {
 // can include the `stored_fields` query parameter in the request URI to specify
 // the defaults to use when there are no per-document instructions.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mget
 func New(tp elastictransport.Interface) *Mget {
 	r := &Mget{
 		transport: tp,
@@ -249,7 +251,7 @@ func (r Mget) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "mget")
+			ctx = instrument.Start(providedCtx, "mget")
 			defer instrument.Close(ctx)
 		}
 	}

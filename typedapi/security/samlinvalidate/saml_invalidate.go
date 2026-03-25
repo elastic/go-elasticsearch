@@ -220,7 +220,7 @@ func (r SamlInvalidate) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.saml_invalidate")
+			ctx = instrument.Start(providedCtx, "security.saml_invalidate")
 			defer instrument.Close(ctx)
 		}
 	}

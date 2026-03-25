@@ -117,7 +117,9 @@ func NewPutAzureopenaiFunc(tp elastictransport.Interface) NewPutAzureopenai {
 // be found in the [Azure models
 // documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-azureopenai
 func New(tp elastictransport.Interface) *PutAzureopenai {
 	r := &PutAzureopenai{
 		transport: tp,
@@ -244,7 +246,7 @@ func (r PutAzureopenai) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_azureopenai")
+			ctx = instrument.Start(providedCtx, "inference.put_azureopenai")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -88,7 +88,9 @@ func NewAuthenticateFunc(tp elastictransport.Interface) NewAuthenticate {
 // the user. If the user cannot be authenticated, this API returns a 401 status
 // code.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-authenticate
 func New(tp elastictransport.Interface) *Authenticate {
 	r := &Authenticate{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r Authenticate) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.authenticate")
+			ctx = instrument.Start(providedCtx, "security.authenticate")
 			defer instrument.Close(ctx)
 		}
 	}

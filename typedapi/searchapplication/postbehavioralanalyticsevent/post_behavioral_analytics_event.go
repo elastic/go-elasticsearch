@@ -231,7 +231,7 @@ func (r PostBehavioralAnalyticsEvent) Perform(providedCtx context.Context) (*htt
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.post_behavioral_analytics_event")
+			ctx = instrument.Start(providedCtx, "search_application.post_behavioral_analytics_event")
 			defer instrument.Close(ctx)
 		}
 	}

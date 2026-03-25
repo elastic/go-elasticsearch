@@ -91,7 +91,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Returns search results for an Event Query Language (EQL) query. EQL assumes
 // each document in a data stream or index corresponds to an event.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.search")
+			ctx = instrument.Start(providedCtx, "eql.search")
 			defer instrument.Close(ctx)
 		}
 	}

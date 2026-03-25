@@ -137,7 +137,9 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 // timestamp). For usage examples such as partial updates, upserts, and scripted
 // updates, see the External documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update
 func New(tp elastictransport.Interface) *Update {
 	r := &Update{
 		transport: tp,
@@ -264,7 +266,7 @@ func (r Update) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "update")
+			ctx = instrument.Start(providedCtx, "update")
 			defer instrument.Close(ctx)
 		}
 	}

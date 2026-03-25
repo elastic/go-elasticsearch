@@ -89,7 +89,9 @@ func NewStopDataFrameAnalyticsFunc(tp elastictransport.Interface) NewStopDataFra
 // A data frame analytics job can be started and stopped multiple times
 // throughout its lifecycle.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-data-frame-analytics
 func New(tp elastictransport.Interface) *StopDataFrameAnalytics {
 	r := &StopDataFrameAnalytics{
 		transport: tp,
@@ -216,7 +218,7 @@ func (r StopDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.stop_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.stop_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -95,7 +95,9 @@ func NewPutAlibabacloudFunc(tp elastictransport.Interface) NewPutAlibabacloud {
 // Create an inference endpoint to perform an inference task with the
 // `alibabacloud-ai-search` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-alibabacloud
 func New(tp elastictransport.Interface) *PutAlibabacloud {
 	r := &PutAlibabacloud{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAlibabacloud) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_alibabacloud")
+			ctx = instrument.Start(providedCtx, "inference.put_alibabacloud")
 			defer instrument.Close(ctx)
 		}
 	}

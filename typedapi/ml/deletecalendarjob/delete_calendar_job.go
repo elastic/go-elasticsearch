@@ -83,7 +83,9 @@ func NewDeleteCalendarJobFunc(tp elastictransport.Interface) NewDeleteCalendarJo
 
 // Delete anomaly jobs from a calendar.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-calendar-job
 func New(tp elastictransport.Interface) *DeleteCalendarJob {
 	r := &DeleteCalendarJob{
 		transport: tp,
@@ -166,7 +168,7 @@ func (r DeleteCalendarJob) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_calendar_job")
+			ctx = instrument.Start(providedCtx, "ml.delete_calendar_job")
 			defer instrument.Close(ctx)
 		}
 	}

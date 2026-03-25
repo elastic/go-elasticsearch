@@ -82,7 +82,9 @@ func NewExecutePolicyFunc(tp elastictransport.Interface) NewExecutePolicy {
 //
 // Create the enrich index for an existing enrich policy.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-execute-policy
 func New(tp elastictransport.Interface) *ExecutePolicy {
 	r := &ExecutePolicy{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r ExecutePolicy) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.execute_policy")
+			ctx = instrument.Start(providedCtx, "enrich.execute_policy")
 			defer instrument.Close(ctx)
 		}
 	}

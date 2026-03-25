@@ -103,7 +103,9 @@ func NewPutJinaaiFunc(tp elastictransport.Interface) NewPutJinaai {
 // To review the available `embedding` and `text_embedding` models, refer to
 // <https://jina.ai/embeddings/>.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-jinaai
 func New(tp elastictransport.Interface) *PutJinaai {
 	r := &PutJinaai{
 		transport: tp,
@@ -230,7 +232,7 @@ func (r PutJinaai) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_jinaai")
+			ctx = instrument.Start(providedCtx, "inference.put_jinaai")
 			defer instrument.Close(ctx)
 		}
 	}

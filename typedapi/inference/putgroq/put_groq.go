@@ -95,7 +95,9 @@ func NewPutGroqFunc(tp elastictransport.Interface) NewPutGroq {
 // Create an inference endpoint to perform an inference task with the `groq`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-groq
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-groq
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-groq
 func New(tp elastictransport.Interface) *PutGroq {
 	r := &PutGroq{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r PutGroq) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_groq")
+			ctx = instrument.Start(providedCtx, "inference.put_groq")
 			defer instrument.Close(ctx)
 		}
 	}

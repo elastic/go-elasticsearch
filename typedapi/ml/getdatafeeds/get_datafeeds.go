@@ -88,7 +88,9 @@ func NewGetDatafeedsFunc(tp elastictransport.Interface) NewGetDatafeeds {
 // `<feed_id>`, or by omitting the `<feed_id>`. This API returns a maximum of
 // 10,000 datafeeds.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-datafeeds
 func New(tp elastictransport.Interface) *GetDatafeeds {
 	r := &GetDatafeeds{
 		transport: tp,
@@ -170,7 +172,7 @@ func (r GetDatafeeds) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_datafeeds")
+			ctx = instrument.Start(providedCtx, "ml.get_datafeeds")
 			defer instrument.Close(ctx)
 		}
 	}

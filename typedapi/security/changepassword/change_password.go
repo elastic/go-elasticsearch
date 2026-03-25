@@ -220,7 +220,7 @@ func (r ChangePassword) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.change_password")
+			ctx = instrument.Start(providedCtx, "security.change_password")
 			defer instrument.Close(ctx)
 		}
 	}

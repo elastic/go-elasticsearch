@@ -82,7 +82,9 @@ func NewGetDataStreamSettingsFunc(tp elastictransport.Interface) NewGetDataStrea
 //
 // Get setting information for one or more data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-settings
 func New(tp elastictransport.Interface) *GetDataStreamSettings {
 	r := &GetDataStreamSettings{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r GetDataStreamSettings) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_stream_settings")
+			ctx = instrument.Start(providedCtx, "indices.get_data_stream_settings")
 			defer instrument.Close(ctx)
 		}
 	}

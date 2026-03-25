@@ -118,7 +118,9 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func New(tp elastictransport.Interface) *Exists {
 	r := &Exists{
 		transport: tp,
@@ -197,7 +199,7 @@ func (r Exists) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "exists")
+			ctx = instrument.Start(providedCtx, "exists")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -117,7 +117,9 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 // examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-mapping
 func New(tp elastictransport.Interface) *PutMapping {
 	r := &PutMapping{
 		transport: tp,
@@ -238,7 +240,7 @@ func (r PutMapping) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_mapping")
+			ctx = instrument.Start(providedCtx, "indices.put_mapping")
 			defer instrument.Close(ctx)
 		}
 	}

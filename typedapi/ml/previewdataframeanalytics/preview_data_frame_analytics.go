@@ -85,7 +85,9 @@ func NewPreviewDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPreviewD
 //
 // Preview the extracted features used by a data frame analytics config.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-data-frame-analytics
 func New(tp elastictransport.Interface) *PreviewDataFrameAnalytics {
 	r := &PreviewDataFrameAnalytics{
 		transport: tp,
@@ -223,7 +225,7 @@ func (r PreviewDataFrameAnalytics) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.preview_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.preview_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

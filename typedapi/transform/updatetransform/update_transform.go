@@ -103,7 +103,9 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 // security features are enabled, the transform remembers which roles the user
 // who updated it had at the time of update and runs with those privileges.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-update-transform
 func New(tp elastictransport.Interface) *UpdateTransform {
 	r := &UpdateTransform{
 		transport: tp,
@@ -226,7 +228,7 @@ func (r UpdateTransform) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.update_transform")
+			ctx = instrument.Start(providedCtx, "transform.update_transform")
 			defer instrument.Close(ctx)
 		}
 	}

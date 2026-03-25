@@ -84,7 +84,9 @@ func NewExistsAliasFunc(tp elastictransport.Interface) NewExistsAlias {
 //
 // Check if one or more data stream or index aliases exist.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists-alias
 func New(tp elastictransport.Interface) *ExistsAlias {
 	r := &ExistsAlias{
 		transport: tp,
@@ -174,7 +176,7 @@ func (r ExistsAlias) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.exists_alias")
+			ctx = instrument.Start(providedCtx, "indices.exists_alias")
 			defer instrument.Close(ctx)
 		}
 	}

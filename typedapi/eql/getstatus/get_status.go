@@ -84,7 +84,9 @@ func NewGetStatusFunc(tp elastictransport.Interface) NewGetStatus {
 // Get the current status for an async EQL search or a stored synchronous EQL
 // search without returning results.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get-status
 func New(tp elastictransport.Interface) *GetStatus {
 	r := &GetStatus{
 		transport: tp,
@@ -161,7 +163,7 @@ func (r GetStatus) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.get_status")
+			ctx = instrument.Start(providedCtx, "eql.get_status")
 			defer instrument.Close(ctx)
 		}
 	}

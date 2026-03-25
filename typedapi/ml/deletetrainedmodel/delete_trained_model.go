@@ -84,7 +84,9 @@ func NewDeleteTrainedModelFunc(tp elastictransport.Interface) NewDeleteTrainedMo
 // The request deletes a trained inference model that is not referenced by an
 // ingest pipeline.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-trained-model
 func New(tp elastictransport.Interface) *DeleteTrainedModel {
 	r := &DeleteTrainedModel{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r DeleteTrainedModel) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_trained_model")
+			ctx = instrument.Start(providedCtx, "ml.delete_trained_model")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -82,7 +82,9 @@ func NewStopTransformFunc(tp elastictransport.Interface) NewStopTransform {
 //
 // Stops one or more transforms.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-stop-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-stop-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-stop-transform
 func New(tp elastictransport.Interface) *StopTransform {
 	r := &StopTransform{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r StopTransform) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.stop_transform")
+			ctx = instrument.Start(providedCtx, "transform.stop_transform")
 			defer instrument.Close(ctx)
 		}
 	}

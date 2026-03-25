@@ -210,7 +210,7 @@ func (r SuggestUserProfiles) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.suggest_user_profiles")
+			ctx = instrument.Start(providedCtx, "security.suggest_user_profiles")
 			defer instrument.Close(ctx)
 		}
 	}

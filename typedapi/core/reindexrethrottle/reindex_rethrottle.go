@@ -96,7 +96,9 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 // that slows down the query will take effect after completing the current
 // batch. This behavior prevents scroll timeouts.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func New(tp elastictransport.Interface) *ReindexRethrottle {
 	r := &ReindexRethrottle{
 		transport: tp,
@@ -171,7 +173,7 @@ func (r ReindexRethrottle) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "reindex_rethrottle")
+			ctx = instrument.Start(providedCtx, "reindex_rethrottle")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -95,7 +95,9 @@ func NewUpdateApiKeyIdFunc(tp elastictransport.Interface) NewUpdateApiKeyId {
 // required only for Elastic managed (native) connectors. Self-managed
 // connectors (connector clients) do not use this field.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-api-key-id
 func New(tp elastictransport.Interface) *UpdateApiKeyId {
 	r := &UpdateApiKeyId{
 		transport: tp,
@@ -218,7 +220,7 @@ func (r UpdateApiKeyId) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_api_key_id")
+			ctx = instrument.Start(providedCtx, "connector.update_api_key_id")
 			defer instrument.Close(ctx)
 		}
 	}

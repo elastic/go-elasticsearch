@@ -210,7 +210,7 @@ func (r HealthReport) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "health_report")
+			ctx = instrument.Start(providedCtx, "health_report")
 			defer instrument.Close(ctx)
 		}
 	}

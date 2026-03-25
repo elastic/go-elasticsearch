@@ -165,7 +165,7 @@ func (r GetMigrateReindexStatus) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_migrate_reindex_status")
+			ctx = instrument.Start(providedCtx, "indices.get_migrate_reindex_status")
 			defer instrument.Close(ctx)
 		}
 	}

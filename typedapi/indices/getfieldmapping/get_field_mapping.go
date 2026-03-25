@@ -94,7 +94,9 @@ func NewGetFieldMappingFunc(tp elastictransport.Interface) NewGetFieldMapping {
 // This API is useful if you don't need a complete mapping or if an index
 // mapping contains a large number of fields.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-mapping
 func New(tp elastictransport.Interface) *GetFieldMapping {
 	r := &GetFieldMapping{
 		transport: tp,
@@ -188,7 +190,7 @@ func (r GetFieldMapping) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_field_mapping")
+			ctx = instrument.Start(providedCtx, "indices.get_field_mapping")
 			defer instrument.Close(ctx)
 		}
 	}

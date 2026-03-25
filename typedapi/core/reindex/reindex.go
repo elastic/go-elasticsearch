@@ -224,7 +224,9 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 //
 // Refer to the linked documentation for examples of how to reindex documents.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func New(tp elastictransport.Interface) *Reindex {
 	r := &Reindex{
 		transport: tp,
@@ -339,7 +341,7 @@ func (r Reindex) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "reindex")
+			ctx = instrument.Start(providedCtx, "reindex")
 			defer instrument.Close(ctx)
 		}
 	}

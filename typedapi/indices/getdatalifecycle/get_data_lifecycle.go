@@ -83,7 +83,9 @@ func NewGetDataLifecycleFunc(tp elastictransport.Interface) NewGetDataLifecycle 
 //
 // Get the data stream lifecycle configuration of one or more data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-lifecycle
 func New(tp elastictransport.Interface) *GetDataLifecycle {
 	r := &GetDataLifecycle{
 		transport: tp,
@@ -158,7 +160,7 @@ func (r GetDataLifecycle) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_lifecycle")
+			ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}

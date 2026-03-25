@@ -212,7 +212,7 @@ func (r HasPrivilegesUserProfile) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.has_privileges_user_profile")
+			ctx = instrument.Start(providedCtx, "security.has_privileges_user_profile")
 			defer instrument.Close(ctx)
 		}
 	}

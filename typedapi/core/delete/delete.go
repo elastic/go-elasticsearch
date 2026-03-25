@@ -180,7 +180,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // redirected into the primary shard within that ID group and replicated (if
 // needed) to shard replicas within that ID group.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -259,7 +261,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "delete")
+			ctx = instrument.Start(providedCtx, "delete")
 			defer instrument.Close(ctx)
 		}
 	}

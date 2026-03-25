@@ -145,7 +145,7 @@ func (r GetStats) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "slm.get_stats")
+			ctx = instrument.Start(providedCtx, "slm.get_stats")
 			defer instrument.Close(ctx)
 		}
 	}

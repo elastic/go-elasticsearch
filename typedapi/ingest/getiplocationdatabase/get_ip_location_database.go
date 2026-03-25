@@ -162,7 +162,7 @@ func (r GetIpLocationDatabase) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ingest.get_ip_location_database")
+			ctx = instrument.Start(providedCtx, "ingest.get_ip_location_database")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -153,7 +153,7 @@ func (r GetSettings) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "watcher.get_settings")
+			ctx = instrument.Start(providedCtx, "watcher.get_settings")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -164,7 +164,7 @@ func (r AsyncQueryGet) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.async_query_get")
+			ctx = instrument.Start(providedCtx, "esql.async_query_get")
 			defer instrument.Close(ctx)
 		}
 	}

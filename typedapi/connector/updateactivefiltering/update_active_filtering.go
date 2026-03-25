@@ -82,7 +82,9 @@ func NewUpdateActiveFilteringFunc(tp elastictransport.Interface) NewUpdateActive
 //
 // Activates the valid draft filtering for a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering
 func New(tp elastictransport.Interface) *UpdateActiveFiltering {
 	r := &UpdateActiveFiltering{
 		transport: tp,
@@ -165,7 +167,7 @@ func (r UpdateActiveFiltering) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_active_filtering")
+			ctx = instrument.Start(providedCtx, "connector.update_active_filtering")
 			defer instrument.Close(ctx)
 		}
 	}

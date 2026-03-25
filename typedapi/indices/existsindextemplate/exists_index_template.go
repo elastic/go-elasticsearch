@@ -80,7 +80,9 @@ func NewExistsIndexTemplateFunc(tp elastictransport.Interface) NewExistsIndexTem
 //
 // Check whether index templates exist.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists-index-template
 func New(tp elastictransport.Interface) *ExistsIndexTemplate {
 	r := &ExistsIndexTemplate{
 		transport: tp,
@@ -153,7 +155,7 @@ func (r ExistsIndexTemplate) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.exists_index_template")
+			ctx = instrument.Start(providedCtx, "indices.exists_index_template")
 			defer instrument.Close(ctx)
 		}
 	}

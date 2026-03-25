@@ -95,7 +95,9 @@ func NewPutAi21Func(tp elastictransport.Interface) NewPutAi21 {
 // Create an inference endpoint to perform an inference task with the `ai21`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-ai21
 func New(tp elastictransport.Interface) *PutAi21 {
 	r := &PutAi21{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAi21) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_ai21")
+			ctx = instrument.Start(providedCtx, "inference.put_ai21")
 			defer instrument.Close(ctx)
 		}
 	}

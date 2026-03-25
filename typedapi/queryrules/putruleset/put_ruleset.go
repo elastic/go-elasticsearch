@@ -103,7 +103,9 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 // multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-put-ruleset
 func New(tp elastictransport.Interface) *PutRuleset {
 	r := &PutRuleset{
 		transport: tp,
@@ -224,7 +226,7 @@ func (r PutRuleset) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.put_ruleset")
+			ctx = instrument.Start(providedCtx, "query_rules.put_ruleset")
 			defer instrument.Close(ctx)
 		}
 	}

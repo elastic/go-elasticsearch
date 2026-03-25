@@ -77,7 +77,9 @@ func NewGetTrainedModelsFunc(tp elastictransport.Interface) NewGetTrainedModels 
 
 // Get trained model configuration info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models
 func New(tp elastictransport.Interface) *GetTrainedModels {
 	r := &GetTrainedModels{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r GetTrainedModels) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_trained_models")
+			ctx = instrument.Start(providedCtx, "ml.get_trained_models")
 			defer instrument.Close(ctx)
 		}
 	}

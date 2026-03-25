@@ -88,7 +88,9 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 // has elapsed. However, keeping points in time has a cost; close them as soon
 // as they are no longer required for search requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func New(tp elastictransport.Interface) *ClosePointInTime {
 	r := &ClosePointInTime{
 		transport: tp,
@@ -203,7 +205,7 @@ func (r ClosePointInTime) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "close_point_in_time")
+			ctx = instrument.Start(providedCtx, "close_point_in_time")
 			defer instrument.Close(ctx)
 		}
 	}

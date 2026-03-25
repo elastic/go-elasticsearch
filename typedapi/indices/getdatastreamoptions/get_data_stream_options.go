@@ -83,7 +83,9 @@ func NewGetDataStreamOptionsFunc(tp elastictransport.Interface) NewGetDataStream
 //
 // Get the data stream options configuration of one or more data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-options
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-options
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-options
 func New(tp elastictransport.Interface) *GetDataStreamOptions {
 	r := &GetDataStreamOptions{
 		transport: tp,
@@ -158,7 +160,7 @@ func (r GetDataStreamOptions) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.get_data_stream_options")
+			ctx = instrument.Start(providedCtx, "indices.get_data_stream_options")
 			defer instrument.Close(ctx)
 		}
 	}

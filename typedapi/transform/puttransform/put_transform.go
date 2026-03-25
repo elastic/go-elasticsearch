@@ -141,7 +141,9 @@ func NewPutTransformFunc(tp elastictransport.Interface) NewPutTransform {
 // transforms prior to 7.5, also do not give users any privileges on
 // `.data-frame-internal*` indices.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-put-transform
 func New(tp elastictransport.Interface) *PutTransform {
 	r := &PutTransform{
 		transport: tp,
@@ -262,7 +264,7 @@ func (r PutTransform) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.put_transform")
+			ctx = instrument.Start(providedCtx, "transform.put_transform")
 			defer instrument.Close(ctx)
 		}
 	}

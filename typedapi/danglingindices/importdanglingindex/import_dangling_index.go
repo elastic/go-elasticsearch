@@ -161,7 +161,7 @@ func (r ImportDanglingIndex) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "dangling_indices.import_dangling_index")
+			ctx = instrument.Start(providedCtx, "dangling_indices.import_dangling_index")
 			defer instrument.Close(ctx)
 		}
 	}

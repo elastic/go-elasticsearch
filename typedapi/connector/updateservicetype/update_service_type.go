@@ -83,7 +83,9 @@ func NewUpdateServiceTypeFunc(tp elastictransport.Interface) NewUpdateServiceTyp
 
 // Update the connector service type.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-service-type
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-service-type
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-service-type
 func New(tp elastictransport.Interface) *UpdateServiceType {
 	r := &UpdateServiceType{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r UpdateServiceType) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_service_type")
+			ctx = instrument.Start(providedCtx, "connector.update_service_type")
 			defer instrument.Close(ctx)
 		}
 	}

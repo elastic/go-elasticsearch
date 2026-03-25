@@ -170,7 +170,7 @@ func (r GetMemoryStats) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_memory_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_memory_stats")
 			defer instrument.Close(ctx)
 		}
 	}

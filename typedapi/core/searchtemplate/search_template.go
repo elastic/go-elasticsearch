@@ -83,7 +83,9 @@ func NewSearchTemplateFunc(tp elastictransport.Interface) NewSearchTemplate {
 
 // Run a search with a search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-template
 func New(tp elastictransport.Interface) *SearchTemplate {
 	r := &SearchTemplate{
 		transport: tp,
@@ -213,7 +215,7 @@ func (r SearchTemplate) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_template")
+			ctx = instrument.Start(providedCtx, "search_template")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -218,7 +218,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "fleet.search")
+			ctx = instrument.Start(providedCtx, "fleet.search")
 			defer instrument.Close(ctx)
 		}
 	}

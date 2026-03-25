@@ -89,7 +89,9 @@ func NewRankEvalFunc(tp elastictransport.Interface) NewRankEval {
 // Evaluate the quality of ranked search results over a set of typical search
 // queries.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-rank-eval
 func New(tp elastictransport.Interface) *RankEval {
 	r := &RankEval{
 		transport: tp,
@@ -215,7 +217,7 @@ func (r RankEval) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "rank_eval")
+			ctx = instrument.Start(providedCtx, "rank_eval")
 			defer instrument.Close(ctx)
 		}
 	}

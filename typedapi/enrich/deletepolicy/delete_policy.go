@@ -82,7 +82,9 @@ func NewDeletePolicyFunc(tp elastictransport.Interface) NewDeletePolicy {
 //
 // Deletes an existing enrich policy and its enrich index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-delete-policy
 func New(tp elastictransport.Interface) *DeletePolicy {
 	r := &DeletePolicy{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeletePolicy) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.delete_policy")
+			ctx = instrument.Start(providedCtx, "enrich.delete_policy")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -141,7 +141,9 @@ func NewPutElserFunc(tp elastictransport.Interface) NewPutElser {
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elser
 //
 // Deprecated: Since 8.16.0. The elser service is deprecated and will be removed
 // in a future release. Use the Elasticsearch inference integration instead,
@@ -272,7 +274,7 @@ func (r PutElser) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_elser")
+			ctx = instrument.Start(providedCtx, "inference.put_elser")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -84,7 +84,9 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics
 func New(tp elastictransport.Interface) *GetDataFrameAnalytics {
 	r := &GetDataFrameAnalytics{
 		transport: tp,
@@ -170,7 +172,7 @@ func (r GetDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.get_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

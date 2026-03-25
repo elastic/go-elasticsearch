@@ -95,7 +95,9 @@ func NewPutGoogleaistudioFunc(tp elastictransport.Interface) NewPutGoogleaistudi
 // Create an inference endpoint to perform an inference task with the
 // `googleaistudio` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-googleaistudio
 func New(tp elastictransport.Interface) *PutGoogleaistudio {
 	r := &PutGoogleaistudio{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutGoogleaistudio) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_googleaistudio")
+			ctx = instrument.Start(providedCtx, "inference.put_googleaistudio")
 			defer instrument.Close(ctx)
 		}
 	}

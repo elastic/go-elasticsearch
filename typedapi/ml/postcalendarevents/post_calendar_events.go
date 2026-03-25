@@ -83,7 +83,9 @@ func NewPostCalendarEventsFunc(tp elastictransport.Interface) NewPostCalendarEve
 
 // Add scheduled events to the calendar.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-post-calendar-events
 func New(tp elastictransport.Interface) *PostCalendarEvents {
 	r := &PostCalendarEvents{
 		transport: tp,
@@ -208,7 +210,7 @@ func (r PostCalendarEvents) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.post_calendar_events")
+			ctx = instrument.Start(providedCtx, "ml.post_calendar_events")
 			defer instrument.Close(ctx)
 		}
 	}

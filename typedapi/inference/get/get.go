@@ -85,7 +85,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -180,7 +182,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.get")
+			ctx = instrument.Start(providedCtx, "inference.get")
 			defer instrument.Close(ctx)
 		}
 	}

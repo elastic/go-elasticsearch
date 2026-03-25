@@ -83,7 +83,9 @@ func NewDeleteDataStreamFunc(tp elastictransport.Interface) NewDeleteDataStream 
 //
 // Deletes one or more data streams and their backing indices.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-data-stream
 func New(tp elastictransport.Interface) *DeleteDataStream {
 	r := &DeleteDataStream{
 		transport: tp,
@@ -156,7 +158,7 @@ func (r DeleteDataStream) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.delete_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}

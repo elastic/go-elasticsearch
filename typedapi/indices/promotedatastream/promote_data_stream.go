@@ -187,7 +187,7 @@ func (r PromoteDataStream) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.promote_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.promote_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}

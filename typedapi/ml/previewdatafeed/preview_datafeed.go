@@ -103,7 +103,9 @@ func NewPreviewDatafeedFunc(tp elastictransport.Interface) NewPreviewDatafeed {
 // appropriate credentials. You can also use secondary authorization headers to
 // supply the credentials.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-datafeed
 func New(tp elastictransport.Interface) *PreviewDatafeed {
 	r := &PreviewDatafeed{
 		transport: tp,
@@ -237,7 +239,7 @@ func (r PreviewDatafeed) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.preview_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.preview_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

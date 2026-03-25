@@ -102,7 +102,9 @@ func NewPutSynonymRuleFunc(tp elastictransport.Interface) NewPutSynonymRule {
 // When you update a synonym rule, all analyzers using the synonyms set will be
 // reloaded automatically to reflect the new rule.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym-rule
 func New(tp elastictransport.Interface) *PutSynonymRule {
 	r := &PutSynonymRule{
 		transport: tp,
@@ -229,7 +231,7 @@ func (r PutSynonymRule) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.put_synonym_rule")
+			ctx = instrument.Start(providedCtx, "synonyms.put_synonym_rule")
 			defer instrument.Close(ctx)
 		}
 	}

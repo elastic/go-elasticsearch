@@ -101,7 +101,9 @@ func NewPutContextualaiFunc(tp elastictransport.Interface) NewPutContextualai {
 // To review the available `rerank` models, refer to
 // <https://docs.contextual.ai/api-reference/rerank/rerank#body-model>.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-contextualai
 func New(tp elastictransport.Interface) *PutContextualai {
 	r := &PutContextualai{
 		transport: tp,
@@ -228,7 +230,7 @@ func (r PutContextualai) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_contextualai")
+			ctx = instrument.Start(providedCtx, "inference.put_contextualai")
 			defer instrument.Close(ctx)
 		}
 	}

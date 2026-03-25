@@ -97,7 +97,9 @@ func NewOpenJobFunc(tp elastictransport.Interface) NewOpenJob {
 // ready to resume its analysis from where it left off, once new data is
 // received.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-open-job
 func New(tp elastictransport.Interface) *OpenJob {
 	r := &OpenJob{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r OpenJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.open_job")
+			ctx = instrument.Start(providedCtx, "ml.open_job")
 			defer instrument.Close(ctx)
 		}
 	}

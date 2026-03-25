@@ -81,7 +81,9 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 
 // Create or update a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-put
 func New(tp elastictransport.Interface) *Put {
 	r := &Put{
 		transport: tp,
@@ -207,7 +209,7 @@ func (r Put) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.put")
+			ctx = instrument.Start(providedCtx, "connector.put")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -87,7 +87,9 @@ func NewValidateQueryFunc(tp elastictransport.Interface) NewValidateQuery {
 //
 // Validates a query without running it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-validate-query
 func New(tp elastictransport.Interface) *ValidateQuery {
 	r := &ValidateQuery{
 		transport: tp,
@@ -217,7 +219,7 @@ func (r ValidateQuery) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.validate_query")
+			ctx = instrument.Start(providedCtx, "indices.validate_query")
 			defer instrument.Close(ctx)
 		}
 	}

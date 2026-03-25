@@ -88,7 +88,9 @@ func NewDeleteIndexTemplateFunc(tp elastictransport.Interface) NewDeleteIndexTem
 // wildcard support and the provided names should match completely with existing
 // templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-index-template
 func New(tp elastictransport.Interface) *DeleteIndexTemplate {
 	r := &DeleteIndexTemplate{
 		transport: tp,
@@ -161,7 +163,7 @@ func (r DeleteIndexTemplate) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_index_template")
+			ctx = instrument.Start(providedCtx, "indices.delete_index_template")
 			defer instrument.Close(ctx)
 		}
 	}

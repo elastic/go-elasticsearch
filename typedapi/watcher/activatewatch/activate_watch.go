@@ -159,7 +159,7 @@ func (r ActivateWatch) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "watcher.activate_watch")
+			ctx = instrument.Start(providedCtx, "watcher.activate_watch")
 			defer instrument.Close(ctx)
 		}
 	}

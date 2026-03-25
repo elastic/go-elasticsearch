@@ -180,7 +180,7 @@ func (r EnableUserProfile) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.enable_user_profile")
+			ctx = instrument.Start(providedCtx, "security.enable_user_profile")
 			defer instrument.Close(ctx)
 		}
 	}

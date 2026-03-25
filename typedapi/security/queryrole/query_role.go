@@ -87,7 +87,9 @@ func NewQueryRoleFunc(tp elastictransport.Interface) NewQueryRole {
 // nor built-in ones. You can optionally filter the results with a query. Also,
 // the results can be paginated and sorted.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-role
 func New(tp elastictransport.Interface) *QueryRole {
 	r := &QueryRole{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r QueryRole) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.query_role")
+			ctx = instrument.Start(providedCtx, "security.query_role")
 			defer instrument.Close(ctx)
 		}
 	}

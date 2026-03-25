@@ -86,7 +86,9 @@ func NewResetJobFunc(tp elastictransport.Interface) NewResetJob {
 // it had just been created. It is not currently possible to reset multiple jobs
 // using wildcards or a comma separated list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-reset-job
 func New(tp elastictransport.Interface) *ResetJob {
 	r := &ResetJob{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r ResetJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.reset_job")
+			ctx = instrument.Start(providedCtx, "ml.reset_job")
 			defer instrument.Close(ctx)
 		}
 	}

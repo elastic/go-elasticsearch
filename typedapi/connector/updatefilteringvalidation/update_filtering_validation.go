@@ -87,7 +87,9 @@ func NewUpdateFilteringValidationFunc(tp elastictransport.Interface) NewUpdateFi
 //
 // Update the draft filtering validation info for a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering-validation
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering-validation
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering-validation
 func New(tp elastictransport.Interface) *UpdateFilteringValidation {
 	r := &UpdateFilteringValidation{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r UpdateFilteringValidation) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_filtering_validation")
+			ctx = instrument.Start(providedCtx, "connector.update_filtering_validation")
 			defer instrument.Close(ctx)
 		}
 	}

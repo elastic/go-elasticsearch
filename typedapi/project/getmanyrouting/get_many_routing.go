@@ -69,6 +69,10 @@ func NewGetManyRoutingFunc(tp elastictransport.Interface) NewGetManyRouting {
 }
 
 // Get project routing expressions.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-routing-get-many
 func New(tp elastictransport.Interface) *GetManyRouting {
 	r := &GetManyRouting{
 		transport: tp,
@@ -135,7 +139,7 @@ func (r GetManyRouting) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "project.get_many_routing")
+			ctx = instrument.Start(providedCtx, "project.get_many_routing")
 			defer instrument.Close(ctx)
 		}
 	}

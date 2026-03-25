@@ -94,7 +94,9 @@ func NewCreateFromFunc(tp elastictransport.Interface) NewCreateFrom {
 // Copy the mappings and settings from the source index to a destination index
 // while allowing request settings and mappings to override the source values.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-from
 func New(tp elastictransport.Interface) *CreateFrom {
 	r := &CreateFrom{
 		transport: tp,
@@ -221,7 +223,7 @@ func (r CreateFrom) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.create_from")
+			ctx = instrument.Start(providedCtx, "indices.create_from")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -192,7 +192,7 @@ func (r GetServiceCredentials) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_service_credentials")
+			ctx = instrument.Start(providedCtx, "security.get_service_credentials")
 			defer instrument.Close(ctx)
 		}
 	}

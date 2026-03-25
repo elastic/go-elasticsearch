@@ -102,7 +102,9 @@ func NewPutDataStreamSettingsFunc(tp elastictransport.Interface) NewPutDataStrea
 // change is applied to all backing indices. Otherwise, it will be applied when
 // the data stream is next rolled over.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-settings
 func New(tp elastictransport.Interface) *PutDataStreamSettings {
 	r := &PutDataStreamSettings{
 		transport: tp,
@@ -219,7 +221,7 @@ func (r PutDataStreamSettings) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_data_stream_settings")
+			ctx = instrument.Start(providedCtx, "indices.put_data_stream_settings")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -87,7 +87,9 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 //
 // Updates certain properties of an anomaly detection job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-job
 func New(tp elastictransport.Interface) *UpdateJob {
 	r := &UpdateJob{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r UpdateJob) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_job")
+			ctx = instrument.Start(providedCtx, "ml.update_job")
 			defer instrument.Close(ctx)
 		}
 	}

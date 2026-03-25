@@ -230,7 +230,7 @@ func (r GetRecords) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_records")
+			ctx = instrument.Start(providedCtx, "ml.get_records")
 			defer instrument.Close(ctx)
 		}
 	}

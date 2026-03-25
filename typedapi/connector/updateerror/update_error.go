@@ -91,7 +91,9 @@ func NewUpdateErrorFunc(tp elastictransport.Interface) NewUpdateError {
 // body is non-null, the connector’s status is updated to error. Otherwise, if
 // the error is reset to null, the connector status is updated to connected.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-error
 func New(tp elastictransport.Interface) *UpdateError {
 	r := &UpdateError{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r UpdateError) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_error")
+			ctx = instrument.Start(providedCtx, "connector.update_error")
 			defer instrument.Close(ctx)
 		}
 	}

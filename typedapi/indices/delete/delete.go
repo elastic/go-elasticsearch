@@ -95,7 +95,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // index, you must roll over the data stream so a new write index is created.
 // You can then use the delete index API to delete the previous write index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -166,7 +168,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete")
+			ctx = instrument.Start(providedCtx, "indices.delete")
 			defer instrument.Close(ctx)
 		}
 	}

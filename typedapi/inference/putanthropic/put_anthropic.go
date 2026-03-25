@@ -95,7 +95,9 @@ func NewPutAnthropicFunc(tp elastictransport.Interface) NewPutAnthropic {
 // Create an inference endpoint to perform an inference task with the
 // `anthropic` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-anthropic
 func New(tp elastictransport.Interface) *PutAnthropic {
 	r := &PutAnthropic{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAnthropic) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_anthropic")
+			ctx = instrument.Start(providedCtx, "inference.put_anthropic")
 			defer instrument.Close(ctx)
 		}
 	}

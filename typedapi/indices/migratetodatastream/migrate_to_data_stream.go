@@ -96,7 +96,9 @@ func NewMigrateToDataStreamFunc(tp elastictransport.Interface) NewMigrateToDataS
 // same name. The indices for the alias become hidden backing indices for the
 // stream. The write index for the alias becomes the write index for the stream.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-migrate-to-data-stream
 func New(tp elastictransport.Interface) *MigrateToDataStream {
 	r := &MigrateToDataStream{
 		transport: tp,
@@ -171,7 +173,7 @@ func (r MigrateToDataStream) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.migrate_to_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.migrate_to_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}

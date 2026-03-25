@@ -305,7 +305,7 @@ func (r Split) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.split")
+			ctx = instrument.Start(providedCtx, "indices.split")
 			defer instrument.Close(ctx)
 		}
 	}

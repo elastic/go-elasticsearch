@@ -87,7 +87,9 @@ func NewUpdateConfigurationFunc(tp elastictransport.Interface) NewUpdateConfigur
 //
 // Update the configuration field in the connector document.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-configuration
 func New(tp elastictransport.Interface) *UpdateConfiguration {
 	r := &UpdateConfiguration{
 		transport: tp,
@@ -210,7 +212,7 @@ func (r UpdateConfiguration) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_configuration")
+			ctx = instrument.Start(providedCtx, "connector.update_configuration")
 			defer instrument.Close(ctx)
 		}
 	}

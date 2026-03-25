@@ -137,7 +137,9 @@ func NewPutElasticsearchFunc(tp elastictransport.Interface) NewPutElasticsearch 
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elasticsearch
 func New(tp elastictransport.Interface) *PutElasticsearch {
 	r := &PutElasticsearch{
 		transport: tp,
@@ -264,7 +266,7 @@ func (r PutElasticsearch) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_elasticsearch")
+			ctx = instrument.Start(providedCtx, "inference.put_elasticsearch")
 			defer instrument.Close(ctx)
 		}
 	}

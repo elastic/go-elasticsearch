@@ -101,7 +101,9 @@ func NewPutWatsonxFunc(tp elastictransport.Interface) NewPutWatsonx {
 // through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
 // API, or Terraform.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-watsonx
 func New(tp elastictransport.Interface) *PutWatsonx {
 	r := &PutWatsonx{
 		transport: tp,
@@ -228,7 +230,7 @@ func (r PutWatsonx) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_watsonx")
+			ctx = instrument.Start(providedCtx, "inference.put_watsonx")
 			defer instrument.Close(ctx)
 		}
 	}

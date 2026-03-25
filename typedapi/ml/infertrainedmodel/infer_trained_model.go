@@ -83,7 +83,9 @@ func NewInferTrainedModelFunc(tp elastictransport.Interface) NewInferTrainedMode
 
 // Evaluate a trained model.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-infer-trained-model
 func New(tp elastictransport.Interface) *InferTrainedModel {
 	r := &InferTrainedModel{
 		transport: tp,
@@ -208,7 +210,7 @@ func (r InferTrainedModel) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.infer_trained_model")
+			ctx = instrument.Start(providedCtx, "ml.infer_trained_model")
 			defer instrument.Close(ctx)
 		}
 	}

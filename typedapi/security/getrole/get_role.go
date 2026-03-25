@@ -84,7 +84,9 @@ func NewGetRoleFunc(tp elastictransport.Interface) NewGetRole {
 // preferred way to manage roles, rather than using file-based role management.
 // The get roles API cannot retrieve roles that are defined in roles files.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-role
 func New(tp elastictransport.Interface) *GetRole {
 	r := &GetRole{
 		transport: tp,
@@ -166,7 +168,7 @@ func (r GetRole) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_role")
+			ctx = instrument.Start(providedCtx, "security.get_role")
 			defer instrument.Close(ctx)
 		}
 	}

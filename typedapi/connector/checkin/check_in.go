@@ -84,7 +84,9 @@ func NewCheckInFunc(tp elastictransport.Interface) NewCheckIn {
 // Update the `last_seen` field in the connector and set it to the current
 // timestamp.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-check-in
 func New(tp elastictransport.Interface) *CheckIn {
 	r := &CheckIn{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r CheckIn) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.check_in")
+			ctx = instrument.Start(providedCtx, "connector.check_in")
 			defer instrument.Close(ctx)
 		}
 	}

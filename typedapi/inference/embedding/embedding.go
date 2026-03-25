@@ -83,7 +83,9 @@ func NewEmbeddingFunc(tp elastictransport.Interface) NewEmbedding {
 
 // Perform dense embedding inference on the service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Embedding {
 	r := &Embedding{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r Embedding) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.embedding")
+			ctx = instrument.Start(providedCtx, "inference.embedding")
 			defer instrument.Close(ctx)
 		}
 	}

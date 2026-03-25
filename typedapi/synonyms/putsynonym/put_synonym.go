@@ -105,7 +105,9 @@ func NewPutSynonymFunc(tp elastictransport.Interface) NewPutSynonym {
 // For practical examples of how to create or update a synonyms set, refer to
 // the External documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym
 func New(tp elastictransport.Interface) *PutSynonym {
 	r := &PutSynonym{
 		transport: tp,
@@ -226,7 +228,7 @@ func (r PutSynonym) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.put_synonym")
+			ctx = instrument.Start(providedCtx, "synonyms.put_synonym")
 			defer instrument.Close(ctx)
 		}
 	}

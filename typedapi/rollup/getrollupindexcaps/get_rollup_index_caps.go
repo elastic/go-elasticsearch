@@ -175,7 +175,7 @@ func (r GetRollupIndexCaps) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "rollup.get_rollup_index_caps")
+			ctx = instrument.Start(providedCtx, "rollup.get_rollup_index_caps")
 			defer instrument.Close(ctx)
 		}
 	}

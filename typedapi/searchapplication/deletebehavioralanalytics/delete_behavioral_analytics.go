@@ -84,7 +84,9 @@ func NewDeleteBehavioralAnalyticsFunc(tp elastictransport.Interface) NewDeleteBe
 //
 // The associated data stream is also deleted.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete-behavioral-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-delete-behavioral-analytics
 //
 // Deprecated: Since 9.0.0.
 func New(tp elastictransport.Interface) *DeleteBehavioralAnalytics {
@@ -161,7 +163,7 @@ func (r DeleteBehavioralAnalytics) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.delete_behavioral_analytics")
+			ctx = instrument.Start(providedCtx, "search_application.delete_behavioral_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

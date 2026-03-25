@@ -106,7 +106,9 @@ func NewMtermvectorsFunc(tp elastictransport.Interface) NewMtermvectors {
 // documents provided in the body of the request. The mapping used is determined
 // by the specified `_index`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mtermvectors
 func New(tp elastictransport.Interface) *Mtermvectors {
 	r := &Mtermvectors{
 		transport: tp,
@@ -232,7 +234,7 @@ func (r Mtermvectors) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "mtermvectors")
+			ctx = instrument.Start(providedCtx, "mtermvectors")
 			defer instrument.Close(ctx)
 		}
 	}

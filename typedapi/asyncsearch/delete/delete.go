@@ -90,7 +90,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // authenticated user that submitted the original search request; users that
 // have the `cancel_task` cluster privilege.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "async_search.delete")
+			ctx = instrument.Start(providedCtx, "async_search.delete")
 			defer instrument.Close(ctx)
 		}
 	}

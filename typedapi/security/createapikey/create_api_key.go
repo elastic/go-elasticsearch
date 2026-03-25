@@ -110,7 +110,9 @@ func NewCreateApiKeyFunc(tp elastictransport.Interface) NewCreateApiKey {
 // automatically enabled. To configure or turn off the API key service, refer to
 // API key service setting documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-create-api-key
 func New(tp elastictransport.Interface) *CreateApiKey {
 	r := &CreateApiKey{
 		transport: tp,
@@ -227,7 +229,7 @@ func (r CreateApiKey) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.create_api_key")
+			ctx = instrument.Start(providedCtx, "security.create_api_key")
 			defer instrument.Close(ctx)
 		}
 	}

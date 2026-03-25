@@ -216,7 +216,7 @@ func (r UpdateSettings) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.update_settings")
+			ctx = instrument.Start(providedCtx, "security.update_settings")
 			defer instrument.Close(ctx)
 		}
 	}

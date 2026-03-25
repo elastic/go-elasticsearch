@@ -87,7 +87,9 @@ func NewGetSynonymRuleFunc(tp elastictransport.Interface) NewGetSynonymRule {
 //
 // Get a synonym rule from a synonym set.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym-rule
 func New(tp elastictransport.Interface) *GetSynonymRule {
 	r := &GetSynonymRule{
 		transport: tp,
@@ -172,7 +174,7 @@ func (r GetSynonymRule) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.get_synonym_rule")
+			ctx = instrument.Start(providedCtx, "synonyms.get_synonym_rule")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -83,7 +83,9 @@ func NewPutCalendarJobFunc(tp elastictransport.Interface) NewPutCalendarJob {
 
 // Add anomaly detection job to calendar.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-calendar-job
 func New(tp elastictransport.Interface) *PutCalendarJob {
 	r := &PutCalendarJob{
 		transport: tp,
@@ -166,7 +168,7 @@ func (r PutCalendarJob) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_calendar_job")
+			ctx = instrument.Start(providedCtx, "ml.put_calendar_job")
 			defer instrument.Close(ctx)
 		}
 	}

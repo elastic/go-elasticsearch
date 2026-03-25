@@ -185,7 +185,7 @@ func (r ResetFeatures) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "features.reset_features")
+			ctx = instrument.Start(providedCtx, "features.reset_features")
 			defer instrument.Close(ctx)
 		}
 	}

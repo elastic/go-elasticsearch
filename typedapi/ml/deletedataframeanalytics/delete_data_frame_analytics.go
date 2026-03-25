@@ -78,7 +78,9 @@ func NewDeleteDataFrameAnalyticsFunc(tp elastictransport.Interface) NewDeleteDat
 
 // Delete a data frame analytics job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-data-frame-analytics
 func New(tp elastictransport.Interface) *DeleteDataFrameAnalytics {
 	r := &DeleteDataFrameAnalytics{
 		transport: tp,
@@ -155,7 +157,7 @@ func (r DeleteDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.delete_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -241,7 +241,7 @@ func (r ReloadSecureSettings) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "nodes.reload_secure_settings")
+			ctx = instrument.Start(providedCtx, "nodes.reload_secure_settings")
 			defer instrument.Close(ctx)
 		}
 	}

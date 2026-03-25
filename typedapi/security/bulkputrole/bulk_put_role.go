@@ -201,7 +201,7 @@ func (r BulkPutRole) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.bulk_put_role")
+			ctx = instrument.Start(providedCtx, "security.bulk_put_role")
 			defer instrument.Close(ctx)
 		}
 	}

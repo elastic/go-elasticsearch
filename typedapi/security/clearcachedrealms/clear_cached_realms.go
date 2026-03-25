@@ -173,7 +173,7 @@ func (r ClearCachedRealms) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.clear_cached_realms")
+			ctx = instrument.Start(providedCtx, "security.clear_cached_realms")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -163,7 +163,7 @@ func (r UpdateByQueryRethrottle) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "update_by_query_rethrottle")
+			ctx = instrument.Start(providedCtx, "update_by_query_rethrottle")
 			defer instrument.Close(ctx)
 		}
 	}

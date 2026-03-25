@@ -201,7 +201,7 @@ func (r ClearCachedServiceTokens) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.clear_cached_service_tokens")
+			ctx = instrument.Start(providedCtx, "security.clear_cached_service_tokens")
 			defer instrument.Close(ctx)
 		}
 	}

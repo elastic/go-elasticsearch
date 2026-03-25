@@ -96,7 +96,9 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 //   - Users with the `cancel_task` cluster privilege.
 //   - The user who first submitted the search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-delete-async
 func New(tp elastictransport.Interface) *DeleteAsync {
 	r := &DeleteAsync{
 		transport: tp,
@@ -173,7 +175,7 @@ func (r DeleteAsync) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.delete_async")
+			ctx = instrument.Start(providedCtx, "sql.delete_async")
 			defer instrument.Close(ctx)
 		}
 	}

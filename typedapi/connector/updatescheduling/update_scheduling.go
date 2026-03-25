@@ -83,7 +83,9 @@ func NewUpdateSchedulingFunc(tp elastictransport.Interface) NewUpdateScheduling 
 
 // Update the connector scheduling.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-scheduling
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-scheduling
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-scheduling
 func New(tp elastictransport.Interface) *UpdateScheduling {
 	r := &UpdateScheduling{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r UpdateScheduling) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.update_scheduling")
+			ctx = instrument.Start(providedCtx, "connector.update_scheduling")
 			defer instrument.Close(ctx)
 		}
 	}

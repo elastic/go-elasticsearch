@@ -95,7 +95,9 @@ func NewPutCohereFunc(tp elastictransport.Interface) NewPutCohere {
 // Create an inference endpoint to perform an inference task with the `cohere`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-cohere
 func New(tp elastictransport.Interface) *PutCohere {
 	r := &PutCohere{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutCohere) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_cohere")
+			ctx = instrument.Start(providedCtx, "inference.put_cohere")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -191,7 +191,9 @@ func NewPutCustomFunc(tp elastictransport.Interface) NewPutCustom {
 //   - `${return_documents}` refers to the `return_documents` field available
 //     when performing rerank requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-custom
 func New(tp elastictransport.Interface) *PutCustom {
 	r := &PutCustom{
 		transport: tp,
@@ -318,7 +320,7 @@ func (r PutCustom) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_custom")
+			ctx = instrument.Start(providedCtx, "inference.put_custom")
 			defer instrument.Close(ctx)
 		}
 	}

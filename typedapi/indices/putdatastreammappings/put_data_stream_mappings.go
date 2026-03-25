@@ -97,7 +97,9 @@ func NewPutDataStreamMappingsFunc(tp elastictransport.Interface) NewPutDataStrea
 // indices that are created during rollover after this API is called. No indices
 // are changed by this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-mappings
 func New(tp elastictransport.Interface) *PutDataStreamMappings {
 	r := &PutDataStreamMappings{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r PutDataStreamMappings) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_data_stream_mappings")
+			ctx = instrument.Start(providedCtx, "indices.put_data_stream_mappings")
 			defer instrument.Close(ctx)
 		}
 	}

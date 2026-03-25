@@ -80,7 +80,9 @@ func NewGetFiltersFunc(tp elastictransport.Interface) NewGetFilters {
 //
 // You can get a single filter or all filters.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-filters
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-filters
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-filters
 func New(tp elastictransport.Interface) *GetFilters {
 	r := &GetFilters{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r GetFilters) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_filters")
+			ctx = instrument.Start(providedCtx, "ml.get_filters")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -80,7 +80,9 @@ func NewGetPipelineFunc(tp elastictransport.Interface) NewGetPipeline {
 //
 // Get pipelines that are used for Logstash Central Management.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-get-pipeline
 func New(tp elastictransport.Interface) *GetPipeline {
 	r := &GetPipeline{
 		transport: tp,
@@ -162,7 +164,7 @@ func (r GetPipeline) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "logstash.get_pipeline")
+			ctx = instrument.Start(providedCtx, "logstash.get_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}

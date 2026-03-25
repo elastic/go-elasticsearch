@@ -86,7 +86,9 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 // expression. You can get information for all anomaly detection jobs by using
 // `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-jobs
 func New(tp elastictransport.Interface) *GetJobs {
 	r := &GetJobs{
 		transport: tp,
@@ -168,7 +170,7 @@ func (r GetJobs) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_jobs")
+			ctx = instrument.Start(providedCtx, "ml.get_jobs")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -95,7 +95,9 @@ func NewPutMistralFunc(tp elastictransport.Interface) NewPutMistral {
 // Create an inference endpoint to perform an inference task with the `mistral`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-mistral
 func New(tp elastictransport.Interface) *PutMistral {
 	r := &PutMistral{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutMistral) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_mistral")
+			ctx = instrument.Start(providedCtx, "inference.put_mistral")
 			defer instrument.Close(ctx)
 		}
 	}

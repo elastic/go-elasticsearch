@@ -186,7 +186,7 @@ func (r UpgradeJobSnapshot) Perform(providedCtx context.Context) (*http.Response
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.upgrade_job_snapshot")
+			ctx = instrument.Start(providedCtx, "ml.upgrade_job_snapshot")
 			defer instrument.Close(ctx)
 		}
 	}

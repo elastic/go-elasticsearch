@@ -75,7 +75,9 @@ func NewClearCursorFunc(tp elastictransport.Interface) NewClearCursor {
 
 // Clear an SQL search cursor.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-clear-cursor
 func New(tp elastictransport.Interface) *ClearCursor {
 	r := &ClearCursor{
 		transport: tp,
@@ -192,7 +194,7 @@ func (r ClearCursor) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.clear_cursor")
+			ctx = instrument.Start(providedCtx, "sql.clear_cursor")
 			defer instrument.Close(ctx)
 		}
 	}

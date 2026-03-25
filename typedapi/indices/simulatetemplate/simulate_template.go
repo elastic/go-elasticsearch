@@ -87,7 +87,9 @@ func NewSimulateTemplateFunc(tp elastictransport.Interface) NewSimulateTemplate 
 // Get the index configuration that would be applied by a particular index
 // template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-simulate-template
 func New(tp elastictransport.Interface) *SimulateTemplate {
 	r := &SimulateTemplate{
 		transport: tp,
@@ -217,7 +219,7 @@ func (r SimulateTemplate) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.simulate_template")
+			ctx = instrument.Start(providedCtx, "indices.simulate_template")
 			defer instrument.Close(ctx)
 		}
 	}

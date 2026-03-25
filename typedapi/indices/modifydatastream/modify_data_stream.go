@@ -81,7 +81,9 @@ func NewModifyDataStreamFunc(tp elastictransport.Interface) NewModifyDataStream 
 // Performs one or more data stream modification actions in a single atomic
 // operation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-modify-data-stream
 func New(tp elastictransport.Interface) *ModifyDataStream {
 	r := &ModifyDataStream{
 		transport: tp,
@@ -198,7 +200,7 @@ func (r ModifyDataStream) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.modify_data_stream")
+			ctx = instrument.Start(providedCtx, "indices.modify_data_stream")
 			defer instrument.Close(ctx)
 		}
 	}

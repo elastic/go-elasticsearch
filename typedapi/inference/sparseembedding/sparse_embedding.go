@@ -83,7 +83,9 @@ func NewSparseEmbeddingFunc(tp elastictransport.Interface) NewSparseEmbedding {
 
 // Perform sparse embedding inference on the service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *SparseEmbedding {
 	r := &SparseEmbedding{
 		transport: tp,
@@ -206,7 +208,7 @@ func (r SparseEmbedding) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.sparse_embedding")
+			ctx = instrument.Start(providedCtx, "inference.sparse_embedding")
 			defer instrument.Close(ctx)
 		}
 	}

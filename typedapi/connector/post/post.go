@@ -87,7 +87,9 @@ func NewPostFunc(tp elastictransport.Interface) NewPost {
 // service on Elastic Cloud. Self-managed connectors (Connector clients) are
 // self-managed on your infrastructure.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-put
 func New(tp elastictransport.Interface) *Post {
 	r := &Post{
 		transport: tp,
@@ -202,7 +204,7 @@ func (r Post) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.post")
+			ctx = instrument.Start(providedCtx, "connector.post")
 			defer instrument.Close(ctx)
 		}
 	}

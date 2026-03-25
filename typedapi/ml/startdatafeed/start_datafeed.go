@@ -115,7 +115,9 @@ func NewStartDatafeedFunc(tp elastictransport.Interface) NewStartDatafeed {
 // secondary authorization headers when you created or updated the datafeed,
 // those credentials are used instead.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-datafeed
 func New(tp elastictransport.Interface) *StartDatafeed {
 	r := &StartDatafeed{
 		transport: tp,
@@ -240,7 +242,7 @@ func (r StartDatafeed) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.start_datafeed")
+			ctx = instrument.Start(providedCtx, "ml.start_datafeed")
 			defer instrument.Close(ctx)
 		}
 	}

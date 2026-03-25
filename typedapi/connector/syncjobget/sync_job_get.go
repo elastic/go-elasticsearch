@@ -78,7 +78,9 @@ func NewSyncJobGetFunc(tp elastictransport.Interface) NewSyncJobGet {
 
 // Get a connector sync job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-get
 func New(tp elastictransport.Interface) *SyncJobGet {
 	r := &SyncJobGet{
 		transport: tp,
@@ -153,7 +155,7 @@ func (r SyncJobGet) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_get")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_get")
 			defer instrument.Close(ctx)
 		}
 	}

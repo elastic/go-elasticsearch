@@ -82,7 +82,9 @@ func NewDeleteCalendarFunc(tp elastictransport.Interface) NewDeleteCalendar {
 //
 // Remove all scheduled events from a calendar, then delete it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-calendar
 func New(tp elastictransport.Interface) *DeleteCalendar {
 	r := &DeleteCalendar{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeleteCalendar) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_calendar")
+			ctx = instrument.Start(providedCtx, "ml.delete_calendar")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -106,7 +106,9 @@ func NewMsearchTemplateFunc(tp elastictransport.Interface) NewMsearchTemplate {
 //
 //	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch-template
 func New(tp elastictransport.Interface) *MsearchTemplate {
 	r := &MsearchTemplate{
 		transport: tp,
@@ -241,7 +243,7 @@ func (r MsearchTemplate) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "msearch_template")
+			ctx = instrument.Start(providedCtx, "msearch_template")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -84,7 +84,9 @@ func NewDeleteRulesetFunc(tp elastictransport.Interface) NewDeleteRuleset {
 // Remove a query ruleset and its associated data. This is a destructive action
 // that is not recoverable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-delete-ruleset
 func New(tp elastictransport.Interface) *DeleteRuleset {
 	r := &DeleteRuleset{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeleteRuleset) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.delete_ruleset")
+			ctx = instrument.Start(providedCtx, "query_rules.delete_ruleset")
 			defer instrument.Close(ctx)
 		}
 	}

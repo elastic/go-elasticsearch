@@ -97,7 +97,9 @@ func NewPreviewTransformFunc(tp elastictransport.Interface) NewPreviewTransform 
 // settings for the destination index. These values are determined based on the
 // field types of the source index and the transform aggregations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-preview-transform
 func New(tp elastictransport.Interface) *PreviewTransform {
 	r := &PreviewTransform{
 		transport: tp,
@@ -227,7 +229,7 @@ func (r PreviewTransform) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "transform.preview_transform")
+			ctx = instrument.Start(providedCtx, "transform.preview_transform")
 			defer instrument.Close(ctx)
 		}
 	}

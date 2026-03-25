@@ -97,7 +97,9 @@ func NewMlDatafeedsFunc(tp elastictransport.Interface) NewMlDatafeeds {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get datafeed statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-datafeeds
 func New(tp elastictransport.Interface) *MlDatafeeds {
 	r := &MlDatafeeds{
 		transport: tp,
@@ -183,7 +185,7 @@ func (r MlDatafeeds) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_datafeeds")
+			ctx = instrument.Start(providedCtx, "cat.ml_datafeeds")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -154,7 +154,7 @@ func (r GetRepository) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.get_repository")
+			ctx = instrument.Start(providedCtx, "snapshot.get_repository")
 			defer instrument.Close(ctx)
 		}
 	}

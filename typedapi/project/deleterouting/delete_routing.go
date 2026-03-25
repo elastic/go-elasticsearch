@@ -77,6 +77,10 @@ func NewDeleteRoutingFunc(tp elastictransport.Interface) NewDeleteRouting {
 }
 
 // Delete a project routing expression.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-routing-delete
 func New(tp elastictransport.Interface) *DeleteRouting {
 	r := &DeleteRouting{
 		transport: tp,
@@ -149,7 +153,7 @@ func (r DeleteRouting) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "project.delete_routing")
+			ctx = instrument.Start(providedCtx, "project.delete_routing")
 			defer instrument.Close(ctx)
 		}
 	}

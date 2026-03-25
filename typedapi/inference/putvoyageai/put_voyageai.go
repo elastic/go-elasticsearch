@@ -101,7 +101,9 @@ func NewPutVoyageaiFunc(tp elastictransport.Interface) NewPutVoyageai {
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-voyageai
 func New(tp elastictransport.Interface) *PutVoyageai {
 	r := &PutVoyageai{
 		transport: tp,
@@ -228,7 +230,7 @@ func (r PutVoyageai) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_voyageai")
+			ctx = instrument.Start(providedCtx, "inference.put_voyageai")
 			defer instrument.Close(ctx)
 		}
 	}

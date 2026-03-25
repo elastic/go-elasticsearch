@@ -170,7 +170,7 @@ func (r GetModelSnapshotUpgradeStats) Perform(providedCtx context.Context) (*htt
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_model_snapshot_upgrade_stats")
+			ctx = instrument.Start(providedCtx, "ml.get_model_snapshot_upgrade_stats")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -78,7 +78,9 @@ func NewGetBehavioralAnalyticsFunc(tp elastictransport.Interface) NewGetBehavior
 
 // Get behavioral analytics collections.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 //
 // Deprecated: Since 9.0.0.
 func New(tp elastictransport.Interface) *GetBehavioralAnalytics {
@@ -162,7 +164,7 @@ func (r GetBehavioralAnalytics) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.get_behavioral_analytics")
+			ctx = instrument.Start(providedCtx, "search_application.get_behavioral_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

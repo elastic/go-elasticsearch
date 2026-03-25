@@ -105,7 +105,9 @@ func NewStartDataFrameAnalyticsFunc(tp elastictransport.Interface) NewStartDataF
 // destination index exists, it is used as is. You can therefore set up the
 // destination index in advance with custom settings and mappings.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-data-frame-analytics
 func New(tp elastictransport.Interface) *StartDataFrameAnalytics {
 	r := &StartDataFrameAnalytics{
 		transport: tp,
@@ -232,7 +234,7 @@ func (r StartDataFrameAnalytics) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.start_data_frame_analytics")
+			ctx = instrument.Start(providedCtx, "ml.start_data_frame_analytics")
 			defer instrument.Close(ctx)
 		}
 	}

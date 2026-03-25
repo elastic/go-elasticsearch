@@ -173,7 +173,7 @@ func (r ThreadPool) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.thread_pool")
+			ctx = instrument.Start(providedCtx, "cat.thread_pool")
 			defer instrument.Close(ctx)
 		}
 	}

@@ -76,7 +76,9 @@ func NewGetBuiltinPrivilegesFunc(tp elastictransport.Interface) NewGetBuiltinPri
 // Get the list of cluster privileges and index privileges that are available in
 // this version of Elasticsearch.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-builtin-privileges
 func New(tp elastictransport.Interface) *GetBuiltinPrivileges {
 	r := &GetBuiltinPrivileges{
 		transport: tp,
@@ -147,7 +149,7 @@ func (r GetBuiltinPrivileges) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.get_builtin_privileges")
+			ctx = instrument.Start(providedCtx, "security.get_builtin_privileges")
 			defer instrument.Close(ctx)
 		}
 	}

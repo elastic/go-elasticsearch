@@ -199,7 +199,7 @@ func (r Stacktraces) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "profiling.stacktraces")
+			ctx = instrument.Start(providedCtx, "profiling.stacktraces")
 			defer instrument.Close(ctx)
 		}
 	}

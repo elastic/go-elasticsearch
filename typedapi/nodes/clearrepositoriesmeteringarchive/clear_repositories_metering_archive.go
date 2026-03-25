@@ -168,7 +168,7 @@ func (r ClearRepositoriesMeteringArchive) Perform(providedCtx context.Context) (
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "nodes.clear_repositories_metering_archive")
+			ctx = instrument.Start(providedCtx, "nodes.clear_repositories_metering_archive")
 			defer instrument.Close(ctx)
 		}
 	}
