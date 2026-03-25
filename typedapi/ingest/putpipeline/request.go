@@ -36,10 +36,9 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/put_pipeline/PutPipelineRequest.ts#L26-L98
 type Request struct {
-	// Deprecated Marks this ingest pipeline as deprecated.
-	// When a deprecated ingest pipeline is referenced as the default or final
-	// pipeline when creating or updating a non-deprecated index template,
-	// Elasticsearch will emit a deprecation warning.
+	// Deprecated Marks this ingest pipeline as deprecated. When a deprecated ingest pipeline
+	// is referenced as the default or final pipeline when creating or updating a
+	// non-deprecated index template, Elasticsearch will emit a deprecation warning.
 	Deprecated *bool `json:"deprecated,omitempty"`
 	// Description Description of the ingest pipeline.
 	Description *string `json:"description,omitempty"`

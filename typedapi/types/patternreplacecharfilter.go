@@ -138,6 +138,9 @@ func (s *PatternReplaceCharFilter) PatternReplaceCharFilterCaster() *PatternRepl
 }
 
 func (s *PatternReplaceCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

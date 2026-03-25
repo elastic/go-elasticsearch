@@ -25,6 +25,9 @@ package types
 //	string
 //	HourAndMinute
 //
+// A time of day, expressed either as `hh:mm`, `noon`, `midnight`, or an
+// hour/minutes structure.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/watcher/_types/Schedule.ts#L99-L104
 type ScheduleTimeOfDay any
 

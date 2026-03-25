@@ -168,12 +168,10 @@ type ShardsRecord struct {
 	SeqNoMax *string `json:"seq_no.max,omitempty"`
 	// Shard The shard name.
 	Shard *string `json:"shard,omitempty"`
-	// State The shard state.
-	// Returned values include:
-	// `INITIALIZING`: The shard is recovering from a peer shard or gateway.
-	// `RELOCATING`: The shard is relocating.
-	// `STARTED`: The shard has started.
-	// `UNASSIGNED`: The shard is not assigned to any node.
+	// State The shard state. Returned values include: `INITIALIZING`: The shard is
+	// recovering from a peer shard or gateway. `RELOCATING`: The shard is
+	// relocating. `STARTED`: The shard has started. `UNASSIGNED`: The shard is not
+	// assigned to any node.
 	State *string `json:"state,omitempty"`
 	// Store The disk space used by the shard.
 	Store *string `json:"store,omitempty"`
@@ -182,44 +180,37 @@ type ShardsRecord struct {
 	// UnassignedAt The time at which the shard became unassigned in Coordinated Universal Time
 	// (UTC).
 	UnassignedAt *string `json:"unassigned.at,omitempty"`
-	// UnassignedDetails Additional details as to why the shard became unassigned.
-	// It does not explain why the shard is not assigned; use the cluster allocation
-	// explain API for that information.
+	// UnassignedDetails Additional details as to why the shard became unassigned. It does not explain
+	// why the shard is not assigned; use the cluster allocation explain API for
+	// that information.
 	UnassignedDetails *string `json:"unassigned.details,omitempty"`
 	// UnassignedFor The time at which the shard was requested to be unassigned in Coordinated
 	// Universal Time (UTC).
 	UnassignedFor *string `json:"unassigned.for,omitempty"`
-	// UnassignedReason The reason for the last change to the state of an unassigned shard.
-	// It does not explain why the shard is currently unassigned; use the cluster
-	// allocation explain API for that information.
-	// Returned values include:
+	// UnassignedReason The reason for the last change to the state of an unassigned shard. It does
+	// not explain why the shard is currently unassigned; use the cluster allocation
+	// explain API for that information. Returned values include:
 	// `ALLOCATION_FAILED`: Unassigned as a result of a failed allocation of the
-	// shard.
-	// `CLUSTER_RECOVERED`: Unassigned as a result of a full cluster recovery.
-	// `DANGLING_INDEX_IMPORTED`: Unassigned as a result of importing a dangling
-	// index.
-	// `EXISTING_INDEX_RESTORED`: Unassigned as a result of restoring into a closed
-	// index.
-	// `FORCED_EMPTY_PRIMARY`: The shard’s allocation was last modified by forcing
-	// an empty primary using the cluster reroute API.
-	// `INDEX_CLOSED`: Unassigned because the index was closed.
+	// shard. `CLUSTER_RECOVERED`: Unassigned as a result of a full cluster
+	// recovery. `DANGLING_INDEX_IMPORTED`: Unassigned as a result of importing a
+	// dangling index. `EXISTING_INDEX_RESTORED`: Unassigned as a result of
+	// restoring into a closed index. `FORCED_EMPTY_PRIMARY`: The shard’s
+	// allocation was last modified by forcing an empty primary using the cluster
+	// reroute API. `INDEX_CLOSED`: Unassigned because the index was closed.
 	// `INDEX_CREATED`: Unassigned as a result of an API creation of an index.
 	// `INDEX_REOPENED`: Unassigned as a result of opening a closed index.
-	// `MANUAL_ALLOCATION`: The shard’s allocation was last modified by the cluster
-	// reroute API.
-	// `NEW_INDEX_RESTORED`: Unassigned as a result of restoring into a new index.
-	// `NODE_LEFT`: Unassigned as a result of the node hosting it leaving the
-	// cluster.
-	// `NODE_RESTARTING`: Similar to `NODE_LEFT`, except that the node was
-	// registered as restarting using the node shutdown API.
-	// `PRIMARY_FAILED`: The shard was initializing as a replica, but the primary
-	// shard failed before the initialization completed.
+	// `MANUAL_ALLOCATION`: The shard’s allocation was last modified by the
+	// cluster reroute API. `NEW_INDEX_RESTORED`: Unassigned as a result of
+	// restoring into a new index. `NODE_LEFT`: Unassigned as a result of the node
+	// hosting it leaving the cluster. `NODE_RESTARTING`: Similar to `NODE_LEFT`,
+	// except that the node was registered as restarting using the node shutdown
+	// API. `PRIMARY_FAILED`: The shard was initializing as a replica, but the
+	// primary shard failed before the initialization completed.
 	// `REALLOCATED_REPLICA`: A better replica location is identified and causes the
-	// existing replica allocation to be cancelled.
-	// `REINITIALIZED`: When a shard moves from started back to initializing.
-	// `REPLICA_ADDED`: Unassigned as a result of explicit addition of a replica.
-	// `REROUTE_CANCELLED`: Unassigned as a result of explicit cancel reroute
-	// command.
+	// existing replica allocation to be cancelled. `REINITIALIZED`: When a shard
+	// moves from started back to initializing. `REPLICA_ADDED`: Unassigned as a
+	// result of explicit addition of a replica. `REROUTE_CANCELLED`: Unassigned as
+	// a result of explicit cancel reroute command.
 	UnassignedReason *string `json:"unassigned.reason,omitempty"`
 	// WarmerCurrent The number of current warmer operations.
 	WarmerCurrent *string `json:"warmer.current,omitempty"`

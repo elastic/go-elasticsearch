@@ -18,11 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Run a Fleet search.
-// The purpose of the Fleet search API is to provide an API where the search
-// will be run only
-// after the provided checkpoint has been processed and is visible for searches
-// inside of Elasticsearch.
+// Run a Fleet search. The purpose of the Fleet search API is to provide an API
+// where the search will be run only after the provided checkpoint has been
+// processed and is visible for searches inside of Elasticsearch.
 package search
 
 import (
@@ -89,11 +87,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Run a Fleet search.
-// The purpose of the Fleet search API is to provide an API where the search
-// will be run only
-// after the provided checkpoint has been processed and is visible for searches
-// inside of Elasticsearch.
+// Run a Fleet search. The purpose of the Fleet search API is to provide an API
+// where the search will be run only after the provided checkpoint has been
+// processed and is visible for searches inside of Elasticsearch.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-search
 func New(tp elastictransport.Interface) *Search {
@@ -218,7 +214,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "fleet.search")
+			ctx = instrument.Start(providedCtx, "fleet.search")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -524,10 +520,9 @@ func (r *Search) Q(q string) *Search {
 }
 
 // WaitForCheckpoints A comma separated list of checkpoints. When configured, the search API will
-// only be executed on a shard
-// after the relevant checkpoint has become visible for search. Defaults to an
-// empty list which will cause
-// Elasticsearch to immediately execute the search.
+// only be executed on a shard after the relevant checkpoint has become visible
+// for search. Defaults to an empty list which will cause Elasticsearch to
+// immediately execute the search.
 // API name: wait_for_checkpoints
 func (r *Search) WaitForCheckpoints(waitforcheckpoints ...int64) *Search {
 	tmp := []string{}
@@ -540,10 +535,9 @@ func (r *Search) WaitForCheckpoints(waitforcheckpoints ...int64) *Search {
 }
 
 // AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
-// failures.
-// If false, returns an error with no partial results.
-// Defaults to the configured cluster setting
-// `search.default_allow_partial_results`, which is true by default.
+// failures. If false, returns an error with no partial results. Defaults to the
+// configured cluster setting `search.default_allow_partial_results`, which is
+// true by default.
 // API name: allow_partial_search_results
 func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Search {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
@@ -574,11 +568,9 @@ func (r *Search) FilterPath(filterpaths ...string) *Search {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Search) Human(human bool) *Search {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -586,8 +578,8 @@ func (r *Search) Human(human bool) *Search {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Search) Pretty(pretty bool) *Search {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -713,9 +705,8 @@ func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
 }
 
 // Starting document offset. By default, you cannot page through more than
-// 10,000
-// hits using the from and size parameters. To page through more hits, use the
-// search_after parameter.
+// 10,000 hits using the from and size parameters. To page through more hits,
+// use the search_after parameter.
 // API name: from
 func (r *Search) From(from int) *Search {
 	// Initialize the request if it is not already initialized
@@ -753,8 +744,8 @@ func (r *Search) IndicesBoost(indicesboost []map[string]types.Float64) *Search {
 	return r
 }
 
-// Minimum _score for matching documents. Documents with a lower _score are
-// not included in search results and results collected by aggregations.
+// Minimum _score for matching documents. Documents with a lower _score are not
+// included in search results and results collected by aggregations.
 // API name: min_score
 func (r *Search) MinScore(minscore types.Float64) *Search {
 	// Initialize the request if it is not already initialized
@@ -767,8 +758,8 @@ func (r *Search) MinScore(minscore types.Float64) *Search {
 	return r
 }
 
-// Limits the search to a point in time (PIT). If you provide a PIT, you
-// cannot specify an <index> in the request path.
+// Limits the search to a point in time (PIT). If you provide a PIT, you cannot
+// specify an <index> in the request path.
 // API name: pit
 func (r *Search) Pit(pit types.PointInTimeReferenceVariant) *Search {
 	// Initialize the request if it is not already initialized
@@ -883,15 +874,17 @@ func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
 
-// If true, returns sequence number and primary term of the last modification
-// of each hit. See Optimistic concurrency control.
+// If true, returns sequence number and primary term of the last modification of
+// each hit. See Optimistic concurrency control.
 // API name: seq_no_primary_term
 func (r *Search) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Search {
 	// Initialize the request if it is not already initialized
@@ -904,9 +897,9 @@ func (r *Search) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Search {
 	return r
 }
 
-// The number of hits to return. By default, you cannot page through more
-// than 10,000 hits using the from and size parameters. To page through more
-// hits, use the search_after parameter.
+// The number of hits to return. By default, you cannot page through more than
+// 10,000 hits using the from and size parameters. To page through more hits,
+// use the search_after parameter.
 // API name: size
 func (r *Search) Size(size int) *Search {
 	// Initialize the request if it is not already initialized
@@ -938,9 +931,11 @@ func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }
@@ -978,10 +973,8 @@ func (r *Search) Stats(stats ...string) *Search {
 
 // List of stored fields to return as part of a hit. If no fields are specified,
 // no stored fields are included in the response. If this field is specified,
-// the _source
-// parameter defaults to false. You can pass _source: true to return both source
-// fields
-// and stored fields in the search response.
+// the _source parameter defaults to false. You can pass _source: true to return
+// both source fields and stored fields in the search response.
 // API name: stored_fields
 func (r *Search) StoredFields(fields ...string) *Search {
 	// Initialize the request if it is not already initialized
@@ -1007,11 +1000,9 @@ func (r *Search) Suggest(suggest types.SuggesterVariant) *Search {
 }
 
 // Maximum number of documents to collect for each shard. If a query reaches
-// this
-// limit, Elasticsearch terminates the query early. Elasticsearch collects
-// documents
-// before sorting. Defaults to 0, which does not terminate query execution
-// early.
+// this limit, Elasticsearch terminates the query early. Elasticsearch collects
+// documents before sorting. Defaults to 0, which does not terminate query
+// execution early.
 // API name: terminate_after
 func (r *Search) TerminateAfter(terminateafter int64) *Search {
 	// Initialize the request if it is not already initialized
@@ -1025,10 +1016,8 @@ func (r *Search) TerminateAfter(terminateafter int64) *Search {
 }
 
 // Specifies the period of time to wait for a response from each shard. If no
-// response
-// is received before the timeout expires, the request fails and returns an
-// error.
-// Defaults to no timeout.
+// response is received before the timeout expires, the request fails and
+// returns an error. Defaults to no timeout.
 // API name: timeout
 func (r *Search) Timeout(timeout string) *Search {
 	// Initialize the request if it is not already initialized

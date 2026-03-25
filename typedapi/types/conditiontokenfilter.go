@@ -114,6 +114,9 @@ func (s *ConditionTokenFilter) ConditionTokenFilterCaster() *ConditionTokenFilte
 }
 
 func (s *ConditionTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

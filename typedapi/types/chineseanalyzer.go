@@ -110,6 +110,9 @@ func (s *ChineseAnalyzer) ChineseAnalyzerCaster() *ChineseAnalyzer {
 }
 
 func (s *ChineseAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

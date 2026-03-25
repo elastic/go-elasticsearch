@@ -994,6 +994,9 @@ func (s *FloatNumberProperty) FloatNumberPropertyCaster() *FloatNumberProperty {
 }
 
 func (s *FloatNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get async SQL search results.
-// Get the current status and available results for an async SQL search or
-// stored synchronous SQL search.
+// Get async SQL search results. Get the current status and available results
+// for an async SQL search or stored synchronous SQL search.
 //
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
@@ -81,9 +80,8 @@ func NewGetAsyncFunc(tp elastictransport.Interface) NewGetAsync {
 	}
 }
 
-// Get async SQL search results.
-// Get the current status and available results for an async SQL search or
-// stored synchronous SQL search.
+// Get async SQL search results. Get the current status and available results
+// for an async SQL search or stored synchronous SQL search.
 //
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
@@ -163,7 +161,7 @@ func (r GetAsync) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.get_async")
+			ctx = instrument.Start(providedCtx, "sql.get_async")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -309,8 +307,8 @@ func (r *GetAsync) _id(id string) *GetAsync {
 	return r
 }
 
-// Delimiter The separator for CSV results.
-// The API supports this parameter only for CSV responses.
+// Delimiter The separator for CSV results. The API supports this parameter only for CSV
+// responses.
 // API name: delimiter
 func (r *GetAsync) Delimiter(delimiter string) *GetAsync {
 	r.values.Set("delimiter", delimiter)
@@ -318,9 +316,9 @@ func (r *GetAsync) Delimiter(delimiter string) *GetAsync {
 	return r
 }
 
-// Format The format for the response.
-// You must specify a format using this parameter or the `Accept` HTTP header.
-// If you specify both, the API uses this parameter.
+// Format The format for the response. You must specify a format using this parameter
+// or the `Accept` HTTP header. If you specify both, the API uses this
+// parameter.
 // API name: format
 func (r *GetAsync) Format(format string) *GetAsync {
 	r.values.Set("format", format)
@@ -328,8 +326,8 @@ func (r *GetAsync) Format(format string) *GetAsync {
 	return r
 }
 
-// KeepAlive The retention period for the search and its results.
-// It defaults to the `keep_alive` period for the original SQL search.
+// KeepAlive The retention period for the search and its results. It defaults to the
+// `keep_alive` period for the original SQL search.
 // API name: keep_alive
 func (r *GetAsync) KeepAlive(duration string) *GetAsync {
 	r.values.Set("keep_alive", duration)
@@ -337,9 +335,8 @@ func (r *GetAsync) KeepAlive(duration string) *GetAsync {
 	return r
 }
 
-// WaitForCompletionTimeout The period to wait for complete results.
-// It defaults to no timeout, meaning the request waits for complete search
-// results.
+// WaitForCompletionTimeout The period to wait for complete results. It defaults to no timeout, meaning
+// the request waits for complete search results.
 // API name: wait_for_completion_timeout
 func (r *GetAsync) WaitForCompletionTimeout(duration string) *GetAsync {
 	r.values.Set("wait_for_completion_timeout", duration)
@@ -370,11 +367,9 @@ func (r *GetAsync) FilterPath(filterpaths ...string) *GetAsync {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetAsync) Human(human bool) *GetAsync {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +377,8 @@ func (r *GetAsync) Human(human bool) *GetAsync {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetAsync) Pretty(pretty bool) *GetAsync {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -34,10 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L594-L601
 type IndicesIndexingPressureMemory struct {
 	// Limit Number of outstanding bytes that may be consumed by indexing requests. When
-	// this limit is reached or exceeded,
-	// the node will reject new coordinating and primary operations. When replica
-	// operations consume 1.5x this limit,
-	// the node will reject new replica operations. Defaults to 10% of the heap.
+	// this limit is reached or exceeded, the node will reject new coordinating and
+	// primary operations. When replica operations consume 1.5x this limit, the node
+	// will reject new replica operations. Defaults to 10% of the heap.
 	Limit *int `json:"limit,omitempty"`
 }
 

@@ -34,13 +34,11 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ssl/certificates/types.ts#L22-L57
 type CertificateInformation struct {
 	// Alias If the path refers to a container file (a jks keystore, or a PKCS#12 file),
-	// it is the alias of the certificate.
-	// Otherwise, it is null.
+	// it is the alias of the certificate. Otherwise, it is null.
 	Alias *string `json:"alias,omitempty"`
 	// Expiry The ISO formatted date of the certificate's expiry (not-after) date.
 	Expiry DateTime `json:"expiry"`
-	// Format The format of the file.
-	// Valid values include `jks`, `PKCS12`, and `PEM`.
+	// Format The format of the file. Valid values include `jks`, `PKCS12`, and `PEM`.
 	Format string `json:"format"`
 	// HasPrivateKey Indicates whether Elasticsearch has access to the private key for this
 	// certificate.

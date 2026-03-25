@@ -28,7 +28,8 @@ import (
 	"io"
 )
 
-// UnmappedRareTermsAggregate type.
+// Result of a `rare_terms` aggregation when the field is unmapped. `buckets` is
+// always empty.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L564-L570
 type UnmappedRareTermsAggregate struct {

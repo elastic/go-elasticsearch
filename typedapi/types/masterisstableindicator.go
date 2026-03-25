@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indicatorhealthstatus"
 )
 
-// MasterIsStableIndicator type.
+// MASTER_IS_STABLE
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/health_report/types.ts#L82-L86
 type MasterIsStableIndicator struct {

@@ -174,6 +174,9 @@ func (s *PhoneticTokenFilter) PhoneticTokenFilterCaster() *PhoneticTokenFilter {
 }
 
 func (s *PhoneticTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

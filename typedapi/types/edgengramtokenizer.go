@@ -155,6 +155,9 @@ func (s *EdgeNGramTokenizer) EdgeNGramTokenizerCaster() *EdgeNGramTokenizer {
 }
 
 func (s *EdgeNGramTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

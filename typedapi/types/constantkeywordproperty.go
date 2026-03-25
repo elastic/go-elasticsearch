@@ -824,6 +824,9 @@ func (s *ConstantKeywordProperty) ConstantKeywordPropertyCaster() *ConstantKeywo
 }
 
 func (s *ConstantKeywordProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

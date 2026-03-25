@@ -95,6 +95,9 @@ func (s *KeywordRepeatTokenFilter) KeywordRepeatTokenFilterCaster() *KeywordRepe
 }
 
 func (s *KeywordRepeatTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

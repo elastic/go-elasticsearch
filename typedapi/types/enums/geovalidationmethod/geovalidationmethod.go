@@ -29,8 +29,12 @@ type GeoValidationMethod struct {
 }
 
 var (
+
+	// Coerce Accept geo points with invalid latitude or longitude and additionally try and
+	// infer correct coordinates.
 	Coerce = GeoValidationMethod{"coerce"}
 
+	// Ignoremalformed Accept geo points with invalid latitude or longitude.
 	Ignoremalformed = GeoValidationMethod{"ignore_malformed"}
 
 	Strict = GeoValidationMethod{"strict"}

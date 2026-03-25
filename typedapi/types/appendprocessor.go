@@ -39,11 +39,10 @@ type AppendProcessor struct {
 	// CopyFrom The origin field which will be appended to `field`, cannot set `value`
 	// simultaneously.
 	CopyFrom *string `json:"copy_from,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// Field The field to be appended to.
-	// Supports template snippets.
+	// Field The field to be appended to. Supports template snippets.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *Script `json:"if,omitempty"`
@@ -51,8 +50,7 @@ type AppendProcessor struct {
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// Value The value to be appended. Supports template snippets. May specify only one of
 	// `value` or `copy_from`.

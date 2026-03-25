@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// NerInferenceOptions type.
+// Named entity recognition options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L273-L282
 type NerInferenceOptions struct {

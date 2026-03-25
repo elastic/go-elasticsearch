@@ -117,6 +117,9 @@ func (s *HindiAnalyzer) HindiAnalyzerCaster() *HindiAnalyzer {
 }
 
 func (s *HindiAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

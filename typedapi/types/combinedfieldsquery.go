@@ -40,10 +40,9 @@ type CombinedFieldsQuery struct {
 	// synonyms.
 	AutoGenerateSynonymsPhraseQuery *bool `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Fields List of fields to search. Field wildcard patterns are allowed. Only `text`
 	// fields are supported, and they must all have the same search `analyzer`.
@@ -52,9 +51,8 @@ type CombinedFieldsQuery struct {
 	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
 	// Operator Boolean logic used to interpret text in the query value.
 	Operator *combinedfieldsoperator.CombinedFieldsOperator `json:"operator,omitempty"`
-	// Query Text to search for in the provided `fields`.
-	// The `combined_fields` query analyzes the provided text before performing a
-	// search.
+	// Query Text to search for in the provided `fields`. The `combined_fields` query
+	// analyzes the provided text before performing a search.
 	Query      string  `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// ZeroTermsQuery Indicates whether no documents are returned if the analyzer removes all

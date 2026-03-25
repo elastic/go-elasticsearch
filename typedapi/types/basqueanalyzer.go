@@ -117,6 +117,9 @@ func (s *BasqueAnalyzer) BasqueAnalyzerCaster() *BasqueAnalyzer {
 }
 
 func (s *BasqueAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

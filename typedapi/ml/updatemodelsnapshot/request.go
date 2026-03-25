@@ -32,8 +32,8 @@ type Request struct {
 	// Description A description of the model snapshot.
 	Description *string `json:"description,omitempty"`
 	// Retain If `true`, this snapshot will not be deleted during automatic cleanup of
-	// snapshots older than `model_snapshot_retention_days`. However, this
-	// snapshot will be deleted when the job is deleted.
+	// snapshots older than `model_snapshot_retention_days`. However, this snapshot
+	// will be deleted when the job is deleted.
 	Retain *bool `json:"retain,omitempty"`
 }
 

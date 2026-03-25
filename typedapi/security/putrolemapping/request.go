@@ -47,11 +47,10 @@ type Request struct {
 	// Exactly one of `roles` or `role_templates` must be specified.
 	RoleTemplates []types.RoleTemplate `json:"role_templates,omitempty"`
 	// Roles A list of role names that are granted to the users that match the role
-	// mapping rules.
-	// Exactly one of `roles` or `role_templates` must be specified.
+	// mapping rules. Exactly one of `roles` or `role_templates` must be specified.
 	Roles []string `json:"roles,omitempty"`
-	// Rules The rules that determine which users should be matched by the mapping.
-	// A rule is a logical condition that is expressed by using a JSON DSL.
+	// Rules The rules that determine which users should be matched by the mapping. A rule
+	// is a logical condition that is expressed by using a JSON DSL.
 	Rules *types.RoleMappingRule `json:"rules,omitempty"`
 	RunAs []string               `json:"run_as,omitempty"`
 }

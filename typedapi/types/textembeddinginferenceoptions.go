@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// TextEmbeddingInferenceOptions type.
+// Text embedding inference options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L252-L262
 type TextEmbeddingInferenceOptions struct {

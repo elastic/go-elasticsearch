@@ -35,8 +35,8 @@ import (
 type HuggingFaceTaskSettings struct {
 	// ReturnDocuments For a `rerank` task, return doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// TopN For a `rerank` task, the number of most relevant documents to return.
-	// It defaults to the number of the documents.
+	// TopN For a `rerank` task, the number of most relevant documents to return. It
+	// defaults to the number of the documents.
 	TopN *int `json:"top_n,omitempty"`
 }
 

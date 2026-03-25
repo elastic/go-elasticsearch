@@ -111,9 +111,11 @@ func (s *_topHitsAggregation) Size(size int) *_topHitsAggregation {
 
 func (s *_topHitsAggregation) Sort(sorts ...types.SortCombinationsVariant) *_topHitsAggregation {
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		s.v.Sort = append(s.v.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	s.v.Sort = convertedItems
 
 	return s
 }

@@ -960,6 +960,9 @@ func (s *FlattenedProperty) FlattenedPropertyCaster() *FlattenedProperty {
 }
 
 func (s *FlattenedProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

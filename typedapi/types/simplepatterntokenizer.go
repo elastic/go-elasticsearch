@@ -110,6 +110,9 @@ func (s *SimplePatternTokenizer) SimplePatternTokenizerCaster() *SimplePatternTo
 }
 
 func (s *SimplePatternTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

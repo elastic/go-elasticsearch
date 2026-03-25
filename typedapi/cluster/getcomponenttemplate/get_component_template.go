@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get component templates.
-// Get information about component templates.
+// Get component templates. Get information about component templates.
 package getcomponenttemplate
 
 import (
@@ -75,8 +74,7 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 	}
 }
 
-// Get component templates.
-// Get information about component templates.
+// Get component templates. Get information about component templates.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *GetComponentTemplate {
@@ -156,7 +154,7 @@ func (r GetComponentTemplate) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.get_component_template")
+			ctx = instrument.Start(providedCtx, "cluster.get_component_template")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -332,8 +330,8 @@ func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetCompone
 	return r
 }
 
-// Local If `true`, the request retrieves information from the local node only.
-// If `false`, information is retrieved from the master node.
+// Local If `true`, the request retrieves information from the local node only. If
+// `false`, information is retrieved from the master node.
 // API name: local
 func (r *GetComponentTemplate) Local(local bool) *GetComponentTemplate {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -341,9 +339,8 @@ func (r *GetComponentTemplate) Local(local bool) *GetComponentTemplate {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetComponentTemplate) MasterTimeout(duration string) *GetComponentTemplate {
 	r.values.Set("master_timeout", duration)
@@ -374,11 +371,9 @@ func (r *GetComponentTemplate) FilterPath(filterpaths ...string) *GetComponentTe
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetComponentTemplate) Human(human bool) *GetComponentTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -386,8 +381,8 @@ func (r *GetComponentTemplate) Human(human bool) *GetComponentTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetComponentTemplate) Pretty(pretty bool) *GetComponentTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

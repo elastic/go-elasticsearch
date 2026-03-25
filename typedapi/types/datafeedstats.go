@@ -38,16 +38,15 @@ type DatafeedStats struct {
 	// AssignmentExplanation For started datafeeds only, contains messages relating to the selection of a
 	// node.
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
-	// DatafeedId A numerical character string that uniquely identifies the datafeed.
-	// This identifier can contain lowercase alphanumeric characters (a-z and 0-9),
-	// hyphens, and underscores.
-	// It must start and end with alphanumeric characters.
+	// DatafeedId A numerical character string that uniquely identifies the datafeed. This
+	// identifier can contain lowercase alphanumeric characters (a-z and 0-9),
+	// hyphens, and underscores. It must start and end with alphanumeric characters.
 	DatafeedId string `json:"datafeed_id"`
 	// Node For started datafeeds only, this information pertains to the node upon which
 	// the datafeed is started.
 	Node *DiscoveryNodeCompact `json:"node,omitempty"`
-	// RunningState An object containing the running state for this datafeed.
-	// It is only provided if the datafeed is started.
+	// RunningState An object containing the running state for this datafeed. It is only provided
+	// if the datafeed is started.
 	RunningState *DatafeedRunningState `json:"running_state,omitempty"`
 	// State The status of the datafeed, which can be one of the following values:
 	// `starting`, `started`, `stopping`, `stopped`.

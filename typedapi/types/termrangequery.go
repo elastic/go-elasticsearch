@@ -36,10 +36,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/term.ts#L170-L170
 type TermRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Gt Greater than.
 	Gt *string `json:"gt,omitempty"`
@@ -171,6 +170,9 @@ func (s *TermRangeQuery) TermRangeQueryCaster() *TermRangeQuery {
 }
 
 func (s *TermRangeQuery) RangeQueryCaster() *RangeQuery {
+	if s == nil {
+		return nil
+	}
 	o := RangeQuery(s)
 	return &o
 }

@@ -25,6 +25,9 @@ package types
 //	string
 //	GeoLocation
 //
+// Text or location that we want similar documents for or a lookup to a
+// document's field for the text.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/search/_types/suggester.ts#L229-L234
 type Context any
 

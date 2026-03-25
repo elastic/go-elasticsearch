@@ -29,11 +29,10 @@ type _sortProcessor struct {
 	v *types.SortProcessor
 }
 
-// Sorts the elements of an array ascending or descending.
-// Homogeneous arrays of numbers will be sorted numerically, while arrays of
-// strings or heterogeneous arrays of strings + numbers will be sorted
-// lexicographically.
-// Throws an error when the field is not an array.
+// Sorts the elements of an array ascending or descending. Homogeneous arrays of
+// numbers will be sorted numerically, while arrays of strings or heterogeneous
+// arrays of strings + numbers will be sorted lexicographically. Throws an error
+// when the field is not an array.
 func NewSortProcessor() *_sortProcessor {
 
 	return &_sortProcessor{v: types.NewSortProcessor()}

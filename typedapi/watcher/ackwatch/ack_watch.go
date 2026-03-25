@@ -18,24 +18,21 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Acknowledge a watch.
-// Acknowledging a watch enables you to manually throttle the execution of the
-// watch's actions.
+// Acknowledge a watch. Acknowledging a watch enables you to manually throttle
+// the execution of the watch's actions.
 //
 // The acknowledgement state of an action is stored in the
 // `status.actions.<id>.ack.state` structure.
 //
 // IMPORTANT: If the specified watch is currently being executed, this API will
-// return an error
-// The reason for this behavior is to prevent overwriting the watch status from
-// a watch execution.
+// return an error The reason for this behavior is to prevent overwriting the
+// watch status from a watch execution.
 //
 // Acknowledging an action throttles further executions of that action until its
-// `ack.state` is reset to `awaits_successful_execution`.
-// This happens when the condition of the watch is not met (the condition
-// evaluates to false).
-// To demonstrate how throttling works in practice and how it can be configured
-// for individual actions within a watch, refer to External documentation.
+// `ack.state` is reset to `awaits_successful_execution`. This happens when the
+// condition of the watch is not met (the condition evaluates to false). To
+// demonstrate how throttling works in practice and how it can be configured for
+// individual actions within a watch, refer to External documentation.
 package ackwatch
 
 import (
@@ -96,24 +93,21 @@ func NewAckWatchFunc(tp elastictransport.Interface) NewAckWatch {
 	}
 }
 
-// Acknowledge a watch.
-// Acknowledging a watch enables you to manually throttle the execution of the
-// watch's actions.
+// Acknowledge a watch. Acknowledging a watch enables you to manually throttle
+// the execution of the watch's actions.
 //
 // The acknowledgement state of an action is stored in the
 // `status.actions.<id>.ack.state` structure.
 //
 // IMPORTANT: If the specified watch is currently being executed, this API will
-// return an error
-// The reason for this behavior is to prevent overwriting the watch status from
-// a watch execution.
+// return an error The reason for this behavior is to prevent overwriting the
+// watch status from a watch execution.
 //
 // Acknowledging an action throttles further executions of that action until its
-// `ack.state` is reset to `awaits_successful_execution`.
-// This happens when the condition of the watch is not met (the condition
-// evaluates to false).
-// To demonstrate how throttling works in practice and how it can be configured
-// for individual actions within a watch, refer to External documentation.
+// `ack.state` is reset to `awaits_successful_execution`. This happens when the
+// condition of the watch is not met (the condition evaluates to false). To
+// demonstrate how throttling works in practice and how it can be configured for
+// individual actions within a watch, refer to External documentation.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-ack-watch
 func New(tp elastictransport.Interface) *AckWatch {
@@ -213,7 +207,7 @@ func (r AckWatch) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "watcher.ack_watch")
+			ctx = instrument.Start(providedCtx, "watcher.ack_watch")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -359,8 +353,8 @@ func (r *AckWatch) _watchid(watchid string) *AckWatch {
 	return r
 }
 
-// ActionId A comma-separated list of the action identifiers to acknowledge.
-// If you omit this parameter, all of the actions of the watch are acknowledged.
+// ActionId A comma-separated list of the action identifiers to acknowledge. If you omit
+// this parameter, all of the actions of the watch are acknowledged.
 // API Name: actionid
 func (r *AckWatch) ActionId(actionid string) *AckWatch {
 	r.paramSet |= actionidMask
@@ -392,11 +386,9 @@ func (r *AckWatch) FilterPath(filterpaths ...string) *AckWatch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AckWatch) Human(human bool) *AckWatch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -404,8 +396,8 @@ func (r *AckWatch) Human(human bool) *AckWatch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AckWatch) Pretty(pretty bool) *AckWatch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

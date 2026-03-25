@@ -867,6 +867,9 @@ func (s *VersionProperty) VersionPropertyCaster() *VersionProperty {
 }
 
 func (s *VersionProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

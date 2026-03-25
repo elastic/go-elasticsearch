@@ -29,10 +29,14 @@ type CatCountColumn struct {
 }
 
 var (
+
+	// Epoch The Unix epoch time in seconds since 1970-01-01 00:00:00.
 	Epoch = CatCountColumn{"epoch"}
 
+	// Timestamp The current time in HH:MM:SS format.
 	Timestamp = CatCountColumn{"timestamp"}
 
+	// Count The document count in the cluster or index.
 	Count = CatCountColumn{"count"}
 )
 

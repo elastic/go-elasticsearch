@@ -34,11 +34,10 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/Datafeed.ts#L254-L267
 type ChunkingConfig struct {
-	// Mode If the mode is `auto`, the chunk size is dynamically calculated;
-	// this is the recommended value when the datafeed does not use aggregations.
-	// If the mode is `manual`, chunking is applied according to the specified
-	// `time_span`;
-	// use this mode when the datafeed uses aggregations. If the mode is `off`, no
+	// Mode If the mode is `auto`, the chunk size is dynamically calculated; this is the
+	// recommended value when the datafeed does not use aggregations. If the mode is
+	// `manual`, chunking is applied according to the specified `time_span`; use
+	// this mode when the datafeed uses aggregations. If the mode is `off`, no
 	// chunking is applied.
 	Mode chunkingmode.ChunkingMode `json:"mode"`
 	// TimeSpan The time span that each search will be querying. This setting is applicable

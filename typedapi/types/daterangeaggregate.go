@@ -28,7 +28,9 @@ import (
 	"io"
 )
 
-// DateRangeAggregate type.
+// Result of a `date_range` aggregation. Same format as a for a `range`
+// aggregation: `from` and `to` in `buckets` are milliseconds since the Epoch,
+// represented as a floating point number.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L680-L686
 type DateRangeAggregate struct {

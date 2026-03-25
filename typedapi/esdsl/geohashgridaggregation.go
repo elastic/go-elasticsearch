@@ -27,8 +27,8 @@ type _geoHashGridAggregation struct {
 }
 
 // A multi-bucket aggregation that groups `geo_point` and `geo_shape` values
-// into buckets that represent a grid.
-// Each cell is labeled using a geohash which is of user-definable precision.
+// into buckets that represent a grid. Each cell is labeled using a geohash
+// which is of user-definable precision.
 func NewGeoHashGridAggregation() *_geoHashGridAggregation {
 
 	return &_geoHashGridAggregation{v: types.NewGeoHashGridAggregation()}

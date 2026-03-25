@@ -25,6 +25,10 @@ package types
 //	map[string]ApiKeyQueryContainer
 //	[]ApiKeyQueryContainer
 //
+// Aggregation buckets. By default they are returned as an array, but if the
+// aggregation has keys configured for the different buckets, the result is a
+// dictionary.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/aggregations/Aggregate.ts#L362-L371
 type BucketsApiKeyQueryContainer any
 

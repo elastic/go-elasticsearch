@@ -131,6 +131,9 @@ func (s *UntypedDecayFunction) UntypedDecayFunctionCaster() *UntypedDecayFunctio
 }
 
 func (s *UntypedDecayFunction) DecayFunctionCaster() *DecayFunction {
+	if s == nil {
+		return nil
+	}
 	o := DecayFunction(s)
 	return &o
 }

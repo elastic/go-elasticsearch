@@ -1012,6 +1012,9 @@ func (s *ScaledFloatNumberProperty) ScaledFloatNumberPropertyCaster() *ScaledFlo
 }
 
 func (s *ScaledFloatNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

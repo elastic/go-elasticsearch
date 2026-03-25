@@ -142,6 +142,9 @@ func (s *PatternTokenizer) PatternTokenizerCaster() *PatternTokenizer {
 }
 
 func (s *PatternTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

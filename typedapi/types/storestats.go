@@ -44,13 +44,13 @@ type StoreStats struct {
 	Size ByteSize `json:"size,omitempty"`
 	// SizeInBytes Total size, in bytes, of all shards assigned to selected nodes.
 	SizeInBytes int64 `json:"size_in_bytes"`
-	// TotalDataSetSize Total data set size of all shards assigned to selected nodes.
-	// This includes the size of shards not stored fully on the nodes, such as the
-	// cache for partially mounted indices.
+	// TotalDataSetSize Total data set size of all shards assigned to selected nodes. This includes
+	// the size of shards not stored fully on the nodes, such as the cache for
+	// partially mounted indices.
 	TotalDataSetSize ByteSize `json:"total_data_set_size,omitempty"`
-	// TotalDataSetSizeInBytes Total data set size, in bytes, of all shards assigned to selected nodes.
-	// This includes the size of shards not stored fully on the nodes, such as the
-	// cache for partially mounted indices.
+	// TotalDataSetSizeInBytes Total data set size, in bytes, of all shards assigned to selected nodes. This
+	// includes the size of shards not stored fully on the nodes, such as the cache
+	// for partially mounted indices.
 	TotalDataSetSizeInBytes *int64 `json:"total_data_set_size_in_bytes,omitempty"`
 }
 

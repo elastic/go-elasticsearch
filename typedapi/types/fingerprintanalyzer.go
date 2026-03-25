@@ -34,15 +34,12 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L37-L64
 type FingerprintAnalyzer struct {
 	// MaxOutputSize The maximum token size to emit. Tokens larger than this size will be
-	// discarded.
-	// Defaults to `255`
+	// discarded. Defaults to `255`
 	MaxOutputSize *int `json:"max_output_size,omitempty"`
-	// Separator The character to use to concatenate the terms.
-	// Defaults to a space.
+	// Separator The character to use to concatenate the terms. Defaults to a space.
 	Separator *string `json:"separator,omitempty"`
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
-	// of stop words.
-	// Defaults to `_none_`.
+	// of stop words. Defaults to `_none_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
@@ -158,6 +155,9 @@ func (s *FingerprintAnalyzer) FingerprintAnalyzerCaster() *FingerprintAnalyzer {
 }
 
 func (s *FingerprintAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

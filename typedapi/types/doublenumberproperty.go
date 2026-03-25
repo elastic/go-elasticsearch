@@ -994,6 +994,9 @@ func (s *DoubleNumberProperty) DoubleNumberPropertyCaster() *DoubleNumberPropert
 }
 
 func (s *DoubleNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

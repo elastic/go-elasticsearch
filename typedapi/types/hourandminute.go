@@ -44,6 +44,9 @@ func (s *HourAndMinute) HourAndMinuteCaster() *HourAndMinute {
 }
 
 func (s *HourAndMinute) ScheduleTimeOfDayCaster() *ScheduleTimeOfDay {
+	if s == nil {
+		return nil
+	}
 	o := ScheduleTimeOfDay(s)
 	return &o
 }

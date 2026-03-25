@@ -31,11 +31,10 @@ type _appendProcessor struct {
 }
 
 // Appends one or more values to an existing array if the field already exists
-// and it is an array.
-// Converts a scalar to an array and appends one or more values to it if the
-// field exists and it is a scalar.
-// Creates an array containing the provided values if the field doesn’t exist.
-// Accepts a single value or an array of values.
+// and it is an array. Converts a scalar to an array and appends one or more
+// values to it if the field exists and it is a scalar. Creates an array
+// containing the provided values if the field doesn’t exist. Accepts a single
+// value or an array of values.
 func NewAppendProcessor() *_appendProcessor {
 
 	return &_appendProcessor{v: types.NewAppendProcessor()}

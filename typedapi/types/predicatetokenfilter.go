@@ -104,6 +104,9 @@ func (s *PredicateTokenFilter) PredicateTokenFilterCaster() *PredicateTokenFilte
 }
 
 func (s *PredicateTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

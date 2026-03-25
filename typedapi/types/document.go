@@ -32,8 +32,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ingest/_types/Simulation.ts#L69-L83
 type Document struct {
-	// Id_ Unique identifier for the document.
-	// This ID must be unique within the `_index`.
+	// Id_ Unique identifier for the document. This ID must be unique within the
+	// `_index`.
 	Id_ *string `json:"_id,omitempty"`
 	// Index_ Name of the index containing the document.
 	Index_ *string `json:"_index,omitempty"`

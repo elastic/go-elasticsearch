@@ -37,11 +37,11 @@ type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `cohere`.
 	Service cohereservicetype.CohereServiceType `json:"service"`
-	// ServiceSettings Settings used to install the inference model.
-	// These settings are specific to the `cohere` service.
+	// ServiceSettings Settings used to install the inference model. These settings are specific to
+	// the `cohere` service.
 	ServiceSettings types.CohereServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.CohereTaskSettings `json:"task_settings,omitempty"`
 }
 

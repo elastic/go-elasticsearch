@@ -37,8 +37,8 @@ type Response struct {
 	ClusterUuid string `json:"cluster_uuid"`
 	// Indices Contains statistics about indices with shards assigned to selected nodes.
 	Indices types.ClusterIndices `json:"indices"`
-	// NodeStats Contains statistics about the number of nodes selected by the request’s node
-	// filters.
+	// NodeStats Contains statistics about the number of nodes selected by the request’s
+	// node filters.
 	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains statistics about nodes selected by the request’s node filters.
 	Nodes types.ClusterNodes `json:"nodes"`

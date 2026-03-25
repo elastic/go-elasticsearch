@@ -34,9 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L473-L480
 type MappingLimitSettingsDepth struct {
 	// Limit The maximum depth for a field, which is measured as the number of inner
-	// objects. For instance, if all fields are defined
-	// at the root object level, then the depth is 1. If there is one object
-	// mapping, then the depth is 2, etc.
+	// objects. For instance, if all fields are defined at the root object level,
+	// then the depth is 1. If there is one object mapping, then the depth is 2,
+	// etc.
 	Limit *int64 `json:"limit,omitempty"`
 }
 

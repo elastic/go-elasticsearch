@@ -95,6 +95,9 @@ func (s *IndicNormalizationTokenFilter) IndicNormalizationTokenFilterCaster() *I
 }
 
 func (s *IndicNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

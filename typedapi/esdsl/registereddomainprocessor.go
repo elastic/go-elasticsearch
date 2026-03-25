@@ -26,10 +26,10 @@ type _registeredDomainProcessor struct {
 	v *types.RegisteredDomainProcessor
 }
 
-// Extracts the registered domain (also known as the effective top-level
-// domain or eTLD), sub-domain, and top-level domain from a fully qualified
-// domain name (FQDN). Uses the registered domains defined in the Mozilla
-// Public Suffix List.
+// Extracts the registered domain (also known as the effective top-level domain
+// or eTLD), sub-domain, and top-level domain from a fully qualified domain name
+// (FQDN). Uses the registered domains defined in the Mozilla Public Suffix
+// List.
 func NewRegisteredDomainProcessor() *_registeredDomainProcessor {
 
 	return &_registeredDomainProcessor{v: types.NewRegisteredDomainProcessor()}

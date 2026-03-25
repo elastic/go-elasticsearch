@@ -29,21 +29,22 @@ import (
 	"strconv"
 )
 
-// DataStreamLifecycle type.
+// Data stream lifecycle denotes that a data stream is managed by the data
+// stream lifecycle and contains the configuration.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/DataStreamLifecycle.ts#L25-L45
 type DataStreamLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
-	// for this time frame.
-	// Any time after this duration the document could be deleted.
-	// When empty, every document in this data stream will be stored indefinitely.
+	// for this time frame. Any time after this duration the document could be
+	// deleted. When empty, every document in this data stream will be stored
+	// indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
 	// Downsampling The downsampling configuration to execute for the managed backing index after
 	// rollover.
 	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
-	// data stream. A data stream lifecycle
-	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
+	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
 }
 

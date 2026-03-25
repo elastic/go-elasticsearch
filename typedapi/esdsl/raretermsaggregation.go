@@ -26,7 +26,7 @@ type _rareTermsAggregation struct {
 	v *types.RareTermsAggregation
 }
 
-// A multi-bucket value source based aggregation which finds "rare" terms —
+// A multi-bucket value source based aggregation which finds "rare" terms —
 // terms that are at the long-tail of the distribution and are not frequent.
 func NewRareTermsAggregation() *_rareTermsAggregation {
 

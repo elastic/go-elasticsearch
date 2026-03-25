@@ -29,12 +29,21 @@ type GeoShapeRelation struct {
 }
 
 var (
+
+	// Intersects Return all documents whose `geo_shape` or `geo_point` field intersects the
+	// query geometry.
 	Intersects = GeoShapeRelation{"intersects"}
 
+	// Disjoint Return all documents whose `geo_shape` or `geo_point` field has nothing in
+	// common with the query geometry.
 	Disjoint = GeoShapeRelation{"disjoint"}
 
+	// Within Return all documents whose `geo_shape` or `geo_point` field is within the
+	// query geometry. Line geometries are not supported.
 	Within = GeoShapeRelation{"within"}
 
+	// Contains Return all documents whose `geo_shape` or `geo_point` field contains the
+	// query geometry.
 	Contains = GeoShapeRelation{"contains"}
 )
 

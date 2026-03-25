@@ -27,8 +27,8 @@ type _reverseNestedAggregation struct {
 }
 
 // A special single bucket aggregation that enables aggregating on parent
-// documents from nested documents.
-// Should only be defined inside a `nested` aggregation.
+// documents from nested documents. Should only be defined inside a `nested`
+// aggregation.
 func NewReverseNestedAggregation() *_reverseNestedAggregation {
 
 	return &_reverseNestedAggregation{v: types.NewReverseNestedAggregation()}

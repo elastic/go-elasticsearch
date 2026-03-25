@@ -44,9 +44,9 @@ type PressureMemory struct {
 	// coordinating memory if the primary stage is executed locally.
 	CombinedCoordinatingAndPrimary ByteSize `json:"combined_coordinating_and_primary,omitempty"`
 	// CombinedCoordinatingAndPrimaryInBytes Memory consumed, in bytes, by indexing requests in the coordinating or
-	// primary stage.
-	// This value is not the sum of coordinating and primary as a node can reuse the
-	// coordinating memory if the primary stage is executed locally.
+	// primary stage. This value is not the sum of coordinating and primary as a
+	// node can reuse the coordinating memory if the primary stage is executed
+	// locally.
 	CombinedCoordinatingAndPrimaryInBytes *int64 `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
 	// Coordinating Memory consumed by indexing requests in the coordinating stage.
 	Coordinating ByteSize `json:"coordinating,omitempty"`

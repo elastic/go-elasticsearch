@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// TextClassificationInferenceOptions type.
+// Text classification configuration options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L202-L214
 type TextClassificationInferenceOptions struct {

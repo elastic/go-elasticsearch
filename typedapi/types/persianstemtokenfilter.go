@@ -95,6 +95,9 @@ func (s *PersianStemTokenFilter) PersianStemTokenFilterCaster() *PersianStemToke
 }
 
 func (s *PersianStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

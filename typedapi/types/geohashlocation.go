@@ -76,6 +76,9 @@ func (s *GeoHashLocation) GeoHashLocationCaster() *GeoHashLocation {
 }
 
 func (s *GeoHashLocation) GeoLocationCaster() *GeoLocation {
+	if s == nil {
+		return nil
+	}
 	o := GeoLocation(s)
 	return &o
 }

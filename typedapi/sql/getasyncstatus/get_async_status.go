@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get the async SQL search status.
-// Get the current status of an async SQL search or a stored synchronous SQL
-// search.
+// Get the async SQL search status. Get the current status of an async SQL
+// search or a stored synchronous SQL search.
 package getasyncstatus
 
 import (
@@ -78,9 +77,8 @@ func NewGetAsyncStatusFunc(tp elastictransport.Interface) NewGetAsyncStatus {
 	}
 }
 
-// Get the async SQL search status.
-// Get the current status of an async SQL search or a stored synchronous SQL
-// search.
+// Get the async SQL search status. Get the current status of an async SQL
+// search or a stored synchronous SQL search.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
 func New(tp elastictransport.Interface) *GetAsyncStatus {
@@ -159,7 +157,7 @@ func (r GetAsyncStatus) Perform(providedCtx context.Context) (*http.Response, er
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.get_async_status")
+			ctx = instrument.Start(providedCtx, "sql.get_async_status")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -328,11 +326,9 @@ func (r *GetAsyncStatus) FilterPath(filterpaths ...string) *GetAsyncStatus {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetAsyncStatus) Human(human bool) *GetAsyncStatus {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -340,8 +336,8 @@ func (r *GetAsyncStatus) Human(human bool) *GetAsyncStatus {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetAsyncStatus) Pretty(pretty bool) *GetAsyncStatus {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

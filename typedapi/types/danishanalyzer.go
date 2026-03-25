@@ -110,6 +110,9 @@ func (s *DanishAnalyzer) DanishAnalyzerCaster() *DanishAnalyzer {
 }
 
 func (s *DanishAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

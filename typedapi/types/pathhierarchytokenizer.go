@@ -145,6 +145,9 @@ func (s *PathHierarchyTokenizer) PathHierarchyTokenizerCaster() *PathHierarchyTo
 }
 
 func (s *PathHierarchyTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

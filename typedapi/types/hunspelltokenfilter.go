@@ -33,14 +33,13 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/token_filters.ts#L268-L280
 type HunspellTokenFilter struct {
-	// Dedup If `true`, duplicate tokens are removed from the filter’s output. Defaults to
-	// `true`.
+	// Dedup If `true`, duplicate tokens are removed from the filter’s output. Defaults
+	// to `true`.
 	Dedup *bool `json:"dedup,omitempty"`
 	// Dictionary One or more `.dic` files (e.g, `en_US.dic`, my_custom.dic) to use for the
-	// Hunspell dictionary.
-	// By default, the `hunspell` filter uses all `.dic` files in the
-	// `<$ES_PATH_CONF>/hunspell/<locale>` directory specified using the `lang`,
-	// `language`, or `locale` parameter.
+	// Hunspell dictionary. By default, the `hunspell` filter uses all `.dic` files
+	// in the `<$ES_PATH_CONF>/hunspell/<locale>` directory specified using the
+	// `lang`, `language`, or `locale` parameter.
 	Dictionary *string `json:"dictionary,omitempty"`
 	// Locale Locale directory used to specify the `.aff` and `.dic` files for a Hunspell
 	// dictionary.
@@ -168,6 +167,9 @@ func (s *HunspellTokenFilter) HunspellTokenFilterCaster() *HunspellTokenFilter {
 }
 
 func (s *HunspellTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

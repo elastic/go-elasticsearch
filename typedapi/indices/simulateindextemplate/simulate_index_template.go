@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Simulate an index.
-// Get the index configuration that would be applied to the specified index from
-// an existing index template.
+// Simulate an index. Get the index configuration that would be applied to the
+// specified index from an existing index template.
 package simulateindextemplate
 
 import (
@@ -83,9 +82,8 @@ func NewSimulateIndexTemplateFunc(tp elastictransport.Interface) NewSimulateInde
 	}
 }
 
-// Simulate an index.
-// Get the index configuration that would be applied to the specified index from
-// an existing index template.
+// Simulate an index. Get the index configuration that would be applied to the
+// specified index from an existing index template.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-index-template
 func New(tp elastictransport.Interface) *SimulateIndexTemplate {
@@ -210,7 +208,7 @@ func (r SimulateIndexTemplate) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.simulate_index_template")
+			ctx = instrument.Start(providedCtx, "indices.simulate_index_template")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -375,11 +373,9 @@ func (r *SimulateIndexTemplate) FilterPath(filterpaths ...string) *SimulateIndex
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SimulateIndexTemplate) Human(human bool) *SimulateIndexTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -387,8 +383,8 @@ func (r *SimulateIndexTemplate) Human(human bool) *SimulateIndexTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SimulateIndexTemplate) Pretty(pretty bool) *SimulateIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -408,9 +404,9 @@ func (r *SimulateIndexTemplate) AllowAutoCreate(allowautocreate bool) *SimulateI
 	return r
 }
 
-// An ordered list of component template names.
-// Component templates are merged in the order specified, meaning that the last
-// component template specified has the highest precedence.
+// An ordered list of component template names. Component templates are merged
+// in the order specified, meaning that the last component template specified
+// has the highest precedence.
 // API name: composed_of
 func (r *SimulateIndexTemplate) ComposedOf(composedofs ...string) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -454,9 +450,8 @@ func (r *SimulateIndexTemplate) CreatedDateMillis(epochtimeunitmillis int64) *Si
 }
 
 // If this object is included, the template is used to create data streams and
-// their backing indices.
-// Supports an empty object.
-// Data streams require a matching index template with a `data_stream` object.
+// their backing indices. Supports an empty object. Data streams require a
+// matching index template with a `data_stream` object.
 // API name: data_stream
 func (r *SimulateIndexTemplate) DataStream(datastream types.IndexTemplateDataStreamConfigurationVariant) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -469,10 +464,9 @@ func (r *SimulateIndexTemplate) DataStream(datastream types.IndexTemplateDataStr
 	return r
 }
 
-// Marks this index template as deprecated.
-// When creating or updating a non-deprecated index template that uses
-// deprecated components,
-// Elasticsearch will emit a deprecation warning.
+// Marks this index template as deprecated. When creating or updating a
+// non-deprecated index template that uses deprecated components, Elasticsearch
+// will emit a deprecation warning.
 // API name: deprecated
 func (r *SimulateIndexTemplate) Deprecated(deprecated bool) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -511,8 +505,8 @@ func (r *SimulateIndexTemplate) IndexPatterns(names ...string) *SimulateIndexTem
 	return r
 }
 
-// Optional user metadata about the index template. May have any contents.
-// This map is not automatically generated by Elasticsearch.
+// Optional user metadata about the index template. May have any contents. This
+// map is not automatically generated by Elasticsearch.
 // API name: _meta
 func (r *SimulateIndexTemplate) Meta_(metadata types.MetadataVariant) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -554,11 +548,10 @@ func (r *SimulateIndexTemplate) ModifiedDateMillis(epochtimeunitmillis int64) *S
 }
 
 // Priority to determine index template precedence when a new data stream or
-// index is created.
-// The index template with the highest priority is chosen.
-// If no priority is specified the template is treated as though it is of
-// priority 0 (lowest priority).
-// This number is not automatically generated by Elasticsearch.
+// index is created. The index template with the highest priority is chosen. If
+// no priority is specified the template is treated as though it is of priority
+// 0 (lowest priority). This number is not automatically generated by
+// Elasticsearch.
 // API name: priority
 func (r *SimulateIndexTemplate) Priority(priority int64) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -571,9 +564,8 @@ func (r *SimulateIndexTemplate) Priority(priority int64) *SimulateIndexTemplate 
 	return r
 }
 
-// Template to be applied.
-// It may optionally include an `aliases`, `mappings`, or `settings`
-// configuration.
+// Template to be applied. It may optionally include an `aliases`, `mappings`,
+// or `settings` configuration.
 // API name: template
 func (r *SimulateIndexTemplate) Template(template types.IndexTemplateSummaryVariant) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized
@@ -586,8 +578,8 @@ func (r *SimulateIndexTemplate) Template(template types.IndexTemplateSummaryVari
 	return r
 }
 
-// Version number used to manage index templates externally.
-// This number is not automatically generated by Elasticsearch.
+// Version number used to manage index templates externally. This number is not
+// automatically generated by Elasticsearch.
 // API name: version
 func (r *SimulateIndexTemplate) Version(versionnumber int64) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized

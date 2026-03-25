@@ -18,18 +18,17 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Create or update auto-follow patterns.
-// Create a collection of cross-cluster replication auto-follow patterns for a
-// remote cluster.
-// Newly created indices on the remote cluster that match any of the patterns
-// are automatically configured as follower indices.
-// Indices on the remote cluster that were created before the auto-follow
-// pattern was created will not be auto-followed even if they match the pattern.
+// Create or update auto-follow patterns. Create a collection of cross-cluster
+// replication auto-follow patterns for a remote cluster. Newly created indices
+// on the remote cluster that match any of the patterns are automatically
+// configured as follower indices. Indices on the remote cluster that were
+// created before the auto-follow pattern was created will not be auto-followed
+// even if they match the pattern.
 //
-// This API can also be used to update auto-follow patterns.
-// NOTE: Follower indices that were configured automatically before updating an
-// auto-follow pattern will remain unchanged even if they do not match against
-// the new patterns.
+// This API can also be used to update auto-follow patterns. NOTE: Follower
+// indices that were configured automatically before updating an auto-follow
+// pattern will remain unchanged even if they do not match against the new
+// patterns.
 package putautofollowpattern
 
 import (
@@ -92,18 +91,17 @@ func NewPutAutoFollowPatternFunc(tp elastictransport.Interface) NewPutAutoFollow
 	}
 }
 
-// Create or update auto-follow patterns.
-// Create a collection of cross-cluster replication auto-follow patterns for a
-// remote cluster.
-// Newly created indices on the remote cluster that match any of the patterns
-// are automatically configured as follower indices.
-// Indices on the remote cluster that were created before the auto-follow
-// pattern was created will not be auto-followed even if they match the pattern.
+// Create or update auto-follow patterns. Create a collection of cross-cluster
+// replication auto-follow patterns for a remote cluster. Newly created indices
+// on the remote cluster that match any of the patterns are automatically
+// configured as follower indices. Indices on the remote cluster that were
+// created before the auto-follow pattern was created will not be auto-followed
+// even if they match the pattern.
 //
-// This API can also be used to update auto-follow patterns.
-// NOTE: Follower indices that were configured automatically before updating an
-// auto-follow pattern will remain unchanged even if they do not match against
-// the new patterns.
+// This API can also be used to update auto-follow patterns. NOTE: Follower
+// indices that were configured automatically before updating an auto-follow
+// pattern will remain unchanged even if they do not match against the new
+// patterns.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-put-auto-follow-pattern
 func New(tp elastictransport.Interface) *PutAutoFollowPattern {
@@ -228,7 +226,7 @@ func (r PutAutoFollowPattern) Perform(providedCtx context.Context) (*http.Respon
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ccr.put_auto_follow_pattern")
+			ctx = instrument.Start(providedCtx, "ccr.put_auto_follow_pattern")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -366,11 +364,9 @@ func (r *PutAutoFollowPattern) FilterPath(filterpaths ...string) *PutAutoFollowP
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAutoFollowPattern) Human(human bool) *PutAutoFollowPattern {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -378,8 +374,8 @@ func (r *PutAutoFollowPattern) Human(human bool) *PutAutoFollowPattern {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAutoFollowPattern) Pretty(pretty bool) *PutAutoFollowPattern {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

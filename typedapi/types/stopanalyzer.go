@@ -34,8 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/analyzers.ts#L404-L419
 type StopAnalyzer struct {
 	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
-	// of stop words.
-	// Defaults to `_none_`.
+	// of stop words. Defaults to `_none_`.
 	Stopwords StopWords `json:"stopwords,omitempty"`
 	// StopwordsPath The path to a file containing stop words.
 	StopwordsPath *string `json:"stopwords_path,omitempty"`
@@ -121,6 +120,9 @@ func (s *StopAnalyzer) StopAnalyzerCaster() *StopAnalyzer {
 }
 
 func (s *StopAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

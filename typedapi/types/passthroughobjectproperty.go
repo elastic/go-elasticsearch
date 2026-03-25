@@ -901,6 +901,9 @@ func (s *PassthroughObjectProperty) PassthroughObjectPropertyCaster() *Passthrou
 }
 
 func (s *PassthroughObjectProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

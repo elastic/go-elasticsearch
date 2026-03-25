@@ -96,6 +96,9 @@ func (s *CustomCategorizeTextAnalyzer) CustomCategorizeTextAnalyzerCaster() *Cus
 }
 
 func (s *CustomCategorizeTextAnalyzer) CategorizeTextAnalyzerCaster() *CategorizeTextAnalyzer {
+	if s == nil {
+		return nil
+	}
 	o := CategorizeTextAnalyzer(s)
 	return &o
 }

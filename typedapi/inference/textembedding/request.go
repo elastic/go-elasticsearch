@@ -33,23 +33,21 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L76
 type Request struct {
-	// Input Inference input.
-	// Either a string or an array of strings.
+	// Input Inference input. Either a string or an array of strings.
 	Input []string `json:"input"`
 	// InputType The input data type for the text embedding model. Possible values include:
-	// * `SEARCH`
-	// * `INGEST`
-	// * `CLASSIFICATION`
-	// * `CLUSTERING`
-	// Not all services support all values. Unsupported values will trigger a
-	// validation exception.
-	// Accepted values depend on the configured inference service, refer to the
-	// relevant service-specific documentation for more info.
 	//
-	// > info
-	// > The `input_type` parameter specified on the root level of the request body
-	// will take precedence over the `input_type` parameter specified in
-	// `task_settings`.
+	//   - `SEARCH`
+	//   - `INGEST`
+	//   - `CLASSIFICATION`
+	//   - `CLUSTERING` Not all services support all values. Unsupported values will
+	//     trigger a validation exception. Accepted values depend on the configured
+	//     inference service, refer to the relevant service-specific documentation
+	//     for more info.
+	//
+	// > info > The `input_type` parameter specified on the root level of the
+	// request body will take precedence over the `input_type` parameter specified
+	// in `task_settings`.
 	InputType *string `json:"input_type,omitempty"`
 	// TaskSettings Optional task settings
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`

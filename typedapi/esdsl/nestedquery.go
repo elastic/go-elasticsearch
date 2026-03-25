@@ -29,9 +29,8 @@ type _nestedQuery struct {
 	v *types.NestedQuery
 }
 
-// Wraps another query to search nested fields.
-// If an object matches the search, the nested query returns the root parent
-// document.
+// Wraps another query to search nested fields. If an object matches the search,
+// the nested query returns the root parent document.
 func NewNestedQuery(query types.QueryVariant) *_nestedQuery {
 
 	tmp := &_nestedQuery{v: types.NewNestedQuery()}

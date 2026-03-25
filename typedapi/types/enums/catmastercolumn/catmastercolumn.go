@@ -29,12 +29,17 @@ type CatMasterColumn struct {
 }
 
 var (
+
+	// Id The node ID.
 	Id = CatMasterColumn{"id"}
 
+	// Host The host name of the node.
 	Host = CatMasterColumn{"host"}
 
+	// Ip The IP address of the node.
 	Ip = CatMasterColumn{"ip"}
 
+	// Node The node name.
 	Node = CatMasterColumn{"node"}
 )
 

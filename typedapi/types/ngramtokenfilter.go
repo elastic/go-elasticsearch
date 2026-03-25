@@ -142,6 +142,9 @@ func (s *NGramTokenFilter) NGramTokenFilterCaster() *NGramTokenFilter {
 }
 
 func (s *NGramTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

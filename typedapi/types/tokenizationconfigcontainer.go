@@ -20,7 +20,7 @@
 
 package types
 
-// TokenizationConfigContainer type.
+// Tokenization options stored in inference configuration
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/inference.ts#L135-L158
 type TokenizationConfigContainer struct {

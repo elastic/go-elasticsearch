@@ -111,6 +111,9 @@ func (s *SnowballAnalyzer) SnowballAnalyzerCaster() *SnowballAnalyzer {
 }
 
 func (s *SnowballAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

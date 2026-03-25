@@ -44,9 +44,10 @@ type Status struct {
 	Snapshot string `json:"snapshot"`
 	// State The current snapshot state:
 	//
-	// * `FAILED`: The snapshot finished with an error and failed to store any data.
-	// * `STARTED`: The snapshot is currently running.
-	// * `SUCCESS`: The snapshot completed.
+	//   - `FAILED`: The snapshot finished with an error and failed to store any
+	//     data.
+	//   - `STARTED`: The snapshot is currently running.
+	//   - `SUCCESS`: The snapshot completed.
 	State string `json:"state"`
 	// Stats Details about the number (`file_count`) and size (`size_in_bytes`) of files
 	// included in the snapshot.

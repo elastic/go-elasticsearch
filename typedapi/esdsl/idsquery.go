@@ -26,8 +26,8 @@ type _idsQuery struct {
 	v *types.IdsQuery
 }
 
-// Returns documents based on their IDs.
-// This query uses document IDs stored in the `_id` field.
+// Returns documents based on their IDs. This query uses document IDs stored in
+// the `_id` field.
 func NewIdsQuery() *_idsQuery {
 
 	return &_idsQuery{v: types.NewIdsQuery()}

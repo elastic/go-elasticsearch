@@ -36,70 +36,59 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1408-L1471
 type GoogleVertexAIServiceSettings struct {
 	// Dimensions For a `text_embedding` task, the number of dimensions the resulting output
-	// embeddings should have.
-	// By default, the model's standard output dimension is used.
-	// Refer to the Google documentation for more information.
+	// embeddings should have. By default, the model's standard output dimension is
+	// used. Refer to the Google documentation for more information.
 	Dimensions *int `json:"dimensions,omitempty"`
 	// Location The name of the location to use for the inference task for the Google Vertex
-	// AI inference task.
-	// For Google Vertex AI, when `provider` is omitted or `google` `location` is
-	// mandatory.
-	// For Google Model Garden's `completion` and `chat_completion` tasks, when
-	// `provider` is a supported non-`google` value - `location` is ignored.
-	// Refer to the Google documentation for the list of supported locations.
+	// AI inference task. For Google Vertex AI, when `provider` is omitted or
+	// `google` `location` is mandatory. For Google Model Garden's `completion` and
+	// `chat_completion` tasks, when `provider` is a supported non-`google` value -
+	// `location` is ignored. Refer to the Google documentation for the list of
+	// supported locations.
 	Location *string `json:"location,omitempty"`
-	// ModelId The name of the model to use for the inference task.
-	// For Google Vertex AI `model_id` is mandatory.
-	// For Google Model Garden's `completion` and `chat_completion` tasks, when
-	// `provider` is a supported non-`google` value - `model_id` will be used for
-	// some providers that require it, otherwise - ignored.
-	// Refer to the Google documentation for the list of supported models for Google
-	// Vertex AI.
+	// ModelId The name of the model to use for the inference task. For Google Vertex AI
+	// `model_id` is mandatory. For Google Model Garden's `completion` and
+	// `chat_completion` tasks, when `provider` is a supported non-`google` value -
+	// `model_id` will be used for some providers that require it, otherwise -
+	// ignored. Refer to the Google documentation for the list of supported models
+	// for Google Vertex AI.
 	ModelId *string `json:"model_id,omitempty"`
-	// ProjectId The name of the project to use for the Google Vertex AI inference task.
-	// For Google Vertex AI `project_id` is mandatory.
-	// For Google Model Garden's `completion` and `chat_completion` tasks, when
-	// `provider` is a supported non-`google` value - `project_id` is ignored.
+	// ProjectId The name of the project to use for the Google Vertex AI inference task. For
+	// Google Vertex AI `project_id` is mandatory. For Google Model Garden's
+	// `completion` and `chat_completion` tasks, when `provider` is a supported
+	// non-`google` value - `project_id` is ignored.
 	ProjectId *string `json:"project_id,omitempty"`
 	// Provider The name of the Google Model Garden Provider for `completion` and
-	// `chat_completion` tasks.
-	// In order for a Google Model Garden endpoint to be used `provider` must be
-	// defined and be other than `google`.
-	// Modes:
-	// - Google Model Garden (third-party models): set `provider` to a supported
-	// non-`google` value and provide `url` and/or `streaming_url`.
-	// - Google Vertex AI: omit `provider` or set it to `google`. In this mode, do
-	// not set `url` or `streaming_url` and Elastic will construct the endpoint url
-	// from `location`, `model_id`, and `project_id` parameters.
+	// `chat_completion` tasks. In order for a Google Model Garden endpoint to be
+	// used `provider` must be defined and be other than `google`. Modes:
+	//
+	//   - Google Model Garden (third-party models): set `provider` to a supported
+	//     non-`google` value and provide `url` and/or `streaming_url`.
+	//   - Google Vertex AI: omit `provider` or set it to `google`. In this mode, do
+	//     not set `url` or `streaming_url` and Elastic will construct the endpoint
+	//     url from `location`, `model_id`, and `project_id` parameters.
 	Provider *googlemodelgardenprovider.GoogleModelGardenProvider `json:"provider,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// Google Vertex AI.
-	// By default, the `googlevertexai` service sets the number of requests allowed
-	// per minute to 30.000.
+	// Google Vertex AI. By default, the `googlevertexai` service sets the number of
+	// requests allowed per minute to 30.000.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 	// ServiceAccountJson A valid service account in JSON format for the Google Vertex AI API.
 	ServiceAccountJson string `json:"service_account_json"`
 	// StreamingUrl The URL for streaming `completion` and `chat_completion` requests to a Google
-	// Model Garden provider endpoint.
-	// If both `streaming_url` and `url` are provided, each is used for its
-	// respective mode.
-	// If `url` is not provided, `streaming_url` is also used for non-streaming
-	// `completion` requests.
-	// If `provider` is not provided or set to `google` (Google Vertex AI), do not
-	// set `streaming_url` (or `url`).
-	// At least one of `streaming_url` or `url` must be provided for Google Model
-	// Garden endpoint usage.
+	// Model Garden provider endpoint. If both `streaming_url` and `url` are
+	// provided, each is used for its respective mode. If `url` is not provided,
+	// `streaming_url` is also used for non-streaming `completion` requests. If
+	// `provider` is not provided or set to `google` (Google Vertex AI), do not set
+	// `streaming_url` (or `url`). At least one of `streaming_url` or `url` must be
+	// provided for Google Model Garden endpoint usage.
 	StreamingUrl *string `json:"streaming_url,omitempty"`
 	// Url The URL for non-streaming `completion` requests to a Google Model Garden
-	// provider endpoint.
-	// If both `url` and `streaming_url` are provided, each is used for its
-	// respective mode.
-	// If `streaming_url` is not provided, `url` is also used for streaming
-	// `completion` and `chat_completion`.
-	// If `provider` is not provided or set to `google` (Google Vertex AI), do not
-	// set `url` (or `streaming_url`).
-	// At least one of `url` or `streaming_url` must be provided for Google Model
-	// Garden endpoint usage.
+	// provider endpoint. If both `url` and `streaming_url` are provided, each is
+	// used for its respective mode. If `streaming_url` is not provided, `url` is
+	// also used for streaming `completion` and `chat_completion`. If `provider` is
+	// not provided or set to `google` (Google Vertex AI), do not set `url` (or
+	// `streaming_url`). At least one of `url` or `streaming_url` must be provided
+	// for Google Model Garden endpoint usage.
 	Url *string `json:"url,omitempty"`
 }
 

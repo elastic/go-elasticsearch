@@ -46,9 +46,9 @@ type Response struct {
 	// Sequence numbers are used to ensure an older version of a document doesn't
 	// overwrite a newer version.
 	SeqNo_ *int64 `json:"_seq_no,omitempty"`
-	// Source_ If `found` is `true`, it contains the document data formatted in JSON.
-	// If the `_source` parameter is set to `false` or the `stored_fields` parameter
-	// is set to `true`, it is excluded.
+	// Source_ If `found` is `true`, it contains the document data formatted in JSON. If the
+	// `_source` parameter is set to `false` or the `stored_fields` parameter is set
+	// to `true`, it is excluded.
 	Source_ json.RawMessage `json:"_source,omitempty"`
 	// Version_ The document version, which is ncremented each time the document is updated.
 	Version_ *int64 `json:"_version,omitempty"`

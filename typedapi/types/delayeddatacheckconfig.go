@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/Datafeed.ts#L125-L136
 type DelayedDataCheckConfig struct {
 	// CheckWindow The window of time that is searched for late data. This window of time ends
-	// with the latest finalized bucket.
-	// It defaults to null, which causes an appropriate `check_window` to be
-	// calculated when the real-time datafeed runs.
+	// with the latest finalized bucket. It defaults to null, which causes an
+	// appropriate `check_window` to be calculated when the real-time datafeed runs.
 	// In particular, the default `check_window` span calculation is based on the
 	// maximum of `2h` or `8 * bucket_span`.
 	CheckWindow Duration `json:"check_window,omitempty"`

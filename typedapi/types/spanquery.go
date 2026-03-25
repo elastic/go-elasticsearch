@@ -49,7 +49,7 @@ type SpanQuery struct {
 	SpanNear *SpanNearQuery `json:"span_near,omitempty"`
 	// SpanNot Wraps another span query, and excludes any documents which match that query.
 	SpanNot *SpanNotQuery `json:"span_not,omitempty"`
-	// SpanOr Combines multiple span queries and returns documents which match any of the
+	// SpanOr Combines multiple span queries and returns documents which match any of the
 	// specified queries.
 	SpanOr *SpanOrQuery `json:"span_or,omitempty"`
 	// SpanTerm The equivalent of the `term` query but for use with other span queries.

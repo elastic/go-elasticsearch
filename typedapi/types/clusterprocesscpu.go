@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/cluster/stats/types.ts#L588-L594
 type ClusterProcessCpu struct {
-	// Percent Percentage of CPU used across all selected nodes.
-	// Returns `-1` if not supported.
+	// Percent Percentage of CPU used across all selected nodes. Returns `-1` if not
+	// supported.
 	Percent int `json:"percent"`
 }
 

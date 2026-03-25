@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Translate SQL into Elasticsearch queries.
-// Translate an SQL search into a search API request containing Query DSL.
-// It accepts the same request body parameters as the SQL search API, excluding
-// `cursor`.
+// Translate SQL into Elasticsearch queries. Translate an SQL search into a
+// search API request containing Query DSL. It accepts the same request body
+// parameters as the SQL search API, excluding `cursor`.
 package translate
 
 import (
@@ -76,10 +75,9 @@ func NewTranslateFunc(tp elastictransport.Interface) NewTranslate {
 	}
 }
 
-// Translate SQL into Elasticsearch queries.
-// Translate an SQL search into a search API request containing Query DSL.
-// It accepts the same request body parameters as the SQL search API, excluding
-// `cursor`.
+// Translate SQL into Elasticsearch queries. Translate an SQL search into a
+// search API request containing Query DSL. It accepts the same request body
+// parameters as the SQL search API, excluding `cursor`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
 func New(tp elastictransport.Interface) *Translate {
@@ -198,7 +196,7 @@ func (r Translate) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "sql.translate")
+			ctx = instrument.Start(providedCtx, "sql.translate")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -319,11 +317,9 @@ func (r *Translate) FilterPath(filterpaths ...string) *Translate {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Translate) Human(human bool) *Translate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -331,8 +327,8 @@ func (r *Translate) Human(human bool) *Translate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Translate) Pretty(pretty bool) *Translate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

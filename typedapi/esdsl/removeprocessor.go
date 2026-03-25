@@ -26,8 +26,8 @@ type _removeProcessor struct {
 	v *types.RemoveProcessor
 }
 
-// Removes existing fields.
-// If one field doesn’t exist, an exception will be thrown.
+// Removes existing fields. If one field doesn’t exist, an exception will be
+// thrown.
 func NewRemoveProcessor() *_removeProcessor {
 
 	return &_removeProcessor{v: types.NewRemoveProcessor()}

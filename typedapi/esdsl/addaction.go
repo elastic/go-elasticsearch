@@ -26,8 +26,8 @@ type _addAction struct {
 	v *types.AddAction
 }
 
-// Adds a data stream or index to an alias.
-// If the alias doesn’t exist, the `add` action creates it.
+// Adds a data stream or index to an alias. If the alias doesn’t exist, the
+// `add` action creates it.
 func NewAddAction() *_addAction {
 
 	return &_addAction{v: types.NewAddAction()}

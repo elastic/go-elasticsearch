@@ -18,10 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Delete a dangling index.
-// If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
+// Delete a dangling index. If Elasticsearch encounters index data that is
+// absent from the current cluster state, those indices are considered to be
+// dangling. For example, this can happen if you delete more than
 // `cluster.indices.tombstones.size` indices while an Elasticsearch node is
 // offline.
 package deletedanglingindex
@@ -81,10 +80,9 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 	}
 }
 
-// Delete a dangling index.
-// If Elasticsearch encounters index data that is absent from the current
-// cluster state, those indices are considered to be dangling.
-// For example, this can happen if you delete more than
+// Delete a dangling index. If Elasticsearch encounters index data that is
+// absent from the current cluster state, those indices are considered to be
+// dangling. For example, this can happen if you delete more than
 // `cluster.indices.tombstones.size` indices while an Elasticsearch node is
 // offline.
 //
@@ -161,7 +159,7 @@ func (r DeleteDanglingIndex) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "dangling_indices.delete_dangling_index")
+			ctx = instrument.Start(providedCtx, "dangling_indices.delete_dangling_index")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -356,11 +354,9 @@ func (r *DeleteDanglingIndex) FilterPath(filterpaths ...string) *DeleteDanglingI
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteDanglingIndex) Human(human bool) *DeleteDanglingIndex {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -368,8 +364,8 @@ func (r *DeleteDanglingIndex) Human(human bool) *DeleteDanglingIndex {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteDanglingIndex) Pretty(pretty bool) *DeleteDanglingIndex {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

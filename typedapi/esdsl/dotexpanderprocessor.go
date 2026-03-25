@@ -26,9 +26,8 @@ type _dotExpanderProcessor struct {
 	v *types.DotExpanderProcessor
 }
 
-// Expands a field with dots into an object field.
-// This processor allows fields with dots in the name to be accessible by other
-// processors in the pipeline.
+// Expands a field with dots into an object field. This processor allows fields
+// with dots in the name to be accessible by other processors in the pipeline.
 // Otherwise these fields can’t be accessed by any processor.
 func NewDotExpanderProcessor() *_dotExpanderProcessor {
 

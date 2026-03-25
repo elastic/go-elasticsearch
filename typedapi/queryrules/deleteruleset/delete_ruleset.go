@@ -18,9 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Delete a query ruleset.
-// Remove a query ruleset and its associated data.
-// This is a destructive action that is not recoverable.
+// Delete a query ruleset. Remove a query ruleset and its associated data. This
+// is a destructive action that is not recoverable.
 package deleteruleset
 
 import (
@@ -78,9 +77,8 @@ func NewDeleteRulesetFunc(tp elastictransport.Interface) NewDeleteRuleset {
 	}
 }
 
-// Delete a query ruleset.
-// Remove a query ruleset and its associated data.
-// This is a destructive action that is not recoverable.
+// Delete a query ruleset. Remove a query ruleset and its associated data. This
+// is a destructive action that is not recoverable.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
 func New(tp elastictransport.Interface) *DeleteRuleset {
@@ -155,7 +153,7 @@ func (r DeleteRuleset) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.delete_ruleset")
+			ctx = instrument.Start(providedCtx, "query_rules.delete_ruleset")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -324,11 +322,9 @@ func (r *DeleteRuleset) FilterPath(filterpaths ...string) *DeleteRuleset {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteRuleset) Human(human bool) *DeleteRuleset {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -336,8 +332,8 @@ func (r *DeleteRuleset) Human(human bool) *DeleteRuleset {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteRuleset) Pretty(pretty bool) *DeleteRuleset {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

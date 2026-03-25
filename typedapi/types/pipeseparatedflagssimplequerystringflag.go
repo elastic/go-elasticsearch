@@ -25,6 +25,13 @@ package types
 //	simplequerystringflag.SimpleQueryStringFlag
 //	string
 //
+// A set of flags that can be represented as a single enum value or a set of
+// values that are encoded as a pipe-separated string
+//
+// Depending on the target language, code generators can use this hint to
+// generate language specific flags enum constructs and the corresponding
+// (de-)serialization code.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_spec_utils/PipeSeparatedFlags.ts#L20-L27
 type PipeSeparatedFlagsSimpleQueryStringFlag any
 

@@ -30,8 +30,8 @@ type _convertProcessor struct {
 }
 
 // Converts a field in the currently ingested document to a different type, such
-// as converting a string to an integer.
-// If the field value is an array, all members will be converted.
+// as converting a string to an integer. If the field value is an array, all
+// members will be converted.
 func NewConvertProcessor(type_ converttype.ConvertType) *_convertProcessor {
 
 	tmp := &_convertProcessor{v: types.NewConvertProcessor()}

@@ -36,9 +36,9 @@ import (
 type Request struct {
 	// Maxmind The configuration necessary to identify which IP geolocation provider to use
 	// to download the database, as well as any provider-specific configuration
-	// necessary for such downloading.
-	// At present, the only supported provider is maxmind, and the maxmind provider
-	// requires that an account_id (string) is configured.
+	// necessary for such downloading. At present, the only supported provider is
+	// maxmind, and the maxmind provider requires that an account_id (string) is
+	// configured.
 	Maxmind types.Maxmind `json:"maxmind"`
 	// Name The provider-assigned name of the IP geolocation database to download.
 	Name string `json:"name"`

@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Get the cluster state.
-// Get comprehensive information about the state of the cluster.
+// Get the cluster state. Get comprehensive information about the state of the
+// cluster.
 //
 // The cluster state is an internal data structure which keeps track of a
 // variety of information needed by every node, including the identity and
@@ -28,28 +28,26 @@
 // status of every shard copy in the cluster.
 //
 // The elected master node ensures that every node in the cluster has a copy of
-// the same cluster state.
-// This API lets you retrieve a representation of this internal state for
-// debugging or diagnostic purposes.
-// You may need to consult the Elasticsearch source code to determine the
-// precise meaning of the response.
+// the same cluster state. This API lets you retrieve a representation of this
+// internal state for debugging or diagnostic purposes. You may need to consult
+// the Elasticsearch source code to determine the precise meaning of the
+// response.
 //
 // By default the API will route requests to the elected master node since this
-// node is the authoritative source of cluster states.
-// You can also retrieve the cluster state held on the node handling the API
-// request by adding the `?local=true` query parameter.
+// node is the authoritative source of cluster states. You can also retrieve the
+// cluster state held on the node handling the API request by adding the
+// `?local=true` query parameter.
 //
 // Elasticsearch may need to expend significant effort to compute a response to
 // this API in larger clusters, and the response may comprise a very large
-// quantity of data.
-// If you use this API repeatedly, your cluster may become unstable.
+// quantity of data. If you use this API repeatedly, your cluster may become
+// unstable.
 //
-// WARNING: The response is a representation of an internal data structure.
-// Its format is not subject to the same compatibility guarantees as other more
-// stable APIs and may change from version to version.
-// Do not query this API using external monitoring tools.
-// Instead, obtain the information you require using other more stable cluster
-// APIs.
+// WARNING: The response is a representation of an internal data structure. Its
+// format is not subject to the same compatibility guarantees as other more
+// stable APIs and may change from version to version. Do not query this API
+// using external monitoring tools. Instead, obtain the information you require
+// using other more stable cluster APIs.
 package state
 
 import (
@@ -109,8 +107,8 @@ func NewStateFunc(tp elastictransport.Interface) NewState {
 	}
 }
 
-// Get the cluster state.
-// Get comprehensive information about the state of the cluster.
+// Get the cluster state. Get comprehensive information about the state of the
+// cluster.
 //
 // The cluster state is an internal data structure which keeps track of a
 // variety of information needed by every node, including the identity and
@@ -119,28 +117,26 @@ func NewStateFunc(tp elastictransport.Interface) NewState {
 // status of every shard copy in the cluster.
 //
 // The elected master node ensures that every node in the cluster has a copy of
-// the same cluster state.
-// This API lets you retrieve a representation of this internal state for
-// debugging or diagnostic purposes.
-// You may need to consult the Elasticsearch source code to determine the
-// precise meaning of the response.
+// the same cluster state. This API lets you retrieve a representation of this
+// internal state for debugging or diagnostic purposes. You may need to consult
+// the Elasticsearch source code to determine the precise meaning of the
+// response.
 //
 // By default the API will route requests to the elected master node since this
-// node is the authoritative source of cluster states.
-// You can also retrieve the cluster state held on the node handling the API
-// request by adding the `?local=true` query parameter.
+// node is the authoritative source of cluster states. You can also retrieve the
+// cluster state held on the node handling the API request by adding the
+// `?local=true` query parameter.
 //
 // Elasticsearch may need to expend significant effort to compute a response to
 // this API in larger clusters, and the response may comprise a very large
-// quantity of data.
-// If you use this API repeatedly, your cluster may become unstable.
+// quantity of data. If you use this API repeatedly, your cluster may become
+// unstable.
 //
-// WARNING: The response is a representation of an internal data structure.
-// Its format is not subject to the same compatibility guarantees as other more
-// stable APIs and may change from version to version.
-// Do not query this API using external monitoring tools.
-// Instead, obtain the information you require using other more stable cluster
-// APIs.
+// WARNING: The response is a representation of an internal data structure. Its
+// format is not subject to the same compatibility guarantees as other more
+// stable APIs and may change from version to version. Do not query this API
+// using external monitoring tools. Instead, obtain the information you require
+// using other more stable cluster APIs.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state
 func New(tp elastictransport.Interface) *State {
@@ -243,7 +239,7 @@ func (r State) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.state")
+			ctx = instrument.Start(providedCtx, "cluster.state")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -495,11 +491,9 @@ func (r *State) FilterPath(filterpaths ...string) *State {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *State) Human(human bool) *State {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -507,8 +501,8 @@ func (r *State) Human(human bool) *State {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *State) Pretty(pretty bool) *State {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

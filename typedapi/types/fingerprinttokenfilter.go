@@ -132,6 +132,9 @@ func (s *FingerprintTokenFilter) FingerprintTokenFilterCaster() *FingerprintToke
 }
 
 func (s *FingerprintTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

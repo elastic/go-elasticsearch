@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// MappingLimitSettings type.
+// Mapping Limit Settings
 //
 // https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L438-L452
 type MappingLimitSettings struct {

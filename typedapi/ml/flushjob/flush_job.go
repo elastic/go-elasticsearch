@@ -18,15 +18,17 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
 
-// Force buffered data to be processed.
-// The flush jobs API is only applicable when sending data for analysis using
-// the post data API. Depending on the content of the buffer, then it might
-// additionally calculate new results. Both flush and close operations are
-// similar, however the flush is more efficient if you are expecting to send
-// more data for analysis. When flushing, the job remains open and is available
-// to continue analyzing data. A close operation additionally prunes and
-// persists the model state to disk and the job must be opened again before
-// analyzing further data.
+// Force buffered data to be processed. The flush jobs API is only applicable
+// when sending data for analysis using the post data API. Depending on the
+// content of the buffer, then it might additionally calculate new results. Both
+// flush and close operations are similar, however the flush is more efficient
+// if you are expecting to send more data for analysis. When flushing, the job
+// remains open and is available to continue analyzing data. A close operation
+// additionally prunes and persists the model state to disk and the job must be
+// opened again before analyzing further data.
+//
+// Deprecated: Since 9.1.0. Forcing any buffered data to be processed is
+// deprecated, in a future major version a datafeed will be required.
 package flushjob
 
 import (
@@ -89,17 +91,19 @@ func NewFlushJobFunc(tp elastictransport.Interface) NewFlushJob {
 	}
 }
 
-// Force buffered data to be processed.
-// The flush jobs API is only applicable when sending data for analysis using
-// the post data API. Depending on the content of the buffer, then it might
-// additionally calculate new results. Both flush and close operations are
-// similar, however the flush is more efficient if you are expecting to send
-// more data for analysis. When flushing, the job remains open and is available
-// to continue analyzing data. A close operation additionally prunes and
-// persists the model state to disk and the job must be opened again before
-// analyzing further data.
+// Force buffered data to be processed. The flush jobs API is only applicable
+// when sending data for analysis using the post data API. Depending on the
+// content of the buffer, then it might additionally calculate new results. Both
+// flush and close operations are similar, however the flush is more efficient
+// if you are expecting to send more data for analysis. When flushing, the job
+// remains open and is available to continue analyzing data. A close operation
+// additionally prunes and persists the model state to disk and the job must be
+// opened again before analyzing further data.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+//
+// Deprecated: Since 9.1.0. Forcing any buffered data to be processed is
+// deprecated, in a future major version a datafeed will be required.
 func New(tp elastictransport.Interface) *FlushJob {
 	r := &FlushJob{
 		transport: tp,
@@ -224,7 +228,7 @@ func (r FlushJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.flush_job")
+			ctx = instrument.Start(providedCtx, "ml.flush_job")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -354,11 +358,9 @@ func (r *FlushJob) FilterPath(filterpaths ...string) *FlushJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *FlushJob) Human(human bool) *FlushJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -366,8 +368,8 @@ func (r *FlushJob) Human(human bool) *FlushJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *FlushJob) Pretty(pretty bool) *FlushJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

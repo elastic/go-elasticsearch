@@ -30,9 +30,9 @@ type _geoDistanceAggregation struct {
 	v *types.GeoDistanceAggregation
 }
 
-// A multi-bucket aggregation that works on `geo_point` fields.
-// Evaluates the distance of each document value from an origin point and
-// determines the buckets it belongs to, based on ranges defined in the request.
+// A multi-bucket aggregation that works on `geo_point` fields. Evaluates the
+// distance of each document value from an origin point and determines the
+// buckets it belongs to, based on ranges defined in the request.
 func NewGeoDistanceAggregation() *_geoDistanceAggregation {
 
 	return &_geoDistanceAggregation{v: types.NewGeoDistanceAggregation()}

@@ -29,14 +29,21 @@ type ScoreMode struct {
 }
 
 var (
+
+	// Avg Average the original score and the rescore query score.
 	Avg = ScoreMode{"avg"}
 
+	// Max Take the max of original score and the rescore query score.
 	Max = ScoreMode{"max"}
 
+	// Min Take the min of the original score and the rescore query score.
 	Min = ScoreMode{"min"}
 
+	// Multiply Multiply the original score by the rescore query score. Useful for `function`
+	// query rescores.
 	Multiply = ScoreMode{"multiply"}
 
+	// Total Add the original score and the rescore query score.
 	Total = ScoreMode{"total"}
 )
 

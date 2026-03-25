@@ -26,11 +26,10 @@ type _adjacencyMatrixAggregation struct {
 	v *types.AdjacencyMatrixAggregation
 }
 
-// A bucket aggregation returning a form of adjacency matrix.
-// The request provides a collection of named filter expressions, similar to the
-// `filters` aggregation.
-// Each bucket in the response represents a non-empty cell in the matrix of
-// intersecting filters.
+// A bucket aggregation returning a form of adjacency matrix. The request
+// provides a collection of named filter expressions, similar to the `filters`
+// aggregation. Each bucket in the response represents a non-empty cell in the
+// matrix of intersecting filters.
 func NewAdjacencyMatrixAggregation() *_adjacencyMatrixAggregation {
 
 	return &_adjacencyMatrixAggregation{v: types.NewAdjacencyMatrixAggregation()}

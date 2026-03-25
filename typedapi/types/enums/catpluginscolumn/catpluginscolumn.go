@@ -29,14 +29,20 @@ type CatPluginsColumn struct {
 }
 
 var (
+
+	// Id The unique node ID.
 	Id = CatPluginsColumn{"id"}
 
+	// Name The node name.
 	Name = CatPluginsColumn{"name"}
 
+	// Component The component.
 	Component = CatPluginsColumn{"component"}
 
+	// Version The component version.
 	Version = CatPluginsColumn{"version"}
 
+	// Description The plugin details.
 	Description = CatPluginsColumn{"description"}
 )
 
