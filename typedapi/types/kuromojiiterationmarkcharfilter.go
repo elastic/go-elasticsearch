@@ -128,6 +128,9 @@ func (s *KuromojiIterationMarkCharFilter) KuromojiIterationMarkCharFilterCaster(
 }
 
 func (s *KuromojiIterationMarkCharFilter) CharFilterDefinitionCaster() *CharFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := CharFilterDefinition(s)
 	return &o
 }

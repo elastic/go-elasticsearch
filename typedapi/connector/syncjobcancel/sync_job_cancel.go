@@ -21,9 +21,8 @@
 // Cancel a connector sync job.
 //
 // Cancel a connector sync job, which sets the status to cancelling and updates
-// `cancellation_requested_at` to the current time.
-// The connector service is then responsible for setting the status of connector
-// sync jobs to cancelled.
+// `cancellation_requested_at` to the current time. The connector service is
+// then responsible for setting the status of connector sync jobs to cancelled.
 package syncjobcancel
 
 import (
@@ -84,11 +83,12 @@ func NewSyncJobCancelFunc(tp elastictransport.Interface) NewSyncJobCancel {
 // Cancel a connector sync job.
 //
 // Cancel a connector sync job, which sets the status to cancelling and updates
-// `cancellation_requested_at` to the current time.
-// The connector service is then responsible for setting the status of connector
-// sync jobs to cancelled.
+// `cancellation_requested_at` to the current time. The connector service is
+// then responsible for setting the status of connector sync jobs to cancelled.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-cancel
 func New(tp elastictransport.Interface) *SyncJobCancel {
 	r := &SyncJobCancel{
 		transport: tp,
@@ -165,7 +165,7 @@ func (r SyncJobCancel) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.sync_job_cancel")
+			ctx = instrument.Start(providedCtx, "connector.sync_job_cancel")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -334,11 +334,9 @@ func (r *SyncJobCancel) FilterPath(filterpaths ...string) *SyncJobCancel {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *SyncJobCancel) Human(human bool) *SyncJobCancel {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +344,8 @@ func (r *SyncJobCancel) Human(human bool) *SyncJobCancel {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *SyncJobCancel) Pretty(pretty bool) *SyncJobCancel {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

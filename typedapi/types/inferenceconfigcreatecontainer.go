@@ -20,7 +20,7 @@
 
 package types
 
-// InferenceConfigCreateContainer type.
+// Inference configuration provided when storing the model config
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/_types/inference.ts#L26-L85
 type InferenceConfigCreateContainer struct {

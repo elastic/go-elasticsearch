@@ -27,13 +27,10 @@ type _bytesProcessor struct {
 }
 
 // Converts a human readable byte value (for example `1kb`) to its value in
-// bytes (for example `1024`).
-// If the field is an array of strings, all members of the array will be
-// converted.
-// Supported human readable units are "b", "kb", "mb", "gb", "tb", "pb" case
-// insensitive.
-// An error will occur if the field is not a supported format or resultant value
-// exceeds 2^63.
+// bytes (for example `1024`). If the field is an array of strings, all members
+// of the array will be converted. Supported human readable units are "b", "kb",
+// "mb", "gb", "tb", "pb" case insensitive. An error will occur if the field is
+// not a supported format or resultant value exceeds 2^63.
 func NewBytesProcessor() *_bytesProcessor {
 
 	return &_bytesProcessor{v: types.NewBytesProcessor()}

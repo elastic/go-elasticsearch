@@ -89,7 +89,9 @@ func NewUpdateFilterFunc(tp elastictransport.Interface) NewUpdateFilter {
 // Updates the description of a filter, adds items, or removes items from the
 // list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-filter
 func New(tp elastictransport.Interface) *UpdateFilter {
 	r := &UpdateFilter{
 		transport: tp,
@@ -214,7 +216,7 @@ func (r UpdateFilter) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_filter")
+			ctx = instrument.Start(providedCtx, "ml.update_filter")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -344,11 +346,9 @@ func (r *UpdateFilter) FilterPath(filterpaths ...string) *UpdateFilter {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateFilter) Human(human bool) *UpdateFilter {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +356,8 @@ func (r *UpdateFilter) Human(human bool) *UpdateFilter {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateFilter) Pretty(pretty bool) *UpdateFilter {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -33,15 +33,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/query_dsl/fulltext.ts#L319-L334
 type IntervalsWildcard struct {
-	// Analyzer Analyzer used to analyze the `pattern`.
-	// Defaults to the top-level field's analyzer.
+	// Analyzer Analyzer used to analyze the `pattern`. Defaults to the top-level field's
+	// analyzer.
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Pattern Wildcard pattern used to find matching terms.
 	Pattern string `json:"pattern"`
 	// UseField If specified, match intervals from this field rather than the top-level
-	// field.
-	// The `pattern` is normalized using the search analyzer from this field, unless
-	// `analyzer` is specified separately.
+	// field. The `pattern` is normalized using the search analyzer from this field,
+	// unless `analyzer` is specified separately.
 	UseField *string `json:"use_field,omitempty"`
 }
 

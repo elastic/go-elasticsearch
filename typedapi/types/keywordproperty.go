@@ -1044,6 +1044,9 @@ func (s *KeywordProperty) KeywordPropertyCaster() *KeywordProperty {
 }
 
 func (s *KeywordProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

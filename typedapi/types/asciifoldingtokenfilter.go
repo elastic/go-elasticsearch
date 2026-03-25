@@ -103,6 +103,9 @@ func (s *AsciiFoldingTokenFilter) AsciiFoldingTokenFilterCaster() *AsciiFoldingT
 }
 
 func (s *AsciiFoldingTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

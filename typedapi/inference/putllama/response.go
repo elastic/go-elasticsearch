@@ -31,10 +31,9 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/put_llama/PutLlamaResponse.ts#L22-L25
 type Response struct {
-	// ChunkingSettings The chunking configuration object.
-	// Applies only to the `sparse_embedding` and `text_embedding` task types.
-	// Not applicable to the `rerank`, `completion`, or `chat_completion` task
-	// types.
+	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` and
+	// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or
+	// `chat_completion` task types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`

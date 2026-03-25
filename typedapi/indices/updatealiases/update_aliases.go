@@ -79,7 +79,9 @@ func NewUpdateAliasesFunc(tp elastictransport.Interface) NewUpdateAliases {
 //
 // Adds a data stream or index to an alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-update-aliases
 func New(tp elastictransport.Interface) *UpdateAliases {
 	r := &UpdateAliases{
 		transport: tp,
@@ -194,7 +196,7 @@ func (r UpdateAliases) Perform(providedCtx context.Context) (*http.Response, err
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.update_aliases")
+			ctx = instrument.Start(providedCtx, "indices.update_aliases")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -292,9 +294,8 @@ func (r *UpdateAliases) Header(key, value string) *UpdateAliases {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *UpdateAliases) MasterTimeout(duration string) *UpdateAliases {
 	r.values.Set("master_timeout", duration)
@@ -302,9 +303,8 @@ func (r *UpdateAliases) MasterTimeout(duration string) *UpdateAliases {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *UpdateAliases) Timeout(duration string) *UpdateAliases {
 	r.values.Set("timeout", duration)
@@ -335,11 +335,9 @@ func (r *UpdateAliases) FilterPath(filterpaths ...string) *UpdateAliases {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateAliases) Human(human bool) *UpdateAliases {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -347,8 +345,8 @@ func (r *UpdateAliases) Human(human bool) *UpdateAliases {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateAliases) Pretty(pretty bool) *UpdateAliases {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

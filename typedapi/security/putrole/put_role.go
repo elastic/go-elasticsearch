@@ -21,9 +21,8 @@
 // Create or update roles.
 //
 // The role management APIs are generally the preferred way to manage roles in
-// the native realm, rather than using file-based role management.
-// The create or update roles API cannot update roles that are defined in roles
-// files.
+// the native realm, rather than using file-based role management. The create or
+// update roles API cannot update roles that are defined in roles files.
 // File-based role management is not available in Elastic Serverless.
 package putrole
 
@@ -92,12 +91,13 @@ func NewPutRoleFunc(tp elastictransport.Interface) NewPutRole {
 // Create or update roles.
 //
 // The role management APIs are generally the preferred way to manage roles in
-// the native realm, rather than using file-based role management.
-// The create or update roles API cannot update roles that are defined in roles
-// files.
+// the native realm, rather than using file-based role management. The create or
+// update roles API cannot update roles that are defined in roles files.
 // File-based role management is not available in Elastic Serverless.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-put-role
 func New(tp elastictransport.Interface) *PutRole {
 	r := &PutRole{
 		transport: tp,
@@ -220,7 +220,7 @@ func (r PutRole) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.put_role")
+			ctx = instrument.Start(providedCtx, "security.put_role")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -363,11 +363,9 @@ func (r *PutRole) FilterPath(filterpaths ...string) *PutRole {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutRole) Human(human bool) *PutRole {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -375,8 +373,8 @@ func (r *PutRole) Human(human bool) *PutRole {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutRole) Pretty(pretty bool) *PutRole {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -507,9 +505,8 @@ func (r *PutRole) RemoteCluster(remoteclusters ...types.RemoteClusterPrivilegesV
 // A list of remote indices permissions entries.
 //
 // NOTE: Remote indices are effective for remote clusters configured with the
-// API key based model.
-// They have no effect for remote clusters configured with the certificate based
-// model.
+// API key based model. They have no effect for remote clusters configured with
+// the certificate based model.
 // API name: remote_indices
 func (r *PutRole) RemoteIndices(remoteindices ...types.RemoteIndicesPrivilegesVariant) *PutRole {
 	// Initialize the request if it is not already initialized

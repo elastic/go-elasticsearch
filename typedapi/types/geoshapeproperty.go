@@ -34,7 +34,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
-// GeoShapeProperty type.
+// The `geo_shape` data type facilitates the indexing of and searching with
+// arbitrary geo shapes such as rectangles and polygons.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/mapping/geo.ts#L48-L62
 type GeoShapeProperty struct {
@@ -959,6 +960,9 @@ func (s *GeoShapeProperty) GeoShapePropertyCaster() *GeoShapeProperty {
 }
 
 func (s *GeoShapeProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

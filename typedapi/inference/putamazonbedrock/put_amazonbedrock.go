@@ -23,8 +23,7 @@
 // Create an inference endpoint to perform an inference task with the
 // `amazonbedrock` service.
 //
-// >info
-// > You need to provide the access and secret keys only once, during the
+// >info > You need to provide the access and secret keys only once, during the
 // inference model creation. The get inference API does not retrieve your access
 // or secret keys. After creating the inference model, you cannot change the
 // associated key pairs. If you want to use a different access and secret key
@@ -103,15 +102,16 @@ func NewPutAmazonbedrockFunc(tp elastictransport.Interface) NewPutAmazonbedrock 
 // Create an inference endpoint to perform an inference task with the
 // `amazonbedrock` service.
 //
-// >info
-// > You need to provide the access and secret keys only once, during the
+// >info > You need to provide the access and secret keys only once, during the
 // inference model creation. The get inference API does not retrieve your access
 // or secret keys. After creating the inference model, you cannot change the
 // associated key pairs. If you want to use a different access and secret key
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonbedrock
 func New(tp elastictransport.Interface) *PutAmazonbedrock {
 	r := &PutAmazonbedrock{
 		transport: tp,
@@ -238,7 +238,7 @@ func (r PutAmazonbedrock) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_amazonbedrock")
+			ctx = instrument.Start(providedCtx, "inference.put_amazonbedrock")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -386,11 +386,9 @@ func (r *PutAmazonbedrock) FilterPath(filterpaths ...string) *PutAmazonbedrock {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAmazonbedrock) Human(human bool) *PutAmazonbedrock {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -398,8 +396,8 @@ func (r *PutAmazonbedrock) Human(human bool) *PutAmazonbedrock {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAmazonbedrock) Pretty(pretty bool) *PutAmazonbedrock {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -407,9 +405,8 @@ func (r *PutAmazonbedrock) Pretty(pretty bool) *PutAmazonbedrock {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `text_embedding` task type.
-// Not applicable to the `completion` task type.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `completion` task type.
 // API name: chunking_settings
 func (r *PutAmazonbedrock) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAmazonbedrock {
 	// Initialize the request if it is not already initialized
@@ -448,8 +445,8 @@ func (r *PutAmazonbedrock) ServiceSettings(servicesettings types.AmazonBedrockSe
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutAmazonbedrock) TaskSettings(tasksettings types.AmazonBedrockTaskSettingsVariant) *PutAmazonbedrock {
 	// Initialize the request if it is not already initialized

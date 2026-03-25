@@ -29,8 +29,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/snapshot/clone/SnapshotCloneRequest.ts#L24-L73
 type Request struct {
-	// Indices A comma-separated list of indices to include in the snapshot.
-	// Multi-target syntax is supported.
+	// Indices A comma-separated list of indices to include in the snapshot. Multi-target
+	// syntax is supported.
 	Indices string `json:"indices"`
 }
 

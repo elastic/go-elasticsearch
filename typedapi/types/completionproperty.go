@@ -964,6 +964,9 @@ func (s *CompletionProperty) CompletionPropertyCaster() *CompletionProperty {
 }
 
 func (s *CompletionProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

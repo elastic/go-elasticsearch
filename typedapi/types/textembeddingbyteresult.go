@@ -28,7 +28,7 @@ import (
 	"io"
 )
 
-// TextEmbeddingByteResult type.
+// The text embedding result object for byte representation
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/Results.ts#L57-L62
 type TextEmbeddingByteResult struct {

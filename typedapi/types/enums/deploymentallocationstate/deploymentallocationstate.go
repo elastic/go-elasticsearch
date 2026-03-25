@@ -29,10 +29,14 @@ type DeploymentAllocationState struct {
 }
 
 var (
+
+	// Started The trained model is started on at least one node.
 	Started = DeploymentAllocationState{"started"}
 
+	// Starting Trained model deployment is starting but it is not yet deployed on any nodes.
 	Starting = DeploymentAllocationState{"starting"}
 
+	// Fullyallocated Trained model deployment has started on all valid nodes.
 	Fullyallocated = DeploymentAllocationState{"fully_allocated"}
 )
 

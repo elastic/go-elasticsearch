@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// CompletionToolChoice type.
+// Controls which tool is called by the model.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L241-L253
 type CompletionToolChoice struct {
@@ -92,6 +92,9 @@ func (s *CompletionToolChoice) CompletionToolChoiceCaster() *CompletionToolChoic
 }
 
 func (s *CompletionToolChoice) CompletionToolTypeCaster() *CompletionToolType {
+	if s == nil {
+		return nil
+	}
 	o := CompletionToolType(s)
 	return &o
 }

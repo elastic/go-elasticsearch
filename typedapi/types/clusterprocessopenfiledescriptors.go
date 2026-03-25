@@ -33,16 +33,14 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/cluster/stats/types.ts#L614-L630
 type ClusterProcessOpenFileDescriptors struct {
-	// Avg Average number of concurrently open file descriptors.
-	// Returns `-1` if not supported.
+	// Avg Average number of concurrently open file descriptors. Returns `-1` if not
+	// supported.
 	Avg int64 `json:"avg"`
 	// Max Maximum number of concurrently open file descriptors allowed across all
-	// selected nodes.
-	// Returns `-1` if not supported.
+	// selected nodes. Returns `-1` if not supported.
 	Max int64 `json:"max"`
 	// Min Minimum number of concurrently open file descriptors across all selected
-	// nodes.
-	// Returns -1 if not supported.
+	// nodes. Returns -1 if not supported.
 	Min int64 `json:"min"`
 }
 

@@ -95,6 +95,9 @@ func (s *BengaliNormalizationTokenFilter) BengaliNormalizationTokenFilterCaster(
 }
 
 func (s *BengaliNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

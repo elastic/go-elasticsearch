@@ -43,8 +43,8 @@ type SnapshotLifecycle struct {
 	NextExecutionMillis int64      `json:"next_execution_millis"`
 	Policy              SLMPolicy  `json:"policy"`
 	Stats               Statistics `json:"stats"`
-	// Version The version of the snapshot policy.
-	// Only the latest version is stored and incremented when the policy is updated.
+	// Version The version of the snapshot policy. Only the latest version is stored and
+	// incremented when the policy is updated.
 	Version int64 `json:"version"`
 }
 

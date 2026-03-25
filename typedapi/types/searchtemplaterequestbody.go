@@ -34,8 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/watcher/_types/Input.ts#L125-L142
 type SearchTemplateRequestBody struct {
 	Explain *bool `json:"explain,omitempty"`
-	// Id ID of the search template to use. If no source is specified,
-	// this parameter is required.
+	// Id ID of the search template to use. If no source is specified, this parameter
+	// is required.
 	Id      *string                    `json:"id,omitempty"`
 	Params  map[string]json.RawMessage `json:"params,omitempty"`
 	Profile *bool                      `json:"profile,omitempty"`

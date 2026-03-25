@@ -28,11 +28,12 @@ type TrainedModel struct {
 	Ensemble *Ensemble `json:"ensemble,omitempty"`
 	// Tree The definition for a binary decision tree.
 	Tree *TrainedModelTree `json:"tree,omitempty"`
-	// TreeNode The definition of a node in a tree.
-	// There are two major types of nodes: leaf nodes and not-leaf nodes.
-	// - Leaf nodes only need node_index and leaf_value defined.
-	// - All other nodes need split_feature, left_child, right_child, threshold,
-	// decision_type, and default_left defined.
+	// TreeNode The definition of a node in a tree. There are two major types of nodes: leaf
+	// nodes and not-leaf nodes.
+	//
+	//   - Leaf nodes only need node_index and leaf_value defined.
+	//   - All other nodes need split_feature, left_child, right_child, threshold,
+	//     decision_type, and default_left defined.
 	TreeNode *TrainedModelTreeNode `json:"tree_node,omitempty"`
 }
 

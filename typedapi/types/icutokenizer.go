@@ -110,6 +110,9 @@ func (s *IcuTokenizer) IcuTokenizerCaster() *IcuTokenizer {
 }
 
 func (s *IcuTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

@@ -24,8 +24,8 @@ package updateapikey
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/update_api_key/Response.ts#L20-L28
 type Response struct {
-	// Updated If `true`, the API key was updated.
-	// If `false`, the API key didn't change because no change was detected.
+	// Updated If `true`, the API key was updated. If `false`, the API key didn't change
+	// because no change was detected.
 	Updated bool `json:"updated"`
 }
 

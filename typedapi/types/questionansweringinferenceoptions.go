@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// QuestionAnsweringInferenceOptions type.
+// Question answering inference options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/_types/inference.ts#L305-L315
 type QuestionAnsweringInferenceOptions struct {

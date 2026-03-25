@@ -872,6 +872,9 @@ func (s *JoinProperty) JoinPropertyCaster() *JoinProperty {
 }
 
 func (s *JoinProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

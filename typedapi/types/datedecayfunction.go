@@ -131,6 +131,9 @@ func (s *DateDecayFunction) DateDecayFunctionCaster() *DateDecayFunction {
 }
 
 func (s *DateDecayFunction) DecayFunctionCaster() *DecayFunction {
+	if s == nil {
+		return nil
+	}
 	o := DecayFunction(s)
 	return &o
 }

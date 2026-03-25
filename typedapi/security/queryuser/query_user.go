@@ -20,12 +20,11 @@
 
 // Find users with a query.
 //
-// Get information for users in a paginated manner.
-// You can optionally filter the results with a query.
+// Get information for users in a paginated manner. You can optionally filter
+// the results with a query.
 //
 // NOTE: As opposed to the get user API, built-in users are excluded from the
-// result.
-// This API is only for native users.
+// result. This API is only for native users.
 package queryuser
 
 import (
@@ -82,12 +81,11 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 
 // Find users with a query.
 //
-// Get information for users in a paginated manner.
-// You can optionally filter the results with a query.
+// Get information for users in a paginated manner. You can optionally filter
+// the results with a query.
 //
 // NOTE: As opposed to the get user API, built-in users are excluded from the
-// result.
-// This API is only for native users.
+// result. This API is only for native users.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
 func New(tp elastictransport.Interface) *QueryUser {
@@ -208,7 +206,7 @@ func (r QueryUser) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.query_user")
+			ctx = instrument.Start(providedCtx, "security.query_user")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -338,11 +336,9 @@ func (r *QueryUser) FilterPath(filterpaths ...string) *QueryUser {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *QueryUser) Human(human bool) *QueryUser {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -350,8 +346,8 @@ func (r *QueryUser) Human(human bool) *QueryUser {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *QueryUser) Pretty(pretty bool) *QueryUser {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -359,11 +355,9 @@ func (r *QueryUser) Pretty(pretty bool) *QueryUser {
 	return r
 }
 
-// The starting document offset.
-// It must not be negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
+// The starting document offset. It must not be negative. By default, you cannot
+// page through more than 10,000 hits using the `from` and `size` parameters. To
+// page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryUser) From(from int) *QueryUser {
 	// Initialize the request if it is not already initialized
@@ -376,13 +370,12 @@ func (r *QueryUser) From(from int) *QueryUser {
 	return r
 }
 
-// A query to filter which users to return.
-// If the query parameter is missing, it is equivalent to a `match_all` query.
-// The query supports a subset of query types, including `match_all`, `bool`,
-// `term`, `terms`, `match`,
-// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
-// You can query the following information associated with user: `username`,
-// `roles`, `enabled`, `full_name`, and `email`.
+// A query to filter which users to return. If the query parameter is missing,
+// it is equivalent to a `match_all` query. The query supports a subset of query
+// types, including `match_all`, `bool`, `term`, `terms`, `match`, `ids`,
+// `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`. You can
+// query the following information associated with user: `username`, `roles`,
+// `enabled`, `full_name`, and `email`.
 // API name: query
 func (r *QueryUser) Query(query types.UserQueryContainerVariant) *QueryUser {
 	// Initialize the request if it is not already initialized
@@ -403,18 +396,18 @@ func (r *QueryUser) SearchAfter(sortresults ...types.FieldValueVariant) *QueryUs
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
 	for _, v := range sortresults {
-		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
 	}
+	r.req.SearchAfter = convertedItems
 
 	return r
 }
 
-// The number of hits to return.
-// It must not be negative.
-// By default, you cannot page through more than 10,000 hits using the `from`
-// and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
+// The number of hits to return. It must not be negative. By default, you cannot
+// page through more than 10,000 hits using the `from` and `size` parameters. To
+// page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryUser) Size(size int) *QueryUser {
 	// Initialize the request if it is not already initialized
@@ -427,10 +420,9 @@ func (r *QueryUser) Size(size int) *QueryUser {
 	return r
 }
 
-// The sort definition.
-// Fields eligible for sorting are: `username`, `roles`, `enabled`.
-// In addition, sort can also be applied to the `_doc` field to sort by index
-// order.
+// The sort definition. Fields eligible for sorting are: `username`, `roles`,
+// `enabled`. In addition, sort can also be applied to the `_doc` field to sort
+// by index order.
 // API name: sort
 func (r *QueryUser) Sort(sorts ...types.SortCombinationsVariant) *QueryUser {
 	// Initialize the request if it is not already initialized
@@ -438,9 +430,11 @@ func (r *QueryUser) Sort(sorts ...types.SortCombinationsVariant) *QueryUser {
 		r.req = NewRequest()
 	}
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	r.req.Sort = convertedItems
 
 	return r
 }

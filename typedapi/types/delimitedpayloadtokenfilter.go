@@ -121,6 +121,9 @@ func (s *DelimitedPayloadTokenFilter) DelimitedPayloadTokenFilterCaster() *Delim
 }
 
 func (s *DelimitedPayloadTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

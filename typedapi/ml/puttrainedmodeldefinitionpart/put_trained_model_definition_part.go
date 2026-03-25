@@ -88,7 +88,9 @@ func NewPutTrainedModelDefinitionPartFunc(tp elastictransport.Interface) NewPutT
 
 // Create part of a trained model definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-definition-part
 func New(tp elastictransport.Interface) *PutTrainedModelDefinitionPart {
 	r := &PutTrainedModelDefinitionPart{
 		transport: tp,
@@ -219,7 +221,7 @@ func (r PutTrainedModelDefinitionPart) Perform(providedCtx context.Context) (*ht
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model_definition_part")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model_definition_part")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -327,9 +329,8 @@ func (r *PutTrainedModelDefinitionPart) _modelid(modelid string) *PutTrainedMode
 }
 
 // Part The definition part number. When the definition is loaded for inference the
-// definition parts are streamed in the
-// order of their part number. The first part must be `0` and the final part
-// must be `total_parts - 1`.
+// definition parts are streamed in the order of their part number. The first
+// part must be `0` and the final part must be `total_parts - 1`.
 // API Name: part
 func (r *PutTrainedModelDefinitionPart) _part(part string) *PutTrainedModelDefinitionPart {
 	r.paramSet |= partMask
@@ -361,11 +362,9 @@ func (r *PutTrainedModelDefinitionPart) FilterPath(filterpaths ...string) *PutTr
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutTrainedModelDefinitionPart) Human(human bool) *PutTrainedModelDefinitionPart {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -373,8 +372,8 @@ func (r *PutTrainedModelDefinitionPart) Human(human bool) *PutTrainedModelDefini
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutTrainedModelDefinitionPart) Pretty(pretty bool) *PutTrainedModelDefinitionPart {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

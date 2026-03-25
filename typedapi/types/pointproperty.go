@@ -925,6 +925,9 @@ func (s *PointProperty) PointPropertyCaster() *PointProperty {
 }
 
 func (s *PointProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

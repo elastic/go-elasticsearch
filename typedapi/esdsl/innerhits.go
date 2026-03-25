@@ -131,9 +131,11 @@ func (s *_innerHits) Size(size int) *_innerHits {
 
 func (s *_innerHits) Sort(sorts ...types.SortCombinationsVariant) *_innerHits {
 
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
 	for _, v := range sorts {
-		s.v.Sort = append(s.v.Sort, *v.SortCombinationsCaster())
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
 	}
+	s.v.Sort = convertedItems
 
 	return s
 }

@@ -69,6 +69,9 @@ func (s *SettingsSimilarityDfr) SettingsSimilarityDfrCaster() *SettingsSimilarit
 }
 
 func (s *SettingsSimilarityDfr) SettingsSimilarityCaster() *SettingsSimilarity {
+	if s == nil {
+		return nil
+	}
 	o := SettingsSimilarity(s)
 	return &o
 }

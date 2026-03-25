@@ -27,9 +27,9 @@ type _termQuery struct {
 	v *types.TermQuery
 }
 
-// Returns documents that contain an exact term in a provided field.
-// To return a document, the query term must exactly match the queried field's
-// value, including whitespace and capitalization.
+// Returns documents that contain an exact term in a provided field. To return a
+// document, the query term must exactly match the queried field's value,
+// including whitespace and capitalization.
 func NewTermQuery(field string, value types.FieldValueVariant) *_termQuery {
 	tmp := &_termQuery{
 		k: field,

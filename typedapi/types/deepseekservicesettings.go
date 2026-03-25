@@ -33,12 +33,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1261-L1281
 type DeepSeekServiceSettings struct {
-	// ApiKey A valid API key for your DeepSeek account.
-	// You can find or create your DeepSeek API keys on the DeepSeek API key page.
+	// ApiKey A valid API key for your DeepSeek account. You can find or create your
+	// DeepSeek API keys on the DeepSeek API key page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// ModelId For a `completion` or `chat_completion` task, the name of the model to use
 	// for the inference task.

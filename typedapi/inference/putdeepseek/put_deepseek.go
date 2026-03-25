@@ -95,7 +95,9 @@ func NewPutDeepseekFunc(tp elastictransport.Interface) NewPutDeepseek {
 // Create an inference endpoint to perform an inference task with the `deepseek`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-deepseek
 func New(tp elastictransport.Interface) *PutDeepseek {
 	r := &PutDeepseek{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutDeepseek) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_deepseek")
+			ctx = instrument.Start(providedCtx, "inference.put_deepseek")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +372,9 @@ func (r *PutDeepseek) FilterPath(filterpaths ...string) *PutDeepseek {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutDeepseek) Human(human bool) *PutDeepseek {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +382,8 @@ func (r *PutDeepseek) Human(human bool) *PutDeepseek {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutDeepseek) Pretty(pretty bool) *PutDeepseek {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -403,8 +403,8 @@ func (r *PutDeepseek) Service(service deepseekservicetype.DeepSeekServiceType) *
 	return r
 }
 
-// Settings used to install the inference model.
-// These settings are specific to the `deepseek` service.
+// Settings used to install the inference model. These settings are specific to
+// the `deepseek` service.
 // API name: service_settings
 func (r *PutDeepseek) ServiceSettings(servicesettings types.DeepSeekServiceSettingsVariant) *PutDeepseek {
 	// Initialize the request if it is not already initialized

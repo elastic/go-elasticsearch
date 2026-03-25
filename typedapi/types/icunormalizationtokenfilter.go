@@ -104,6 +104,9 @@ func (s *IcuNormalizationTokenFilter) IcuNormalizationTokenFilterCaster() *IcuNo
 }
 
 func (s *IcuNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

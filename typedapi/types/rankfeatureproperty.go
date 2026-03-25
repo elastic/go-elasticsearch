@@ -845,6 +845,9 @@ func (s *RankFeatureProperty) RankFeaturePropertyCaster() *RankFeatureProperty {
 }
 
 func (s *RankFeatureProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

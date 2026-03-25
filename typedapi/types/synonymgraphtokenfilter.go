@@ -215,6 +215,9 @@ func (s *SynonymGraphTokenFilter) SynonymGraphTokenFilterCaster() *SynonymGraphT
 }
 
 func (s *SynonymGraphTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

@@ -38,13 +38,12 @@ type VariableWidthHistogramAggregation struct {
 	// Field The name of the field.
 	Field *string `json:"field,omitempty"`
 	// InitialBuffer Specifies the number of individual documents that will be stored in memory on
-	// a shard before the initial bucketing algorithm is run.
-	// Defaults to `min(10 * shard_size, 50000)`.
+	// a shard before the initial bucketing algorithm is run. Defaults to `min(10 *
+	// shard_size, 50000)`.
 	InitialBuffer *int    `json:"initial_buffer,omitempty"`
 	Script        *Script `json:"script,omitempty"`
 	// ShardSize The number of buckets that the coordinating node will request from each
-	// shard.
-	// Defaults to `buckets * 50`.
+	// shard. Defaults to `buckets * 50`.
 	ShardSize *int `json:"shard_size,omitempty"`
 }
 

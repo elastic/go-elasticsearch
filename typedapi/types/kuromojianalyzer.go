@@ -112,6 +112,9 @@ func (s *KuromojiAnalyzer) KuromojiAnalyzerCaster() *KuromojiAnalyzer {
 }
 
 func (s *KuromojiAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

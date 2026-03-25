@@ -27,10 +27,10 @@ type _disMaxQuery struct {
 }
 
 // Returns documents matching one or more wrapped queries, called query clauses
-// or clauses.
-// If a returned document matches multiple query clauses, the `dis_max` query
-// assigns the document the highest relevance score from any matching clause,
-// plus a tie breaking increment for any additional matching subqueries.
+// or clauses. If a returned document matches multiple query clauses, the
+// `dis_max` query assigns the document the highest relevance score from any
+// matching clause, plus a tie breaking increment for any additional matching
+// subqueries.
 func NewDisMaxQuery() *_disMaxQuery {
 
 	return &_disMaxQuery{v: types.NewDisMaxQuery()}

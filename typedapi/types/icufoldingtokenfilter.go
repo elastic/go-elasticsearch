@@ -110,6 +110,9 @@ func (s *IcuFoldingTokenFilter) IcuFoldingTokenFilterCaster() *IcuFoldingTokenFi
 }
 
 func (s *IcuFoldingTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

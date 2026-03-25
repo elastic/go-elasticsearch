@@ -94,7 +94,9 @@ func NewCreateFromFunc(tp elastictransport.Interface) NewCreateFrom {
 // Copy the mappings and settings from the source index to a destination index
 // while allowing request settings and mappings to override the source values.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-from
 func New(tp elastictransport.Interface) *CreateFrom {
 	r := &CreateFrom{
 		transport: tp,
@@ -221,7 +223,7 @@ func (r CreateFrom) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.create_from")
+			ctx = instrument.Start(providedCtx, "indices.create_from")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -360,11 +362,9 @@ func (r *CreateFrom) FilterPath(filterpaths ...string) *CreateFrom {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CreateFrom) Human(human bool) *CreateFrom {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -372,8 +372,8 @@ func (r *CreateFrom) Human(human bool) *CreateFrom {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CreateFrom) Pretty(pretty bool) *CreateFrom {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

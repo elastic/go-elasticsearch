@@ -30,14 +30,14 @@ import (
 type Response struct {
 	// Count The number of roles returned in the response.
 	Count int `json:"count"`
-	// Roles A list of roles that match the query.
-	// The returned role format is an extension of the role definition format.
-	// It adds the `transient_metadata.enabled` and the `_sort` fields.
+	// Roles A list of roles that match the query. The returned role format is an
+	// extension of the role definition format. It adds the
+	// `transient_metadata.enabled` and the `_sort` fields.
 	// `transient_metadata.enabled` is set to `false` in case the role is
 	// automatically disabled, for example when the role grants privileges that are
-	// not allowed by the installed license.
-	// `_sort` is present when the search query sorts on some field.
-	// It contains the array of values that have been used for sorting.
+	// not allowed by the installed license. `_sort` is present when the search
+	// query sorts on some field. It contains the array of values that have been
+	// used for sorting.
 	Roles []types.QueryRole `json:"roles"`
 	// Total The total number of roles found.
 	Total int `json:"total"`

@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// UnmappedTermsAggregate type.
+// Result of a `terms` aggregation when the field is unmapped. `buckets` is
+// always empty.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L535-L541
 type UnmappedTermsAggregate struct {

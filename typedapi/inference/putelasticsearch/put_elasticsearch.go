@@ -23,27 +23,24 @@
 // Create an inference endpoint to perform an inference task with the
 // `elasticsearch` service.
 //
-// > info
-// > Your Elasticsearch deployment contains preconfigured ELSER and E5 inference
-// endpoints, you only need to create the enpoints using the API if you want to
-// customize the settings.
+// > info > Your Elasticsearch deployment contains preconfigured ELSER and E5
+// inference endpoints, you only need to create the enpoints using the API if
+// you want to customize the settings.
 //
 // If you use the ELSER or the E5 model through the `elasticsearch` service, the
 // API request will automatically download and deploy the model if it isn't
 // downloaded yet.
 //
-// > info
-// > You might see a 502 bad gateway error in the response when using the Kibana
-// Console. This error usually just reflects a timeout, while the model
+// > info > You might see a 502 bad gateway error in the response when using the
+// Kibana Console. This error usually just reflects a timeout, while the model
 // downloads in the background. You can check the download progress in the
 // Machine Learning UI. If using the Python client, you can set the timeout
 // parameter to a higher value.
 //
 // After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
+// using it. To verify the deployment status, use the get trained model
+// statistics API. Look for `"state": "fully_allocated"` in the response and
+// ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 package putelasticsearch
@@ -119,31 +116,30 @@ func NewPutElasticsearchFunc(tp elastictransport.Interface) NewPutElasticsearch 
 // Create an inference endpoint to perform an inference task with the
 // `elasticsearch` service.
 //
-// > info
-// > Your Elasticsearch deployment contains preconfigured ELSER and E5 inference
-// endpoints, you only need to create the enpoints using the API if you want to
-// customize the settings.
+// > info > Your Elasticsearch deployment contains preconfigured ELSER and E5
+// inference endpoints, you only need to create the enpoints using the API if
+// you want to customize the settings.
 //
 // If you use the ELSER or the E5 model through the `elasticsearch` service, the
 // API request will automatically download and deploy the model if it isn't
 // downloaded yet.
 //
-// > info
-// > You might see a 502 bad gateway error in the response when using the Kibana
-// Console. This error usually just reflects a timeout, while the model
+// > info > You might see a 502 bad gateway error in the response when using the
+// Kibana Console. This error usually just reflects a timeout, while the model
 // downloads in the background. You can check the download progress in the
 // Machine Learning UI. If using the Python client, you can set the timeout
 // parameter to a higher value.
 //
 // After creating the endpoint, wait for the model deployment to complete before
-// using it.
-// To verify the deployment status, use the get trained model statistics API.
-// Look for `"state": "fully_allocated"` in the response and ensure that the
-// `"allocation_count"` matches the `"target_allocation_count"`.
+// using it. To verify the deployment status, use the get trained model
+// statistics API. Look for `"state": "fully_allocated"` in the response and
+// ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elasticsearch
 func New(tp elastictransport.Interface) *PutElasticsearch {
 	r := &PutElasticsearch{
 		transport: tp,
@@ -270,7 +266,7 @@ func (r PutElasticsearch) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_elasticsearch")
+			ctx = instrument.Start(providedCtx, "inference.put_elasticsearch")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -377,8 +373,8 @@ func (r *PutElasticsearch) _tasktype(tasktype string) *PutElasticsearch {
 	return r
 }
 
-// ElasticsearchInferenceId The unique identifier of the inference endpoint.
-// The must not match the `model_id`.
+// ElasticsearchInferenceId The unique identifier of the inference endpoint. The must not match the
+// `model_id`.
 // API Name: elasticsearchinferenceid
 func (r *PutElasticsearch) _elasticsearchinferenceid(elasticsearchinferenceid string) *PutElasticsearch {
 	r.paramSet |= elasticsearchinferenceidMask
@@ -419,11 +415,9 @@ func (r *PutElasticsearch) FilterPath(filterpaths ...string) *PutElasticsearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutElasticsearch) Human(human bool) *PutElasticsearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -431,8 +425,8 @@ func (r *PutElasticsearch) Human(human bool) *PutElasticsearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutElasticsearch) Pretty(pretty bool) *PutElasticsearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -440,9 +434,8 @@ func (r *PutElasticsearch) Pretty(pretty bool) *PutElasticsearch {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `sparse_embedding` and `text_embedding` task types.
-// Not applicable to the `rerank` task type.
+// The chunking configuration object. Applies only to the `sparse_embedding` and
+// `text_embedding` task types. Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutElasticsearch) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutElasticsearch {
 	// Initialize the request if it is not already initialized
@@ -481,8 +474,8 @@ func (r *PutElasticsearch) ServiceSettings(servicesettings types.ElasticsearchSe
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutElasticsearch) TaskSettings(tasksettings types.ElasticsearchTaskSettingsVariant) *PutElasticsearch {
 	// Initialize the request if it is not already initialized

@@ -74,7 +74,9 @@ func NewGetSynonymsSetsFunc(tp elastictransport.Interface) NewGetSynonymsSets {
 //
 // Get a summary of all defined synonym sets.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym
 func New(tp elastictransport.Interface) *GetSynonymsSets {
 	r := &GetSynonymsSets{
 		transport: tp,
@@ -141,7 +143,7 @@ func (r GetSynonymsSets) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
+			ctx = instrument.Start(providedCtx, "synonyms.get_synonyms_sets")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -317,11 +319,9 @@ func (r *GetSynonymsSets) FilterPath(filterpaths ...string) *GetSynonymsSets {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetSynonymsSets) Human(human bool) *GetSynonymsSets {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -329,8 +329,8 @@ func (r *GetSynonymsSets) Human(human bool) *GetSynonymsSets {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetSynonymsSets) Pretty(pretty bool) *GetSynonymsSets {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

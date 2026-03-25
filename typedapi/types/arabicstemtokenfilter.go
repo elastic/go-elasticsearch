@@ -95,6 +95,9 @@ func (s *ArabicStemTokenFilter) ArabicStemTokenFilterCaster() *ArabicStemTokenFi
 }
 
 func (s *ArabicStemTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

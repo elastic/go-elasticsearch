@@ -30,9 +30,9 @@ type _diversifiedSamplerAggregation struct {
 }
 
 // A filtering aggregation used to limit any sub aggregations' processing to a
-// sample of the top-scoring documents.
-// Similar to the `sampler` aggregation, but adds the ability to limit the
-// number of matches that share a common value.
+// sample of the top-scoring documents. Similar to the `sampler` aggregation,
+// but adds the ability to limit the number of matches that share a common
+// value.
 func NewDiversifiedSamplerAggregation() *_diversifiedSamplerAggregation {
 
 	return &_diversifiedSamplerAggregation{v: types.NewDiversifiedSamplerAggregation()}

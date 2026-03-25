@@ -121,6 +121,9 @@ func (s *CharGroupTokenizer) CharGroupTokenizerCaster() *CharGroupTokenizer {
 }
 
 func (s *CharGroupTokenizer) TokenizerDefinitionCaster() *TokenizerDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenizerDefinition(s)
 	return &o
 }

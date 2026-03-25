@@ -131,6 +131,9 @@ func (s *NumericDecayFunction) NumericDecayFunctionCaster() *NumericDecayFunctio
 }
 
 func (s *NumericDecayFunction) DecayFunctionCaster() *DecayFunction {
+	if s == nil {
+		return nil
+	}
 	o := DecayFunction(s)
 	return &o
 }

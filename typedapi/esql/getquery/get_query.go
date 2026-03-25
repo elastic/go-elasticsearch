@@ -82,7 +82,9 @@ func NewGetQueryFunc(tp elastictransport.Interface) NewGetQuery {
 //
 // Returns an object extended information about a running ES|QL query.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-query
 func New(tp elastictransport.Interface) *GetQuery {
 	r := &GetQuery{
 		transport: tp,
@@ -163,7 +165,7 @@ func (r GetQuery) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.get_query")
+			ctx = instrument.Start(providedCtx, "esql.get_query")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -332,11 +334,9 @@ func (r *GetQuery) FilterPath(filterpaths ...string) *GetQuery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetQuery) Human(human bool) *GetQuery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -344,8 +344,8 @@ func (r *GetQuery) Human(human bool) *GetQuery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetQuery) Pretty(pretty bool) *GetQuery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

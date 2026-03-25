@@ -47,31 +47,27 @@ type DataStream struct {
 	// Hidden If `true`, the data stream is hidden.
 	Hidden bool `json:"hidden"`
 	// IlmPolicy Name of the current ILM lifecycle policy in the stream’s matching index
-	// template.
-	// This lifecycle policy is set in the `index.lifecycle.name` setting.
+	// template. This lifecycle policy is set in the `index.lifecycle.name` setting.
 	// If the template does not include a lifecycle policy, this property is not
-	// included in the response.
-	// NOTE: A data stream’s backing indices may be assigned different lifecycle
-	// policies. To retrieve the lifecycle policy for individual backing indices,
-	// use the get index settings API.
+	// included in the response. NOTE: A data stream’s backing indices may be
+	// assigned different lifecycle policies. To retrieve the lifecycle policy for
+	// individual backing indices, use the get index settings API.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
 	// IndexMode The index mode for the data stream that will be used for newly created
 	// backing indices.
 	IndexMode *indexmode.IndexMode `json:"index_mode,omitempty"`
 	// Indices Array of objects containing information about the data stream’s backing
-	// indices.
-	// The last item in this array contains information about the stream’s current
-	// write index.
+	// indices. The last item in this array contains information about the
+	// stream’s current write index.
 	Indices []DataStreamIndex `json:"indices"`
 	// Lifecycle Contains the configuration for the data stream lifecycle of this data stream.
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
 	// Mappings The mappings specific to this data stream that will take precedence over the
-	// mappings in the matching index
-	// template.
+	// mappings in the matching index template.
 	Mappings *TypeMapping `json:"mappings,omitempty"`
 	// Meta_ Custom metadata for the stream, copied from the `_meta` object of the
-	// stream’s matching index template.
-	// If empty, the response omits this property.
+	// stream’s matching index template. If empty, the response omits this
+	// property.
 	Meta_ Metadata `json:"_meta,omitempty"`
 	// Name Name of the data stream.
 	Name string `json:"name"`
@@ -90,18 +86,17 @@ type DataStream struct {
 	// fails the indexing request will fail too.
 	RolloverOnWrite bool `json:"rollover_on_write"`
 	// Settings The settings specific to this data stream that will take precedence over the
-	// settings in the matching index
-	// template.
+	// settings in the matching index template.
 	Settings IndexSettings `json:"settings"`
-	// Status Health status of the data stream.
-	// This health status is based on the state of the primary and replica shards of
-	// the stream’s backing indices.
+	// Status Health status of the data stream. This health status is based on the state of
+	// the primary and replica shards of the stream’s backing indices.
 	Status healthstatus.HealthStatus `json:"status"`
 	// System If `true`, the data stream is created and managed by an Elastic stack
 	// component and cannot be modified through normal user interaction.
 	System *bool `json:"system,omitempty"`
-	// Template Name of the index template used to create the data stream’s backing indices.
-	// The template’s index pattern must match the name of this data stream.
+	// Template Name of the index template used to create the data stream’s backing
+	// indices. The template’s index pattern must match the name of this data
+	// stream.
 	Template string `json:"template"`
 	// TimestampField Information about the `@timestamp` field in the data stream.
 	TimestampField DataStreamTimestampField `json:"timestamp_field"`

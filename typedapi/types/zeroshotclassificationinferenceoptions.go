@@ -29,13 +29,13 @@ import (
 	"strconv"
 )
 
-// ZeroShotClassificationInferenceOptions type.
+// Zero shot classification configuration options
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/_types/inference.ts#L216-L239
 type ZeroShotClassificationInferenceOptions struct {
 	// ClassificationLabels The zero shot classification labels indicating entailment, neutral, and
+	// contradiction Must contain exactly and only entailment, neutral, and
 	// contradiction
-	// Must contain exactly and only entailment, neutral, and contradiction
 	ClassificationLabels []string `json:"classification_labels"`
 	// HypothesisTemplate Hypothesis template used when tokenizing labels for prediction
 	HypothesisTemplate *string `json:"hypothesis_template,omitempty"`

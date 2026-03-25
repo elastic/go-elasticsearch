@@ -29,18 +29,26 @@ type CatComponentColumn struct {
 }
 
 var (
+
+	// Name The name of the component template.
 	Name = CatComponentColumn{"name"}
 
+	// Version The version number of the component template.
 	Version = CatComponentColumn{"version"}
 
+	// Aliascount The number of aliases in the component template.
 	Aliascount = CatComponentColumn{"alias_count"}
 
+	// Mappingcount The number of mappings in the component template.
 	Mappingcount = CatComponentColumn{"mapping_count"}
 
+	// Settingscount The number of settings in the component template.
 	Settingscount = CatComponentColumn{"settings_count"}
 
+	// Metadatacount The number of metadata entries in the component template.
 	Metadatacount = CatComponentColumn{"metadata_count"}
 
+	// Includedin The index templates that include this component template.
 	Includedin = CatComponentColumn{"included_in"}
 )
 

@@ -20,8 +20,8 @@
 
 // Create a trained model vocabulary.
 //
-// This API is supported only for natural language processing (NLP) models.
-// The vocabulary is stored in the index as described in
+// This API is supported only for natural language processing (NLP) models. The
+// vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
 package puttrainedmodelvocabulary
 
@@ -87,11 +87,13 @@ func NewPutTrainedModelVocabularyFunc(tp elastictransport.Interface) NewPutTrain
 
 // Create a trained model vocabulary.
 //
-// This API is supported only for natural language processing (NLP) models.
-// The vocabulary is stored in the index as described in
+// This API is supported only for natural language processing (NLP) models. The
+// vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-vocabulary
 func New(tp elastictransport.Interface) *PutTrainedModelVocabulary {
 	r := &PutTrainedModelVocabulary{
 		transport: tp,
@@ -216,7 +218,7 @@ func (r PutTrainedModelVocabulary) Perform(providedCtx context.Context) (*http.R
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.put_trained_model_vocabulary")
+			ctx = instrument.Start(providedCtx, "ml.put_trained_model_vocabulary")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -346,11 +348,9 @@ func (r *PutTrainedModelVocabulary) FilterPath(filterpaths ...string) *PutTraine
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutTrainedModelVocabulary) Human(human bool) *PutTrainedModelVocabulary {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -358,8 +358,8 @@ func (r *PutTrainedModelVocabulary) Human(human bool) *PutTrainedModelVocabulary
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutTrainedModelVocabulary) Pretty(pretty bool) *PutTrainedModelVocabulary {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

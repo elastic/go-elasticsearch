@@ -837,6 +837,9 @@ func (s *ExponentialHistogramProperty) ExponentialHistogramPropertyCaster() *Exp
 }
 
 func (s *ExponentialHistogramProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

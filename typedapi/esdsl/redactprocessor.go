@@ -27,12 +27,12 @@ type _redactProcessor struct {
 }
 
 // The Redact processor uses the Grok rules engine to obscure text in the input
-// document matching the given Grok patterns.
-// The processor can be used to obscure Personal Identifying Information (PII)
-// by configuring it to detect known patterns such as email or IP addresses.
-// Text that matches a Grok pattern is replaced with a configurable string such
-// as `<EMAIL>` where an email address is matched or simply replace all matches
-// with the text `<REDACTED>` if preferred.
+// document matching the given Grok patterns. The processor can be used to
+// obscure Personal Identifying Information (PII) by configuring it to detect
+// known patterns such as email or IP addresses. Text that matches a Grok
+// pattern is replaced with a configurable string such as `<EMAIL>` where an
+// email address is matched or simply replace all matches with the text
+// `<REDACTED>` if preferred.
 func NewRedactProcessor() *_redactProcessor {
 
 	return &_redactProcessor{v: types.NewRedactProcessor()}

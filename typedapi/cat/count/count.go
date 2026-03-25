@@ -21,14 +21,12 @@
 // Get a document count.
 //
 // Get quick access to a document count for a data stream, an index, or an
-// entire cluster.
-// The document count only includes live documents, not deleted documents which
-// have not yet been removed by the merge process.
+// entire cluster. The document count only includes live documents, not deleted
+// documents which have not yet been removed by the merge process.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the count API.
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the count API.
 package count
 
 import (
@@ -95,16 +93,16 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // Get a document count.
 //
 // Get quick access to a document count for a data stream, an index, or an
-// entire cluster.
-// The document count only includes live documents, not deleted documents which
-// have not yet been removed by the merge process.
+// entire cluster. The document count only includes live documents, not deleted
+// documents which have not yet been removed by the merge process.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the count API.
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the count API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-count
 func New(tp elastictransport.Interface) *Count {
 	r := &Count{
 		transport: tp,
@@ -228,7 +226,7 @@ func (r Count) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.count")
+			ctx = instrument.Start(providedCtx, "cat.count")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -327,10 +325,8 @@ func (r *Count) Header(key, value string) *Count {
 }
 
 // Index A comma-separated list of data streams, indices, and aliases used to limit
-// the request.
-// It supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// the request. It supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Count) Index(index string) *Count {
 	r.paramSet |= indexMask
@@ -352,9 +348,9 @@ func (r *Count) H(catcountcolumns ...catcountcolumn.CatCountColumn) *Count {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Count) S(names ...string) *Count {
 	r.values.Set("s", strings.Join(names, ","))
@@ -362,15 +358,14 @@ func (r *Count) S(names ...string) *Count {
 	return r
 }
 
-// Bytes Sets the units for columns that contain a byte-size value.
-// Note that byte-size value units work in terms of powers of 1024. For instance
-// `1kb` means 1024 bytes, not 1000 bytes.
-// If omitted, byte-size values are rendered with a suffix such as `kb`, `mb`,
-// or `gb`, chosen such that the numeric value of the column is as small as
-// possible whilst still being at least `1.0`.
-// If given, byte-size values are rendered as an integer with no suffix,
-// representing the value of the column in the chosen unit.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Bytes Sets the units for columns that contain a byte-size value. Note that
+// byte-size value units work in terms of powers of 1024. For instance `1kb`
+// means 1024 bytes, not 1000 bytes. If omitted, byte-size values are rendered
+// with a suffix such as `kb`, `mb`, or `gb`, chosen such that the numeric value
+// of the column is as small as possible whilst still being at least `1.0`. If
+// given, byte-size values are rendered as an integer with no suffix,
+// representing the value of the column in the chosen unit. Values that are not
+// an exact multiple of the chosen unit are rounded down.
 // API name: bytes
 func (r *Count) Bytes(bytes bytes.Bytes) *Count {
 	r.values.Set("bytes", bytes.String())
@@ -378,8 +373,8 @@ func (r *Count) Bytes(bytes bytes.Bytes) *Count {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Count) Format(format string) *Count {
 	r.values.Set("format", format)
@@ -387,8 +382,8 @@ func (r *Count) Format(format string) *Count {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Count) Help(help bool) *Count {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -396,12 +391,12 @@ func (r *Count) Help(help bool) *Count {
 	return r
 }
 
-// Time Sets the units for columns that contain a time duration.
-// If omitted, time duration values are rendered with a suffix such as `ms`,
-// `s`, `m` or `h`, chosen such that the numeric value of the column is as small
-// as possible whilst still being at least `1.0`.
-// If given, time duration values are rendered as an integer with no suffix.
-// Values that are not an exact multiple of the chosen unit are rounded down.
+// Time Sets the units for columns that contain a time duration. If omitted, time
+// duration values are rendered with a suffix such as `ms`, `s`, `m` or `h`,
+// chosen such that the numeric value of the column is as small as possible
+// whilst still being at least `1.0`. If given, time duration values are
+// rendered as an integer with no suffix. Values that are not an exact multiple
+// of the chosen unit are rounded down.
 // API name: time
 func (r *Count) Time(time timeunit.TimeUnit) *Count {
 	r.values.Set("time", time.String())
@@ -440,11 +435,9 @@ func (r *Count) FilterPath(filterpaths ...string) *Count {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Count) Human(human bool) *Count {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -452,8 +445,8 @@ func (r *Count) Human(human bool) *Count {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Count) Pretty(pretty bool) *Count {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -461,17 +454,10 @@ func (r *Count) Pretty(pretty bool) *Count {
 	return r
 }
 
-// Specifies a subset of projects to target using project
-// metadata tags in a subset of Lucene query syntax.
-// Allowed Lucene queries: the _alias tag and a single value (possibly
-// wildcarded).
-// Examples:
-//
-//	_alias:my-project
-//	_alias:_origin
-//	_alias:*pr*
-//
-// Supported in serverless only.
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Count) ProjectRouting(projectrouting string) *Count {
 	// Initialize the request if it is not already initialized

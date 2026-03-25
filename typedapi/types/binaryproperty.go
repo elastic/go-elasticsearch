@@ -879,6 +879,9 @@ func (s *BinaryProperty) BinaryPropertyCaster() *BinaryProperty {
 }
 
 func (s *BinaryProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

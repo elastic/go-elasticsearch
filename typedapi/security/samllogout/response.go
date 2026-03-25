@@ -24,9 +24,8 @@ package samllogout
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/saml_logout/Response.ts#L20-L28
 type Response struct {
-	// Redirect A URL that contains a SAML logout request as a parameter.
-	// You can use this URL to be redirected back to the SAML IdP and to initiate
-	// Single Logout.
+	// Redirect A URL that contains a SAML logout request as a parameter. You can use this
+	// URL to be redirected back to the SAML IdP and to initiate Single Logout.
 	Redirect string `json:"redirect"`
 }
 

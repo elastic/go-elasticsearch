@@ -37,8 +37,8 @@ type FileSystem struct {
 	Data []DataPathStats `json:"data,omitempty"`
 	// IoStats Contains I/O statistics for the node.
 	IoStats *IoStats `json:"io_stats,omitempty"`
-	// Timestamp Last time the file stores statistics were refreshed.
-	// Recorded in milliseconds since the Unix Epoch.
+	// Timestamp Last time the file stores statistics were refreshed. Recorded in milliseconds
+	// since the Unix Epoch.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	// Total Contains statistics for all file stores of the node.
 	Total *FileSystemTotal `json:"total,omitempty"`

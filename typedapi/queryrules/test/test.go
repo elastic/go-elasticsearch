@@ -89,7 +89,9 @@ func NewTestFunc(tp elastictransport.Interface) NewTest {
 // Evaluate match criteria against a query ruleset to identify the rules that
 // would match that criteria.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-test
 func New(tp elastictransport.Interface) *Test {
 	r := &Test{
 		transport: tp,
@@ -212,7 +214,7 @@ func (r Test) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "query_rules.test")
+			ctx = instrument.Start(providedCtx, "query_rules.test")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -342,11 +344,9 @@ func (r *Test) FilterPath(filterpaths ...string) *Test {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Test) Human(human bool) *Test {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -354,8 +354,8 @@ func (r *Test) Human(human bool) *Test {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Test) Pretty(pretty bool) *Test {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -363,9 +363,9 @@ func (r *Test) Pretty(pretty bool) *Test {
 	return r
 }
 
-// The match criteria to apply to rules in the given query ruleset.
-// Match criteria should match the keys defined in the `criteria.metadata` field
-// of the rule.
+// The match criteria to apply to rules in the given query ruleset. Match
+// criteria should match the keys defined in the `criteria.metadata` field of
+// the rule.
 // API name: match_criteria
 func (r *Test) MatchCriteria(matchcriteria map[string]json.RawMessage) *Test {
 	// Initialize the request if it is not already initialized

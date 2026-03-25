@@ -95,6 +95,9 @@ func (s *ClassicTokenFilter) ClassicTokenFilterCaster() *ClassicTokenFilter {
 }
 
 func (s *ClassicTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

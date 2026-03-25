@@ -29,8 +29,11 @@ type SortOrder struct {
 }
 
 var (
+
+	// Asc Ascending (smallest to largest)
 	Asc = SortOrder{"asc"}
 
+	// Desc Descending (largest to smallest)
 	Desc = SortOrder{"desc"}
 )
 

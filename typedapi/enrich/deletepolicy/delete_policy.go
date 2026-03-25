@@ -82,7 +82,9 @@ func NewDeletePolicyFunc(tp elastictransport.Interface) NewDeletePolicy {
 //
 // Deletes an existing enrich policy and its enrich index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-delete-policy
 func New(tp elastictransport.Interface) *DeletePolicy {
 	r := &DeletePolicy{
 		transport: tp,
@@ -157,7 +159,7 @@ func (r DeletePolicy) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.delete_policy")
+			ctx = instrument.Start(providedCtx, "enrich.delete_policy")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -334,11 +336,9 @@ func (r *DeletePolicy) FilterPath(filterpaths ...string) *DeletePolicy {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeletePolicy) Human(human bool) *DeletePolicy {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -346,8 +346,8 @@ func (r *DeletePolicy) Human(human bool) *DeletePolicy {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeletePolicy) Pretty(pretty bool) *DeletePolicy {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

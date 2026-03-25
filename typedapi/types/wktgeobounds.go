@@ -84,6 +84,9 @@ func (s *WktGeoBounds) WktGeoBoundsCaster() *WktGeoBounds {
 }
 
 func (s *WktGeoBounds) GeoBoundsCaster() *GeoBounds {
+	if s == nil {
+		return nil
+	}
 	o := GeoBounds(s)
 	return &o
 }

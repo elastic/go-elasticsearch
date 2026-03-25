@@ -34,9 +34,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/get_data_stream_mappings/IndicesGetDataStreamMappingsResponse.ts#L29-L39
 type DataStreamMappings struct {
 	// EffectiveMappings The settings specific to this data stream merged with the settings from its
-	// template. These `effective_settings`
-	// are the settings that will be used when a new index is created for this data
-	// stream.
+	// template. These `effective_settings` are the settings that will be used when
+	// a new index is created for this data stream.
 	EffectiveMappings TypeMapping `json:"effective_mappings"`
 	// Mappings The settings specific to this data stream
 	Mappings TypeMapping `json:"mappings"`

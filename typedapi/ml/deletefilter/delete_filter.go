@@ -84,7 +84,9 @@ func NewDeleteFilterFunc(tp elastictransport.Interface) NewDeleteFilter {
 // If an anomaly detection job references the filter, you cannot delete the
 // filter. You must update or delete the job before you can delete the filter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-filter
 func New(tp elastictransport.Interface) *DeleteFilter {
 	r := &DeleteFilter{
 		transport: tp,
@@ -159,7 +161,7 @@ func (r DeleteFilter) Perform(providedCtx context.Context) (*http.Response, erro
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.delete_filter")
+			ctx = instrument.Start(providedCtx, "ml.delete_filter")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -328,11 +330,9 @@ func (r *DeleteFilter) FilterPath(filterpaths ...string) *DeleteFilter {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteFilter) Human(human bool) *DeleteFilter {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -340,8 +340,8 @@ func (r *DeleteFilter) Human(human bool) *DeleteFilter {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteFilter) Pretty(pretty bool) *DeleteFilter {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

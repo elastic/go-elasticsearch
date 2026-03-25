@@ -104,6 +104,9 @@ func (s *AzureRepository) AzureRepositoryCaster() *AzureRepository {
 }
 
 func (s *AzureRepository) RepositoryCaster() *Repository {
+	if s == nil {
+		return nil
+	}
 	o := Repository(s)
 	return &o
 }

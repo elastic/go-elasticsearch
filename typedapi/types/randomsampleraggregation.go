@@ -33,13 +33,12 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/bucket.ts#L752-L772
 type RandomSamplerAggregation struct {
-	// Probability The probability that a document will be included in the aggregated data.
-	// Must be greater than 0, less than 0.5, or exactly 1.
-	// The lower the probability, the fewer documents are matched.
+	// Probability The probability that a document will be included in the aggregated data. Must
+	// be greater than 0, less than 0.5, or exactly 1. The lower the probability,
+	// the fewer documents are matched.
 	Probability Float64 `json:"probability"`
-	// Seed The seed to generate the random sampling of documents.
-	// When a seed is provided, the random subset of documents is the same between
-	// calls.
+	// Seed The seed to generate the random sampling of documents. When a seed is
+	// provided, the random subset of documents is the same between calls.
 	Seed *int `json:"seed,omitempty"`
 	// ShardSeed When combined with seed, setting shard_seed ensures 100% consistent sampling
 	// over shards where data is exactly the same.

@@ -87,7 +87,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // This API requires the manage_inference cluster privilege (the built-in
 // `inference_admin` role grants this privilege).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -177,7 +179,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.delete")
+			ctx = instrument.Start(providedCtx, "inference.delete")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -374,11 +376,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -386,8 +386,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

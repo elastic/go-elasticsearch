@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// ESQLView type.
+// A non-materialized ES|QL view.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/esql/_types/types.ts#L24-L34
 type ESQLView struct {

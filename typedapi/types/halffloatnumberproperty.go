@@ -1006,6 +1006,9 @@ func (s *HalfFloatNumberProperty) HalfFloatNumberPropertyCaster() *HalfFloatNumb
 }
 
 func (s *HalfFloatNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

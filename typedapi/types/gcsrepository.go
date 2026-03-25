@@ -104,6 +104,9 @@ func (s *GcsRepository) GcsRepositoryCaster() *GcsRepository {
 }
 
 func (s *GcsRepository) RepositoryCaster() *Repository {
+	if s == nil {
+		return nil
+	}
 	o := Repository(s)
 	return &o
 }

@@ -95,6 +95,9 @@ func (s *ReverseTokenFilter) ReverseTokenFilterCaster() *ReverseTokenFilter {
 }
 
 func (s *ReverseTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

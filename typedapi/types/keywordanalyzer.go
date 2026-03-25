@@ -95,6 +95,9 @@ func (s *KeywordAnalyzer) KeywordAnalyzerCaster() *KeywordAnalyzer {
 }
 
 func (s *KeywordAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

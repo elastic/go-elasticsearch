@@ -126,6 +126,9 @@ func (s *NoriAnalyzer) NoriAnalyzerCaster() *NoriAnalyzer {
 }
 
 func (s *NoriAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

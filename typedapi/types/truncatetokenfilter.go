@@ -116,6 +116,9 @@ func (s *TruncateTokenFilter) TruncateTokenFilterCaster() *TruncateTokenFilter {
 }
 
 func (s *TruncateTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

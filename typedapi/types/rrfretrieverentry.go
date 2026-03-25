@@ -25,6 +25,9 @@ package types
 //	RetrieverContainer
 //	RRFRetrieverComponent
 //
+// Either a direct RetrieverContainer (backward compatible) or an
+// RRFRetrieverComponent with weight.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Retriever.ts#L158-L162
 type RRFRetrieverEntry any
 

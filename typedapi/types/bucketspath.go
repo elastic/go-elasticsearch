@@ -26,6 +26,10 @@ package types
 //	[]string
 //	map[string]string
 //
+// Buckets path can be expressed in different ways, and an aggregation may
+// accept some or all of these forms depending on its type. Please refer to each
+// aggregation's documentation to know what buckets path forms they accept.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/pipeline.ts#L53-L59
 type BucketsPath any
 

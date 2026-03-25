@@ -42,9 +42,8 @@ type MTermVectorsOperation struct {
 	// frequencies, and sum of total term frequencies.
 	FieldStatistics *bool `json:"field_statistics,omitempty"`
 	// Fields Comma-separated list or wildcard expressions of fields to include in the
-	// statistics.
-	// Used as the default list unless a specific field list is provided in the
-	// `completion_fields` or `fielddata_fields` parameters.
+	// statistics. Used as the default list unless a specific field list is provided
+	// in the `completion_fields` or `fielddata_fields` parameters.
 	Fields []string `json:"fields,omitempty"`
 	// Filter Filter terms based on their tf-idf scores.
 	Filter *TermVectorsFilter `json:"filter,omitempty"`

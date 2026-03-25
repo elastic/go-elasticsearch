@@ -33,23 +33,21 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1775-L1800
 type MistralServiceSettings struct {
-	// ApiKey A valid API key of your Mistral account.
-	// You can find your Mistral API keys or you can create a new one on the API
-	// Keys page.
+	// ApiKey A valid API key of your Mistral account. You can find your Mistral API keys
+	// or you can create a new one on the API Keys page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation.
-	// The get inference endpoint API does not retrieve your API key.
+	// model creation. The get inference endpoint API does not retrieve your API
+	// key.
 	ApiKey string `json:"api_key"`
 	// MaxInputTokens The maximum number of tokens per input before chunking occurs.
 	MaxInputTokens *int `json:"max_input_tokens,omitempty"`
-	// Model The name of the model to use for the inference task.
-	// Refer to the Mistral models documentation for the list of available models.
+	// Model The name of the model to use for the inference task. Refer to the Mistral
+	// models documentation for the list of available models.
 	Model string `json:"model"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
-	// the Mistral API.
-	// By default, the `mistral` service sets the number of requests allowed per
-	// minute to 240.
+	// the Mistral API. By default, the `mistral` service sets the number of
+	// requests allowed per minute to 240.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
 }
 

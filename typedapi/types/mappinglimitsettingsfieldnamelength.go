@@ -34,11 +34,10 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/_types/IndexSettings.ts#L511-L518
 type MappingLimitSettingsFieldNameLength struct {
 	// Limit Setting for the maximum length of a field name. This setting isn’t really
-	// something that addresses mappings explosion but
-	// might still be useful if you want to limit the field length. It usually
-	// shouldn’t be necessary to set this setting. The
-	// default is okay unless a user starts to add a huge number of fields with
-	// really long names. Default is `Long.MAX_VALUE` (no limit).
+	// something that addresses mappings explosion but might still be useful if you
+	// want to limit the field length. It usually shouldn’t be necessary to set
+	// this setting. The default is okay unless a user starts to add a huge number
+	// of fields with really long names. Default is `Long.MAX_VALUE` (no limit).
 	Limit *int64 `json:"limit,omitempty"`
 }
 

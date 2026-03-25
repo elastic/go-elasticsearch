@@ -110,6 +110,9 @@ func (s *PersianAnalyzer) PersianAnalyzerCaster() *PersianAnalyzer {
 }
 
 func (s *PersianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

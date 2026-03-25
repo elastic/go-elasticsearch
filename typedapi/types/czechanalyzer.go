@@ -117,6 +117,9 @@ func (s *CzechAnalyzer) CzechAnalyzerCaster() *CzechAnalyzer {
 }
 
 func (s *CzechAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

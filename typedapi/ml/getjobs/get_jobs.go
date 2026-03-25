@@ -86,7 +86,9 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 // expression. You can get information for all anomaly detection jobs by using
 // `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-jobs
 func New(tp elastictransport.Interface) *GetJobs {
 	r := &GetJobs{
 		transport: tp,
@@ -168,7 +170,7 @@ func (r GetJobs) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_jobs")
+			ctx = instrument.Start(providedCtx, "ml.get_jobs")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -305,9 +307,9 @@ func (r *GetJobs) Header(key, value string) *GetJobs {
 	return r
 }
 
-// JobId Identifier for the anomaly detection job. It can be a job identifier, a
-// group name, or a wildcard expression. If you do not specify one of these
-// options, the API returns information for all anomaly detection jobs.
+// JobId Identifier for the anomaly detection job. It can be a job identifier, a group
+// name, or a wildcard expression. If you do not specify one of these options,
+// the API returns information for all anomaly detection jobs.
 // API Name: jobid
 func (r *GetJobs) JobId(jobid string) *GetJobs {
 	r.paramSet |= jobidMask
@@ -318,14 +320,14 @@ func (r *GetJobs) JobId(jobid string) *GetJobs {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// 1. Contains wildcard expressions and there are no jobs that match.
-// 2. Contains the _all string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
+// 1. Contains wildcard expressions and there are no jobs that match. 2.
+// Contains the _all string or no identifiers and there are no matches. 3.
+// Contains wildcard expressions and there are only partial matches.
 //
-// The default value is `true`, which returns an empty `jobs` array when
-// there are no matches and the subset of results when there are partial
-// matches. If this parameter is `false`, the request returns a `404` status
-// code when there are no matches or only partial matches.
+// The default value is `true`, which returns an empty `jobs` array when there
+// are no matches and the subset of results when there are partial matches. If
+// this parameter is `false`, the request returns a `404` status code when there
+// are no matches or only partial matches.
 // API name: allow_no_match
 func (r *GetJobs) AllowNoMatch(allownomatch bool) *GetJobs {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -334,8 +336,8 @@ func (r *GetJobs) AllowNoMatch(allownomatch bool) *GetJobs {
 }
 
 // ExcludeGenerated Indicates if certain fields should be removed from the configuration on
-// retrieval. This allows the configuration to be in an acceptable format to
-// be retrieved and then added to another cluster.
+// retrieval. This allows the configuration to be in an acceptable format to be
+// retrieved and then added to another cluster.
 // API name: exclude_generated
 func (r *GetJobs) ExcludeGenerated(excludegenerated bool) *GetJobs {
 	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
@@ -366,11 +368,9 @@ func (r *GetJobs) FilterPath(filterpaths ...string) *GetJobs {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetJobs) Human(human bool) *GetJobs {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -378,8 +378,8 @@ func (r *GetJobs) Human(human bool) *GetJobs {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetJobs) Pretty(pretty bool) *GetJobs {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

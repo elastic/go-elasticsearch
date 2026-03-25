@@ -114,6 +114,9 @@ func (s *KuromojiStemmerTokenFilter) KuromojiStemmerTokenFilterCaster() *Kuromoj
 }
 
 func (s *KuromojiStemmerTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

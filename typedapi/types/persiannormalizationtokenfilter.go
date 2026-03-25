@@ -95,6 +95,9 @@ func (s *PersianNormalizationTokenFilter) PersianNormalizationTokenFilterCaster(
 }
 
 func (s *PersianNormalizationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

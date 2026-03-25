@@ -32,8 +32,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/clear_scroll/ClearScrollRequest.ts#L23-L64
 type Request struct {
-	// ScrollId The scroll IDs to clear.
-	// To clear all scroll IDs, use `_all`.
+	// ScrollId The scroll IDs to clear. To clear all scroll IDs, use `_all`.
 	ScrollId []string `json:"scroll_id,omitempty"`
 }
 

@@ -117,6 +117,9 @@ func (s *BulgarianAnalyzer) BulgarianAnalyzerCaster() *BulgarianAnalyzer {
 }
 
 func (s *BulgarianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

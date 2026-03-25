@@ -39,9 +39,9 @@ type Request struct {
 	Query string `json:"query"`
 	// ReturnDocuments Include the document text in the response.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// TaskSettings Task settings for the individual inference request.
-	// These settings are specific to the task type you specified and override the
-	// task settings specified when initializing the service.
+	// TaskSettings Task settings for the individual inference request. These settings are
+	// specific to the task type you specified and override the task settings
+	// specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 	// TopN Limit the response to the top N documents.
 	TopN *int `json:"top_n,omitempty"`

@@ -34,21 +34,19 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Stats.ts#L100-L121
 type DocStats struct {
 	// Count Total number of non-deleted documents across all primary shards assigned to
-	// selected nodes.
-	// This number is based on documents in Lucene segments and may include
-	// documents from nested fields.
+	// selected nodes. This number is based on documents in Lucene segments and may
+	// include documents from nested fields.
 	Count int64 `json:"count"`
 	// Deleted Total number of deleted documents across all primary shards assigned to
-	// selected nodes.
-	// This number is based on documents in Lucene segments.
+	// selected nodes. This number is based on documents in Lucene segments.
 	// Elasticsearch reclaims the disk space of deleted Lucene documents when a
 	// segment is merged.
 	Deleted *int64 `json:"deleted,omitempty"`
 	// TotalSize Human readable total_size_in_bytes
 	TotalSize ByteSize `json:"total_size,omitempty"`
-	// TotalSizeInBytes Returns the total size in bytes of all documents in this stats.
-	// This value may be more reliable than store_stats.size_in_bytes in estimating
-	// the index size.
+	// TotalSizeInBytes Returns the total size in bytes of all documents in this stats. This value
+	// may be more reliable than store_stats.size_in_bytes in estimating the index
+	// size.
 	TotalSizeInBytes int64 `json:"total_size_in_bytes"`
 }
 

@@ -33,8 +33,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ingest/_types/Processors.ts#L985-L999
 type ForeachProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
 	// Field Field containing array or object values.
 	Field string `json:"field"`
@@ -49,8 +49,7 @@ type ForeachProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Processor Ingest processor to run on each element.
 	Processor ProcessorContainer `json:"processor"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

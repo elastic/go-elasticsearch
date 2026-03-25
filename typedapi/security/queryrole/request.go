@@ -35,36 +35,28 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/query_role/QueryRolesRequest.ts#L26-L89
 type Request struct {
-	// From The starting document offset.
-	// It must not be negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// From The starting document offset. It must not be negative. By default, you cannot
+	// page through more than 10,000 hits using the `from` and `size` parameters. To
+	// page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
-	// Query A query to filter which roles to return.
-	// If the query parameter is missing, it is equivalent to a `match_all` query.
-	// The query supports a subset of query types, including `match_all`, `bool`,
-	// `term`, `terms`, `match`,
-	// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
-	// You can query the following information associated with roles: `name`,
-	// `description`, `metadata`,
-	// `applications.application`, `applications.privileges`, and
+	// Query A query to filter which roles to return. If the query parameter is missing,
+	// it is equivalent to a `match_all` query. The query supports a subset of query
+	// types, including `match_all`, `bool`, `term`, `terms`, `match`, `ids`,
+	// `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`. You can
+	// query the following information associated with roles: `name`, `description`,
+	// `metadata`, `applications.application`, `applications.privileges`, and
 	// `applications.resources`.
 	Query *types.RoleQueryContainer `json:"query,omitempty"`
 	// SearchAfter The search after definition.
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
-	// Size The number of hits to return.
-	// It must not be negative.
-	// By default, you cannot page through more than 10,000 hits using the `from`
-	// and `size` parameters.
-	// To page through more hits, use the `search_after` parameter.
+	// Size The number of hits to return. It must not be negative. By default, you cannot
+	// page through more than 10,000 hits using the `from` and `size` parameters. To
+	// page through more hits, use the `search_after` parameter.
 	Size *int `json:"size,omitempty"`
-	// Sort The sort definition.
-	// You can sort on `name`, `description`, `metadata`,
-	// `applications.application`, `applications.privileges`,
-	// and `applications.resources`.
-	// In addition, sort can also be applied to the `_doc` field to sort by index
-	// order.
+	// Sort The sort definition. You can sort on `name`, `description`, `metadata`,
+	// `applications.application`, `applications.privileges`, and
+	// `applications.resources`. In addition, sort can also be applied to the `_doc`
+	// field to sort by index order.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
 }
 

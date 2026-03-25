@@ -34,17 +34,15 @@ type Request struct {
 	// the `realm` parameter.
 	Acs *string `json:"acs,omitempty"`
 	// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
-	// initiate the Single Logout.
-	// This query should include a single parameter named `SAMLRequest` that
-	// contains a SAML logout request that is deflated and Base64 encoded.
-	// If the SAML IdP has signed the logout request, the URL should include two
-	// extra parameters named `SigAlg` and `Signature` that contain the algorithm
-	// used for the signature and the signature value itself.
-	// In order for Elasticsearch to be able to verify the IdP's signature, the
-	// value of the `query_string` field must be an exact match to the string
-	// provided by the browser.
-	// The client application must not attempt to parse or process the string in any
-	// way.
+	// initiate the Single Logout. This query should include a single parameter
+	// named `SAMLRequest` that contains a SAML logout request that is deflated and
+	// Base64 encoded. If the SAML IdP has signed the logout request, the URL should
+	// include two extra parameters named `SigAlg` and `Signature` that contain the
+	// algorithm used for the signature and the signature value itself. In order for
+	// Elasticsearch to be able to verify the IdP's signature, the value of the
+	// `query_string` field must be an exact match to the string provided by the
+	// browser. The client application must not attempt to parse or process the
+	// string in any way.
 	QueryString string `json:"query_string"`
 	// Realm The name of the SAML realm in Elasticsearch the configuration. You must
 	// specify either this parameter or the `acs` parameter.

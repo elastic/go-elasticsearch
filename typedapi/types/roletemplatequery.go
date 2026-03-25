@@ -25,13 +25,12 @@ package types
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/security/_types/Privileges.ts#L353-L363
 type RoleTemplateQuery struct {
 	// Template When you create a role, you can specify a query that defines the document
-	// level security permissions. You can optionally
-	// use Mustache templates in the role query to insert the username of the
-	// current authenticated user into the role.
-	// Like other places in Elasticsearch that support templating or scripting, you
-	// can specify inline, stored, or file-based
-	// templates and define custom parameters. You access the details for the
-	// current authenticated user through the _user parameter.
+	// level security permissions. You can optionally use Mustache templates in the
+	// role query to insert the username of the current authenticated user into the
+	// role. Like other places in Elasticsearch that support templating or
+	// scripting, you can specify inline, stored, or file-based templates and define
+	// custom parameters. You access the details for the current authenticated user
+	// through the _user parameter.
 	Template *RoleTemplateScript `json:"template,omitempty"`
 }
 
@@ -51,6 +50,9 @@ func (s *RoleTemplateQuery) RoleTemplateQueryCaster() *RoleTemplateQuery {
 }
 
 func (s *RoleTemplateQuery) IndicesPrivilegesQueryCaster() *IndicesPrivilegesQuery {
+	if s == nil {
+		return nil
+	}
 	o := IndicesPrivilegesQuery(s)
 	return &o
 }

@@ -19,6 +19,8 @@
 // https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
 
 // Get behavioral analytics collections.
+//
+// Deprecated: Since 9.0.0.
 package getbehavioralanalytics
 
 import (
@@ -76,7 +78,11 @@ func NewGetBehavioralAnalyticsFunc(tp elastictransport.Interface) NewGetBehavior
 
 // Get behavioral analytics collections.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
+//
+// Deprecated: Since 9.0.0.
 func New(tp elastictransport.Interface) *GetBehavioralAnalytics {
 	r := &GetBehavioralAnalytics{
 		transport: tp,
@@ -158,7 +164,7 @@ func (r GetBehavioralAnalytics) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.get_behavioral_analytics")
+			ctx = instrument.Start(providedCtx, "search_application.get_behavioral_analytics")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -327,11 +333,9 @@ func (r *GetBehavioralAnalytics) FilterPath(filterpaths ...string) *GetBehaviora
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetBehavioralAnalytics) Human(human bool) *GetBehavioralAnalytics {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -339,8 +343,8 @@ func (r *GetBehavioralAnalytics) Human(human bool) *GetBehavioralAnalytics {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetBehavioralAnalytics) Pretty(pretty bool) *GetBehavioralAnalytics {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -32,7 +32,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/searchtype"
 )
 
-// MultisearchHeader type.
+// Contains parameters used to limit or change the subsequent search body
+// request.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/msearch/types.ts#L37-L53
 type MultisearchHeader struct {
@@ -240,11 +241,17 @@ func (s *MultisearchHeader) MultisearchHeaderCaster() *MultisearchHeader {
 }
 
 func (s *MultisearchHeader) MsearchRequestItemCaster() *MsearchRequestItem {
+	if s == nil {
+		return nil
+	}
 	o := MsearchRequestItem(s)
 	return &o
 }
 
 func (s *MultisearchHeader) RequestItemCaster() *RequestItem {
+	if s == nil {
+		return nil
+	}
 	o := RequestItem(s)
 	return &o
 }

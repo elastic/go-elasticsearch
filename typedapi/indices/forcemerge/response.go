@@ -29,8 +29,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L25
 type Response struct {
 	Shards_ *types.ShardStatistics `json:"_shards,omitempty"`
-	// Task task contains a task id returned when wait_for_completion=false,
-	// you can use the task_id to get the status of the task at _tasks/<task_id>
+	// Task task contains a task id returned when wait_for_completion=false, you can use
+	// the task_id to get the status of the task at _tasks/<task_id>
 	Task *string `json:"task,omitempty"`
 }
 

@@ -29,9 +29,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/terms_enum/TermsEnumResponse.ts#L22-L32
 type Response struct {
 	// Complete If `false`, the returned terms set may be incomplete and should be treated as
-	// approximate.
-	// This can occur due to a few reasons, such as a request timeout or a node
-	// error.
+	// approximate. This can occur due to a few reasons, such as a request timeout
+	// or a node error.
 	Complete bool                  `json:"complete"`
 	Shards_  types.ShardStatistics `json:"_shards"`
 	Terms    []string              `json:"terms"`

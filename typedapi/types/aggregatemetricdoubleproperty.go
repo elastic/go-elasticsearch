@@ -874,6 +874,9 @@ func (s *AggregateMetricDoubleProperty) AggregateMetricDoublePropertyCaster() *A
 }
 
 func (s *AggregateMetricDoubleProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

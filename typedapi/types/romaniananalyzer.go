@@ -117,6 +117,9 @@ func (s *RomanianAnalyzer) RomanianAnalyzerCaster() *RomanianAnalyzer {
 }
 
 func (s *RomanianAnalyzer) AnalyzerCaster() *Analyzer {
+	if s == nil {
+		return nil
+	}
 	o := Analyzer(s)
 	return &o
 }

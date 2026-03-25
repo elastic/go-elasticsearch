@@ -247,6 +247,9 @@ func (s *IcuCollationTokenFilter) IcuCollationTokenFilterCaster() *IcuCollationT
 }
 
 func (s *IcuCollationTokenFilter) TokenFilterDefinitionCaster() *TokenFilterDefinition {
+	if s == nil {
+		return nil
+	}
 	o := TokenFilterDefinition(s)
 	return &o
 }

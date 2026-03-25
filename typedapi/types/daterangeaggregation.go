@@ -40,8 +40,8 @@ type DateRangeAggregation struct {
 	// Keyed Set to `true` to associate a unique string key with each bucket and returns
 	// the ranges as a hash rather than an array.
 	Keyed *bool `json:"keyed,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	// Ranges Array of date ranges.
 	Ranges []DateRangeExpression `json:"ranges,omitempty"`

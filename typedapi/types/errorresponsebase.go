@@ -29,7 +29,8 @@ import (
 	"strconv"
 )
 
-// ErrorResponseBase type.
+// The response returned by Elasticsearch when request execution did not
+// succeed.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/Base.ts#L135-L144
 type ErrorResponseBase struct {

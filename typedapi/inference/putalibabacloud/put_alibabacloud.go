@@ -95,7 +95,9 @@ func NewPutAlibabacloudFunc(tp elastictransport.Interface) NewPutAlibabacloud {
 // Create an inference endpoint to perform an inference task with the
 // `alibabacloud-ai-search` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-alibabacloud
 func New(tp elastictransport.Interface) *PutAlibabacloud {
 	r := &PutAlibabacloud{
 		transport: tp,
@@ -222,7 +224,7 @@ func (r PutAlibabacloud) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_alibabacloud")
+			ctx = instrument.Start(providedCtx, "inference.put_alibabacloud")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -370,11 +372,9 @@ func (r *PutAlibabacloud) FilterPath(filterpaths ...string) *PutAlibabacloud {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"exists_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutAlibabacloud) Human(human bool) *PutAlibabacloud {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -382,8 +382,8 @@ func (r *PutAlibabacloud) Human(human bool) *PutAlibabacloud {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutAlibabacloud) Pretty(pretty bool) *PutAlibabacloud {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -391,9 +391,9 @@ func (r *PutAlibabacloud) Pretty(pretty bool) *PutAlibabacloud {
 	return r
 }
 
-// The chunking configuration object.
-// Applies only to the `sparse_embedding` or `text_embedding` task types.
-// Not applicable to the `rerank` or `completion` task types.
+// The chunking configuration object. Applies only to the `sparse_embedding` or
+// `text_embedding` task types. Not applicable to the `rerank` or `completion`
+// task types.
 // API name: chunking_settings
 func (r *PutAlibabacloud) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAlibabacloud {
 	// Initialize the request if it is not already initialized
@@ -432,8 +432,8 @@ func (r *PutAlibabacloud) ServiceSettings(servicesettings types.AlibabaCloudServ
 	return r
 }
 
-// Settings to configure the inference task.
-// These settings are specific to the task type you specified.
+// Settings to configure the inference task. These settings are specific to the
+// task type you specified.
 // API name: task_settings
 func (r *PutAlibabacloud) TaskSettings(tasksettings types.AlibabaCloudTaskSettingsVariant) *PutAlibabacloud {
 	// Initialize the request if it is not already initialized

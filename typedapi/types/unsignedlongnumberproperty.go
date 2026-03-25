@@ -995,6 +995,9 @@ func (s *UnsignedLongNumberProperty) UnsignedLongNumberPropertyCaster() *Unsigne
 }
 
 func (s *UnsignedLongNumberProperty) PropertyCaster() *Property {
+	if s == nil {
+		return nil
+	}
 	o := Property(s)
 	return &o
 }

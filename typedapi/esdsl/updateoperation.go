@@ -29,8 +29,8 @@ type _updateOperation struct {
 	v *types.UpdateOperation
 }
 
-// Perform a partial document update.
-// The following line must contain the partial document and update options.
+// Perform a partial document update. The following line must contain the
+// partial document and update options.
 func NewUpdateOperation() *_updateOperation {
 
 	return &_updateOperation{v: types.NewUpdateOperation()}

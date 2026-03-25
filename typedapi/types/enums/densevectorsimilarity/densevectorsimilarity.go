@@ -29,12 +29,54 @@ type DenseVectorSimilarity struct {
 }
 
 var (
+
+	// Cosine Computes the cosine similarity. During indexing Elasticsearch automatically
+	// normalizes vectors with `cosine` similarity to unit length. This allows to
+	// internally use `dot_product` for computing similarity, which is more
+	// efficient. Original un-normalized vectors can be still accessed through
+	// scripts.
+	//
+	// The document `_score` is computed as `(1 + cosine(query, vector)) / 2`.
+	//
+	// The `cosine` similarity does not allow vectors with zero magnitude, since
+	// cosine is not defined in this case.
 	Cosine = DenseVectorSimilarity{"cosine"}
 
+	// Dotproduct Computes the dot product of two unit vectors. This option provides an
+	// optimized way to perform cosine similarity. The constraints and computed
+	// score are defined by `element_type`.
+	//
+	// When `element_type` is `float`, all vectors must be unit length, including
+	// both document and query vectors.
+	//
+	// The document `_score` is computed as `(1 + dot_product(query, vector)) / 2`.
+	//
+	// When `element_type` is `byte`, all vectors must have the same length
+	// including both document and query vectors or results will be inaccurate.
+	//
+	// The document `_score` is computed as `0.5 + (dot_product(query, vector) /
+	// (32768 * dims))` where `dims` is the number of dimensions per vector.
 	Dotproduct = DenseVectorSimilarity{"dot_product"}
 
+	// L2norm Computes similarity based on the `L2` distance (also known as Euclidean
+	// distance) between the vectors.
+	//
+	// The document `_score` is computed as `1 / (1 + l2_norm(query, vector)^2)`.
+	//
+	// For `bit` vectors, instead of using `l2_norm`, the `hamming` distance between
+	// the vectors is used.
+	//
+	// The `_score` transformation is `(numBits - hamming(a, b)) / numBits`.
 	L2norm = DenseVectorSimilarity{"l2_norm"}
 
+	// Maxinnerproduct Computes the maximum inner product of two vectors. This is similar to
+	// `dot_product`, but doesn't require vectors to be normalized. This means that
+	// each vector’s magnitude can significantly effect the score.
+	//
+	// The document `_score` is adjusted to prevent negative values. For
+	// `max_inner_product` values `< 0`, the `_score` is `1 / (1 + -1 *
+	// max_inner_product(query, vector))`. For non-negative `max_inner_product`
+	// results the `_score` is calculated `max_inner_product(query, vector) + 1`.
 	Maxinnerproduct = DenseVectorSimilarity{"max_inner_product"}
 )
 

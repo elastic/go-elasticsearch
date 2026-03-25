@@ -48,9 +48,8 @@ type FunctionScore struct {
 	// distance of a numeric field value of the document from an origin.
 	Linear DecayFunction `json:"linear,omitempty"`
 	// RandomScore Generates scores that are uniformly distributed from 0 up to but not
-	// including 1.
-	// In case you want scores to be reproducible, it is possible to provide a
-	// `seed` and `field`.
+	// including 1. In case you want scores to be reproducible, it is possible to
+	// provide a `seed` and `field`.
 	RandomScore *RandomScoreFunction `json:"random_score,omitempty"`
 	// ScriptScore Enables you to wrap another query and customize the scoring of it optionally
 	// with a computation derived from other numeric field values in the doc using a
