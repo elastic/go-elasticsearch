@@ -25,9 +25,8 @@
 // supported.
 //
 // This API gets the current autoscaling capacity based on the configured
-// autoscaling policy.
-// It will return information to size the cluster appropriately to the current
-// workload.
+// autoscaling policy. It will return information to size the cluster
+// appropriately to the current workload.
 //
 // The `required_capacity` is calculated as the maximum of the
 // `required_capacity` result of all individual deciders that are enabled for
@@ -38,9 +37,9 @@
 // or incomplete information.
 //
 // The response contains decider-specific information you can use to diagnose
-// how and why autoscaling determined a certain capacity was required.
-// This information is provided for diagnosis only.
-// Do not use this information to make autoscaling decisions.
+// how and why autoscaling determined a certain capacity was required. This
+// information is provided for diagnosis only. Do not use this information to
+// make autoscaling decisions.
 package getautoscalingcapacity
 
 import (
@@ -97,9 +96,8 @@ func NewGetAutoscalingCapacityFunc(tp elastictransport.Interface) NewGetAutoscal
 // supported.
 //
 // This API gets the current autoscaling capacity based on the configured
-// autoscaling policy.
-// It will return information to size the cluster appropriately to the current
-// workload.
+// autoscaling policy. It will return information to size the cluster
+// appropriately to the current workload.
 //
 // The `required_capacity` is calculated as the maximum of the
 // `required_capacity` result of all individual deciders that are enabled for
@@ -110,9 +108,9 @@ func NewGetAutoscalingCapacityFunc(tp elastictransport.Interface) NewGetAutoscal
 // or incomplete information.
 //
 // The response contains decider-specific information you can use to diagnose
-// how and why autoscaling determined a certain capacity was required.
-// This information is provided for diagnosis only.
-// Do not use this information to make autoscaling decisions.
+// how and why autoscaling determined a certain capacity was required. This
+// information is provided for diagnosis only. Do not use this information to
+// make autoscaling decisions.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
 func New(tp elastictransport.Interface) *GetAutoscalingCapacity {
@@ -183,7 +181,7 @@ func (r GetAutoscalingCapacity) Perform(providedCtx context.Context) (*http.Resp
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "autoscaling.get_autoscaling_capacity")
+			ctx = instrument.Start(providedCtx, "autoscaling.get_autoscaling_capacity")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -320,9 +318,8 @@ func (r *GetAutoscalingCapacity) Header(key, value string) *GetAutoscalingCapaci
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *GetAutoscalingCapacity) MasterTimeout(duration string) *GetAutoscalingCapacity {
 	r.values.Set("master_timeout", duration)
@@ -353,11 +350,9 @@ func (r *GetAutoscalingCapacity) FilterPath(filterpaths ...string) *GetAutoscali
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetAutoscalingCapacity) Human(human bool) *GetAutoscalingCapacity {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -365,8 +360,8 @@ func (r *GetAutoscalingCapacity) Human(human bool) *GetAutoscalingCapacity {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetAutoscalingCapacity) Pretty(pretty bool) *GetAutoscalingCapacity {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

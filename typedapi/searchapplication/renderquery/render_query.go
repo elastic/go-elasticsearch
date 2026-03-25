@@ -18,14 +18,12 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Render a search application query.
-// Generate an Elasticsearch query using the specified query parameters and the
-// search template associated with the search application or a default template
-// if none is specified.
-// If a parameter used in the search template is not specified in `params`, the
-// parameter's default value will be used.
-// The API returns the specific Elasticsearch query that would be generated and
-// run by calling the search application search API.
+// Render a search application query. Generate an Elasticsearch query using the
+// specified query parameters and the search template associated with the search
+// application or a default template if none is specified. If a parameter used
+// in the search template is not specified in `params`, the parameter's default
+// value will be used. The API returns the specific Elasticsearch query that
+// would be generated and run by calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
@@ -91,14 +89,12 @@ func NewRenderQueryFunc(tp elastictransport.Interface) NewRenderQuery {
 	}
 }
 
-// Render a search application query.
-// Generate an Elasticsearch query using the specified query parameters and the
-// search template associated with the search application or a default template
-// if none is specified.
-// If a parameter used in the search template is not specified in `params`, the
-// parameter's default value will be used.
-// The API returns the specific Elasticsearch query that would be generated and
-// run by calling the search application search API.
+// Render a search application query. Generate an Elasticsearch query using the
+// specified query parameters and the search template associated with the search
+// application or a default template if none is specified. If a parameter used
+// in the search template is not specified in `params`, the parameter's default
+// value will be used. The API returns the specific Elasticsearch query that
+// would be generated and run by calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
@@ -228,7 +224,7 @@ func (r RenderQuery) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "search_application.render_query")
+			ctx = instrument.Start(providedCtx, "search_application.render_query")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -358,11 +354,9 @@ func (r *RenderQuery) FilterPath(filterpaths ...string) *RenderQuery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *RenderQuery) Human(human bool) *RenderQuery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +364,8 @@ func (r *RenderQuery) Human(human bool) *RenderQuery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *RenderQuery) Pretty(pretty bool) *RenderQuery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

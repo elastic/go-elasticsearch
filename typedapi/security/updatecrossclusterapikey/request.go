@@ -34,23 +34,18 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L83
 type Request struct {
-	// Access The access to be granted to this API key.
-	// The access is composed of permissions for cross cluster search and cross
-	// cluster replication.
-	// At least one of them must be specified.
-	// When specified, the new access assignment fully replaces the previously
-	// assigned access.
+	// Access The access to be granted to this API key. The access is composed of
+	// permissions for cross cluster search and cross cluster replication. At least
+	// one of them must be specified. When specified, the new access assignment
+	// fully replaces the previously assigned access.
 	Access types.Access `json:"access"`
-	// Expiration The expiration time for the API key.
-	// By default, API keys never expire. This property can be omitted to leave the
-	// value unchanged.
+	// Expiration The expiration time for the API key. By default, API keys never expire. This
+	// property can be omitted to leave the value unchanged.
 	Expiration types.Duration `json:"expiration,omitempty"`
-	// Metadata Arbitrary metadata that you want to associate with the API key.
-	// It supports nested data structure.
-	// Within the metadata object, keys beginning with `_` are reserved for system
-	// usage.
-	// When specified, this information fully replaces metadata previously
-	// associated with the API key.
+	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+	// nested data structure. Within the metadata object, keys beginning with `_`
+	// are reserved for system usage. When specified, this information fully
+	// replaces metadata previously associated with the API key.
 	Metadata types.Metadata `json:"metadata,omitempty"`
 }
 

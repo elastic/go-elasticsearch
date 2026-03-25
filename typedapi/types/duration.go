@@ -24,5 +24,9 @@ package types
 //
 //	string
 //
+// A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s`
+// (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0"
+// without a unit and "-1" to indicate an unspecified value.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Time.ts#L52-L58
 type Duration any

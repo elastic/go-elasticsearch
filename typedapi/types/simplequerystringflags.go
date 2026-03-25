@@ -20,7 +20,8 @@
 
 package types
 
-// SimpleQueryStringFlags type alias.
+// Query flags can be either a single flag or a combination of flags, e.g.
+// `OR|AND|PREFIX`
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/query_dsl/fulltext.ts#L774-L778
 type SimpleQueryStringFlags PipeSeparatedFlagsSimpleQueryStringFlag

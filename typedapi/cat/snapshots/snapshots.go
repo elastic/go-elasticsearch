@@ -20,10 +20,10 @@
 
 // Get snapshot information.
 //
-// Get information about the snapshots stored in one or more repositories.
-// A snapshot is a backup of an index or running Elasticsearch cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
+// Get information about the snapshots stored in one or more repositories. A
+// snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
+// cat APIs are only intended for human consumption using the command line or
+// Kibana console. They are not intended for use by applications. For
 // application consumption, use the get snapshot API.
 package snapshots
 
@@ -84,10 +84,10 @@ func NewSnapshotsFunc(tp elastictransport.Interface) NewSnapshots {
 
 // Get snapshot information.
 //
-// Get information about the snapshots stored in one or more repositories.
-// A snapshot is a backup of an index or running Elasticsearch cluster.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
+// Get information about the snapshots stored in one or more repositories. A
+// snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
+// cat APIs are only intended for human consumption using the command line or
+// Kibana console. They are not intended for use by applications. For
 // application consumption, use the get snapshot API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-snapshots.html
@@ -172,7 +172,7 @@ func (r Snapshots) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.snapshots")
+			ctx = instrument.Start(providedCtx, "cat.snapshots")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -310,9 +310,8 @@ func (r *Snapshots) Header(key, value string) *Snapshots {
 }
 
 // Repository A comma-separated list of snapshot repositories used to limit the request.
-// Accepts wildcard expressions.
-// `_all` returns all repositories.
-// If any repository fails during the request, Elasticsearch returns an error.
+// Accepts wildcard expressions. `_all` returns all repositories. If any
+// repository fails during the request, Elasticsearch returns an error.
 // API Name: repository
 func (r *Snapshots) Repository(repository string) *Snapshots {
 	r.paramSet |= repositoryMask
@@ -330,8 +329,8 @@ func (r *Snapshots) IgnoreUnavailable(ignoreunavailable bool) *Snapshots {
 	return r
 }
 
-// H A comma-separated list of columns names to display.
-// It supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
 func (r *Snapshots) H(catsnapshotscolumns ...catsnapshotscolumn.CatSnapshotsColumn) *Snapshots {
 	tmp := []string{}
@@ -343,9 +342,9 @@ func (r *Snapshots) H(catsnapshotscolumns ...catsnapshotscolumn.CatSnapshotsColu
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Snapshots) S(names ...string) *Snapshots {
 	r.values.Set("s", strings.Join(names, ","))
@@ -369,8 +368,8 @@ func (r *Snapshots) Time(time timeunit.TimeUnit) *Snapshots {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Snapshots) Format(format string) *Snapshots {
 	r.values.Set("format", format)
@@ -378,8 +377,8 @@ func (r *Snapshots) Format(format string) *Snapshots {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Snapshots) Help(help bool) *Snapshots {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -418,11 +417,9 @@ func (r *Snapshots) FilterPath(filterpaths ...string) *Snapshots {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Snapshots) Human(human bool) *Snapshots {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -430,8 +427,8 @@ func (r *Snapshots) Human(human bool) *Snapshots {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Snapshots) Pretty(pretty bool) *Snapshots {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

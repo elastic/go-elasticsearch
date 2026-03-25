@@ -32,8 +32,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L63
 type Request struct {
-	// Input Inference input.
-	// Either a string or an array of strings.
+	// Input Inference input. Either a string or an array of strings.
 	Input []string `json:"input"`
 	// TaskSettings Optional task settings
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`

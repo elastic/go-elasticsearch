@@ -18,45 +18,41 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Update field mappings.
-// Add new fields to an existing data stream or index.
+// Update field mappings. Add new fields to an existing data stream or index.
 // You can also use this API to change the search settings of existing fields
-// and add new properties to existing object fields.
-// For data streams, these changes are applied to all backing indices by
-// default.
+// and add new properties to existing object fields. For data streams, these
+// changes are applied to all backing indices by default.
 //
-// **Add multi-fields to an existing field**
+// # Add multi-fields to an existing field
 //
-// Multi-fields let you index the same field in different ways.
-// You can use this API to update the fields mapping parameter and enable
-// multi-fields for an existing field.
-// WARNING: If an index (or data stream) contains documents when you add a
-// multi-field, those documents will not have values for the new multi-field.
-// You can populate the new multi-field with the update by query API.
+// Multi-fields let you index the same field in different ways. You can use this
+// API to update the fields mapping parameter and enable multi-fields for an
+// existing field. WARNING: If an index (or data stream) contains documents when
+// you add a multi-field, those documents will not have values for the new
+// multi-field. You can populate the new multi-field with the update by query
+// API.
 //
-// **Change supported mapping parameters for an existing field**
+// # Change supported mapping parameters for an existing field
 //
 // The documentation for each mapping parameter indicates whether you can update
-// it for an existing field using this API.
-// For example, you can use the update mapping API to update the `ignore_above`
-// parameter.
+// it for an existing field using this API. For example, you can use the update
+// mapping API to update the `ignore_above` parameter.
 //
-// **Change the mapping of an existing field**
+// # Change the mapping of an existing field
 //
 // Except for supported mapping parameters, you can't change the mapping or
-// field type of an existing field.
-// Changing an existing field could invalidate data that's already indexed.
+// field type of an existing field. Changing an existing field could invalidate
+// data that's already indexed.
 //
 // If you need to change the mapping of a field in a data stream's backing
-// indices, refer to documentation about modifying data streams.
-// If you need to change the mapping of a field in other indices, create a new
-// index with the correct mapping and reindex your data into that index.
+// indices, refer to documentation about modifying data streams. If you need to
+// change the mapping of a field in other indices, create a new index with the
+// correct mapping and reindex your data into that index.
 //
-// **Rename a field**
+// # Rename a field
 //
 // Renaming a field would invalidate data already indexed under the old field
-// name.
-// Instead, add an alias field to create an alternate field name.
+// name. Instead, add an alias field to create an alternate field name.
 package putmapping
 
 import (
@@ -121,45 +117,41 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 	}
 }
 
-// Update field mappings.
-// Add new fields to an existing data stream or index.
+// Update field mappings. Add new fields to an existing data stream or index.
 // You can also use this API to change the search settings of existing fields
-// and add new properties to existing object fields.
-// For data streams, these changes are applied to all backing indices by
-// default.
+// and add new properties to existing object fields. For data streams, these
+// changes are applied to all backing indices by default.
 //
-// **Add multi-fields to an existing field**
+// # Add multi-fields to an existing field
 //
-// Multi-fields let you index the same field in different ways.
-// You can use this API to update the fields mapping parameter and enable
-// multi-fields for an existing field.
-// WARNING: If an index (or data stream) contains documents when you add a
-// multi-field, those documents will not have values for the new multi-field.
-// You can populate the new multi-field with the update by query API.
+// Multi-fields let you index the same field in different ways. You can use this
+// API to update the fields mapping parameter and enable multi-fields for an
+// existing field. WARNING: If an index (or data stream) contains documents when
+// you add a multi-field, those documents will not have values for the new
+// multi-field. You can populate the new multi-field with the update by query
+// API.
 //
-// **Change supported mapping parameters for an existing field**
+// # Change supported mapping parameters for an existing field
 //
 // The documentation for each mapping parameter indicates whether you can update
-// it for an existing field using this API.
-// For example, you can use the update mapping API to update the `ignore_above`
-// parameter.
+// it for an existing field using this API. For example, you can use the update
+// mapping API to update the `ignore_above` parameter.
 //
-// **Change the mapping of an existing field**
+// # Change the mapping of an existing field
 //
 // Except for supported mapping parameters, you can't change the mapping or
-// field type of an existing field.
-// Changing an existing field could invalidate data that's already indexed.
+// field type of an existing field. Changing an existing field could invalidate
+// data that's already indexed.
 //
 // If you need to change the mapping of a field in a data stream's backing
-// indices, refer to documentation about modifying data streams.
-// If you need to change the mapping of a field in other indices, create a new
-// index with the correct mapping and reindex your data into that index.
+// indices, refer to documentation about modifying data streams. If you need to
+// change the mapping of a field in other indices, create a new index with the
+// correct mapping and reindex your data into that index.
 //
-// **Rename a field**
+// # Rename a field
 //
 // Renaming a field would invalidate data already indexed under the old field
-// name.
-// Instead, add an alias field to create an alternate field name.
+// name. Instead, add an alias field to create an alternate field name.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
 func New(tp elastictransport.Interface) *PutMapping {
@@ -282,7 +274,7 @@ func (r PutMapping) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.put_mapping")
+			ctx = instrument.Start(providedCtx, "indices.put_mapping")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -391,8 +383,8 @@ func (r *PutMapping) _index(index string) *PutMapping {
 }
 
 // AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
+// alias, or `_all` value targets only missing or closed indices. This behavior
+// applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *PutMapping) AllowNoIndices(allownoindices bool) *PutMapping {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -400,10 +392,9 @@ func (r *PutMapping) AllowNoIndices(allownoindices bool) *PutMapping {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *PutMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutMapping {
 	tmp := []string{}
@@ -424,9 +415,8 @@ func (r *PutMapping) IgnoreUnavailable(ignoreunavailable bool) *PutMapping {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *PutMapping) MasterTimeout(duration string) *PutMapping {
 	r.values.Set("master_timeout", duration)
@@ -434,9 +424,8 @@ func (r *PutMapping) MasterTimeout(duration string) *PutMapping {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutMapping) Timeout(duration string) *PutMapping {
 	r.values.Set("timeout", duration)
@@ -476,11 +465,9 @@ func (r *PutMapping) FilterPath(filterpaths ...string) *PutMapping {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutMapping) Human(human bool) *PutMapping {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -488,8 +475,8 @@ func (r *PutMapping) Human(human bool) *PutMapping {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutMapping) Pretty(pretty bool) *PutMapping {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -519,9 +506,9 @@ func (r *PutMapping) Dynamic(dynamic dynamicmapping.DynamicMapping) *PutMapping 
 	return r
 }
 
-// DynamicDateFormats If date detection is enabled then new string fields are checked
-// against 'dynamic_date_formats' and if the value matches then
-// a new date field is added instead of string.
+// DynamicDateFormats If date detection is enabled then new string fields are checked against
+// 'dynamic_date_formats' and if the value matches then a new date field is
+// added instead of string.
 // API name: dynamic_date_formats
 func (r *PutMapping) DynamicDateFormats(dynamicdateformats ...string) *PutMapping {
 	if r.req == nil {
@@ -555,9 +542,9 @@ func (r *PutMapping) FieldNames_(fieldnames_ *types.FieldNamesField) *PutMapping
 	return r
 }
 
-// Meta_ A mapping type can have custom meta data associated with it. These are
-// not used at all by Elasticsearch, but can be used to store
-// application-specific metadata.
+// Meta_ A mapping type can have custom meta data associated with it. These are not
+// used at all by Elasticsearch, but can be used to store application-specific
+// metadata.
 // API name: _meta
 func (r *PutMapping) Meta_(metadata types.Metadata) *PutMapping {
 	if r.req == nil {
@@ -581,9 +568,10 @@ func (r *PutMapping) NumericDetection(numericdetection bool) *PutMapping {
 
 // Properties Mapping for a field. For new fields, this mapping can include:
 //
-// - Field name
-// - Field data type
-// - Mapping parameters
+//   - Field name
+//   - Field data type
+//   - Mapping parameters
+//
 // API name: properties
 func (r *PutMapping) Properties(properties map[string]types.Property) *PutMapping {
 	if r.req == nil {

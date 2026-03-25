@@ -30,7 +30,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/remoteclusterprivilege"
 )
 
-// RemoteClusterPrivileges type.
+// The subset of cluster level privileges that can be defined for remote
+// clusters.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/_types/Privileges.ts#L278-L290
 type RemoteClusterPrivileges struct {

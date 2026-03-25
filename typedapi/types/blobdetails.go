@@ -36,9 +36,7 @@ type BlobDetails struct {
 	// Name The name of the blob.
 	Name string `json:"name"`
 	// Overwritten Indicates whether the blob was overwritten while the read operations were
-	// ongoing.
-	//
-	//	/**
+	// ongoing. /**
 	Overwritten bool `json:"overwritten"`
 	ReadEarly   bool `json:"read_early"`
 	// ReadEnd The position, in bytes, at which read operations completed.

@@ -29,44 +29,67 @@ type CatThreadPoolColumn struct {
 }
 
 var (
+
+	// Active Number of active threads in the current thread pool.
 	Active = CatThreadPoolColumn{"active"}
 
+	// Completed Number of tasks completed by the thread pool executor.
 	Completed = CatThreadPoolColumn{"completed"}
 
+	// Core Configured core number of active threads allowed in the current thread pool.
 	Core = CatThreadPoolColumn{"core"}
 
+	// Ephemeralid Ephemeral node ID.
 	Ephemeralid = CatThreadPoolColumn{"ephemeral_id"}
 
+	// Host Hostname for the current node.
 	Host = CatThreadPoolColumn{"host"}
 
+	// Ip IP address for the current node.
 	Ip = CatThreadPoolColumn{"ip"}
 
+	// Keepalive Configured keep alive time for threads.
 	Keepalive = CatThreadPoolColumn{"keep_alive"}
 
+	// Largest Highest number of active threads in the current thread pool.
 	Largest = CatThreadPoolColumn{"largest"}
 
+	// Max Configured maximum number of active threads allowed in the current thread
+	// pool.
 	Max = CatThreadPoolColumn{"max"}
 
+	// Name Name of the thread pool, such as `analyze` or `generic`.
 	Name = CatThreadPoolColumn{"name"}
 
+	// Nodeid ID of the node, such as `k0zy`.
 	Nodeid = CatThreadPoolColumn{"node_id"}
 
+	// Nodename Node name, such as `I8hydUG`.
 	Nodename = CatThreadPoolColumn{"node_name"}
 
+	// Pid Process ID of the running node.
 	Pid = CatThreadPoolColumn{"pid"}
 
+	// Poolsize Number of threads in the current thread pool.
 	Poolsize = CatThreadPoolColumn{"pool_size"}
 
+	// Port Bound transport port for the current node.
 	Port = CatThreadPoolColumn{"port"}
 
+	// Queue Number of tasks in the queue for the current thread pool.
 	Queue = CatThreadPoolColumn{"queue"}
 
+	// Queuesize Maximum number of tasks permitted in the queue for the current thread pool.
 	Queuesize = CatThreadPoolColumn{"queue_size"}
 
+	// Rejected Number of tasks rejected by the thread pool executor.
 	Rejected = CatThreadPoolColumn{"rejected"}
 
+	// Size Configured fixed number of active threads allowed in the current thread pool.
 	Size = CatThreadPoolColumn{"size"}
 
+	// Type Type of thread pool. Returned values are `fixed`, `fixed_auto_queue_size`,
+	// `direct`, or `scaling`.
 	Type = CatThreadPoolColumn{"type"}
 )
 

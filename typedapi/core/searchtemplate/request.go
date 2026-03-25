@@ -34,23 +34,20 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/search_template/SearchTemplateRequest.ts#L32-L152
 type Request struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
-	// each hit.
-	// If you specify both this and the `explain` query parameter, the API uses only
-	// the query parameter.
+	// each hit. If you specify both this and the `explain` query parameter, the API
+	// uses only the query parameter.
 	Explain *bool `json:"explain,omitempty"`
-	// Id The ID of the search template to use. If no `source` is specified,
-	// this parameter is required.
+	// Id The ID of the search template to use. If no `source` is specified, this
+	// parameter is required.
 	Id *string `json:"id,omitempty"`
-	// Params Key-value pairs used to replace Mustache variables in the template.
-	// The key is the variable name.
-	// The value is the variable value.
+	// Params Key-value pairs used to replace Mustache variables in the template. The key
+	// is the variable name. The value is the variable value.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. It also supports Mustache variables. If no `id` is specified,
-	// this
-	// parameter is required.
+	// this parameter is required.
 	Source *string `json:"source,omitempty"`
 }
 

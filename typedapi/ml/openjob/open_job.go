@@ -22,10 +22,10 @@
 //
 // An anomaly detection job must be opened to be ready to receive and analyze
 // data. It can be opened and closed multiple times throughout its lifecycle.
-// When you open a new job, it starts with an empty model.
-// When you open an existing job, the most recent model state is automatically
-// loaded. The job is ready to resume its analysis from where it left off, once
-// new data is received.
+// When you open a new job, it starts with an empty model. When you open an
+// existing job, the most recent model state is automatically loaded. The job is
+// ready to resume its analysis from where it left off, once new data is
+// received.
 package openjob
 
 import (
@@ -92,10 +92,10 @@ func NewOpenJobFunc(tp elastictransport.Interface) NewOpenJob {
 //
 // An anomaly detection job must be opened to be ready to receive and analyze
 // data. It can be opened and closed multiple times throughout its lifecycle.
-// When you open a new job, it starts with an empty model.
-// When you open an existing job, the most recent model state is automatically
-// loaded. The job is ready to resume its analysis from where it left off, once
-// new data is received.
+// When you open a new job, it starts with an empty model. When you open an
+// existing job, the most recent model state is automatically loaded. The job is
+// ready to resume its analysis from where it left off, once new data is
+// received.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-open-job.html
 func New(tp elastictransport.Interface) *OpenJob {
@@ -222,7 +222,7 @@ func (r OpenJob) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.open_job")
+			ctx = instrument.Start(providedCtx, "ml.open_job")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -352,11 +352,9 @@ func (r *OpenJob) FilterPath(filterpaths ...string) *OpenJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *OpenJob) Human(human bool) *OpenJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -364,8 +362,8 @@ func (r *OpenJob) Human(human bool) *OpenJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *OpenJob) Pretty(pretty bool) *OpenJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

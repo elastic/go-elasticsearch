@@ -226,7 +226,7 @@ func (r Msearch) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "fleet.msearch")
+			ctx = instrument.Start(providedCtx, "fleet.msearch")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -445,10 +445,9 @@ func (r *Msearch) TypedKeys(typedkeys bool) *Msearch {
 }
 
 // WaitForCheckpoints A comma separated list of checkpoints. When configured, the search API will
-// only be executed on a shard
-// after the relevant checkpoint has become visible for search. Defaults to an
-// empty list which will cause
-// Elasticsearch to immediately execute the search.
+// only be executed on a shard after the relevant checkpoint has become visible
+// for search. Defaults to an empty list which will cause Elasticsearch to
+// immediately execute the search.
 // API name: wait_for_checkpoints
 func (r *Msearch) WaitForCheckpoints(waitforcheckpoints ...int64) *Msearch {
 	tmp := []string{}
@@ -461,10 +460,9 @@ func (r *Msearch) WaitForCheckpoints(waitforcheckpoints ...int64) *Msearch {
 }
 
 // AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
-// failures.
-// If false, returns an error with no partial results.
-// Defaults to the configured cluster setting
-// `search.default_allow_partial_results` which is true by default.
+// failures. If false, returns an error with no partial results. Defaults to the
+// configured cluster setting `search.default_allow_partial_results` which is
+// true by default.
 // API name: allow_partial_search_results
 func (r *Msearch) AllowPartialSearchResults(allowpartialsearchresults bool) *Msearch {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
@@ -495,11 +493,9 @@ func (r *Msearch) FilterPath(filterpaths ...string) *Msearch {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Msearch) Human(human bool) *Msearch {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -507,8 +503,8 @@ func (r *Msearch) Human(human bool) *Msearch {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Msearch) Pretty(pretty bool) *Msearch {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

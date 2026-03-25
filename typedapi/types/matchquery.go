@@ -42,10 +42,9 @@ type MatchQuery struct {
 	// synonyms.
 	AutoGenerateSynonymsPhraseQuery *bool `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost           *float32 `json:"boost,omitempty"`
 	CutoffFrequency *Float64 `json:"cutoff_frequency,omitempty"`
 	// Fuzziness Maximum edit distance allowed for matching.

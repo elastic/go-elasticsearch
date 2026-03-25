@@ -21,9 +21,8 @@
 // Create a cross-cluster API key.
 //
 // Create an API key of the `cross_cluster` type for the API key based remote
-// cluster access.
-// A `cross_cluster` API key cannot be used to authenticate through the REST
-// interface.
+// cluster access. A `cross_cluster` API key cannot be used to authenticate
+// through the REST interface.
 //
 // IMPORTANT: To authenticate this request you must use a credential that is not
 // an API key. Even if you use an API key that has the required privilege, the
@@ -33,8 +32,8 @@
 // which is automatically enabled.
 //
 // NOTE: Unlike REST API keys, a cross-cluster API key does not capture
-// permissions of the authenticated user. The API key’s effective permission is
-// exactly as specified with the `access` property.
+// permissions of the authenticated user. The API key’s effective permission
+// is exactly as specified with the `access` property.
 //
 // A successful request returns a JSON structure that contains the API key, its
 // unique ID, and its name. If applicable, it also returns expiration
@@ -44,9 +43,8 @@
 // when you create the API keys.
 //
 // Cross-cluster API keys can only be updated with the update cross-cluster API
-// key API.
-// Attempting to update them with the update REST API key API or the bulk update
-// REST API keys API will result in an error.
+// key API. Attempting to update them with the update REST API key API or the
+// bulk update REST API keys API will result in an error.
 package createcrossclusterapikey
 
 import (
@@ -104,9 +102,8 @@ func NewCreateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewCreateCro
 // Create a cross-cluster API key.
 //
 // Create an API key of the `cross_cluster` type for the API key based remote
-// cluster access.
-// A `cross_cluster` API key cannot be used to authenticate through the REST
-// interface.
+// cluster access. A `cross_cluster` API key cannot be used to authenticate
+// through the REST interface.
 //
 // IMPORTANT: To authenticate this request you must use a credential that is not
 // an API key. Even if you use an API key that has the required privilege, the
@@ -116,8 +113,8 @@ func NewCreateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewCreateCro
 // which is automatically enabled.
 //
 // NOTE: Unlike REST API keys, a cross-cluster API key does not capture
-// permissions of the authenticated user. The API key’s effective permission is
-// exactly as specified with the `access` property.
+// permissions of the authenticated user. The API key’s effective permission
+// is exactly as specified with the `access` property.
 //
 // A successful request returns a JSON structure that contains the API key, its
 // unique ID, and its name. If applicable, it also returns expiration
@@ -127,9 +124,8 @@ func NewCreateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewCreateCro
 // when you create the API keys.
 //
 // Cross-cluster API keys can only be updated with the update cross-cluster API
-// key API.
-// Attempting to update them with the update REST API key API or the bulk update
-// REST API keys API will result in an error.
+// key API. Attempting to update them with the update REST API key API or the
+// bulk update REST API keys API will result in an error.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html
 func New(tp elastictransport.Interface) *CreateCrossClusterApiKey {
@@ -250,7 +246,7 @@ func (r CreateCrossClusterApiKey) Perform(providedCtx context.Context) (*http.Re
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "security.create_cross_cluster_api_key")
+			ctx = instrument.Start(providedCtx, "security.create_cross_cluster_api_key")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -371,11 +367,9 @@ func (r *CreateCrossClusterApiKey) FilterPath(filterpaths ...string) *CreateCros
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *CreateCrossClusterApiKey) Human(human bool) *CreateCrossClusterApiKey {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -383,8 +377,8 @@ func (r *CreateCrossClusterApiKey) Human(human bool) *CreateCrossClusterApiKey {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -392,15 +386,14 @@ func (r *CreateCrossClusterApiKey) Pretty(pretty bool) *CreateCrossClusterApiKey
 	return r
 }
 
-// Access The access to be granted to this API key.
-// The access is composed of permissions for cross-cluster search and
-// cross-cluster replication.
-// At least one of them must be specified.
+// Access The access to be granted to this API key. The access is composed of
+// permissions for cross-cluster search and cross-cluster replication. At least
+// one of them must be specified.
 //
 // NOTE: No explicit privileges should be specified for either search or
-// replication access.
-// The creation process automatically converts the access specification to a
-// role descriptor which has relevant privileges assigned accordingly.
+// replication access. The creation process automatically converts the access
+// specification to a role descriptor which has relevant privileges assigned
+// accordingly.
 // API name: access
 func (r *CreateCrossClusterApiKey) Access(access *types.Access) *CreateCrossClusterApiKey {
 	if r.req == nil {
@@ -412,8 +405,7 @@ func (r *CreateCrossClusterApiKey) Access(access *types.Access) *CreateCrossClus
 	return r
 }
 
-// Expiration Expiration time for the API key.
-// By default, API keys never expire.
+// Expiration Expiration time for the API key. By default, API keys never expire.
 // API name: expiration
 func (r *CreateCrossClusterApiKey) Expiration(duration types.Duration) *CreateCrossClusterApiKey {
 	if r.req == nil {
@@ -424,10 +416,9 @@ func (r *CreateCrossClusterApiKey) Expiration(duration types.Duration) *CreateCr
 	return r
 }
 
-// Metadata Arbitrary metadata that you want to associate with the API key.
-// It supports nested data structure.
-// Within the metadata object, keys beginning with `_` are reserved for system
-// usage.
+// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+// nested data structure. Within the metadata object, keys beginning with `_`
+// are reserved for system usage.
 // API name: metadata
 func (r *CreateCrossClusterApiKey) Metadata(metadata types.Metadata) *CreateCrossClusterApiKey {
 	if r.req == nil {

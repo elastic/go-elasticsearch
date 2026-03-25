@@ -37,20 +37,19 @@ import (
 type JinaAITaskSettings struct {
 	// ReturnDocuments For a `rerank` task, return the doc text within the results.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
-	// Task For a `text_embedding` task, the task passed to the model.
-	// Valid values are:
+	// Task For a `text_embedding` task, the task passed to the model. Valid values are:
 	//
-	// * `classification`: Use it for embeddings passed through a text classifier.
-	// * `clustering`: Use it for the embeddings run through a clustering algorithm.
-	// * `ingest`: Use it for storing document embeddings in a vector database.
-	// * `search`: Use it for storing embeddings of search queries run against a
-	// vector database to find relevant documents.
+	//   - `classification`: Use it for embeddings passed through a text classifier.
+	//   - `clustering`: Use it for the embeddings run through a clustering
+	//     algorithm.
+	//   - `ingest`: Use it for storing document embeddings in a vector database.
+	//   - `search`: Use it for storing embeddings of search queries run against a
+	//     vector database to find relevant documents.
 	Task *jinaaitextembeddingtask.JinaAITextEmbeddingTask `json:"task,omitempty"`
-	// TopN For a `rerank` task, the number of most relevant documents to return.
-	// It defaults to the number of the documents.
-	// If this inference endpoint is used in a `text_similarity_reranker` retriever
-	// query and `top_n` is set, it must be greater than or equal to
-	// `rank_window_size` in the query.
+	// TopN For a `rerank` task, the number of most relevant documents to return. It
+	// defaults to the number of the documents. If this inference endpoint is used
+	// in a `text_similarity_reranker` retriever query and `top_n` is set, it must
+	// be greater than or equal to `rank_window_size` in the query.
 	TopN *int `json:"top_n,omitempty"`
 }
 

@@ -20,8 +20,8 @@
 
 // Create or update a Logstash pipeline.
 //
-// Create a pipeline that is used for Logstash Central Management.
-// If the specified pipeline exists, it is replaced.
+// Create a pipeline that is used for Logstash Central Management. If the
+// specified pipeline exists, it is replaced.
 package putpipeline
 
 import (
@@ -86,8 +86,8 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 
 // Create or update a Logstash pipeline.
 //
-// Create a pipeline that is used for Logstash Central Management.
-// If the specified pipeline exists, it is replaced.
+// Create a pipeline that is used for Logstash Central Management. If the
+// specified pipeline exists, it is replaced.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html
 func New(tp elastictransport.Interface) *PutPipeline {
@@ -212,7 +212,7 @@ func (r PutPipeline) Perform(providedCtx context.Context) (*http.Response, error
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "logstash.put_pipeline")
+			ctx = instrument.Start(providedCtx, "logstash.put_pipeline")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -288,11 +288,9 @@ func (r *PutPipeline) FilterPath(filterpaths ...string) *PutPipeline {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutPipeline) Human(human bool) *PutPipeline {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -300,8 +298,8 @@ func (r *PutPipeline) Human(human bool) *PutPipeline {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -309,8 +307,8 @@ func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	return r
 }
 
-// Description A description of the pipeline.
-// This description is not used by Elasticsearch or Logstash.
+// Description A description of the pipeline. This description is not used by Elasticsearch
+// or Logstash.
 // API name: description
 func (r *PutPipeline) Description(description string) *PutPipeline {
 	if r.req == nil {
@@ -322,8 +320,8 @@ func (r *PutPipeline) Description(description string) *PutPipeline {
 	return r
 }
 
-// LastModified The date the pipeline was last updated.
-// It must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
+// LastModified The date the pipeline was last updated. It must be in the
+// `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
 // API name: last_modified
 func (r *PutPipeline) LastModified(datetime types.DateTime) *PutPipeline {
 	if r.req == nil {
@@ -346,8 +344,8 @@ func (r *PutPipeline) Pipeline(pipeline string) *PutPipeline {
 	return r
 }
 
-// PipelineMetadata Optional metadata about the pipeline, which can have any contents.
-// This metadata is not generated or used by Elasticsearch or Logstash.
+// PipelineMetadata Optional metadata about the pipeline, which can have any contents. This
+// metadata is not generated or used by Elasticsearch or Logstash.
 // API name: pipeline_metadata
 func (r *PutPipeline) PipelineMetadata(pipelinemetadata *types.PipelineMetadata) *PutPipeline {
 	if r.req == nil {
@@ -359,8 +357,7 @@ func (r *PutPipeline) PipelineMetadata(pipelinemetadata *types.PipelineMetadata)
 	return r
 }
 
-// PipelineSettings Settings for the pipeline.
-// It supports only flat keys in dot notation.
+// PipelineSettings Settings for the pipeline. It supports only flat keys in dot notation.
 // API name: pipeline_settings
 func (r *PutPipeline) PipelineSettings(pipelinesettings *types.PipelineSettings) *PutPipeline {
 	if r.req == nil {

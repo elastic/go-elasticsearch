@@ -37,15 +37,13 @@ type TaskInfo struct {
 	Cancellable bool   `json:"cancellable"`
 	Cancelled   *bool  `json:"cancelled,omitempty"`
 	// Description Human readable text that identifies the particular request that the task is
-	// performing.
-	// For example, it might identify the search request being performed by a search
-	// task.
-	// Other kinds of tasks have different descriptions, like `_reindex` which has
-	// the source and the destination, or `_bulk` which just has the number of
-	// requests and the destination indices.
-	// Many requests will have only an empty description because more detailed
-	// information about the request is not easily available or particularly helpful
-	// in identifying the request.
+	// performing. For example, it might identify the search request being performed
+	// by a search task. Other kinds of tasks have different descriptions, like
+	// `_reindex` which has the source and the destination, or `_bulk` which just
+	// has the number of requests and the destination indices. Many requests will
+	// have only an empty description because more detailed information about the
+	// request is not easily available or particularly helpful in identifying the
+	// request.
 	Description        *string           `json:"description,omitempty"`
 	Headers            map[string]string `json:"headers"`
 	Id                 int64             `json:"id"`
@@ -54,13 +52,12 @@ type TaskInfo struct {
 	RunningTime        Duration          `json:"running_time,omitempty"`
 	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
 	StartTimeInMillis  int64             `json:"start_time_in_millis"`
-	// Status The internal status of the task, which varies from task to task.
-	// The format also varies.
-	// While the goal is to keep the status for a particular task consistent from
-	// version to version, this is not always possible because sometimes the
-	// implementation changes.
-	// Fields might be removed from the status for a particular request so any
-	// parsing you do of the status might break in minor releases.
+	// Status The internal status of the task, which varies from task to task. The format
+	// also varies. While the goal is to keep the status for a particular task
+	// consistent from version to version, this is not always possible because
+	// sometimes the implementation changes. Fields might be removed from the status
+	// for a particular request so any parsing you do of the status might break in
+	// minor releases.
 	Status json.RawMessage `json:"status,omitempty"`
 	Type   string          `json:"type"`
 }

@@ -29,14 +29,14 @@ import (
 	"strconv"
 )
 
-// SumAggregate type.
+// Sum aggregation result. `value` is always present and is zero if there were
+// no values to process.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/Aggregate.ts#L211-L216
 type SumAggregate struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
-	// aggregate,
-	// unless specified otherwise.
+	// aggregate, unless specified otherwise.
 	Value         *Float64 `json:"value,omitempty"`
 	ValueAsString *string  `json:"value_as_string,omitempty"`
 }

@@ -36,11 +36,10 @@ type AppendProcessor struct {
 	// AllowDuplicates If `false`, the processor does not append values already present in the
 	// field.
 	AllowDuplicates *bool `json:"allow_duplicates,omitempty"`
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// Field The field to be appended to.
-	// Supports template snippets.
+	// Field The field to be appended to. Supports template snippets.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
 	If *string `json:"if,omitempty"`
@@ -48,8 +47,7 @@ type AppendProcessor struct {
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// Value The value to be appended. Supports template snippets.
 	Value []json.RawMessage `json:"value"`

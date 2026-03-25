@@ -40,8 +40,8 @@ type Request struct {
 	// ServiceSettings Settings used to install the inference model. These settings are specific to
 	// the `alibabacloud-ai-search` service.
 	ServiceSettings types.AlibabaCloudServiceSettings `json:"service_settings"`
-	// TaskSettings Settings to configure the inference task.
-	// These settings are specific to the task type you specified.
+	// TaskSettings Settings to configure the inference task. These settings are specific to the
+	// task type you specified.
 	TaskSettings *types.AlibabaCloudTaskSettings `json:"task_settings,omitempty"`
 }
 

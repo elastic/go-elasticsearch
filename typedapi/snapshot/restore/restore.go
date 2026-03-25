@@ -18,13 +18,12 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Restore a snapshot.
-// Restore a snapshot of a cluster or data streams and indices.
+// Restore a snapshot. Restore a snapshot of a cluster or data streams and
+// indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master
-// node.
-// The snapshot repository must be registered and available to the cluster.
-// The snapshot and cluster versions must be compatible.
+// node. The snapshot repository must be registered and available to the
+// cluster. The snapshot and cluster versions must be compatible.
 //
 // To restore a snapshot, the cluster's global metadata must be writable. Ensure
 // there are't any cluster blocks that prevent writes. The restore operation
@@ -34,10 +33,7 @@
 // index template with data streams enabled. To check, use the index management
 // feature in Kibana or the get index template API:
 //
-// ```
-// GET
-// _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
-// ```
+//	GET _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
 //
 // If no such template exists, you can create one or restore a cluster state
 // that contains one. Without a matching index template, a data stream can't
@@ -112,13 +108,12 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 	}
 }
 
-// Restore a snapshot.
-// Restore a snapshot of a cluster or data streams and indices.
+// Restore a snapshot. Restore a snapshot of a cluster or data streams and
+// indices.
 //
 // You can restore a snapshot only to a running cluster with an elected master
-// node.
-// The snapshot repository must be registered and available to the cluster.
-// The snapshot and cluster versions must be compatible.
+// node. The snapshot repository must be registered and available to the
+// cluster. The snapshot and cluster versions must be compatible.
 //
 // To restore a snapshot, the cluster's global metadata must be writable. Ensure
 // there are't any cluster blocks that prevent writes. The restore operation
@@ -128,10 +123,7 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 // index template with data streams enabled. To check, use the index management
 // feature in Kibana or the get index template API:
 //
-// ```
-// GET
-// _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
-// ```
+//	GET _index_template/*?filter_path=index_templates.name,index_templates.index_template.index_patterns,index_templates.index_template.data_stream
 //
 // If no such template exists, you can create one or restore a cluster state
 // that contains one. Without a matching index template, a data stream can't
@@ -269,7 +261,7 @@ func (r Restore) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.restore")
+			ctx = instrument.Start(providedCtx, "snapshot.restore")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -424,11 +416,9 @@ func (r *Restore) FilterPath(filterpaths ...string) *Restore {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Restore) Human(human bool) *Restore {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -436,8 +426,8 @@ func (r *Restore) Human(human bool) *Restore {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Restore) Pretty(pretty bool) *Restore {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

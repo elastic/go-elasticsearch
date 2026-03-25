@@ -21,11 +21,10 @@
 // Create a Watsonx inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
-// `watsonxai` service.
-// You need an IBM Cloud Databases for Elasticsearch deployment to use the
-// `watsonxai` inference service.
-// You can provision one through the IBM catalog, the Cloud Databases CLI
-// plug-in, the Cloud Databases API, or Terraform.
+// `watsonxai` service. You need an IBM Cloud Databases for Elasticsearch
+// deployment to use the `watsonxai` inference service. You can provision one
+// through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
+// API, or Terraform.
 package putwatsonx
 
 import (
@@ -97,11 +96,10 @@ func NewPutWatsonxFunc(tp elastictransport.Interface) NewPutWatsonx {
 // Create a Watsonx inference endpoint.
 //
 // Create an inference endpoint to perform an inference task with the
-// `watsonxai` service.
-// You need an IBM Cloud Databases for Elasticsearch deployment to use the
-// `watsonxai` inference service.
-// You can provision one through the IBM catalog, the Cloud Databases CLI
-// plug-in, the Cloud Databases API, or Terraform.
+// `watsonxai` service. You need an IBM Cloud Databases for Elasticsearch
+// deployment to use the `watsonxai` inference service. You can provision one
+// through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
+// API, or Terraform.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-watsonx-ai.html
 func New(tp elastictransport.Interface) *PutWatsonx {
@@ -230,7 +228,7 @@ func (r PutWatsonx) Perform(providedCtx context.Context) (*http.Response, error)
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_watsonx")
+			ctx = instrument.Start(providedCtx, "inference.put_watsonx")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -328,8 +326,8 @@ func (r *PutWatsonx) Header(key, value string) *PutWatsonx {
 	return r
 }
 
-// TaskType The task type.
-// The only valid task type for the model to perform is `text_embedding`.
+// TaskType The task type. The only valid task type for the model to perform is
+// `text_embedding`.
 // API Name: tasktype
 func (r *PutWatsonx) _tasktype(tasktype string) *PutWatsonx {
 	r.paramSet |= tasktypeMask
@@ -379,11 +377,9 @@ func (r *PutWatsonx) FilterPath(filterpaths ...string) *PutWatsonx {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *PutWatsonx) Human(human bool) *PutWatsonx {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -391,8 +387,8 @@ func (r *PutWatsonx) Human(human bool) *PutWatsonx {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -22,11 +22,9 @@
 //
 // Connectors are Elasticsearch integrations that bring content from third-party
 // data sources, which can be deployed on Elastic Cloud or hosted on your own
-// infrastructure.
-// Elastic managed connectors (Native connectors) are a managed service on
-// Elastic Cloud.
-// Self-managed connectors (Connector clients) are self-managed on your
-// infrastructure.
+// infrastructure. Elastic managed connectors (Native connectors) are a managed
+// service on Elastic Cloud. Self-managed connectors (Connector clients) are
+// self-managed on your infrastructure.
 package post
 
 import (
@@ -85,11 +83,9 @@ func NewPostFunc(tp elastictransport.Interface) NewPost {
 //
 // Connectors are Elasticsearch integrations that bring content from third-party
 // data sources, which can be deployed on Elastic Cloud or hosted on your own
-// infrastructure.
-// Elastic managed connectors (Native connectors) are a managed service on
-// Elastic Cloud.
-// Self-managed connectors (Connector clients) are self-managed on your
-// infrastructure.
+// infrastructure. Elastic managed connectors (Native connectors) are a managed
+// service on Elastic Cloud. Self-managed connectors (Connector clients) are
+// self-managed on your infrastructure.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-api.html
 func New(tp elastictransport.Interface) *Post {
@@ -206,7 +202,7 @@ func (r Post) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "connector.post")
+			ctx = instrument.Start(providedCtx, "connector.post")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -327,11 +323,9 @@ func (r *Post) FilterPath(filterpaths ...string) *Post {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Post) Human(human bool) *Post {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -339,8 +333,8 @@ func (r *Post) Human(human bool) *Post {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Post) Pretty(pretty bool) *Post {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

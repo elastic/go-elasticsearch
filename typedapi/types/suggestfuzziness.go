@@ -42,8 +42,8 @@ type SuggestFuzziness struct {
 	// Transpositions If set to `true`, transpositions are counted as one change instead of two.
 	Transpositions *bool `json:"transpositions,omitempty"`
 	// UnicodeAware If `true`, all measurements (like fuzzy edit distance, transpositions, and
-	// lengths) are measured in Unicode code points instead of in bytes.
-	// This is slightly slower than raw bytes.
+	// lengths) are measured in Unicode code points instead of in bytes. This is
+	// slightly slower than raw bytes.
 	UnicodeAware *bool `json:"unicode_aware,omitempty"`
 }
 

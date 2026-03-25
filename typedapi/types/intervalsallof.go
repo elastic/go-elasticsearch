@@ -38,9 +38,8 @@ type IntervalsAllOf struct {
 	// Intervals An array of rules to combine. All rules must produce a match in a document
 	// for the overall source to match.
 	Intervals []Intervals `json:"intervals"`
-	// MaxGaps Maximum number of positions between the matching terms.
-	// Intervals produced by the rules further apart than this are not considered
-	// matches.
+	// MaxGaps Maximum number of positions between the matching terms. Intervals produced by
+	// the rules further apart than this are not considered matches.
 	MaxGaps *int `json:"max_gaps,omitempty"`
 	// Ordered If `true`, intervals produced by the rules should appear in the order in
 	// which they are specified.

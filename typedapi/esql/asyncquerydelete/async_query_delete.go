@@ -18,15 +18,14 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Delete an async ES|QL query.
-// If the query is still running, it is cancelled.
+// Delete an async ES|QL query. If the query is still running, it is cancelled.
 // Otherwise, the stored results are deleted.
 //
 // If the Elasticsearch security features are enabled, only the following users
 // can use this API to delete a query:
 //
-// * The authenticated user that submitted the original query request
-// * Users with the `cancel_task` cluster privilege
+//   - The authenticated user that submitted the original query request
+//   - Users with the `cancel_task` cluster privilege
 package asyncquerydelete
 
 import (
@@ -84,15 +83,14 @@ func NewAsyncQueryDeleteFunc(tp elastictransport.Interface) NewAsyncQueryDelete 
 	}
 }
 
-// Delete an async ES|QL query.
-// If the query is still running, it is cancelled.
+// Delete an async ES|QL query. If the query is still running, it is cancelled.
 // Otherwise, the stored results are deleted.
 //
 // If the Elasticsearch security features are enabled, only the following users
 // can use this API to delete a query:
 //
-// * The authenticated user that submitted the original query request
-// * Users with the `cancel_task` cluster privilege
+//   - The authenticated user that submitted the original query request
+//   - Users with the `cancel_task` cluster privilege
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-async-query-delete-api.html
 func New(tp elastictransport.Interface) *AsyncQueryDelete {
@@ -169,7 +167,7 @@ func (r AsyncQueryDelete) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.async_query_delete")
+			ctx = instrument.Start(providedCtx, "esql.async_query_delete")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -306,9 +304,8 @@ func (r *AsyncQueryDelete) Header(key, value string) *AsyncQueryDelete {
 	return r
 }
 
-// Id The unique identifier of the query.
-// A query ID is provided in the ES|QL async query API response for a query that
-// does not complete in the designated time.
+// Id The unique identifier of the query. A query ID is provided in the ES|QL async
+// query API response for a query that does not complete in the designated time.
 // A query ID is also provided when the request was submitted with the
 // `keep_on_completion` parameter set to `true`.
 // API Name: id
@@ -342,11 +339,9 @@ func (r *AsyncQueryDelete) FilterPath(filterpaths ...string) *AsyncQueryDelete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *AsyncQueryDelete) Human(human bool) *AsyncQueryDelete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -354,8 +349,8 @@ func (r *AsyncQueryDelete) Human(human bool) *AsyncQueryDelete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *AsyncQueryDelete) Pretty(pretty bool) *AsyncQueryDelete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

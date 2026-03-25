@@ -29,16 +29,23 @@ type FunctionScoreMode struct {
 }
 
 var (
+
+	// Multiply Scores are multiplied.
 	Multiply = FunctionScoreMode{"multiply"}
 
+	// Sum Scores are summed.
 	Sum = FunctionScoreMode{"sum"}
 
+	// Avg Scores are averaged.
 	Avg = FunctionScoreMode{"avg"}
 
+	// First The first function that has a matching filter is applied.
 	First = FunctionScoreMode{"first"}
 
+	// Max Maximum score is used.
 	Max = FunctionScoreMode{"max"}
 
+	// Min Minimum score is used.
 	Min = FunctionScoreMode{"min"}
 )
 

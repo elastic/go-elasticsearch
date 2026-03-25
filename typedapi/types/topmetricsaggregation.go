@@ -37,8 +37,8 @@ type TopMetricsAggregation struct {
 	Field *string `json:"field,omitempty"`
 	// Metrics The fields of the top document to return.
 	Metrics []TopMetricsValue `json:"metrics,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	Script  *Script `json:"script,omitempty"`
 	// Size The number of top documents from which to return metrics.

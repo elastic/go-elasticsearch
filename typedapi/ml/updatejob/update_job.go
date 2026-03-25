@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Update an anomaly detection job.
-// Updates certain properties of an anomaly detection job.
+// Update an anomaly detection job. Updates certain properties of an anomaly
+// detection job.
 package updatejob
 
 import (
@@ -82,8 +82,8 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 	}
 }
 
-// Update an anomaly detection job.
-// Updates certain properties of an anomaly detection job.
+// Update an anomaly detection job. Updates certain properties of an anomaly
+// detection job.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html
 func New(tp elastictransport.Interface) *UpdateJob {
@@ -210,7 +210,7 @@ func (r UpdateJob) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.update_job")
+			ctx = instrument.Start(providedCtx, "ml.update_job")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -340,11 +340,9 @@ func (r *UpdateJob) FilterPath(filterpaths ...string) *UpdateJob {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *UpdateJob) Human(human bool) *UpdateJob {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -352,8 +350,8 @@ func (r *UpdateJob) Human(human bool) *UpdateJob {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *UpdateJob) Pretty(pretty bool) *UpdateJob {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -361,15 +359,15 @@ func (r *UpdateJob) Pretty(pretty bool) *UpdateJob {
 	return r
 }
 
-// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
-// there is insufficient machine learning node capacity for it to be
-// immediately assigned to a node. If `false` and a machine learning node
-// with capacity to run the job cannot immediately be found, the open
-// anomaly detection jobs API returns an error. However, this is also
-// subject to the cluster-wide `xpack.ml.max_lazy_ml_nodes` setting. If this
-// option is set to `true`, the open anomaly detection jobs API does not
-// return an error and the job waits in the opening state until sufficient
-// machine learning node capacity is available.
+// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
+// is insufficient machine learning node capacity for it to be immediately
+// assigned to a node. If `false` and a machine learning node with capacity to
+// run the job cannot immediately be found, the open anomaly detection jobs API
+// returns an error. However, this is also subject to the cluster-wide
+// `xpack.ml.max_lazy_ml_nodes` setting. If this option is set to `true`, the
+// open anomaly detection jobs API does not return an error and the job waits in
+// the opening state until sufficient machine learning node capacity is
+// available.
 // API name: allow_lazy_open
 func (r *UpdateJob) AllowLazyOpen(allowlazyopen bool) *UpdateJob {
 	if r.req == nil {
@@ -391,16 +389,13 @@ func (r *UpdateJob) AnalysisLimits(analysislimits *types.AnalysisMemoryLimit) *U
 	return r
 }
 
-// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence
-// of the model.
-// The default value is a randomized value between 3 to 4 hours, which
-// avoids all jobs persisting at exactly the same time. The smallest allowed
-// value is 1 hour.
-// For very large models (several GB), persistence could take 10-20 minutes,
-// so do not set the value too low.
-// If the job is open when you make the update, you must stop the datafeed,
-// close the job, then reopen the job and restart the datafeed for the
-// changes to take effect.
+// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence of
+// the model. The default value is a randomized value between 3 to 4 hours,
+// which avoids all jobs persisting at exactly the same time. The smallest
+// allowed value is 1 hour. For very large models (several GB), persistence
+// could take 10-20 minutes, so do not set the value too low. If the job is open
+// when you make the update, you must stop the datafeed, close the job, then
+// reopen the job and restart the datafeed for the changes to take effect.
 // API name: background_persist_interval
 func (r *UpdateJob) BackgroundPersistInterval(duration types.Duration) *UpdateJob {
 	if r.req == nil {
@@ -421,9 +416,9 @@ func (r *UpdateJob) CategorizationFilters(categorizationfilters ...string) *Upda
 	return r
 }
 
-// CustomSettings Advanced configuration option. Contains custom meta data about the job.
-// For example, it can contain custom URL information as shown in Adding
-// custom URLs to machine learning results.
+// CustomSettings Advanced configuration option. Contains custom meta data about the job. For
+// example, it can contain custom URL information as shown in Adding custom URLs
+// to machine learning results.
 // API name: custom_settings
 func (r *UpdateJob) CustomSettings(customsettings map[string]json.RawMessage) *UpdateJob {
 	if r.req == nil {
@@ -436,12 +431,11 @@ func (r *UpdateJob) CustomSettings(customsettings map[string]json.RawMessage) *U
 }
 
 // DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
-// model snapshots for this job. It specifies a period of time (in days)
-// after which only the first snapshot per day is retained. This period is
-// relative to the timestamp of the most recent snapshot for this job. Valid
-// values range from 0 to `model_snapshot_retention_days`. For jobs created
-// before version 7.8.0, the default value matches
-// `model_snapshot_retention_days`.
+// model snapshots for this job. It specifies a period of time (in days) after
+// which only the first snapshot per day is retained. This period is relative to
+// the timestamp of the most recent snapshot for this job. Valid values range
+// from 0 to `model_snapshot_retention_days`. For jobs created before version
+// 7.8.0, the default value matches `model_snapshot_retention_days`.
 // API name: daily_model_snapshot_retention_after_days
 func (r *UpdateJob) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int64) *UpdateJob {
 	if r.req == nil {
@@ -510,8 +504,8 @@ func (r *UpdateJob) ModelPruneWindow(duration types.Duration) *UpdateJob {
 
 // ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
 // model snapshots for this job. It specifies the maximum period of time (in
-// days) that snapshots are retained. This period is relative to the
-// timestamp of the most recent snapshot for this job.
+// days) that snapshots are retained. This period is relative to the timestamp
+// of the most recent snapshot for this job.
 // API name: model_snapshot_retention_days
 func (r *UpdateJob) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *UpdateJob {
 	if r.req == nil {
@@ -535,8 +529,8 @@ func (r *UpdateJob) PerPartitionCategorization(perpartitioncategorization *types
 	return r
 }
 
-// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the
-// score are applied, as new data is seen.
+// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the score
+// are applied, as new data is seen.
 // API name: renormalization_window_days
 func (r *UpdateJob) RenormalizationWindowDays(renormalizationwindowdays int64) *UpdateJob {
 	if r.req == nil {
@@ -548,12 +542,12 @@ func (r *UpdateJob) RenormalizationWindowDays(renormalizationwindowdays int64) *
 	return r
 }
 
-// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results
-// are retained. Age is calculated relative to the timestamp of the latest
-// bucket result. If this property has a non-null value, once per day at
-// 00:30 (server time), results that are the specified number of days older
-// than the latest bucket result are deleted from Elasticsearch. The default
-// value is null, which means all results are retained.
+// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results are
+// retained. Age is calculated relative to the timestamp of the latest bucket
+// result. If this property has a non-null value, once per day at 00:30 (server
+// time), results that are the specified number of days older than the latest
+// bucket result are deleted from Elasticsearch. The default value is null,
+// which means all results are retained.
 // API name: results_retention_days
 func (r *UpdateJob) ResultsRetentionDays(resultsretentiondays int64) *UpdateJob {
 	if r.req == nil {

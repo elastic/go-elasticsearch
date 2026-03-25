@@ -25,9 +25,8 @@ package types
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/nodes/_types/Stats.ts#L791-L801
 type IoStats struct {
 	// Devices Array of disk metrics for each device that is backing an Elasticsearch data
-	// path.
-	// These disk metrics are probed periodically and averages between the last
-	// probe and the current probe are computed.
+	// path. These disk metrics are probed periodically and averages between the
+	// last probe and the current probe are computed.
 	Devices []IoStatDevice `json:"devices,omitempty"`
 	// Total The sum of the disk metrics for all devices that back an Elasticsearch data
 	// path.

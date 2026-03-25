@@ -22,18 +22,16 @@
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
-// during computation.
-// It only works with the `chat_completion` task type for `openai` and `elastic`
-// inference services.
+// during computation. It only works with the `chat_completion` task type for
+// `openai` and `elastic` inference services.
 //
 // NOTE: The `chat_completion` task type is only available within the _stream
-// API and only supports streaming.
-// The Chat completion inference API and the Stream inference API differ in
-// their response structure and capabilities.
-// The Chat completion inference API provides more comprehensive customization
-// options through more fields and function calling support.
-// If you use the `openai`, `hugging_face` or the `elastic` service, use the
-// Chat completion inference API.
+// API and only supports streaming. The Chat completion inference API and the
+// Stream inference API differ in their response structure and capabilities. The
+// Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support. If you use the
+// `openai`, `hugging_face` or the `elastic` service, use the Chat completion
+// inference API.
 package chatcompletionunified
 
 import (
@@ -100,18 +98,16 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
-// during computation.
-// It only works with the `chat_completion` task type for `openai` and `elastic`
-// inference services.
+// during computation. It only works with the `chat_completion` task type for
+// `openai` and `elastic` inference services.
 //
 // NOTE: The `chat_completion` task type is only available within the _stream
-// API and only supports streaming.
-// The Chat completion inference API and the Stream inference API differ in
-// their response structure and capabilities.
-// The Chat completion inference API provides more comprehensive customization
-// options through more fields and function calling support.
-// If you use the `openai`, `hugging_face` or the `elastic` service, use the
-// Chat completion inference API.
+// API and only supports streaming. The Chat completion inference API and the
+// Stream inference API differ in their response structure and capabilities. The
+// Chat completion inference API provides more comprehensive customization
+// options through more fields and function calling support. If you use the
+// `openai`, `hugging_face` or the `elastic` service, use the Chat completion
+// inference API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/chat-completion-inference-api.html
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
@@ -238,7 +234,7 @@ func (r ChatCompletionUnified) Perform(providedCtx context.Context) (*http.Respo
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.chat_completion_unified")
+			ctx = instrument.Start(providedCtx, "inference.chat_completion_unified")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -376,11 +372,9 @@ func (r *ChatCompletionUnified) FilterPath(filterpaths ...string) *ChatCompletio
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *ChatCompletionUnified) Human(human bool) *ChatCompletionUnified {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -388,8 +382,8 @@ func (r *ChatCompletionUnified) Human(human bool) *ChatCompletionUnified {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *ChatCompletionUnified) Pretty(pretty bool) *ChatCompletionUnified {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -410,11 +404,11 @@ func (r *ChatCompletionUnified) MaxCompletionTokens(maxcompletiontokens int64) *
 	return r
 }
 
-// Messages A list of objects representing the conversation.
-// Requests should generally only add new messages from the user (role `user`).
-// The other message roles (`assistant`, `system`, or `tool`) should generally
-// only be copied from the response to a previous completion request, such that
-// the messages array is built up throughout a conversation.
+// Messages A list of objects representing the conversation. Requests should generally
+// only add new messages from the user (role `user`). The other message roles
+// (`assistant`, `system`, or `tool`) should generally only be copied from the
+// response to a previous completion request, such that the messages array is
+// built up throughout a conversation.
 // API name: messages
 func (r *ChatCompletionUnified) Messages(messages ...types.Message) *ChatCompletionUnified {
 	if r.req == nil {
@@ -461,13 +455,11 @@ func (r *ChatCompletionUnified) Temperature(temperature float32) *ChatCompletion
 	return r
 }
 
-// ToolChoice Controls which tool is called by the model.
-// String representation: One of `auto`, `none`, or `requrired`. `auto` allows
-// the model to choose between calling tools and generating a message. `none`
-// causes the model to not call any tools. `required` forces the model to call
-// one or more tools.
-// Example (object representation):
-// ```
+// ToolChoice Controls which tool is called by the model. String representation: One of
+// `auto`, `none`, or `requrired`. `auto` allows the model to choose between
+// calling tools and generating a message. `none` causes the model to not call
+// any tools. `required` forces the model to call one or more tools. Example
+// (object representation):
 //
 //	{
 //	  "tool_choice": {
@@ -478,7 +470,6 @@ func (r *ChatCompletionUnified) Temperature(temperature float32) *ChatCompletion
 //	  }
 //	}
 //
-// ```
 // API name: tool_choice
 func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionToolType) *ChatCompletionUnified {
 	if r.req == nil {
@@ -489,9 +480,7 @@ func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionTo
 	return r
 }
 
-// Tools A list of tools that the model can call.
-// Example:
-// ```
+// Tools A list of tools that the model can call. Example:
 //
 //	{
 //	  "tools": [
@@ -516,7 +505,6 @@ func (r *ChatCompletionUnified) ToolChoice(completiontooltype types.CompletionTo
 //	  ]
 //	}
 //
-// ```
 // API name: tools
 func (r *ChatCompletionUnified) Tools(tools ...types.CompletionTool) *ChatCompletionUnified {
 	if r.req == nil {

@@ -18,9 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Delete a lifecycle policy.
-// You cannot delete policies that are currently in use. If the policy is being
-// used to manage any indices, the request fails and returns an error.
+// Delete a lifecycle policy. You cannot delete policies that are currently in
+// use. If the policy is being used to manage any indices, the request fails and
+// returns an error.
 package deletelifecycle
 
 import (
@@ -78,9 +78,9 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 	}
 }
 
-// Delete a lifecycle policy.
-// You cannot delete policies that are currently in use. If the policy is being
-// used to manage any indices, the request fails and returns an error.
+// Delete a lifecycle policy. You cannot delete policies that are currently in
+// use. If the policy is being used to manage any indices, the request fails and
+// returns an error.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-delete-lifecycle.html
 func New(tp elastictransport.Interface) *DeleteLifecycle {
@@ -157,7 +157,7 @@ func (r DeleteLifecycle) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ilm.delete_lifecycle")
+			ctx = instrument.Start(providedCtx, "ilm.delete_lifecycle")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -344,11 +344,9 @@ func (r *DeleteLifecycle) FilterPath(filterpaths ...string) *DeleteLifecycle {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteLifecycle) Human(human bool) *DeleteLifecycle {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -356,8 +354,8 @@ func (r *DeleteLifecycle) Human(human bool) *DeleteLifecycle {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteLifecycle) Pretty(pretty bool) *DeleteLifecycle {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

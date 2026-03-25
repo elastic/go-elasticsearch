@@ -33,11 +33,11 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/ingest/_types/Processors.ts#L1422-L1442
 type ScriptProcessor struct {
-	// Description Description of the processor.
-	// Useful for describing the purpose of the processor or its configuration.
+	// Description Description of the processor. Useful for describing the purpose of the
+	// processor or its configuration.
 	Description *string `json:"description,omitempty"`
-	// Id ID of a stored script.
-	// If no `source` is specified, this parameter is required.
+	// Id ID of a stored script. If no `source` is specified, this parameter is
+	// required.
 	Id *string `json:"id,omitempty"`
 	// If Conditionally execute the processor.
 	If *string `json:"if,omitempty"`
@@ -49,11 +49,9 @@ type ScriptProcessor struct {
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Params Object containing parameters for the script.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
-	// Source Inline script.
-	// If no `id` is specified, this parameter is required.
+	// Source Inline script. If no `id` is specified, this parameter is required.
 	Source *string `json:"source,omitempty"`
-	// Tag Identifier for the processor.
-	// Useful for debugging and metrics.
+	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 }
 

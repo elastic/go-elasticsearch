@@ -18,12 +18,10 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Delete an index template.
-// The provided <index-template> may contain multiple template names separated
-// by a comma. If multiple template
-// names are specified then there is no wildcard support and the provided names
-// should match completely with
-// existing templates.
+// Delete an index template. The provided <index-template> may contain multiple
+// template names separated by a comma. If multiple template names are specified
+// then there is no wildcard support and the provided names should match
+// completely with existing templates.
 package deleteindextemplate
 
 import (
@@ -81,12 +79,10 @@ func NewDeleteIndexTemplateFunc(tp elastictransport.Interface) NewDeleteIndexTem
 	}
 }
 
-// Delete an index template.
-// The provided <index-template> may contain multiple template names separated
-// by a comma. If multiple template
-// names are specified then there is no wildcard support and the provided names
-// should match completely with
-// existing templates.
+// Delete an index template. The provided <index-template> may contain multiple
+// template names separated by a comma. If multiple template names are specified
+// then there is no wildcard support and the provided names should match
+// completely with existing templates.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-template.html
 func New(tp elastictransport.Interface) *DeleteIndexTemplate {
@@ -161,7 +157,7 @@ func (r DeleteIndexTemplate) Perform(providedCtx context.Context) (*http.Respons
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.delete_index_template")
+			ctx = instrument.Start(providedCtx, "indices.delete_index_template")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -349,11 +345,9 @@ func (r *DeleteIndexTemplate) FilterPath(filterpaths ...string) *DeleteIndexTemp
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteIndexTemplate) Human(human bool) *DeleteIndexTemplate {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -361,8 +355,8 @@ func (r *DeleteIndexTemplate) Human(human bool) *DeleteIndexTemplate {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteIndexTemplate) Pretty(pretty bool) *DeleteIndexTemplate {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

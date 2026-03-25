@@ -18,13 +18,12 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get information.
-// The information provided by the API includes:
+// Get information. The information provided by the API includes:
 //
-// * Build information including the build number and timestamp.
-// * License information about the currently installed license.
-// * Feature information for the features that are currently enabled and
-// available under the current license.
+//   - Build information including the build number and timestamp.
+//   - License information about the currently installed license.
+//   - Feature information for the features that are currently enabled and
+//     available under the current license.
 package info
 
 import (
@@ -75,13 +74,12 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Get information.
-// The information provided by the API includes:
+// Get information. The information provided by the API includes:
 //
-// * Build information including the build number and timestamp.
-// * License information about the currently installed license.
-// * Feature information for the features that are currently enabled and
-// available under the current license.
+//   - Build information including the build number and timestamp.
+//   - License information about the currently installed license.
+//   - Feature information for the features that are currently enabled and
+//     available under the current license.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
 func New(tp elastictransport.Interface) *Info {
@@ -150,7 +148,7 @@ func (r Info) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "xpack.info")
+			ctx = instrument.Start(providedCtx, "xpack.info")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -288,8 +286,7 @@ func (r *Info) Header(key, value string) *Info {
 }
 
 // Categories A comma-separated list of the information categories to include in the
-// response.
-// For example, `build,license,features`.
+// response. For example, `build,license,features`.
 // API name: categories
 func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	tmp := []string{}
@@ -310,8 +307,7 @@ func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
 }
 
 // Human Defines whether additional human-readable information is included in the
-// response.
-// In particular, it adds descriptions and a tag line.
+// response. In particular, it adds descriptions and a tag line.
 // API name: human
 func (r *Info) Human(human bool) *Info {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -341,8 +337,8 @@ func (r *Info) FilterPath(filterpaths ...string) *Info {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Info) Pretty(pretty bool) *Info {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

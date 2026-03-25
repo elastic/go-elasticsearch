@@ -20,12 +20,11 @@
 
 // Get index template information.
 //
-// Get information about the index templates in a cluster.
-// You can use index templates to apply index settings and field mappings to new
-// indices at creation.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the get index template API.
+// Get information about the index templates in a cluster. You can use index
+// templates to apply index settings and field mappings to new indices at
+// creation. IMPORTANT: cat APIs are only intended for human consumption using
+// the command line or Kibana console. They are not intended for use by
+// applications. For application consumption, use the get index template API.
 package templates
 
 import (
@@ -83,12 +82,11 @@ func NewTemplatesFunc(tp elastictransport.Interface) NewTemplates {
 
 // Get index template information.
 //
-// Get information about the index templates in a cluster.
-// You can use index templates to apply index settings and field mappings to new
-// indices at creation.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the get index template API.
+// Get information about the index templates in a cluster. You can use index
+// templates to apply index settings and field mappings to new indices at
+// creation. IMPORTANT: cat APIs are only intended for human consumption using
+// the command line or Kibana console. They are not intended for use by
+// applications. For application consumption, use the get index template API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-templates.html
 func New(tp elastictransport.Interface) *Templates {
@@ -172,7 +170,7 @@ func (r Templates) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.templates")
+			ctx = instrument.Start(providedCtx, "cat.templates")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -309,8 +307,8 @@ func (r *Templates) Header(key, value string) *Templates {
 	return r
 }
 
-// Name The name of the template to return.
-// Accepts wildcard expressions. If omitted, all templates are returned.
+// Name The name of the template to return. Accepts wildcard expressions. If omitted,
+// all templates are returned.
 // API Name: name
 func (r *Templates) Name(name string) *Templates {
 	r.paramSet |= nameMask
@@ -327,9 +325,9 @@ func (r *Templates) H(names ...string) *Templates {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Templates) S(names ...string) *Templates {
 	r.values.Set("s", strings.Join(names, ","))
@@ -337,10 +335,10 @@ func (r *Templates) S(names ...string) *Templates {
 	return r
 }
 
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
+// Local If `true`, the request computes the list of selected nodes from the local
+// cluster state. If `false` the list of selected nodes are computed from the
+// cluster state of the master node. In both cases the coordinating node will
+// send requests for further information to each selected node.
 // API name: local
 func (r *Templates) Local(local bool) *Templates {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -356,8 +354,8 @@ func (r *Templates) MasterTimeout(duration string) *Templates {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Templates) Format(format string) *Templates {
 	r.values.Set("format", format)
@@ -365,8 +363,8 @@ func (r *Templates) Format(format string) *Templates {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Templates) Help(help bool) *Templates {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -405,11 +403,9 @@ func (r *Templates) FilterPath(filterpaths ...string) *Templates {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Templates) Human(human bool) *Templates {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -417,8 +413,8 @@ func (r *Templates) Human(human bool) *Templates {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Templates) Pretty(pretty bool) *Templates {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

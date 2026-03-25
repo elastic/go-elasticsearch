@@ -18,14 +18,13 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get feature migration information.
-// Version upgrades sometimes require changes to how features store
-// configuration information and data in system indices.
+// Get feature migration information. Version upgrades sometimes require changes
+// to how features store configuration information and data in system indices.
 // Check which features need to be migrated and the status of any migrations
 // that are in progress.
 //
-// TIP: This API is designed for indirect use by the Upgrade Assistant.
-// You are strongly recommended to use the Upgrade Assistant.
+// TIP: This API is designed for indirect use by the Upgrade Assistant. You are
+// strongly recommended to use the Upgrade Assistant.
 package getfeatureupgradestatus
 
 import (
@@ -75,14 +74,13 @@ func NewGetFeatureUpgradeStatusFunc(tp elastictransport.Interface) NewGetFeature
 	}
 }
 
-// Get feature migration information.
-// Version upgrades sometimes require changes to how features store
-// configuration information and data in system indices.
+// Get feature migration information. Version upgrades sometimes require changes
+// to how features store configuration information and data in system indices.
 // Check which features need to be migrated and the status of any migrations
 // that are in progress.
 //
-// TIP: This API is designed for indirect use by the Upgrade Assistant.
-// You are strongly recommended to use the Upgrade Assistant.
+// TIP: This API is designed for indirect use by the Upgrade Assistant. You are
+// strongly recommended to use the Upgrade Assistant.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/feature-migration-api.html
 func New(tp elastictransport.Interface) *GetFeatureUpgradeStatus {
@@ -153,7 +151,7 @@ func (r GetFeatureUpgradeStatus) Perform(providedCtx context.Context) (*http.Res
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "migration.get_feature_upgrade_status")
+			ctx = instrument.Start(providedCtx, "migration.get_feature_upgrade_status")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -313,11 +311,9 @@ func (r *GetFeatureUpgradeStatus) FilterPath(filterpaths ...string) *GetFeatureU
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetFeatureUpgradeStatus) Human(human bool) *GetFeatureUpgradeStatus {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -325,8 +321,8 @@ func (r *GetFeatureUpgradeStatus) Human(human bool) *GetFeatureUpgradeStatus {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetFeatureUpgradeStatus) Pretty(pretty bool) *GetFeatureUpgradeStatus {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

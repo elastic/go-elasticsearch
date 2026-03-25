@@ -18,8 +18,7 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get an enrich policy.
-// Returns information about an enrich policy.
+// Get an enrich policy. Returns information about an enrich policy.
 package getpolicy
 
 import (
@@ -75,8 +74,7 @@ func NewGetPolicyFunc(tp elastictransport.Interface) NewGetPolicy {
 	}
 }
 
-// Get an enrich policy.
-// Returns information about an enrich policy.
+// Get an enrich policy. Returns information about an enrich policy.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html
 func New(tp elastictransport.Interface) *GetPolicy {
@@ -160,7 +158,7 @@ func (r GetPolicy) Perform(providedCtx context.Context) (*http.Response, error) 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "enrich.get_policy")
+			ctx = instrument.Start(providedCtx, "enrich.get_policy")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -297,8 +295,8 @@ func (r *GetPolicy) Header(key, value string) *GetPolicy {
 	return r
 }
 
-// Name Comma-separated list of enrich policy names used to limit the request.
-// To return information for all enrich policies, omit this parameter.
+// Name Comma-separated list of enrich policy names used to limit the request. To
+// return information for all enrich policies, omit this parameter.
 // API Name: name
 func (r *GetPolicy) Name(name string) *GetPolicy {
 	r.paramSet |= nameMask
@@ -338,11 +336,9 @@ func (r *GetPolicy) FilterPath(filterpaths ...string) *GetPolicy {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetPolicy) Human(human bool) *GetPolicy {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -350,8 +346,8 @@ func (r *GetPolicy) Human(human bool) *GetPolicy {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetPolicy) Pretty(pretty bool) *GetPolicy {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

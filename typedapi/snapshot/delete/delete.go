@@ -162,7 +162,7 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.delete")
+			ctx = instrument.Start(providedCtx, "snapshot.delete")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -326,9 +326,8 @@ func (r *Delete) MasterTimeout(duration string) *Delete {
 }
 
 // WaitForCompletion If `true`, the request returns a response when the matching snapshots are all
-// deleted.
-// If `false`, the request returns a response as soon as the deletes are
-// scheduled.
+// deleted. If `false`, the request returns a response as soon as the deletes
+// are scheduled.
 // API name: wait_for_completion
 func (r *Delete) WaitForCompletion(waitforcompletion bool) *Delete {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -359,11 +358,9 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Delete) Human(human bool) *Delete {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -371,8 +368,8 @@ func (r *Delete) Human(human bool) *Delete {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Delete) Pretty(pretty bool) *Delete {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

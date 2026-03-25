@@ -29,56 +29,87 @@ type CatRecoveryColumn struct {
 }
 
 var (
+
+	// Index The name of the index.
 	Index = CatRecoveryColumn{"index"}
 
+	// Shard The name of the shard.
 	Shard = CatRecoveryColumn{"shard"}
 
+	// Time The recovery time elasped.
 	Time = CatRecoveryColumn{"time"}
 
+	// Type The type of recovery, from a peer or a snapshot.
 	Type = CatRecoveryColumn{"type"}
 
+	// Stage The stage of the recovery. Returned values are: `INIT`, `INDEX`: recovery of
+	// lucene files, either reusing local ones are copying new ones, `VERIFY_INDEX`:
+	// potentially running check index, `TRANSLOG`: starting up the engine,
+	// replaying the translog, `FINALIZE`: performing final task after all translog
+	// ops have been done, `DONE`
 	Stage = CatRecoveryColumn{"stage"}
 
+	// Sourcehost The host address the index is moving from.
 	Sourcehost = CatRecoveryColumn{"source_host"}
 
+	// Sourcenode The node name the index is moving from.
 	Sourcenode = CatRecoveryColumn{"source_node"}
 
+	// Targethost The host address the index is moving to.
 	Targethost = CatRecoveryColumn{"target_host"}
 
+	// Targetnode The node name the index is moving to.
 	Targetnode = CatRecoveryColumn{"target_node"}
 
+	// Repository The name of the repository being used. if not relevant 'n/a'.
 	Repository = CatRecoveryColumn{"repository"}
 
+	// Snapshot The name of the snapshot being used. if not relevant 'n/a'.
 	Snapshot = CatRecoveryColumn{"snapshot"}
 
+	// Files The total number of files to recover.
 	Files = CatRecoveryColumn{"files"}
 
+	// Filesrecovered The number of files currently recovered.
 	Filesrecovered = CatRecoveryColumn{"files_recovered"}
 
+	// Filespercent The percentage of files currently recovered.
 	Filespercent = CatRecoveryColumn{"files_percent"}
 
+	// Filestotal The total number of files.
 	Filestotal = CatRecoveryColumn{"files_total"}
 
+	// Bytes The total number of bytes to recover.
 	Bytes = CatRecoveryColumn{"bytes"}
 
+	// Bytesrecovered Total number of bytes currently recovered.
 	Bytesrecovered = CatRecoveryColumn{"bytes_recovered"}
 
+	// Bytespercent The percentage of bytes currently recovered.
 	Bytespercent = CatRecoveryColumn{"bytes_percent"}
 
+	// Bytestotal The total number of bytes.
 	Bytestotal = CatRecoveryColumn{"bytes_total"}
 
+	// Translogops The total number of translog ops to recover.
 	Translogops = CatRecoveryColumn{"translog_ops"}
 
+	// Translogopsrecovered The total number of translog ops currently recovered.
 	Translogopsrecovered = CatRecoveryColumn{"translog_ops_recovered"}
 
+	// Translogopspercent The percentage of translog ops currently recovered.
 	Translogopspercent = CatRecoveryColumn{"translog_ops_percent"}
 
+	// Starttime The start time of the recovery operation.
 	Starttime = CatRecoveryColumn{"start_time"}
 
+	// Starttimemillis The start time of the recovery operation in eopch milliseconds.
 	Starttimemillis = CatRecoveryColumn{"start_time_millis"}
 
+	// Stoptime The end time of the recovery operation. If ongoing '1970-01-01T00:00:00.000Z'
 	Stoptime = CatRecoveryColumn{"stop_time"}
 
+	// Stoptimemillis The end time of the recovery operation in eopch milliseconds. If ongoing '0'
 	Stoptimemillis = CatRecoveryColumn{"stop_time_millis"}
 )
 

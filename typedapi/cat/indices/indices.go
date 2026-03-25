@@ -25,22 +25,21 @@
 //
 // Use this request to get the following information for each index in a
 // cluster:
-// - shard count
-// - document count
-// - deleted document count
-// - primary store size
-// - total store size of all shards, including shard replicas
+//
+//   - shard count
+//   - document count
+//   - deleted document count
+//   - primary store size
+//   - total store size of all shards, including shard replicas
 //
 // These metrics are retrieved directly from Lucene, which Elasticsearch uses
 // internally to power indexing and search. As a result, all document counts
-// include hidden nested documents.
-// To get an accurate count of Elasticsearch documents, use the cat count or
-// count APIs.
+// include hidden nested documents. To get an accurate count of Elasticsearch
+// documents, use the cat count or count APIs.
 //
 // CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use an index endpoint.
+// Kibana console. They are not intended for use by applications. For
+// application consumption, use an index endpoint.
 package indices
 
 import (
@@ -107,22 +106,21 @@ func NewIndicesFunc(tp elastictransport.Interface) NewIndices {
 //
 // Use this request to get the following information for each index in a
 // cluster:
-// - shard count
-// - document count
-// - deleted document count
-// - primary store size
-// - total store size of all shards, including shard replicas
+//
+//   - shard count
+//   - document count
+//   - deleted document count
+//   - primary store size
+//   - total store size of all shards, including shard replicas
 //
 // These metrics are retrieved directly from Lucene, which Elasticsearch uses
 // internally to power indexing and search. As a result, all document counts
-// include hidden nested documents.
-// To get an accurate count of Elasticsearch documents, use the cat count or
-// count APIs.
+// include hidden nested documents. To get an accurate count of Elasticsearch
+// documents, use the cat count or count APIs.
 //
 // CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use an index endpoint.
+// Kibana console. They are not intended for use by applications. For
+// application consumption, use an index endpoint.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-indices.html
 func New(tp elastictransport.Interface) *Indices {
@@ -206,7 +204,7 @@ func (r Indices) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.indices")
+			ctx = instrument.Start(providedCtx, "cat.indices")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -344,9 +342,8 @@ func (r *Indices) Header(key, value string) *Indices {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request.
-// Supports wildcards (`*`). To target all data streams and indices, omit this
-// parameter or use `*` or `_all`.
+// request. Supports wildcards (`*`). To target all data streams and indices,
+// omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Indices) Index(index string) *Indices {
 	r.paramSet |= indexMask
@@ -425,9 +422,9 @@ func (r *Indices) H(names ...string) *Indices {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Indices) S(names ...string) *Indices {
 	r.values.Set("s", strings.Join(names, ","))
@@ -435,8 +432,8 @@ func (r *Indices) S(names ...string) *Indices {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Indices) Format(format string) *Indices {
 	r.values.Set("format", format)
@@ -444,8 +441,8 @@ func (r *Indices) Format(format string) *Indices {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Indices) Help(help bool) *Indices {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -484,11 +481,9 @@ func (r *Indices) FilterPath(filterpaths ...string) *Indices {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Indices) Human(human bool) *Indices {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -496,8 +491,8 @@ func (r *Indices) Human(human bool) *Indices {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Indices) Pretty(pretty bool) *Indices {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -33,18 +33,17 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/rerank/RerankRequest.ts#L25-L72
 type Request struct {
-	// Input The text on which you want to perform the inference task.
-	// It can be a single string or an array.
+	// Input The text on which you want to perform the inference task. It can be a single
+	// string or an array.
 	//
-	// > info
-	// > Inference endpoints for the `completion` task type currently only support a
-	// single string as input.
+	// > info > Inference endpoints for the `completion` task type currently only
+	// support a single string as input.
 	Input []string `json:"input"`
 	// Query Query input.
 	Query string `json:"query"`
-	// TaskSettings Task settings for the individual inference request.
-	// These settings are specific to the task type you specified and override the
-	// task settings specified when initializing the service.
+	// TaskSettings Task settings for the individual inference request. These settings are
+	// specific to the task type you specified and override the task settings
+	// specified when initializing the service.
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 

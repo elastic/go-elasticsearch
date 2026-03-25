@@ -75,14 +75,14 @@ type TransformsRecord struct {
 	// IndexedDocumentsExpAvg The exponential moving average of the number of new documents that have been
 	// indexed.
 	IndexedDocumentsExpAvg *string `json:"indexed_documents_exp_avg,omitempty"`
-	// LastSearchTime The timestamp of the last search in the source indices.
-	// This field is shown only if the transform is running.
+	// LastSearchTime The timestamp of the last search in the source indices. This field is shown
+	// only if the transform is running.
 	LastSearchTime *string `json:"last_search_time,omitempty"`
 	// MaxPageSearchSize The initial page size that is used for the composite aggregation for each
 	// checkpoint.
 	MaxPageSearchSize *string `json:"max_page_search_size,omitempty"`
-	// PagesProcessed The number of search or bulk index operations processed.
-	// Documents are processed in batches instead of individually.
+	// PagesProcessed The number of search or bulk index operations processed. Documents are
+	// processed in batches instead of individually.
 	PagesProcessed *string `json:"pages_processed,omitempty"`
 	// Pipeline The unique identifier for the ingest pipeline.
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -102,23 +102,18 @@ type TransformsRecord struct {
 	SearchTotal *string `json:"search_total,omitempty"`
 	// SourceIndex The source indices for the transform.
 	SourceIndex *string `json:"source_index,omitempty"`
-	// State The status of the transform.
-	// Returned values include:
-	// `aborting`: The transform is aborting.
-	// `failed: The transform failed. For more information about the failure, check
-	// the `reason` field.
-	// `indexing`: The transform is actively processing data and creating new
-	// documents.
-	// `started`: The transform is running but not actively indexing data.
-	// `stopped`: The transform is stopped.
-	// `stopping`: The transform is stopping.
+	// State The status of the transform. Returned values include: `aborting`: The
+	// transform is aborting. `failed: The transform failed. For more information
+	// about the failure, check the `reason` field. `indexing`: The transform is
+	// actively processing data and creating new documents. `started`: The transform
+	// is running but not actively indexing data. `stopped`: The transform is
+	// stopped. `stopping`: The transform is stopping.
 	State *string `json:"state,omitempty"`
 	// TransformType The type of transform: `batch` or `continuous`.
 	TransformType *string `json:"transform_type,omitempty"`
-	// TriggerCount The number of times the transform has been triggered by the scheduler.
-	// For example, the scheduler triggers the transform indexer to check for
-	// updates or ingest new data at an interval specified in the `frequency`
-	// property.
+	// TriggerCount The number of times the transform has been triggered by the scheduler. For
+	// example, the scheduler triggers the transform indexer to check for updates or
+	// ingest new data at an interval specified in the `frequency` property.
 	TriggerCount *string `json:"trigger_count,omitempty"`
 	// Version The version of Elasticsearch that existed on the node when the transform was
 	// created.

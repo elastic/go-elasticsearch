@@ -177,7 +177,7 @@ func (r MlTrainedModels) Perform(providedCtx context.Context) (*http.Response, e
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.ml_trained_models")
+			ctx = instrument.Start(providedCtx, "cat.ml_trained_models")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -326,11 +326,10 @@ func (r *MlTrainedModels) ModelId(modelid string) *MlTrainedModels {
 // AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
 // there are no models that match; contains the `_all` string or no identifiers
 // and there are no matches; contains wildcard expressions and there are only
-// partial matches.
-// If `true`, the API returns an empty array when there are no matches and the
-// subset of results when there are partial matches.
-// If `false`, the API returns a 404 status code when there are no matches or
-// only partial matches.
+// partial matches. If `true`, the API returns an empty array when there are no
+// matches and the subset of results when there are partial matches. If `false`,
+// the API returns a 404 status code when there are no matches or only partial
+// matches.
 // API name: allow_no_match
 func (r *MlTrainedModels) AllowNoMatch(allownomatch bool) *MlTrainedModels {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -394,8 +393,8 @@ func (r *MlTrainedModels) Time(time timeunit.TimeUnit) *MlTrainedModels {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 	r.values.Set("format", format)
@@ -403,8 +402,8 @@ func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *MlTrainedModels) Help(help bool) *MlTrainedModels {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -443,11 +442,9 @@ func (r *MlTrainedModels) FilterPath(filterpaths ...string) *MlTrainedModels {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *MlTrainedModels) Human(human bool) *MlTrainedModels {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -455,8 +452,8 @@ func (r *MlTrainedModels) Human(human bool) *MlTrainedModels {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *MlTrainedModels) Pretty(pretty bool) *MlTrainedModels {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

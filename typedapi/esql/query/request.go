@@ -40,10 +40,8 @@ type Request struct {
 	// documents that an ES|QL query runs on.
 	Filter *types.Query `json:"filter,omitempty"`
 	// IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
-	// include an extra `_clusters`
-	// object with information about the clusters that participated in the search
-	// along with info such as shards
-	// count.
+	// include an extra `_clusters` object with information about the clusters that
+	// participated in the search along with info such as shards count.
 	IncludeCcsMetadata *bool   `json:"include_ccs_metadata,omitempty"`
 	Locale             *string `json:"locale,omitempty"`
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
@@ -52,16 +50,14 @@ type Request struct {
 	Params []types.FieldValue `json:"params,omitempty"`
 	// Profile If provided and `true` the response will include an extra `profile` object
 	// with information on how the query was executed. This information is for human
-	// debugging
-	// and its format can change at any time but it can give some insight into the
-	// performance
-	// of each part of the query.
+	// debugging and its format can change at any time but it can give some insight
+	// into the performance of each part of the query.
 	Profile *bool `json:"profile,omitempty"`
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
-	// Tables Tables to use with the LOOKUP operation. The top level key is the table
-	// name and the next level key is the column name.
+	// Tables Tables to use with the LOOKUP operation. The top level key is the table name
+	// and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
 }
 

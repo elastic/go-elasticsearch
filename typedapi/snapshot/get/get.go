@@ -164,7 +164,7 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "snapshot.get")
+			ctx = instrument.Start(providedCtx, "snapshot.get")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -313,10 +313,12 @@ func (r *Get) _repository(repository string) *Get {
 
 // Snapshot Comma-separated list of snapshot names to retrieve. Also accepts wildcards
 // (*).
-// - To get information about all snapshots in a registered repository, use a
-// wildcard (*) or _all.
-// - To get information about any snapshots that are currently running, use
-// _current.
+//
+//   - To get information about all snapshots in a registered repository, use a
+//     wildcard (*) or _all.
+//   - To get information about any snapshots that are currently running, use
+//     _current.
+//
 // API Name: snapshot
 func (r *Get) _snapshot(snapshot string) *Get {
 	r.paramSet |= snapshotMask
@@ -472,11 +474,9 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Get) Human(human bool) *Get {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -484,8 +484,8 @@ func (r *Get) Human(human bool) *Get {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Get) Pretty(pretty bool) *Get {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

@@ -159,7 +159,7 @@ func (r GetTrainedModels) Perform(providedCtx context.Context) (*http.Response, 
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.get_trained_models")
+			ctx = instrument.Start(providedCtx, "ml.get_trained_models")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -298,9 +298,8 @@ func (r *GetTrainedModels) Header(key, value string) *GetTrainedModels {
 
 // ModelId The unique identifier of the trained model or a model alias.
 //
-// You can get information for multiple trained models in a single API
-// request by using a comma-separated list of model IDs or a wildcard
-// expression.
+// You can get information for multiple trained models in a single API request
+// by using a comma-separated list of model IDs or a wildcard expression.
 // API Name: modelid
 func (r *GetTrainedModels) ModelId(modelid string) *GetTrainedModels {
 	r.paramSet |= modelidMask
@@ -311,12 +310,12 @@ func (r *GetTrainedModels) ModelId(modelid string) *GetTrainedModels {
 
 // AllowNoMatch Specifies what to do when the request:
 //
-// - Contains wildcard expressions and there are no models that match.
-// - Contains the _all string or no identifiers and there are no matches.
-// - Contains wildcard expressions and there are only partial matches.
+//   - Contains wildcard expressions and there are no models that match.
+//   - Contains the _all string or no identifiers and there are no matches.
+//   - Contains wildcard expressions and there are only partial matches.
 //
-// If true, it returns an empty array when there are no matches and the
-// subset of results when there are partial matches.
+// If true, it returns an empty array when there are no matches and the subset
+// of results when there are partial matches.
 // API name: allow_no_match
 func (r *GetTrainedModels) AllowNoMatch(allownomatch bool) *GetTrainedModels {
 	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
@@ -324,8 +323,8 @@ func (r *GetTrainedModels) AllowNoMatch(allownomatch bool) *GetTrainedModels {
 	return r
 }
 
-// DecompressDefinition Specifies whether the included model definition should be returned as a
-// JSON map (true) or in a custom compressed format (false).
+// DecompressDefinition Specifies whether the included model definition should be returned as a JSON
+// map (true) or in a custom compressed format (false).
 // API name: decompress_definition
 func (r *GetTrainedModels) DecompressDefinition(decompressdefinition bool) *GetTrainedModels {
 	r.values.Set("decompress_definition", strconv.FormatBool(decompressdefinition))
@@ -334,8 +333,8 @@ func (r *GetTrainedModels) DecompressDefinition(decompressdefinition bool) *GetT
 }
 
 // ExcludeGenerated Indicates if certain fields should be removed from the configuration on
-// retrieval. This allows the configuration to be in an acceptable format to
-// be retrieved and then added to another cluster.
+// retrieval. This allows the configuration to be in an acceptable format to be
+// retrieved and then added to another cluster.
 // API name: exclude_generated
 func (r *GetTrainedModels) ExcludeGenerated(excludegenerated bool) *GetTrainedModels {
 	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
@@ -351,8 +350,7 @@ func (r *GetTrainedModels) From(from int) *GetTrainedModels {
 	return r
 }
 
-// Include A comma delimited string of optional fields to include in the response
-// body.
+// Include A comma delimited string of optional fields to include in the response body.
 // API name: include
 func (r *GetTrainedModels) Include(include include.Include) *GetTrainedModels {
 	r.values.Set("include", include.String())
@@ -377,8 +375,8 @@ func (r *GetTrainedModels) Size(size int) *GetTrainedModels {
 }
 
 // Tags A comma delimited string of tags. A trained model can have many tags, or
-// none. When supplied, only trained models that contain all the supplied
-// tags are returned.
+// none. When supplied, only trained models that contain all the supplied tags
+// are returned.
 // API name: tags
 func (r *GetTrainedModels) Tags(tags ...string) *GetTrainedModels {
 	tmp := []string{}
@@ -413,11 +411,9 @@ func (r *GetTrainedModels) FilterPath(filterpaths ...string) *GetTrainedModels {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *GetTrainedModels) Human(human bool) *GetTrainedModels {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -425,8 +421,8 @@ func (r *GetTrainedModels) Human(human bool) *GetTrainedModels {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *GetTrainedModels) Pretty(pretty bool) *GetTrainedModels {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

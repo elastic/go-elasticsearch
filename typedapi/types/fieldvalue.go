@@ -29,5 +29,7 @@ package types
 //	nil
 //	json.RawMessage
 //
+// A field value.
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/common.ts#L25-L37
 type FieldValue any

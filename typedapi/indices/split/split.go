@@ -18,54 +18,50 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Split an index.
-// Split an index into a new index with more primary shards.
-// * Before you can split an index:
+// Split an index. Split an index into a new index with more primary shards.
 //
-// * The index must be read-only.
-// * The cluster health status must be green.
+//   - Before you can split an index:
+//   - The index must be read-only.
+//   - The cluster health status must be green.
 //
 // You can do make an index read-only with the following request using the add
 // index block API:
 //
-// ```
-// PUT /my_source_index/_block/write
-// ```
+//	PUT /my_source_index/_block/write
 //
-// The current write index on a data stream cannot be split.
-// In order to split the current write index, the data stream must first be
-// rolled over so that a new write index is created and then the previous write
-// index can be split.
+// The current write index on a data stream cannot be split. In order to split
+// the current write index, the data stream must first be rolled over so that a
+// new write index is created and then the previous write index can be split.
 //
 // The number of times the index can be split (and the number of shards that
 // each original shard can be split into) is determined by the
-// `index.number_of_routing_shards` setting.
-// The number of routing shards specifies the hashing space that is used
-// internally to distribute documents across shards with consistent hashing.
-// For instance, a 5 shard index with `number_of_routing_shards` set to 30 (5 x
-// 2 x 3) could be split by a factor of 2 or 3.
+// `index.number_of_routing_shards` setting. The number of routing shards
+// specifies the hashing space that is used internally to distribute documents
+// across shards with consistent hashing. For instance, a 5 shard index with
+// `number_of_routing_shards` set to 30 (5 x 2 x 3) could be split by a factor
+// of 2 or 3.
 //
 // A split operation:
 //
-// * Creates a new target index with the same definition as the source index,
-// but with a larger number of primary shards.
-// * Hard-links segments from the source index into the target index. If the
-// file system doesn't support hard-linking, all segments are copied into the
-// new index, which is a much more time consuming process.
-// * Hashes all documents again, after low level files are created, to delete
-// documents that belong to a different shard.
-// * Recovers the target index as though it were a closed index which had just
-// been re-opened.
+//   - Creates a new target index with the same definition as the source index,
+//     but with a larger number of primary shards.
+//   - Hard-links segments from the source index into the target index. If the
+//     file system doesn't support hard-linking, all segments are copied into
+//     the new index, which is a much more time consuming process.
+//   - Hashes all documents again, after low level files are created, to delete
+//     documents that belong to a different shard.
+//   - Recovers the target index as though it were a closed index which had just
+//     been re-opened.
 //
 // IMPORTANT: Indices can only be split if they satisfy the following
 // requirements:
 //
-// * The target index must not exist.
-// * The source index must have fewer primary shards than the target index.
-// * The number of primary shards in the target index must be a multiple of the
-// number of primary shards in the source index.
-// * The node handling the split process must have sufficient free disk space to
-// accommodate a second copy of the existing index.
+//   - The target index must not exist.
+//   - The source index must have fewer primary shards than the target index.
+//   - The number of primary shards in the target index must be a multiple of
+//     the number of primary shards in the source index.
+//   - The node handling the split process must have sufficient free disk space
+//     to accommodate a second copy of the existing index.
 package split
 
 import (
@@ -133,54 +129,50 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 	}
 }
 
-// Split an index.
-// Split an index into a new index with more primary shards.
-// * Before you can split an index:
+// Split an index. Split an index into a new index with more primary shards.
 //
-// * The index must be read-only.
-// * The cluster health status must be green.
+//   - Before you can split an index:
+//   - The index must be read-only.
+//   - The cluster health status must be green.
 //
 // You can do make an index read-only with the following request using the add
 // index block API:
 //
-// ```
-// PUT /my_source_index/_block/write
-// ```
+//	PUT /my_source_index/_block/write
 //
-// The current write index on a data stream cannot be split.
-// In order to split the current write index, the data stream must first be
-// rolled over so that a new write index is created and then the previous write
-// index can be split.
+// The current write index on a data stream cannot be split. In order to split
+// the current write index, the data stream must first be rolled over so that a
+// new write index is created and then the previous write index can be split.
 //
 // The number of times the index can be split (and the number of shards that
 // each original shard can be split into) is determined by the
-// `index.number_of_routing_shards` setting.
-// The number of routing shards specifies the hashing space that is used
-// internally to distribute documents across shards with consistent hashing.
-// For instance, a 5 shard index with `number_of_routing_shards` set to 30 (5 x
-// 2 x 3) could be split by a factor of 2 or 3.
+// `index.number_of_routing_shards` setting. The number of routing shards
+// specifies the hashing space that is used internally to distribute documents
+// across shards with consistent hashing. For instance, a 5 shard index with
+// `number_of_routing_shards` set to 30 (5 x 2 x 3) could be split by a factor
+// of 2 or 3.
 //
 // A split operation:
 //
-// * Creates a new target index with the same definition as the source index,
-// but with a larger number of primary shards.
-// * Hard-links segments from the source index into the target index. If the
-// file system doesn't support hard-linking, all segments are copied into the
-// new index, which is a much more time consuming process.
-// * Hashes all documents again, after low level files are created, to delete
-// documents that belong to a different shard.
-// * Recovers the target index as though it were a closed index which had just
-// been re-opened.
+//   - Creates a new target index with the same definition as the source index,
+//     but with a larger number of primary shards.
+//   - Hard-links segments from the source index into the target index. If the
+//     file system doesn't support hard-linking, all segments are copied into
+//     the new index, which is a much more time consuming process.
+//   - Hashes all documents again, after low level files are created, to delete
+//     documents that belong to a different shard.
+//   - Recovers the target index as though it were a closed index which had just
+//     been re-opened.
 //
 // IMPORTANT: Indices can only be split if they satisfy the following
 // requirements:
 //
-// * The target index must not exist.
-// * The source index must have fewer primary shards than the target index.
-// * The number of primary shards in the target index must be a multiple of the
-// number of primary shards in the source index.
-// * The node handling the split process must have sufficient free disk space to
-// accommodate a second copy of the existing index.
+//   - The target index must not exist.
+//   - The source index must have fewer primary shards than the target index.
+//   - The number of primary shards in the target index must be a multiple of
+//     the number of primary shards in the source index.
+//   - The node handling the split process must have sufficient free disk space
+//     to accommodate a second copy of the existing index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-split-index.html
 func New(tp elastictransport.Interface) *Split {
@@ -309,7 +301,7 @@ func (r Split) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.split")
+			ctx = instrument.Start(providedCtx, "indices.split")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -425,9 +417,8 @@ func (r *Split) _target(target string) *Split {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
 func (r *Split) MasterTimeout(duration string) *Split {
 	r.values.Set("master_timeout", duration)
@@ -435,9 +426,8 @@ func (r *Split) MasterTimeout(duration string) *Split {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
 // API name: timeout
 func (r *Split) Timeout(duration string) *Split {
 	r.values.Set("timeout", duration)
@@ -446,9 +436,8 @@ func (r *Split) Timeout(duration string) *Split {
 }
 
 // WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to `all` or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// operation. Set to `all` or any positive integer up to the total number of
+// shards in the index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Split) WaitForActiveShards(waitforactiveshards string) *Split {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -479,11 +468,9 @@ func (r *Split) FilterPath(filterpaths ...string) *Split {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Split) Human(human bool) *Split {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -491,8 +478,8 @@ func (r *Split) Human(human bool) *Split {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Split) Pretty(pretty bool) *Split {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

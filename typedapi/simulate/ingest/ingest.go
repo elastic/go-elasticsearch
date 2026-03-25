@@ -18,40 +18,36 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Simulate data ingestion.
-// Run ingest pipelines against a set of provided documents, optionally with
-// substitute pipeline definitions, to simulate ingesting data into an index.
+// Simulate data ingestion. Run ingest pipelines against a set of provided
+// documents, optionally with substitute pipeline definitions, to simulate
+// ingesting data into an index.
 //
 // This API is meant to be used for troubleshooting or pipeline development, as
 // it does not actually index any data into Elasticsearch.
 //
 // The API runs the default and final pipeline for that index against a set of
-// documents provided in the body of the request.
-// If a pipeline contains a reroute processor, it follows that reroute processor
-// to the new index, running that index's pipelines as well the same way that a
-// non-simulated ingest would.
-// No data is indexed into Elasticsearch.
-// Instead, the transformed document is returned, along with the list of
-// pipelines that have been run and the name of the index where the document
-// would have been indexed if this were not a simulation.
-// The transformed document is validated against the mappings that would apply
-// to this index, and any validation error is reported in the result.
+// documents provided in the body of the request. If a pipeline contains a
+// reroute processor, it follows that reroute processor to the new index,
+// running that index's pipelines as well the same way that a non-simulated
+// ingest would. No data is indexed into Elasticsearch. Instead, the transformed
+// document is returned, along with the list of pipelines that have been run and
+// the name of the index where the document would have been indexed if this were
+// not a simulation. The transformed document is validated against the mappings
+// that would apply to this index, and any validation error is reported in the
+// result.
 //
 // This API differs from the simulate pipeline API in that you specify a single
-// pipeline for that API, and it runs only that one pipeline.
-// The simulate pipeline API is more useful for developing a single pipeline,
-// while the simulate ingest API is more useful for troubleshooting the
-// interaction of the various pipelines that get applied when ingesting into an
-// index.
+// pipeline for that API, and it runs only that one pipeline. The simulate
+// pipeline API is more useful for developing a single pipeline, while the
+// simulate ingest API is more useful for troubleshooting the interaction of the
+// various pipelines that get applied when ingesting into an index.
 //
 // By default, the pipeline definitions that are currently in the system are
-// used.
-// However, you can supply substitute pipeline definitions in the body of the
-// request.
-// These will be used in place of the pipeline definitions that are already in
-// the system. This can be used to replace existing pipeline definitions or to
-// create new ones. The pipeline substitutions are used only within this
-// request.
+// used. However, you can supply substitute pipeline definitions in the body of
+// the request. These will be used in place of the pipeline definitions that are
+// already in the system. This can be used to replace existing pipeline
+// definitions or to create new ones. The pipeline substitutions are used only
+// within this request.
 package ingest
 
 import (
@@ -112,40 +108,36 @@ func NewIngestFunc(tp elastictransport.Interface) NewIngest {
 	}
 }
 
-// Simulate data ingestion.
-// Run ingest pipelines against a set of provided documents, optionally with
-// substitute pipeline definitions, to simulate ingesting data into an index.
+// Simulate data ingestion. Run ingest pipelines against a set of provided
+// documents, optionally with substitute pipeline definitions, to simulate
+// ingesting data into an index.
 //
 // This API is meant to be used for troubleshooting or pipeline development, as
 // it does not actually index any data into Elasticsearch.
 //
 // The API runs the default and final pipeline for that index against a set of
-// documents provided in the body of the request.
-// If a pipeline contains a reroute processor, it follows that reroute processor
-// to the new index, running that index's pipelines as well the same way that a
-// non-simulated ingest would.
-// No data is indexed into Elasticsearch.
-// Instead, the transformed document is returned, along with the list of
-// pipelines that have been run and the name of the index where the document
-// would have been indexed if this were not a simulation.
-// The transformed document is validated against the mappings that would apply
-// to this index, and any validation error is reported in the result.
+// documents provided in the body of the request. If a pipeline contains a
+// reroute processor, it follows that reroute processor to the new index,
+// running that index's pipelines as well the same way that a non-simulated
+// ingest would. No data is indexed into Elasticsearch. Instead, the transformed
+// document is returned, along with the list of pipelines that have been run and
+// the name of the index where the document would have been indexed if this were
+// not a simulation. The transformed document is validated against the mappings
+// that would apply to this index, and any validation error is reported in the
+// result.
 //
 // This API differs from the simulate pipeline API in that you specify a single
-// pipeline for that API, and it runs only that one pipeline.
-// The simulate pipeline API is more useful for developing a single pipeline,
-// while the simulate ingest API is more useful for troubleshooting the
-// interaction of the various pipelines that get applied when ingesting into an
-// index.
+// pipeline for that API, and it runs only that one pipeline. The simulate
+// pipeline API is more useful for developing a single pipeline, while the
+// simulate ingest API is more useful for troubleshooting the interaction of the
+// various pipelines that get applied when ingesting into an index.
 //
 // By default, the pipeline definitions that are currently in the system are
-// used.
-// However, you can supply substitute pipeline definitions in the body of the
-// request.
-// These will be used in place of the pipeline definitions that are already in
-// the system. This can be used to replace existing pipeline definitions or to
-// create new ones. The pipeline substitutions are used only within this
-// request.
+// used. However, you can supply substitute pipeline definitions in the body of
+// the request. These will be used in place of the pipeline definitions that are
+// already in the system. This can be used to replace existing pipeline
+// definitions or to create new ones. The pipeline substitutions are used only
+// within this request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/simulate-ingest-api.html
 func New(tp elastictransport.Interface) *Ingest {
@@ -277,7 +269,7 @@ func (r Ingest) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "simulate.ingest")
+			ctx = instrument.Start(providedCtx, "simulate.ingest")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -375,10 +367,10 @@ func (r *Ingest) Header(key, value string) *Ingest {
 	return r
 }
 
-// Index The index to simulate ingesting into.
-// This value can be overridden by specifying an index on each document.
-// If you specify this parameter in the request path, it is used for any
-// documents that do not explicitly specify an index argument.
+// Index The index to simulate ingesting into. This value can be overridden by
+// specifying an index on each document. If you specify this parameter in the
+// request path, it is used for any documents that do not explicitly specify an
+// index argument.
 // API Name: index
 func (r *Ingest) Index(index string) *Ingest {
 	r.paramSet |= indexMask
@@ -387,8 +379,8 @@ func (r *Ingest) Index(index string) *Ingest {
 	return r
 }
 
-// Pipeline The pipeline to use as the default pipeline.
-// This value can be used to override the default pipeline of the index.
+// Pipeline The pipeline to use as the default pipeline. This value can be used to
+// override the default pipeline of the index.
 // API name: pipeline
 func (r *Ingest) Pipeline(pipelinename string) *Ingest {
 	r.values.Set("pipeline", pipelinename)
@@ -419,11 +411,9 @@ func (r *Ingest) FilterPath(filterpaths ...string) *Ingest {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Ingest) Human(human bool) *Ingest {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -431,8 +421,8 @@ func (r *Ingest) Human(human bool) *Ingest {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Ingest) Pretty(pretty bool) *Ingest {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -488,11 +478,9 @@ func (r *Ingest) MappingAddition(mappingaddition *types.TypeMapping) *Ingest {
 	return r
 }
 
-// PipelineSubstitutions Pipelines to test.
-// If you don’t specify the `pipeline` request path parameter, this parameter is
-// required.
-// If you specify both this and the request path parameter, the API only uses
-// the request path parameter.
+// PipelineSubstitutions Pipelines to test. If you don’t specify the `pipeline` request path
+// parameter, this parameter is required. If you specify both this and the
+// request path parameter, the API only uses the request path parameter.
 // API name: pipeline_substitutions
 func (r *Ingest) PipelineSubstitutions(pipelinesubstitutions map[string]types.IngestPipeline) *Ingest {
 	if r.req == nil {

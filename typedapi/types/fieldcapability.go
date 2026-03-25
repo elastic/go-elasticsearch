@@ -47,14 +47,14 @@ type FieldCapability struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// MetadataField Whether this field is registered as a metadata field.
 	MetadataField *bool `json:"metadata_field,omitempty"`
-	// MetricConflictsIndices The list of indices where this field is present if these indices
-	// don’t have the same `time_series_metric` value for this field.
+	// MetricConflictsIndices The list of indices where this field is present if these indices don’t have
+	// the same `time_series_metric` value for this field.
 	MetricConflictsIndices []string `json:"metric_conflicts_indices,omitempty"`
 	// NonAggregatableIndices The list of indices where this field is not aggregatable, or null if all
 	// indices have the same definition for the field.
 	NonAggregatableIndices []string `json:"non_aggregatable_indices,omitempty"`
-	// NonDimensionIndices If this list is present in response then some indices have the
-	// field marked as a dimension and other indices, the ones in this list, do not.
+	// NonDimensionIndices If this list is present in response then some indices have the field marked
+	// as a dimension and other indices, the ones in this list, do not.
 	NonDimensionIndices []string `json:"non_dimension_indices,omitempty"`
 	// NonSearchableIndices The list of indices where this field is not searchable, or null if all
 	// indices have the same definition for the field.
@@ -63,8 +63,8 @@ type FieldCapability struct {
 	Searchable bool `json:"searchable"`
 	// TimeSeriesDimension Whether this field is used as a time series dimension.
 	TimeSeriesDimension *bool `json:"time_series_dimension,omitempty"`
-	// TimeSeriesMetric Contains metric type if this fields is used as a time series
-	// metrics, absent if the field is not used as metric.
+	// TimeSeriesMetric Contains metric type if this fields is used as a time series metrics, absent
+	// if the field is not used as metric.
 	TimeSeriesMetric *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
 	Type             string                                     `json:"type"`
 }

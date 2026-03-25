@@ -27,5 +27,12 @@ package types
 //	TopRightBottomLeftGeoBounds
 //	WktGeoBounds
 //
+// A geo bounding box. It can be represented in various ways:
+//
+//   - as 4 top/bottom/left/right coordinates
+//   - as 2 top_left / bottom_right points
+//   - as 2 top_right / bottom_left points
+//   - as a WKT bounding box
+//
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Geo.ts#L135-L148
 type GeoBounds any

@@ -18,9 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get EQL search results.
-// Returns search results for an Event Query Language (EQL) query.
-// EQL assumes each document in a data stream or index corresponds to an event.
+// Get EQL search results. Returns search results for an Event Query Language
+// (EQL) query. EQL assumes each document in a data stream or index corresponds
+// to an event.
 package search
 
 import (
@@ -85,9 +85,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Get EQL search results.
-// Returns search results for an Event Query Language (EQL) query.
-// EQL assumes each document in a data stream or index corresponds to an event.
+// Get EQL search results. Returns search results for an Event Query Language
+// (EQL) query. EQL assumes each document in a data stream or index corresponds
+// to an event.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
 func New(tp elastictransport.Interface) *Search {
@@ -212,7 +212,7 @@ func (r Search) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "eql.search")
+			ctx = instrument.Start(providedCtx, "eql.search")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -381,11 +381,9 @@ func (r *Search) FilterPath(filterpaths ...string) *Search {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Search) Human(human bool) *Search {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -393,8 +391,8 @@ func (r *Search) Human(human bool) *Search {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Search) Pretty(pretty bool) *Search {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -402,10 +400,9 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// AllowPartialSearchResults Allow query execution also in case of shard failures.
-// If true, the query will keep running and will return results based on the
-// available shards.
-// For sequences, the behavior can be further refined using
+// AllowPartialSearchResults Allow query execution also in case of shard failures. If true, the query will
+// keep running and will return results based on the available shards. For
+// sequences, the behavior can be further refined using
 // allow_partial_sequence_results
 // API name: allow_partial_search_results
 func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Search {
@@ -418,11 +415,9 @@ func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Sear
 }
 
 // AllowPartialSequenceResults This flag applies only to sequences and has effect only if
-// allow_partial_search_results=true.
-// If true, the sequence query will return results based on the available
-// shards, ignoring the others.
-// If false, the sequence query will return successfully, but will always have
-// empty results.
+// allow_partial_search_results=true. If true, the sequence query will return
+// results based on the available shards, ignoring the others. If false, the
+// sequence query will return successfully, but will always have empty results.
 // API name: allow_partial_sequence_results
 func (r *Search) AllowPartialSequenceResults(allowpartialsequenceresults bool) *Search {
 	if r.req == nil {
@@ -511,10 +506,10 @@ func (r *Search) KeepOnCompletion(keeponcompletion bool) *Search {
 }
 
 // MaxSamplesPerKey By default, the response of a sample query contains up to `10` samples, with
-// one sample per unique set of join keys. Use the `size`
-// parameter to get a smaller or larger set of samples. To retrieve more than
-// one sample per set of join keys, use the
-// `max_samples_per_key` parameter. Pipes are not supported for sample queries.
+// one sample per unique set of join keys. Use the `size` parameter to get a
+// smaller or larger set of samples. To retrieve more than one sample per set of
+// join keys, use the `max_samples_per_key` parameter. Pipes are not supported
+// for sample queries.
 // API name: max_samples_per_key
 func (r *Search) MaxSamplesPerKey(maxsamplesperkey int) *Search {
 	if r.req == nil {

@@ -20,7 +20,7 @@
 
 package types
 
-// SparseVector type alias.
+// Sparse Embedding tokens are represented as a dictionary of string to double.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/Results.ts#L24-L28
 type SparseVector map[string]float32

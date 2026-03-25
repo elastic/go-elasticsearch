@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// GeoLine type.
+// A GeoJson GeoLine.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/Geo.ts#L56-L62
 type GeoLine struct {

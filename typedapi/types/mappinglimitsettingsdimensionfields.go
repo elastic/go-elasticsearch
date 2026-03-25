@@ -34,9 +34,9 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexSettings.ts#L497-L503
 type MappingLimitSettingsDimensionFields struct {
 	// Limit [preview] This functionality is in technical preview and may be changed or
-	// removed in a future release.
-	// Elastic will work to fix any issues, but features in technical preview are
-	// not subject to the support SLA of official GA features.
+	// removed in a future release. Elastic will work to fix any issues, but
+	// features in technical preview are not subject to the support SLA of official
+	// GA features.
 	Limit *int64 `json:"limit,omitempty"`
 }
 

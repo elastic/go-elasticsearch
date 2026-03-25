@@ -38,10 +38,9 @@ type IntervalsQuery struct {
 	// AnyOf Returns intervals produced by any of its sub-rules.
 	AnyOf *IntervalsAnyOf `json:"any_of,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
-	// the query.
-	// Boost values are relative to the default value of 1.0.
-	// A boost value between 0 and 1.0 decreases the relevance score.
-	// A value greater than 1.0 increases the relevance score.
+	// the query. Boost values are relative to the default value of 1.0. A boost
+	// value between 0 and 1.0 decreases the relevance score. A value greater than
+	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// Fuzzy Matches terms that are similar to the provided term, within an edit distance
 	// defined by `fuzziness`.

@@ -40,11 +40,11 @@ type PercentilesAggregation struct {
 	// percentiles.
 	Hdr *HdrMethod `json:"hdr,omitempty"`
 	// Keyed By default, the aggregation associates a unique string key with each bucket
-	// and returns the ranges as a hash rather than an array.
-	// Set to `false` to disable this behavior.
+	// and returns the ranges as a hash rather than an array. Set to `false` to
+	// disable this behavior.
 	Keyed *bool `json:"keyed,omitempty"`
-	// Missing The value to apply to documents that do not have a value.
-	// By default, documents without a value are ignored.
+	// Missing The value to apply to documents that do not have a value. By default,
+	// documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 	// Percents The percentiles to calculate.
 	Percents []Float64 `json:"percents,omitempty"`

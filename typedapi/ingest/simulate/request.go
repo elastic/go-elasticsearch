@@ -33,11 +33,9 @@ import (
 type Request struct {
 	// Docs Sample documents to test in the pipeline.
 	Docs []types.Document `json:"docs"`
-	// Pipeline The pipeline to test.
-	// If you don't specify the `pipeline` request path parameter, this parameter is
-	// required.
-	// If you specify both this and the request path parameter, the API only uses
-	// the request path parameter.
+	// Pipeline The pipeline to test. If you don't specify the `pipeline` request path
+	// parameter, this parameter is required. If you specify both this and the
+	// request path parameter, the API only uses the request path parameter.
 	Pipeline *types.IngestPipeline `json:"pipeline,omitempty"`
 }
 

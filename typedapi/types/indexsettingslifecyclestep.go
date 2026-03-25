@@ -33,8 +33,8 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexSettings.ts#L325-L331
 type IndexSettingsLifecycleStep struct {
 	// WaitTimeThreshold Time to wait for the cluster to resolve allocation issues during an ILM
-	// shrink action. Must be greater than 1h (1 hour).
-	// See Shard allocation for shrink.
+	// shrink action. Must be greater than 1h (1 hour). See Shard allocation for
+	// shrink.
 	WaitTimeThreshold Duration `json:"wait_time_threshold,omitempty"`
 }
 

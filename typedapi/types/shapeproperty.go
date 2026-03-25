@@ -33,7 +33,8 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
-// ShapeProperty type.
+// The `shape` data type facilitates the indexing of and searching with
+// arbitrary `x, y` cartesian shapes such as rectangles and polygons.
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/mapping/geo.ts#L81-L93
 type ShapeProperty struct {

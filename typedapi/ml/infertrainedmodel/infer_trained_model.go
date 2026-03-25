@@ -225,7 +225,7 @@ func (r InferTrainedModel) Perform(providedCtx context.Context) (*http.Response,
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "ml.infer_trained_model")
+			ctx = instrument.Start(providedCtx, "ml.infer_trained_model")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -363,11 +363,9 @@ func (r *InferTrainedModel) FilterPath(filterpaths ...string) *InferTrainedModel
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *InferTrainedModel) Human(human bool) *InferTrainedModel {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -375,8 +373,8 @@ func (r *InferTrainedModel) Human(human bool) *InferTrainedModel {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *InferTrainedModel) Pretty(pretty bool) *InferTrainedModel {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -385,10 +383,9 @@ func (r *InferTrainedModel) Pretty(pretty bool) *InferTrainedModel {
 }
 
 // Docs An array of objects to pass to the model for inference. The objects should
-// contain a fields matching your
-// configured trained model input. Typically, for NLP models, the field name is
-// `text_field`.
-// Currently, for NLP models, only a single value is allowed.
+// contain a fields matching your configured trained model input. Typically, for
+// NLP models, the field name is `text_field`. Currently, for NLP models, only a
+// single value is allowed.
 // API name: docs
 func (r *InferTrainedModel) Docs(docs ...map[string]json.RawMessage) *InferTrainedModel {
 	if r.req == nil {

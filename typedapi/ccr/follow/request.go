@@ -50,16 +50,15 @@ type Request struct {
 	// the remote cluster.
 	MaxReadRequestSize types.ByteSize `json:"max_read_request_size,omitempty"`
 	// MaxRetryDelay The maximum time to wait before retrying an operation that failed
-	// exceptionally. An exponential backoff strategy is employed when
-	// retrying.
+	// exceptionally. An exponential backoff strategy is employed when retrying.
 	MaxRetryDelay types.Duration `json:"max_retry_delay,omitempty"`
 	// MaxWriteBufferCount The maximum number of operations that can be queued for writing. When this
-	// limit is reached, reads from the remote cluster will be
-	// deferred until the number of queued operations goes below the limit.
+	// limit is reached, reads from the remote cluster will be deferred until the
+	// number of queued operations goes below the limit.
 	MaxWriteBufferCount *int `json:"max_write_buffer_count,omitempty"`
 	// MaxWriteBufferSize The maximum total bytes of operations that can be queued for writing. When
-	// this limit is reached, reads from the remote cluster will
-	// be deferred until the total bytes of queued operations goes below the limit.
+	// this limit is reached, reads from the remote cluster will be deferred until
+	// the total bytes of queued operations goes below the limit.
 	MaxWriteBufferSize types.ByteSize `json:"max_write_buffer_size,omitempty"`
 	// MaxWriteRequestOperationCount The maximum number of operations per bulk write request executed on the
 	// follower.
@@ -68,10 +67,10 @@ type Request struct {
 	// follower.
 	MaxWriteRequestSize types.ByteSize `json:"max_write_request_size,omitempty"`
 	// ReadPollTimeout The maximum time to wait for new operations on the remote cluster when the
-	// follower index is synchronized with the leader index.
-	// When the timeout has elapsed, the poll for operations will return to the
-	// follower so that it can update some statistics.
-	// Then the follower will immediately attempt to read from the leader again.
+	// follower index is synchronized with the leader index. When the timeout has
+	// elapsed, the poll for operations will return to the follower so that it can
+	// update some statistics. Then the follower will immediately attempt to read
+	// from the leader again.
 	ReadPollTimeout types.Duration `json:"read_poll_timeout,omitempty"`
 	// RemoteCluster The remote cluster containing the leader index.
 	RemoteCluster string `json:"remote_cluster"`

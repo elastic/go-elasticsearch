@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Clear cluster voting config exclusions.
-// Remove master-eligible nodes from the voting configuration exclusion list.
+// Clear cluster voting config exclusions. Remove master-eligible nodes from the
+// voting configuration exclusion list.
 package deletevotingconfigexclusions
 
 import (
@@ -67,8 +67,8 @@ func NewDeleteVotingConfigExclusionsFunc(tp elastictransport.Interface) NewDelet
 	}
 }
 
-// Clear cluster voting config exclusions.
-// Remove master-eligible nodes from the voting configuration exclusion list.
+// Clear cluster voting config exclusions. Remove master-eligible nodes from the
+// voting configuration exclusion list.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions
 func New(tp elastictransport.Interface) *DeleteVotingConfigExclusions {
@@ -139,7 +139,7 @@ func (r DeleteVotingConfigExclusions) Perform(providedCtx context.Context) (*htt
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cluster.delete_voting_config_exclusions")
+			ctx = instrument.Start(providedCtx, "cluster.delete_voting_config_exclusions")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -236,11 +236,11 @@ func (r *DeleteVotingConfigExclusions) MasterTimeout(duration string) *DeleteVot
 }
 
 // WaitForRemoval Specifies whether to wait for all excluded nodes to be removed from the
-// cluster before clearing the voting configuration exclusions list.
-// Defaults to true, meaning that all excluded nodes must be removed from
-// the cluster before this API takes any action. If set to false then the
-// voting configuration exclusions list is cleared even if some excluded
-// nodes are still in the cluster.
+// cluster before clearing the voting configuration exclusions list. Defaults to
+// true, meaning that all excluded nodes must be removed from the cluster before
+// this API takes any action. If set to false then the voting configuration
+// exclusions list is cleared even if some excluded nodes are still in the
+// cluster.
 // API name: wait_for_removal
 func (r *DeleteVotingConfigExclusions) WaitForRemoval(waitforremoval bool) *DeleteVotingConfigExclusions {
 	r.values.Set("wait_for_removal", strconv.FormatBool(waitforremoval))
@@ -271,11 +271,9 @@ func (r *DeleteVotingConfigExclusions) FilterPath(filterpaths ...string) *Delete
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *DeleteVotingConfigExclusions) Human(human bool) *DeleteVotingConfigExclusions {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -283,8 +281,8 @@ func (r *DeleteVotingConfigExclusions) Human(human bool) *DeleteVotingConfigExcl
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *DeleteVotingConfigExclusions) Pretty(pretty bool) *DeleteVotingConfigExclusions {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

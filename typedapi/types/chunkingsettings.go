@@ -33,17 +33,15 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/mapping/ChunkingSettings.ts#L24-L32
 type ChunkingSettings struct {
-	// MaxChunkSize The maximum size of a chunk in words.
-	// This value cannot be higher than `300` or lower than `20` (for `sentence`
-	// strategy) or `10` (for `word` strategy).
+	// MaxChunkSize The maximum size of a chunk in words. This value cannot be higher than `300`
+	// or lower than `20` (for `sentence` strategy) or `10` (for `word` strategy).
 	MaxChunkSize int `json:"max_chunk_size"`
-	// Overlap The number of overlapping words for chunks.
-	// It is applicable only to a `word` chunking strategy.
-	// This value cannot be higher than half the `max_chunk_size` value.
+	// Overlap The number of overlapping words for chunks. It is applicable only to a `word`
+	// chunking strategy. This value cannot be higher than half the `max_chunk_size`
+	// value.
 	Overlap *int `json:"overlap,omitempty"`
-	// SentenceOverlap The number of overlapping sentences for chunks.
-	// It is applicable only for a `sentence` chunking strategy.
-	// It can be either `1` or `0`.
+	// SentenceOverlap The number of overlapping sentences for chunks. It is applicable only for a
+	// `sentence` chunking strategy. It can be either `1` or `0`.
 	SentenceOverlap *int `json:"sentence_overlap,omitempty"`
 	// Strategy The chunking strategy: `sentence` or `word`.
 	Strategy string `json:"strategy"`

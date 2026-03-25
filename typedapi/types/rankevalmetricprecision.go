@@ -29,7 +29,7 @@ import (
 	"strconv"
 )
 
-// RankEvalMetricPrecision type.
+// Precision at K (P@k)
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/rank_eval/types.ts#L42-L52
 type RankEvalMetricPrecision struct {

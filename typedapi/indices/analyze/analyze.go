@@ -18,16 +18,14 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Get tokens from text analysis.
-// The analyze API performs analysis on a text string and returns the resulting
-// tokens.
+// Get tokens from text analysis. The analyze API performs analysis on a text
+// string and returns the resulting tokens.
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
-// of tokens that can be produced.
-// If more than this limit of tokens gets generated, an error occurs.
-// The `_analyze` endpoint without a specified index will always use `10000` as
-// its limit.
+// of tokens that can be produced. If more than this limit of tokens gets
+// generated, an error occurs. The `_analyze` endpoint without a specified index
+// will always use `10000` as its limit.
 package analyze
 
 import (
@@ -88,16 +86,14 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 	}
 }
 
-// Get tokens from text analysis.
-// The analyze API performs analysis on a text string and returns the resulting
-// tokens.
+// Get tokens from text analysis. The analyze API performs analysis on a text
+// string and returns the resulting tokens.
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
-// of tokens that can be produced.
-// If more than this limit of tokens gets generated, an error occurs.
-// The `_analyze` endpoint without a specified index will always use `10000` as
-// its limit.
+// of tokens that can be produced. If more than this limit of tokens gets
+// generated, an error occurs. The `_analyze` endpoint without a specified index
+// will always use `10000` as its limit.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
@@ -225,7 +221,7 @@ func (r Analyze) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "indices.analyze")
+			ctx = instrument.Start(providedCtx, "indices.analyze")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -323,10 +319,9 @@ func (r *Analyze) Header(key, value string) *Analyze {
 	return r
 }
 
-// Index Index used to derive the analyzer.
-// If specified, the `analyzer` or field parameter overrides this value.
-// If no index is specified or the index does not have a default analyzer, the
-// analyze API uses the standard analyzer.
+// Index Index used to derive the analyzer. If specified, the `analyzer` or field
+// parameter overrides this value. If no index is specified or the index does
+// not have a default analyzer, the analyze API uses the standard analyzer.
 // API Name: index
 func (r *Analyze) Index(index string) *Analyze {
 	r.paramSet |= indexMask
@@ -358,11 +353,9 @@ func (r *Analyze) FilterPath(filterpaths ...string) *Analyze {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Analyze) Human(human bool) *Analyze {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +363,8 @@ func (r *Analyze) Human(human bool) *Analyze {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Analyze) Pretty(pretty bool) *Analyze {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -379,9 +372,9 @@ func (r *Analyze) Pretty(pretty bool) *Analyze {
 	return r
 }
 
-// Analyzer The name of the analyzer that should be applied to the provided `text`.
-// This could be a built-in analyzer, or an analyzer that’s been configured in
-// the index.
+// Analyzer The name of the analyzer that should be applied to the provided `text`. This
+// could be a built-in analyzer, or an analyzer that’s been configured in the
+// index.
 // API name: analyzer
 func (r *Analyze) Analyzer(analyzer string) *Analyze {
 	if r.req == nil {
@@ -428,9 +421,8 @@ func (r *Analyze) Explain(explain bool) *Analyze {
 	return r
 }
 
-// Field Field used to derive the analyzer.
-// To use this parameter, you must specify an index.
-// If specified, the `analyzer` parameter overrides this value.
+// Field Field used to derive the analyzer. To use this parameter, you must specify an
+// index. If specified, the `analyzer` parameter overrides this value.
 // API name: field
 func (r *Analyze) Field(field string) *Analyze {
 	if r.req == nil {
@@ -464,8 +456,8 @@ func (r *Analyze) Normalizer(normalizer string) *Analyze {
 	return r
 }
 
-// Text Text to analyze.
-// If an array of strings is provided, it is analyzed as a multi-value field.
+// Text Text to analyze. If an array of strings is provided, it is analyzed as a
+// multi-value field.
 // API name: text
 func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
 	if r.req == nil {

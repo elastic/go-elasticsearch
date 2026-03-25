@@ -29,9 +29,8 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/connector/sync_job_claim/SyncJobClaimRequest.ts#L23-L61
 type Request struct {
-	// SyncCursor The cursor object from the last incremental sync job.
-	// This should reference the `sync_cursor` field in the connector state for
-	// which the job runs.
+	// SyncCursor The cursor object from the last incremental sync job. This should reference
+	// the `sync_cursor` field in the connector state for which the job runs.
 	SyncCursor json.RawMessage `json:"sync_cursor,omitempty"`
 	// WorkerHostname The host name of the current system that will run the job.
 	WorkerHostname string `json:"worker_hostname"`

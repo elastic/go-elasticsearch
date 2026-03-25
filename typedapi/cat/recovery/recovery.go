@@ -20,16 +20,14 @@
 
 // Get shard recovery information.
 //
-// Get information about ongoing and completed shard recoveries.
-// Shard recovery is the process of initializing a shard copy, such as restoring
-// a primary shard from a snapshot or syncing a replica shard from a primary
-// shard. When a shard recovery completes, the recovered shard is available for
-// search and indexing.
-// For data streams, the API returns information about the stream’s backing
-// indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the index recovery API.
+// Get information about ongoing and completed shard recoveries. Shard recovery
+// is the process of initializing a shard copy, such as restoring a primary
+// shard from a snapshot or syncing a replica shard from a primary shard. When a
+// shard recovery completes, the recovered shard is available for search and
+// indexing. For data streams, the API returns information about the stream’s
+// backing indices. IMPORTANT: cat APIs are only intended for human consumption
+// using the command line or Kibana console. They are not intended for use by
+// applications. For application consumption, use the index recovery API.
 package recovery
 
 import (
@@ -90,16 +88,14 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 
 // Get shard recovery information.
 //
-// Get information about ongoing and completed shard recoveries.
-// Shard recovery is the process of initializing a shard copy, such as restoring
-// a primary shard from a snapshot or syncing a replica shard from a primary
-// shard. When a shard recovery completes, the recovered shard is available for
-// search and indexing.
-// For data streams, the API returns information about the stream’s backing
-// indices.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console. They are not intended for use by applications. For
-// application consumption, use the index recovery API.
+// Get information about ongoing and completed shard recoveries. Shard recovery
+// is the process of initializing a shard copy, such as restoring a primary
+// shard from a snapshot or syncing a replica shard from a primary shard. When a
+// shard recovery completes, the recovered shard is available for search and
+// indexing. For data streams, the API returns information about the stream’s
+// backing indices. IMPORTANT: cat APIs are only intended for human consumption
+// using the command line or Kibana console. They are not intended for use by
+// applications. For application consumption, use the index recovery API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-recovery.html
 func New(tp elastictransport.Interface) *Recovery {
@@ -183,7 +179,7 @@ func (r Recovery) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.recovery")
+			ctx = instrument.Start(providedCtx, "cat.recovery")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -321,9 +317,8 @@ func (r *Recovery) Header(key, value string) *Recovery {
 }
 
 // Index A comma-separated list of data streams, indices, and aliases used to limit
-// the request.
-// Supports wildcards (`*`). To target all data streams and indices, omit this
-// parameter or use `*` or `_all`.
+// the request. Supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Recovery) Index(index string) *Recovery {
 	r.paramSet |= indexMask
@@ -356,8 +351,8 @@ func (r *Recovery) Detailed(detailed bool) *Recovery {
 	return r
 }
 
-// H A comma-separated list of columns names to display.
-// It supports simple wildcards.
+// H A comma-separated list of columns names to display. It supports simple
+// wildcards.
 // API name: h
 func (r *Recovery) H(catrecoverycolumns ...catrecoverycolumn.CatRecoveryColumn) *Recovery {
 	tmp := []string{}
@@ -370,9 +365,8 @@ func (r *Recovery) H(catrecoverycolumns ...catrecoverycolumn.CatRecoveryColumn) 
 }
 
 // S A comma-separated list of column names or aliases that determines the sort
-// order.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// order. Sorting defaults to ascending and can be changed by setting `:asc` or
+// `:desc` as a suffix to the column name.
 // API name: s
 func (r *Recovery) S(names ...string) *Recovery {
 	r.values.Set("s", strings.Join(names, ","))
@@ -388,8 +382,8 @@ func (r *Recovery) Time(time timeunit.TimeUnit) *Recovery {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Recovery) Format(format string) *Recovery {
 	r.values.Set("format", format)
@@ -397,8 +391,8 @@ func (r *Recovery) Format(format string) *Recovery {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Recovery) Help(help bool) *Recovery {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -437,11 +431,9 @@ func (r *Recovery) FilterPath(filterpaths ...string) *Recovery {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Recovery) Human(human bool) *Recovery {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -449,8 +441,8 @@ func (r *Recovery) Human(human bool) *Recovery {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Recovery) Pretty(pretty bool) *Recovery {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

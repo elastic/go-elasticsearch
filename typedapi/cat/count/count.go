@@ -21,14 +21,12 @@
 // Get a document count.
 //
 // Get quick access to a document count for a data stream, an index, or an
-// entire cluster.
-// The document count only includes live documents, not deleted documents which
-// have not yet been removed by the merge process.
+// entire cluster. The document count only includes live documents, not deleted
+// documents which have not yet been removed by the merge process.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the count API.
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the count API.
 package count
 
 import (
@@ -87,14 +85,12 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // Get a document count.
 //
 // Get quick access to a document count for a data stream, an index, or an
-// entire cluster.
-// The document count only includes live documents, not deleted documents which
-// have not yet been removed by the merge process.
+// entire cluster. The document count only includes live documents, not deleted
+// documents which have not yet been removed by the merge process.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the count API.
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the count API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-count.html
 func New(tp elastictransport.Interface) *Count {
@@ -178,7 +174,7 @@ func (r Count) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "cat.count")
+			ctx = instrument.Start(providedCtx, "cat.count")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -316,10 +312,8 @@ func (r *Count) Header(key, value string) *Count {
 }
 
 // Index A comma-separated list of data streams, indices, and aliases used to limit
-// the request.
-// It supports wildcards (`*`).
-// To target all data streams and indices, omit this parameter or use `*` or
-// `_all`.
+// the request. It supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *Count) Index(index string) *Count {
 	r.paramSet |= indexMask
@@ -336,9 +330,9 @@ func (r *Count) H(names ...string) *Count {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
+// S List of columns that determine how the table should be sorted. Sorting
+// defaults to ascending and can be changed by setting `:asc` or `:desc` as a
+// suffix to the column name.
 // API name: s
 func (r *Count) S(names ...string) *Count {
 	r.values.Set("s", strings.Join(names, ","))
@@ -346,8 +340,8 @@ func (r *Count) S(names ...string) *Count {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// Format Specifies the format to return the columnar data in, can be set to `text`,
+// `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
 func (r *Count) Format(format string) *Count {
 	r.values.Set("format", format)
@@ -355,8 +349,8 @@ func (r *Count) Format(format string) *Count {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
+// Help When set to `true` will output available columns. This option can't be
+// combined with any other query string option.
 // API name: help
 func (r *Count) Help(help bool) *Count {
 	r.values.Set("help", strconv.FormatBool(help))
@@ -395,11 +389,9 @@ func (r *Count) FilterPath(filterpaths ...string) *Count {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Count) Human(human bool) *Count {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -407,8 +399,8 @@ func (r *Count) Human(human bool) *Count {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Count) Pretty(pretty bool) *Count {
 	r.values.Set("pretty", strconv.FormatBool(pretty))

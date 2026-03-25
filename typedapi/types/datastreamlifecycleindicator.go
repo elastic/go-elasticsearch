@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indicatorhealthstatus"
 )
 
-// DataStreamLifecycleIndicator type.
+// DATA_STREAM_LIFECYCLE
 //
 // https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_global/health_report/types.ts#L148-L152
 type DataStreamLifecycleIndicator struct {

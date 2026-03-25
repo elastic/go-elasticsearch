@@ -29,8 +29,13 @@ type SearchType struct {
 }
 
 var (
+
+	// Querythenfetch Documents are scored using local term and document frequencies for the shard.
+	// This is usually faster but less accurate.
 	Querythenfetch = SearchType{"query_then_fetch"}
 
+	// Dfsquerythenfetch Documents are scored using global term and document frequencies across all
+	// shards. This is usually slower but more accurate.
 	Dfsquerythenfetch = SearchType{"dfs_query_then_fetch"}
 )
 

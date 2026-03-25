@@ -18,8 +18,8 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Run an ES|QL query.
-// Get search results for an ES|QL (Elasticsearch query language) query.
+// Run an ES|QL query. Get search results for an ES|QL (Elasticsearch query
+// language) query.
 package query
 
 import (
@@ -75,8 +75,8 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 	}
 }
 
-// Run an ES|QL query.
-// Get search results for an ES|QL (Elasticsearch query language) query.
+// Run an ES|QL query. Get search results for an ES|QL (Elasticsearch query
+// language) query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
 func New(tp elastictransport.Interface) *Query {
@@ -193,7 +193,7 @@ func (r Query) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "esql.query")
+			ctx = instrument.Start(providedCtx, "esql.query")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -312,9 +312,9 @@ func (r *Query) Delimiter(delimiter string) *Query {
 }
 
 // DropNullColumns Should columns that are entirely `null` be removed from the `columns` and
-// `values` portion of the results?
-// Defaults to `false`. If `true` then the response will include an extra
-// section under the name `all_columns` which has the name of all columns.
+// `values` portion of the results? Defaults to `false`. If `true` then the
+// response will include an extra section under the name `all_columns` which has
+// the name of all columns.
 // API name: drop_null_columns
 func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
@@ -323,8 +323,8 @@ func (r *Query) DropNullColumns(dropnullcolumns bool) *Query {
 }
 
 // AllowPartialResults If `true`, partial results will be returned if there are shard failures, but
-// the query can continue to execute on other clusters and shards.
-// If `false`, the query will fail if there are any failures.
+// the query can continue to execute on other clusters and shards. If `false`,
+// the query will fail if there are any failures.
 //
 // To override the default behavior, you can set the
 // `esql.query.allow_partial_results` cluster setting to `false`.
@@ -358,11 +358,9 @@ func (r *Query) FilterPath(filterpaths ...string) *Query {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Query) Human(human bool) *Query {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -370,8 +368,8 @@ func (r *Query) Human(human bool) *Query {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Query) Pretty(pretty bool) *Query {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
@@ -407,10 +405,8 @@ func (r *Query) Filter(filter *types.Query) *Query {
 }
 
 // IncludeCcsMetadata When set to `true` and performing a cross-cluster query, the response will
-// include an extra `_clusters`
-// object with information about the clusters that participated in the search
-// along with info such as shards
-// count.
+// include an extra `_clusters` object with information about the clusters that
+// participated in the search along with info such as shards count.
 // API name: include_ccs_metadata
 func (r *Query) IncludeCcsMetadata(includeccsmetadata bool) *Query {
 	if r.req == nil {
@@ -447,10 +443,8 @@ func (r *Query) Params(params ...types.FieldValue) *Query {
 
 // Profile If provided and `true` the response will include an extra `profile` object
 // with information on how the query was executed. This information is for human
-// debugging
-// and its format can change at any time but it can give some insight into the
-// performance
-// of each part of the query.
+// debugging and its format can change at any time but it can give some insight
+// into the performance of each part of the query.
 // API name: profile
 func (r *Query) Profile(profile bool) *Query {
 	if r.req == nil {
@@ -474,8 +468,8 @@ func (r *Query) Query(query string) *Query {
 	return r
 }
 
-// Tables Tables to use with the LOOKUP operation. The top level key is the table
-// name and the next level key is the column name.
+// Tables Tables to use with the LOOKUP operation. The top level key is the table name
+// and the next level key is the column name.
 // API name: tables
 func (r *Query) Tables(tables map[string]map[string]types.TableValuesContainer) *Query {
 	if r.req == nil {

@@ -18,11 +18,9 @@
 // Code generated from the elasticsearch-specification DO NOT EDIT.
 // https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
 
-// Start snapshot lifecycle management.
-// Snapshot lifecycle management (SLM) starts automatically when a cluster is
-// formed.
-// Manually starting SLM is necessary only if it has been stopped using the stop
-// SLM API.
+// Start snapshot lifecycle management. Snapshot lifecycle management (SLM)
+// starts automatically when a cluster is formed. Manually starting SLM is
+// necessary only if it has been stopped using the stop SLM API.
 package start
 
 import (
@@ -72,11 +70,9 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 	}
 }
 
-// Start snapshot lifecycle management.
-// Snapshot lifecycle management (SLM) starts automatically when a cluster is
-// formed.
-// Manually starting SLM is necessary only if it has been stopped using the stop
-// SLM API.
+// Start snapshot lifecycle management. Snapshot lifecycle management (SLM)
+// starts automatically when a cluster is formed. Manually starting SLM is
+// necessary only if it has been stopped using the stop SLM API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-start.html
 func New(tp elastictransport.Interface) *Start {
@@ -147,7 +143,7 @@ func (r Start) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "slm.start")
+			ctx = instrument.Start(providedCtx, "slm.start")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -284,9 +280,8 @@ func (r *Start) Header(key, value string) *Start {
 	return r
 }
 
-// MasterTimeout The period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout The period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
 // To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Start) MasterTimeout(duration string) *Start {
@@ -295,10 +290,9 @@ func (r *Start) MasterTimeout(duration string) *Start {
 	return r
 }
 
-// Timeout The period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
-// To indicate that the request should never timeout, set it to `-1`.
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *Start) Timeout(duration string) *Start {
 	r.values.Set("timeout", duration)
@@ -329,11 +323,9 @@ func (r *Start) FilterPath(filterpaths ...string) *Start {
 }
 
 // Human When set to `true` will return statistics in a format suitable for humans.
-// For example `"exists_time": "1h"` for humans and
-// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
-// readable values will be omitted. This makes sense for responses being
-// consumed
-// only by machines.
+// For example `"exists_time": "1h"` for humans and `"eixsts_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
 // API name: human
 func (r *Start) Human(human bool) *Start {
 	r.values.Set("human", strconv.FormatBool(human))
@@ -341,8 +333,8 @@ func (r *Start) Human(human bool) *Start {
 	return r
 }
 
-// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
-// this option for debugging only.
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
 // API name: pretty
 func (r *Start) Pretty(pretty bool) *Start {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
