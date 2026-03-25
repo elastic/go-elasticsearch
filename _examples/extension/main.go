@@ -96,7 +96,12 @@ func main() {
 
 	// --> Call a custom API
 	//
-	es.Custom.Example()
+	res, err := es.Custom.Example()
+	if err != nil {
+		log.Fatalf("Error calling custom API: %s", err)
+	}
+	defer res.Body.Close()
+	log.Println(res.Status())
 }
 
 func startServer(started chan<- bool) {
