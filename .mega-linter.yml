@@ -16,3 +16,8 @@ ENABLE_LINTERS:
   - YAML_YAMLLINT
 
 FILTER_REGEX_EXCLUDE: (.*esapi/.*)|(.*typedapi/.*)|(.*CHANGELOG.md)|(.*\.doc/.*)|(.*gentests/testdata/.*)
+SHOW_ELAPSED_TIME: true
+FILEIO_REPORTER: false
+SARIF_REPORTER: false
+FLAVOR_SUGGESTIONS: false
+REPORTERS_MARKDOWN_TYPE: simple
