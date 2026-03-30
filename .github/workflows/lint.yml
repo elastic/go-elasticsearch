@@ -10,40 +10,37 @@ on: # yamllint disable-line rule:truthy
 permissions: {}
 
 jobs:
-  build:
-    name: Lint (Super-Linter)
+  megalinter:
+    name: Lint (MegaLinter)
     runs-on: ubuntu-latest
 
     permissions:
-      # contents permission to clone the repository
       contents: read
-      packages: read
-      # issues and pull-requests permissions to write results as pull
-      # request comments. Omit them if you don't need summary comments
       issues: write
       pull-requests: write
-      # To report GitHub Actions status checks. Omit if you don't need
-      # to update the commit status
       statuses: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Load super-linter configuration
-        run: grep -v '^#' .github/super-linter.env >> "$GITHUB_ENV"
-
-      - name: Super-linter
-        uses: super-linter/super-linter/slim@v8.4.0
+      - name: MegaLinter
+        id: ml
+        uses: oxsecurity/megalinter@55a59b24a441e0e1943080d4a512d827710d4a9d # v9.2.0
         env:
-          # Only pass the token when it has write access (not fork PRs)
-          # to avoid 403 errors when posting PR comments and status checks.
-          GITHUB_TOKEN: ${{ github.event.pull_request.head.repo.fork != true && secrets.GITHUB_TOKEN || '' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive MegaLinter reports
+        if: success() || failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: MegaLinter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
 
   golangci:
     name: Lint (golangci-lint)
@@ -54,12 +51,12 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
         with:
           go-version-file: go.mod
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v9
+        uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9
         with:
           version: v2.8
           github-token: ${{ secrets.GITHUB_TOKEN }}
