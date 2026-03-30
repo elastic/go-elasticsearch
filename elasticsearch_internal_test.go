@@ -23,11 +23,19 @@ package elasticsearch
 import (
 	"bytes"
 	"context"
+	"crypto/ecdsa"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/sha256"
 	"crypto/tls"
 	"crypto/x509"
+	"crypto/x509/pkix"
 	"encoding/base64"
+	"encoding/hex"
 	"errors"
 	"io"
+	"math/big"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -557,56 +565,34 @@ func TestProductCheckError(t *testing.T) {
 
 func TestFingerprint(t *testing.T) {
 	body := []byte(`{"body": true"}"`)
-	cert, err := tls.X509KeyPair([]byte(`-----BEGIN CERTIFICATE-----
-MIIDYjCCAkqgAwIBAgIVAIClHav09e9XGWJrnshywAjUHTnXMA0GCSqGSIb3DQEB
-CwUAMDQxMjAwBgNVBAMTKUVsYXN0aWMgQ2VydGlmaWNhdGUgVG9vbCBBdXRvZ2Vu
-ZXJhdGVkIENBMB4XDTIzMDMyODE3MDIzOVoXDTI2MDMyNzE3MDIzOVowEzERMA8G
-A1UEAxMIaW5zdGFuY2UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCV
-+t5/g6u2r3awCtzqp17KG0hRxzkVoJoF8DYzVh+Rv9ymxQW0C/U8dQihAjkZHaIA
-n49lSyNLkwWtmqQgPcimV4d6XuTYx2ahDixXYtjmoOSwH5dRtovKPCNKDPkUj9Vq
-NwMW0uB1VxniMKI4DnYFqBgHL9kQKhQqvas6Gx0X6ptGRCLYCtVxeFcau6nnkZJt
-urb+HNV5waOh0uTmsqnnslK3NjCQ/f030vPKxM5fOqOU5ajUHpZFJ6ZFmS32074H
-l+mZoRT/GtbnVtIg+CJXsWThF3/L4iBImv+rkY9MKX5fyMLJgmIJG68S90IQGR8c
-Z2lZYzC0J7zjMsYlODbDAgMBAAGjgYswgYgwHQYDVR0OBBYEFIDIcECn3AVHc3jk
-MpQ4r7Kc3WCsMB8GA1UdIwQYMBaAFJYCWKn16g+acbing4Vl45QGUBs0MDsGA1Ud
-EQQ0MDKCCWxvY2FsaG9zdIIIaW5zdGFuY2WHBH8AAAGHEAAAAAAAAAAAAAAAAAAA
-AAGCA2VzMTAJBgNVHRMEAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQBtX3RQ5ATpfORM
-lrnhaUPGOWkjnb3p3BrdAWUaWoh136QhaXqxKiALQQhTtTerkXOcuquy9MmAyYvS
-9fDdGvLCAO8pPCXjnzonCHerCLGdS7f/eqvSFWCdy7LPHzTAFYfVWVvbZed+83TL
-bDY63AMwIexj34vJEStMapuFwWx05fstE8qZWIbYCL87sF5H/MRhzlz3ScAhQ1N7
-tODH7zvLzSxFGGEzCIKZ0iPFKbd3Y0wE6SptDSKhOqlnC8kkNeI2GjWsqVfHKsoF
-pDFmri7IfOucuvalXJ6xiHPr9RDbuxEXs0u8mteT5nFQo7EaEGdHpg1pNGbfBOzP
-lmj/dRS9
------END CERTIFICATE-----`), []byte(`-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEAlfref4Ortq92sArc6qdeyhtIUcc5FaCaBfA2M1Yfkb/cpsUF
-tAv1PHUIoQI5GR2iAJ+PZUsjS5MFrZqkID3IpleHel7k2MdmoQ4sV2LY5qDksB+X
-UbaLyjwjSgz5FI/VajcDFtLgdVcZ4jCiOA52BagYBy/ZECoUKr2rOhsdF+qbRkQi
-2ArVcXhXGrup55GSbbq2/hzVecGjodLk5rKp57JStzYwkP39N9LzysTOXzqjlOWo
-1B6WRSemRZkt9tO+B5fpmaEU/xrW51bSIPgiV7Fk4Rd/y+IgSJr/q5GPTCl+X8jC
-yYJiCRuvEvdCEBkfHGdpWWMwtCe84zLGJTg2wwIDAQABAoIBAAEP7HYNNnDWdYMD
-+WAtYM12X/W5s/wUP94juaBI4u4iZH2EZodlixEdZUCTXgq43WsDUhxX05s7cE+p
-H5DuSCHtoo2WHvGKAposwRDm2f3YVWQ2Xyb2ahNt69LYHHWrO+XQ60YYTa3r8Gn3
-7dFR3I016/jyn5DeEVaglvS1dfj2UG4ybR4KkMfcKd94X0rKvz3wzAhHIh+hwMtv
-sVk7V4vSnKf2mJXwIVECTolnEJEkCjWjjymgUJYKT8yN7JnAsHRcvMa6kWwIGrLp
-oQCEaJwYM6ynCRS989pLt3vA2iu5VkYhiHXJ9Ds/5b5yzhzmj+ymzKbFKrrUUrmn
-+2Jp1K0CgYEAw8BchALsD/+JuoXjinA14MH7PZjIsXyhtPk+c4pk42iMNyg1J8XF
-Y/ITepLYsl2bZqQI1jOJdDqsTwIsva9r749lsmkYI3VOxhi7+qBK0sThR66C87lX
-iU2QpnZ9NloC6ort4a3MEvZ/gRQcXdBrNlNoza2p7PHAVDTnsdSrNKUCgYEAxCQV
-uo85oZyfnMufn/gcI9IeYOgiB0tO3a8cAFX2wQW1y935t6Z13ApUQc4EnCOH7ZBc
-td5kT+xGdRWnfPZ38FM1dd5MBdGE69s3q8pJDUExSgNLqaF6/5bD32qui66L3ugu
-eMjxrzqJsc2uQTPCs18SGsyRmf54DpY8HglOmUcCgYAGRDgx+a347SNJl1OrcOAo
-q80RMbzrAaRjmL8JD9se9I/YjC73cPtasbsx51WMkDaTWJj30nqJ//7YIKeyAtWf
-u6Vzyq19JRo6eTw7T7pVePwFQW7rwnks6hDBY3WqscL6IyxuVxP7X2zBgxVNY4ir
-Gox2WSLhdPPFPlRUewxoCQKBgAJvqE1u5fpZ5ame5dao0ECppXLyrymEB/C88g4X
-Az+WgJGNqkJbsO8QuccvdeMylcefmWcw4fIULzPZFwF4VjkH74wNPMh9t7buPBzI
-IGwnuSMAM3ph5RMzni8yNgTKIDaej6U0abwRcBBjS5zHtc1giusGS3CsNnWH7Cs7
-VlyVAoGBAK+prq9t9x3tC3NfCZH8/Wfs/X0T1qm11RiL5+tOhmbguWAqSSBy8OjX
-Yh8AOXrFuMGldcaTXxMeiKvI2cyybnls1MFsPoeV/fSMJbex7whdeJeTi66NOSKr
-oftUHvkHS0Vv/LicMEOufFGslb4T9aPJ7oyhoSlz9CfAutDWk/q/
------END RSA PRIVATE KEY-----`))
+
+	// Generate a self-signed certificate at test time to avoid expiry issues.
+	key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
 		t.Fatal(err)
 	}
+	template := &x509.Certificate{
+		SerialNumber: big.NewInt(1),
+		Subject:      pkix.Name{CommonName: "instance"},
+		NotBefore:    time.Now().Add(-1 * time.Hour),
+		NotAfter:     time.Now().Add(1 * time.Hour),
+		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
+		KeyUsage:     x509.KeyUsageDigitalSignature,
+		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+	}
+	certDER, err := x509.CreateCertificate(rand.Reader, template, template, &key.PublicKey, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cert := tls.Certificate{
+		Certificate: [][]byte{certDER},
+		PrivateKey:  key,
+	}
+
+	// Compute the SHA-256 fingerprint of the leaf certificate.
+	fingerprint := sha256.Sum256(certDER)
+	fingerprintHex := strings.ToUpper(hex.EncodeToString(fingerprint[:]))
+
 	server := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		_, _ = w.Write(body)
@@ -626,15 +612,12 @@ oftUHvkHS0Vv/LicMEOufFGslb4T9aPJ7oyhoSlz9CfAutDWk/q/
 	client, _ := NewClient(config)
 	_, err = client.Info()
 
-	if errors.Unwrap(err).Error() != `x509: “instance” certificate is not standards compliant` {
-		if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
-			t.Fatalf("Unknown error, expected UnknownAuthorityError, got: %s", err)
-		}
+	if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
+		t.Fatalf("expected UnknownAuthorityError, got: %s", err)
 	}
 
-	// We add the fingerprint corresponding to testcert.LocalhostCert
-	//
-	config.CertificateFingerprint = "1DBF91CA60E9B94E89582396C2C825466F4C449FAFB7BCA29157EE5D61D5C171"
+	// We add the fingerprint of the generated certificate
+	config.CertificateFingerprint = fingerprintHex
 	client, _ = NewClient(config)
 	res, err := client.Info()
 	if err != nil {
