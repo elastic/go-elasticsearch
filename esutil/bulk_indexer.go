@@ -357,6 +357,13 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	close(bi.queue)
 
+	if err := ctx.Err(); err != nil {
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx, err)
+		}
+		return err
+	}
+
 	done := make(chan struct{})
 	go func() {
 		bi.wg.Wait()

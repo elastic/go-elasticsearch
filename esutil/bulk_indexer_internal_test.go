@@ -346,8 +346,28 @@ func TestBulkIndexer(t *testing.T) {
 
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
-		if err := bi.Close(ctx); err == nil {
-			t.Errorf("Expected context cancelled error, but got: %v", err)
+		if err := bi.Close(ctx); !errors.Is(err, context.Canceled) {
+			t.Errorf("Expected context.Canceled, got: %v", err)
+		}
+	})
+
+	t.Run("Close() Already Cancelled Context", func(t *testing.T) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers: 1,
+			Client:     es,
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+		if err := bi.Close(ctx); !errors.Is(err, context.Canceled) {
+			t.Errorf("Expected context.Canceled, got: %v", err)
 		}
 	})
 
