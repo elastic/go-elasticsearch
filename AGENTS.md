@@ -74,7 +74,7 @@ When planning work:
 Both clients share `BaseClient` (transport, product-check, meta headers) but expose different API surfaces:
 
 - **`Client`** (functional API) — embeds `*esapi.API`. Created with `NewClient(Config)` or `New(opts ...Option)`. Each API endpoint is a function-type field on the `API` struct that accepts functional options (`func(*SearchRequest)`).
-- **`TypedClient`** (typed API) — embeds `*typedapi.MethodAPI`. Created with `NewTypedClient(Config)` or `NewTyped(opts ...Option)`. Each endpoint returns a fluent builder struct with typed request/response structs. Appends `hl=1` to meta header.
+- **`TypedClient`** (typed API) — embeds `*typedapi.MethodAPI`. Created with `NewTypedClient(Config)` or `NewTyped(opts ...Option)`. Each endpoint returns a fluent builder struct with typed request/response structs.
 
 ### Package Layout
 
@@ -99,7 +99,7 @@ Both clients share `BaseClient` (transport, product-check, meta headers) but exp
 
 The repo contains multiple Go modules (each with its own `go.mod`):
 - Root: main client library
-- `internal/build/`: code generator (uses `replace` directive to reference root)
+- `internal/build/`: `esapi` code generator (uses `replace` directive to reference root)
 - `internal/testing/`: integration tests
 - `esapi/test/`: generated YAML-driven API tests
 - `_examples/*/`: each example is a standalone module
