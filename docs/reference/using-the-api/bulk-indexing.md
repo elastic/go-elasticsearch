@@ -146,6 +146,12 @@ for _, doc := range documents {
     _ = indexer.Add(ctx, esutil.BulkIndexerItem{
         Action: "index",
         Body:   strings.NewReader(doc),
+        OnSuccess: func(_ context.Context, item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem) {
+            log.Printf("Indexed %s: %s", item.DocumentID, res.Result)
+        },
+        OnFailure: func(_ context.Context, item esutil.BulkIndexerItem, res esutil.BulkIndexerResponseItem, err error) {
+            log.Printf("Failed %s: %s", item.DocumentID, err)
+        },
     })
 }
 
@@ -156,6 +162,8 @@ if err := indexer.Flush(ctx); err != nil {
 
 // The indexer is still usable — keep adding items or close it when done.
 ```
+
+`Flush()` follows the same callback model as automatic flushes: per-item results are delivered through the `OnSuccess` and `OnFailure` callbacks on each `BulkIndexerItem`. `Flush` itself only returns an error for transport-level failures or context cancellation.
 
 > **Note:** Do not call `Close()` and recreate the indexer to achieve a synchronous flush.
 > The `BulkIndexer` is designed to be long-lived. Use `Flush()` instead, and only call `Close()` once when you are done with the indexer entirely.

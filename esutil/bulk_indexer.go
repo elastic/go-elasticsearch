@@ -58,6 +58,11 @@ type BulkIndexer interface {
 	// Elasticsearch, and waits for the flushes to complete. The indexer remains
 	// usable after Flush returns; new items may be added with Add.
 	//
+	// Per-item results are delivered through the OnSuccess and OnFailure
+	// callbacks on each BulkIndexerItem, exactly as with automatic flushes.
+	// Flush itself only returns an error for transport-level failures or
+	// context cancellation.
+	//
 	// Items added concurrently with Flush may or may not be included in the
 	// flush; only items already enqueued at the time each worker receives the
 	// flush signal are guaranteed to be sent.
