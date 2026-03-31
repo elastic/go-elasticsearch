@@ -1817,6 +1817,7 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 	})
 }
 
+//nolint:gocyclo
 func TestBulkIndexerFlush(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
 		responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
@@ -1954,11 +1955,12 @@ func TestBulkIndexerFlush(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		if err := bi.Add(context.Background(), BulkIndexerItem{
+		err = bi.Add(context.Background(), BulkIndexerItem{
 			Action:     "index",
 			DocumentID: "1",
 			Body:       strings.NewReader(`{"title":"foo"}`),
-		}); err != nil {
+		})
+		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
