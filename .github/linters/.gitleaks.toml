@@ -5,6 +5,16 @@
 # Use the default gitleaks config as a base
 useDefault = true
 
+[allowlist]
+  description = "Historic false positives: test certificates and generated API code"
+  paths = [
+    '''\.buildkite/certs/''',
+    '''\.ci/certs/''',
+    '''\.jenkins/certs/''',
+    '''estransport/testdata/''',
+    '''typedapi/''',
+  ]
+
 [[rules]]
 id = "private-key"
 description = "Private Key"
