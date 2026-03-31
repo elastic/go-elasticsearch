@@ -8,3 +8,6 @@ tmp/
 .idea
 
 elastic-start-local
+
+# AI agent instructions
+!AGENTS.md

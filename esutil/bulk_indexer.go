@@ -289,7 +289,7 @@ type bulkIndexerStats struct {
 // NewBulkIndexer creates a new bulk indexer.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
-		cfg.Client, _ = elasticsearch.NewDefaultClient()
+		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
 	}
 
 	if cfg.Decoder == nil {
@@ -356,6 +356,13 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 // Note: it is the user's responsibility to call Close on the elasticsearch Client passed in to the BulkIndexerConfig.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	close(bi.queue)
+
+	if err := ctx.Err(); err != nil {
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx, err)
+		}
+		return err
+	}
 
 	done := make(chan struct{})
 	go func() {
