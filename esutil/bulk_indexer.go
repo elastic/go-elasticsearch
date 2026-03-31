@@ -289,11 +289,7 @@ type bulkIndexerStats struct {
 // NewBulkIndexer creates a new bulk indexer.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
-		// given that in production environments the default
-		// client is not very useful, this fails early
-		// and lets the user know they haven't passed
-		// the client in config
-		return nil, fmt.Errorf("client is required")
+		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
 	}
 
 	if cfg.Decoder == nil {

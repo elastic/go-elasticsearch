@@ -202,7 +202,7 @@ func TestBulkIndexer(t *testing.T) {
 		if err == nil {
 			t.Fatalf("Expected error when client is not provided")
 		}
-		if err.Error() != "client is required" {
+		if err.Error() != "BulkIndexerConfig.Client is required" {
 			t.Fatalf("Unexpected error message: %s", err.Error())
 		}
 	})
