@@ -197,6 +197,16 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
+	t.Run("ClientRequired", func(t *testing.T) {
+		_, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1})
+		if err == nil {
+			t.Fatalf("Expected error when client is not provided")
+		}
+		if err.Error() != "BulkIndexerConfig.Client is required" {
+			t.Fatalf("Unexpected error message: %s", err.Error())
+		}
+	})
+
 	t.Run("BulkIndexerConfig.QueueSizeMultiplier", func(t *testing.T) {
 		tests := []struct {
 			name                string

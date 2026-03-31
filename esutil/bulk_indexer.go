@@ -315,7 +315,7 @@ type bulkIndexerStats struct {
 // NewBulkIndexer creates a new bulk indexer.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
-		cfg.Client, _ = elasticsearch.NewDefaultClient()
+		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
 	}
 
 	if cfg.Decoder == nil {
