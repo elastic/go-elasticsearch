@@ -1669,14 +1669,14 @@ func TestAutoDrainingReaderDrainsOnClose(t *testing.T) {
 
 func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
 	var actualConnections int32
-	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
 		if _, err := w.Write([]byte(`{"status":"ok"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
-	ts.Config.ConnState = func(conn net.Conn, state http.ConnState) {
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
 		if state == http.StateNew {
 			atomic.AddInt32(&actualConnections, 1)
 		}
@@ -1709,14 +1709,14 @@ func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
 
 func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
 	var actualConnections int32
-	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
 		if _, err := w.Write([]byte(`{"status":"ok"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
-	ts.Config.ConnState = func(conn net.Conn, state http.ConnState) {
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
 		if state == http.StateNew {
 			atomic.AddInt32(&actualConnections, 1)
 		}
@@ -1749,14 +1749,14 @@ func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
 
 func TestAutoDrainBodyWithPartialRead(t *testing.T) {
 	var actualConnections int32
-	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
 		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"hello elasticsearch this is a longer response"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
-	ts.Config.ConnState = func(conn net.Conn, state http.ConnState) {
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
 		if state == http.StateNew {
 			atomic.AddInt32(&actualConnections, 1)
 		}
