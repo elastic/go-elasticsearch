@@ -22,6 +22,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -498,7 +499,7 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
 	// Wrap the response body with auto-draining reader if enabled
 	if c.autoDrainBody && res.Body != nil {
-		res.Body = makeAutoDraining(res.Body)
+		res.Body = &autoDrainingReader{res.Body}
 	}
 
 	// ResponseCheck, we run the header check on the first answer from ES.
@@ -749,4 +750,17 @@ func buildStrippedVersion(version string) string {
 	}
 
 	return "0.0p"
+}
+
+// ------------- auto draining response body related code -------------
+
+const maxDrainBytes = 512 * 1024
+
+type autoDrainingReader struct {
+	io.ReadCloser
+}
+
+func (a *autoDrainingReader) Close() error {
+	_, _ = io.Copy(io.Discard, io.LimitReader(a.ReadCloser, maxDrainBytes))
+	return a.ReadCloser.Close()
 }
