@@ -45,14 +45,27 @@ go run indexer.go -count=100000 -flush=1000000
 The helper allows you to `Add()` bulk indexer items, and flushes each batch based on the configured threshold.
 
 ```golang
-indexer, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{})
-indexer.Add(
-    context.Background(),
-    esutil.BulkIndexerItem{
-        Action: "index",
-        Body:   strings.NewReader(`{"title":"Test"}`),
-    })
-indexer.Close(context.Background())
+client, err := elasticsearch.NewDefaultClient()
+if err != nil {
+	log.Fatalf("Error creating the client: %s", err)
+}
+defer client.Close(context.Background())
+
+indexer, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{Client: client})
+if err != nil {
+	log.Fatalf("Error creating the indexer: %s", err)
+}
+defer indexer.Close(context.Background())
+
+if err := indexer.Add(
+	context.Background(),
+	esutil.BulkIndexerItem{
+		Action: "index",
+		Body:   strings.NewReader(`{"title":"Test"}`),
+	},
+); err != nil {
+	log.Fatalf("Unexpected error: %s", err)
+}
 ```
 
 ## `typed.go`

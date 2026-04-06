@@ -61,7 +61,7 @@ type BulkIndexerConfig struct {
 	FlushInterval       time.Duration // The flush threshold as duration. Defaults to 30sec.
 	QueueSizeMultiplier int           // The multiplier on the size of the worker queue. Defaults to 1.
 
-	Client      esapi.Transport         // The Elasticsearch client.
+	Client      esapi.Transport         // The Elasticsearch client (required).
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
@@ -287,6 +287,8 @@ type bulkIndexerStats struct {
 }
 
 // NewBulkIndexer creates a new bulk indexer.
+//
+// Returns an error when cfg.Client is nil.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
 		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
