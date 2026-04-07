@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package upgradejobsnapshot
 
 // Response holds the response body struct for the package upgradejobsnapshot
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/upgrade_job_snapshot/MlUpgradeJobSnapshotResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ml/upgrade_job_snapshot/MlUpgradeJobSnapshotResponse.ts#L22-L31
 type Response struct {
 	// Completed When true, this means the task is complete. When false, it is still running.
 	Completed bool `json:"completed"`

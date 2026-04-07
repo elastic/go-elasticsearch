@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package asyncquery
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package asyncquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/esql/async_query/AsyncQueryRequest.ts#L28-L156
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/esql/async_query/AsyncQueryRequest.ts#L29-L169
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
@@ -69,12 +69,17 @@ type Request struct {
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
-	Params []types.FieldValue `json:"params,omitempty"`
+	Params types.ESQLParams `json:"params,omitempty"`
 	// Profile If provided and `true` the response will include an extra `profile` object
 	// with information on how the query was executed. This information is for human
 	// debugging and its format can change at any time but it can give some insight
 	// into the performance of each part of the query.
 	Profile *bool `json:"profile,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
+	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+	// single value (possibly wildcarded). Examples: _alias:my-project
+	// _alias:_origin _alias:*pr* Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
@@ -218,6 +223,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Profile = &value
 			case bool:
 				s.Profile = &v
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

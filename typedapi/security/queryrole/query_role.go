@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Find roles with a query.
 //
@@ -87,7 +87,7 @@ func NewQueryRoleFunc(tp elastictransport.Interface) NewQueryRole {
 // nor built-in ones. You can optionally filter the results with a query. Also,
 // the results can be paginated and sorted.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-role
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-role
 func New(tp elastictransport.Interface) *QueryRole {
@@ -399,6 +399,15 @@ func (r *QueryRole) SearchAfter(sortresults ...types.FieldValueVariant) *QueryRo
 	return r
 }
 
+func (r *QueryRole) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must not be negative. By default, you cannot
 // page through more than 10,000 hits using the `from` and `size` parameters. To
 // page through more hits, use the `search_after` parameter.
@@ -431,5 +440,14 @@ func (r *QueryRole) Sort(sorts ...types.SortCombinationsVariant) *QueryRole {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryRole) SortValues(sortvalues []types.SortCombinations) *QueryRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

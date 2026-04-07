@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get cluster info.
 //
@@ -78,7 +78,7 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 // API is retained for backward compatibility only. Some response fields, such
 // as the version number, should be ignored.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,

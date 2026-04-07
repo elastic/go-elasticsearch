@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Evaluate ranked search results.
 //
@@ -89,7 +89,7 @@ func NewRankEvalFunc(tp elastictransport.Interface) NewRankEval {
 // Evaluate the quality of ranked search results over a set of typical search
 // queries.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-rank-eval
 func New(tp elastictransport.Interface) *RankEval {
@@ -435,5 +435,14 @@ func (r *RankEval) Requests(requests ...types.RankEvalRequestItemVariant) *RankE
 		r.req.Requests = append(r.req.Requests, *v.RankEvalRequestItemCaster())
 
 	}
+	return r
+}
+
+func (r *RankEval) RequestsValues(requestsvalues []types.RankEvalRequestItem) *RankEval {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Requests = requestsvalues
 	return r
 }

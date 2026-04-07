@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Create a Watsonx inference endpoint.
 //
@@ -101,7 +101,7 @@ func NewPutWatsonxFunc(tp elastictransport.Interface) NewPutWatsonx {
 // through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
 // API, or Terraform.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-watsonx
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-watsonx
 func New(tp elastictransport.Interface) *PutWatsonx {
@@ -398,7 +398,8 @@ func (r *PutWatsonx) Pretty(pretty bool) *PutWatsonx {
 }
 
 // The chunking configuration object. Applies only to the `text_embedding` task
-// type. Not applicable to the `completion` or `chat_completion` task types.
+// type. Not applicable to the `rerank`, `completion` or `chat_completion` task
+// types.
 // API name: chunking_settings
 func (r *PutWatsonx) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutWatsonx {
 	// Initialize the request if it is not already initialized

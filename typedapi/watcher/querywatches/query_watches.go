@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Query watches.
 //
@@ -85,7 +85,7 @@ func NewQueryWatchesFunc(tp elastictransport.Interface) NewQueryWatches {
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-query-watches
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-query-watches
 func New(tp elastictransport.Interface) *QueryWatches {
 	r := &QueryWatches{
 		transport: tp,
@@ -388,6 +388,15 @@ func (r *QueryWatches) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 	return r
 }
 
+func (r *QueryWatches) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryWatches {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must be non-negative.
 // API name: size
 func (r *QueryWatches) Size(size int) *QueryWatches {
@@ -415,5 +424,14 @@ func (r *QueryWatches) Sort(sorts ...types.SortCombinationsVariant) *QueryWatche
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryWatches) SortValues(sortvalues []types.SortCombinations) *QueryWatches {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

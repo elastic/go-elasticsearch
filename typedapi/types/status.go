@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Status type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/snapshot/_types/SnapshotStatus.ts#L26-L60
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/snapshot/_types/SnapshotStatus.ts#L26-L60
 type Status struct {
 	// IncludeGlobalState Indicates whether the current cluster state is included in the snapshot.
 	IncludeGlobalState bool                          `json:"include_global_state"`

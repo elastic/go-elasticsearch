@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ChunkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/ml/_types/Datafeed.ts#L255-L268
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ml/_types/Datafeed.ts#L255-L268
 type ChunkingConfig struct {
 	// Mode If the mode is `auto`, the chunk size is dynamically calculated; this is the
 	// recommended value when the datafeed does not use aggregations. If the mode is

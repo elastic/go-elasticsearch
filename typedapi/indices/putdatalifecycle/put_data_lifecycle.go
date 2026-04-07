@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Update data stream lifecycles.
 //
@@ -89,7 +89,7 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 //
 // Update the data stream lifecycle of the specified data streams.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-lifecycle
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-lifecycle
 func New(tp elastictransport.Interface) *PutDataLifecycle {
@@ -424,6 +424,15 @@ func (r *PutDataLifecycle) Downsampling(downsamplings ...types.DownsamplingRound
 		r.req.Downsampling = append(r.req.Downsampling, *v.DownsamplingRoundCaster())
 
 	}
+	return r
+}
+
+func (r *PutDataLifecycle) DownsamplingValues(downsamplingvalues []types.DownsamplingRound) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Downsampling = downsamplingvalues
 	return r
 }
 

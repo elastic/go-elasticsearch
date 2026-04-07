@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -56,6 +56,12 @@ func (s *_dataStreamLifecycleWithRollover) Downsampling(downsamplings ...types.D
 		s.v.Downsampling = append(s.v.Downsampling, *v.DownsamplingRoundCaster())
 
 	}
+	return s
+}
+
+func (s *_dataStreamLifecycleWithRollover) DownsamplingValues(downsamplingvalues []types.DownsamplingRound) *_dataStreamLifecycleWithRollover {
+
+	s.v.Downsampling = downsamplingvalues
 	return s
 }
 

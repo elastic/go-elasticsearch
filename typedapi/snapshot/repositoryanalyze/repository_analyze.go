@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Analyze a snapshot repository.
 //
@@ -424,7 +424,7 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // increment a counter which is represented as an 8-byte blob. Some operations
 // also verify the behavior on small blobs with sizes other than 8 bytes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-analyze
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-repository-analyze
 func New(tp elastictransport.Interface) *RepositoryAnalyze {
 	r := &RepositoryAnalyze{
 		transport: tp,

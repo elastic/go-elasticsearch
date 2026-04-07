@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Delete a document.
 //
@@ -180,7 +180,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // redirected into the primary shard within that ID group and replicated (if
 // needed) to shard replicas within that ID group.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete
 func New(tp elastictransport.Interface) *Delete {

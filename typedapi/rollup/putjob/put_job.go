@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Create a rollup job.
 //
@@ -117,7 +117,7 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 // Jobs are created in a `STOPPED` state. You can start them with the start
 // rollup jobs API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-put-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-put-job
 //
 // Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *PutJob {
@@ -477,6 +477,15 @@ func (r *PutJob) Metrics(metrics ...types.FieldMetricVariant) *PutJob {
 		r.req.Metrics = append(r.req.Metrics, *v.FieldMetricCaster())
 
 	}
+	return r
+}
+
+func (r *PutJob) MetricsValues(metricsvalues []types.FieldMetric) *PutJob {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Metrics = metricsvalues
 	return r
 }
 

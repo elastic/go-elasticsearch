@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package rollover
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package rollover
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/rollover/IndicesRolloverRequest.ts#L34-L161
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/rollover/IndicesRolloverRequest.ts#L34-L161
 type Request struct {
 	// Aliases Aliases for the target index. Data streams do not support this parameter.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`

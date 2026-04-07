@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get tokens from text analysis.
 //
@@ -99,7 +99,7 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 // generated, an error occurs. The `_analyze` endpoint without a specified index
 // will always use `10000` as its limit.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-analyze
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
@@ -425,6 +425,15 @@ func (r *Analyze) CharFilter(charfilters ...types.CharFilterVariant) *Analyze {
 	return r
 }
 
+func (r *Analyze) CharFilterValues(charfiltervalues []types.CharFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.CharFilter = charfiltervalues
+	return r
+}
+
 // If `true`, the response includes token attributes and additional details.
 // API name: explain
 func (r *Analyze) Explain(explain bool) *Analyze {
@@ -464,6 +473,15 @@ func (r *Analyze) Filter(filters ...types.TokenFilterVariant) *Analyze {
 		r.req.Filter = append(r.req.Filter, *v.TokenFilterCaster())
 
 	}
+	return r
+}
+
+func (r *Analyze) FilterValues(filtervalues []types.TokenFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filter = filtervalues
 	return r
 }
 

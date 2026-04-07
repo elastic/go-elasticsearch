@@ -16,27 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Package threadtype
 package threadtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/common.ts#L311-L317
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/common.ts#L314-L325
 type ThreadType struct {
 	Name string
 }
 
 var (
+
+	// Cpu Threads that consume the most CPU time.
 	Cpu = ThreadType{"cpu"}
 
+	// Wait Threads that have been in a waiting state the longest.
 	Wait = ThreadType{"wait"}
 
+	// Block Threads that have been blocked the longest.
 	Block = ThreadType{"block"}
 
+	// Gpu Threads that consume the most GPU time.
 	Gpu = ThreadType{"gpu"}
 
+	// Mem Threads that allocate the most memory.
 	Mem = ThreadType{"mem"}
 )
 

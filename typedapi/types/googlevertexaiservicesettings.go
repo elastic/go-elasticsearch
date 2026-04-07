@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GoogleVertexAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/_types/CommonTypes.ts#L1426-L1493
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/_types/CommonTypes.ts#L1426-L1493
 type GoogleVertexAIServiceSettings struct {
 	// Dimensions For a `text_embedding` task, the number of dimensions the resulting output
 	// embeddings should have. By default, the model's standard output dimension is

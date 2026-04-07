@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Update an anomaly detection job.
 //
@@ -87,7 +87,7 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 //
 // Updates certain properties of an anomaly detection job.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-job
 func New(tp elastictransport.Interface) *UpdateJob {
@@ -504,6 +504,15 @@ func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdateVariant) *UpdateJ
 		r.req.Detectors = append(r.req.Detectors, *v.DetectorUpdateCaster())
 
 	}
+	return r
+}
+
+func (r *UpdateJob) DetectorsValues(detectorsvalues []types.DetectorUpdate) *UpdateJob {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Detectors = detectorsvalues
 	return r
 }
 

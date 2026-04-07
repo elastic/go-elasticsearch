@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Create or update a pipeline.
 //
@@ -460,6 +460,15 @@ func (r *PutPipeline) OnFailure(onfailures ...types.ProcessorContainerVariant) *
 	return r
 }
 
+func (r *PutPipeline) OnFailureValues(onfailurevalues []types.ProcessorContainer) *PutPipeline {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.OnFailure = onfailurevalues
+	return r
+}
+
 // Processors used to perform transformations on documents before indexing.
 // Processors run sequentially in the order specified.
 // API name: processors
@@ -473,6 +482,15 @@ func (r *PutPipeline) Processors(processors ...types.ProcessorContainerVariant) 
 		r.req.Processors = append(r.req.Processors, *v.ProcessorContainerCaster())
 
 	}
+	return r
+}
+
+func (r *PutPipeline) ProcessorsValues(processorsvalues []types.ProcessorContainer) *PutPipeline {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Processors = processorsvalues
 	return r
 }
 

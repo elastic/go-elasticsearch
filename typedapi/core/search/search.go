@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Run a search.
 //
@@ -139,7 +139,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // situation can occur because the splitting criterion is based on Lucene
 // document IDs, which are not stable across changes to the index.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
 func New(tp elastictransport.Interface) *Search {
@@ -819,6 +819,15 @@ func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *
 	return r
 }
 
+func (r *Search) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.DocvalueFields = docvaluefieldsvalues
+	return r
+}
+
 // If `true`, the request returns detailed information about score computation
 // as part of a hit.
 // API name: explain
@@ -877,6 +886,15 @@ func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
 		r.req.Fields = append(r.req.Fields, *v.FieldAndFormatCaster())
 
 	}
+	return r
+}
+
+func (r *Search) FieldsValues(fieldsvalues []types.FieldAndFormat) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Fields = fieldsvalues
 	return r
 }
 
@@ -1132,6 +1150,15 @@ func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
 	return r
 }
 
+func (r *Search) SearchAfterValues(sortresultsvalues []types.FieldValue) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // If `true`, the request returns sequence number and primary term of the last
 // modification of each hit.
 // API name: seq_no_primary_term
@@ -1189,6 +1216,15 @@ func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *Search) SortValues(sortvalues []types.SortCombinations) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/cluster/stats/types.ts#L198-L227
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/cluster/stats/types.ts#L198-L227
 type FieldTypesMappings struct {
 	// FieldTypes Contains statistics about field data types used in selected nodes.
 	FieldTypes []FieldTypes `json:"field_types"`

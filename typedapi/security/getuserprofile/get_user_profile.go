@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get a user profile.
 //
@@ -94,7 +94,7 @@ func NewGetUserProfileFunc(tp elastictransport.Interface) NewGetUserProfile {
 // Elastic reserves the right to change or remove this feature in future
 // releases without prior notice.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user-profile
 func New(tp elastictransport.Interface) *GetUserProfile {
 	r := &GetUserProfile{
 		transport: tp,

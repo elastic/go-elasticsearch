@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Start a trial.
 //
@@ -90,7 +90,7 @@ func NewPostStartTrialFunc(tp elastictransport.Interface) NewPostStartTrial {
 //
 // To check the status of your trial, use the get trial status API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-trial
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-trial
 func New(tp elastictransport.Interface) *PostStartTrial {
 	r := &PostStartTrial{
 		transport: tp,
@@ -296,7 +296,8 @@ func (r *PostStartTrial) Header(key, value string) *PostStartTrial {
 	return r
 }
 
-// Acknowledge Whether the user has acknowledged acknowledge messages
+// Acknowledge To start a trial, you must accept the acknowledge messages and set this
+// parameter to `true`.
 // API name: acknowledge
 func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))

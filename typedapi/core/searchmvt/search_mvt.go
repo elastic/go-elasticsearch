@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Search a vector tile.
 //
@@ -315,7 +315,7 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
 // guide.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-mvt
 func New(tp elastictransport.Interface) *SearchMvt {
@@ -873,6 +873,15 @@ func (r *SearchMvt) Sort(sorts ...types.SortCombinationsVariant) *SearchMvt {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *SearchMvt) SortValues(sortvalues []types.SortCombinations) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

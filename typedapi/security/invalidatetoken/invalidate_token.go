@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Invalidate a token.
 //
@@ -103,7 +103,7 @@ func NewInvalidateTokenFunc(tp elastictransport.Interface) NewInvalidateToken {
 // required. If none of these two are specified, then `realm_name` and/or
 // `username` need to be specified.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-invalidate-token
 func New(tp elastictransport.Interface) *InvalidateToken {
 	r := &InvalidateToken{
 		transport: tp,

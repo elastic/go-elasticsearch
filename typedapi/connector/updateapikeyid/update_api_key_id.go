@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Update the connector API key ID.
 //
@@ -95,7 +95,7 @@ func NewUpdateApiKeyIdFunc(tp elastictransport.Interface) NewUpdateApiKeyId {
 // required only for Elastic managed (native) connectors. Self-managed
 // connectors (connector clients) do not use this field.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-api-key-id
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-api-key-id
 func New(tp elastictransport.Interface) *UpdateApiKeyId {

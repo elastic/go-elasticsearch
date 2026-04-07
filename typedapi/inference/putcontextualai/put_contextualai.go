@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Create an Contextual AI inference endpoint.
 //
@@ -101,7 +101,7 @@ func NewPutContextualaiFunc(tp elastictransport.Interface) NewPutContextualai {
 // To review the available `rerank` models, refer to
 // <https://docs.contextual.ai/api-reference/rerank/rerank#body-model>.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-contextualai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-contextualai
 func New(tp elastictransport.Interface) *PutContextualai {

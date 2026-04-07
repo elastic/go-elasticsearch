@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Disable users.
 //
@@ -85,7 +85,7 @@ func NewDisableUserFunc(tp elastictransport.Interface) NewDisableUser {
 // Disable users in the native realm. By default, when you create users, they
 // are enabled. You can use this API to revoke a user's access to Elasticsearch.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-disable-user
 func New(tp elastictransport.Interface) *DisableUser {
 	r := &DisableUser{
 		transport: tp,

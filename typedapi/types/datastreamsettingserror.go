@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamSettingsError type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L71-L77
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L71-L77
 type DataStreamSettingsError struct {
 	// Error A message explaining why the settings could not be applied to specific
 	// indices.

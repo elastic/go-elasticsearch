@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -55,6 +55,12 @@ func (s *_phraseSuggester) DirectGenerator(directgenerators ...types.DirectGener
 		s.v.DirectGenerator = append(s.v.DirectGenerator, *v.DirectGeneratorCaster())
 
 	}
+	return s
+}
+
+func (s *_phraseSuggester) DirectGeneratorValues(directgeneratorvalues []types.DirectGenerator) *_phraseSuggester {
+
+	s.v.DirectGenerator = directgeneratorvalues
 	return s
 }
 
@@ -110,13 +116,6 @@ func (s *_phraseSuggester) ShardSize(shardsize int) *_phraseSuggester {
 func (s *_phraseSuggester) Smoothing(smoothing types.SmoothingModelContainerVariant) *_phraseSuggester {
 
 	s.v.Smoothing = smoothing.SmoothingModelContainerCaster()
-
-	return s
-}
-
-func (s *_phraseSuggester) Text(text string) *_phraseSuggester {
-
-	s.v.Text = &text
 
 	return s
 }

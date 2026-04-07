@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get mapping definitions.
 //
@@ -83,7 +83,7 @@ func NewGetMappingFunc(tp elastictransport.Interface) NewGetMapping {
 // For data streams, the API retrieves mappings for the stream’s backing
 // indices.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-mapping
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-mapping
 func New(tp elastictransport.Interface) *GetMapping {

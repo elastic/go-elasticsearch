@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Run a knn search.
 //
@@ -91,8 +91,6 @@ func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
-//
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
 //
 // Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 // option in the search API.
@@ -387,6 +385,15 @@ func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant
 		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
 
 	}
+	return r
+}
+
+func (r *KnnSearch) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.DocvalueFields = docvaluefieldsvalues
 	return r
 }
 

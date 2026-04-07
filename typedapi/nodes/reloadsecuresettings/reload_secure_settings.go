@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Reload the keystore on nodes in the cluster.
 //
@@ -111,7 +111,7 @@ func NewReloadSecureSettingsFunc(tp elastictransport.Interface) NewReloadSecureS
 // accessing the API and passing the node-specific Elasticsearch keystore
 // password.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-reload-secure-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-reload-secure-settings
 func New(tp elastictransport.Interface) *ReloadSecureSettings {
 	r := &ReloadSecureSettings{
 		transport: tp,

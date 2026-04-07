@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -49,6 +49,12 @@ func (s *_detector) CustomRules(customrules ...types.DetectionRuleVariant) *_det
 		s.v.CustomRules = append(s.v.CustomRules, *v.DetectionRuleCaster())
 
 	}
+	return s
+}
+
+func (s *_detector) CustomRulesValues(customrulesvalues []types.DetectionRule) *_detector {
+
+	s.v.CustomRules = customrulesvalues
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Update the license.
 //
@@ -97,7 +97,7 @@ func NewPostFunc(tp elastictransport.Interface) NewPost {
 // before you install the license. If the operator privileges feature is
 // enabled, only operator users can use this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post
 func New(tp elastictransport.Interface) *Post {
 	r := &Post{
 		transport: tp,
@@ -310,7 +310,9 @@ func (r *Post) Header(key, value string) *Post {
 	return r
 }
 
-// Acknowledge Specifies whether you acknowledge the license changes.
+// Acknowledge To update a license, you must accept the acknowledge messages and set this
+// parameter to `true`. In particular, if you are upgrading or downgrading a
+// license, you must acknowlege the feature changes.
 // API name: acknowledge
 func (r *Post) Acknowledge(acknowledge bool) *Post {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))
@@ -401,5 +403,14 @@ func (r *Post) Licenses(licenses ...types.LicenseVariant) *Post {
 		r.req.Licenses = append(r.req.Licenses, *v.LicenseCaster())
 
 	}
+	return r
+}
+
+func (r *Post) LicensesValues(licensesvalues []types.License) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Licenses = licensesvalues
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -42,6 +42,12 @@ func (s *_access) Replication(replications ...types.ReplicationAccessVariant) *_
 	return s
 }
 
+func (s *_access) ReplicationValues(replicationvalues []types.ReplicationAccess) *_access {
+
+	s.v.Replication = replicationvalues
+	return s
+}
+
 func (s *_access) Search(searches ...types.SearchAccessVariant) *_access {
 
 	for _, v := range searches {
@@ -49,6 +55,12 @@ func (s *_access) Search(searches ...types.SearchAccessVariant) *_access {
 		s.v.Search = append(s.v.Search, *v.SearchAccessCaster())
 
 	}
+	return s
+}
+
+func (s *_access) SearchValues(searchvalues []types.SearchAccess) *_access {
+
+	s.v.Search = searchvalues
 	return s
 }
 

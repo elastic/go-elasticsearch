@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Delete an inference endpoint.
 //
@@ -87,7 +87,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // This API requires the manage_inference cluster privilege (the built-in
 // `inference_admin` role grants this privilege).
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete
 func New(tp elastictransport.Interface) *Delete {

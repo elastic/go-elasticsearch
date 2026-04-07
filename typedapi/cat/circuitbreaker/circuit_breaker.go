@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get circuit breakers statistics.
 //
@@ -85,7 +85,7 @@ func NewCircuitBreakerFunc(tp elastictransport.Interface) NewCircuitBreaker {
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-circuit-breaker
 func New(tp elastictransport.Interface) *CircuitBreaker {
 	r := &CircuitBreaker{
 		transport: tp,

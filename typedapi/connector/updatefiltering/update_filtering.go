@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Update the connector filtering.
 //
@@ -93,7 +93,7 @@ func NewUpdateFilteringFunc(tp elastictransport.Interface) NewUpdateFiltering {
 // by the running Elastic connector service. The filtering property is used to
 // configure sync rules (both basic and advanced) for a connector.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering
 func New(tp elastictransport.Interface) *UpdateFiltering {
@@ -393,6 +393,15 @@ func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfigVariant) 
 	return r
 }
 
+func (r *UpdateFiltering) FilteringValues(filteringvalues []types.FilteringConfig) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filtering = filteringvalues
+	return r
+}
+
 // API name: rules
 func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFiltering {
 	// Initialize the request if it is not already initialized
@@ -404,5 +413,14 @@ func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFilt
 		r.req.Rules = append(r.req.Rules, *v.FilteringRuleCaster())
 
 	}
+	return r
+}
+
+func (r *UpdateFiltering) RulesValues(rulesvalues []types.FilteringRule) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Rules = rulesvalues
 	return r
 }

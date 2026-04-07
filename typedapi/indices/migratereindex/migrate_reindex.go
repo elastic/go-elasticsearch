@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Reindex legacy backing indices.
 //
@@ -84,7 +84,7 @@ func NewMigrateReindexFunc(tp elastictransport.Interface) NewMigrateReindex {
 // in a persistent task. The persistent task ID is returned immediately and the
 // reindexing work is completed in that task.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-reindex
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-migrate-reindex
 func New(tp elastictransport.Interface) *MigrateReindex {
 	r := &MigrateReindex{
 		transport: tp,

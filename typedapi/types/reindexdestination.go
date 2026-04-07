@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ReindexDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/reindex/types.ts#L39-L67
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_global/reindex/types.ts#L38-L66
 type ReindexDestination struct {
 	// Index The name of the data stream, index, or index alias you are copying to.
 	Index string `json:"index"`
@@ -52,7 +52,7 @@ type ReindexDestination struct {
 	// bulk request sent for each match is set to `null`. If it is `=value`, the
 	// routing on the bulk request sent for each match is set to all value specified
 	// after the equals sign (`=`).
-	Routing []string `json:"routing,omitempty"`
+	Routing *string `json:"routing,omitempty"`
 	// VersionType The versioning to use for the indexing operation.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -95,20 +95,16 @@ func (s *ReindexDestination) UnmarshalJSON(data []byte) error {
 			s.Pipeline = &o
 
 		case "routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-
-				s.Routing = append(s.Routing, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Routing = &o
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {

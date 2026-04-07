@@ -16,23 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Package shardstoreallocation
 package shardstoreallocation
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/shard_stores/types.ts#L47-L51
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/shard_stores/types.ts#L50-L57
 type ShardStoreAllocation struct {
 	Name string
 }
 
 var (
+
+	// Primary The store copy is used as a primary shard.
 	Primary = ShardStoreAllocation{"primary"}
 
+	// Replica The store copy is used as a replica shard.
 	Replica = ShardStoreAllocation{"replica"}
 
+	// Unused The store copy is not used.
 	Unused = ShardStoreAllocation{"unused"}
 )
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Bulk create or update roles.
 //
@@ -84,7 +84,7 @@ func NewBulkPutRoleFunc(tp elastictransport.Interface) NewBulkPutRole {
 // rather than using file-based role management. The bulk create or update roles
 // API cannot update roles that are defined in roles files.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-put-role
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-put-role
 func New(tp elastictransport.Interface) *BulkPutRole {
 	r := &BulkPutRole{
 		transport: tp,

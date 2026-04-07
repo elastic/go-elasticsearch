@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get GeoIP database configurations.
 //
@@ -80,7 +80,7 @@ func NewGetGeoipDatabaseFunc(tp elastictransport.Interface) NewGetGeoipDatabase 
 //
 // Get information about one or more IP geolocation database configurations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-geoip-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-geoip-database
 func New(tp elastictransport.Interface) *GetGeoipDatabase {
 	r := &GetGeoipDatabase{
 		transport: tp,

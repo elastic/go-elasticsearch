@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // BucketSortAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/pipeline.ts#L180-L204
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/aggregations/pipeline.ts#L180-L204
 type BucketSortAggregation struct {
 	// From Buckets in positions prior to `from` will be truncated.
 	From *int `json:"from,omitempty"`
