@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Prepare a node to be shut down.
 //
@@ -57,7 +57,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/type_"
 )
 
@@ -364,8 +363,8 @@ func (r *PutNode) _nodeid(nodeid string) *PutNode {
 // MasterTimeout The period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *PutNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *PutNode {
-	r.values.Set("master_timeout", mastertimeout.String())
+func (r *PutNode) MasterTimeout(duration string) *PutNode {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -373,8 +372,8 @@ func (r *PutNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *PutNode {
 // Timeout The period to wait for a response. If no response is received before the
 // timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *PutNode) Timeout(timeout timeunit.TimeUnit) *PutNode {
-	r.values.Set("timeout", timeout.String())
+func (r *PutNode) Timeout(duration string) *PutNode {
+	r.values.Set("timeout", duration)
 
 	return r
 }

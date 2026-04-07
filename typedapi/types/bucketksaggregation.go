@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -41,7 +41,7 @@ import (
 // terms aggregation, in which case one compares the overall distribution of
 // metric to its restriction to each term.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/pipeline.ts#L103-L137
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/_types/aggregations/pipeline.ts#L103-L137
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
 	// The valid values are: "greater", "less", "two_sided". This parameter is key

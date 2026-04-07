@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Update the cluster settings.
 //
@@ -346,7 +346,7 @@ func (r *PutSettings) Header(key, value string) *PutSettings {
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings Return settings in flat format
 // API name: flat_settings
 func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -354,7 +354,7 @@ func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 	r.values.Set("master_timeout", duration)
@@ -362,7 +362,7 @@ func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *PutSettings) Timeout(duration string) *PutSettings {
 	r.values.Set("timeout", duration)

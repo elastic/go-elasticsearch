@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Run an async ES|QL query. Asynchronously run an ES|QL (Elasticsearch query
 // language) query, monitor its progress, and retrieve results when they become
@@ -477,11 +477,11 @@ func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *AsyncQuery) Params(params ...types.FieldValue) *AsyncQuery {
+func (r *AsyncQuery) Params(esqlparams types.ESQLParams) *AsyncQuery {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.Params = params
+	r.req.Params = esqlparams
 
 	return r
 }

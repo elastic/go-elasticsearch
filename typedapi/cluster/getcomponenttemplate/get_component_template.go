@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Get component templates. Get information about component templates.
 package getcomponenttemplate
@@ -291,8 +291,8 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 	return r
 }
 
-// Name Comma-separated list of component template names used to limit the request.
-// Wildcard (`*`) expressions are supported.
+// Name Name of component template to retrieve. Wildcard (`*`) expressions are
+// supported.
 // API Name: name
 func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
 	r.paramSet |= nameMask
@@ -322,7 +322,7 @@ func (r *GetComponentTemplate) SettingsFilter(settingsfilters ...string) *GetCom
 	return r
 }
 
-// IncludeDefaults Return all default configurations for the component template (default: false)
+// IncludeDefaults Return all default configurations for the component template
 // API name: include_defaults
 func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetComponentTemplate {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))

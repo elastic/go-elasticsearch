@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package updatepipeline
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatepipeline
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/connector/update_pipeline/ConnectorUpdatePipelineRequest.ts#L23-L52
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/connector/update_pipeline/ConnectorUpdatePipelineRequest.ts#L23-L54
 type Request struct {
 	Pipeline types.IngestPipelineParams `json:"pipeline"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package typedapi
 
@@ -30,7 +30,6 @@ import (
 	autoscaling_get_autoscaling_capacity "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingcapacity"
 	autoscaling_get_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/getautoscalingpolicy"
 	autoscaling_put_autoscaling_policy "github.com/elastic/go-elasticsearch/v8/typedapi/autoscaling/putautoscalingpolicy"
-	capabilities "github.com/elastic/go-elasticsearch/v8/typedapi/capabilities"
 	cat_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/cat/aliases"
 	cat_allocation "github.com/elastic/go-elasticsearch/v8/typedapi/cat/allocation"
 	cat_component_templates "github.com/elastic/go-elasticsearch/v8/typedapi/cat/componenttemplates"
@@ -93,7 +92,10 @@ import (
 	connector_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/list"
 	connector_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/post"
 	connector_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/put"
+	connector_secret_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretdelete"
+	connector_secret_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretget"
 	connector_secret_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretpost"
+	connector_secret_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretput"
 	connector_sync_job_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcancel"
 	connector_sync_job_check_in "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcheckin"
 	connector_sync_job_claim "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobclaim"
@@ -118,6 +120,7 @@ import (
 	connector_update_service_type "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateservicetype"
 	connector_update_status "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatestatus"
 	core_bulk "github.com/elastic/go-elasticsearch/v8/typedapi/core/bulk"
+	core_capabilities "github.com/elastic/go-elasticsearch/v8/typedapi/core/capabilities"
 	core_clear_scroll "github.com/elastic/go-elasticsearch/v8/typedapi/core/clearscroll"
 	core_close_point_in_time "github.com/elastic/go-elasticsearch/v8/typedapi/core/closepointintime"
 	core_count "github.com/elastic/go-elasticsearch/v8/typedapi/core/count"
@@ -180,6 +183,8 @@ import (
 	esql_query "github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
 	features_get_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/getfeatures"
 	features_reset_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/resetfeatures"
+	fleet_delete_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/deletesecret"
+	fleet_get_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/getsecret"
 	fleet_global_checkpoints "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/globalcheckpoints"
 	fleet_msearch "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/msearch"
 	fleet_post_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/postsecret"
@@ -210,6 +215,7 @@ import (
 	indices_delete_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletealias"
 	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatalifecycle"
 	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastream"
+	indices_delete_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastreamoptions"
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deleteindextemplate"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletetemplate"
 	indices_disk_usage "github.com/elastic/go-elasticsearch/v8/typedapi/indices/diskusage"
@@ -227,6 +233,8 @@ import (
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastream"
+	indices_get_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastreamoptions"
+	indices_get_data_stream_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastreamsettings"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getfieldmapping"
 	indices_get_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getindextemplate"
 	indices_get_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getmapping"
@@ -240,6 +248,8 @@ import (
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putalias"
 	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatalifecycle"
+	indices_put_data_stream_options "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatastreamoptions"
+	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putindextemplate"
 	indices_put_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putmapping"
 	indices_put_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putsettings"
@@ -552,6 +562,7 @@ import (
 	transform_put_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/puttransform"
 	transform_reset_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/resettransform"
 	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/schedulenowtransform"
+	transform_set_upgrade_mode "github.com/elastic/go-elasticsearch/v8/typedapi/transform/setupgrademode"
 	transform_start_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/starttransform"
 	transform_stop_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/stoptransform"
 	transform_update_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/updatetransform"
@@ -657,12 +668,6 @@ type Autoscaling struct {
 	// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 	// supported.
 	PutAutoscalingPolicy autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicy
-}
-
-type Capabilities struct {
-	// Checks if the specified combination of method, API, parameters, and arbitrary
-	// capabilities are supported
-	Capabilities capabilities.NewCapabilities
 }
 
 type Cat struct {
@@ -1275,8 +1280,14 @@ type Connector struct {
 	Post connector_post.NewPost
 	// Create or update a connector.
 	Put connector_put.NewPut
+	// Deletes a connector secret.
+	SecretDelete connector_secret_delete.NewSecretDelete
+	// Retrieves a secret stored by Connectors.
+	SecretGet connector_secret_get.NewSecretGet
 	// Creates a secret for a Connector.
 	SecretPost connector_secret_post.NewSecretPost
+	// Creates or updates a secret for a Connector.
+	SecretPut connector_secret_put.NewSecretPut
 	// Cancel a connector sync job.
 	//
 	// Cancel a connector sync job, which sets the status to cancelling and updates
@@ -1499,8 +1510,11 @@ type Core struct {
 	//     `Search::Elasticsearch::Client::5_0::Scroll`
 	//   - Python: Check out `elasticsearch.helpers.*`
 	//   - JavaScript: Check out `client.helpers.*`
+	//   - Java: Check out
+	//     `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 	//   - .NET: Check out `BulkAllObservable`
 	//   - PHP: Check out bulk indexing.
+	//   - Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 	//
 	// # Submitting bulk requests with cURL
 	//
@@ -1554,6 +1568,9 @@ type Core struct {
 	// shards that make up the index do not participate in the `_bulk` request at
 	// all.
 	Bulk core_bulk.NewBulk
+	// Checks if the specified combination of method, API, parameters, and arbitrary
+	// capabilities are supported.
+	Capabilities core_capabilities.NewCapabilities
 	// Clear a scrolling search. Clear the search context and results for a
 	// scrolling search.
 	ClearScroll core_clear_scroll.NewClearScroll
@@ -3200,6 +3217,10 @@ type Features struct {
 }
 
 type Fleet struct {
+	// Deletes a secret stored by Fleet.
+	DeleteSecret fleet_delete_secret.NewDeleteSecret
+	// Retrieves a secret stored by Fleet.
+	GetSecret fleet_get_secret.NewGetSecret
 	// Get global checkpoints.
 	//
 	// Get the current global checkpoints for an index. This API is designed for
@@ -3495,6 +3516,10 @@ type Indices struct {
 	// Delete data streams. Deletes one or more data streams and their backing
 	// indices.
 	DeleteDataStream indices_delete_data_stream.NewDeleteDataStream
+	// Delete data stream options.
+	//
+	// Removes the data stream options from a data stream.
+	DeleteDataStreamOptions indices_delete_data_stream_options.NewDeleteDataStreamOptions
 	// Delete an index template. The provided <index-template> may contain multiple
 	// template names separated by a comma. If multiple template names are specified
 	// then there is no wildcard support and the provided names should match
@@ -3672,6 +3697,14 @@ type Indices struct {
 	//
 	// Get information about one or more data streams.
 	GetDataStream indices_get_data_stream.NewGetDataStream
+	// Get data stream options.
+	//
+	// Get the data stream options configuration of one or more data streams.
+	GetDataStreamOptions indices_get_data_stream_options.NewGetDataStreamOptions
+	// Get data stream settings.
+	//
+	// Get setting information for one or more data streams.
+	GetDataStreamSettings indices_get_data_stream_settings.NewGetDataStreamSettings
 	// Get mapping definitions. Retrieves mapping definitions for one or more
 	// fields. For data streams, the API retrieves field mappings for the stream’s
 	// backing indices.
@@ -3773,6 +3806,21 @@ type Indices struct {
 	// Update data stream lifecycles. Update the data stream lifecycle of the
 	// specified data streams.
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
+	// Update data stream options.
+	//
+	// Update the data stream options of the specified data streams.
+	PutDataStreamOptions indices_put_data_stream_options.NewPutDataStreamOptions
+	// Update data stream settings.
+	//
+	// NOTE: Available in 8.19. Not available in earlier versions.
+	//
+	// This API can be used to override settings on specific data streams. These
+	// overrides will take precedence over what is specified in the template that
+	// the data stream matches. To prevent your data stream from getting into an
+	// invalid state, only certain settings are allowed. If possible, the setting
+	// change is applied to all backing indices. Otherwise, it will be applied when
+	// the data stream is next rolled over.
+	PutDataStreamSettings indices_put_data_stream_settings.NewPutDataStreamSettings
 	// Create or update an index template. Index templates define settings,
 	// mappings, and aliases that can be applied automatically to new indices.
 	//
@@ -3977,6 +4025,9 @@ type Indices struct {
 	// seconds. You can change this default interval with the
 	// `index.refresh_interval` setting.
 	//
+	// In Elastic Cloud Serverless, the default refresh interval is 5 seconds across
+	// all indices.
+	//
 	// Refresh requests are synchronous and do not return a response until the
 	// refresh operation completes.
 	//
@@ -4092,8 +4143,10 @@ type Indices struct {
 	// aliases, and data streams. Multiple patterns and remote clusters are
 	// supported.
 	ResolveIndex indices_resolve_index.NewResolveIndex
-	// Roll over to a new index. TIP: It is recommended to use the index lifecycle
-	// rollover action to automate rollovers.
+	// Roll over to a new index. TIP: We recommend using the index lifecycle
+	// rollover action to automate rollovers. However, Serverless does not support
+	// Index Lifecycle Management (ILM), so don't use this approach in the
+	// Serverless context.
 	//
 	// The rollover API creates a new index for a data stream or index alias. The
 	// API behavior depends on the rollover target.
@@ -4294,16 +4347,15 @@ type Inference struct {
 	//
 	// The chat completion inference API enables real-time responses for chat
 	// completion tasks by delivering answers incrementally, reducing response times
-	// during computation. It only works with the `chat_completion` task type for
-	// `openai` and `elastic` inference services.
+	// during computation. It only works with the `chat_completion` task type.
 	//
 	// NOTE: The `chat_completion` task type is only available within the _stream
 	// API and only supports streaming. The Chat completion inference API and the
 	// Stream inference API differ in their response structure and capabilities. The
 	// Chat completion inference API provides more comprehensive customization
-	// options through more fields and function calling support. If you use the
-	// `openai`, `hugging_face` or the `elastic` service, use the Chat completion
-	// inference API.
+	// options through more fields and function calling support. To determine
+	// whether a given inference service supports this task type, please see the
+	// page for that service.
 	ChatCompletionUnified inference_chat_completion_unified.NewChatCompletionUnified
 	// Perform completion inference on the service
 	Completion inference_completion.NewCompletion
@@ -4354,19 +4406,21 @@ type Inference struct {
 	//   - Azure AI Studio (`completion`, `text_embedding`)
 	//   - Azure OpenAI (`completion`, `text_embedding`)
 	//   - Cohere (`completion`, `rerank`, `text_embedding`)
-	//   - DeepSeek (`completion`, `chat_completion`)
+	//   - DeepSeek (`chat_completion`, `completion`)
 	//   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 	//     service is for built-in models and models uploaded through Eland)
 	//   - ELSER (`sparse_embedding`)
 	//   - Google AI Studio (`completion`, `text_embedding`)
-	//   - Google Vertex AI (`rerank`, `text_embedding`)
+	//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+	//     `text_embedding`)
 	//   - Hugging Face (`chat_completion`, `completion`, `rerank`,
 	//     `text_embedding`)
+	//   - JinaAI (`rerank`, `text_embedding`)
+	//   - Llama (`chat_completion`, `completion`, `text_embedding`)
 	//   - Mistral (`chat_completion`, `completion`, `text_embedding`)
 	//   - OpenAI (`chat_completion`, `completion`, `text_embedding`)
-	//   - VoyageAI (`text_embedding`, `rerank`)
-	//   - Watsonx inference integration (`text_embedding`)
-	//   - JinaAI (`text_embedding`, `rerank`)
+	//   - VoyageAI (`rerank`, `text_embedding`)
+	//   - Watsonx (`rerank`, `text_embedding`)
 	Put inference_put.NewPut
 	// Create an AlibabaCloud AI Search inference endpoint.
 	//
@@ -5290,8 +5344,7 @@ type Nodes struct {
 }
 
 type Profiling struct {
-	// Extracts a UI-optimized structure to render flamegraphs from Universal
-	// Profiling.
+	// Returns basic information about the status of Universal Profiling.
 	Flamegraph profiling_flamegraph.NewFlamegraph
 	// Extracts raw stacktrace information from Universal Profiling.
 	Stacktraces profiling_stacktraces.NewStacktraces
@@ -6515,6 +6568,10 @@ type Snapshot struct {
 	// metadata must be writeable. Ensure there are no cluster blocks (for example,
 	// `cluster.blocks.read_only` and `clsuter.blocks.read_only_allow_delete`
 	// settings) that prevent write access.
+	//
+	// Several options for this API can be specified using a query parameter or a
+	// request body parameter. If both parameters are specified, only the query
+	// parameter is used.
 	CreateRepository snapshot_create_repository.NewCreateRepository
 	// Delete snapshots.
 	Delete snapshot_delete.NewDelete
@@ -6524,6 +6581,13 @@ type Snapshot struct {
 	// place.
 	DeleteRepository snapshot_delete_repository.NewDeleteRepository
 	// Get snapshot information.
+	//
+	// NOTE: The `after` parameter and `next` field enable you to iterate through
+	// snapshots with some consistency guarantees regarding concurrent creation or
+	// deletion of snapshots. It is guaranteed that any snapshot that exists at the
+	// beginning of the iteration and is not concurrently deleted will be seen
+	// during the iteration. Snapshots concurrently created may be seen during an
+	// iteration.
 	Get snapshot_get.NewGet
 	// Get snapshot repository information.
 	GetRepository snapshot_get_repository.NewGetRepository
@@ -6729,6 +6793,20 @@ type Snapshot struct {
 	// the request parameters and the response format to vary in future versions.
 	//
 	// NOTE: This API may not work correctly in a mixed-version cluster.
+	//
+	// The default values for the parameters of this API are designed to limit the
+	// impact of the integrity verification on other activities in your cluster. For
+	// instance, by default it will only use at most half of the `snapshot_meta`
+	// threads to verify the integrity of each snapshot, allowing other snapshot
+	// operations to use the other half of this thread pool. If you modify these
+	// parameters to speed up the verification process, you risk disrupting other
+	// snapshot-related operations in your cluster. For large repositories, consider
+	// setting up a separate single-node Elasticsearch cluster just for running the
+	// integrity verification API.
+	//
+	// The response exposes implementation details of the analysis which may change
+	// from version to version. The response body format is therefore not considered
+	// stable and may be different in newer versions.
 	RepositoryVerifyIntegrity snapshot_repository_verify_integrity.NewRepositoryVerifyIntegrity
 	// Restore a snapshot. Restore a snapshot of a cluster or data streams and
 	// indices.
@@ -6755,10 +6833,17 @@ type Snapshot struct {
 	// restore the Enterprise Search encryption key before you restore the snapshot.
 	Restore snapshot_restore.NewRestore
 	// Get the snapshot status. Get a detailed description of the current state for
-	// each shard participating in the snapshot. Note that this API should be used
-	// only to obtain detailed shard-level information for ongoing snapshots. If
-	// this detail is not needed or you want to obtain information about one or more
-	// existing snapshots, use the get snapshot API.
+	// each shard participating in the snapshot.
+	//
+	// Note that this API should be used only to obtain detailed shard-level
+	// information for ongoing snapshots. If this detail is not needed or you want
+	// to obtain information about one or more existing snapshots, use the get
+	// snapshot API.
+	//
+	// If you omit the `<snapshot>` request path parameter, the request retrieves
+	// information only for currently running snapshots. This usage is preferred. If
+	// needed, you can specify `<repository>` and `<snapshot>` to retrieve
+	// information for specific snapshots, even if they're not currently running.
 	//
 	// WARNING: Using the API to return the status of any snapshots other than
 	// currently running snapshots can be expensive. The API requires a read from
@@ -6838,11 +6923,22 @@ type Ssl struct {
 }
 
 type Streams struct {
-	// Disable the Logs Streams feature for this cluster
+	// Disable logs stream.
+	//
+	// Turn off the logs stream feature for this cluster.
 	LogsDisable streams_logs_disable.NewLogsDisable
-	// Enable the Logs Streams feature for this cluster
+	// Enable logs stream.
+	//
+	// Turn on the logs stream feature for this cluster.
+	//
+	// NOTE: To protect existing data, this feature can be turned on only if the
+	// cluster does not have existing indices or data streams that match the pattern
+	// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
+	// response and error is returned.
 	LogsEnable streams_logs_enable.NewLogsEnable
-	// Return the current status of the streams feature for each streams type
+	// Get the status of streams.
+	//
+	// Get the current status for all types of streams.
 	Status streams_status.NewStatus
 }
 
@@ -7078,7 +7174,9 @@ type TextStructure struct {
 type Transform struct {
 	// Delete a transform.
 	DeleteTransform transform_delete_transform.NewDeleteTransform
-	// Retrieves transform usage information for transform nodes.
+	// Get node stats.
+	//
+	// Get per-node information about transform usage.
 	GetNodeStats transform_get_node_stats.NewGetNodeStats
 	// Get transforms. Get configuration information for transforms.
 	GetTransform transform_get_transform.NewGetTransform
@@ -7136,6 +7234,18 @@ type Transform struct {
 	// frequency interval. After the API is called, the transform will be processed
 	// again at `now + frequency` unless the API is called again in the meantime.
 	ScheduleNowTransform transform_schedule_now_transform.NewScheduleNowTransform
+	// Set upgrade_mode for transform indices. Sets a cluster wide upgrade_mode
+	// setting that prepares transform indices for an upgrade. When upgrading your
+	// cluster, in some circumstances you must restart your nodes and reindex your
+	// transform indices. In those circumstances, there must be no transforms
+	// running. You can close the transforms, do the upgrade, then open all the
+	// transforms again. Alternatively, you can use this API to temporarily halt
+	// tasks associated with the transforms and prevent new transforms from opening.
+	// You can also use this API during upgrades that do not require you to reindex
+	// your transform indices, though stopping transforms is not a requirement in
+	// that case. You can see the current value for the upgrade_mode setting by
+	// using the get transform info API.
+	SetUpgradeMode transform_set_upgrade_mode.NewSetUpgradeMode
 	// Start a transform.
 	//
 	// When you start a transform, it creates the destination index if it does not
@@ -7312,7 +7422,6 @@ type Xpack struct {
 type API struct {
 	AsyncSearch         AsyncSearch
 	Autoscaling         Autoscaling
-	Capabilities        Capabilities
 	Cat                 Cat
 	Ccr                 Ccr
 	Cluster             Cluster
@@ -7445,8 +7554,11 @@ type API struct {
 	//     `Search::Elasticsearch::Client::5_0::Scroll`
 	//   - Python: Check out `elasticsearch.helpers.*`
 	//   - JavaScript: Check out `client.helpers.*`
+	//   - Java: Check out
+	//     `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 	//   - .NET: Check out `BulkAllObservable`
 	//   - PHP: Check out bulk indexing.
+	//   - Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
 	//
 	// # Submitting bulk requests with cURL
 	//
@@ -7500,6 +7612,9 @@ type API struct {
 	// shards that make up the index do not participate in the `_bulk` request at
 	// all.
 	Bulk core_bulk.NewBulk
+	// Checks if the specified combination of method, API, parameters, and arbitrary
+	// capabilities are supported.
+	Capabilities core_capabilities.NewCapabilities
 	// Clear a scrolling search. Clear the search context and results for a
 	// scrolling search.
 	ClearScroll core_clear_scroll.NewClearScroll
@@ -9030,10 +9145,6 @@ func New(tp elastictransport.Interface) *API {
 			PutAutoscalingPolicy:    autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicyFunc(tp),
 		},
 
-		Capabilities: Capabilities{
-			Capabilities: capabilities.NewCapabilitiesFunc(tp),
-		},
-
 		Cat: Cat{
 			Aliases:              cat_aliases.NewAliasesFunc(tp),
 			Allocation:           cat_allocation.NewAllocationFunc(tp),
@@ -9106,7 +9217,10 @@ func New(tp elastictransport.Interface) *API {
 			List:                      connector_list.NewListFunc(tp),
 			Post:                      connector_post.NewPostFunc(tp),
 			Put:                       connector_put.NewPutFunc(tp),
+			SecretDelete:              connector_secret_delete.NewSecretDeleteFunc(tp),
+			SecretGet:                 connector_secret_get.NewSecretGetFunc(tp),
 			SecretPost:                connector_secret_post.NewSecretPostFunc(tp),
+			SecretPut:                 connector_secret_put.NewSecretPutFunc(tp),
 			SyncJobCancel:             connector_sync_job_cancel.NewSyncJobCancelFunc(tp),
 			SyncJobCheckIn:            connector_sync_job_check_in.NewSyncJobCheckInFunc(tp),
 			SyncJobClaim:              connector_sync_job_claim.NewSyncJobClaimFunc(tp),
@@ -9134,6 +9248,7 @@ func New(tp elastictransport.Interface) *API {
 
 		Core: Core{
 			Bulk:                    core_bulk.NewBulkFunc(tp),
+			Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 			ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 			ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
 			Count:                   core_count.NewCountFunc(tp),
@@ -9214,6 +9329,8 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Fleet: Fleet{
+			DeleteSecret:      fleet_delete_secret.NewDeleteSecretFunc(tp),
+			GetSecret:         fleet_get_secret.NewGetSecretFunc(tp),
 			GlobalCheckpoints: fleet_global_checkpoints.NewGlobalCheckpointsFunc(tp),
 			Msearch:           fleet_msearch.NewMsearchFunc(tp),
 			PostSecret:        fleet_post_secret.NewPostSecretFunc(tp),
@@ -9253,6 +9370,7 @@ func New(tp elastictransport.Interface) *API {
 			DeleteAlias:             indices_delete_alias.NewDeleteAliasFunc(tp),
 			DeleteDataLifecycle:     indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
 			DeleteDataStream:        indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
+			DeleteDataStreamOptions: indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(tp),
 			DeleteIndexTemplate:     indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
 			DeleteTemplate:          indices_delete_template.NewDeleteTemplateFunc(tp),
 			DiskUsage:               indices_disk_usage.NewDiskUsageFunc(tp),
@@ -9270,6 +9388,8 @@ func New(tp elastictransport.Interface) *API {
 			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
 			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
+			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
+			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
 			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
 			GetIndexTemplate:        indices_get_index_template.NewGetIndexTemplateFunc(tp),
 			GetMapping:              indices_get_mapping.NewGetMappingFunc(tp),
@@ -9283,6 +9403,8 @@ func New(tp elastictransport.Interface) *API {
 			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
 			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
+			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
+			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
 			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
 			PutMapping:              indices_put_mapping.NewPutMappingFunc(tp),
 			PutSettings:             indices_put_settings.NewPutSettingsFunc(tp),
@@ -9670,6 +9792,7 @@ func New(tp elastictransport.Interface) *API {
 			PutTransform:         transform_put_transform.NewPutTransformFunc(tp),
 			ResetTransform:       transform_reset_transform.NewResetTransformFunc(tp),
 			ScheduleNowTransform: transform_schedule_now_transform.NewScheduleNowTransformFunc(tp),
+			SetUpgradeMode:       transform_set_upgrade_mode.NewSetUpgradeModeFunc(tp),
 			StartTransform:       transform_start_transform.NewStartTransformFunc(tp),
 			StopTransform:        transform_stop_transform.NewStopTransformFunc(tp),
 			UpdateTransform:      transform_update_transform.NewUpdateTransformFunc(tp),
@@ -9698,6 +9821,7 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Bulk:                    core_bulk.NewBulkFunc(tp),
+		Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 		ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 		ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
 		Count:                   core_count.NewCountFunc(tp),

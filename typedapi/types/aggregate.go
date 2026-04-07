@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -38,10 +38,13 @@ package types
 //	SimpleValueAggregate
 //	DerivativeAggregate
 //	BucketMetricValueAggregate
+//	ChangePointAggregate
 //	StatsAggregate
 //	StatsBucketAggregate
 //	ExtendedStatsAggregate
 //	ExtendedStatsBucketAggregate
+//	CartesianBoundsAggregate
+//	CartesianCentroidAggregate
 //	GeoBoundsAggregate
 //	GeoCentroidAggregate
 //	HistogramAggregate
@@ -93,5 +96,5 @@ package types
 //	MatrixStatsAggregate
 //	GeoLineAggregate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/_types/aggregations/Aggregate.ts#L38-L125
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/_types/aggregations/Aggregate.ts#L40-L130
 type Aggregate any

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureAiStudioServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L641-L683
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/inference/_types/CommonTypes.ts#L641-L681
 type AzureAiStudioServiceSettings struct {
 	// ApiKey A valid API key of your Azure AI Studio model deployment. This key can be
 	// found on the overview page for your deployment in the management section of
@@ -39,9 +39,7 @@ type AzureAiStudioServiceSettings struct {
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation. The get inference endpoint API does not retrieve your API
-	// key. After creating the inference model, you cannot change the associated API
-	// key. If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
+	// key.
 	ApiKey string `json:"api_key"`
 	// EndpointType The type of endpoint that is available for deployment through Azure AI
 	// Studio: `token` or `realtime`. The `token` endpoint type is for "pay as you
@@ -51,7 +49,8 @@ type AzureAiStudioServiceSettings struct {
 	// Provider The model provider for your deployment. Note that some providers may support
 	// only certain task types. Supported providers include:
 	//
-	//   - `cohere` - available for `text_embedding` and `completion` task types
+	//   - `cohere` - available for `text_embedding`, `rerank` and `completion` task
+	//     types
 	//   - `databricks` - available for `completion` task type only
 	//   - `meta` - available for `completion` task type only
 	//   - `microsoft_phi` - available for `completion` task type only

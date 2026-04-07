@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -31,16 +31,14 @@ import (
 
 // WatsonxServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L1684-L1721
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/inference/_types/CommonTypes.ts#L1671-L1706
 type WatsonxServiceSettings struct {
 	// ApiKey A valid API key of your Watsonx account. You can find your Watsonx API keys
 	// or you can create a new one on the API keys page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation. The get inference endpoint API does not retrieve your API
-	// key. After creating the inference model, you cannot change the associated API
-	// key. If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
+	// key.
 	ApiKey string `json:"api_key"`
 	// ApiVersion A version parameter that takes a version date in the format of `YYYY-MM-DD`.
 	// For the active version data parameters, refer to the Wastonx documentation.

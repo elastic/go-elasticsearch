@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Create a service account token.
 //
@@ -387,9 +387,9 @@ func (r *CreateServiceToken) Name(name string) *CreateServiceToken {
 	return r
 }
 
-// Refresh If `true` then refresh the affected shards to make this operation visible to
-// search, if `wait_for` (the default) then wait for a refresh to make this
-// operation visible to search, if `false` then do nothing with refreshes.
+// Refresh If `true` (the default) then refresh the affected shards to make this
+// operation visible to search, if `wait_for` then wait for a refresh to make
+// this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
 func (r *CreateServiceToken) Refresh(refresh refresh.Refresh) *CreateServiceToken {
 	r.values.Set("refresh", refresh.String())

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package search
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/fleet/search/SearchRequest.ts#L55-L268
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/fleet/search/SearchRequest.ts#L56-L271
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -478,4 +478,21 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+func (r Request) MarshalJSON() ([]byte, error) {
+	if len(r.SearchAfter) > 0 {
+		allNil := true
+		for _, v := range r.SearchAfter {
+			if v != nil {
+				allNil = false
+				break
+			}
+		}
+		if allNil {
+			r.SearchAfter = nil
+		}
+	}
+	type plain Request
+	return json.Marshal(plain(r))
 }

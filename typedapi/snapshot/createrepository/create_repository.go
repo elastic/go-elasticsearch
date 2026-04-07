@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Create or update a snapshot repository. IMPORTANT: If you are migrating
 // searchable snapshots, the repository name must be identical in the source and
@@ -24,6 +24,10 @@
 // metadata must be writeable. Ensure there are no cluster blocks (for example,
 // `cluster.blocks.read_only` and `clsuter.blocks.read_only_allow_delete`
 // settings) that prevent write access.
+//
+// Several options for this API can be specified using a query parameter or a
+// request body parameter. If both parameters are specified, only the query
+// parameter is used.
 package createrepository
 
 import (
@@ -93,7 +97,11 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 // `cluster.blocks.read_only` and `clsuter.blocks.read_only_allow_delete`
 // settings) that prevent write access.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// Several options for this API can be specified using a query parameter or a
+// request body parameter. If both parameters are specified, only the query
+// parameter is used.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-snapshot-repo-api.html
 func New(tp elastictransport.Interface) *CreateRepository {
 	r := &CreateRepository{
 		transport: tp,
@@ -312,7 +320,7 @@ func (r *CreateRepository) Header(key, value string) *CreateRepository {
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the snapshot repository to register or update.
 // API Name: repository
 func (r *CreateRepository) _repository(repository string) *CreateRepository {
 	r.paramSet |= repositoryMask
@@ -321,7 +329,9 @@ func (r *CreateRepository) _repository(repository string) *CreateRepository {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *CreateRepository) MasterTimeout(duration string) *CreateRepository {
 	r.values.Set("master_timeout", duration)
@@ -329,7 +339,11 @@ func (r *CreateRepository) MasterTimeout(duration string) *CreateRepository {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response from all relevant nodes in the cluster
+// after updating the cluster metadata. If no response is received before the
+// timeout expires, the cluster metadata update still applies but the response
+// will indicate that it was not completely acknowledged. To indicate that the
+// request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *CreateRepository) Timeout(duration string) *CreateRepository {
 	r.values.Set("timeout", duration)
@@ -337,7 +351,9 @@ func (r *CreateRepository) Timeout(duration string) *CreateRepository {
 	return r
 }
 
-// Verify Whether to verify the repository after creation
+// Verify If `true`, the request verifies the repository is functional on all master
+// and data nodes in the cluster. If `false`, this verification is skipped. You
+// can also perform this verification with the verify snapshot repository API.
 // API name: verify
 func (r *CreateRepository) Verify(verify bool) *CreateRepository {
 	r.values.Set("verify", strconv.FormatBool(verify))

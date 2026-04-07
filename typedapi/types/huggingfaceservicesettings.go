@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -31,16 +31,14 @@ import (
 
 // HuggingFaceServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/inference/_types/CommonTypes.ts#L1382-L1414
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/inference/_types/CommonTypes.ts#L1348-L1378
 type HuggingFaceServiceSettings struct {
 	// ApiKey A valid access token for your HuggingFace account. You can create or find
 	// your access tokens on the HuggingFace settings page.
 	//
 	// IMPORTANT: You need to provide the API key only once, during the inference
 	// model creation. The get inference endpoint API does not retrieve your API
-	// key. After creating the inference model, you cannot change the associated API
-	// key. If you want to use a different API key, delete the inference model and
-	// recreate it with the same name and the updated API key.
+	// key.
 	ApiKey string `json:"api_key"`
 	// ModelId The name of the HuggingFace model to use for the inference task. For
 	// `completion` and `chat_completion` tasks, this field is optional but may be
