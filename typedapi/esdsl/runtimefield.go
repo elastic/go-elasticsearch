@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -46,6 +46,12 @@ func (s *_runtimeField) FetchFields(fetchfields ...types.RuntimeFieldFetchFields
 		s.v.FetchFields = append(s.v.FetchFields, *v.RuntimeFieldFetchFieldsCaster())
 
 	}
+	return s
+}
+
+func (s *_runtimeField) FetchFieldsValues(fetchfieldsvalues []types.RuntimeFieldFetchFields) *_runtimeField {
+
+	s.v.FetchFields = fetchfieldsvalues
 	return s
 }
 

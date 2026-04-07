@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Knn.ts#L35-L71
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/Knn.ts#L35-L72
 type KnnSearch struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`

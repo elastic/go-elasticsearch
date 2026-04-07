@@ -16,21 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package tags
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // Request holds the request body struct for the package tags
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/project/tags/TagsRequest.ts#L23-L47
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/project/tags/TagsRequest.ts#L23-L53
 type Request struct {
 	// ProjectRouting A Lucene query using project metadata tags used to filter which projects are
-	// returned in the response, such as _alias:_origin or _alias:*pr*.
+	// returned in the response. Examples: _alias:my-project _alias:_origin
+	// _alias:*pr* Supported in serverless only.
 	ProjectRouting *string `json:"project_routing,omitempty"`
 }
 
@@ -51,4 +55,28 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
+			}
+
+		}
+	}
+	return nil
 }

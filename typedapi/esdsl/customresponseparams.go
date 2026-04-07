@@ -16,34 +16,40 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _customResponseParams struct {
 	v *types.CustomResponseParams
 }
 
-func NewCustomResponseParams(jsonparser json.RawMessage) *_customResponseParams {
+func NewCustomResponseParams() *_customResponseParams {
 
-	tmp := &_customResponseParams{v: types.NewCustomResponseParams()}
-
-	tmp.JsonParser(jsonparser)
-
-	return tmp
+	return &_customResponseParams{v: types.NewCustomResponseParams()}
 
 }
 
-func (s *_customResponseParams) JsonParser(jsonparser json.RawMessage) *_customResponseParams {
+func (s *_customResponseParams) JsonParser(jsonparser map[string]string) *_customResponseParams {
 
 	s.v.JsonParser = jsonparser
+	return s
+}
 
+func (s *_customResponseParams) AddJsonParser(key string, value string) *_customResponseParams {
+
+	var tmp map[string]string
+	if s.v.JsonParser == nil {
+		s.v.JsonParser = make(map[string]string)
+	} else {
+		tmp = s.v.JsonParser
+	}
+
+	tmp[key] = value
+
+	s.v.JsonParser = tmp
 	return s
 }
 

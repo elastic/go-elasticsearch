@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Update data streams.
 //
@@ -352,5 +352,14 @@ func (r *ModifyDataStream) Actions(actions ...types.IndicesModifyActionVariant) 
 		r.req.Actions = append(r.req.Actions, *v.IndicesModifyActionCaster())
 
 	}
+	return r
+}
+
+func (r *ModifyDataStream) ActionsValues(actionsvalues []types.IndicesModifyAction) *ModifyDataStream {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Actions = actionsvalues
 	return r
 }

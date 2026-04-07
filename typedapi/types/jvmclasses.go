@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // JvmClasses type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/nodes/_types/Stats.ts#L986-L999
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/nodes/_types/Stats.ts#L986-L999
 type JvmClasses struct {
 	// CurrentLoadedCount Number of classes currently loaded by JVM.
 	CurrentLoadedCount *int64 `json:"current_loaded_count,omitempty"`

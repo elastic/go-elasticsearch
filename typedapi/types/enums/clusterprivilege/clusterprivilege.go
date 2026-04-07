@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Package clusterprivilege
 package clusterprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/Privileges.ts#L42-L201
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/Privileges.ts#L43-L210
 type ClusterPrivilege struct {
 	Name string
 }
@@ -150,6 +150,10 @@ var (
 	Writeconnectorsecrets = ClusterPrivilege{"write_connector_secrets"}
 
 	Writefleetsecrets = ClusterPrivilege{"write_fleet_secrets"}
+
+	Readprojectrouting = ClusterPrivilege{"read_project_routing"}
+
+	Manageprojectrouting = ClusterPrivilege{"manage_project_routing"}
 )
 
 func (c ClusterPrivilege) MarshalText() (text []byte, err error) {
@@ -281,6 +285,10 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Writeconnectorsecrets
 	case "write_fleet_secrets":
 		*c = Writefleetsecrets
+	case "read_project_routing":
+		*c = Readprojectrouting
+	case "manage_project_routing":
+		*c = Manageprojectrouting
 	default:
 		*c = ClusterPrivilege{string(text)}
 	}

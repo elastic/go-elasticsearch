@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // AutoDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L72-L110
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/aggregations/bucket.ts#L72-L110
 type AutoDateHistogramAggregation struct {
 	// Buckets The target number of buckets.
 	Buckets *int `json:"buckets,omitempty"`

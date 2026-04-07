@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // MigrateReindex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L47-L56
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L48-L57
 type MigrateReindex struct {
 	// Mode Reindex mode. Currently only 'upgrade' is supported.
 	Mode modeenum.ModeEnum `json:"mode"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // This aggregation works best with machine generated text like system logs.
 // Only the first 100 analyzed tokens are used to categorize the text.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/aggregations/bucket.ts#L1156-L1222
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/aggregations/bucket.ts#L1156-L1222
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized. The syntax is very similar to that used to define

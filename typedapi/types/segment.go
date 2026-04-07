@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,17 +31,42 @@ import (
 
 // Segment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/segments/types.ts#L28-L38
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/segments/types.ts#L28-L62
 type Segment struct {
-	Attributes  map[string]string `json:"attributes"`
-	Committed   bool              `json:"committed"`
-	Compound    bool              `json:"compound"`
-	DeletedDocs int64             `json:"deleted_docs"`
-	Generation  int               `json:"generation"`
-	NumDocs     int64             `json:"num_docs"`
-	Search      bool              `json:"search"`
-	SizeInBytes Float64           `json:"size_in_bytes"`
-	Version     string            `json:"version"`
+	// Attributes Contains information about whether high compression was enabled and per-field
+	// vector formats.
+	Attributes map[string]string `json:"attributes"`
+	// Committed If `true`, the segment is synced to disk. Segments that are synced can
+	// survive a hard reboot. If `false`, the data from uncommitted segments is also
+	// stored in the transaction log so that Elasticsearch is able to replay changes
+	// on the next start.
+	Committed bool `json:"committed"`
+	// Compound If `true`, Lucene merged all files from the segment into a single file to
+	// save file descriptors.
+	Compound bool `json:"compound"`
+	// DeletedDocs The number of deleted documents as reported by Lucene, which may be higher or
+	// lower than the number of delete operations you have performed. This number
+	// excludes deletes that were performed recently and do not yet belong to a
+	// segment. Deleted documents are cleaned up by the automatic merge process if
+	// it makes sense to do so. Also, Elasticsearch creates extra deleted documents
+	// to internally track the recent history of operations on a shard.
+	DeletedDocs int64 `json:"deleted_docs"`
+	// Generation Generation number, such as `0`. Elasticsearch increments this generation
+	// number for each segment written then uses this number to derive the segment
+	// name.
+	Generation int `json:"generation"`
+	// NumDocs The number of documents as reported by Lucene. This excludes deleted
+	// documents and counts any nested documents separately from their parents. It
+	// also excludes documents which were indexed recently and do not yet belong to
+	// a segment.
+	NumDocs int64 `json:"num_docs"`
+	// Search If `true`, the segment is searchable. If `false`, the segment has most likely
+	// been written to disk but needs a refresh to be searchable.
+	Search bool `json:"search"`
+	// SizeInBytes Disk space used by the segment, in bytes.
+	SizeInBytes Float64 `json:"size_in_bytes"`
+	// Version Version of Lucene used to write the segment.
+	Version string `json:"version"`
 }
 
 func (s *Segment) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Start a trial.
 //
@@ -296,7 +296,8 @@ func (r *PostStartTrial) Header(key, value string) *PostStartTrial {
 	return r
 }
 
-// Acknowledge Whether the user has acknowledged acknowledge messages
+// Acknowledge To start a trial, you must accept the acknowledge messages and set this
+// parameter to `true`.
 // API name: acknowledge
 func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))

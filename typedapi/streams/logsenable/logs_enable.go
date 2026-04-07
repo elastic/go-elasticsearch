@@ -16,16 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
-// Enable logs stream.
+// Enable a named stream.
 //
-// Turn on the logs stream feature for this cluster.
+// Turn on the named stream feature for this cluster.
 //
 // NOTE: To protect existing data, this feature can be turned on only if the
 // cluster does not have existing indices or data streams that match the pattern
-// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
-// response and error is returned.
+// `<name>|<name>.*` for the enabled stream type name. If those indices or data
+// streams exist, a `409 - Conflict` response and error is returned.
 package logsenable
 
 import (
@@ -43,6 +43,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
+const (
+	nameMask = iota + 1
+)
+
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
@@ -57,32 +61,36 @@ type LogsEnable struct {
 
 	paramSet int
 
+	name string
+
 	spanStarted bool
 
 	instrument elastictransport.Instrumentation
 }
 
 // NewLogsEnable type alias for index.
-type NewLogsEnable func() *LogsEnable
+type NewLogsEnable func(name string) *LogsEnable
 
 // NewLogsEnableFunc returns a new instance of LogsEnable with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewLogsEnableFunc(tp elastictransport.Interface) NewLogsEnable {
-	return func() *LogsEnable {
+	return func(name string) *LogsEnable {
 		n := New(tp)
+
+		n._name(name)
 
 		return n
 	}
 }
 
-// Enable logs stream.
+// Enable a named stream.
 //
-// Turn on the logs stream feature for this cluster.
+// Turn on the named stream feature for this cluster.
 //
 // NOTE: To protect existing data, this feature can be turned on only if the
 // cluster does not have existing indices or data streams that match the pattern
-// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
-// response and error is returned.
+// `<name>|<name>.*` for the enabled stream type name. If those indices or data
+// streams exist, a `409 - Conflict` response and error is returned.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *LogsEnable {
@@ -113,11 +121,15 @@ func (r *LogsEnable) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == 0:
+	case r.paramSet == nameMask:
 		path.WriteString("/")
 		path.WriteString("_streams")
 		path.WriteString("/")
-		path.WriteString("logs")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
+		}
+		path.WriteString(r.name)
 		path.WriteString("/")
 		path.WriteString("_enable")
 
@@ -288,6 +300,15 @@ func (r LogsEnable) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the LogsEnable headers map.
 func (r *LogsEnable) Header(key, value string) *LogsEnable {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Name The stream type to enable.
+// API Name: name
+func (r *LogsEnable) _name(name string) *LogsEnable {
+	r.paramSet |= nameMask
+	r.name = name
 
 	return r
 }

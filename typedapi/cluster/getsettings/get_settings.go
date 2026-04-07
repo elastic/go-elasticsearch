@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get cluster-wide settings.
 //
@@ -288,13 +288,15 @@ func (r *GetSettings) FlatSettings(flatsettings bool) *GetSettings {
 	return r
 }
 
-// IncludeDefaults If `true`, also returns default values for all other cluster settings,
-// reflecting the values in the `elasticsearch.yml` file of one of the nodes in
-// the cluster. If the nodes in your cluster do not all have the same values in
-// their `elasticsearch.yml` config files then the values returned by this API
-// may vary from invocation to invocation and may not reflect the values that
-// Elasticsearch uses in all situations. Use the `GET _nodes/settings` API to
-// fetch the settings for each individual node in your cluster.
+// IncludeDefaults If `true`, also returns the values of all other cluster settings set in the
+// `elasticsearch.yml` file on one of the nodes in your cluster, together with
+// the default values of all other cluster settings on that node. The default
+// value of each setting may depend on the values of other settings on that
+// node. If the nodes in your cluster do not all have the same configuration
+// then the values returned by this API may vary from invocation to invocation
+// and may not reflect the values that Elasticsearch uses in all situations. Use
+// the `GET _nodes/settings` API to fetch the settings for each individual node
+// in your cluster.
 // API name: include_defaults
 func (r *GetSettings) IncludeDefaults(includedefaults bool) *GetSettings {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))

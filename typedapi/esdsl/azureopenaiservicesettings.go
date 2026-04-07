@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -54,6 +54,20 @@ func (s *_azureOpenAIServiceSettings) ApiVersion(apiversion string) *_azureOpenA
 	return s
 }
 
+func (s *_azureOpenAIServiceSettings) ClientId(clientid string) *_azureOpenAIServiceSettings {
+
+	s.v.ClientId = &clientid
+
+	return s
+}
+
+func (s *_azureOpenAIServiceSettings) ClientSecret(clientsecret string) *_azureOpenAIServiceSettings {
+
+	s.v.ClientSecret = &clientsecret
+
+	return s
+}
+
 func (s *_azureOpenAIServiceSettings) DeploymentId(deploymentid string) *_azureOpenAIServiceSettings {
 
 	s.v.DeploymentId = deploymentid
@@ -78,6 +92,23 @@ func (s *_azureOpenAIServiceSettings) RateLimit(ratelimit types.RateLimitSetting
 func (s *_azureOpenAIServiceSettings) ResourceName(resourcename string) *_azureOpenAIServiceSettings {
 
 	s.v.ResourceName = resourcename
+
+	return s
+}
+
+func (s *_azureOpenAIServiceSettings) Scopes(scopes ...string) *_azureOpenAIServiceSettings {
+
+	for _, v := range scopes {
+
+		s.v.Scopes = append(s.v.Scopes, v)
+
+	}
+	return s
+}
+
+func (s *_azureOpenAIServiceSettings) TenantId(tenantid string) *_azureOpenAIServiceSettings {
+
+	s.v.TenantId = &tenantid
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package validatequery
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package validatequery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/validate_query/IndicesValidateQueryRequest.ts#L25-L125
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/validate_query/IndicesValidateQueryRequest.ts#L25-L131
 type Request struct {
 	// Query Query in the Lucene query string syntax.
 	Query *types.Query `json:"query,omitempty"`

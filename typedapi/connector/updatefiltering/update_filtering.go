@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Update the connector filtering.
 //
@@ -393,6 +393,15 @@ func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfigVariant) 
 	return r
 }
 
+func (r *UpdateFiltering) FilteringValues(filteringvalues []types.FilteringConfig) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filtering = filteringvalues
+	return r
+}
+
 // API name: rules
 func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFiltering {
 	// Initialize the request if it is not already initialized
@@ -404,5 +413,14 @@ func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFilt
 		r.req.Rules = append(r.req.Rules, *v.FilteringRuleCaster())
 
 	}
+	return r
+}
+
+func (r *UpdateFiltering) RulesValues(rulesvalues []types.FilteringRule) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Rules = rulesvalues
 	return r
 }

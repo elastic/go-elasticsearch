@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package typedapi
 
@@ -223,7 +223,6 @@ import (
 	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatastream"
 	indices_delete_data_stream_options "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletedatastreamoptions"
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deleteindextemplate"
-	indices_delete_sample_configuration "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletesampleconfiguration"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/deletetemplate"
 	indices_disk_usage "github.com/elastic/go-elasticsearch/v9/typedapi/indices/diskusage"
 	indices_downsample "github.com/elastic/go-elasticsearch/v9/typedapi/indices/downsample"
@@ -237,7 +236,6 @@ import (
 	indices_forcemerge "github.com/elastic/go-elasticsearch/v9/typedapi/indices/forcemerge"
 	indices_get "github.com/elastic/go-elasticsearch/v9/typedapi/indices/get"
 	indices_get_alias "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getalias"
-	indices_get_all_sample_configuration "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getallsampleconfiguration"
 	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecycle"
 	indices_get_data_lifecycle_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatalifecyclestats"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getdatastream"
@@ -248,9 +246,6 @@ import (
 	indices_get_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getindextemplate"
 	indices_get_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getmapping"
 	indices_get_migrate_reindex_status "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getmigratereindexstatus"
-	indices_get_sample "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getsample"
-	indices_get_sample_configuration "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getsampleconfiguration"
-	indices_get_sample_stats "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getsamplestats"
 	indices_get_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/getsettings"
 	indices_get_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/gettemplate"
 	indices_migrate_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/indices/migratereindex"
@@ -265,7 +260,6 @@ import (
 	indices_put_data_stream_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putdatastreamsettings"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putindextemplate"
 	indices_put_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putmapping"
-	indices_put_sample_configuration "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putsampleconfiguration"
 	indices_put_settings "github.com/elastic/go-elasticsearch/v9/typedapi/indices/putsettings"
 	indices_put_template "github.com/elastic/go-elasticsearch/v9/typedapi/indices/puttemplate"
 	indices_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/indices/recovery"
@@ -304,6 +298,7 @@ import (
 	inference_put_deepseek "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putdeepseek"
 	inference_put_elasticsearch "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelasticsearch"
 	inference_put_elser "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putelser"
+	inference_put_fireworksai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putfireworksai"
 	inference_put_googleaistudio "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgoogleaistudio"
 	inference_put_googlevertexai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgooglevertexai"
 	inference_put_groq "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putgroq"
@@ -790,6 +785,16 @@ type Cat struct {
 	// internally to power indexing and search. As a result, all document counts
 	// include hidden nested documents. To get an accurate count of Elasticsearch
 	// documents, use the cat count or count APIs.
+	//
+	// NOTE: Storage metrics reported by this API reflect the post-compression size
+	// of the indices on disk. Because these values are calculated after
+	// Elasticsearch compresses the data and processes deletions, they are typically
+	// significantly smaller than the raw, uncompressed data volume ingested.
+	//
+	// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+	// uncompressed data volume, not the post-compression metrics reported here. To
+	// learn more, refer to [Elasticsearch billing
+	// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
 	//
 	// CAT APIs are only intended for human consumption using the command line or
 	// Kibana console. They are not intended for use by applications. For
@@ -2604,8 +2609,7 @@ type Core struct {
 	// When paging through a large number of documents, it can be helpful to split
 	// the search into multiple slices to consume them independently with the
 	// `slice` and `pit` properties. By default the splitting is done first on the
-	// shards, then locally on each shard. The local splitting partitions the shard
-	// into contiguous ranges based on Lucene document IDs.
+	// shards, then locally on each shard.
 	//
 	// For instance if the number of shards is equal to 2 and you request 4 slices,
 	// the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -2613,8 +2617,8 @@ type Core struct {
 	//
 	// IMPORTANT: The same point-in-time ID should be used for all slices. If
 	// different PIT IDs are used, slices can overlap and miss documents. This
-	// situation can occur because the splitting criterion is based on Lucene
-	// document IDs, which are not stable across changes to the index.
+	// situation can occur because, by default, the splitting criterion is based on
+	// Lucene document IDs, which are not stable across changes to the index.
 	Search core_search.NewSearch
 	// Search a vector tile.
 	//
@@ -3491,10 +3495,6 @@ type Indices struct {
 	// wildcard support and the provided names should match completely with existing
 	// templates.
 	DeleteIndexTemplate indices_delete_index_template.NewDeleteIndexTemplate
-	// Delete sampling configuration.
-	//
-	// Delete the sampling configuration for the specified index.
-	DeleteSampleConfiguration indices_delete_sample_configuration.NewDeleteSampleConfiguration
 	// Delete a legacy index template.
 	//
 	// IMPORTANT: This documentation is about legacy index templates, which are
@@ -3687,10 +3687,6 @@ type Indices struct {
 	//
 	// Retrieves information for one or more data stream or index aliases.
 	GetAlias indices_get_alias.NewGetAlias
-	// Get all sampling configurations.
-	//
-	// Get the sampling configurations for all indices.
-	GetAllSampleConfiguration indices_get_all_sample_configuration.NewGetAllSampleConfiguration
 	// Get data stream lifecycles.
 	//
 	// Get the data stream lifecycle configuration of one or more data streams.
@@ -3737,16 +3733,6 @@ type Indices struct {
 	//
 	// Get the status of a migration reindex attempt for a data stream or index.
 	GetMigrateReindexStatus indices_get_migrate_reindex_status.NewGetMigrateReindexStatus
-	// Request for a random sample of raw documents ingested into the given index or
-	// data stream.
-	GetSample indices_get_sample.NewGetSample
-	// Get sampling configuration.
-	//
-	// Get the sampling configuration for the specified index.
-	GetSampleConfiguration indices_get_sample_configuration.NewGetSampleConfiguration
-	// Request stats for a random sample of raw documents ingested into the given
-	// index or data stream.
-	GetSampleStats indices_get_sample_stats.NewGetSampleStats
 	// Get index settings.
 	//
 	// Get setting information for one or more indices. For data streams, it returns
@@ -3928,10 +3914,6 @@ type Indices struct {
 	// examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 	// guide.
 	PutMapping indices_put_mapping.NewPutMapping
-	// Create or update sampling configuration.
-	//
-	// Create or update the sampling configuration for the specified index.
-	PutSampleConfiguration indices_put_sample_configuration.NewPutSampleConfiguration
 	// Update index settings.
 	//
 	// Changes dynamic index settings in real time. For data streams, index setting
@@ -4294,6 +4276,10 @@ type Indices struct {
 	// Before shrinking, a (primary or replica) copy of every shard in the index
 	// must be present on the same node.
 	//
+	// IMPORTANT: If the source index already has one primary shard, configuring the
+	// shrink operation with 'index.number_of_shards: 1' will cause the request to
+	// fail. An index with one primary shard cannot be shrunk further.
+	//
 	// The current write index on a data stream cannot be shrunk. In order to shrink
 	// the current write index, the data stream must first be rolled over so that a
 	// new write index is created and then the previous write index can be shrunk.
@@ -4501,6 +4487,7 @@ type Inference struct {
 	//   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 	//     service is for built-in models and models uploaded through Eland)
 	//   - ELSER (`sparse_embedding`)
+	//   - Fireworks AI (`chat_completion`, `completion`, `text_embedding`)
 	//   - Google AI Studio (`completion`, `text_embedding`)
 	//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
 	//     `text_embedding`)
@@ -4697,6 +4684,11 @@ type Inference struct {
 	// in a future release. Use the Elasticsearch inference integration instead,
 	// with model_id included in the service_settings.
 	PutElser inference_put_elser.NewPutElser
+	// Create a Fireworks AI inference endpoint.
+	//
+	// Create an inference endpoint to perform an inference task with the
+	// `fireworksai` service.
+	PutFireworksai inference_put_fireworksai.NewPutFireworksai
 	// Create an Google AI Studio inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the
@@ -4986,12 +4978,21 @@ type Logstash struct {
 type Migration struct {
 	// Get deprecation information.
 	//
-	// Get information about different cluster, node, and index level settings that
-	// use deprecated features that will be removed or changed in the next major
-	// version.
+	// Returns information about deprecated features which are in use in the
+	// cluster. The reported features include cluster, node, and index level
+	// settings that will be removed or changed in the next major version. You must
+	// address the reported issues before upgrading to the next major version.
+	// However, no action is required when upgrading within the current major
+	// version. Deprecated features remain fully supported and will continue to work
+	// in the current version, and when upgrading to a newer minor or patch release
+	// in the same major version. Use this API to review your usage of these
+	// features and migrate away from them at your own pace, before upgrading to a
+	// new major version.
 	//
-	// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-	// strongly recommended to use the Upgrade Assistant.
+	// > info > This API is designed for indirect use by the [Upgrade
+	// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+	// > We recommend learning about deprecated features using the Upgrade Assistant
+	// rather than calling this API directly.
 	Deprecations migration_deprecations.NewDeprecations
 	// Get feature migration information.
 	//
@@ -7246,18 +7247,18 @@ type Ssl struct {
 }
 
 type Streams struct {
-	// Disable logs stream.
+	// Disable a named stream.
 	//
-	// Turn off the logs stream feature for this cluster.
+	// Turn off the named stream feature for this cluster.
 	LogsDisable streams_logs_disable.NewLogsDisable
-	// Enable logs stream.
+	// Enable a named stream.
 	//
-	// Turn on the logs stream feature for this cluster.
+	// Turn on the named stream feature for this cluster.
 	//
 	// NOTE: To protect existing data, this feature can be turned on only if the
 	// cluster does not have existing indices or data streams that match the pattern
-	// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
-	// response and error is returned.
+	// `<name>|<name>.*` for the enabled stream type name. If those indices or data
+	// streams exist, a `409 - Conflict` response and error is returned.
 	LogsEnable streams_logs_enable.NewLogsEnable
 	// Get the status of streams.
 	//
@@ -7305,8 +7306,7 @@ type Synonyms struct {
 	GetSynonymsSets synonyms_get_synonyms_sets.NewGetSynonymsSets
 	// Create or update a synonym set.
 	//
-	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
-	// you need to manage more synonym rules, you can create multiple synonym sets.
+	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 	//
 	// When an existing synonyms set is updated, the search analyzers that use the
 	// synonyms set are reloaded automatically for all indices. This is equivalent
@@ -8959,8 +8959,7 @@ type API struct {
 	// When paging through a large number of documents, it can be helpful to split
 	// the search into multiple slices to consume them independently with the
 	// `slice` and `pit` properties. By default the splitting is done first on the
-	// shards, then locally on each shard. The local splitting partitions the shard
-	// into contiguous ranges based on Lucene document IDs.
+	// shards, then locally on each shard.
 	//
 	// For instance if the number of shards is equal to 2 and you request 4 slices,
 	// the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -8968,8 +8967,8 @@ type API struct {
 	//
 	// IMPORTANT: The same point-in-time ID should be used for all slices. If
 	// different PIT IDs are used, slices can overlap and miss documents. This
-	// situation can occur because the splitting criterion is based on Lucene
-	// document IDs, which are not stable across changes to the index.
+	// situation can occur because, by default, the splitting criterion is based on
+	// Lucene document IDs, which are not stable across changes to the index.
 	Search core_search.NewSearch
 	// Search a vector tile.
 	//
@@ -9556,83 +9555,77 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Indices: Indices{
-			AddBlock:                  indices_add_block.NewAddBlockFunc(tp),
-			Analyze:                   indices_analyze.NewAnalyzeFunc(tp),
-			CancelMigrateReindex:      indices_cancel_migrate_reindex.NewCancelMigrateReindexFunc(tp),
-			ClearCache:                indices_clear_cache.NewClearCacheFunc(tp),
-			Clone:                     indices_clone.NewCloneFunc(tp),
-			Close:                     indices_close.NewCloseFunc(tp),
-			Create:                    indices_create.NewCreateFunc(tp),
-			CreateDataStream:          indices_create_data_stream.NewCreateDataStreamFunc(tp),
-			CreateFrom:                indices_create_from.NewCreateFromFunc(tp),
-			DataStreamsStats:          indices_data_streams_stats.NewDataStreamsStatsFunc(tp),
-			Delete:                    indices_delete.NewDeleteFunc(tp),
-			DeleteAlias:               indices_delete_alias.NewDeleteAliasFunc(tp),
-			DeleteDataLifecycle:       indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
-			DeleteDataStream:          indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
-			DeleteDataStreamOptions:   indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(tp),
-			DeleteIndexTemplate:       indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
-			DeleteSampleConfiguration: indices_delete_sample_configuration.NewDeleteSampleConfigurationFunc(tp),
-			DeleteTemplate:            indices_delete_template.NewDeleteTemplateFunc(tp),
-			DiskUsage:                 indices_disk_usage.NewDiskUsageFunc(tp),
-			Downsample:                indices_downsample.NewDownsampleFunc(tp),
-			Exists:                    indices_exists.NewExistsFunc(tp),
-			ExistsAlias:               indices_exists_alias.NewExistsAliasFunc(tp),
-			ExistsIndexTemplate:       indices_exists_index_template.NewExistsIndexTemplateFunc(tp),
-			ExistsTemplate:            indices_exists_template.NewExistsTemplateFunc(tp),
-			ExplainDataLifecycle:      indices_explain_data_lifecycle.NewExplainDataLifecycleFunc(tp),
-			FieldUsageStats:           indices_field_usage_stats.NewFieldUsageStatsFunc(tp),
-			Flush:                     indices_flush.NewFlushFunc(tp),
-			Forcemerge:                indices_forcemerge.NewForcemergeFunc(tp),
-			Get:                       indices_get.NewGetFunc(tp),
-			GetAlias:                  indices_get_alias.NewGetAliasFunc(tp),
-			GetAllSampleConfiguration: indices_get_all_sample_configuration.NewGetAllSampleConfigurationFunc(tp),
-			GetDataLifecycle:          indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
-			GetDataLifecycleStats:     indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
-			GetDataStream:             indices_get_data_stream.NewGetDataStreamFunc(tp),
-			GetDataStreamMappings:     indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(tp),
-			GetDataStreamOptions:      indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
-			GetDataStreamSettings:     indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
-			GetFieldMapping:           indices_get_field_mapping.NewGetFieldMappingFunc(tp),
-			GetIndexTemplate:          indices_get_index_template.NewGetIndexTemplateFunc(tp),
-			GetMapping:                indices_get_mapping.NewGetMappingFunc(tp),
-			GetMigrateReindexStatus:   indices_get_migrate_reindex_status.NewGetMigrateReindexStatusFunc(tp),
-			GetSample:                 indices_get_sample.NewGetSampleFunc(tp),
-			GetSampleConfiguration:    indices_get_sample_configuration.NewGetSampleConfigurationFunc(tp),
-			GetSampleStats:            indices_get_sample_stats.NewGetSampleStatsFunc(tp),
-			GetSettings:               indices_get_settings.NewGetSettingsFunc(tp),
-			GetTemplate:               indices_get_template.NewGetTemplateFunc(tp),
-			MigrateReindex:            indices_migrate_reindex.NewMigrateReindexFunc(tp),
-			MigrateToDataStream:       indices_migrate_to_data_stream.NewMigrateToDataStreamFunc(tp),
-			ModifyDataStream:          indices_modify_data_stream.NewModifyDataStreamFunc(tp),
-			Open:                      indices_open.NewOpenFunc(tp),
-			PromoteDataStream:         indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
-			PutAlias:                  indices_put_alias.NewPutAliasFunc(tp),
-			PutDataLifecycle:          indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
-			PutDataStreamMappings:     indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(tp),
-			PutDataStreamOptions:      indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
-			PutDataStreamSettings:     indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
-			PutIndexTemplate:          indices_put_index_template.NewPutIndexTemplateFunc(tp),
-			PutMapping:                indices_put_mapping.NewPutMappingFunc(tp),
-			PutSampleConfiguration:    indices_put_sample_configuration.NewPutSampleConfigurationFunc(tp),
-			PutSettings:               indices_put_settings.NewPutSettingsFunc(tp),
-			PutTemplate:               indices_put_template.NewPutTemplateFunc(tp),
-			Recovery:                  indices_recovery.NewRecoveryFunc(tp),
-			Refresh:                   indices_refresh.NewRefreshFunc(tp),
-			ReloadSearchAnalyzers:     indices_reload_search_analyzers.NewReloadSearchAnalyzersFunc(tp),
-			RemoveBlock:               indices_remove_block.NewRemoveBlockFunc(tp),
-			ResolveCluster:            indices_resolve_cluster.NewResolveClusterFunc(tp),
-			ResolveIndex:              indices_resolve_index.NewResolveIndexFunc(tp),
-			Rollover:                  indices_rollover.NewRolloverFunc(tp),
-			Segments:                  indices_segments.NewSegmentsFunc(tp),
-			ShardStores:               indices_shard_stores.NewShardStoresFunc(tp),
-			Shrink:                    indices_shrink.NewShrinkFunc(tp),
-			SimulateIndexTemplate:     indices_simulate_index_template.NewSimulateIndexTemplateFunc(tp),
-			SimulateTemplate:          indices_simulate_template.NewSimulateTemplateFunc(tp),
-			Split:                     indices_split.NewSplitFunc(tp),
-			Stats:                     indices_stats.NewStatsFunc(tp),
-			UpdateAliases:             indices_update_aliases.NewUpdateAliasesFunc(tp),
-			ValidateQuery:             indices_validate_query.NewValidateQueryFunc(tp),
+			AddBlock:                indices_add_block.NewAddBlockFunc(tp),
+			Analyze:                 indices_analyze.NewAnalyzeFunc(tp),
+			CancelMigrateReindex:    indices_cancel_migrate_reindex.NewCancelMigrateReindexFunc(tp),
+			ClearCache:              indices_clear_cache.NewClearCacheFunc(tp),
+			Clone:                   indices_clone.NewCloneFunc(tp),
+			Close:                   indices_close.NewCloseFunc(tp),
+			Create:                  indices_create.NewCreateFunc(tp),
+			CreateDataStream:        indices_create_data_stream.NewCreateDataStreamFunc(tp),
+			CreateFrom:              indices_create_from.NewCreateFromFunc(tp),
+			DataStreamsStats:        indices_data_streams_stats.NewDataStreamsStatsFunc(tp),
+			Delete:                  indices_delete.NewDeleteFunc(tp),
+			DeleteAlias:             indices_delete_alias.NewDeleteAliasFunc(tp),
+			DeleteDataLifecycle:     indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
+			DeleteDataStream:        indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
+			DeleteDataStreamOptions: indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(tp),
+			DeleteIndexTemplate:     indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
+			DeleteTemplate:          indices_delete_template.NewDeleteTemplateFunc(tp),
+			DiskUsage:               indices_disk_usage.NewDiskUsageFunc(tp),
+			Downsample:              indices_downsample.NewDownsampleFunc(tp),
+			Exists:                  indices_exists.NewExistsFunc(tp),
+			ExistsAlias:             indices_exists_alias.NewExistsAliasFunc(tp),
+			ExistsIndexTemplate:     indices_exists_index_template.NewExistsIndexTemplateFunc(tp),
+			ExistsTemplate:          indices_exists_template.NewExistsTemplateFunc(tp),
+			ExplainDataLifecycle:    indices_explain_data_lifecycle.NewExplainDataLifecycleFunc(tp),
+			FieldUsageStats:         indices_field_usage_stats.NewFieldUsageStatsFunc(tp),
+			Flush:                   indices_flush.NewFlushFunc(tp),
+			Forcemerge:              indices_forcemerge.NewForcemergeFunc(tp),
+			Get:                     indices_get.NewGetFunc(tp),
+			GetAlias:                indices_get_alias.NewGetAliasFunc(tp),
+			GetDataLifecycle:        indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
+			GetDataLifecycleStats:   indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(tp),
+			GetDataStream:           indices_get_data_stream.NewGetDataStreamFunc(tp),
+			GetDataStreamMappings:   indices_get_data_stream_mappings.NewGetDataStreamMappingsFunc(tp),
+			GetDataStreamOptions:    indices_get_data_stream_options.NewGetDataStreamOptionsFunc(tp),
+			GetDataStreamSettings:   indices_get_data_stream_settings.NewGetDataStreamSettingsFunc(tp),
+			GetFieldMapping:         indices_get_field_mapping.NewGetFieldMappingFunc(tp),
+			GetIndexTemplate:        indices_get_index_template.NewGetIndexTemplateFunc(tp),
+			GetMapping:              indices_get_mapping.NewGetMappingFunc(tp),
+			GetMigrateReindexStatus: indices_get_migrate_reindex_status.NewGetMigrateReindexStatusFunc(tp),
+			GetSettings:             indices_get_settings.NewGetSettingsFunc(tp),
+			GetTemplate:             indices_get_template.NewGetTemplateFunc(tp),
+			MigrateReindex:          indices_migrate_reindex.NewMigrateReindexFunc(tp),
+			MigrateToDataStream:     indices_migrate_to_data_stream.NewMigrateToDataStreamFunc(tp),
+			ModifyDataStream:        indices_modify_data_stream.NewModifyDataStreamFunc(tp),
+			Open:                    indices_open.NewOpenFunc(tp),
+			PromoteDataStream:       indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
+			PutAlias:                indices_put_alias.NewPutAliasFunc(tp),
+			PutDataLifecycle:        indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
+			PutDataStreamMappings:   indices_put_data_stream_mappings.NewPutDataStreamMappingsFunc(tp),
+			PutDataStreamOptions:    indices_put_data_stream_options.NewPutDataStreamOptionsFunc(tp),
+			PutDataStreamSettings:   indices_put_data_stream_settings.NewPutDataStreamSettingsFunc(tp),
+			PutIndexTemplate:        indices_put_index_template.NewPutIndexTemplateFunc(tp),
+			PutMapping:              indices_put_mapping.NewPutMappingFunc(tp),
+			PutSettings:             indices_put_settings.NewPutSettingsFunc(tp),
+			PutTemplate:             indices_put_template.NewPutTemplateFunc(tp),
+			Recovery:                indices_recovery.NewRecoveryFunc(tp),
+			Refresh:                 indices_refresh.NewRefreshFunc(tp),
+			ReloadSearchAnalyzers:   indices_reload_search_analyzers.NewReloadSearchAnalyzersFunc(tp),
+			RemoveBlock:             indices_remove_block.NewRemoveBlockFunc(tp),
+			ResolveCluster:          indices_resolve_cluster.NewResolveClusterFunc(tp),
+			ResolveIndex:            indices_resolve_index.NewResolveIndexFunc(tp),
+			Rollover:                indices_rollover.NewRolloverFunc(tp),
+			Segments:                indices_segments.NewSegmentsFunc(tp),
+			ShardStores:             indices_shard_stores.NewShardStoresFunc(tp),
+			Shrink:                  indices_shrink.NewShrinkFunc(tp),
+			SimulateIndexTemplate:   indices_simulate_index_template.NewSimulateIndexTemplateFunc(tp),
+			SimulateTemplate:        indices_simulate_template.NewSimulateTemplateFunc(tp),
+			Split:                   indices_split.NewSplitFunc(tp),
+			Stats:                   indices_stats.NewStatsFunc(tp),
+			UpdateAliases:           indices_update_aliases.NewUpdateAliasesFunc(tp),
+			ValidateQuery:           indices_validate_query.NewValidateQueryFunc(tp),
 		},
 
 		Inference: Inference{
@@ -9656,6 +9649,7 @@ func New(tp elastictransport.Interface) *API {
 			PutDeepseek:           inference_put_deepseek.NewPutDeepseekFunc(tp),
 			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
 			PutElser:              inference_put_elser.NewPutElserFunc(tp),
+			PutFireworksai:        inference_put_fireworksai.NewPutFireworksaiFunc(tp),
 			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
 			PutGooglevertexai:     inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
 			PutGroq:               inference_put_groq.NewPutGroqFunc(tp),
@@ -11285,7 +11279,6 @@ func (p *MethodAPI) Info() *core_info.Info {
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
 //
 // Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 // option in the search API.
@@ -11664,8 +11657,7 @@ func (p *MethodAPI) Scroll() *core_scroll.Scroll {
 // When paging through a large number of documents, it can be helpful to split
 // the search into multiple slices to consume them independently with the
 // `slice` and `pit` properties. By default the splitting is done first on the
-// shards, then locally on each shard. The local splitting partitions the shard
-// into contiguous ranges based on Lucene document IDs.
+// shards, then locally on each shard.
 //
 // For instance if the number of shards is equal to 2 and you request 4 slices,
 // the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -11673,8 +11665,8 @@ func (p *MethodAPI) Scroll() *core_scroll.Scroll {
 //
 // IMPORTANT: The same point-in-time ID should be used for all slices. If
 // different PIT IDs are used, slices can overlap and miss documents. This
-// situation can occur because the splitting criterion is based on Lucene
-// document IDs, which are not stable across changes to the index.
+// situation can occur because, by default, the splitting criterion is based on
+// Lucene document IDs, which are not stable across changes to the index.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
@@ -12351,6 +12343,16 @@ func (p *MethodCat) Help() *cat_help.Help {
 // internally to power indexing and search. As a result, all document counts
 // include hidden nested documents. To get an accurate count of Elasticsearch
 // documents, use the cat count or count APIs.
+//
+// NOTE: Storage metrics reported by this API reflect the post-compression size
+// of the indices on disk. Because these values are calculated after
+// Elasticsearch compresses the data and processes deletions, they are typically
+// significantly smaller than the raw, uncompressed data volume ingested.
+//
+// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+// uncompressed data volume, not the post-compression metrics reported here. To
+// learn more, refer to [Elasticsearch billing
+// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
 //
 // CAT APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For
@@ -14486,7 +14488,6 @@ func (p *MethodCore) Info() *core_info.Info {
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
 //
 // Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 // option in the search API.
@@ -14865,8 +14866,7 @@ func (p *MethodCore) Scroll() *core_scroll.Scroll {
 // When paging through a large number of documents, it can be helpful to split
 // the search into multiple slices to consume them independently with the
 // `slice` and `pit` properties. By default the splitting is done first on the
-// shards, then locally on each shard. The local splitting partitions the shard
-// into contiguous ranges based on Lucene document IDs.
+// shards, then locally on each shard.
 //
 // For instance if the number of shards is equal to 2 and you request 4 slices,
 // the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -14874,8 +14874,8 @@ func (p *MethodCore) Scroll() *core_scroll.Scroll {
 //
 // IMPORTANT: The same point-in-time ID should be used for all slices. If
 // different PIT IDs are used, slices can overlap and miss documents. This
-// situation can occur because the splitting criterion is based on Lucene
-// document IDs, which are not stable across changes to the index.
+// situation can occur because, by default, the splitting criterion is based on
+// Lucene document IDs, which are not stable across changes to the index.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
@@ -16112,15 +16112,6 @@ func (p *MethodIndices) DeleteIndexTemplate(name string) *indices_delete_index_t
 	return _deleteindextemplate(name)
 }
 
-// Delete sampling configuration.
-//
-// Delete the sampling configuration for the specified index.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) DeleteSampleConfiguration(index string) *indices_delete_sample_configuration.DeleteSampleConfiguration {
-	_deletesampleconfiguration := indices_delete_sample_configuration.NewDeleteSampleConfigurationFunc(p.tp)
-	return _deletesampleconfiguration(index)
-}
-
 // Delete a legacy index template.
 //
 // IMPORTANT: This documentation is about legacy index templates, which are
@@ -16391,15 +16382,6 @@ func (p *MethodIndices) GetAlias() *indices_get_alias.GetAlias {
 	return _getalias()
 }
 
-// Get all sampling configurations.
-//
-// Get the sampling configurations for all indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) GetAllSampleConfiguration() *indices_get_all_sample_configuration.GetAllSampleConfiguration {
-	_getallsampleconfiguration := indices_get_all_sample_configuration.NewGetAllSampleConfigurationFunc(p.tp)
-	return _getallsampleconfiguration()
-}
-
 // Get data stream lifecycles.
 //
 // Get the data stream lifecycle configuration of one or more data streams.
@@ -16510,31 +16492,6 @@ func (p *MethodIndices) GetMapping() *indices_get_mapping.GetMapping {
 func (p *MethodIndices) GetMigrateReindexStatus(index string) *indices_get_migrate_reindex_status.GetMigrateReindexStatus {
 	_getmigratereindexstatus := indices_get_migrate_reindex_status.NewGetMigrateReindexStatusFunc(p.tp)
 	return _getmigratereindexstatus(index)
-}
-
-// Request for a random sample of raw documents ingested into the given index or
-// data stream.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) GetSample(index string) *indices_get_sample.GetSample {
-	_getsample := indices_get_sample.NewGetSampleFunc(p.tp)
-	return _getsample(index)
-}
-
-// Get sampling configuration.
-//
-// Get the sampling configuration for the specified index.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) GetSampleConfiguration(index string) *indices_get_sample_configuration.GetSampleConfiguration {
-	_getsampleconfiguration := indices_get_sample_configuration.NewGetSampleConfigurationFunc(p.tp)
-	return _getsampleconfiguration(index)
-}
-
-// Request stats for a random sample of raw documents ingested into the given
-// index or data stream.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) GetSampleStats(index string) *indices_get_sample_stats.GetSampleStats {
-	_getsamplestats := indices_get_sample_stats.NewGetSampleStatsFunc(p.tp)
-	return _getsamplestats(index)
 }
 
 // Get index settings.
@@ -16806,15 +16763,6 @@ func (p *MethodIndices) PutIndexTemplate(name string) *indices_put_index_templat
 func (p *MethodIndices) PutMapping(index string) *indices_put_mapping.PutMapping {
 	_putmapping := indices_put_mapping.NewPutMappingFunc(p.tp)
 	return _putmapping(index)
-}
-
-// Create or update sampling configuration.
-//
-// Create or update the sampling configuration for the specified index.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodIndices) PutSampleConfiguration(index string) *indices_put_sample_configuration.PutSampleConfiguration {
-	_putsampleconfiguration := indices_put_sample_configuration.NewPutSampleConfigurationFunc(p.tp)
-	return _putsampleconfiguration(index)
 }
 
 // Update index settings.
@@ -17244,6 +17192,10 @@ func (p *MethodIndices) ShardStores() *indices_shard_stores.ShardStores {
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
 //
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
+//
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a
 // new write index is created and then the previous write index can be shrunk.
@@ -17533,6 +17485,7 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 //   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 //     service is for built-in models and models uploaded through Eland)
 //   - ELSER (`sparse_embedding`)
+//   - Fireworks AI (`chat_completion`, `completion`, `text_embedding`)
 //   - Google AI Studio (`completion`, `text_embedding`)
 //   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)
@@ -17827,6 +17780,18 @@ func (p *MethodInference) PutElasticsearch(tasktype, elasticsearchinferenceid st
 func (p *MethodInference) PutElser(tasktype, elserinferenceid string) *inference_put_elser.PutElser {
 	_putelser := inference_put_elser.NewPutElserFunc(p.tp)
 	return _putelser(tasktype, elserinferenceid)
+}
+
+// Create a Fireworks AI inference endpoint.
+//
+// Create an inference endpoint to perform an inference task with the
+// `fireworksai` service.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-fireworksai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-fireworksai
+func (p *MethodInference) PutFireworksai(tasktype, fireworksaiinferenceid string) *inference_put_fireworksai.PutFireworksai {
+	_putfireworksai := inference_put_fireworksai.NewPutFireworksaiFunc(p.tp)
+	return _putfireworksai(tasktype, fireworksaiinferenceid)
 }
 
 // Create an Google AI Studio inference endpoint.
@@ -18346,12 +18311,21 @@ func (p *MethodLogstash) PutPipeline(id string) *logstash_put_pipeline.PutPipeli
 
 // Get deprecation information.
 //
-// Get information about different cluster, node, and index level settings that
-// use deprecated features that will be removed or changed in the next major
-// version.
+// Returns information about deprecated features which are in use in the
+// cluster. The reported features include cluster, node, and index level
+// settings that will be removed or changed in the next major version. You must
+// address the reported issues before upgrading to the next major version.
+// However, no action is required when upgrading within the current major
+// version. Deprecated features remain fully supported and will continue to work
+// in the current version, and when upgrading to a newer minor or patch release
+// in the same major version. Use this API to review your usage of these
+// features and migrate away from them at your own pace, before upgrading to a
+// new major version.
 //
-// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-// strongly recommended to use the Upgrade Assistant.
+// > info > This API is designed for indirect use by the [Upgrade
+// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+// > We recommend learning about deprecated features using the Upgrade Assistant
+// rather than calling this API directly.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations
 func (p *MethodMigration) Deprecations() *migration_deprecations.Deprecations {
 	_deprecations := migration_deprecations.NewDeprecationsFunc(p.tp)
@@ -19327,7 +19301,6 @@ func (p *MethodMl) Validate() *ml_validate.Validate {
 }
 
 // Validate an anomaly detection job.
-// https://www.elastic.co/docs/api/doc/elasticsearch
 func (p *MethodMl) ValidateDetector() *ml_validate_detector.ValidateDetector {
 	_validatedetector := ml_validate_detector.NewValidateDetectorFunc(p.tp)
 	return _validatedetector()
@@ -21855,27 +21828,27 @@ func (p *MethodSsl) Certificates() *ssl_certificates.Certificates {
 	return _certificates()
 }
 
-// Disable logs stream.
+// Disable a named stream.
 //
-// Turn off the logs stream feature for this cluster.
+// Turn off the named stream feature for this cluster.
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodStreams) LogsDisable() *streams_logs_disable.LogsDisable {
+func (p *MethodStreams) LogsDisable(name string) *streams_logs_disable.LogsDisable {
 	_logsdisable := streams_logs_disable.NewLogsDisableFunc(p.tp)
-	return _logsdisable()
+	return _logsdisable(name)
 }
 
-// Enable logs stream.
+// Enable a named stream.
 //
-// Turn on the logs stream feature for this cluster.
+// Turn on the named stream feature for this cluster.
 //
 // NOTE: To protect existing data, this feature can be turned on only if the
 // cluster does not have existing indices or data streams that match the pattern
-// `logs|logs.*`. If those indices or data streams exist, a `409 - Conflict`
-// response and error is returned.
+// `<name>|<name>.*` for the enabled stream type name. If those indices or data
+// streams exist, a `409 - Conflict` response and error is returned.
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
-func (p *MethodStreams) LogsEnable() *streams_logs_enable.LogsEnable {
+func (p *MethodStreams) LogsEnable(name string) *streams_logs_enable.LogsEnable {
 	_logsenable := streams_logs_enable.NewLogsEnableFunc(p.tp)
-	return _logsenable()
+	return _logsenable(name)
 }
 
 // Get the status of streams.
@@ -21961,8 +21934,7 @@ func (p *MethodSynonyms) GetSynonymsSets() *synonyms_get_synonyms_sets.GetSynony
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
-// you need to manage more synonym rules, you can create multiple synonym sets.
+// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
 // synonyms set are reloaded automatically for all indices. This is equivalent

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get cache statistics.
 //
@@ -308,13 +308,6 @@ func (r *CacheStats) Header(key, value string) *CacheStats {
 func (r *CacheStats) NodeId(nodeid string) *CacheStats {
 	r.paramSet |= nodeidMask
 	r.nodeid = nodeid
-
-	return r
-}
-
-// API name: master_timeout
-func (r *CacheStats) MasterTimeout(duration string) *CacheStats {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

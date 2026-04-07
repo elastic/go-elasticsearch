@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package getsettings
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/watcher/get_settings/WatcherGetSettingsResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/watcher/get_settings/WatcherGetSettingsResponse.ts#L22-L26
 type Response struct {
 	Index types.IndexSettings `json:"index"`
 }

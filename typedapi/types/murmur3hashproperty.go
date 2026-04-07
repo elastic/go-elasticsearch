@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // Murmur3HashProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/specialized.ts#L98-L100
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/mapping/specialized.ts#L98-L100
 type Murmur3HashProperty struct {
 	CopyTo      []string                       `json:"copy_to,omitempty"`
 	DocValues   *bool                          `json:"doc_values,omitempty"`

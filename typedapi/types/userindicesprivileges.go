@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // UserIndicesPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/Privileges.ts#L294-L316
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/Privileges.ts#L306-L307
 type UserIndicesPrivileges struct {
 	// AllowRestrictedIndices Set to `true` if using wildcard or regular expressions for patterns that
 	// cover restricted indices. Implicitly, restricted indices have limited

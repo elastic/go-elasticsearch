@@ -16,61 +16,93 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Package commonstatsflag
 package commonstatsflag
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/common.ts#L405-L428
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/common.ts#L418-L472
 type CommonStatsFlag struct {
 	Name string
 }
 
 var (
+
+	// All Return all statistics.
 	All = CommonStatsFlag{"_all"}
 
+	// Store Size of the index in byte units.
 	Store = CommonStatsFlag{"store"}
 
+	// Indexing Indexing statistics.
 	Indexing = CommonStatsFlag{"indexing"}
 
+	// Get Get statistics, including missing stats.
 	Get = CommonStatsFlag{"get"}
 
+	// Search Search statistics including suggest statistics. You can include statistics
+	// for custom groups by adding an extra `groups` parameter (search operations
+	// can be associated with one or more groups). The `groups` parameter accepts a
+	// comma-separated list of group names. Use `_all` to return statistics for all
+	// groups.
 	Search = CommonStatsFlag{"search"}
 
+	// Merge Merge statistics.
 	Merge = CommonStatsFlag{"merge"}
 
+	// Flush Flush statistics.
 	Flush = CommonStatsFlag{"flush"}
 
+	// Refresh Refresh statistics.
 	Refresh = CommonStatsFlag{"refresh"}
 
+	// Querycache Query cache statistics.
 	Querycache = CommonStatsFlag{"query_cache"}
 
+	// Fielddata Fielddata statistics.
 	Fielddata = CommonStatsFlag{"fielddata"}
 
+	// Docs Number of documents and deleted docs not yet merged out. Index refreshes can
+	// affect this statistic.
 	Docs = CommonStatsFlag{"docs"}
 
+	// Warmer Index warming statistics.
 	Warmer = CommonStatsFlag{"warmer"}
 
+	// Completion Completion suggester statistics.
 	Completion = CommonStatsFlag{"completion"}
 
+	// Segments Memory use of all open segments. If the `include_segment_file_sizes`
+	// parameter is `true`, this metric includes the aggregated disk usage of each
+	// Lucene index file.
 	Segments = CommonStatsFlag{"segments"}
 
+	// Translog Translog statistics.
 	Translog = CommonStatsFlag{"translog"}
 
+	// Requestcache Shard request cache statistics.
 	Requestcache = CommonStatsFlag{"request_cache"}
 
+	// Recovery Recovery statistics.
 	Recovery = CommonStatsFlag{"recovery"}
 
+	// Bulk Bulk operations statistics.
 	Bulk = CommonStatsFlag{"bulk"}
 
+	// Shardstats Shard statistics, including the total number of shards.
 	Shardstats = CommonStatsFlag{"shard_stats"}
 
+	// Mappings Mapping statistics, including the total count and estimated overhead.
 	Mappings = CommonStatsFlag{"mappings"}
 
+	// Densevector Total number of dense vectors indexed. Index refreshes can affect this
+	// statistic.
 	Densevector = CommonStatsFlag{"dense_vector"}
 
+	// Sparsevector Total number of sparse vectors indexed. Index refreshes can affect this
+	// statistic.
 	Sparsevector = CommonStatsFlag{"sparse_vector"}
 )
 

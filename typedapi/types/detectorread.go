@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,33 +33,33 @@ import (
 
 // DetectorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/Detector.ts#L69-L125
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ml/_types/Detector.ts#L69-L71
 type DetectorRead struct {
 	// ByFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to their own history. It is used for
 	// finding unusual values in the context of the split.
 	ByFieldName *string `json:"by_field_name,omitempty"`
-	// CustomRules An array of custom rule objects, which enable you to customize the way
-	// detectors operate. For example, a rule may dictate to the detector conditions
-	// under which results should be skipped. Kibana refers to custom rules as job
-	// rules.
+	// CustomRules Custom rules enable you to customize the way detectors operate. For example,
+	// a rule may dictate conditions under which results should be skipped. Kibana
+	// refers to custom rules as job rules.
 	CustomRules []DetectionRule `json:"custom_rules,omitempty"`
 	// DetectorDescription A description of the detector.
 	DetectorDescription *string `json:"detector_description,omitempty"`
 	// DetectorIndex A unique identifier for the detector. This identifier is based on the order
-	// of the detectors in the `analysis_config`, starting at zero.
+	// of the detectors in the `analysis_config`, starting at zero. If you specify a
+	// value for this property, it is ignored.
 	DetectorIndex *int `json:"detector_index,omitempty"`
-	// ExcludeFrequent Contains one of the following values: `all`, `none`, `by`, or `over`. If set,
-	// frequent entities are excluded from influencing the anomaly results. Entities
-	// can be considered frequent over time or frequent in a population. If you are
-	// working with both over and by fields, then you can set `exclude_frequent` to
-	// all for both fields, or to `by` or `over` for those specific fields.
+	// ExcludeFrequent If set, frequent entities are excluded from influencing the anomaly results.
+	// Entities can be considered frequent over time or frequent in a population. If
+	// you are working with both over and by fields, you can set `exclude_frequent`
+	// to `all` for both fields, or to `by` or `over` for those specific fields.
 	ExcludeFrequent *excludefrequent.ExcludeFrequent `json:"exclude_frequent,omitempty"`
 	// FieldName The field that the detector uses in the function. If you use an event rate
-	// function such as `count` or `rare`, do not specify this field.
+	// function such as count or rare, do not specify this field. The `field_name`
+	// cannot contain double quotes or backslashes.
 	FieldName *string `json:"field_name,omitempty"`
 	// Function The analysis function that is used. For example, `count`, `rare`, `mean`,
-	// `min`, `max`, and `sum`.
+	// `min`, `max`, or `sum`.
 	Function string `json:"function"`
 	// OverFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to the history of all splits. It is used

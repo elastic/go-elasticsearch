@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Start a basic license.
 //
@@ -302,7 +302,8 @@ func (r *PostStartBasic) Header(key, value string) *PostStartBasic {
 	return r
 }
 
-// Acknowledge Whether the user has acknowledged acknowledge messages
+// Acknowledge To start a basic license, you must accept the acknowledge messages and set
+// this parameter to `true`.
 // API name: acknowledge
 func (r *PostStartBasic) Acknowledge(acknowledge bool) *PostStartBasic {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))

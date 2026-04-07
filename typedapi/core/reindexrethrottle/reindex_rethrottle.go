@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Throttle a reindex operation.
 //
@@ -43,6 +43,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/groupby"
 )
 
 const (
@@ -325,6 +326,13 @@ func (r *ReindexRethrottle) _taskid(taskid string) *ReindexRethrottle {
 // API name: requests_per_second
 func (r *ReindexRethrottle) RequestsPerSecond(requestspersecond string) *ReindexRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)
+
+	return r
+}
+
+// API name: group_by
+func (r *ReindexRethrottle) GroupBy(groupby groupby.GroupBy) *ReindexRethrottle {
+	r.values.Set("group_by", groupby.String())
 
 	return r
 }

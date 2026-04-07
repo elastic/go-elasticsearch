@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // TermSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/suggester.ts#L508-L570
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/search/_types/suggester.ts#L497-L554
 type TermSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with. Defaults to the search
 	// analyzer of the suggest field.
@@ -81,8 +81,6 @@ type TermSuggester struct {
 	// SuggestMode Controls what suggestions are included or controls for what suggest text
 	// terms, suggestions should be suggested.
 	SuggestMode *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
-	// Text The suggest text. Needs to be set globally or per suggestion.
-	Text *string `json:"text,omitempty"`
 }
 
 func (s *TermSuggester) UnmarshalJSON(data []byte) error {
@@ -273,18 +271,6 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.SuggestMode); err != nil {
 				return fmt.Errorf("%s | %w", "SuggestMode", err)
 			}
-
-		case "text":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Text", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Text = &o
 
 		}
 	}

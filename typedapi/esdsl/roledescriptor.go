@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -44,6 +44,12 @@ func (s *_roleDescriptor) Applications(applications ...types.ApplicationPrivileg
 		s.v.Applications = append(s.v.Applications, *v.ApplicationPrivilegesCaster())
 
 	}
+	return s
+}
+
+func (s *_roleDescriptor) ApplicationsValues(applicationsvalues []types.ApplicationPrivileges) *_roleDescriptor {
+
+	s.v.Applications = applicationsvalues
 	return s
 }
 
@@ -84,6 +90,12 @@ func (s *_roleDescriptor) Indices(indices ...types.IndicesPrivilegesVariant) *_r
 	return s
 }
 
+func (s *_roleDescriptor) IndicesValues(indicesvalues []types.IndicesPrivileges) *_roleDescriptor {
+
+	s.v.Indices = indicesvalues
+	return s
+}
+
 func (s *_roleDescriptor) Metadata(metadata types.MetadataVariant) *_roleDescriptor {
 
 	s.v.Metadata = *metadata.MetadataCaster()
@@ -101,6 +113,12 @@ func (s *_roleDescriptor) RemoteCluster(remoteclusters ...types.RemoteClusterPri
 	return s
 }
 
+func (s *_roleDescriptor) RemoteClusterValues(remoteclustervalues []types.RemoteClusterPrivileges) *_roleDescriptor {
+
+	s.v.RemoteCluster = remoteclustervalues
+	return s
+}
+
 func (s *_roleDescriptor) RemoteIndices(remoteindices ...types.RemoteIndicesPrivilegesVariant) *_roleDescriptor {
 
 	for _, v := range remoteindices {
@@ -108,6 +126,12 @@ func (s *_roleDescriptor) RemoteIndices(remoteindices ...types.RemoteIndicesPriv
 		s.v.RemoteIndices = append(s.v.RemoteIndices, *v.RemoteIndicesPrivilegesCaster())
 
 	}
+	return s
+}
+
+func (s *_roleDescriptor) RemoteIndicesValues(remoteindicesvalues []types.RemoteIndicesPrivileges) *_roleDescriptor {
+
+	s.v.RemoteIndices = remoteindicesvalues
 	return s
 }
 

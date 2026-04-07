@@ -16,31 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package putalias
 
 import (
-	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io"
-	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L107
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L107
 type Request struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *types.Query `json:"filter,omitempty"`
 	// IndexRouting Value used to route indexing operations to a specific shard. If specified,
 	// this overwrites the `routing` value for indexing operations. Data stream
 	// aliases don’t support this parameter.
-	IndexRouting []string `json:"index_routing,omitempty"`
+	IndexRouting *string `json:"index_routing,omitempty"`
 	// IsWriteIndex If `true`, sets the write index or data stream for the alias. If an alias
 	// points to multiple indices or data streams and `is_write_index` isn’t set,
 	// the alias rejects write requests. If an index alias points to one index and
@@ -50,11 +46,11 @@ type Request struct {
 	IsWriteIndex *bool `json:"is_write_index,omitempty"`
 	// Routing Value used to route indexing and search operations to a specific shard. Data
 	// stream aliases don’t support this parameter.
-	Routing []string `json:"routing,omitempty"`
+	Routing *string `json:"routing,omitempty"`
 	// SearchRouting Value used to route search operations to a specific shard. If specified, this
 	// overwrites the `routing` value for search operations. Data stream aliases
 	// don’t support this parameter.
-	SearchRouting []string `json:"search_routing,omitempty"`
+	SearchRouting *string `json:"search_routing,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -74,90 +70,4 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-func (s *Request) UnmarshalJSON(data []byte) error {
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "filter":
-			if err := dec.Decode(&s.Filter); err != nil {
-				return fmt.Errorf("%s | %w", "Filter", err)
-			}
-
-		case "index_routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "IndexRouting", err)
-				}
-
-				s.IndexRouting = append(s.IndexRouting, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexRouting); err != nil {
-					return fmt.Errorf("%s | %w", "IndexRouting", err)
-				}
-			}
-
-		case "is_write_index":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "IsWriteIndex", err)
-				}
-				s.IsWriteIndex = &value
-			case bool:
-				s.IsWriteIndex = &v
-			}
-
-		case "routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-
-				s.Routing = append(s.Routing, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-			}
-
-		case "search_routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "SearchRouting", err)
-				}
-
-				s.SearchRouting = append(s.SearchRouting, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SearchRouting); err != nil {
-					return fmt.Errorf("%s | %w", "SearchRouting", err)
-				}
-			}
-
-		}
-	}
-	return nil
 }

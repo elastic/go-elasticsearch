@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,9 +31,10 @@ import (
 
 // DataStreamVisibility type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStream.ts#L187-L190
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/_types/DataStream.ts#L187-L191
 type DataStreamVisibility struct {
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
+	FailureStore       *bool `json:"failure_store,omitempty"`
 	Hidden             *bool `json:"hidden,omitempty"`
 }
 
@@ -64,6 +65,20 @@ func (s *DataStreamVisibility) UnmarshalJSON(data []byte) error {
 				s.AllowCustomRouting = &value
 			case bool:
 				s.AllowCustomRouting = &v
+			}
+
+		case "failure_store":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FailureStore", err)
+				}
+				s.FailureStore = &value
+			case bool:
+				s.FailureStore = &v
 			}
 
 		case "hidden":

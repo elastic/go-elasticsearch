@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,14 +33,14 @@ import (
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/RoleDescriptor.ts#L85-L133
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/RoleDescriptor.ts#L85-L88
 type RoleDescriptorRead struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
 	// Cluster A list of cluster privileges. These privileges define the cluster level
 	// actions that API keys are able to execute.
 	Cluster []clusterprivilege.ClusterPrivilege `json:"cluster"`
-	// Description An optional description of the role descriptor.
+	// Description Optional description of the role descriptor
 	Description *string `json:"description,omitempty"`
 	// Global An object defining global privileges. A global privilege is a form of cluster
 	// privilege that is request-aware. Support for global privileges is currently
@@ -56,9 +56,11 @@ type RoleDescriptorRead struct {
 	RemoteCluster []RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
 	// RemoteIndices A list of indices permissions for remote clusters.
 	RemoteIndices []RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
-	// Restriction A restriction for when the role descriptor is allowed to be effective.
+	// Restriction Restriction for when the role descriptor is allowed to be effective.
 	Restriction *Restriction `json:"restriction,omitempty"`
-	// RunAs A list of users that the API keys can impersonate.
+	// RunAs A list of users that the API keys can impersonate. NOTE: In Elastic Cloud
+	// Serverless, the run-as feature is disabled. For API compatibility, you can
+	// still specify an empty `run_as` field, but a non-empty list will be rejected.
 	RunAs             []string                   `json:"run_as,omitempty"`
 	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
 }

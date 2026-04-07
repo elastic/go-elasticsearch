@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Check user privileges.
 //
@@ -389,6 +389,15 @@ func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesC
 	return r
 }
 
+func (r *HasPrivileges) ApplicationValues(applicationvalues []types.ApplicationPrivilegesCheck) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Application = applicationvalues
+	return r
+}
+
 // A list of the cluster privileges that you want to check.
 // API name: cluster
 func (r *HasPrivileges) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *HasPrivileges {
@@ -415,5 +424,14 @@ func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheckVariant) *Has
 		r.req.Index = append(r.req.Index, *v.IndexPrivilegesCheckCaster())
 
 	}
+	return r
+}
+
+func (r *HasPrivileges) IndexValues(indexvalues []types.IndexPrivilegesCheck) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Index = indexvalues
 	return r
 }

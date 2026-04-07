@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -66,6 +66,12 @@ func (s *_trainedModelTree) TreeStructure(treestructures ...types.TrainedModelTr
 		s.v.TreeStructure = append(s.v.TreeStructure, *v.TrainedModelTreeNodeCaster())
 
 	}
+	return s
+}
+
+func (s *_trainedModelTree) TreeStructureValues(treestructurevalues []types.TrainedModelTreeNode) *_trainedModelTree {
+
+	s.v.TreeStructure = treestructurevalues
 	return s
 }
 

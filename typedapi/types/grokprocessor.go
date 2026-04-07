@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GrokProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ingest/_types/Processors.ts#L1001-L1032
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ingest/_types/Processors.ts#L1001-L1039
 type GrokProcessor struct {
 	// Description Description of the processor. Useful for describing the purpose of the
 	// processor or its configuration.
@@ -63,6 +63,9 @@ type GrokProcessor struct {
 	// document’s metadata with the index into the pattern found in `patterns`
 	// that matched.
 	TraceMatch *bool `json:"trace_match,omitempty"`
+	// ValidateOnly When `true`, the processor does matching but does not extract structured
+	// fields
+	ValidateOnly *bool `json:"validate_only,omitempty"`
 }
 
 func (s *GrokProcessor) UnmarshalJSON(data []byte) error {
@@ -184,6 +187,20 @@ func (s *GrokProcessor) UnmarshalJSON(data []byte) error {
 				s.TraceMatch = &value
 			case bool:
 				s.TraceMatch = &v
+			}
+
+		case "validate_only":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ValidateOnly", err)
+				}
+				s.ValidateOnly = &value
+			case bool:
+				s.ValidateOnly = &v
 			}
 
 		}

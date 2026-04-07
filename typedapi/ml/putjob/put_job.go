@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create an anomaly detection job.
 //
@@ -326,9 +326,12 @@ func (r *PutJob) _jobid(jobid string) *PutJob {
 	return r
 }
 
-// AllowNoIndices If `true`, wildcard indices expressions that resolve into no concrete indices
-// are ignored. This includes the `_all` string or when no indices are
-// specified.
+// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
+// the request returns an error (1) if any wildcard expression (including `_all`
+// and `*`) resolves to zero matching indices or (2) if the complete set of
+// resolved indices, aliases or data streams is empty after all expressions are
+// evaluated. If `true`, index expressions that resolve to no indices are
+// allowed and the request returns an empty result.
 // API name: allow_no_indices
 func (r *PutJob) AllowNoIndices(allownoindices bool) *PutJob {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -358,7 +361,10 @@ func (r *PutJob) IgnoreThrottled(ignorethrottled bool) *PutJob {
 	return r
 }
 
-// IgnoreUnavailable If `true`, unavailable indices (missing or closed) are ignored.
+// IgnoreUnavailable If `false`, the request returns an error if it targets a concrete
+// (non-wildcarded) index, alias, or data stream that is missing, closed, or
+// otherwise unavailable. If `true`, unavailable concrete targets are silently
+// ignored.
 // API name: ignore_unavailable
 func (r *PutJob) IgnoreUnavailable(ignoreunavailable bool) *PutJob {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))

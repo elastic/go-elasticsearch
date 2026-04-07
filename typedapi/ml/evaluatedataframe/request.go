@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package evaluatedataframe
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package evaluatedataframe
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/evaluate_data_frame/MlEvaluateDataFrameRequest.ts#L25-L63
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ml/evaluate_data_frame/MlEvaluateDataFrameRequest.ts#L25-L63
 type Request struct {
 	// Evaluation Defines the type of evaluation you want to perform.
 	Evaluation types.DataframeEvaluationContainer `json:"evaluation"`

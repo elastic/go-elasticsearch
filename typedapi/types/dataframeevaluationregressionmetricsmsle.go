@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationRegressionMetricsMsle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/DataframeEvaluation.ts#L112-L115
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ml/_types/DataframeEvaluation.ts#L112-L115
 type DataframeEvaluationRegressionMetricsMsle struct {
 	// Offset Defines the transition point at which you switch from minimizing quadratic
 	// error to minimizing quadratic log error. Defaults to 1.

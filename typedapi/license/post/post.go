@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Update the license.
 //
@@ -310,7 +310,9 @@ func (r *Post) Header(key, value string) *Post {
 	return r
 }
 
-// Acknowledge Specifies whether you acknowledge the license changes.
+// Acknowledge To update a license, you must accept the acknowledge messages and set this
+// parameter to `true`. In particular, if you are upgrading or downgrading a
+// license, you must acknowlege the feature changes.
 // API name: acknowledge
 func (r *Post) Acknowledge(acknowledge bool) *Post {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))
@@ -401,5 +403,14 @@ func (r *Post) Licenses(licenses ...types.LicenseVariant) *Post {
 		r.req.Licenses = append(r.req.Licenses, *v.LicenseCaster())
 
 	}
+	return r
+}
+
+func (r *Post) LicensesValues(licensesvalues []types.License) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Licenses = licensesvalues
 	return r
 }

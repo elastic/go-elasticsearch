@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/bulk/types.ts#L37-L84
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/bulk/types.ts#L36-L83
 type ResponseItem struct {
 	// Error Additional information about the failed operation. The property is returned
 	// only for failed operations.
@@ -50,8 +50,8 @@ type ResponseItem struct {
 	// PrimaryTerm_ The primary term assigned to the document for the operation. This property is
 	// returned only for successful operations.
 	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
-	// Result The result of the operation. Successful values are `created`, `deleted`, and
-	// `updated`.
+	// Result The result of the operation. Possible values are `created`, `updated`,
+	// `deleted`, `noop`, and `not_found`.
 	Result *string `json:"result,omitempty"`
 	// SeqNo_ The sequence number assigned to the document for the operation. Sequence
 	// numbers are used to ensure an older version of a document doesn't overwrite a

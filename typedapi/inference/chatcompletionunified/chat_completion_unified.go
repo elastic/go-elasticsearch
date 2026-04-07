@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Perform chat completion inference on the service.
 //
@@ -422,6 +422,15 @@ func (r *ChatCompletionUnified) Messages(messages ...types.MessageVariant) *Chat
 	return r
 }
 
+func (r *ChatCompletionUnified) MessagesValues(messagesvalues []types.Message) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Messages = messagesvalues
+	return r
+}
+
 // The ID of the model to use. By default, the model ID is set to the value
 // included when creating the inference endpoint.
 // API name: model
@@ -432,6 +441,54 @@ func (r *ChatCompletionUnified) Model(model string) *ChatCompletionUnified {
 	}
 
 	r.req.Model = &model
+
+	return r
+}
+
+// The reasoning configuration for the completion request. This controls the
+// model's reasoning process in one of two ways:
+//
+//   - By specifying the model’s reasoning effort level with the `effort`
+//     field.
+//   - By enabling reasoning with default settings by setting `enabled` field to
+//     `true`.
+//
+// It also includes optional settings to control:
+//
+//   - The level of detail in the summary returned in the response with the
+//     `summary` field.
+//   - Whether reasoning details are included in the response at all with the
+//     `exclude` field.
+//
+// Example (effort):
+//
+//	{
+//	   "reasoning": {
+//	       "effort": "high",
+//	       "summary": "concise",
+//	       "exclude": false
+//	   }
+//	}
+//
+// Example (enabled):
+//
+//	{
+//	   "reasoning": {
+//	       "enabled": true,
+//	       "summary": "concise",
+//	       "exclude": false
+//	   }
+//	}
+//
+// Currently supported only for `elastic` provider.
+// API name: reasoning
+func (r *ChatCompletionUnified) Reasoning(reasoning types.ReasoningVariant) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Reasoning = reasoning.ReasoningCaster()
 
 	return r
 }
@@ -528,6 +585,15 @@ func (r *ChatCompletionUnified) Tools(tools ...types.CompletionToolVariant) *Cha
 		r.req.Tools = append(r.req.Tools, *v.CompletionToolCaster())
 
 	}
+	return r
+}
+
+func (r *ChatCompletionUnified) ToolsValues(toolsvalues []types.CompletionTool) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Tools = toolsvalues
 	return r
 }
 

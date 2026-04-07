@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package openpointintime
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package openpointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/open_point_in_time/OpenPointInTimeResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/open_point_in_time/OpenPointInTimeResponse.ts#L23-L29
 type Response struct {
 	Id string `json:"id"`
 	// Shards_ Shards used to create the PIT

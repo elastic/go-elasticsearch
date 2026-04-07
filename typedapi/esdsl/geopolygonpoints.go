@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -39,6 +39,12 @@ func (s *_geoPolygonPoints) Points(points ...types.GeoLocationVariant) *_geoPoly
 		s.v.Points = append(s.v.Points, *v.GeoLocationCaster())
 
 	}
+	return s
+}
+
+func (s *_geoPolygonPoints) PointsValues(pointsvalues []types.GeoLocation) *_geoPolygonPoints {
+
+	s.v.Points = pointsvalues
 	return s
 }
 

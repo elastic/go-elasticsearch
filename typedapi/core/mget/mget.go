@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get multiple documents.
 //
@@ -497,6 +497,15 @@ func (r *Mget) Docs(docs ...types.MgetOperationVariant) *Mget {
 		r.req.Docs = append(r.req.Docs, *v.MgetOperationCaster())
 
 	}
+	return r
+}
+
+func (r *Mget) DocsValues(docsvalues []types.MgetOperation) *Mget {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

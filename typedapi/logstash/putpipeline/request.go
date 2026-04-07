@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package putpipeline
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package putpipeline
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/logstash/put_pipeline/LogstashPutPipelineRequest.ts#L24-L54
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/logstash/put_pipeline/LogstashPutPipelineRequest.ts#L24-L54
 type Request = types.LogstashPipeline
 
 // NewRequest returns a Request
