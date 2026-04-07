@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get running ES|QL queries information. Returns an object containing IDs and
-// other information about the running ES|QL queries.
+// Get running ES|QL queries information.
+//
+// Returns an object containing IDs and other information about the running
+// ES|QL queries.
 package listqueries
 
 import (
@@ -69,10 +71,14 @@ func NewListQueriesFunc(tp elastictransport.Interface) NewListQueries {
 	}
 }
 
-// Get running ES|QL queries information. Returns an object containing IDs and
-// other information about the running ES|QL queries.
+// Get running ES|QL queries information.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
+// Returns an object containing IDs and other information about the running
+// ES|QL queries.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-list-queries
 func New(tp elastictransport.Interface) *ListQueries {
 	r := &ListQueries{
 		transport: tp,

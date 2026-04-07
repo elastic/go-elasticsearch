@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get an enrich policy. Returns information about an enrich policy.
+// Get an enrich policy.
+//
+// Returns information about an enrich policy.
 package getpolicy
 
 import (
@@ -74,9 +76,13 @@ func NewGetPolicyFunc(tp elastictransport.Interface) NewGetPolicy {
 	}
 }
 
-// Get an enrich policy. Returns information about an enrich policy.
+// Get an enrich policy.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+// Returns information about an enrich policy.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-get-policy
 func New(tp elastictransport.Interface) *GetPolicy {
 	r := &GetPolicy{
 		transport: tp,

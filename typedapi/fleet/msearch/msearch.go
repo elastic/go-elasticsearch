@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Run multiple Fleet searches. Run several Fleet searches with a single API
-// request. The API follows the same structure as the multi search API. However,
-// similar to the Fleet search API, it supports the `wait_for_checkpoints`
-// parameter.
+// Run multiple Fleet searches.
+//
+// Run several Fleet searches with a single API request. The API follows the
+// same structure as the multi search API. However, similar to the Fleet search
+// API, it supports the `wait_for_checkpoints` parameter.
 package msearch
 
 import (
@@ -84,10 +85,11 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 	}
 }
 
-// Run multiple Fleet searches. Run several Fleet searches with a single API
-// request. The API follows the same structure as the multi search API. However,
-// similar to the Fleet search API, it supports the `wait_for_checkpoints`
-// parameter.
+// Run multiple Fleet searches.
+//
+// Run several Fleet searches with a single API request. The API follows the
+// same structure as the multi search API. However, similar to the Fleet search
+// API, it supports the `wait_for_checkpoints` parameter.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-msearch
 func New(tp elastictransport.Interface) *Msearch {

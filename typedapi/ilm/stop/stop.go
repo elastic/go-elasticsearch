@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Stop the ILM plugin. Halt all lifecycle management operations and stop the
-// index lifecycle management plugin. This is useful when you are performing
-// maintenance on the cluster and need to prevent ILM from performing any
-// actions on your indices.
+// Stop the ILM plugin.
+//
+// Halt all lifecycle management operations and stop the index lifecycle
+// management plugin. This is useful when you are performing maintenance on the
+// cluster and need to prevent ILM from performing any actions on your indices.
 //
 // The API returns as soon as the stop request has been acknowledged, but the
 // plugin might continue to run until in-progress operations complete and the
@@ -76,10 +77,11 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 	}
 }
 
-// Stop the ILM plugin. Halt all lifecycle management operations and stop the
-// index lifecycle management plugin. This is useful when you are performing
-// maintenance on the cluster and need to prevent ILM from performing any
-// actions on your indices.
+// Stop the ILM plugin.
+//
+// Halt all lifecycle management operations and stop the index lifecycle
+// management plugin. This is useful when you are performing maintenance on the
+// cluster and need to prevent ILM from performing any actions on your indices.
 //
 // The API returns as soon as the stop request has been acknowledged, but the
 // plugin might continue to run until in-progress operations complete and the

@@ -16,14 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Render a search application query. Generate an Elasticsearch query using the
-// specified query parameters and the search template associated with the search
-// application or a default template if none is specified. If a parameter used
-// in the search template is not specified in `params`, the parameter's default
-// value will be used. The API returns the specific Elasticsearch query that
-// would be generated and run by calling the search application search API.
+// Render a search application query.
+//
+// Generate an Elasticsearch query using the specified query parameters and the
+// search template associated with the search application or a default template
+// if none is specified. If a parameter used in the search template is not
+// specified in `params`, the parameter's default value will be used. The API
+// returns the specific Elasticsearch query that would be generated and run by
+// calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
@@ -89,12 +91,14 @@ func NewRenderQueryFunc(tp elastictransport.Interface) NewRenderQuery {
 	}
 }
 
-// Render a search application query. Generate an Elasticsearch query using the
-// specified query parameters and the search template associated with the search
-// application or a default template if none is specified. If a parameter used
-// in the search template is not specified in `params`, the parameter's default
-// value will be used. The API returns the specific Elasticsearch query that
-// would be generated and run by calling the search application search API.
+// Render a search application query.
+//
+// Generate an Elasticsearch query using the specified query parameters and the
+// search template associated with the search application or a default template
+// if none is specified. If a parameter used in the search template is not
+// specified in `params`, the parameter's default value will be used. The API
+// returns the specific Elasticsearch query that would be generated and run by
+// calling the search application search API.
 //
 // You must have `read` privileges on the backing alias of the search
 // application.

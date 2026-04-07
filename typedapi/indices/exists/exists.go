@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Check indices. Check if one or more indices, index aliases, or data streams
-// exist.
+// Check indices.
+//
+// Check if one or more indices, index aliases, or data streams exist.
 package exists
 
 import (
@@ -76,10 +77,13 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 	}
 }
 
-// Check indices. Check if one or more indices, index aliases, or data streams
-// exist.
+// Check indices.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists
+// Check if one or more indices, index aliases, or data streams exist.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists
 func New(tp elastictransport.Interface) *Exists {
 	r := &Exists{
 		transport: tp,

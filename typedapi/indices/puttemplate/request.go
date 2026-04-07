@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package puttemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package puttemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/put_template/IndicesPutTemplateRequest.ts#L29-L126
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/put_template/IndicesPutTemplateRequest.ts#L29-L131
 type Request struct {
 	// Aliases Aliases for the index.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`

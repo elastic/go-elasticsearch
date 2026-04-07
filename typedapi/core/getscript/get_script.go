@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get a script or search template. Retrieves a stored script or search
-// template.
+// Get a script or search template.
+//
+// Retrieves a stored script or search template.
 package getscript
 
 import (
@@ -77,10 +78,13 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 	}
 }
 
-// Get a script or search template. Retrieves a stored script or search
-// template.
+// Get a script or search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+// Retrieves a stored script or search template.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get-script
 func New(tp elastictransport.Interface) *GetScript {
 	r := &GetScript{
 		transport: tp,

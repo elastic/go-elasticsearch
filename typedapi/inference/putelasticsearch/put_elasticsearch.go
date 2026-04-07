@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Elasticsearch inference endpoint.
 //
@@ -137,7 +137,9 @@ func NewPutElasticsearchFunc(tp elastictransport.Interface) NewPutElasticsearch 
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elasticsearch
 func New(tp elastictransport.Interface) *PutElasticsearch {
 	r := &PutElasticsearch{
 		transport: tp,
@@ -432,7 +434,8 @@ func (r *PutElasticsearch) Pretty(pretty bool) *PutElasticsearch {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `sparse_embedding` and
+// `text_embedding` task types. Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutElasticsearch) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutElasticsearch {
 	// Initialize the request if it is not already initialized

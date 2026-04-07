@@ -16,18 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Explain the shard allocations. Get explanations for shard allocations in the
-// cluster. This API accepts the current_node, index, primary and shard
-// parameters in the request body or in query parameters, but not in both at the
-// same time. For unassigned shards, it provides an explanation for why the
-// shard is unassigned. For assigned shards, it provides an explanation for why
-// the shard is remaining on its current node and has not moved or rebalanced to
-// another node. This API can be very useful when attempting to diagnose why a
-// shard is unassigned or why a shard continues to remain on its current node
-// when you might expect otherwise. Refer to the linked documentation for
-// examples of how to troubleshoot allocation issues using this API.
+// Explain the shard allocations.
+//
+// Get explanations for shard allocations in the cluster. This API accepts the
+// current_node, index, primary and shard parameters in the request body or in
+// query parameters, but not in both at the same time. For unassigned shards, it
+// provides an explanation for why the shard is unassigned. For assigned shards,
+// it provides an explanation for why the shard is remaining on its current node
+// and has not moved or rebalanced to another node. This API can be very useful
+// when attempting to diagnose why a shard is unassigned or why a shard
+// continues to remain on its current node when you might expect otherwise.
+// Refer to the linked documentation for examples of how to troubleshoot
+// allocation issues using this API.
 package allocationexplain
 
 import (
@@ -82,16 +84,18 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 	}
 }
 
-// Explain the shard allocations. Get explanations for shard allocations in the
-// cluster. This API accepts the current_node, index, primary and shard
-// parameters in the request body or in query parameters, but not in both at the
-// same time. For unassigned shards, it provides an explanation for why the
-// shard is unassigned. For assigned shards, it provides an explanation for why
-// the shard is remaining on its current node and has not moved or rebalanced to
-// another node. This API can be very useful when attempting to diagnose why a
-// shard is unassigned or why a shard continues to remain on its current node
-// when you might expect otherwise. Refer to the linked documentation for
-// examples of how to troubleshoot allocation issues using this API.
+// Explain the shard allocations.
+//
+// Get explanations for shard allocations in the cluster. This API accepts the
+// current_node, index, primary and shard parameters in the request body or in
+// query parameters, but not in both at the same time. For unassigned shards, it
+// provides an explanation for why the shard is unassigned. For assigned shards,
+// it provides an explanation for why the shard is remaining on its current node
+// and has not moved or rebalanced to another node. This API can be very useful
+// when attempting to diagnose why a shard is unassigned or why a shard
+// continues to remain on its current node when you might expect otherwise.
+// Refer to the linked documentation for examples of how to troubleshoot
+// allocation issues using this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
 func New(tp elastictransport.Interface) *AllocationExplain {

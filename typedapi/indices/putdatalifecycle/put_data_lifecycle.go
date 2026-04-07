@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update data stream lifecycles. Update the data stream lifecycle of the
-// specified data streams.
+// Update data stream lifecycles.
+//
+// Update the data stream lifecycle of the specified data streams.
 package putdatalifecycle
 
 import (
@@ -83,10 +84,13 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 	}
 }
 
-// Update data stream lifecycles. Update the data stream lifecycle of the
-// specified data streams.
+// Update data stream lifecycles.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
+// Update the data stream lifecycle of the specified data streams.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-lifecycle
 func New(tp elastictransport.Interface) *PutDataLifecycle {
 	r := &PutDataLifecycle{
 		transport: tp,
@@ -409,14 +413,25 @@ func (r *PutDataLifecycle) DataRetention(duration types.DurationVariant) *PutDat
 // The downsampling configuration to execute for the managed backing index after
 // rollover.
 // API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *PutDataLifecycle {
+func (r *PutDataLifecycle) Downsampling(downsamplings ...types.DownsamplingRoundVariant) *PutDataLifecycle {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
+	for _, v := range downsamplings {
 
-	r.req.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+		r.req.Downsampling = append(r.req.Downsampling, *v.DownsamplingRoundCaster())
 
+	}
+	return r
+}
+
+func (r *PutDataLifecycle) DownsamplingValues(downsamplingvalues []types.DownsamplingRound) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Downsampling = downsamplingvalues
 	return r
 }
 

@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get anomaly detection jobs configuration info. You can get information for
-// multiple anomaly detection jobs in a single API request by using a group
-// name, a comma-separated list of jobs, or a wildcard expression. You can get
-// information for all anomaly detection jobs by using `_all`, by specifying `*`
-// as the `<job_id>`, or by omitting the `<job_id>`.
+// Get anomaly detection jobs configuration info.
+//
+// You can get information for multiple anomaly detection jobs in a single API
+// request by using a group name, a comma-separated list of jobs, or a wildcard
+// expression. You can get information for all anomaly detection jobs by using
+// `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
 package getjobs
 
 import (
@@ -78,13 +79,16 @@ func NewGetJobsFunc(tp elastictransport.Interface) NewGetJobs {
 	}
 }
 
-// Get anomaly detection jobs configuration info. You can get information for
-// multiple anomaly detection jobs in a single API request by using a group
-// name, a comma-separated list of jobs, or a wildcard expression. You can get
-// information for all anomaly detection jobs by using `_all`, by specifying `*`
-// as the `<job_id>`, or by omitting the `<job_id>`.
+// Get anomaly detection jobs configuration info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+// You can get information for multiple anomaly detection jobs in a single API
+// request by using a group name, a comma-separated list of jobs, or a wildcard
+// expression. You can get information for all anomaly detection jobs by using
+// `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-jobs
 func New(tp elastictransport.Interface) *GetJobs {
 	r := &GetJobs{
 		transport: tp,

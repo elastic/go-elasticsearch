@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsDimensionFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L510-L516
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/_types/IndexSettings.ts#L520-L526
 type MappingLimitSettingsDimensionFields struct {
 	// Limit [preview] This functionality is in technical preview and may be changed or
 	// removed in a future release. Elastic will work to fix any issues, but

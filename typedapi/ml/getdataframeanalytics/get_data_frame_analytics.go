@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get data frame analytics job configuration info. You can get information for
-// multiple data frame analytics jobs in a single API request by using a
-// comma-separated list of data frame analytics jobs or a wildcard expression.
+// Get data frame analytics job configuration info.
+//
+// You can get information for multiple data frame analytics jobs in a single
+// API request by using a comma-separated list of data frame analytics jobs or a
+// wildcard expression.
 package getdataframeanalytics
 
 import (
@@ -76,11 +78,15 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 	}
 }
 
-// Get data frame analytics job configuration info. You can get information for
-// multiple data frame analytics jobs in a single API request by using a
-// comma-separated list of data frame analytics jobs or a wildcard expression.
+// Get data frame analytics job configuration info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+// You can get information for multiple data frame analytics jobs in a single
+// API request by using a comma-separated list of data frame analytics jobs or a
+// wildcard expression.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics
 func New(tp elastictransport.Interface) *GetDataFrameAnalytics {
 	r := &GetDataFrameAnalytics{
 		transport: tp,

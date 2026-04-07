@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -28,7 +28,7 @@ package types
 // (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts "0"
 // without a unit and "-1" to indicate an unspecified value.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/Time.ts#L52-L59
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_types/Time.ts#L52-L59
 type Duration any
 
 type DurationVariant interface {

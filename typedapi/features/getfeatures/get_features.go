@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the features. Get a list of features that can be included in snapshots
-// using the `feature_states` field when creating a snapshot. You can use this
-// API to determine which feature states to include when taking a snapshot. By
-// default, all feature states are included in a snapshot if that snapshot
-// includes the global state, or none if it does not.
+// Get the features.
+//
+// Get a list of features that can be included in snapshots using the
+// `feature_states` field when creating a snapshot. You can use this API to
+// determine which feature states to include when taking a snapshot. By default,
+// all feature states are included in a snapshot if that snapshot includes the
+// global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
 // feature to function. In order to ensure data integrity, all system indices
@@ -81,11 +83,13 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 	}
 }
 
-// Get the features. Get a list of features that can be included in snapshots
-// using the `feature_states` field when creating a snapshot. You can use this
-// API to determine which feature states to include when taking a snapshot. By
-// default, all feature states are included in a snapshot if that snapshot
-// includes the global state, or none if it does not.
+// Get the features.
+//
+// Get a list of features that can be included in snapshots using the
+// `feature_states` field when creating a snapshot. You can use this API to
+// determine which feature states to include when taking a snapshot. By default,
+// all feature states are included in a snapshot if that snapshot includes the
+// global state, or none if it does not.
 //
 // A feature state includes one or more system indices necessary for a given
 // feature to function. In order to ensure data integrity, all system indices

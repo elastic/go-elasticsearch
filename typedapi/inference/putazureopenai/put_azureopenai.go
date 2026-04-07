@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Azure OpenAI inference endpoint.
 //
@@ -117,7 +117,9 @@ func NewPutAzureopenaiFunc(tp elastictransport.Interface) NewPutAzureopenai {
 // be found in the [Azure models
 // documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-azureopenai
 func New(tp elastictransport.Interface) *PutAzureopenai {
 	r := &PutAzureopenai{
 		transport: tp,
@@ -413,7 +415,8 @@ func (r *PutAzureopenai) Pretty(pretty bool) *PutAzureopenai {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `completion` task type.
 // API name: chunking_settings
 func (r *PutAzureopenai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAzureopenai {
 	// Initialize the request if it is not already initialized

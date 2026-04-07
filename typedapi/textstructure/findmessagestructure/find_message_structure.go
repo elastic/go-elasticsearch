@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Find the structure of text messages. Find the structure of a list of text
-// messages. The messages must contain data that is suitable to be ingested into
-// Elasticsearch.
+// Find the structure of text messages.
+//
+// Find the structure of a list of text messages. The messages must contain data
+// that is suitable to be ingested into Elasticsearch.
 //
 // This API provides a starting point for ingesting data into Elasticsearch in a
 // format that is suitable for subsequent use with other Elastic Stack
@@ -101,9 +102,10 @@ func NewFindMessageStructureFunc(tp elastictransport.Interface) NewFindMessageSt
 	}
 }
 
-// Find the structure of text messages. Find the structure of a list of text
-// messages. The messages must contain data that is suitable to be ingested into
-// Elasticsearch.
+// Find the structure of text messages.
+//
+// Find the structure of a list of text messages. The messages must contain data
+// that is suitable to be ingested into Elasticsearch.
 //
 // This API provides a starting point for ingesting data into Elasticsearch in a
 // format that is suitable for subsequent use with other Elastic Stack

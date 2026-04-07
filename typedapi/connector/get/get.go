@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get a connector.
 //
@@ -82,7 +82,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 //
 // Get the details about a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get feature migration information. Version upgrades sometimes require changes
-// to how features store configuration information and data in system indices.
-// Check which features need to be migrated and the status of any migrations
-// that are in progress.
+// Get feature migration information.
+//
+// Version upgrades sometimes require changes to how features store
+// configuration information and data in system indices. Check which features
+// need to be migrated and the status of any migrations that are in progress.
 //
 // TIP: This API is designed for indirect use by the Upgrade Assistant. You are
 // strongly recommended to use the Upgrade Assistant.
@@ -74,10 +75,11 @@ func NewGetFeatureUpgradeStatusFunc(tp elastictransport.Interface) NewGetFeature
 	}
 }
 
-// Get feature migration information. Version upgrades sometimes require changes
-// to how features store configuration information and data in system indices.
-// Check which features need to be migrated and the status of any migrations
-// that are in progress.
+// Get feature migration information.
+//
+// Version upgrades sometimes require changes to how features store
+// configuration information and data in system indices. Check which features
+// need to be migrated and the status of any migrations that are in progress.
 //
 // TIP: This API is designed for indirect use by the Upgrade Assistant. You are
 // strongly recommended to use the Upgrade Assistant.

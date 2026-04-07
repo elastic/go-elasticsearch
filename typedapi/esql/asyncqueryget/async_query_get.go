@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get async ES|QL query results. Get the current status and available results
-// or stored results for an ES|QL asynchronous query. If the Elasticsearch
-// security features are enabled, only the user who first submitted the ES|QL
-// query can retrieve the results using this API.
+// Get async ES|QL query results.
+//
+// Get the current status and available results or stored results for an ES|QL
+// asynchronous query. If the Elasticsearch security features are enabled, only
+// the user who first submitted the ES|QL query can retrieve the results using
+// this API.
 package asyncqueryget
 
 import (
@@ -80,10 +82,12 @@ func NewAsyncQueryGetFunc(tp elastictransport.Interface) NewAsyncQueryGet {
 	}
 }
 
-// Get async ES|QL query results. Get the current status and available results
-// or stored results for an ES|QL asynchronous query. If the Elasticsearch
-// security features are enabled, only the user who first submitted the ES|QL
-// query can retrieve the results using this API.
+// Get async ES|QL query results.
+//
+// Get the current status and available results or stored results for an ES|QL
+// asynchronous query. If the Elasticsearch security features are enabled, only
+// the user who first submitted the ES|QL query can retrieve the results using
+// this API.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-get
 func New(tp elastictransport.Interface) *AsyncQueryGet {

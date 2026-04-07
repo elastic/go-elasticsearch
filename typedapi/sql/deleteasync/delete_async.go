@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete an async SQL search. Delete an async SQL search or a stored
-// synchronous SQL search. If the search is still running, the API cancels it.
+// Delete an async SQL search.
+//
+// Delete an async SQL search or a stored synchronous SQL search. If the search
+// is still running, the API cancels it.
 //
 // If the Elasticsearch security features are enabled, only the following users
 // can use this API to delete a search:
@@ -83,8 +85,10 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 	}
 }
 
-// Delete an async SQL search. Delete an async SQL search or a stored
-// synchronous SQL search. If the search is still running, the API cancels it.
+// Delete an async SQL search.
+//
+// Delete an async SQL search or a stored synchronous SQL search. If the search
+// is still running, the API cancels it.
 //
 // If the Elasticsearch security features are enabled, only the following users
 // can use this API to delete a search:
@@ -92,7 +96,9 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 //   - Users with the `cancel_task` cluster privilege.
 //   - The user who first submitted the search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-delete-async
 func New(tp elastictransport.Interface) *DeleteAsync {
 	r := &DeleteAsync{
 		transport: tp,

@@ -16,14 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a snapshot repository. IMPORTANT: If you are migrating
-// searchable snapshots, the repository name must be identical in the source and
-// destination clusters. To register a snapshot repository, the cluster's global
-// metadata must be writeable. Ensure there are no cluster blocks (for example,
-// `cluster.blocks.read_only` and `clsuter.blocks.read_only_allow_delete`
-// settings) that prevent write access.
+// Create or update a snapshot repository.
+//
+// IMPORTANT: If you are migrating searchable snapshots, the repository name
+// must be identical in the source and destination clusters. To register a
+// snapshot repository, the cluster's global metadata must be writeable. Ensure
+// there are no cluster blocks (for example, `cluster.blocks.read_only` and
+// `clsuter.blocks.read_only_allow_delete` settings) that prevent write access.
 //
 // Several options for this API can be specified using a query parameter or a
 // request body parameter. If both parameters are specified, only the query
@@ -90,12 +91,13 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 	}
 }
 
-// Create or update a snapshot repository. IMPORTANT: If you are migrating
-// searchable snapshots, the repository name must be identical in the source and
-// destination clusters. To register a snapshot repository, the cluster's global
-// metadata must be writeable. Ensure there are no cluster blocks (for example,
-// `cluster.blocks.read_only` and `clsuter.blocks.read_only_allow_delete`
-// settings) that prevent write access.
+// Create or update a snapshot repository.
+//
+// IMPORTANT: If you are migrating searchable snapshots, the repository name
+// must be identical in the source and destination clusters. To register a
+// snapshot repository, the cluster's global metadata must be writeable. Ensure
+// there are no cluster blocks (for example, `cluster.blocks.read_only` and
+// `clsuter.blocks.read_only_allow_delete` settings) that prevent write access.
 //
 // Several options for this API can be specified using a query parameter or a
 // request body parameter. If both parameters are specified, only the query

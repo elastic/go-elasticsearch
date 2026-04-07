@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
 // Data stream options contain the configuration of data stream level features
 // for a given data stream, for example, the failure store configuration.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/DataStreamOptions.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/_types/DataStreamOptions.ts#L25-L34
 type DataStreamOptions struct {
 	// FailureStore If defined, it specifies configuration for the failure store of this data
 	// stream.
@@ -35,4 +35,12 @@ func NewDataStreamOptions() *DataStreamOptions {
 	r := &DataStreamOptions{}
 
 	return r
+}
+
+type DataStreamOptionsVariant interface {
+	DataStreamOptionsCaster() *DataStreamOptions
+}
+
+func (s *DataStreamOptions) DataStreamOptionsCaster() *DataStreamOptions {
+	return s
 }

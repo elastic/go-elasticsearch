@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Search rolled-up data. The rollup search endpoint is needed because,
-// internally, rolled-up documents utilize a different document structure than
-// the original data. It rewrites standard Query DSL into a format that matches
-// the rollup documents then takes the response and rewrites it back to what a
-// client would expect given the original query.
+// Search rolled-up data.
+//
+// The rollup search endpoint is needed because, internally, rolled-up documents
+// utilize a different document structure than the original data. It rewrites
+// standard Query DSL into a format that matches the rollup documents then takes
+// the response and rewrites it back to what a client would expect given the
+// original query.
 //
 // The request body supports a subset of features from the regular search API.
 // The following functionality is not available:
@@ -99,11 +101,13 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 	}
 }
 
-// Search rolled-up data. The rollup search endpoint is needed because,
-// internally, rolled-up documents utilize a different document structure than
-// the original data. It rewrites standard Query DSL into a format that matches
-// the rollup documents then takes the response and rewrites it back to what a
-// client would expect given the original query.
+// Search rolled-up data.
+//
+// The rollup search endpoint is needed because, internally, rolled-up documents
+// utilize a different document structure than the original data. It rewrites
+// standard Query DSL into a format that matches the rollup documents then takes
+// the response and rewrites it back to what a client would expect given the
+// original query.
 //
 // The request body supports a subset of features from the regular search API.
 // The following functionality is not available:

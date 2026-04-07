@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Clear the cache. Clear the cache of one or more indices. For data streams,
-// the API clears the caches of the stream's backing indices.
+// Clear the cache.
+//
+// Clear the cache of one or more indices. For data streams, the API clears the
+// caches of the stream's backing indices.
 //
 // By default, the clear cache API clears all caches. To clear only specific
 // caches, use the `fielddata`, `query`, or `request` parameters. To clear the
@@ -80,8 +82,10 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 	}
 }
 
-// Clear the cache. Clear the cache of one or more indices. For data streams,
-// the API clears the caches of the stream's backing indices.
+// Clear the cache.
+//
+// Clear the cache of one or more indices. For data streams, the API clears the
+// caches of the stream's backing indices.
 //
 // By default, the clear cache API clears all caches. To clear only specific
 // caches, use the `fielddata`, `query`, or `request` parameters. To clear the

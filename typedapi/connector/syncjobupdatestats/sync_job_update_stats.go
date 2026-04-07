@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Set the connector sync job stats. Stats include: `deleted_document_count`,
-// `indexed_document_count`, `indexed_document_volume`, and
-// `total_document_count`. You can also update `last_seen`. This API is mainly
-// used by the connector service for updating sync job information.
+// Set the connector sync job stats.
+//
+// Stats include: `deleted_document_count`, `indexed_document_count`,
+// `indexed_document_volume`, and `total_document_count`. You can also update
+// `last_seen`. This API is mainly used by the connector service for updating
+// sync job information.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
@@ -88,10 +90,12 @@ func NewSyncJobUpdateStatsFunc(tp elastictransport.Interface) NewSyncJobUpdateSt
 	}
 }
 
-// Set the connector sync job stats. Stats include: `deleted_document_count`,
-// `indexed_document_count`, `indexed_document_volume`, and
-// `total_document_count`. You can also update `last_seen`. This API is mainly
-// used by the connector service for updating sync job information.
+// Set the connector sync job stats.
+//
+// Stats include: `deleted_document_count`, `indexed_document_count`,
+// `indexed_document_volume`, and `total_document_count`. You can also update
+// `last_seen`. This API is mainly used by the connector service for updating
+// sync job information.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically

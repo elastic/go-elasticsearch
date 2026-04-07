@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update field mappings. Add new fields to an existing data stream or index.
-// You can use the update mapping API to:
+// Update field mappings.
+//
+// Add new fields to an existing data stream or index. You can use the update
+// mapping API to:
 //
 //   - Add a new field to an existing index
 //   - Update mappings for multiple indices in a single request
@@ -97,8 +99,10 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 	}
 }
 
-// Update field mappings. Add new fields to an existing data stream or index.
-// You can use the update mapping API to:
+// Update field mappings.
+//
+// Add new fields to an existing data stream or index. You can use the update
+// mapping API to:
 //
 //   - Add a new field to an existing index
 //   - Update mappings for multiple indices in a single request
@@ -113,7 +117,9 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 // examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-mapping
 func New(tp elastictransport.Interface) *PutMapping {
 	r := &PutMapping{
 		transport: tp,
@@ -333,7 +339,7 @@ func (r *PutMapping) Header(key, value string) *PutMapping {
 }
 
 // Index A comma-separated list of index names the mapping should be added to
-// (supports wildcards); use `_all` or omit to add the mapping on all indices.
+// (supports wildcards). Use `_all` or omit to add the mapping on all indices.
 // API Name: index
 func (r *PutMapping) _index(index string) *PutMapping {
 	r.paramSet |= indexMask

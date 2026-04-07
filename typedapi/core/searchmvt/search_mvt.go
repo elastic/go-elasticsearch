@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Search a vector tile.
 //
@@ -315,7 +315,9 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
 // guide.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-mvt
 func New(tp elastictransport.Interface) *SearchMvt {
 	r := &SearchMvt{
 		transport: tp,
@@ -558,7 +560,9 @@ func (r *SearchMvt) Header(key, value string) *SearchMvt {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, or aliases to search
+// Index A list of indices, data streams, or aliases to search. It supports wildcards
+// (`*`). To search all data streams and indices, omit this parameter or use `*`
+// or `_all`. To search a remote cluster, use the `<cluster>:<target>` syntax.
 // API Name: index
 func (r *SearchMvt) _index(index string) *SearchMvt {
 	r.paramSet |= indexMask
@@ -567,7 +571,14 @@ func (r *SearchMvt) _index(index string) *SearchMvt {
 	return r
 }
 
-// Field Field containing geospatial data to return
+// Field A field that contains the geospatial data to return. It must be a `geo_point`
+// or `geo_shape` field. The field must have doc values enabled. It cannot be a
+// nested field.
+//
+// NOTE: Vector tiles do not natively support geometry collections. For
+// `geometrycollection` values in a `geo_shape` field, the API returns a hits
+// layer feature for each element of the collection. This behavior may change in
+// a future release.
 // API Name: field
 func (r *SearchMvt) _field(field string) *SearchMvt {
 	r.paramSet |= fieldMask
@@ -576,7 +587,7 @@ func (r *SearchMvt) _field(field string) *SearchMvt {
 	return r
 }
 
-// Zoom Zoom level for the vector tile to search
+// Zoom The zoom level of the vector tile to search. It accepts `0` to `29`.
 // API Name: zoom
 func (r *SearchMvt) _zoom(zoom string) *SearchMvt {
 	r.paramSet |= zoomMask
@@ -585,7 +596,7 @@ func (r *SearchMvt) _zoom(zoom string) *SearchMvt {
 	return r
 }
 
-// X X coordinate for the vector tile to search
+// X The X coordinate for the vector tile to search.
 // API Name: x
 func (r *SearchMvt) _x(x string) *SearchMvt {
 	r.paramSet |= xMask
@@ -594,7 +605,7 @@ func (r *SearchMvt) _x(x string) *SearchMvt {
 	return r
 }
 
-// Y Y coordinate for the vector tile to search
+// Y The Y coordinate for the vector tile to search.
 // API Name: y
 func (r *SearchMvt) _y(y string) *SearchMvt {
 	r.paramSet |= yMask
@@ -862,6 +873,15 @@ func (r *SearchMvt) Sort(sorts ...types.SortCombinationsVariant) *SearchMvt {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *SearchMvt) SortValues(sortvalues []types.SortCombinations) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

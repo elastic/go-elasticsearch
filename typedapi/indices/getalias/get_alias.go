@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get aliases. Retrieves information for one or more data stream or index
-// aliases.
+// Get aliases.
+//
+// Retrieves information for one or more data stream or index aliases.
 package getalias
 
 import (
@@ -79,10 +80,13 @@ func NewGetAliasFunc(tp elastictransport.Interface) NewGetAlias {
 	}
 }
 
-// Get aliases. Retrieves information for one or more data stream or index
-// aliases.
+// Get aliases.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+// Retrieves information for one or more data stream or index aliases.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-alias
 func New(tp elastictransport.Interface) *GetAlias {
 	r := &GetAlias{
 		transport: tp,

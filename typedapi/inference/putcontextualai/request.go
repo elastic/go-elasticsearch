@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package putcontextualai
 
@@ -30,10 +30,8 @@ import (
 
 // Request holds the request body struct for the package putcontextualai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/put_contextualai/PutContextualAiRequest.ts#L31-L87
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/inference/put_contextualai/PutContextualAiRequest.ts#L30-L83
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
-	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `contextualai`.
 	Service contextualaiservicetype.ContextualAIServiceType `json:"service"`

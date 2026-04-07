@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get datafeeds configuration info. You can get information for multiple
-// datafeeds in a single API request by using a comma-separated list of
-// datafeeds or a wildcard expression. You can get information for all datafeeds
-// by using `_all`, by specifying `*` as the `<feed_id>`, or by omitting the
-// `<feed_id>`. This API returns a maximum of 10,000 datafeeds.
+// Get datafeeds configuration info.
+//
+// You can get information for multiple datafeeds in a single API request by
+// using a comma-separated list of datafeeds or a wildcard expression. You can
+// get information for all datafeeds by using `_all`, by specifying `*` as the
+// `<feed_id>`, or by omitting the `<feed_id>`. This API returns a maximum of
+// 10,000 datafeeds.
 package getdatafeeds
 
 import (
@@ -78,13 +80,17 @@ func NewGetDatafeedsFunc(tp elastictransport.Interface) NewGetDatafeeds {
 	}
 }
 
-// Get datafeeds configuration info. You can get information for multiple
-// datafeeds in a single API request by using a comma-separated list of
-// datafeeds or a wildcard expression. You can get information for all datafeeds
-// by using `_all`, by specifying `*` as the `<feed_id>`, or by omitting the
-// `<feed_id>`. This API returns a maximum of 10,000 datafeeds.
+// Get datafeeds configuration info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+// You can get information for multiple datafeeds in a single API request by
+// using a comma-separated list of datafeeds or a wildcard expression. You can
+// get information for all datafeeds by using `_all`, by specifying `*` as the
+// `<feed_id>`, or by omitting the `<feed_id>`. This API returns a maximum of
+// 10,000 datafeeds.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-datafeeds
 func New(tp elastictransport.Interface) *GetDatafeeds {
 	r := &GetDatafeeds{
 		transport: tp,

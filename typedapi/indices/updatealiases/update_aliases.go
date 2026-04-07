@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update an alias. Adds a data stream or index to an alias.
+// Create or update an alias.
+//
+// Adds a data stream or index to an alias.
 package updatealiases
 
 import (
@@ -73,9 +75,13 @@ func NewUpdateAliasesFunc(tp elastictransport.Interface) NewUpdateAliases {
 	}
 }
 
-// Create or update an alias. Adds a data stream or index to an alias.
+// Create or update an alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+// Adds a data stream or index to an alias.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-update-aliases
 func New(tp elastictransport.Interface) *UpdateAliases {
 	r := &UpdateAliases{
 		transport: tp,
@@ -360,5 +366,14 @@ func (r *UpdateAliases) Actions(actions ...types.IndicesActionVariant) *UpdateAl
 		r.req.Actions = append(r.req.Actions, *v.IndicesActionCaster())
 
 	}
+	return r
+}
+
+func (r *UpdateAliases) ActionsValues(actionsvalues []types.IndicesAction) *UpdateAliases {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Actions = actionsvalues
 	return r
 }

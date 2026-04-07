@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DetectorUpdate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/_types/Detector.ts#L127-L143
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/ml/_types/Detector.ts#L73-L89
 type DetectorUpdate struct {
 	// CustomRules An array of custom rule objects, which enable you to customize the way
 	// detectors operate. For example, a rule may dictate to the detector conditions

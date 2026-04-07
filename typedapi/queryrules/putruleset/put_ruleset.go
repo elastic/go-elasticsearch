@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a query ruleset. There is a limit of 100 rules per ruleset.
-// This limit can be increased by using the
-// `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
+// Create or update a query ruleset.
+//
+// There is a limit of 100 rules per ruleset. This limit can be increased by
+// using the `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only select
 // documents using `ids` or `docs`, but cannot use both in single rule. It is
@@ -90,9 +91,10 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 	}
 }
 
-// Create or update a query ruleset. There is a limit of 100 rules per ruleset.
-// This limit can be increased by using the
-// `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
+// Create or update a query ruleset.
+//
+// There is a limit of 100 rules per ruleset. This limit can be increased by
+// using the `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only select
 // documents using `ids` or `docs`, but cannot use both in single rule. It is
@@ -101,7 +103,9 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 // multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-put-ruleset
 func New(tp elastictransport.Interface) *PutRuleset {
 	r := &PutRuleset{
 		transport: tp,

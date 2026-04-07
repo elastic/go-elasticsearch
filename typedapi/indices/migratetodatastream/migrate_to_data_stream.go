@@ -16,17 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Convert an index alias to a data stream. Converts an index alias to a data
-// stream. You must have a matching index template that is data stream enabled.
-// The alias must meet the following criteria: The alias must have a write
-// index; All indices for the alias must have a `@timestamp` field mapping of a
-// `date` or `date_nanos` field type; The alias must not have any filters; The
-// alias must not use custom routing. If successful, the request removes the
-// alias and creates a data stream with the same name. The indices for the alias
-// become hidden backing indices for the stream. The write index for the alias
-// becomes the write index for the stream.
+// Convert an index alias to a data stream.
+//
+// Converts an index alias to a data stream. You must have a matching index
+// template that is data stream enabled. The alias must meet the following
+// criteria: The alias must have a write index; All indices for the alias must
+// have a `@timestamp` field mapping of a `date` or `date_nanos` field type; The
+// alias must not have any filters; The alias must not use custom routing. If
+// successful, the request removes the alias and creates a data stream with the
+// same name. The indices for the alias become hidden backing indices for the
+// stream. The write index for the alias becomes the write index for the stream.
 package migratetodatastream
 
 import (
@@ -84,17 +85,20 @@ func NewMigrateToDataStreamFunc(tp elastictransport.Interface) NewMigrateToDataS
 	}
 }
 
-// Convert an index alias to a data stream. Converts an index alias to a data
-// stream. You must have a matching index template that is data stream enabled.
-// The alias must meet the following criteria: The alias must have a write
-// index; All indices for the alias must have a `@timestamp` field mapping of a
-// `date` or `date_nanos` field type; The alias must not have any filters; The
-// alias must not use custom routing. If successful, the request removes the
-// alias and creates a data stream with the same name. The indices for the alias
-// become hidden backing indices for the stream. The write index for the alias
-// becomes the write index for the stream.
+// Convert an index alias to a data stream.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+// Converts an index alias to a data stream. You must have a matching index
+// template that is data stream enabled. The alias must meet the following
+// criteria: The alias must have a write index; All indices for the alias must
+// have a `@timestamp` field mapping of a `date` or `date_nanos` field type; The
+// alias must not have any filters; The alias must not use custom routing. If
+// successful, the request removes the alias and creates a data stream with the
+// same name. The indices for the alias become hidden backing indices for the
+// stream. The write index for the alias becomes the write index for the stream.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-migrate-to-data-stream
 func New(tp elastictransport.Interface) *MigrateToDataStream {
 	r := &MigrateToDataStream{
 		transport: tp,

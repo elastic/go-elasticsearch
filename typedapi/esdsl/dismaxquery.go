@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -44,6 +44,12 @@ func (s *_disMaxQuery) Queries(queries ...types.QueryVariant) *_disMaxQuery {
 		s.v.Queries = append(s.v.Queries, *v.QueryCaster())
 
 	}
+	return s
+}
+
+func (s *_disMaxQuery) QueriesValues(queriesvalues []types.Query) *_disMaxQuery {
+
+	s.v.Queries = queriesvalues
 	return s
 }
 

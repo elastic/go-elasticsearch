@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create or update a Logstash pipeline.
 //
@@ -89,7 +89,9 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 // Create a pipeline that is used for Logstash Central Management. If the
 // specified pipeline exists, it is replaced.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-put-pipeline
 func New(tp elastictransport.Interface) *PutPipeline {
 	r := &PutPipeline{
 		transport: tp,

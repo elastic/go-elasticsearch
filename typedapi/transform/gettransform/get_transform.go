@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get transforms. Get configuration information for transforms.
+// Get transforms.
+//
+// Get configuration information for transforms.
 package gettransform
 
 import (
@@ -74,9 +76,13 @@ func NewGetTransformFunc(tp elastictransport.Interface) NewGetTransform {
 	}
 }
 
-// Get transforms. Get configuration information for transforms.
+// Get transforms.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+// Get configuration information for transforms.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-transform
 func New(tp elastictransport.Interface) *GetTransform {
 	r := &GetTransform{
 		transport: tp,

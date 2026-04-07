@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an JinaAI inference endpoint.
 //
@@ -103,7 +103,9 @@ func NewPutJinaaiFunc(tp elastictransport.Interface) NewPutJinaai {
 // To review the available `text_embedding` models, refer to the
 // <https://jina.ai/embeddings/>.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-jinaai
 func New(tp elastictransport.Interface) *PutJinaai {
 	r := &PutJinaai{
 		transport: tp,
@@ -397,7 +399,8 @@ func (r *PutJinaai) Pretty(pretty bool) *PutJinaai {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank` task type.
 // API name: chunking_settings
 func (r *PutJinaai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutJinaai {
 	// Initialize the request if it is not already initialized

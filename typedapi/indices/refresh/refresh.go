@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Refresh an index. A refresh makes recent operations performed on one or more
-// indices available for search. For data streams, the API runs the refresh
-// operation on the stream’s backing indices.
+// Refresh an index.
+//
+// A refresh makes recent operations performed on one or more indices available
+// for search. For data streams, the API runs the refresh operation on the
+// stream’s backing indices.
 //
 // By default, Elasticsearch periodically refreshes indices every second, but
 // only on indices that have received one search request or more in the last 30
@@ -97,9 +99,11 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 	}
 }
 
-// Refresh an index. A refresh makes recent operations performed on one or more
-// indices available for search. For data streams, the API runs the refresh
-// operation on the stream’s backing indices.
+// Refresh an index.
+//
+// A refresh makes recent operations performed on one or more indices available
+// for search. For data streams, the API runs the refresh operation on the
+// stream’s backing indices.
 //
 // By default, Elasticsearch periodically refreshes indices every second, but
 // only on indices that have received one search request or more in the last 30
@@ -121,7 +125,9 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // `refresh=wait_for` query parameter option. This option ensures the indexing
 // operation waits for a periodic refresh before running the search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-refresh
 func New(tp elastictransport.Interface) *Refresh {
 	r := &Refresh{
 		transport: tp,

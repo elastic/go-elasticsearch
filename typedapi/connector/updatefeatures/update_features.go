@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update the connector features. Update the connector features in the connector
-// document. This API can be used to control the following aspects of a
-// connector:
+// Update the connector features.
+//
+// Update the connector features in the connector document. This API can be used
+// to control the following aspects of a connector:
 //
 //   - document-level security
 //   - incremental syncs
@@ -95,9 +96,10 @@ func NewUpdateFeaturesFunc(tp elastictransport.Interface) NewUpdateFeatures {
 	}
 }
 
-// Update the connector features. Update the connector features in the connector
-// document. This API can be used to control the following aspects of a
-// connector:
+// Update the connector features.
+//
+// Update the connector features in the connector document. This API can be used
+// to control the following aspects of a connector:
 //
 //   - document-level security
 //   - incremental syncs

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get trained model configuration info.
 package gettrainedmodels
@@ -77,7 +77,9 @@ func NewGetTrainedModelsFunc(tp elastictransport.Interface) NewGetTrainedModels 
 
 // Get trained model configuration info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models
 func New(tp elastictransport.Interface) *GetTrainedModels {
 	r := &GetTrainedModels{
 		transport: tp,

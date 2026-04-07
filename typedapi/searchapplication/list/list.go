@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get search applications. Get information about search applications.
+// Get search applications.
+//
+// Get information about search applications.
 package list
 
 import (
@@ -68,9 +70,13 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 	}
 }
 
-// Get search applications. Get information about search applications.
+// Get search applications.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// Get information about search applications.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,

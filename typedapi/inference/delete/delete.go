@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete an inference endpoint
+// Delete an inference endpoint.
+//
+// This API requires the manage_inference cluster privilege (the built-in
+// `inference_admin` role grants this privilege).
 package delete
 
 import (
@@ -79,9 +82,14 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Delete an inference endpoint
+// Delete an inference endpoint.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+// This API requires the manage_inference cluster privilege (the built-in
+// `inference_admin` role grants this privilege).
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,
@@ -326,8 +334,9 @@ func (r *Delete) _inferenceid(inferenceid string) *Delete {
 	return r
 }
 
-// DryRun When true, the endpoint is not deleted and a list of ingest processors which
-// reference this endpoint is returned.
+// DryRun When true, checks the semantic_text fields and inference processors that
+// reference the endpoint and returns them in a list, but does not delete the
+// endpoint.
 // API name: dry_run
 func (r *Delete) DryRun(dryrun bool) *Delete {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))

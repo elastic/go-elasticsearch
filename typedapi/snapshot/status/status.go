@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the snapshot status. Get a detailed description of the current state for
-// each shard participating in the snapshot.
+// Get the snapshot status.
+//
+// Get a detailed description of the current state for each shard participating
+// in the snapshot.
 //
 // Note that this API should be used only to obtain detailed shard-level
 // information for ongoing snapshots. If this detail is not needed or you want
@@ -108,8 +110,10 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 	}
 }
 
-// Get the snapshot status. Get a detailed description of the current state for
-// each shard participating in the snapshot.
+// Get the snapshot status.
+//
+// Get a detailed description of the current state for each shard participating
+// in the snapshot.
 //
 // Note that this API should be used only to obtain detailed shard-level
 // information for ongoing snapshots. If this detail is not needed or you want

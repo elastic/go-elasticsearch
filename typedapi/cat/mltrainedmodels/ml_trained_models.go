@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get trained models.
 //
@@ -91,7 +91,9 @@ func NewMlTrainedModelsFunc(tp elastictransport.Interface) NewMlTrainedModels {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get trained models statistics API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-trained-models
 func New(tp elastictransport.Interface) *MlTrainedModels {
 	r := &MlTrainedModels{
 		transport: tp,

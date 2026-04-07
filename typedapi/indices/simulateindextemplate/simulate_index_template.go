@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Simulate an index. Get the index configuration that would be applied to the
-// specified index from an existing index template.
+// Simulate an index.
+//
+// Get the index configuration that would be applied to the specified index from
+// an existing index template.
 package simulateindextemplate
 
 import (
@@ -82,10 +84,14 @@ func NewSimulateIndexTemplateFunc(tp elastictransport.Interface) NewSimulateInde
 	}
 }
 
-// Simulate an index. Get the index configuration that would be applied to the
-// specified index from an existing index template.
+// Simulate an index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-index-template
+// Get the index configuration that would be applied to the specified index from
+// an existing index template.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-simulate-index-template
 func New(tp elastictransport.Interface) *SimulateIndexTemplate {
 	r := &SimulateIndexTemplate{
 		transport: tp,
@@ -492,7 +498,8 @@ func (r *SimulateIndexTemplate) IgnoreMissingComponentTemplates(names ...string)
 	return r
 }
 
-// Name of the index template.
+// Array of wildcard (`*`) expressions used to match the names of data streams
+// and indices during creation.
 // API name: index_patterns
 func (r *SimulateIndexTemplate) IndexPatterns(names ...string) *SimulateIndexTemplate {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Check a document.
 //
@@ -118,7 +118,9 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func New(tp elastictransport.Interface) *Exists {
 	r := &Exists{
 		transport: tp,

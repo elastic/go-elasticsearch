@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HunspellTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/analysis/token_filters.ts#L268-L280
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_types/analysis/token_filters.ts#L289-L305
 type HunspellTokenFilter struct {
 	// Dedup If `true`, duplicate tokens are removed from the filter’s output. Defaults
 	// to `true`.

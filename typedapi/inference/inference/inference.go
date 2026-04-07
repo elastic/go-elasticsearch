@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Perform inference on the service.
 //
@@ -122,7 +122,9 @@ func NewInferenceFunc(tp elastictransport.Interface) NewInference {
 // models or if you want to use non-NLP models, use the machine learning trained
 // model APIs.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func New(tp elastictransport.Interface) *Inference {
 	r := &Inference{
 		transport: tp,

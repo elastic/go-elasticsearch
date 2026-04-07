@@ -16,32 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
 import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-type _dataStreamLifecycleDownsampling struct {
-	v *types.DataStreamLifecycleDownsampling
+type _namedValue struct {
+	v types.NamedValue
 }
 
-func NewDataStreamLifecycleDownsampling() *_dataStreamLifecycleDownsampling {
-
-	return &_dataStreamLifecycleDownsampling{v: types.NewDataStreamLifecycleDownsampling()}
-
+func NewNamedValue(namedvalue map[string][]types.FieldValue) *_namedValue {
+	return &_namedValue{v: namedvalue}
 }
 
-func (s *_dataStreamLifecycleDownsampling) Rounds(rounds ...types.DownsamplingRoundVariant) *_dataStreamLifecycleDownsampling {
-
-	for _, v := range rounds {
-
-		s.v.Rounds = append(s.v.Rounds, *v.DownsamplingRoundCaster())
-
-	}
-	return s
-}
-
-func (s *_dataStreamLifecycleDownsampling) DataStreamLifecycleDownsamplingCaster() *types.DataStreamLifecycleDownsampling {
-	return s.v
+func (u *_namedValue) NamedValueCaster() *types.NamedValue {
+	return &u.v
 }

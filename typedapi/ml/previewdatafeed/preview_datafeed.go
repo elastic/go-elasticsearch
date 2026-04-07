@@ -16,18 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Preview a datafeed. This API returns the first "page" of search results from
-// a datafeed. You can preview an existing datafeed or provide configuration
-// details for a datafeed and anomaly detection job in the API. The preview
-// shows the structure of the data that will be passed to the anomaly detection
-// engine. IMPORTANT: When Elasticsearch security features are enabled, the
-// preview uses the credentials of the user that called the API. However, when
-// the datafeed starts it uses the roles of the last user that created or
-// updated the datafeed. To get a preview that accurately reflects the behavior
-// of the datafeed, use the appropriate credentials. You can also use secondary
-// authorization headers to supply the credentials.
+// Preview a datafeed.
+//
+// This API returns the first "page" of search results from a datafeed. You can
+// preview an existing datafeed or provide configuration details for a datafeed
+// and anomaly detection job in the API. The preview shows the structure of the
+// data that will be passed to the anomaly detection engine. IMPORTANT: When
+// Elasticsearch security features are enabled, the preview uses the credentials
+// of the user that called the API. However, when the datafeed starts it uses
+// the roles of the last user that created or updated the datafeed. To get a
+// preview that accurately reflects the behavior of the datafeed, use the
+// appropriate credentials. You can also use secondary authorization headers to
+// supply the credentials.
 package previewdatafeed
 
 import (
@@ -88,18 +90,22 @@ func NewPreviewDatafeedFunc(tp elastictransport.Interface) NewPreviewDatafeed {
 	}
 }
 
-// Preview a datafeed. This API returns the first "page" of search results from
-// a datafeed. You can preview an existing datafeed or provide configuration
-// details for a datafeed and anomaly detection job in the API. The preview
-// shows the structure of the data that will be passed to the anomaly detection
-// engine. IMPORTANT: When Elasticsearch security features are enabled, the
-// preview uses the credentials of the user that called the API. However, when
-// the datafeed starts it uses the roles of the last user that created or
-// updated the datafeed. To get a preview that accurately reflects the behavior
-// of the datafeed, use the appropriate credentials. You can also use secondary
-// authorization headers to supply the credentials.
+// Preview a datafeed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+// This API returns the first "page" of search results from a datafeed. You can
+// preview an existing datafeed or provide configuration details for a datafeed
+// and anomaly detection job in the API. The preview shows the structure of the
+// data that will be passed to the anomaly detection engine. IMPORTANT: When
+// Elasticsearch security features are enabled, the preview uses the credentials
+// of the user that called the API. However, when the datafeed starts it uses
+// the roles of the last user that created or updated the datafeed. To get a
+// preview that accurately reflects the behavior of the datafeed, use the
+// appropriate credentials. You can also use secondary authorization headers to
+// supply the credentials.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-datafeed
 func New(tp elastictransport.Interface) *PreviewDatafeed {
 	r := &PreviewDatafeed{
 		transport: tp,

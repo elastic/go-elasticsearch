@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get pipelines.
 //
@@ -82,7 +82,9 @@ func NewGetPipelineFunc(tp elastictransport.Interface) NewGetPipeline {
 // Get information about one or more ingest pipelines. This API returns a local
 // reference of the pipeline.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-get-pipeline
 func New(tp elastictransport.Interface) *GetPipeline {
 	r := &GetPipeline{
 		transport: tp,
@@ -320,7 +322,7 @@ func (r *GetPipeline) MasterTimeout(duration string) *GetPipeline {
 	return r
 }
 
-// Summary Return pipelines without their definitions (default: false)
+// Summary Return pipelines without their definitions
 // API name: summary
 func (r *GetPipeline) Summary(summary bool) *GetPipeline {
 	r.values.Set("summary", strconv.FormatBool(summary))

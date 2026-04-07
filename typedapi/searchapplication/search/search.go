@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Run a search application search. Generate and run an Elasticsearch query that
-// uses the specified query parameteter and the search template associated with
-// the search application or default template. Unspecified template parameters
-// are assigned their default values if applicable.
+// Run a search application search.
+//
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template. Unspecified template parameters are assigned their default
+// values if applicable.
 package search
 
 import (
@@ -84,12 +86,16 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Run a search application search. Generate and run an Elasticsearch query that
-// uses the specified query parameteter and the search template associated with
-// the search application or default template. Unspecified template parameters
-// are assigned their default values if applicable.
+// Run a search application search.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template. Unspecified template parameters are assigned their default
+// values if applicable.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,

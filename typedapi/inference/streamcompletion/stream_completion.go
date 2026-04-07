@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Perform streaming inference. Get real-time responses for completion tasks by
-// delivering answers incrementally, reducing response times during computation.
-// This API works only with the completion task type.
+// Perform streaming inference on the service.
+//
+// Get real-time responses for completion tasks by delivering answers
+// incrementally, reducing response times during computation. This API works
+// only with the completion task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -96,9 +98,11 @@ func NewStreamCompletionFunc(tp elastictransport.Interface) NewStreamCompletion 
 	}
 }
 
-// Perform streaming inference. Get real-time responses for completion tasks by
-// delivering answers incrementally, reducing response times during computation.
-// This API works only with the completion task type.
+// Perform streaming inference on the service.
+//
+// Get real-time responses for completion tasks by delivering answers
+// incrementally, reducing response times during computation. This API works
+// only with the completion task type.
 //
 // IMPORTANT: The inference APIs enable you to use certain services, such as
 // built-in machine learning models (ELSER, E5), models uploaded through Eland,
@@ -412,7 +416,9 @@ func (r *StreamCompletion) Input(inputs ...string) *StreamCompletion {
 	return r
 }
 
-// Optional task settings
+// Task settings for the individual inference request. These settings are
+// specific to the <task_type> you specified and override the task settings
+// specified when initializing the service.
 // API name: task_settings
 func (r *StreamCompletion) TaskSettings(tasksettings json.RawMessage) *StreamCompletion {
 	// Initialize the request if it is not already initialized

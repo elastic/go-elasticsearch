@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a script or search template. Creates or updates a stored
-// script or search template.
+// Create or update a script or search template.
+//
+// Creates or updates a stored script or search template.
 package putscript
 
 import (
@@ -85,10 +86,13 @@ func NewPutScriptFunc(tp elastictransport.Interface) NewPutScript {
 	}
 }
 
-// Create or update a script or search template. Creates or updates a stored
-// script or search template.
+// Create or update a script or search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+// Creates or updates a stored script or search template.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-put-script
 func New(tp elastictransport.Interface) *PutScript {
 	r := &PutScript{
 		transport: tp,

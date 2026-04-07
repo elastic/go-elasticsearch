@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a transform. Creates a transform.
+// Create a transform.
+//
+// Creates a transform.
 //
 // A transform copies data from source indices, transforms it, and persists it
 // into an entity-centric destination index. You can also think of the
@@ -108,7 +110,9 @@ func NewPutTransformFunc(tp elastictransport.Interface) NewPutTransform {
 	}
 }
 
-// Create a transform. Creates a transform.
+// Create a transform.
+//
+// Creates a transform.
 //
 // A transform copies data from source indices, transforms it, and persists it
 // into an entity-centric destination index. You can also think of the
@@ -137,7 +141,9 @@ func NewPutTransformFunc(tp elastictransport.Interface) NewPutTransform {
 // transforms prior to 7.5, also do not give users any privileges on
 // `.data-frame-internal*` indices.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-put-transform
 func New(tp elastictransport.Interface) *PutTransform {
 	r := &PutTransform{
 		transport: tp,

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Test a query ruleset. Evaluate match criteria against a query ruleset to
-// identify the rules that would match that criteria.
+// Test a query ruleset.
+//
+// Evaluate match criteria against a query ruleset to identify the rules that
+// would match that criteria.
 package test
 
 import (
@@ -82,10 +84,14 @@ func NewTestFunc(tp elastictransport.Interface) NewTest {
 	}
 }
 
-// Test a query ruleset. Evaluate match criteria against a query ruleset to
-// identify the rules that would match that criteria.
+// Test a query ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+// Evaluate match criteria against a query ruleset to identify the rules that
+// would match that criteria.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-test
 func New(tp elastictransport.Interface) *Test {
 	r := &Test{
 		transport: tp,

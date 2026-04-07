@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an anomaly detection job.
 //
@@ -92,7 +92,9 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 // the source index. If you include a `datafeed_config` but do not provide a
 // query, the datafeed uses `{"match_all": {"boost": 1}}`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-job
 func New(tp elastictransport.Interface) *PutJob {
 	r := &PutJob{
 		transport: tp,

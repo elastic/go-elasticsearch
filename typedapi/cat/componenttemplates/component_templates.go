@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get component templates.
 //
@@ -95,7 +95,9 @@ func NewComponentTemplatesFunc(tp elastictransport.Interface) NewComponentTempla
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get component template API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-component-templates
 func New(tp elastictransport.Interface) *ComponentTemplates {
 	r := &ComponentTemplates{
 		transport: tp,

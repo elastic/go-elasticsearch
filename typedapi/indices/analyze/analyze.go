@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get tokens from text analysis. The analyze API performs analysis on a text
-// string and returns the resulting tokens.
+// Get tokens from text analysis.
+//
+// The analyze API performs analysis on a text string and returns the resulting
+// tokens.
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
@@ -86,8 +88,10 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 	}
 }
 
-// Get tokens from text analysis. The analyze API performs analysis on a text
-// string and returns the resulting tokens.
+// Get tokens from text analysis.
+//
+// The analyze API performs analysis on a text string and returns the resulting
+// tokens.
 //
 // Generating excessive amount of tokens may cause a node to run out of memory.
 // The `index.analyze.max_token_count` setting enables you to limit the number
@@ -95,7 +99,9 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 // generated, an error occurs. The `_analyze` endpoint without a specified index
 // will always use `10000` as its limit.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
 	r := &Analyze{
 		transport: tp,
@@ -419,6 +425,15 @@ func (r *Analyze) CharFilter(charfilters ...types.CharFilterVariant) *Analyze {
 	return r
 }
 
+func (r *Analyze) CharFilterValues(charfiltervalues []types.CharFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.CharFilter = charfiltervalues
+	return r
+}
+
 // If `true`, the response includes token attributes and additional details.
 // API name: explain
 func (r *Analyze) Explain(explain bool) *Analyze {
@@ -458,6 +473,15 @@ func (r *Analyze) Filter(filters ...types.TokenFilterVariant) *Analyze {
 		r.req.Filter = append(r.req.Filter, *v.TokenFilterCaster())
 
 	}
+	return r
+}
+
+func (r *Analyze) FilterValues(filtervalues []types.TokenFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filter = filtervalues
 	return r
 }
 

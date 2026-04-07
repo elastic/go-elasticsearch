@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -40,6 +40,12 @@ func (s *_spanOrQuery) Clauses(clauses ...types.SpanQueryVariant) *_spanOrQuery 
 		s.v.Clauses = append(s.v.Clauses, *v.SpanQueryCaster())
 
 	}
+	return s
+}
+
+func (s *_spanOrQuery) ClausesValues(clausesvalues []types.SpanQuery) *_spanOrQuery {
+
+	s.v.Clauses = clausesvalues
 	return s
 }
 

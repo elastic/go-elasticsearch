@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Validate an anomaly detection job.
 package validatedetector
@@ -75,8 +75,6 @@ func NewValidateDetectorFunc(tp elastictransport.Interface) NewValidateDetector 
 }
 
 // Validate an anomaly detection job.
-//
-// https://www.elastic.co/docs/api/doc/elasticsearch
 func New(tp elastictransport.Interface) *ValidateDetector {
 	r := &ValidateDetector{
 		transport: tp,
@@ -366,6 +364,15 @@ func (r *ValidateDetector) CustomRules(customrules ...types.DetectionRuleVariant
 		r.req.CustomRules = append(r.req.CustomRules, *v.DetectionRuleCaster())
 
 	}
+	return r
+}
+
+func (r *ValidateDetector) CustomRulesValues(customrulesvalues []types.DetectionRule) *ValidateDetector {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.CustomRules = customrulesvalues
 	return r
 }
 

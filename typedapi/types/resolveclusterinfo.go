@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Provides information about each cluster request relevant to doing a
 // cross-cluster search.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/resolve_cluster/ResolveClusterResponse.ts#L29-L55
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/resolve_cluster/ResolveClusterResponse.ts#L29-L55
 type ResolveClusterInfo struct {
 	// Connected Whether the remote cluster is connected to the local (querying) cluster.
 	Connected bool `json:"connected"`

@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete a query rule. Delete a query rule within a query ruleset. This is a
-// destructive action that is only recoverable by re-adding the same rule with
-// the create or update query rule API.
+// Delete a query rule.
+//
+// Delete a query rule within a query ruleset. This is a destructive action that
+// is only recoverable by re-adding the same rule with the create or update
+// query rule API.
 package deleterule
 
 import (
@@ -83,11 +85,15 @@ func NewDeleteRuleFunc(tp elastictransport.Interface) NewDeleteRule {
 	}
 }
 
-// Delete a query rule. Delete a query rule within a query ruleset. This is a
-// destructive action that is only recoverable by re-adding the same rule with
-// the create or update query rule API.
+// Delete a query rule.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+// Delete a query rule within a query ruleset. This is a destructive action that
+// is only recoverable by re-adding the same rule with the create or update
+// query rule API.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-delete-rule
 func New(tp elastictransport.Interface) *DeleteRule {
 	r := &DeleteRule{
 		transport: tp,

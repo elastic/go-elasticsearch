@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Analyze the index disk usage. Analyze the disk usage of each field of an
-// index or data stream. This API might not support indices created in previous
-// Elasticsearch versions. The result of a small index can be inaccurate as some
-// parts of an index might not be analyzed by the API.
+// Analyze the index disk usage.
+//
+// Analyze the disk usage of each field of an index or data stream. This API
+// might not support indices created in previous Elasticsearch versions. The
+// result of a small index can be inaccurate as some parts of an index might not
+// be analyzed by the API.
 //
 // NOTE: The total size of fields of the analyzed shards of the index in the
 // response is usually smaller than the index `store_size` value because some
@@ -93,10 +95,12 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 	}
 }
 
-// Analyze the index disk usage. Analyze the disk usage of each field of an
-// index or data stream. This API might not support indices created in previous
-// Elasticsearch versions. The result of a small index can be inaccurate as some
-// parts of an index might not be analyzed by the API.
+// Analyze the index disk usage.
+//
+// Analyze the disk usage of each field of an index or data stream. This API
+// might not support indices created in previous Elasticsearch versions. The
+// result of a small index can be inaccurate as some parts of an index might not
+// be analyzed by the API.
 //
 // NOTE: The total size of fields of the analyzed shards of the index in the
 // response is usually smaller than the index `store_size` value because some

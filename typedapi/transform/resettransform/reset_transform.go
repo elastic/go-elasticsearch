@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Reset a transform.
 //
@@ -86,7 +86,9 @@ func NewResetTransformFunc(tp elastictransport.Interface) NewResetTransform {
 // query parameter. If the destination index was created by the transform, it is
 // deleted.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-reset-transform
 func New(tp elastictransport.Interface) *ResetTransform {
 	r := &ResetTransform{
 		transport: tp,

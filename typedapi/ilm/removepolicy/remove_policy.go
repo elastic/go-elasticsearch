@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Remove policies from an index. Remove the assigned lifecycle policies from an
-// index or a data stream's backing indices. It also stops managing the indices.
+// Remove policies from an index.
+//
+// Remove the assigned lifecycle policies from an index or a data stream's
+// backing indices. It also stops managing the indices.
 package removepolicy
 
 import (
@@ -77,8 +79,10 @@ func NewRemovePolicyFunc(tp elastictransport.Interface) NewRemovePolicy {
 	}
 }
 
-// Remove policies from an index. Remove the assigned lifecycle policies from an
-// index or a data stream's backing indices. It also stops managing the indices.
+// Remove policies from an index.
+//
+// Remove the assigned lifecycle policies from an index or a data stream's
+// backing indices. It also stops managing the indices.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-remove-policy
 func New(tp elastictransport.Interface) *RemovePolicy {

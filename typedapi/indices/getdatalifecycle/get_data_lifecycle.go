@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get data stream lifecycles.
 //
@@ -83,7 +83,9 @@ func NewGetDataLifecycleFunc(tp elastictransport.Interface) NewGetDataLifecycle 
 //
 // Get the data stream lifecycle configuration of one or more data streams.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-lifecycle
 func New(tp elastictransport.Interface) *GetDataLifecycle {
 	r := &GetDataLifecycle{
 		transport: tp,

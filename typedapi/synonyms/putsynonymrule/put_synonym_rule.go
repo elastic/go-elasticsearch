@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a synonym rule. Create or update a synonym rule in a synonym
-// set.
+// Create or update a synonym rule.
+//
+// Create or update a synonym rule in a synonym set.
 //
 // If any of the synonym rules included is invalid, the API returns an error.
 //
@@ -92,15 +93,18 @@ func NewPutSynonymRuleFunc(tp elastictransport.Interface) NewPutSynonymRule {
 	}
 }
 
-// Create or update a synonym rule. Create or update a synonym rule in a synonym
-// set.
+// Create or update a synonym rule.
+//
+// Create or update a synonym rule in a synonym set.
 //
 // If any of the synonym rules included is invalid, the API returns an error.
 //
 // When you update a synonym rule, all analyzers using the synonyms set will be
 // reloaded automatically to reflect the new rule.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym-rule
 func New(tp elastictransport.Interface) *PutSynonymRule {
 	r := &PutSynonymRule{
 		transport: tp,

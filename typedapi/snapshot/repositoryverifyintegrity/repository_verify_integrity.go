@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Verify the repository integrity. Verify the integrity of the contents of a
-// snapshot repository.
+// Verify the repository integrity.
+//
+// Verify the integrity of the contents of a snapshot repository.
 //
 // This API enables you to perform a comprehensive check of the contents of a
 // repository, looking for any anomalies in its data or metadata which might
@@ -137,8 +138,9 @@ func NewRepositoryVerifyIntegrityFunc(tp elastictransport.Interface) NewReposito
 	}
 }
 
-// Verify the repository integrity. Verify the integrity of the contents of a
-// snapshot repository.
+// Verify the repository integrity.
+//
+// Verify the integrity of the contents of a snapshot repository.
 //
 // This API enables you to perform a comprehensive check of the contents of a
 // repository, looking for any anomalies in its data or metadata which might

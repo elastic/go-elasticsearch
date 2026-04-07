@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get anomaly detection job results for influencers. Influencers are the
-// entities that have contributed to, or are to blame for, the anomalies.
-// Influencer results are available only if an `influencer_field_name` is
-// specified in the job configuration.
+// Get anomaly detection job results for influencers.
+//
+// Influencers are the entities that have contributed to, or are to blame for,
+// the anomalies. Influencer results are available only if an
+// `influencer_field_name` is specified in the job configuration.
 package getinfluencers
 
 import (
@@ -84,10 +85,11 @@ func NewGetInfluencersFunc(tp elastictransport.Interface) NewGetInfluencers {
 	}
 }
 
-// Get anomaly detection job results for influencers. Influencers are the
-// entities that have contributed to, or are to blame for, the anomalies.
-// Influencer results are available only if an `influencer_field_name` is
-// specified in the job configuration.
+// Get anomaly detection job results for influencers.
+//
+// Influencers are the entities that have contributed to, or are to blame for,
+// the anomalies. Influencer results are available only if an
+// `influencer_field_name` is specified in the job configuration.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers
 func New(tp elastictransport.Interface) *GetInfluencers {

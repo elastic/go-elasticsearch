@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Simulate data ingestion. Run ingest pipelines against a set of provided
-// documents, optionally with substitute pipeline definitions, to simulate
-// ingesting data into an index.
+// Simulate data ingestion.
+//
+// Run ingest pipelines against a set of provided documents, optionally with
+// substitute pipeline definitions, to simulate ingesting data into an index.
 //
 // This API is meant to be used for troubleshooting or pipeline development, as
 // it does not actually index any data into Elasticsearch.
@@ -109,9 +110,10 @@ func NewIngestFunc(tp elastictransport.Interface) NewIngest {
 	}
 }
 
-// Simulate data ingestion. Run ingest pipelines against a set of provided
-// documents, optionally with substitute pipeline definitions, to simulate
-// ingesting data into an index.
+// Simulate data ingestion.
+//
+// Run ingest pipelines against a set of provided documents, optionally with
+// substitute pipeline definitions, to simulate ingesting data into an index.
 //
 // This API is meant to be used for troubleshooting or pipeline development, as
 // it does not actually index any data into Elasticsearch.
@@ -486,6 +488,15 @@ func (r *Ingest) Docs(docs ...types.DocumentVariant) *Ingest {
 		r.req.Docs = append(r.req.Docs, *v.DocumentCaster())
 
 	}
+	return r
+}
+
+func (r *Ingest) DocsValues(docsvalues []types.Document) *Ingest {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

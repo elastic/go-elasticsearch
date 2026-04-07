@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Forget a follower. Remove the cross-cluster replication follower retention
-// leases from the leader.
+// Forget a follower.
+//
+// Remove the cross-cluster replication follower retention leases from the
+// leader.
 //
 // A following index takes out retention leases on its leader index. These
 // leases are used to increase the likelihood that the shards of the leader
@@ -101,8 +103,10 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 	}
 }
 
-// Forget a follower. Remove the cross-cluster replication follower retention
-// leases from the leader.
+// Forget a follower.
+//
+// Remove the cross-cluster replication follower retention leases from the
+// leader.
 //
 // A following index takes out retention leases on its leader index. These
 // leases are used to increase the likelihood that the shards of the leader
@@ -344,8 +348,8 @@ func (r *ForgetFollower) Header(key, value string) *ForgetFollower {
 	return r
 }
 
-// Index the name of the leader index for which specified follower retention leases
-// should be removed
+// Index Name of the leader index for which specified follower retention leases should
+// be removed
 // API Name: index
 func (r *ForgetFollower) _index(index string) *ForgetFollower {
 	r.paramSet |= indexMask

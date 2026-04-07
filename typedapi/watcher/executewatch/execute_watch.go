@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Run a watch. This API can be used to force execution of the watch outside of
-// its triggering logic or to simulate the watch execution for debugging
-// purposes.
+// Run a watch.
+//
+// This API can be used to force execution of the watch outside of its
+// triggering logic or to simulate the watch execution for debugging purposes.
 //
 // For testing and debugging purposes, you also have fine-grained control on how
 // the watch runs. You can run the watch without running all of its actions or
@@ -102,9 +103,10 @@ func NewExecuteWatchFunc(tp elastictransport.Interface) NewExecuteWatch {
 	}
 }
 
-// Run a watch. This API can be used to force execution of the watch outside of
-// its triggering logic or to simulate the watch execution for debugging
-// purposes.
+// Run a watch.
+//
+// This API can be used to force execution of the watch outside of its
+// triggering logic or to simulate the watch execution for debugging purposes.
 //
 // For testing and debugging purposes, you also have fine-grained control on how
 // the watch runs. You can run the watch without running all of its actions or

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Run multiple templated searches.
 //
@@ -106,7 +106,9 @@ func NewMsearchTemplateFunc(tp elastictransport.Interface) NewMsearchTemplate {
 //
 //	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch-template
 func New(tp elastictransport.Interface) *MsearchTemplate {
 	r := &MsearchTemplate{
 		transport: tp,

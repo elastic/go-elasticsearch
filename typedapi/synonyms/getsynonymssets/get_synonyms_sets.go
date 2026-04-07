@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get all synonym sets. Get a summary of all defined synonym sets.
+// Get all synonym sets.
+//
+// Get a summary of all defined synonym sets.
 package getsynonymssets
 
 import (
@@ -68,9 +70,13 @@ func NewGetSynonymsSetsFunc(tp elastictransport.Interface) NewGetSynonymsSets {
 	}
 }
 
-// Get all synonym sets. Get a summary of all defined synonym sets.
+// Get all synonym sets.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+// Get a summary of all defined synonym sets.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym
 func New(tp elastictransport.Interface) *GetSynonymsSets {
 	r := &GetSynonymsSets{
 		transport: tp,

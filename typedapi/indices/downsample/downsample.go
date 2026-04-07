@@ -16,14 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Downsample an index. Aggregate a time series (TSDS) index and store
-// pre-computed statistical summaries (`min`, `max`, `sum`, `value_count` and
-// `avg`) for each metric field grouped by a configured time interval. For
-// example, a TSDS index that contains metrics sampled every 10 seconds can be
-// downsampled to an hourly index. All documents within an hour interval are
-// summarized and stored as a single document in the downsample index.
+// Downsample an index.
+//
+// Aggregate a time series (TSDS) index and store pre-computed statistical
+// summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
+// field grouped by a configured time interval. For example, a TSDS index that
+// contains metrics sampled every 10 seconds can be downsampled to an hourly
+// index. All documents within an hour interval are summarized and stored as a
+// single document in the downsample index.
 //
 // NOTE: Only indices in a time series data stream are supported. Neither field
 // nor document level security can be defined on the source index. The source
@@ -95,12 +97,14 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 	}
 }
 
-// Downsample an index. Aggregate a time series (TSDS) index and store
-// pre-computed statistical summaries (`min`, `max`, `sum`, `value_count` and
-// `avg`) for each metric field grouped by a configured time interval. For
-// example, a TSDS index that contains metrics sampled every 10 seconds can be
-// downsampled to an hourly index. All documents within an hour interval are
-// summarized and stored as a single document in the downsample index.
+// Downsample an index.
+//
+// Aggregate a time series (TSDS) index and store pre-computed statistical
+// summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
+// field grouped by a configured time interval. For example, a TSDS index that
+// contains metrics sampled every 10 seconds can be downsampled to an hourly
+// index. All documents within an hour interval are summarized and stored as a
+// single document in the downsample index.
 //
 // NOTE: Only indices in a time series data stream are supported. Neither field
 // nor document level security can be defined on the source index. The source

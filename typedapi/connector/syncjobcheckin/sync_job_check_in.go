@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Check in a connector sync job. Check in a connector sync job and set the
-// `last_seen` field to the current time before updating it in the internal
-// index.
+// Check in a connector sync job.
+//
+// Check in a connector sync job and set the `last_seen` field to the current
+// time before updating it in the internal index.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
@@ -82,9 +83,10 @@ func NewSyncJobCheckInFunc(tp elastictransport.Interface) NewSyncJobCheckIn {
 	}
 }
 
-// Check in a connector sync job. Check in a connector sync job and set the
-// `last_seen` field to the current time before updating it in the internal
-// index.
+// Check in a connector sync job.
+//
+// Check in a connector sync job and set the `last_seen` field to the current
+// time before updating it in the internal index.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically

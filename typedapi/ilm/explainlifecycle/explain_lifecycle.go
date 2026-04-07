@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Explain the lifecycle state. Get the current lifecycle status for one or more
-// indices. For data streams, the API retrieves the current lifecycle status for
-// the stream's backing indices.
+// Explain the lifecycle state.
+//
+// Get the current lifecycle status for one or more indices. For data streams,
+// the API retrieves the current lifecycle status for the stream's backing
+// indices.
 //
 // The response indicates when the index entered each lifecycle state, provides
 // the definition of the running phase, and information about any failures.
@@ -81,9 +83,11 @@ func NewExplainLifecycleFunc(tp elastictransport.Interface) NewExplainLifecycle 
 	}
 }
 
-// Explain the lifecycle state. Get the current lifecycle status for one or more
-// indices. For data streams, the API retrieves the current lifecycle status for
-// the stream's backing indices.
+// Explain the lifecycle state.
+//
+// Get the current lifecycle status for one or more indices. For data streams,
+// the API retrieves the current lifecycle status for the stream's backing
+// indices.
 //
 // The response indicates when the index entered each lifecycle state, provides
 // the definition of the running phase, and information about any failures.

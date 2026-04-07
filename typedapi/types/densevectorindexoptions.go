@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/mapping/DenseVectorProperty.ts#L129-L166
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_types/mapping/DenseVectorProperty.ts#L129-L166
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and `1.0` or exactly `0`. When the value is `0`,

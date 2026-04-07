@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update a filter. Updates the description of a filter, adds items, or removes
-// items from the list.
+// Update a filter.
+//
+// Updates the description of a filter, adds items, or removes items from the
+// list.
 package updatefilter
 
 import (
@@ -82,10 +84,14 @@ func NewUpdateFilterFunc(tp elastictransport.Interface) NewUpdateFilter {
 	}
 }
 
-// Update a filter. Updates the description of a filter, adds items, or removes
-// items from the list.
+// Update a filter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+// Updates the description of a filter, adds items, or removes items from the
+// list.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-filter
 func New(tp elastictransport.Interface) *UpdateFilter {
 	r := &UpdateFilter{
 		transport: tp,

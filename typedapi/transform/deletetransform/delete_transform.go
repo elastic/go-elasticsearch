@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Delete a transform.
 package deletetransform
@@ -78,7 +78,9 @@ func NewDeleteTransformFunc(tp elastictransport.Interface) NewDeleteTransform {
 
 // Delete a transform.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-delete-transform
 func New(tp elastictransport.Interface) *DeleteTransform {
 	r := &DeleteTransform{
 		transport: tp,

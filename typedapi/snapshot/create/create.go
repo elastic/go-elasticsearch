@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a snapshot. Take a snapshot of a cluster or of data streams and
-// indices.
+// Create a snapshot.
+//
+// Take a snapshot of a cluster or of data streams and indices.
 package create
 
 import (
@@ -88,8 +89,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 	}
 }
 
-// Create a snapshot. Take a snapshot of a cluster or of data streams and
-// indices.
+// Create a snapshot.
+//
+// Take a snapshot of a cluster or of data streams and indices.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create
 func New(tp elastictransport.Interface) *Create {

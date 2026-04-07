@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create a custom inference endpoint.
 //
@@ -191,7 +191,9 @@ func NewPutCustomFunc(tp elastictransport.Interface) NewPutCustom {
 //   - `${return_documents}` refers to the `return_documents` field available
 //     when performing rerank requests.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-custom
 func New(tp elastictransport.Interface) *PutCustom {
 	r := &PutCustom{
 		transport: tp,
@@ -476,7 +478,9 @@ func (r *PutCustom) Pretty(pretty bool) *PutCustom {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `sparse_embedding` or
+// `text_embedding` task types. Not applicable to the `rerank` or `completion`
+// task types.
 // API name: chunking_settings
 func (r *PutCustom) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutCustom {
 	// Initialize the request if it is not already initialized

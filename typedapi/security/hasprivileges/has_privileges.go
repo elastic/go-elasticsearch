@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Check user privileges.
 //
@@ -90,7 +90,9 @@ func NewHasPrivilegesFunc(tp elastictransport.Interface) NewHasPrivileges {
 // users can use this API, but only to determine their own privileges. To check
 // the privileges of other users, you must use the run as feature.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-has-privileges
 func New(tp elastictransport.Interface) *HasPrivileges {
 	r := &HasPrivileges{
 		transport: tp,
@@ -387,6 +389,15 @@ func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesC
 	return r
 }
 
+func (r *HasPrivileges) ApplicationValues(applicationvalues []types.ApplicationPrivilegesCheck) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Application = applicationvalues
+	return r
+}
+
 // A list of the cluster privileges that you want to check.
 // API name: cluster
 func (r *HasPrivileges) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *HasPrivileges {
@@ -413,5 +424,14 @@ func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheckVariant) *Has
 		r.req.Index = append(r.req.Index, *v.IndexPrivilegesCheckCaster())
 
 	}
+	return r
+}
+
+func (r *HasPrivileges) IndexValues(indexvalues []types.IndexPrivilegesCheck) *HasPrivileges {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Index = indexvalues
 	return r
 }

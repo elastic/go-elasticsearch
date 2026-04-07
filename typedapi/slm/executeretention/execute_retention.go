@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Run a retention policy. Manually apply the retention policy to force
-// immediate removal of snapshots that are expired according to the snapshot
-// lifecycle policy retention rules. The retention policy is normally applied
-// according to its schedule.
+// Run a retention policy.
+//
+// Manually apply the retention policy to force immediate removal of snapshots
+// that are expired according to the snapshot lifecycle policy retention rules.
+// The retention policy is normally applied according to its schedule.
 package executeretention
 
 import (
@@ -71,10 +72,11 @@ func NewExecuteRetentionFunc(tp elastictransport.Interface) NewExecuteRetention 
 	}
 }
 
-// Run a retention policy. Manually apply the retention policy to force
-// immediate removal of snapshots that are expired according to the snapshot
-// lifecycle policy retention rules. The retention policy is normally applied
-// according to its schedule.
+// Run a retention policy.
+//
+// Manually apply the retention policy to force immediate removal of snapshots
+// that are expired according to the snapshot lifecycle policy retention rules.
+// The retention policy is normally applied according to its schedule.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention
 func New(tp elastictransport.Interface) *ExecuteRetention {

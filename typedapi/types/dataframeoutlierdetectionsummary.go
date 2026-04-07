@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
 // DataframeOutlierDetectionSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/evaluate_data_frame/types.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/ml/evaluate_data_frame/types.ts#L24-L42
 type DataframeOutlierDetectionSummary struct {
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
 	// score and optionally the curve.

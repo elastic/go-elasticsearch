@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Cancel node shutdown preparations. Remove a node from the shutdown list so it
-// can resume normal operations. You must explicitly clear the shutdown request
-// when a node rejoins the cluster or when a node has permanently left the
-// cluster. Shutdown requests are never removed automatically by Elasticsearch.
+// Cancel node shutdown preparations.
+//
+// Remove a node from the shutdown list so it can resume normal operations. You
+// must explicitly clear the shutdown request when a node rejoins the cluster or
+// when a node has permanently left the cluster. Shutdown requests are never
+// removed automatically by Elasticsearch.
 //
 // NOTE: This feature is designed for indirect use by Elastic Cloud, Elastic
 // Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
@@ -86,10 +88,12 @@ func NewDeleteNodeFunc(tp elastictransport.Interface) NewDeleteNode {
 	}
 }
 
-// Cancel node shutdown preparations. Remove a node from the shutdown list so it
-// can resume normal operations. You must explicitly clear the shutdown request
-// when a node rejoins the cluster or when a node has permanently left the
-// cluster. Shutdown requests are never removed automatically by Elasticsearch.
+// Cancel node shutdown preparations.
+//
+// Remove a node from the shutdown list so it can resume normal operations. You
+// must explicitly clear the shutdown request when a node rejoins the cluster or
+// when a node has permanently left the cluster. Shutdown requests are never
+// removed automatically by Elasticsearch.
 //
 // NOTE: This feature is designed for indirect use by Elastic Cloud, Elastic
 // Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not

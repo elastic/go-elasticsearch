@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Run a search with a search template.
 package searchtemplate
@@ -83,7 +83,9 @@ func NewSearchTemplateFunc(tp elastictransport.Interface) NewSearchTemplate {
 
 // Run a search with a search template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-template
 func New(tp elastictransport.Interface) *SearchTemplate {
 	r := &SearchTemplate{
 		transport: tp,
@@ -335,8 +337,8 @@ func (r *SearchTemplate) AllowNoIndices(allownoindices bool) *SearchTemplate {
 	return r
 }
 
-// CcsMinimizeRoundtrips If `true`, network round-trips are minimized for cross-cluster search
-// requests.
+// CcsMinimizeRoundtrips Indicates whether network round-trips should be minimized as part of
+// cross-cluster search requests execution.
 // API name: ccs_minimize_roundtrips
 func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *SearchTemplate {
 	r.values.Set("ccs_minimize_roundtrips", strconv.FormatBool(ccsminimizeroundtrips))

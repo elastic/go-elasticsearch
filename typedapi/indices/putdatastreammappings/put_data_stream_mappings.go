@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Update data stream mappings.
 //
@@ -97,7 +97,9 @@ func NewPutDataStreamMappingsFunc(tp elastictransport.Interface) NewPutDataStrea
 // indices that are created during rollover after this API is called. No indices
 // are changed by this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-mappings
 func New(tp elastictransport.Interface) *PutDataStreamMappings {
 	r := &PutDataStreamMappings{
 		transport: tp,

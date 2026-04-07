@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update Watcher index settings. Update settings for the Watcher internal index
-// (`.watches`). Only a subset of settings can be modified. This includes
-// `index.auto_expand_replicas`, `index.number_of_replicas`,
-// `index.routing.allocation.exclude.*`, `index.routing.allocation.include.*`
-// and `index.routing.allocation.require.*`. Modification of
+// Update Watcher index settings.
+//
+// Update settings for the Watcher internal index (`.watches`). Only a subset of
+// settings can be modified. This includes `index.auto_expand_replicas`,
+// `index.number_of_replicas`, `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`. Modification of
 // `index.routing.allocation.include._tier_preference` is an exception and is
 // not allowed as the Watcher shards must always be in the `data_content` tier.
 package updatesettings
@@ -79,11 +81,13 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 	}
 }
 
-// Update Watcher index settings. Update settings for the Watcher internal index
-// (`.watches`). Only a subset of settings can be modified. This includes
-// `index.auto_expand_replicas`, `index.number_of_replicas`,
-// `index.routing.allocation.exclude.*`, `index.routing.allocation.include.*`
-// and `index.routing.allocation.require.*`. Modification of
+// Update Watcher index settings.
+//
+// Update settings for the Watcher internal index (`.watches`). Only a subset of
+// settings can be modified. This includes `index.auto_expand_replicas`,
+// `index.number_of_replicas`, `index.routing.allocation.exclude.*`,
+// `index.routing.allocation.include.*` and
+// `index.routing.allocation.require.*`. Modification of
 // `index.routing.allocation.include._tier_preference` is an exception and is
 // not allowed as the Watcher shards must always be in the `data_content` tier.
 //

@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a follower. Create a cross-cluster replication follower index that
-// follows a specific leader index. When the API returns, the follower index
-// exists and cross-cluster replication starts replicating operations from the
-// leader index to the follower index.
+// Create a follower.
+//
+// Create a cross-cluster replication follower index that follows a specific
+// leader index. When the API returns, the follower index exists and
+// cross-cluster replication starts replicating operations from the leader index
+// to the follower index.
 package follow
 
 import (
@@ -84,10 +86,12 @@ func NewFollowFunc(tp elastictransport.Interface) NewFollow {
 	}
 }
 
-// Create a follower. Create a cross-cluster replication follower index that
-// follows a specific leader index. When the API returns, the follower index
-// exists and cross-cluster replication starts replicating operations from the
-// leader index to the follower index.
+// Create a follower.
+//
+// Create a cross-cluster replication follower index that follows a specific
+// leader index. When the API returns, the follower index exists and
+// cross-cluster replication starts replicating operations from the leader index
+// to the follower index.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow
 func New(tp elastictransport.Interface) *Follow {

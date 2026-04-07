@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create or update an autoscaling policy.
 //
@@ -312,7 +312,7 @@ func (r *PutAutoscalingPolicy) Header(key, value string) *PutAutoscalingPolicy {
 	return r
 }
 
-// Name the name of the autoscaling policy
+// Name Name of the autoscaling policy
 // API Name: name
 func (r *PutAutoscalingPolicy) _name(name string) *PutAutoscalingPolicy {
 	r.paramSet |= nameMask

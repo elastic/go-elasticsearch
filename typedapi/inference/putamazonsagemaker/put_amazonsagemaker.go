@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Amazon SageMaker inference endpoint.
 //
@@ -95,7 +95,9 @@ func NewPutAmazonsagemakerFunc(tp elastictransport.Interface) NewPutAmazonsagema
 // Create an inference endpoint to perform an inference task with the
 // `amazon_sagemaker` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonsagemaker
 func New(tp elastictransport.Interface) *PutAmazonsagemaker {
 	r := &PutAmazonsagemaker{
 		transport: tp,
@@ -389,7 +391,9 @@ func (r *PutAmazonsagemaker) Pretty(pretty bool) *PutAmazonsagemaker {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `sparse_embedding` or
+// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or
+// `chat_completion` task types.
 // API name: chunking_settings
 func (r *PutAmazonsagemaker) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAmazonsagemaker {
 	// Initialize the request if it is not already initialized

@@ -16,16 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Force buffered data to be processed. The flush jobs API is only applicable
-// when sending data for analysis using the post data API. Depending on the
-// content of the buffer, then it might additionally calculate new results. Both
-// flush and close operations are similar, however the flush is more efficient
-// if you are expecting to send more data for analysis. When flushing, the job
-// remains open and is available to continue analyzing data. A close operation
-// additionally prunes and persists the model state to disk and the job must be
-// opened again before analyzing further data.
+// Force buffered data to be processed.
+//
+// The flush jobs API is only applicable when sending data for analysis using
+// the post data API. Depending on the content of the buffer, then it might
+// additionally calculate new results. Both flush and close operations are
+// similar, however the flush is more efficient if you are expecting to send
+// more data for analysis. When flushing, the job remains open and is available
+// to continue analyzing data. A close operation additionally prunes and
+// persists the model state to disk and the job must be opened again before
+// analyzing further data.
 //
 // Deprecated: Since 9.1.0. Forcing any buffered data to be processed is
 // deprecated, in a future major version a datafeed will be required.
@@ -91,16 +93,20 @@ func NewFlushJobFunc(tp elastictransport.Interface) NewFlushJob {
 	}
 }
 
-// Force buffered data to be processed. The flush jobs API is only applicable
-// when sending data for analysis using the post data API. Depending on the
-// content of the buffer, then it might additionally calculate new results. Both
-// flush and close operations are similar, however the flush is more efficient
-// if you are expecting to send more data for analysis. When flushing, the job
-// remains open and is available to continue analyzing data. A close operation
-// additionally prunes and persists the model state to disk and the job must be
-// opened again before analyzing further data.
+// Force buffered data to be processed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+// The flush jobs API is only applicable when sending data for analysis using
+// the post data API. Depending on the content of the buffer, then it might
+// additionally calculate new results. Both flush and close operations are
+// similar, however the flush is more efficient if you are expecting to send
+// more data for analysis. When flushing, the job remains open and is available
+// to continue analyzing data. A close operation additionally prunes and
+// persists the model state to disk and the job must be opened again before
+// analyzing further data.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-flush-job
 //
 // Deprecated: Since 9.1.0. Forcing any buffered data to be processed is
 // deprecated, in a future major version a datafeed will be required.

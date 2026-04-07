@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package submit
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L322
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L56-L434
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -496,4 +496,21 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+func (r Request) MarshalJSON() ([]byte, error) {
+	if len(r.SearchAfter) > 0 {
+		allNil := true
+		for _, v := range r.SearchAfter {
+			if v != nil {
+				allNil = false
+				break
+			}
+		}
+		if allNil {
+			r.SearchAfter = nil
+		}
+	}
+	type plain Request
+	return json.Marshal(plain(r))
 }
