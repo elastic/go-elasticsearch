@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Explore graph analytics.
 //
@@ -445,5 +445,14 @@ func (r *Explore) Vertices(vertices ...types.VertexDefinitionVariant) *Explore {
 		r.req.Vertices = append(r.req.Vertices, *v.VertexDefinitionCaster())
 
 	}
+	return r
+}
+
+func (r *Explore) VerticesValues(verticesvalues []types.VertexDefinition) *Explore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Vertices = verticesvalues
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -42,6 +42,12 @@ func (s *_categorizationAnalyzerDefinition) CharFilter(charfilters ...types.Char
 	return s
 }
 
+func (s *_categorizationAnalyzerDefinition) CharFilterValues(charfiltervalues []types.CharFilter) *_categorizationAnalyzerDefinition {
+
+	s.v.CharFilter = charfiltervalues
+	return s
+}
+
 func (s *_categorizationAnalyzerDefinition) Filter(filters ...types.TokenFilterVariant) *_categorizationAnalyzerDefinition {
 
 	for _, v := range filters {
@@ -49,6 +55,12 @@ func (s *_categorizationAnalyzerDefinition) Filter(filters ...types.TokenFilterV
 		s.v.Filter = append(s.v.Filter, *v.TokenFilterCaster())
 
 	}
+	return s
+}
+
+func (s *_categorizationAnalyzerDefinition) FilterValues(filtervalues []types.TokenFilter) *_categorizationAnalyzerDefinition {
+
+	s.v.Filter = filtervalues
 	return s
 }
 

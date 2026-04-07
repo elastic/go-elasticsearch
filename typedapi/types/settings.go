@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // The source of the data for the transform.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/transform/_types/Transform.ts#L98-L154
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/transform/_types/Transform.ts#L98-L166
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align checkpoint ranges with the date
@@ -55,6 +55,14 @@ type Settings struct {
 	// adjusted to a lower value. The minimum value is `10` and the maximum is
 	// `65,536`.
 	MaxPageSearchSize *int `json:"max_page_search_size,omitempty"`
+	// NumFailureRetries Defines the number of retries on a recoverable failure before the transform
+	// task is marked as `failed`. The minimum value is `0` and the maximum is
+	// `100`, where `-1` indicates that the transform retries indefinitely. If
+	// unset, the cluster-level setting `num_transform_failure_retries` is used.
+	//
+	// This setting cannot be specified when `unattended` is `true`, because
+	// unattended transforms always retry indefinitely.
+	NumFailureRetries *int `json:"num_failure_retries,omitempty"`
 	// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
 	// transform retries indefinitely in case of an error which means the transform
 	// never fails. Setting the number of retries other than infinite fails in
@@ -157,6 +165,22 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.MaxPageSearchSize = &f
+			}
+
+		case "num_failure_retries":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "NumFailureRetries", err)
+				}
+				s.NumFailureRetries = &value
+			case float64:
+				f := int(v)
+				s.NumFailureRetries = &f
 			}
 
 		case "unattended":

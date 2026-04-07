@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // This setting helps to minimize the number of rate limit errors returned from
 // the service.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/Services.ts#L428-L458
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/Services.ts#L440-L471
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute. By default, the number of requests
 	// allowed per minute is set by each service as follows:
@@ -47,6 +47,7 @@ type RateLimitSetting struct {
 	//   - `cohere` service: `10000`
 	//   - `contextualai` service: `1000`
 	//   - `elastic` service and task type `chat_completion`: `240`
+	//   - `fireworksai` service: `6000`
 	//   - `googleaistudio` service: `360`
 	//   - `googlevertexai` service: `30000`
 	//   - `hugging_face` service: `3000`

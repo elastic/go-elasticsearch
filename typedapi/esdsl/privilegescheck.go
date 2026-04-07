@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -45,6 +45,12 @@ func (s *_privilegesCheck) Application(applications ...types.ApplicationPrivileg
 	return s
 }
 
+func (s *_privilegesCheck) ApplicationValues(applicationvalues []types.ApplicationPrivilegesCheck) *_privilegesCheck {
+
+	s.v.Application = applicationvalues
+	return s
+}
+
 func (s *_privilegesCheck) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *_privilegesCheck {
 
 	for _, v := range clusters {
@@ -62,6 +68,12 @@ func (s *_privilegesCheck) Index(indices ...types.IndexPrivilegesCheckVariant) *
 		s.v.Index = append(s.v.Index, *v.IndexPrivilegesCheckCaster())
 
 	}
+	return s
+}
+
+func (s *_privilegesCheck) IndexValues(indexvalues []types.IndexPrivilegesCheck) *_privilegesCheck {
+
+	s.v.Index = indexvalues
 	return s
 }
 

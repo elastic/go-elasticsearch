@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create or update roles.
 //
@@ -397,6 +397,15 @@ func (r *PutRole) Applications(applications ...types.ApplicationPrivilegesVarian
 	return r
 }
 
+func (r *PutRole) ApplicationsValues(applicationsvalues []types.ApplicationPrivileges) *PutRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Applications = applicationsvalues
+	return r
+}
+
 // A list of cluster privileges. These privileges define the cluster-level
 // actions for users with this role.
 // API name: cluster
@@ -473,6 +482,15 @@ func (r *PutRole) Indices(indices ...types.IndicesPrivilegesVariant) *PutRole {
 	return r
 }
 
+func (r *PutRole) IndicesValues(indicesvalues []types.IndicesPrivileges) *PutRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Indices = indicesvalues
+	return r
+}
+
 // Optional metadata. Within the metadata object, keys that begin with an
 // underscore (`_`) are reserved for system use.
 // API name: metadata
@@ -502,6 +520,15 @@ func (r *PutRole) RemoteCluster(remoteclusters ...types.RemoteClusterPrivilegesV
 	return r
 }
 
+func (r *PutRole) RemoteClusterValues(remoteclustervalues []types.RemoteClusterPrivileges) *PutRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.RemoteCluster = remoteclustervalues
+	return r
+}
+
 // A list of remote indices permissions entries.
 //
 // NOTE: Remote indices are effective for remote clusters configured with the
@@ -518,6 +545,15 @@ func (r *PutRole) RemoteIndices(remoteindices ...types.RemoteIndicesPrivilegesVa
 		r.req.RemoteIndices = append(r.req.RemoteIndices, *v.RemoteIndicesPrivilegesCaster())
 
 	}
+	return r
+}
+
+func (r *PutRole) RemoteIndicesValues(remoteindicesvalues []types.RemoteIndicesPrivileges) *PutRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.RemoteIndices = remoteindicesvalues
 	return r
 }
 

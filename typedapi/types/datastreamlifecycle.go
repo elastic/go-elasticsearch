@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // Data stream lifecycle denotes that a data stream is managed by the data
 // stream lifecycle and contains the configuration.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStreamLifecycle.ts#L26-L51
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/_types/DataStreamLifecycle.ts#L26-L55
 type DataStreamLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
@@ -52,6 +52,8 @@ type DataStreamLifecycle struct {
 	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
 	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
+	// FrozenAfter Only available with feature flag dlm_searchable_snapshots.
+	FrozenAfter Duration `json:"frozen_after,omitempty"`
 }
 
 func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
@@ -96,6 +98,11 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 				s.Enabled = &value
 			case bool:
 				s.Enabled = &v
+			}
+
+		case "frozen_after":
+			if err := dec.Decode(&s.FrozenAfter); err != nil {
+				return fmt.Errorf("%s | %w", "FrozenAfter", err)
 			}
 
 		}

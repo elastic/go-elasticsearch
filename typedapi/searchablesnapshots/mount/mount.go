@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Mount a snapshot.
 //
@@ -39,6 +39,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/storageoption"
 )
 
 const (
@@ -359,10 +360,12 @@ func (r *Mount) WaitForCompletion(waitforcompletion bool) *Mount {
 	return r
 }
 
-// Storage The mount option for the searchable snapshot index.
+// Storage The mount option for the searchable snapshot index. For further information
+// on mount options, refer to: [Mount
+// options](https://www.elastic.co/docs/deploy-manage/tools/snapshot-and-restore/searchable-snapshots#searchable-snapshot-mount-storage-options)
 // API name: storage
-func (r *Mount) Storage(storage string) *Mount {
-	r.values.Set("storage", storage)
+func (r *Mount) Storage(storage storageoption.StorageOption) *Mount {
+	r.values.Set("storage", storage.String())
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -37,6 +37,12 @@ func (s *_transformContainer) Chain(chains ...types.TransformContainerVariant) *
 		s.v.Chain = append(s.v.Chain, *v.TransformContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_transformContainer) ChainValues(chainvalues []types.TransformContainer) *_transformContainer {
+
+	s.v.Chain = chainvalues
 	return s
 }
 

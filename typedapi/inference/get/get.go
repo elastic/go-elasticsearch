@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get an inference endpoint.
 //
@@ -147,6 +147,19 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
 		}
 		path.WriteString(r.inferenceid)
+
+		method = http.MethodGet
+	case r.paramSet == tasktypeMask:
+		path.WriteString("/")
+		path.WriteString("_inference")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
+		}
+		path.WriteString(r.tasktype)
+		path.WriteString("/")
+		path.WriteString("_all")
 
 		method = http.MethodGet
 	}
@@ -319,7 +332,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// TaskType The task type
+// TaskType The task type of the endpoint to return
 // API Name: tasktype
 func (r *Get) TaskType(tasktype string) *Get {
 	r.paramSet |= tasktypeMask
@@ -328,7 +341,9 @@ func (r *Get) TaskType(tasktype string) *Get {
 	return r
 }
 
-// InferenceId The inference Id
+// InferenceId The inference Id of the endpoint to return. Using `_all` or `*` will return
+// all endpoints with the specified `task_type` if one is specified, or all
+// endpoints for all task types if no `task_type` is specified
 // API Name: inferenceid
 func (r *Get) InferenceId(inferenceid string) *Get {
 	r.paramSet |= inferenceidMask

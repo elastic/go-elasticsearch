@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -26,11 +26,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // FieldLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/abstractions.ts#L436-L453
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/query_dsl/abstractions.ts#L430-L447
 type FieldLookup struct {
 	// Id `id` of the document.
 	Id string `json:"id"`
@@ -39,7 +40,7 @@ type FieldLookup struct {
 	// Path Name of the field.
 	Path *string `json:"path,omitempty"`
 	// Routing Custom routing value.
-	Routing []string `json:"routing,omitempty"`
+	Routing *string `json:"routing,omitempty"`
 }
 
 func (s *FieldLookup) UnmarshalJSON(data []byte) error {
@@ -73,20 +74,16 @@ func (s *FieldLookup) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-
-				s.Routing = append(s.Routing, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Routing = &o
 
 		}
 	}

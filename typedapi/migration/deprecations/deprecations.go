@@ -16,16 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get deprecation information.
 //
-// Get information about different cluster, node, and index level settings that
-// use deprecated features that will be removed or changed in the next major
-// version.
+// Returns information about deprecated features which are in use in the
+// cluster. The reported features include cluster, node, and index level
+// settings that will be removed or changed in the next major version. You must
+// address the reported issues before upgrading to the next major version.
+// However, no action is required when upgrading within the current major
+// version. Deprecated features remain fully supported and will continue to work
+// in the current version, and when upgrading to a newer minor or patch release
+// in the same major version. Use this API to review your usage of these
+// features and migrate away from them at your own pace, before upgrading to a
+// new major version.
 //
-// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-// strongly recommended to use the Upgrade Assistant.
+// > info > This API is designed for indirect use by the [Upgrade
+// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+// > We recommend learning about deprecated features using the Upgrade Assistant
+// rather than calling this API directly.
 package deprecations
 
 import (
@@ -83,12 +92,21 @@ func NewDeprecationsFunc(tp elastictransport.Interface) NewDeprecations {
 
 // Get deprecation information.
 //
-// Get information about different cluster, node, and index level settings that
-// use deprecated features that will be removed or changed in the next major
-// version.
+// Returns information about deprecated features which are in use in the
+// cluster. The reported features include cluster, node, and index level
+// settings that will be removed or changed in the next major version. You must
+// address the reported issues before upgrading to the next major version.
+// However, no action is required when upgrading within the current major
+// version. Deprecated features remain fully supported and will continue to work
+// in the current version, and when upgrading to a newer minor or patch release
+// in the same major version. Use this API to review your usage of these
+// features and migrate away from them at your own pace, before upgrading to a
+// new major version.
 //
-// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-// strongly recommended to use the Upgrade Assistant.
+// > info > This API is designed for indirect use by the [Upgrade
+// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+// > We recommend learning about deprecated features using the Upgrade Assistant
+// rather than calling this API directly.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations
 func New(tp elastictransport.Interface) *Deprecations {

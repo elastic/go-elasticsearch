@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -34,20 +34,36 @@ import (
 
 // LicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/license/get/types.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/license/get/types.ts#L25-L74
 type LicenseInformation struct {
-	ExpiryDate         DateTime                    `json:"expiry_date,omitempty"`
-	ExpiryDateInMillis *int64                      `json:"expiry_date_in_millis,omitempty"`
-	IssueDate          DateTime                    `json:"issue_date"`
-	IssueDateInMillis  int64                       `json:"issue_date_in_millis"`
-	IssuedTo           string                      `json:"issued_to"`
-	Issuer             string                      `json:"issuer"`
-	MaxNodes           *int64                      `json:"max_nodes,omitempty"`
-	MaxResourceUnits   *int                        `json:"max_resource_units,omitempty"`
-	StartDateInMillis  int64                       `json:"start_date_in_millis"`
-	Status             licensestatus.LicenseStatus `json:"status"`
-	Type               licensetype.LicenseType     `json:"type"`
-	Uid                string                      `json:"uid"`
+	// ExpiryDate The date and time the license expires in ISO 8601 format.
+	ExpiryDate DateTime `json:"expiry_date,omitempty"`
+	// ExpiryDateInMillis The date and time the license expires in milliseconds since the Unix epoch.
+	ExpiryDateInMillis *int64 `json:"expiry_date_in_millis,omitempty"`
+	// IssueDate The date and time the license was issued in ISO 8601 format.
+	IssueDate DateTime `json:"issue_date"`
+	// IssueDateInMillis The date and time the license was issued in milliseconds since the Unix
+	// epoch.
+	IssueDateInMillis int64 `json:"issue_date_in_millis"`
+	// IssuedTo The name of the customer or organization that received the license.
+	IssuedTo string `json:"issued_to"`
+	// Issuer The name of the organization that issued the license.
+	Issuer string `json:"issuer"`
+	// MaxNodes The maximum number of nodes the license allows.
+	MaxNodes *int64 `json:"max_nodes,omitempty"`
+	// MaxResourceUnits The maximum number of resource units the license allows (for enterprise
+	// licenses only).
+	MaxResourceUnits *int `json:"max_resource_units,omitempty"`
+	// StartDateInMillis The date and time the license was started in milliseconds since the Unix
+	// epoch.
+	StartDateInMillis int64 `json:"start_date_in_millis"`
+	// Status The status of the license. For example,active, valid, invalid, or expired.
+	Status licensestatus.LicenseStatus `json:"status"`
+	// Type The type of the license. For example, trial, basic, gold, platinum, or
+	// enterprise.
+	Type licensetype.LicenseType `json:"type"`
+	// Uid The unique identifier of the license.
+	Uid string `json:"uid"`
 }
 
 func (s *LicenseInformation) UnmarshalJSON(data []byte) error {

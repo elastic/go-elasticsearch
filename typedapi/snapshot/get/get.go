@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get snapshot information.
 //
@@ -426,7 +426,7 @@ func (r *Get) Offset(offset int) *Get {
 	return r
 }
 
-// Size The maximum number of snapshots to return. The default is 0, which means to
+// Size The maximum number of snapshots to return. The default is -1, which means to
 // return all that match the request without limit.
 // API name: size
 func (r *Get) Size(size int) *Get {

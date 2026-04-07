@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package clearcursor
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package clearcursor
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/sql/clear_cursor/ClearSqlCursorRequest.ts#L23-L46
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/sql/clear_cursor/ClearSqlCursorRequest.ts#L23-L46
 type Request struct {
 	// Cursor Cursor to clear.
 	Cursor string `json:"cursor"`

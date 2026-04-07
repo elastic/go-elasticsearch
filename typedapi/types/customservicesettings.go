@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -27,11 +27,13 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/customserviceinputtype"
 )
 
 // CustomServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1063-L1138
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L1182-L1257
 type CustomServiceSettings struct {
 	// BatchSize Specifies the batch size used for the semantic_text field. If the field is
 	// not provided, the default is 10. The batch size is the maximum number of
@@ -43,11 +45,11 @@ type CustomServiceSettings struct {
 	// `Content-Type` – that are required to access the custom service. For
 	// example:
 	//
-	//	"headers":{
+	//	"headers": {
 	//	  "Authorization": "Bearer ${api_key}",
 	//	  "Content-Type": "application/json;charset=utf-8"
 	//	}
-	Headers json.RawMessage `json:"headers,omitempty"`
+	Headers map[string]string `json:"headers,omitempty"`
 	// InputType Specifies the input type translation values that are used to replace the
 	// `${input_type}` template in the request body. For example:
 	//
@@ -69,7 +71,7 @@ type CustomServiceSettings struct {
 	//   - `clustering`
 	//   - `ingest`
 	//   - `search`
-	InputType json.RawMessage `json:"input_type,omitempty"`
+	InputType map[customserviceinputtype.CustomServiceInputType]string `json:"input_type,omitempty"`
 	// QueryParameters Specifies the query parameters as a list of tuples. The arrays inside the
 	// `query_parameters` must have two items, a key and a value. For example:
 	//
@@ -81,7 +83,7 @@ type CustomServiceSettings struct {
 	//
 	// If the base url is `https://www.elastic.co` it results in:
 	// `https://www.elastic.co?param_key=some_value&param_key=another_value&other_key=other_value`.
-	QueryParameters json.RawMessage `json:"query_parameters,omitempty"`
+	QueryParameters [][]string `json:"query_parameters,omitempty"`
 	// Request The request configuration object.
 	Request CustomRequestParams `json:"request"`
 	// Response The response configuration object.
@@ -92,7 +94,7 @@ type CustomServiceSettings struct {
 	//	"secret_parameters":{
 	//	  "api_key":"<api_key>"
 	//	}
-	SecretParameters json.RawMessage `json:"secret_parameters,omitempty"`
+	SecretParameters map[string]string `json:"secret_parameters"`
 	// Url The URL endpoint to use for the requests.
 	Url *string `json:"url,omitempty"`
 }
@@ -129,11 +131,17 @@ func (s *CustomServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "headers":
+			if s.Headers == nil {
+				s.Headers = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.Headers); err != nil {
 				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "input_type":
+			if s.InputType == nil {
+				s.InputType = make(map[customserviceinputtype.CustomServiceInputType]string, 0)
+			}
 			if err := dec.Decode(&s.InputType); err != nil {
 				return fmt.Errorf("%s | %w", "InputType", err)
 			}
@@ -154,6 +162,9 @@ func (s *CustomServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "secret_parameters":
+			if s.SecretParameters == nil {
+				s.SecretParameters = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.SecretParameters); err != nil {
 				return fmt.Errorf("%s | %w", "SecretParameters", err)
 			}
@@ -177,7 +188,11 @@ func (s *CustomServiceSettings) UnmarshalJSON(data []byte) error {
 
 // NewCustomServiceSettings returns a CustomServiceSettings.
 func NewCustomServiceSettings() *CustomServiceSettings {
-	r := &CustomServiceSettings{}
+	r := &CustomServiceSettings{
+		Headers:          make(map[string]string),
+		InputType:        make(map[customserviceinputtype.CustomServiceInputType]string),
+		SecretParameters: make(map[string]string),
+	}
 
 	return r
 }

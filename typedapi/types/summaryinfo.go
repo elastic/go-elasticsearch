@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
 // SummaryInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L193-L202
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L193-L202
 type SummaryInfo struct {
 	// Read A collection of statistics that summarise the results of the read operations
 	// in the test.

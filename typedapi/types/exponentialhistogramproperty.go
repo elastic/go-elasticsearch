@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // ExponentialHistogramProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/mapping/specialized.ts#L77-L80
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/mapping/specialized.ts#L77-L80
 type ExponentialHistogramProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`

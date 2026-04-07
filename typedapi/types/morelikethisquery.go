@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/query_dsl/specialized.ts#L87-L172
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/query_dsl/specialized.ts#L87-L172
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text. Defaults to the
 	// analyzer associated with the first field in fields.
@@ -79,7 +79,7 @@ type MoreLikeThisQuery struct {
 	// number of terms that must match.
 	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
 	QueryName_         *string            `json:"_name,omitempty"`
-	Routing            []string           `json:"routing,omitempty"`
+	Routing            *string            `json:"routing,omitempty"`
 	// StopWords An array of stop words. Any word in this set is ignored.
 	StopWords StopWords `json:"stop_words,omitempty"`
 	// Unlike Used in combination with `like` to exclude documents that match a set of
@@ -311,20 +311,16 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			s.QueryName_ = &o
 
 		case "routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-
-				s.Routing = append(s.Routing, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Routing = &o
 
 		case "stop_words":
 			if err := dec.Decode(&s.StopWords); err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -79,9 +79,9 @@ func (s *_updateOperation) Index_(indexname string) *_updateOperation {
 	return s
 }
 
-func (s *_updateOperation) Routing(routings ...string) *_updateOperation {
+func (s *_updateOperation) Routing(routing string) *_updateOperation {
 
-	s.v.Routing = routings
+	s.v.Routing = &routing
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,14 +31,14 @@ import (
 
 // CompletionSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/suggester.ts#L74-L85
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/search/_types/suggester.ts#L67-L78
 type CompletionSuggestOption struct {
 	CollateMatch *bool                      `json:"collate_match,omitempty"`
 	Contexts     map[string][]Context       `json:"contexts,omitempty"`
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
 	Id_          *string                    `json:"_id,omitempty"`
 	Index_       *string                    `json:"_index,omitempty"`
-	Routing_     []string                   `json:"_routing,omitempty"`
+	Routing_     *string                    `json:"_routing,omitempty"`
 	Score        *Float64                   `json:"score,omitempty"`
 	Score_       *Float64                   `json:"_score,omitempty"`
 	Source_      json.RawMessage            `json:"_source,omitempty"`
@@ -108,20 +108,16 @@ func (s *CompletionSuggestOption) UnmarshalJSON(data []byte) error {
 			}
 
 		case "_routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing_", err)
-				}
-
-				s.Routing_ = append(s.Routing_, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing_); err != nil {
-					return fmt.Errorf("%s | %w", "Routing_", err)
-				}
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Routing_", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Routing_ = &o
 
 		case "score":
 			var tmp any

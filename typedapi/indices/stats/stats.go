@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get index statistics.
 //
@@ -350,7 +350,7 @@ func (r *Stats) Header(key, value string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned the specific metrics
+// Metric Comma-separated list of metrics used to limit the request.
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask

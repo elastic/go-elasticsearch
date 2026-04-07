@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create an inference endpoint.
 //
@@ -46,6 +46,7 @@
 //   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 //     service is for built-in models and models uploaded through Eland)
 //   - ELSER (`sparse_embedding`)
+//   - Fireworks AI (`chat_completion`, `completion`, `text_embedding`)
 //   - Google AI Studio (`completion`, `text_embedding`)
 //   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)
@@ -154,6 +155,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 //   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 //     service is for built-in models and models uploaded through Eland)
 //   - ELSER (`sparse_embedding`)
+//   - Fireworks AI (`chat_completion`, `completion`, `text_embedding`)
 //   - Google AI Studio (`completion`, `text_embedding`)
 //   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)

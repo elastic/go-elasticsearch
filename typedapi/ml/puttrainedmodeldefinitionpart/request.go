@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package puttrainedmodeldefinitionpart
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodeldefinitionpart
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/put_trained_model_definition_part/MlPutTrainedModelDefinitionPartRequest.ts#L24-L68
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ml/put_trained_model_definition_part/MlPutTrainedModelDefinitionPartRequest.ts#L24-L68
 type Request struct {
 	// Definition The definition part for the model. Must be a base64 encoded string.
 	Definition string `json:"definition"`

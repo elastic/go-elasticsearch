@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
 // XpackFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/xpack/info/types.ts#L42-L82
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/xpack/info/types.ts#L42-L86
 type XpackFeatures struct {
 	AggregateMetric     XpackFeature  `json:"aggregate_metric"`
 	Analytics           XpackFeature  `json:"analytics"`
@@ -34,6 +34,7 @@ type XpackFeatures struct {
 	EnterpriseSearch    XpackFeature  `json:"enterprise_search"`
 	Eql                 XpackFeature  `json:"eql"`
 	Esql                XpackFeature  `json:"esql"`
+	GpuVectorIndexing   XpackFeature  `json:"gpu_vector_indexing"`
 	Graph               XpackFeature  `json:"graph"`
 	Ilm                 XpackFeature  `json:"ilm"`
 	Logsdb              XpackFeature  `json:"logsdb"`

@@ -16,15 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
 // QueryVectorBuilder type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_types/Knn.ts#L105-L108
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_types/Knn.ts#L106-L116
 type QueryVectorBuilder struct {
-	TextEmbedding *TextEmbedding `json:"text_embedding,omitempty"`
+	// Lookup Lookup a vector from an existing document. Must reference a dense_vector
+	// field and a single value.
+	Lookup        *LookupQueryVectorBuilder `json:"lookup,omitempty"`
+	TextEmbedding *TextEmbedding            `json:"text_embedding,omitempty"`
 }
 
 // NewQueryVectorBuilder returns a QueryVectorBuilder.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Simulate data ingestion.
 //
@@ -488,6 +488,15 @@ func (r *Ingest) Docs(docs ...types.DocumentVariant) *Ingest {
 		r.req.Docs = append(r.req.Docs, *v.DocumentCaster())
 
 	}
+	return r
+}
+
+func (r *Ingest) DocsValues(docsvalues []types.Document) *Ingest {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

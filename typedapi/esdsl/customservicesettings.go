@@ -16,29 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/customserviceinputtype"
 )
 
 type _customServiceSettings struct {
 	v *types.CustomServiceSettings
 }
 
-func NewCustomServiceSettings(request types.CustomRequestParamsVariant, response types.CustomResponseParamsVariant, secretparameters json.RawMessage) *_customServiceSettings {
+func NewCustomServiceSettings(request types.CustomRequestParamsVariant, response types.CustomResponseParamsVariant) *_customServiceSettings {
 
 	tmp := &_customServiceSettings{v: types.NewCustomServiceSettings()}
 
 	tmp.Request(request)
 
 	tmp.Response(response)
-
-	tmp.SecretParameters(secretparameters)
 
 	return tmp
 
@@ -51,24 +48,55 @@ func (s *_customServiceSettings) BatchSize(batchsize int) *_customServiceSetting
 	return s
 }
 
-func (s *_customServiceSettings) Headers(headers json.RawMessage) *_customServiceSettings {
+func (s *_customServiceSettings) Headers(headers map[string]string) *_customServiceSettings {
 
 	s.v.Headers = headers
-
 	return s
 }
 
-func (s *_customServiceSettings) InputType(inputtype json.RawMessage) *_customServiceSettings {
+func (s *_customServiceSettings) AddHeader(key string, value string) *_customServiceSettings {
+
+	var tmp map[string]string
+	if s.v.Headers == nil {
+		s.v.Headers = make(map[string]string)
+	} else {
+		tmp = s.v.Headers
+	}
+
+	tmp[key] = value
+
+	s.v.Headers = tmp
+	return s
+}
+
+func (s *_customServiceSettings) InputType(inputtype map[customserviceinputtype.CustomServiceInputType]string) *_customServiceSettings {
 
 	s.v.InputType = inputtype
-
 	return s
 }
 
-func (s *_customServiceSettings) QueryParameters(queryparameters json.RawMessage) *_customServiceSettings {
+func (s *_customServiceSettings) AddInputType(key customserviceinputtype.CustomServiceInputType, value string) *_customServiceSettings {
 
-	s.v.QueryParameters = queryparameters
+	var tmp map[customserviceinputtype.CustomServiceInputType]string
+	if s.v.InputType == nil {
+		s.v.InputType = make(map[customserviceinputtype.CustomServiceInputType]string)
+	} else {
+		tmp = s.v.InputType
+	}
 
+	tmp[key] = value
+
+	s.v.InputType = tmp
+	return s
+}
+
+func (s *_customServiceSettings) QueryParameters(queryparameters ...[]string) *_customServiceSettings {
+
+	for _, v := range queryparameters {
+
+		s.v.QueryParameters = append(s.v.QueryParameters, v)
+
+	}
 	return s
 }
 
@@ -86,10 +114,24 @@ func (s *_customServiceSettings) Response(response types.CustomResponseParamsVar
 	return s
 }
 
-func (s *_customServiceSettings) SecretParameters(secretparameters json.RawMessage) *_customServiceSettings {
+func (s *_customServiceSettings) SecretParameters(secretparameters map[string]string) *_customServiceSettings {
 
 	s.v.SecretParameters = secretparameters
+	return s
+}
 
+func (s *_customServiceSettings) AddSecretParameter(key string, value string) *_customServiceSettings {
+
+	var tmp map[string]string
+	if s.v.SecretParameters == nil {
+		s.v.SecretParameters = make(map[string]string)
+	} else {
+		tmp = s.v.SecretParameters
+	}
+
+	tmp[key] = value
+
+	s.v.SecretParameters = tmp
 	return s
 }
 

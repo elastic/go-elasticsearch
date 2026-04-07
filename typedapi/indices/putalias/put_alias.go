@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create or update an alias.
 //
@@ -434,13 +434,13 @@ func (r *PutAlias) Filter(filter types.QueryVariant) *PutAlias {
 // this overwrites the `routing` value for indexing operations. Data stream
 // aliases don’t support this parameter.
 // API name: index_routing
-func (r *PutAlias) IndexRouting(routings ...string) *PutAlias {
+func (r *PutAlias) IndexRouting(indexrouting string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.IndexRouting = routings
+	r.req.IndexRouting = &indexrouting
 
 	return r
 }
@@ -466,13 +466,13 @@ func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 // Value used to route indexing and search operations to a specific shard. Data
 // stream aliases don’t support this parameter.
 // API name: routing
-func (r *PutAlias) Routing(routings ...string) *PutAlias {
+func (r *PutAlias) Routing(routing string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Routing = routings
+	r.req.Routing = &routing
 
 	return r
 }
@@ -481,13 +481,13 @@ func (r *PutAlias) Routing(routings ...string) *PutAlias {
 // overwrites the `routing` value for search operations. Data stream aliases
 // don’t support this parameter.
 // API name: search_routing
-func (r *PutAlias) SearchRouting(routings ...string) *PutAlias {
+func (r *PutAlias) SearchRouting(searchrouting string) *PutAlias {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.SearchRouting = routings
+	r.req.SearchRouting = &searchrouting
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Find API keys with a query.
 //
@@ -482,6 +482,15 @@ func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 	return r
 }
 
+func (r *QueryApiKeys) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryApiKeys {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must not be negative. The `size` parameter
 // can be set to `0`, in which case no API key matches are returned, only the
 // aggregation results. By default, you cannot page through more than 10,000
@@ -515,5 +524,14 @@ func (r *QueryApiKeys) Sort(sorts ...types.SortCombinationsVariant) *QueryApiKey
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryApiKeys) SortValues(sortvalues []types.SortCombinations) *QueryApiKeys {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

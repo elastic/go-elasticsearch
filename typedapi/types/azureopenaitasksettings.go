@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,10 +31,17 @@ import (
 
 // AzureOpenAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L933-L939
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L1032-L1049
 type AzureOpenAITaskSettings struct {
-	// User For a `completion`, `chat_completion` or `text_embedding` task, specify the
-	// user issuing the request. This information can be used for abuse detection.
+	// Headers Specifies custom HTTP header parameters. For example:
+	//
+	//	"headers": {
+	//	  "Custom-Header": "Some-Value",
+	//	  "Another-Custom-Header": "Another-Value"
+	//	}
+	Headers map[string]string `json:"headers,omitempty"`
+	// User Specifies the user issuing the request. This information can be used for
+	// abuse detection.
 	User *string `json:"user,omitempty"`
 }
 
@@ -52,6 +59,14 @@ func (s *AzureOpenAITaskSettings) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "headers":
+			if s.Headers == nil {
+				s.Headers = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Headers); err != nil {
+				return fmt.Errorf("%s | %w", "Headers", err)
+			}
 
 		case "user":
 			var tmp json.RawMessage
@@ -72,7 +87,9 @@ func (s *AzureOpenAITaskSettings) UnmarshalJSON(data []byte) error {
 
 // NewAzureOpenAITaskSettings returns a AzureOpenAITaskSettings.
 func NewAzureOpenAITaskSettings() *AzureOpenAITaskSettings {
-	r := &AzureOpenAITaskSettings{}
+	r := &AzureOpenAITaskSettings{
+		Headers: make(map[string]string),
+	}
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package create
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package create
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/create/CreateResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/create/CreateResponse.ts#L22-L25
 type Response struct {
 	// FailureStore The role of the failure store in this document response
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`

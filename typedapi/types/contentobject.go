@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -27,16 +27,23 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/contenttype"
 )
 
 // An object style representation of a single portion of a conversation.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L123-L135
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L159-L180
 type ContentObject struct {
-	// Text The text content.
+	// File The file content. Only applicable for the `file` type
+	File FileContent `json:"file"`
+	// ImageUrl The image content. Only applicable for the `image_url` type
+	ImageUrl ImageUrl `json:"image_url"`
+	// Text The text content. Only applicable for the `text` type
 	Text string `json:"text"`
-	// Type The type of content.
-	Type string `json:"type"`
+	// Type The type of content. Must be one of `text`, `image_url` or `file`. Not all
+	// services/models support content types other than "text"
+	Type contenttype.ContentType `json:"type"`
 }
 
 func (s *ContentObject) UnmarshalJSON(data []byte) error {
@@ -54,6 +61,16 @@ func (s *ContentObject) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "file":
+			if err := dec.Decode(&s.File); err != nil {
+				return fmt.Errorf("%s | %w", "File", err)
+			}
+
+		case "image_url":
+			if err := dec.Decode(&s.ImageUrl); err != nil {
+				return fmt.Errorf("%s | %w", "ImageUrl", err)
+			}
+
 		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -67,16 +84,9 @@ func (s *ContentObject) UnmarshalJSON(data []byte) error {
 			s.Text = o
 
 		case "type":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Type = o
 
 		}
 	}

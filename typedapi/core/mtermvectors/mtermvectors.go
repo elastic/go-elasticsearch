@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get multiple term vectors.
 //
@@ -487,6 +487,15 @@ func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperationVariant) *Mtermve
 		r.req.Docs = append(r.req.Docs, *v.MTermVectorsOperationCaster())
 
 	}
+	return r
+}
+
+func (r *Mtermvectors) DocsValues(docsvalues []types.MTermVectorsOperation) *Mtermvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

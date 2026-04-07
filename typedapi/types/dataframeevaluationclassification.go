@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeEvaluationClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/ml/_types/DataframeEvaluation.ts#L35-L44
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/ml/_types/DataframeEvaluation.ts#L35-L44
 type DataframeEvaluationClassification struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has

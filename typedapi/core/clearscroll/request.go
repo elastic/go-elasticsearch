@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package clearscroll
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package clearscroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/clear_scroll/ClearScrollRequest.ts#L23-L64
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/clear_scroll/ClearScrollRequest.ts#L23-L64
 type Request struct {
 	// ScrollId The scroll IDs to clear. To clear all scroll IDs, use `_all`.
 	ScrollId []string `json:"scroll_id,omitempty"`

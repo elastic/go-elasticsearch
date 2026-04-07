@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create a Groq inference endpoint.
 //
@@ -201,6 +201,16 @@ func (r *PutGroq) HttpRequest(ctx context.Context) (*http.Request, error) {
 	}
 
 	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Content-Type") == "" {
+		if r.raw != nil {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
+		}
+	}
+
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
+	}
 
 	if err != nil {
 		return req, fmt.Errorf("could not build http.Request: %w", err)

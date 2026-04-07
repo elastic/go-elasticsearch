@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get tags.
 //
@@ -331,7 +331,8 @@ func (r *Tags) Pretty(pretty bool) *Tags {
 }
 
 // A Lucene query using project metadata tags used to filter which projects are
-// returned in the response, such as _alias:_origin or _alias:*pr*.
+// returned in the response. Examples: _alias:my-project _alias:_origin
+// _alias:*pr* Supported in serverless only.
 // API name: project_routing
 func (r *Tags) ProjectRouting(projectrouting string) *Tags {
 	// Initialize the request if it is not already initialized

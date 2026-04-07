@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -63,6 +63,13 @@ func (s *_settings) DocsPerSecond(docspersecond float32) *_settings {
 func (s *_settings) MaxPageSearchSize(maxpagesearchsize int) *_settings {
 
 	s.v.MaxPageSearchSize = &maxpagesearchsize
+
+	return s
+}
+
+func (s *_settings) NumFailureRetries(numfailureretries int) *_settings {
+
+	s.v.NumFailureRetries = &numfailureretries
 
 	return s
 }

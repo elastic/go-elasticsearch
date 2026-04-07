@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TransformSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/transform/_types/Transform.ts#L156-L175
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/transform/_types/Transform.ts#L168-L199
 type TransformSource struct {
 	// Index The source indices for the transform. It can be a single index, an index
 	// pattern (for example, `"my-index-*""`), an array of indices (for example,
@@ -40,6 +40,11 @@ type TransformSource struct {
 	// the master node and at least one transform node must have the
 	// `remote_cluster_client` node role.
 	Index []string `json:"index"`
+	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
+	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+	// single value (possibly wildcarded). Examples: _alias:my-project
+	// _alias:_origin _alias:*pr* Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query A query clause that retrieves a subset of data from the source index.
 	Query *Query `json:"query,omitempty"`
 	// RuntimeMappings Definitions of search-time runtime fields that can be used by the transform.
@@ -77,6 +82,11 @@ func (s *TransformSource) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Index); err != nil {
 					return fmt.Errorf("%s | %w", "Index", err)
 				}
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
-// Disable logs stream.
+// Disable a named stream.
 //
-// Turn off the logs stream feature for this cluster.
+// Turn off the named stream feature for this cluster.
 package logsdisable
 
 import (
@@ -38,6 +38,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
+const (
+	nameMask = iota + 1
+)
+
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
@@ -52,27 +56,31 @@ type LogsDisable struct {
 
 	paramSet int
 
+	name string
+
 	spanStarted bool
 
 	instrument elastictransport.Instrumentation
 }
 
 // NewLogsDisable type alias for index.
-type NewLogsDisable func() *LogsDisable
+type NewLogsDisable func(name string) *LogsDisable
 
 // NewLogsDisableFunc returns a new instance of LogsDisable with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewLogsDisableFunc(tp elastictransport.Interface) NewLogsDisable {
-	return func() *LogsDisable {
+	return func(name string) *LogsDisable {
 		n := New(tp)
+
+		n._name(name)
 
 		return n
 	}
 }
 
-// Disable logs stream.
+// Disable a named stream.
 //
-// Turn off the logs stream feature for this cluster.
+// Turn off the named stream feature for this cluster.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *LogsDisable {
@@ -103,11 +111,15 @@ func (r *LogsDisable) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == 0:
+	case r.paramSet == nameMask:
 		path.WriteString("/")
 		path.WriteString("_streams")
 		path.WriteString("/")
-		path.WriteString("logs")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
+		}
+		path.WriteString(r.name)
 		path.WriteString("/")
 		path.WriteString("_disable")
 
@@ -278,6 +290,15 @@ func (r LogsDisable) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the LogsDisable headers map.
 func (r *LogsDisable) Header(key, value string) *LogsDisable {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Name The stream type to disable.
+// API Name: name
+func (r *LogsDisable) _name(name string) *LogsDisable {
+	r.paramSet |= nameMask
+	r.name = name
 
 	return r
 }

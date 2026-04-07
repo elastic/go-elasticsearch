@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -32,12 +32,17 @@ import (
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/shard_stores/types.ts#L29-L36
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/shard_stores/types.ts#L29-L39
 type ShardStore struct {
-	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
-	AllocationId   *string                                   `json:"allocation_id,omitempty"`
-	ShardStore     map[string]ShardStoreNode                 `json:"-"`
-	StoreException *ShardStoreException                      `json:"store_exception,omitempty"`
+	// Allocation The status of the store copy, whether it is used as a primary, replica, or
+	// not used at all.
+	Allocation shardstoreallocation.ShardStoreAllocation `json:"allocation"`
+	// AllocationId The allocation ID of the store copy.
+	AllocationId *string                   `json:"allocation_id,omitempty"`
+	ShardStore   map[string]ShardStoreNode `json:"-"`
+	// StoreException Any exception encountered while opening the shard index or from an earlier
+	// engine failure.
+	StoreException *ShardStoreException `json:"store_exception,omitempty"`
 }
 
 func (s *ShardStore) UnmarshalJSON(data []byte) error {

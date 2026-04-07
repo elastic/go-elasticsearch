@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -27,28 +27,33 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/recoverystage"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/recoverytype"
 )
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/recovery/types.ts#L118-L135
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/recovery/types.ts#L146-L165
 type ShardRecovery struct {
-	Id                int64                `json:"id"`
-	Index             RecoveryIndexStatus  `json:"index"`
-	Primary           bool                 `json:"primary"`
-	Source            RecoveryOrigin       `json:"source"`
-	Stage             string               `json:"stage"`
-	Start             *RecoveryStartStatus `json:"start,omitempty"`
-	StartTime         DateTime             `json:"start_time,omitempty"`
-	StartTimeInMillis int64                `json:"start_time_in_millis"`
-	StopTime          DateTime             `json:"stop_time,omitempty"`
-	StopTimeInMillis  *int64               `json:"stop_time_in_millis,omitempty"`
-	Target            RecoveryOrigin       `json:"target"`
-	TotalTime         Duration             `json:"total_time,omitempty"`
-	TotalTimeInMillis int64                `json:"total_time_in_millis"`
-	Translog          TranslogStatus       `json:"translog"`
-	Type              string               `json:"type"`
-	VerifyIndex       VerifyIndex          `json:"verify_index"`
+	Id      int64               `json:"id"`
+	Index   RecoveryIndexStatus `json:"index"`
+	Primary bool                `json:"primary"`
+	Source  RecoveryOrigin      `json:"source"`
+	// Stage The recovery stage.
+	Stage             recoverystage.RecoveryStage `json:"stage"`
+	Start             *RecoveryStartStatus        `json:"start,omitempty"`
+	StartTime         DateTime                    `json:"start_time,omitempty"`
+	StartTimeInMillis int64                       `json:"start_time_in_millis"`
+	StopTime          DateTime                    `json:"stop_time,omitempty"`
+	StopTimeInMillis  *int64                      `json:"stop_time_in_millis,omitempty"`
+	Target            RecoveryOrigin              `json:"target"`
+	TotalTime         Duration                    `json:"total_time,omitempty"`
+	TotalTimeInMillis int64                       `json:"total_time_in_millis"`
+	Translog          TranslogStatus              `json:"translog"`
+	// Type The recovery source type.
+	Type        recoverytype.RecoveryType `json:"type"`
+	VerifyIndex VerifyIndex               `json:"verify_index"`
 }
 
 func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
@@ -106,16 +111,9 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "stage":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Stage); err != nil {
 				return fmt.Errorf("%s | %w", "Stage", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Stage = o
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {
@@ -163,16 +161,9 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "type":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Type = o
 
 		case "verify_index":
 			if err := dec.Decode(&s.VerifyIndex); err != nil {

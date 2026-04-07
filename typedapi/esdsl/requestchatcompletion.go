@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -49,9 +49,22 @@ func (s *_requestChatCompletion) Messages(messages ...types.MessageVariant) *_re
 	return s
 }
 
+func (s *_requestChatCompletion) MessagesValues(messagesvalues []types.Message) *_requestChatCompletion {
+
+	s.v.Messages = messagesvalues
+	return s
+}
+
 func (s *_requestChatCompletion) Model(model string) *_requestChatCompletion {
 
 	s.v.Model = &model
+
+	return s
+}
+
+func (s *_requestChatCompletion) Reasoning(reasoning types.ReasoningVariant) *_requestChatCompletion {
+
+	s.v.Reasoning = reasoning.ReasoningCaster()
 
 	return s
 }
@@ -87,6 +100,12 @@ func (s *_requestChatCompletion) Tools(tools ...types.CompletionToolVariant) *_r
 		s.v.Tools = append(s.v.Tools, *v.CompletionToolCaster())
 
 	}
+	return s
+}
+
+func (s *_requestChatCompletion) ToolsValues(toolsvalues []types.CompletionTool) *_requestChatCompletion {
+
+	s.v.Tools = toolsvalues
 	return s
 }
 

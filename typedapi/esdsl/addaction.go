@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -63,9 +63,9 @@ func (s *_addAction) Index(indexname string) *_addAction {
 	return s
 }
 
-func (s *_addAction) IndexRouting(routings ...string) *_addAction {
+func (s *_addAction) IndexRouting(indexrouting string) *_addAction {
 
-	s.v.IndexRouting = routings
+	s.v.IndexRouting = &indexrouting
 
 	return s
 }
@@ -98,16 +98,16 @@ func (s *_addAction) MustExist(mustexist bool) *_addAction {
 	return s
 }
 
-func (s *_addAction) Routing(routings ...string) *_addAction {
+func (s *_addAction) Routing(routing string) *_addAction {
 
-	s.v.Routing = routings
+	s.v.Routing = &routing
 
 	return s
 }
 
-func (s *_addAction) SearchRouting(routings ...string) *_addAction {
+func (s *_addAction) SearchRouting(searchrouting string) *_addAction {
 
-	s.v.SearchRouting = routings
+	s.v.SearchRouting = &searchrouting
 
 	return s
 }

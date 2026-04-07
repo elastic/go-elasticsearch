@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Open a point in time.
 //
@@ -431,8 +431,10 @@ func (r *OpenPointInTime) KeepAlive(duration string) *OpenPointInTime {
 	return r
 }
 
-// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
-// index.
+// IgnoreUnavailable If `false`, the request returns an error if it targets a concrete
+// (non-wildcarded) index, alias, or data stream that is missing, closed, or
+// otherwise unavailable. If `true`, unavailable concrete targets are silently
+// ignored.
 // API name: ignore_unavailable
 func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointInTime {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))

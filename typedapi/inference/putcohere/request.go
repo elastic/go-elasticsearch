@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package putcohere
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putcohere
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/put_cohere/PutCohereRequest.ts#L31-L90
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/put_cohere/PutCohereRequest.ts#L31-L90
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
 	// type. Not applicable to the `rerank` or `completion` task type.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get async search results.
 //
@@ -343,6 +343,21 @@ func (r *Get) TypedKeys(typedkeys bool) *Get {
 // API name: wait_for_completion_timeout
 func (r *Get) WaitForCompletionTimeout(duration string) *Get {
 	r.values.Set("wait_for_completion_timeout", duration)
+
+	return r
+}
+
+// ReturnIntermediateResults Specifies whether the response should contain intermediate results if the
+// query is still running when the wait_for_completion_timeout expires or if no
+// wait_for_completion_timeout is specified. If true and the search is still
+// running, the search response will include any hits and partial aggregations
+// that are available. If false and the search is still running, the search
+// response will not include any hits (but possibly include total hits) nor will
+// include any partial aggregations. When not specified, the intermediate
+// results are returned for running queries.
+// API name: return_intermediate_results
+func (r *Get) ReturnIntermediateResults(returnintermediateresults bool) *Get {
+	r.values.Set("return_intermediate_results", strconv.FormatBool(returnintermediateresults))
 
 	return r
 }

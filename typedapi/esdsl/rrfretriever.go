@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -71,6 +71,12 @@ func (s *_rRFRetriever) Retrievers(retrievers ...types.RRFRetrieverEntryVariant)
 		s.v.Retrievers = append(s.v.Retrievers, *v.RRFRetrieverEntryCaster())
 
 	}
+	return s
+}
+
+func (s *_rRFRetriever) RetrieversValues(retrieversvalues []types.RRFRetrieverEntry) *_rRFRetriever {
+
+	s.v.Retrievers = retrieversvalues
 	return s
 }
 

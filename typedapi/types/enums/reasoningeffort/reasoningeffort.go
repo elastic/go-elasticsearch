@@ -1,0 +1,73 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+
+// Package reasoningeffort
+package reasoningeffort
+
+import "strings"
+
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L248-L255
+type ReasoningEffort struct {
+	Name string
+}
+
+var (
+	Xhigh = ReasoningEffort{"xhigh"}
+
+	High = ReasoningEffort{"high"}
+
+	Medium = ReasoningEffort{"medium"}
+
+	Low = ReasoningEffort{"low"}
+
+	Minimal = ReasoningEffort{"minimal"}
+
+	None = ReasoningEffort{"none"}
+)
+
+func (r ReasoningEffort) MarshalText() (text []byte, err error) {
+	return []byte(r.String()), nil
+}
+
+func (r *ReasoningEffort) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "xhigh":
+		*r = Xhigh
+	case "high":
+		*r = High
+	case "medium":
+		*r = Medium
+	case "low":
+		*r = Low
+	case "minimal":
+		*r = Minimal
+	case "none":
+		*r = None
+	default:
+		*r = ReasoningEffort{string(text)}
+	}
+
+	return nil
+}
+
+func (r ReasoningEffort) String() string {
+	return r.Name
+}
