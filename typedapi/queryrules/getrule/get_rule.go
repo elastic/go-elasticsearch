@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get a query rule. Get details about a query rule within a query ruleset.
+// Get a query rule.
+//
+// Get details about a query rule within a query ruleset.
 package getrule
 
 import (
@@ -81,9 +83,13 @@ func NewGetRuleFunc(tp elastictransport.Interface) NewGetRule {
 	}
 }
 
-// Get a query rule. Get details about a query rule within a query ruleset.
+// Get a query rule.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+// Get details about a query rule within a query ruleset.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-get-rule
 func New(tp elastictransport.Interface) *GetRule {
 	r := &GetRule{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -53,6 +53,12 @@ func (s *_hop) Vertices(vertices ...types.VertexDefinitionVariant) *_hop {
 		s.v.Vertices = append(s.v.Vertices, *v.VertexDefinitionCaster())
 
 	}
+	return s
+}
+
+func (s *_hop) VerticesValues(verticesvalues []types.VertexDefinition) *_hop {
+
+	s.v.Vertices = verticesvalues
 	return s
 }
 

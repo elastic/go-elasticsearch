@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Update the connector pipeline.
 //
@@ -89,7 +89,9 @@ func NewUpdatePipelineFunc(tp elastictransport.Interface) NewUpdatePipeline {
 // When you create a new connector, the configuration of an ingest pipeline is
 // populated with default settings.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-pipeline
 func New(tp elastictransport.Interface) *UpdatePipeline {
 	r := &UpdatePipeline{
 		transport: tp,

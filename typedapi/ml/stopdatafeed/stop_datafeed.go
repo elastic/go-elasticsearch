@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Stop datafeeds. A datafeed that is stopped ceases to retrieve data from
-// Elasticsearch. A datafeed can be started and stopped multiple times
-// throughout its lifecycle.
+// Stop datafeeds.
+//
+// A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
+// datafeed can be started and stopped multiple times throughout its lifecycle.
 package stopdatafeed
 
 import (
@@ -83,11 +84,14 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 	}
 }
 
-// Stop datafeeds. A datafeed that is stopped ceases to retrieve data from
-// Elasticsearch. A datafeed can be started and stopped multiple times
-// throughout its lifecycle.
+// Stop datafeeds.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+// A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
+// datafeed can be started and stopped multiple times throughout its lifecycle.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-datafeed
 func New(tp elastictransport.Interface) *StopDatafeed {
 	r := &StopDatafeed{
 		transport: tp,

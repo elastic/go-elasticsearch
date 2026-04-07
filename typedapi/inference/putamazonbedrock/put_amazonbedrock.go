@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Amazon Bedrock inference endpoint.
 //
@@ -109,7 +109,9 @@ func NewPutAmazonbedrockFunc(tp elastictransport.Interface) NewPutAmazonbedrock 
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonbedrock
 func New(tp elastictransport.Interface) *PutAmazonbedrock {
 	r := &PutAmazonbedrock{
 		transport: tp,
@@ -403,7 +405,8 @@ func (r *PutAmazonbedrock) Pretty(pretty bool) *PutAmazonbedrock {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `completion` task type.
 // API name: chunking_settings
 func (r *PutAmazonbedrock) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAmazonbedrock {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get feature usage information.
 package usage
@@ -331,8 +331,8 @@ func (r *Usage) Header(key, value string) *Usage {
 }
 
 // NodeId A comma-separated list of node IDs or names to limit the returned
-// information; use `_local` to return information from the node you're
-// connecting to, leave empty to get information from all nodes
+// information. Use `_local` to return information from the node you're
+// connecting to, leave empty to get information from all nodes.
 // API Name: nodeid
 func (r *Usage) NodeId(nodeid string) *Usage {
 	r.paramSet |= nodeidMask

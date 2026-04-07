@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Delete an async search.
 //
@@ -90,7 +90,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // authenticated user that submitted the original search request; users that
 // have the `cancel_task` cluster privilege.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,

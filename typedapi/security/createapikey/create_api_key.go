@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an API key.
 //
@@ -110,7 +110,9 @@ func NewCreateApiKeyFunc(tp elastictransport.Interface) NewCreateApiKey {
 // automatically enabled. To configure or turn off the API key service, refer to
 // API key service setting documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-create-api-key
 func New(tp elastictransport.Interface) *CreateApiKey {
 	r := &CreateApiKey{
 		transport: tp,

@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the pending cluster tasks. Get information about cluster-level changes
-// (such as create index, update mapping, allocate or fail shard) that have not
-// yet taken effect.
+// Get the pending cluster tasks.
+//
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
 //
 // NOTE: This API returns a list of any pending updates to the cluster state.
 // These are distinct from the tasks reported by the task management API which
@@ -77,9 +78,10 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 	}
 }
 
-// Get the pending cluster tasks. Get information about cluster-level changes
-// (such as create index, update mapping, allocate or fail shard) that have not
-// yet taken effect.
+// Get the pending cluster tasks.
+//
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
 //
 // NOTE: This API returns a list of any pending updates to the cluster state.
 // These are distinct from the tasks reported by the task management API which

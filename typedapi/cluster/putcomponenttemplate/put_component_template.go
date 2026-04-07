@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a component template. Component templates are building
-// blocks for constructing index templates that specify index mappings,
-// settings, and aliases.
+// Create or update a component template.
+//
+// Component templates are building blocks for constructing index templates that
+// specify index mappings, settings, and aliases.
 //
 // An index template can be composed of multiple component templates. To use a
 // component template, specify it in an index template’s `composed_of` list.
@@ -107,9 +108,10 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 	}
 }
 
-// Create or update a component template. Component templates are building
-// blocks for constructing index templates that specify index mappings,
-// settings, and aliases.
+// Create or update a component template.
+//
+// Component templates are building blocks for constructing index templates that
+// specify index mappings, settings, and aliases.
 //
 // An index template can be composed of multiple component templates. To use a
 // component template, specify it in an index template’s `composed_of` list.
@@ -135,7 +137,9 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 // be applied, a component template must be included in an index template's
 // `composed_of` list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *PutComponentTemplate {
 	r := &PutComponentTemplate{
 		transport: tp,
@@ -474,13 +478,13 @@ func (r *PutComponentTemplate) Meta_(metadata types.MetadataVariant) *PutCompone
 // The template to be applied which includes mappings, settings, or aliases
 // configuration.
 // API name: template
-func (r *PutComponentTemplate) Template(template types.IndexStateVariant) *PutComponentTemplate {
+func (r *PutComponentTemplate) Template(template types.IndexTemplateMappingVariant) *PutComponentTemplate {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Template = *template.IndexStateCaster()
+	r.req.Template = *template.IndexTemplateMappingCaster()
 
 	return r
 }

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Stop rollup jobs. If you try to stop a job that does not exist, an exception
-// occurs. If you try to stop a job that is already stopped, nothing happens.
+// Stop rollup jobs.
+//
+// If you try to stop a job that does not exist, an exception occurs. If you try
+// to stop a job that is already stopped, nothing happens.
 //
 // Since only a stopped job can be deleted, it can be useful to block the API
 // until the indexer has fully stopped. This is accomplished with the
@@ -89,8 +91,10 @@ func NewStopJobFunc(tp elastictransport.Interface) NewStopJob {
 	}
 }
 
-// Stop rollup jobs. If you try to stop a job that does not exist, an exception
-// occurs. If you try to stop a job that is already stopped, nothing happens.
+// Stop rollup jobs.
+//
+// If you try to stop a job that does not exist, an exception occurs. If you try
+// to stop a job that is already stopped, nothing happens.
 //
 // Since only a stopped job can be deleted, it can be useful to block the API
 // until the indexer has fully stopped. This is accomplished with the

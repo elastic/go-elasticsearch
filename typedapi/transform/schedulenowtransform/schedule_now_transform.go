@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Schedule a transform to start now.
 //
@@ -88,7 +88,9 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 // frequency interval. After the API is called, the transform will be processed
 // again at `now + frequency` unless the API is called again in the meantime.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-schedule-now-transform
 func New(tp elastictransport.Interface) *ScheduleNowTransform {
 	r := &ScheduleNowTransform{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Start datafeeds.
 //
@@ -115,7 +115,9 @@ func NewStartDatafeedFunc(tp elastictransport.Interface) NewStartDatafeed {
 // secondary authorization headers when you created or updated the datafeed,
 // those credentials are used instead.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-datafeed
 func New(tp elastictransport.Interface) *StartDatafeed {
 	r := &StartDatafeed{
 		transport: tp,

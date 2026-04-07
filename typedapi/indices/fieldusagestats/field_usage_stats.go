@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get field usage stats. Get field usage information for each shard and field
-// of an index. Field usage statistics are automatically captured when queries
-// are running on a cluster. A shard-level search request that accesses a given
-// field, even if multiple times during that request, is counted as a single
-// use.
+// Get field usage stats.
+//
+// Get field usage information for each shard and field of an index. Field usage
+// statistics are automatically captured when queries are running on a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
 //
 // The response body reports the per-shard usage count of the data structures
 // that back the fields in the index. A given request will increment each count
@@ -86,11 +87,12 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 	}
 }
 
-// Get field usage stats. Get field usage information for each shard and field
-// of an index. Field usage statistics are automatically captured when queries
-// are running on a cluster. A shard-level search request that accesses a given
-// field, even if multiple times during that request, is counted as a single
-// use.
+// Get field usage stats.
+//
+// Get field usage information for each shard and field of an index. Field usage
+// statistics are automatically captured when queries are running on a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
 //
 // The response body reports the per-shard usage count of the data structures
 // that back the fields in the index. A given request will increment each count

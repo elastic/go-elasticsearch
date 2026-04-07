@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -62,6 +62,20 @@ func (s *_appendProcessor) Field(field string) *_appendProcessor {
 	return s
 }
 
+func (s *_appendProcessor) IgnoreEmptyValues(ignoreemptyvalues bool) *_appendProcessor {
+
+	s.v.IgnoreEmptyValues = &ignoreemptyvalues
+
+	return s
+}
+
+func (s *_appendProcessor) MediaType(mediatype string) *_appendProcessor {
+
+	s.v.MediaType = &mediatype
+
+	return s
+}
+
 func (s *_appendProcessor) Value(values ...json.RawMessage) *_appendProcessor {
 
 	s.v.Value = make([]json.RawMessage, len(values))
@@ -98,6 +112,12 @@ func (s *_appendProcessor) OnFailure(onfailures ...types.ProcessorContainerVaria
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_appendProcessor) OnFailureValues(onfailurevalues []types.ProcessorContainer) *_appendProcessor {
+
+	s.v.OnFailure = onfailurevalues
 	return s
 }
 

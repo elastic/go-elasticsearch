@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update a transform. Updates certain properties of a transform.
+// Update a transform.
+//
+// Updates certain properties of a transform.
 //
 // All updated properties except `description` do not take effect until after
 // the transform starts the next checkpoint, thus there is data consistency in
@@ -89,7 +91,9 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 	}
 }
 
-// Update a transform. Updates certain properties of a transform.
+// Update a transform.
+//
+// Updates certain properties of a transform.
 //
 // All updated properties except `description` do not take effect until after
 // the transform starts the next checkpoint, thus there is data consistency in
@@ -99,7 +103,9 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 // security features are enabled, the transform remembers which roles the user
 // who updated it had at the time of update and runs with those privileges.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-update-transform
 func New(tp elastictransport.Interface) *UpdateTransform {
 	r := &UpdateTransform{
 		transport: tp,

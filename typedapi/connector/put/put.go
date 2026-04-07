@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create or update a connector.
 package put
@@ -81,7 +81,9 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 
 // Create or update a connector.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-put
 func New(tp elastictransport.Interface) *Put {
 	r := &Put{
 		transport: tp,

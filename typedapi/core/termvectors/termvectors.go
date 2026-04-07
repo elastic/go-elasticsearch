@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get term vector information.
 //
@@ -179,7 +179,9 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 // `routing` only to hit a particular shard. Refer to the linked documentation
 // for detailed examples of how to use this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-termvectors
 func New(tp elastictransport.Interface) *Termvectors {
 	r := &Termvectors{
 		transport: tp,

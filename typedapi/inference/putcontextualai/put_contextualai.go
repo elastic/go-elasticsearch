@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Contextual AI inference endpoint.
 //
@@ -101,7 +101,9 @@ func NewPutContextualaiFunc(tp elastictransport.Interface) NewPutContextualai {
 // To review the available `rerank` models, refer to
 // <https://docs.contextual.ai/api-reference/rerank/rerank#body-model>.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-contextualai
 func New(tp elastictransport.Interface) *PutContextualai {
 	r := &PutContextualai{
 		transport: tp,
@@ -391,19 +393,6 @@ func (r *PutContextualai) Human(human bool) *PutContextualai {
 // API name: pretty
 func (r *PutContextualai) Pretty(pretty bool) *PutContextualai {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
-
-	return r
-}
-
-// The chunking configuration object.
-// API name: chunking_settings
-func (r *PutContextualai) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutContextualai {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
 
 	return r
 }

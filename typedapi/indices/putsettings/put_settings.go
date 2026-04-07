@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update index settings. Changes dynamic index settings in real time. For data
-// streams, index setting changes are applied to all backing indices by default.
+// Update index settings.
+//
+// Changes dynamic index settings in real time. For data streams, index setting
+// changes are applied to all backing indices by default.
 //
 // To revert a setting to the default value, use a null value. The list of
 // per-index settings that can be updated dynamically on live indices can be
@@ -136,8 +138,10 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 	}
 }
 
-// Update index settings. Changes dynamic index settings in real time. For data
-// streams, index setting changes are applied to all backing indices by default.
+// Update index settings.
+//
+// Changes dynamic index settings in real time. For data streams, index setting
+// changes are applied to all backing indices by default.
 //
 // To revert a setting to the default value, use a null value. The list of
 // per-index settings that can be updated dynamically on live indices can be
@@ -193,7 +197,9 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 // indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
 // for step-by-step examples.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-settings
 func New(tp elastictransport.Interface) *PutSettings {
 	r := &PutSettings{
 		transport: tp,

@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get task information. Get information about a task currently running in the
-// cluster.
+// Get task information.
+//
+// Get information about a task currently running in the cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
 // feature. The API may change in ways that are not backwards compatible.
@@ -83,8 +84,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Get task information. Get information about a task currently running in the
-// cluster.
+// Get task information.
+//
+// Get information about a task currently running in the cluster.
 //
 // WARNING: The task management API is new and should still be considered a beta
 // feature. The API may change in ways that are not backwards compatible.

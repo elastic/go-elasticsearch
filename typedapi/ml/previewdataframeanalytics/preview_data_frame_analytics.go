@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Preview features used by data frame analytics. Preview the extracted features
-// used by a data frame analytics config.
+// Preview features used by data frame analytics.
+//
+// Preview the extracted features used by a data frame analytics config.
 package previewdataframeanalytics
 
 import (
@@ -80,10 +81,13 @@ func NewPreviewDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPreviewD
 	}
 }
 
-// Preview features used by data frame analytics. Preview the extracted features
-// used by a data frame analytics config.
+// Preview features used by data frame analytics.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+// Preview the extracted features used by a data frame analytics config.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-data-frame-analytics
 func New(tp elastictransport.Interface) *PreviewDataFrameAnalytics {
 	r := &PreviewDataFrameAnalytics{
 		transport: tp,

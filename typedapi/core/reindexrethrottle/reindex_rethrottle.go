@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Throttle a reindex operation.
 //
@@ -96,7 +96,9 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 // that slows down the query will take effect after completing the current
 // batch. This behavior prevents scroll timeouts.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func New(tp elastictransport.Interface) *ReindexRethrottle {
 	r := &ReindexRethrottle{
 		transport: tp,

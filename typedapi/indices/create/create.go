@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create an index. You can use the create index API to add a new index to an
-// Elasticsearch cluster. When creating an index, you can specify the following:
+// Create an index.
+//
+// You can use the create index API to add a new index to an Elasticsearch
+// cluster. When creating an index, you can specify the following:
 //
 //   - Settings for the index.
 //   - Mappings for fields in the index.
@@ -110,8 +112,10 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 	}
 }
 
-// Create an index. You can use the create index API to add a new index to an
-// Elasticsearch cluster. When creating an index, you can specify the following:
+// Create an index.
+//
+// You can use the create index API to add a new index to an Elasticsearch
+// cluster. When creating an index, you can specify the following:
 //
 //   - Settings for the index.
 //   - Mappings for fields in the index.
@@ -141,7 +145,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 // changing this setting will also affect the `wait_for_active_shards` value on
 // all subsequent write operations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create
 func New(tp elastictransport.Interface) *Create {
 	r := &Create{
 		transport: tp,

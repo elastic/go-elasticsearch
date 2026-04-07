@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/bulk/types.ts#L142-L142
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_global/bulk/types.ts#L142-L142
 type IndexOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates. It
 	// defaults to an empty map. If a name matches a dynamic template, that template

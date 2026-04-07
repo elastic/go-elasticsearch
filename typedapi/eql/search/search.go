@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get EQL search results. Returns search results for an Event Query Language
-// (EQL) query. EQL assumes each document in a data stream or index corresponds
-// to an event.
+// Get EQL search results.
+//
+// Returns search results for an Event Query Language (EQL) query. EQL assumes
+// each document in a data stream or index corresponds to an event.
 package search
 
 import (
@@ -85,11 +86,14 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Get EQL search results. Returns search results for an Event Query Language
-// (EQL) query. EQL assumes each document in a data stream or index corresponds
-// to an event.
+// Get EQL search results.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+// Returns search results for an Event Query Language (EQL) query. EQL assumes
+// each document in a data stream or index corresponds to an event.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -310,7 +314,7 @@ func (r *Search) Header(key, value string) *Search {
 	return r
 }
 
-// Index The name of the index to scope the operation
+// Index Comma-separated list of index names to scope the operation
 // API Name: index
 func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask
@@ -616,7 +620,7 @@ func (r *Search) TiebreakerField(field string) *Search {
 	return r
 }
 
-// Field containing event timestamp. Default "@timestamp"
+// Field containing event timestamp.
 // API name: timestamp_field
 func (r *Search) TimestampField(field string) *Search {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package putazureopenai
 
@@ -30,9 +30,10 @@ import (
 
 // Request holds the request body struct for the package putazureopenai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/put_azureopenai/PutAzureOpenAiRequest.ts#L31-L93
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/inference/put_azureopenai/PutAzureOpenAiRequest.ts#L31-L97
 type Request struct {
-	// ChunkingSettings The chunking configuration object.
+	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
+	// type. Not applicable to the `completion` task type.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `azureopenai`.

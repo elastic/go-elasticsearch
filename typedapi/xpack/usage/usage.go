@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get usage information. Get information about the features that are currently
-// enabled and available under the current license. The API also provides some
-// usage statistics.
+// Get usage information.
+//
+// Get information about the features that are currently enabled and available
+// under the current license. The API also provides some usage statistics.
 package usage
 
 import (
@@ -70,9 +71,10 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 	}
 }
 
-// Get usage information. Get information about the features that are currently
-// enabled and available under the current license. The API also provides some
-// usage statistics.
+// Get usage information.
+//
+// Get information about the features that are currently enabled and available
+// under the current license. The API also provides some usage statistics.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-xpack
 func New(tp elastictransport.Interface) *Usage {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get data frame analytics jobs.
 //
@@ -93,7 +93,9 @@ func NewMlDataFrameAnalyticsFunc(tp elastictransport.Interface) NewMlDataFrameAn
 // application consumption, use the get data frame analytics jobs statistics
 // API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-data-frame-analytics
 func New(tp elastictransport.Interface) *MlDataFrameAnalytics {
 	r := &MlDataFrameAnalytics{
 		transport: tp,

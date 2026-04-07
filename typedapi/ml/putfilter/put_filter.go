@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a filter. A filter contains a list of strings. It can be used by one
-// or more anomaly detection jobs. Specifically, filters are referenced in the
-// `custom_rules` property of detector configuration objects.
+// Create a filter.
+//
+// A filter contains a list of strings. It can be used by one or more anomaly
+// detection jobs. Specifically, filters are referenced in the `custom_rules`
+// property of detector configuration objects.
 package putfilter
 
 import (
@@ -83,11 +85,15 @@ func NewPutFilterFunc(tp elastictransport.Interface) NewPutFilter {
 	}
 }
 
-// Create a filter. A filter contains a list of strings. It can be used by one
-// or more anomaly detection jobs. Specifically, filters are referenced in the
-// `custom_rules` property of detector configuration objects.
+// Create a filter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+// A filter contains a list of strings. It can be used by one or more anomaly
+// detection jobs. Specifically, filters are referenced in the `custom_rules`
+// property of detector configuration objects.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-filter
 func New(tp elastictransport.Interface) *PutFilter {
 	r := &PutFilter{
 		transport: tp,

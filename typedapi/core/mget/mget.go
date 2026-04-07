@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get multiple documents.
 //
@@ -123,7 +123,9 @@ func NewMgetFunc(tp elastictransport.Interface) NewMget {
 // can include the `stored_fields` query parameter in the request URI to specify
 // the defaults to use when there are no per-document instructions.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mget
 func New(tp elastictransport.Interface) *Mget {
 	r := &Mget{
 		transport: tp,
@@ -495,6 +497,15 @@ func (r *Mget) Docs(docs ...types.MgetOperationVariant) *Mget {
 		r.req.Docs = append(r.req.Docs, *v.MgetOperationCaster())
 
 	}
+	return r
+}
+
+func (r *Mget) DocsValues(docsvalues []types.MgetOperation) *Mget {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

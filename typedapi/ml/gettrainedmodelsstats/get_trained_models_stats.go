@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get trained models usage info. You can get usage information for multiple
-// trained models in a single API request by using a comma-separated list of
-// model IDs or a wildcard expression.
+// Get trained models usage info.
+//
+// You can get usage information for multiple trained models in a single API
+// request by using a comma-separated list of model IDs or a wildcard
+// expression.
 package gettrainedmodelsstats
 
 import (
@@ -76,11 +78,15 @@ func NewGetTrainedModelsStatsFunc(tp elastictransport.Interface) NewGetTrainedMo
 	}
 }
 
-// Get trained models usage info. You can get usage information for multiple
-// trained models in a single API request by using a comma-separated list of
-// model IDs or a wildcard expression.
+// Get trained models usage info.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+// You can get usage information for multiple trained models in a single API
+// request by using a comma-separated list of model IDs or a wildcard
+// expression.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models-stats
 func New(tp elastictransport.Interface) *GetTrainedModelsStats {
 	r := &GetTrainedModelsStats{
 		transport: tp,

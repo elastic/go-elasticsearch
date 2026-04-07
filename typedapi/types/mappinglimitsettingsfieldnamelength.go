@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsFieldNameLength type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/_types/IndexSettings.ts#L501-L508
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/_types/IndexSettings.ts#L511-L518
 type MappingLimitSettingsFieldNameLength struct {
 	// Limit Setting for the maximum length of a field name. This setting isn’t really
 	// something that addresses mappings explosion but might still be useful if you

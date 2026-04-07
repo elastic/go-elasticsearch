@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Translate SQL into Elasticsearch queries. Translate an SQL search into a
-// search API request containing Query DSL. It accepts the same request body
-// parameters as the SQL search API, excluding `cursor`.
+// Translate SQL into Elasticsearch queries.
+//
+// Translate an SQL search into a search API request containing Query DSL. It
+// accepts the same request body parameters as the SQL search API, excluding
+// `cursor`.
 package translate
 
 import (
@@ -75,11 +77,15 @@ func NewTranslateFunc(tp elastictransport.Interface) NewTranslate {
 	}
 }
 
-// Translate SQL into Elasticsearch queries. Translate an SQL search into a
-// search API request containing Query DSL. It accepts the same request body
-// parameters as the SQL search API, excluding `cursor`.
+// Translate SQL into Elasticsearch queries.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+// Translate an SQL search into a search API request containing Query DSL. It
+// accepts the same request body parameters as the SQL search API, excluding
+// `cursor`.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-translate
 func New(tp elastictransport.Interface) *Translate {
 	r := &Translate{
 		transport: tp,

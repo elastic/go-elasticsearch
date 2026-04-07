@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package putdatastreamsettings
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package putdatastreamsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsRequest.ts#L25-L77
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsRequest.ts#L25-L79
 type Request = types.IndexSettings
 
 // NewRequest returns a Request

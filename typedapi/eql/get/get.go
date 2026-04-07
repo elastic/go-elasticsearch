@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get async EQL search results. Get the current status and available results
-// for an async EQL search or a stored synchronous EQL search.
+// Get async EQL search results.
+//
+// Get the current status and available results for an async EQL search or a
+// stored synchronous EQL search.
 package get
 
 import (
@@ -77,10 +79,14 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Get async EQL search results. Get the current status and available results
-// for an async EQL search or a stored synchronous EQL search.
+// Get async EQL search results.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+// Get the current status and available results for an async EQL search or a
+// stored synchronous EQL search.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

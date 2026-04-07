@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an ELSER inference endpoint.
 //
@@ -141,7 +141,9 @@ func NewPutElserFunc(tp elastictransport.Interface) NewPutElser {
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elser
 //
 // Deprecated: Since 8.16.0. The elser service is deprecated and will be removed
 // in a future release. Use the Elasticsearch inference integration instead,

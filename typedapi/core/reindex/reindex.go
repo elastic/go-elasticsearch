@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Reindex documents.
 //
@@ -218,7 +218,9 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 //
 // Refer to the linked documentation for examples of how to reindex documents.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func New(tp elastictransport.Interface) *Reindex {
 	r := &Reindex{
 		transport: tp,

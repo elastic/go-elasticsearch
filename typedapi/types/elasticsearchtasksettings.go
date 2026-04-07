@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElasticsearchTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/inference/_types/CommonTypes.ts#L1327-L1333
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/inference/_types/CommonTypes.ts#L1344-L1350
 type ElasticsearchTaskSettings struct {
 	// ReturnDocuments For a `rerank` task, return the document instead of only the index.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`

@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get a query ruleset. Get details about a query ruleset.
+// Get a query ruleset.
+//
+// Get details about a query ruleset.
 package getruleset
 
 import (
@@ -76,9 +78,13 @@ func NewGetRulesetFunc(tp elastictransport.Interface) NewGetRuleset {
 	}
 }
 
-// Get a query ruleset. Get details about a query ruleset.
+// Get a query ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-ruleset
+// Get details about a query ruleset.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-ruleset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-get-ruleset
 func New(tp elastictransport.Interface) *GetRuleset {
 	r := &GetRuleset{
 		transport: tp,

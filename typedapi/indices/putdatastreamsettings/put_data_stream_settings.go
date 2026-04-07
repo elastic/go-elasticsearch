@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Update data stream settings.
 //
@@ -98,7 +98,9 @@ func NewPutDataStreamSettingsFunc(tp elastictransport.Interface) NewPutDataStrea
 // change is applied to all backing indices. Otherwise, it will be applied when
 // the data stream is next rolled over.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-settings
 func New(tp elastictransport.Interface) *PutDataStreamSettings {
 	r := &PutDataStreamSettings{
 		transport: tp,

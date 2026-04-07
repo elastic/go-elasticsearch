@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update documents. Updates documents that match the specified query. If no
-// query is specified, performs an update on every document in the data stream
-// or index without modifying the source, which is useful for picking up mapping
-// changes.
+// Update documents.
+//
+// Updates documents that match the specified query. If no query is specified,
+// performs an update on every document in the data stream or index without
+// modifying the source, which is useful for picking up mapping changes.
 //
 // If the Elasticsearch security features are enabled, you must have the
 // following index privileges for the target data stream, index, or alias:
@@ -221,10 +222,11 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 	}
 }
 
-// Update documents. Updates documents that match the specified query. If no
-// query is specified, performs an update on every document in the data stream
-// or index without modifying the source, which is useful for picking up mapping
-// changes.
+// Update documents.
+//
+// Updates documents that match the specified query. If no query is specified,
+// performs an update on every document in the data stream or index without
+// modifying the source, which is useful for picking up mapping changes.
 //
 // If the Elasticsearch security features are enabled, you must have the
 // following index privileges for the target data stream, index, or alias:
@@ -359,7 +361,9 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // documentation for examples of how to update documents using the
 // `_update_by_query` API:
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update-by-query
 func New(tp elastictransport.Interface) *UpdateByQuery {
 	r := &UpdateByQuery{
 		transport: tp,

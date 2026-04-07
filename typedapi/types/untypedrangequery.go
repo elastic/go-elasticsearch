@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // UntypedRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/term.ts#L146-L155
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_types/query_dsl/term.ts#L147-L156
 type UntypedRangeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query. Boost values are relative to the default value of 1.0. A boost

@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Reset an anomaly detection job. All model state and results are deleted. The
-// job is ready to start over as if it had just been created. It is not
-// currently possible to reset multiple jobs using wildcards or a comma
-// separated list.
+// Reset an anomaly detection job.
+//
+// All model state and results are deleted. The job is ready to start over as if
+// it had just been created. It is not currently possible to reset multiple jobs
+// using wildcards or a comma separated list.
 package resetjob
 
 import (
@@ -79,12 +80,15 @@ func NewResetJobFunc(tp elastictransport.Interface) NewResetJob {
 	}
 }
 
-// Reset an anomaly detection job. All model state and results are deleted. The
-// job is ready to start over as if it had just been created. It is not
-// currently possible to reset multiple jobs using wildcards or a comma
-// separated list.
+// Reset an anomaly detection job.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+// All model state and results are deleted. The job is ready to start over as if
+// it had just been created. It is not currently possible to reset multiple jobs
+// using wildcards or a comma separated list.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-reset-job
 func New(tp elastictransport.Interface) *ResetJob {
 	r := &ResetJob{
 		transport: tp,

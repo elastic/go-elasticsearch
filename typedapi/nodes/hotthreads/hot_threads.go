@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the hot threads for nodes. Get a breakdown of the hot threads on each
-// selected node in the cluster. The output is plain text with a breakdown of
-// the top hot threads for each node.
+// Get the hot threads for nodes.
+//
+// Get a breakdown of the hot threads on each selected node in the cluster. The
+// output is plain text with a breakdown of the top hot threads for each node.
 package hotthreads
 
 import (
@@ -77,9 +78,10 @@ func NewHotThreadsFunc(tp elastictransport.Interface) NewHotThreads {
 	}
 }
 
-// Get the hot threads for nodes. Get a breakdown of the hot threads on each
-// selected node in the cluster. The output is plain text with a breakdown of
-// the top hot threads for each node.
+// Get the hot threads for nodes.
+//
+// Get a breakdown of the hot threads on each selected node in the cluster. The
+// output is plain text with a breakdown of the top hot threads for each node.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
 func New(tp elastictransport.Interface) *HotThreads {
@@ -359,7 +361,7 @@ func (r *HotThreads) Type(type_ threadtype.ThreadType) *HotThreads {
 	return r
 }
 
-// Sort The sort order for 'cpu' type (default: total)
+// Sort The sort order for 'cpu' type
 // API name: sort
 func (r *HotThreads) Sort(sort threadtype.ThreadType) *HotThreads {
 	r.values.Set("sort", sort.String())

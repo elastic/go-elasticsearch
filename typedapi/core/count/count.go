@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Count search results. Get the number of documents matching a query.
+// Count search results.
+//
+// Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
 // parameter, or by defining Query DSL within the request body. The query is
@@ -93,7 +95,9 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 	}
 }
 
-// Count search results. Get the number of documents matching a query.
+// Count search results.
+//
+// Get the number of documents matching a query.
 //
 // The query can be provided either by using a simple query string as a
 // parameter, or by defining Query DSL within the request body. The query is
@@ -107,7 +111,9 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 // replica is chosen and the search is run against it. This means that replicas
 // increase the scalability of the count.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-count
 func New(tp elastictransport.Interface) *Count {
 	r := &Count{
 		transport: tp,

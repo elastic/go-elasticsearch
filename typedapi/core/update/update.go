@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Update a document.
 //
@@ -137,7 +137,9 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 // timestamp). For usage examples such as partial updates, upserts, and scripted
 // updates, see the External documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update
 func New(tp elastictransport.Interface) *Update {
 	r := &Update{
 		transport: tp,

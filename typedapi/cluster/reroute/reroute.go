@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Reroute the cluster. Manually change the allocation of individual shards in
-// the cluster. For example, a shard can be moved from one node to another
-// explicitly, an allocation can be canceled, and an unassigned shard can be
-// explicitly allocated to a specific node.
+// Reroute the cluster.
+//
+// Manually change the allocation of individual shards in the cluster. For
+// example, a shard can be moved from one node to another explicitly, an
+// allocation can be canceled, and an unassigned shard can be explicitly
+// allocated to a specific node.
 //
 // It is important to note that after processing any reroute commands
 // Elasticsearch will perform rebalancing as normal (respecting the values of
@@ -98,10 +100,12 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 	}
 }
 
-// Reroute the cluster. Manually change the allocation of individual shards in
-// the cluster. For example, a shard can be moved from one node to another
-// explicitly, an allocation can be canceled, and an unassigned shard can be
-// explicitly allocated to a specific node.
+// Reroute the cluster.
+//
+// Manually change the allocation of individual shards in the cluster. For
+// example, a shard can be moved from one node to another explicitly, an
+// allocation can be canceled, and an unassigned shard can be explicitly
+// allocated to a specific node.
 //
 // It is important to note that after processing any reroute commands
 // Elasticsearch will perform rebalancing as normal (respecting the values of
@@ -449,5 +453,14 @@ func (r *Reroute) Commands(commands ...types.CommandVariant) *Reroute {
 		r.req.Commands = append(r.req.Commands, *v.CommandCaster())
 
 	}
+	return r
+}
+
+func (r *Reroute) CommandsValues(commandsvalues []types.Command) *Reroute {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Commands = commandsvalues
 	return r
 }

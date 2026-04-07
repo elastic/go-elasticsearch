@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create an Anthropic inference endpoint.
 //
@@ -95,7 +95,9 @@ func NewPutAnthropicFunc(tp elastictransport.Interface) NewPutAnthropic {
 // Create an inference endpoint to perform an inference task with the
 // `anthropic` service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-anthropic
 func New(tp elastictransport.Interface) *PutAnthropic {
 	r := &PutAnthropic{
 		transport: tp,
@@ -390,19 +392,6 @@ func (r *PutAnthropic) Pretty(pretty bool) *PutAnthropic {
 	return r
 }
 
-// The chunking configuration object.
-// API name: chunking_settings
-func (r *PutAnthropic) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutAnthropic {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
-
-	return r
-}
-
 // The type of service supported for the specified task type. In this case,
 // `anthropic`.
 // API name: service
@@ -416,7 +405,7 @@ func (r *PutAnthropic) Service(service anthropicservicetype.AnthropicServiceType
 }
 
 // Settings used to install the inference model. These settings are specific to
-// the `watsonxai` service.
+// the `anthropic` service.
 // API name: service_settings
 func (r *PutAnthropic) ServiceSettings(servicesettings types.AnthropicServiceSettingsVariant) *PutAnthropic {
 	// Initialize the request if it is not already initialized

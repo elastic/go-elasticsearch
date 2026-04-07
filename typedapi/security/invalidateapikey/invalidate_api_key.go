@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Invalidate API keys.
 //
@@ -113,7 +113,9 @@ func NewInvalidateApiKeyFunc(tp elastictransport.Interface) NewInvalidateApiKey 
 //   - Or, if the request is issued by an API key, that is to say an API key
 //     invalidates itself, specify its ID in the `ids` field.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-invalidate-api-key
 func New(tp elastictransport.Interface) *InvalidateApiKey {
 	r := &InvalidateApiKey{
 		transport: tp,

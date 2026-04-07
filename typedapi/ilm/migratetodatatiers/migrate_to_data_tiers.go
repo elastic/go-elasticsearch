@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Migrate to data tiers routing. Switch the indices, ILM policies, and legacy,
-// composable, and component templates from using custom node attributes and
-// attribute-based allocation filters to using data tiers. Optionally, delete
-// one legacy index template. Using node roles enables ILM to automatically move
-// the indices between data tiers.
+// Migrate to data tiers routing.
+//
+// Switch the indices, ILM policies, and legacy, composable, and component
+// templates from using custom node attributes and attribute-based allocation
+// filters to using data tiers. Optionally, delete one legacy index template.
+// Using node roles enables ILM to automatically move the indices between data
+// tiers.
 //
 // Migrating away from custom node attributes routing can be manually performed.
 // This API provides an automated way of performing three out of the four manual
@@ -88,11 +90,13 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 	}
 }
 
-// Migrate to data tiers routing. Switch the indices, ILM policies, and legacy,
-// composable, and component templates from using custom node attributes and
-// attribute-based allocation filters to using data tiers. Optionally, delete
-// one legacy index template. Using node roles enables ILM to automatically move
-// the indices between data tiers.
+// Migrate to data tiers routing.
+//
+// Switch the indices, ILM policies, and legacy, composable, and component
+// templates from using custom node attributes and attribute-based allocation
+// filters to using data tiers. Optionally, delete one legacy index template.
+// Using node roles enables ILM to automatically move the indices between data
+// tiers.
 //
 // Migrating away from custom node attributes routing can be manually performed.
 // This API provides an automated way of performing three out of the four manual

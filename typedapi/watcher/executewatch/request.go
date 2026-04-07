@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package executewatch
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package executewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L107
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L110
 type Request struct {
 	// ActionModes Determines how to handle the watch actions as part of the watch execution.
 	ActionModes map[string]actionexecutionmode.ActionExecutionMode `json:"action_modes,omitempty"`

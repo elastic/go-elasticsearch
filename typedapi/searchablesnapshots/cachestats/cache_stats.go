@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get cache statistics. Get statistics about the shared cache for partially
-// mounted indices.
+// Get cache statistics.
+//
+// Get statistics about the shared cache for partially mounted indices.
 package cachestats
 
 import (
@@ -75,8 +76,9 @@ func NewCacheStatsFunc(tp elastictransport.Interface) NewCacheStats {
 	}
 }
 
-// Get cache statistics. Get statistics about the shared cache for partially
-// mounted indices.
+// Get cache statistics.
+//
+// Get statistics about the shared cache for partially mounted indices.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-cache-stats
 func New(tp elastictransport.Interface) *CacheStats {
@@ -306,13 +308,6 @@ func (r *CacheStats) Header(key, value string) *CacheStats {
 func (r *CacheStats) NodeId(nodeid string) *CacheStats {
 	r.paramSet |= nodeidMask
 	r.nodeid = nodeid
-
-	return r
-}
-
-// API name: master_timeout
-func (r *CacheStats) MasterTimeout(duration string) *CacheStats {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

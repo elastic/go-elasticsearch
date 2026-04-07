@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get aliases.
 //
@@ -94,7 +94,9 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 // line or the Kibana console. They are not intended for use by applications.
 // For application consumption, use the aliases API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-aliases
 func New(tp elastictransport.Interface) *Aliases {
 	r := &Aliases{
 		transport: tp,

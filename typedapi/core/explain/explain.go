@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Explain a document match result. Get information about why a specific
-// document matches, or doesn't match, a query. It computes a score explanation
-// for a query and a specific document.
+// Explain a document match result.
+//
+// Get information about why a specific document matches, or doesn't match, a
+// query. It computes a score explanation for a query and a specific document.
 package explain
 
 import (
@@ -89,11 +90,14 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 	}
 }
 
-// Explain a document match result. Get information about why a specific
-// document matches, or doesn't match, a query. It computes a score explanation
-// for a query and a specific document.
+// Explain a document match result.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+// Get information about why a specific document matches, or doesn't match, a
+// query. It computes a score explanation for a query and a specific document.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-explain
 func New(tp elastictransport.Interface) *Explain {
 	r := &Explain{
 		transport: tp,

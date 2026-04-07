@@ -16,21 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a trained model alias. A trained model alias is a logical
-// name used to reference a single trained model. You can use aliases instead of
-// trained model identifiers to make it easier to reference your models. For
-// example, you can use aliases in inference aggregations and processors. An
-// alias must be unique and refer to only a single trained model. However, you
-// can have multiple aliases for each trained model. If you use this API to
-// update an alias such that it references a different trained model ID and the
-// model uses a different type of data frame analytics, an error occurs. For
-// example, this situation occurs if you have a trained model for regression
-// analysis and a trained model for classification analysis; you cannot reassign
-// an alias from one type of trained model to another. If you use this API to
-// update an alias and there are very few input fields in common between the old
-// and new trained models for the model alias, the API returns a warning.
+// Create or update a trained model alias.
+//
+// A trained model alias is a logical name used to reference a single trained
+// model. You can use aliases instead of trained model identifiers to make it
+// easier to reference your models. For example, you can use aliases in
+// inference aggregations and processors. An alias must be unique and refer to
+// only a single trained model. However, you can have multiple aliases for each
+// trained model. If you use this API to update an alias such that it references
+// a different trained model ID and the model uses a different type of data
+// frame analytics, an error occurs. For example, this situation occurs if you
+// have a trained model for regression analysis and a trained model for
+// classification analysis; you cannot reassign an alias from one type of
+// trained model to another. If you use this API to update an alias and there
+// are very few input fields in common between the old and new trained models
+// for the model alias, the API returns a warning.
 package puttrainedmodelalias
 
 import (
@@ -93,21 +95,25 @@ func NewPutTrainedModelAliasFunc(tp elastictransport.Interface) NewPutTrainedMod
 	}
 }
 
-// Create or update a trained model alias. A trained model alias is a logical
-// name used to reference a single trained model. You can use aliases instead of
-// trained model identifiers to make it easier to reference your models. For
-// example, you can use aliases in inference aggregations and processors. An
-// alias must be unique and refer to only a single trained model. However, you
-// can have multiple aliases for each trained model. If you use this API to
-// update an alias such that it references a different trained model ID and the
-// model uses a different type of data frame analytics, an error occurs. For
-// example, this situation occurs if you have a trained model for regression
-// analysis and a trained model for classification analysis; you cannot reassign
-// an alias from one type of trained model to another. If you use this API to
-// update an alias and there are very few input fields in common between the old
-// and new trained models for the model alias, the API returns a warning.
+// Create or update a trained model alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+// A trained model alias is a logical name used to reference a single trained
+// model. You can use aliases instead of trained model identifiers to make it
+// easier to reference your models. For example, you can use aliases in
+// inference aggregations and processors. An alias must be unique and refer to
+// only a single trained model. However, you can have multiple aliases for each
+// trained model. If you use this API to update an alias such that it references
+// a different trained model ID and the model uses a different type of data
+// frame analytics, an error occurs. For example, this situation occurs if you
+// have a trained model for regression analysis and a trained model for
+// classification analysis; you cannot reassign an alias from one type of
+// trained model to another. If you use this API to update an alias and there
+// are very few input fields in common between the old and new trained models
+// for the model alias, the API returns a warning.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-alias
 func New(tp elastictransport.Interface) *PutTrainedModelAlias {
 	r := &PutTrainedModelAlias{
 		transport: tp,

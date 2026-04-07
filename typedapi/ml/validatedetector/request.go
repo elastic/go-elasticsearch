@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package validatedetector
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package validatedetector
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ml/validate_detector/MlValidateDetectorRequest.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/ml/validate_detector/MlValidateDetectorRequest.ts#L24-L43
 type Request = types.Detector
 
 // NewRequest returns a Request

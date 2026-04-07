@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get information. The information provided by the API includes:
+// Get information.
+//
+// The information provided by the API includes:
 //
 //   - Build information including the build number and timestamp.
 //   - License information about the currently installed license.
@@ -74,14 +76,18 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Get information. The information provided by the API includes:
+// Get information.
+//
+// The information provided by the API includes:
 //
 //   - Build information including the build number and timestamp.
 //   - License information about the currently installed license.
 //   - Feature information for the features that are currently enabled and
 //     available under the current license.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,
@@ -298,7 +304,7 @@ func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	return r
 }
 
-// AcceptEnterprise If this param is used it must be set to true
+// AcceptEnterprise If used, this otherwise ignored parameter must be set to true
 // API name: accept_enterprise
 func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
 	r.values.Set("accept_enterprise", strconv.FormatBool(acceptenterprise))

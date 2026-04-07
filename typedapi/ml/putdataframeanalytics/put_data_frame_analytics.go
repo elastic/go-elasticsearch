@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a data frame analytics job. This API creates a data frame analytics
-// job that performs an analysis on the source indices and stores the outcome in
-// a destination index. By default, the query used in the source configuration
-// is `{"match_all": {}}`.
+// Create a data frame analytics job.
+//
+// This API creates a data frame analytics job that performs an analysis on the
+// source indices and stores the outcome in a destination index. By default, the
+// query used in the source configuration is `{"match_all": {}}`.
 //
 // If the destination index does not exist, it is created automatically when you
 // start the job.
@@ -91,10 +92,11 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 	}
 }
 
-// Create a data frame analytics job. This API creates a data frame analytics
-// job that performs an analysis on the source indices and stores the outcome in
-// a destination index. By default, the query used in the source configuration
-// is `{"match_all": {}}`.
+// Create a data frame analytics job.
+//
+// This API creates a data frame analytics job that performs an analysis on the
+// source indices and stores the outcome in a destination index. By default, the
+// query used in the source configuration is `{"match_all": {}}`.
 //
 // If the destination index does not exist, it is created automatically when you
 // start the job.
@@ -103,7 +105,9 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 // hyperparameter optimization occurs. It determines a value for each of the
 // undefined parameters.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-data-frame-analytics
 func New(tp elastictransport.Interface) *PutDataFrameAnalytics {
 	r := &PutDataFrameAnalytics{
 		transport: tp,

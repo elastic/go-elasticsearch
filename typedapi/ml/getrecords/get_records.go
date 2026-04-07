@@ -16,17 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get anomaly records for an anomaly detection job. Records contain the
-// detailed analytical results. They describe the anomalous activity that has
-// been identified in the input data based on the detector configuration. There
-// can be many anomaly records depending on the characteristics and size of the
-// input data. In practice, there are often too many to be able to manually
-// process them. The machine learning features therefore perform a sophisticated
-// aggregation of the anomaly records into buckets. The number of record results
-// depends on the number of anomalies found in each bucket, which relates to the
-// number of time series being modeled and the number of detectors.
+// Get anomaly records for an anomaly detection job.
+//
+// Records contain the detailed analytical results. They describe the anomalous
+// activity that has been identified in the input data based on the detector
+// configuration. There can be many anomaly records depending on the
+// characteristics and size of the input data. In practice, there are often too
+// many to be able to manually process them. The machine learning features
+// therefore perform a sophisticated aggregation of the anomaly records into
+// buckets. The number of record results depends on the number of anomalies
+// found in each bucket, which relates to the number of time series being
+// modeled and the number of detectors.
 package getrecords
 
 import (
@@ -89,15 +91,17 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 	}
 }
 
-// Get anomaly records for an anomaly detection job. Records contain the
-// detailed analytical results. They describe the anomalous activity that has
-// been identified in the input data based on the detector configuration. There
-// can be many anomaly records depending on the characteristics and size of the
-// input data. In practice, there are often too many to be able to manually
-// process them. The machine learning features therefore perform a sophisticated
-// aggregation of the anomaly records into buckets. The number of record results
-// depends on the number of anomalies found in each bucket, which relates to the
-// number of time series being modeled and the number of detectors.
+// Get anomaly records for an anomaly detection job.
+//
+// Records contain the detailed analytical results. They describe the anomalous
+// activity that has been identified in the input data based on the detector
+// configuration. There can be many anomaly records depending on the
+// characteristics and size of the input data. In practice, there are often too
+// many to be able to manually process them. The machine learning features
+// therefore perform a sophisticated aggregation of the anomaly records into
+// buckets. The number of record results depends on the number of anomalies
+// found in each bucket, which relates to the number of time series being
+// modeled and the number of detectors.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records
 func New(tp elastictransport.Interface) *GetRecords {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -52,6 +52,12 @@ func (s *_detectionRule) Conditions(conditions ...types.RuleConditionVariant) *_
 		s.v.Conditions = append(s.v.Conditions, *v.RuleConditionCaster())
 
 	}
+	return s
+}
+
+func (s *_detectionRule) ConditionsValues(conditionsvalues []types.RuleCondition) *_detectionRule {
+
+	s.v.Conditions = conditionsvalues
 	return s
 }
 

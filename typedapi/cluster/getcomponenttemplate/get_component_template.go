@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get component templates. Get information about component templates.
+// Get component templates.
+//
+// Get information about component templates.
 package getcomponenttemplate
 
 import (
@@ -74,9 +76,13 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 	}
 }
 
-// Get component templates. Get information about component templates.
+// Get component templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// Get information about component templates.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *GetComponentTemplate {
 	r := &GetComponentTemplate{
 		transport: tp,
@@ -291,8 +297,8 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 	return r
 }
 
-// Name Comma-separated list of component template names used to limit the request.
-// Wildcard (`*`) expressions are supported.
+// Name Name of component template to retrieve. Wildcard (`*`) expressions are
+// supported.
 // API Name: name
 func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
 	r.paramSet |= nameMask
@@ -322,7 +328,7 @@ func (r *GetComponentTemplate) SettingsFilter(settingsfilters ...string) *GetCom
 	return r
 }
 
-// IncludeDefaults Return all default configurations for the component template (default: false)
+// IncludeDefaults Return all default configurations for the component template
 // API name: include_defaults
 func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetComponentTemplate {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))

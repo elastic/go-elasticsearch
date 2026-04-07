@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the async EQL status. Get the current status for an async EQL search or a
-// stored synchronous EQL search without returning results.
+// Get the async EQL status.
+//
+// Get the current status for an async EQL search or a stored synchronous EQL
+// search without returning results.
 package getstatus
 
 import (
@@ -77,10 +79,14 @@ func NewGetStatusFunc(tp elastictransport.Interface) NewGetStatus {
 	}
 }
 
-// Get the async EQL status. Get the current status for an async EQL search or a
-// stored synchronous EQL search without returning results.
+// Get the async EQL status.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+// Get the current status for an async EQL search or a stored synchronous EQL
+// search without returning results.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get-status
 func New(tp elastictransport.Interface) *GetStatus {
 	r := &GetStatus{
 		transport: tp,

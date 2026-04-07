@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get async SQL search results. Get the current status and available results
-// for an async SQL search or stored synchronous SQL search.
+// Get async SQL search results.
+//
+// Get the current status and available results for an async SQL search or
+// stored synchronous SQL search.
 //
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
@@ -80,13 +82,17 @@ func NewGetAsyncFunc(tp elastictransport.Interface) NewGetAsync {
 	}
 }
 
-// Get async SQL search results. Get the current status and available results
-// for an async SQL search or stored synchronous SQL search.
+// Get async SQL search results.
+//
+// Get the current status and available results for an async SQL search or
+// stored synchronous SQL search.
 //
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-get-async
 func New(tp elastictransport.Interface) *GetAsync {
 	r := &GetAsync{
 		transport: tp,

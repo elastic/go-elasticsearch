@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package closepointintime
 
 // Response holds the response body struct for the package closepointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_global/close_point_in_time/ClosePointInTimeResponse.ts#L22-L42
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_global/close_point_in_time/ClosePointInTimeResponse.ts#L22-L42
 type Response struct {
 	// NumFreed The number of search contexts that were successfully closed.
 	NumFreed int `json:"num_freed"`

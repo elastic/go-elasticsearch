@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Clone an index. Clone an existing index into a new index. Each original
-// primary shard is cloned into a new primary shard in the new index.
+// Clone an index.
+//
+// Clone an existing index into a new index. Each original primary shard is
+// cloned into a new primary shard in the new index.
 //
 // IMPORTANT: Elasticsearch does not apply index templates to the resulting
 // index. The API also does not copy index metadata from the original index.
@@ -150,8 +152,10 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	}
 }
 
-// Clone an index. Clone an existing index into a new index. Each original
-// primary shard is cloned into a new primary shard in the new index.
+// Clone an index.
+//
+// Clone an existing index into a new index. Each original primary shard is
+// cloned into a new primary shard in the new index.
 //
 // IMPORTANT: Elasticsearch does not apply index templates to the resulting
 // index. The API also does not copy index metadata from the original index.

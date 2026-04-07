@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete a policy. Delete a snapshot lifecycle policy definition. This
-// operation prevents any future snapshots from being taken but does not cancel
-// in-progress snapshots or remove previously-taken snapshots.
+// Delete a policy.
+//
+// Delete a snapshot lifecycle policy definition. This operation prevents any
+// future snapshots from being taken but does not cancel in-progress snapshots
+// or remove previously-taken snapshots.
 package deletelifecycle
 
 import (
@@ -78,9 +80,11 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 	}
 }
 
-// Delete a policy. Delete a snapshot lifecycle policy definition. This
-// operation prevents any future snapshots from being taken but does not cancel
-// in-progress snapshots or remove previously-taken snapshots.
+// Delete a policy.
+//
+// Delete a snapshot lifecycle policy definition. This operation prevents any
+// future snapshots from being taken but does not cancel in-progress snapshots
+// or remove previously-taken snapshots.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-delete-lifecycle
 func New(tp elastictransport.Interface) *DeleteLifecycle {

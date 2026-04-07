@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Delete a datafeed.
 package deletedatafeed
@@ -78,7 +78,9 @@ func NewDeleteDatafeedFunc(tp elastictransport.Interface) NewDeleteDatafeed {
 
 // Delete a datafeed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-datafeed
 func New(tp elastictransport.Interface) *DeleteDatafeed {
 	r := &DeleteDatafeed{
 		transport: tp,

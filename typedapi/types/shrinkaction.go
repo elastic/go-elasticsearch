@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShrinkAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/ilm/_types/Phase.ts#L117-L121
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/ilm/_types/Phase.ts#L117-L121
 type ShrinkAction struct {
 	AllowWriteAfterShrink *bool    `json:"allow_write_after_shrink,omitempty"`
 	MaxPrimaryShardSize   ByteSize `json:"max_primary_shard_size,omitempty"`

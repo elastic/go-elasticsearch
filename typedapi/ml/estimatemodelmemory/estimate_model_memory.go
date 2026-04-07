@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Estimate job model memory usage.
 //
@@ -83,7 +83,9 @@ func NewEstimateModelMemoryFunc(tp elastictransport.Interface) NewEstimateModelM
 // The estimate is based on analysis configuration details for the job and
 // cardinality estimates for the fields it references.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-estimate-model-memory
 func New(tp elastictransport.Interface) *EstimateModelMemory {
 	r := &EstimateModelMemory{
 		transport: tp,

@@ -16,14 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Stop snapshot lifecycle management. Stop all snapshot lifecycle management
-// (SLM) operations and the SLM plugin. This API is useful when you are
-// performing maintenance on a cluster and need to prevent SLM from performing
-// any actions on your data streams or indices. Stopping SLM does not stop any
-// snapshots that are in progress. You can manually trigger snapshots with the
-// run snapshot lifecycle policy API even if SLM is stopped.
+// Stop snapshot lifecycle management.
+//
+// Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
+// This API is useful when you are performing maintenance on a cluster and need
+// to prevent SLM from performing any actions on your data streams or indices.
+// Stopping SLM does not stop any snapshots that are in progress. You can
+// manually trigger snapshots with the run snapshot lifecycle policy API even if
+// SLM is stopped.
 //
 // The API returns a response as soon as the request is acknowledged, but the
 // plugin might continue to run until in-progress operations complete and it can
@@ -78,12 +80,14 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 	}
 }
 
-// Stop snapshot lifecycle management. Stop all snapshot lifecycle management
-// (SLM) operations and the SLM plugin. This API is useful when you are
-// performing maintenance on a cluster and need to prevent SLM from performing
-// any actions on your data streams or indices. Stopping SLM does not stop any
-// snapshots that are in progress. You can manually trigger snapshots with the
-// run snapshot lifecycle policy API even if SLM is stopped.
+// Stop snapshot lifecycle management.
+//
+// Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
+// This API is useful when you are performing maintenance on a cluster and need
+// to prevent SLM from performing any actions on your data streams or indices.
+// Stopping SLM does not stop any snapshots that are in progress. You can
+// manually trigger snapshots with the run snapshot lifecycle policy API even if
+// SLM is stopped.
 //
 // The API returns a response as soon as the request is acknowledged, but the
 // plugin might continue to run until in-progress operations complete and it can

@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Bulk index or delete documents. Perform multiple `index`, `create`, `delete`,
-// and `update` actions in a single request. This reduces overhead and can
-// greatly increase indexing speed.
+// Bulk index or delete documents.
+//
+// Perform multiple `index`, `create`, `delete`, and `update` actions in a
+// single request. This reduces overhead and can greatly increase indexing
+// speed.
 //
 // If the Elasticsearch security features are enabled, you must have the
 // following index privileges for the target data stream, index, or index alias:
@@ -108,6 +110,8 @@
 //     `Search::Elasticsearch::Client::5_0::Scroll`
 //   - Python: Check out `elasticsearch.helpers.*`
 //   - JavaScript: Check out `client.helpers.*`
+//   - Java: Check out
+//     `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 //   - .NET: Check out `BulkAllObservable`
 //   - PHP: Check out bulk indexing.
 //   - Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
@@ -228,9 +232,11 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 	}
 }
 
-// Bulk index or delete documents. Perform multiple `index`, `create`, `delete`,
-// and `update` actions in a single request. This reduces overhead and can
-// greatly increase indexing speed.
+// Bulk index or delete documents.
+//
+// Perform multiple `index`, `create`, `delete`, and `update` actions in a
+// single request. This reduces overhead and can greatly increase indexing
+// speed.
 //
 // If the Elasticsearch security features are enabled, you must have the
 // following index privileges for the target data stream, index, or index alias:
@@ -318,6 +324,8 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 //     `Search::Elasticsearch::Client::5_0::Scroll`
 //   - Python: Check out `elasticsearch.helpers.*`
 //   - JavaScript: Check out `client.helpers.*`
+//   - Java: Check out
+//     `co.elastic.clients.elasticsearch._helpers.bulk.BulkIngester`
 //   - .NET: Check out `BulkAllObservable`
 //   - PHP: Check out bulk indexing.
 //   - Ruby: Check out `Elasticsearch::Helpers::BulkHelper`
@@ -378,7 +386,9 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // indexing throughput for large bulk requests. Refer to the linked
 // documentation for step-by-step instructions using the index settings API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-bulk
 func New(tp elastictransport.Interface) *Bulk {
 	r := &Bulk{
 		transport: tp,

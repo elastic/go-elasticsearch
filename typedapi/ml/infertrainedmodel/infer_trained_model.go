@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Evaluate a trained model.
 package infertrainedmodel
@@ -83,7 +83,9 @@ func NewInferTrainedModelFunc(tp elastictransport.Interface) NewInferTrainedMode
 
 // Evaluate a trained model.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-infer-trained-model
 func New(tp elastictransport.Interface) *InferTrainedModel {
 	r := &InferTrainedModel{
 		transport: tp,

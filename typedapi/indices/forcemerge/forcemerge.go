@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Force a merge. Perform the force merge operation on the shards of one or more
-// indices. For data streams, the API forces a merge on the shards of the
-// stream's backing indices.
+// Force a merge.
+//
+// Perform the force merge operation on the shards of one or more indices. For
+// data streams, the API forces a merge on the shards of the stream's backing
+// indices.
 //
 // Merging reduces the number of segments in each shard by merging some of them
 // together and also frees up the space used by deleted documents. Merging
@@ -142,9 +144,11 @@ func NewForcemergeFunc(tp elastictransport.Interface) NewForcemerge {
 	}
 }
 
-// Force a merge. Perform the force merge operation on the shards of one or more
-// indices. For data streams, the API forces a merge on the shards of the
-// stream's backing indices.
+// Force a merge.
+//
+// Perform the force merge operation on the shards of one or more indices. For
+// data streams, the API forces a merge on the shards of the stream's backing
+// indices.
 //
 // Merging reduces the number of segments in each shard by merging some of them
 // together and also frees up the space used by deleted documents. Merging
@@ -459,7 +463,6 @@ func (r *Forcemerge) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 }
 
 // Flush Specify whether the index should be flushed after performing the operation
-// (default: true)
 // API name: flush
 func (r *Forcemerge) Flush(flush bool) *Forcemerge {
 	r.values.Set("flush", strconv.FormatBool(flush))
@@ -492,7 +495,7 @@ func (r *Forcemerge) OnlyExpungeDeletes(onlyexpungedeletes bool) *Forcemerge {
 	return r
 }
 
-// WaitForCompletion Should the request wait until the force merge is completed.
+// WaitForCompletion Should the request wait until the force merge is completed
 // API name: wait_for_completion
 func (r *Forcemerge) WaitForCompletion(waitforcompletion bool) *Forcemerge {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

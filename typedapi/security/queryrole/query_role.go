@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Find roles with a query.
 //
@@ -87,7 +87,9 @@ func NewQueryRoleFunc(tp elastictransport.Interface) NewQueryRole {
 // nor built-in ones. You can optionally filter the results with a query. Also,
 // the results can be paginated and sorted.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-role
 func New(tp elastictransport.Interface) *QueryRole {
 	r := &QueryRole{
 		transport: tp,
@@ -397,6 +399,15 @@ func (r *QueryRole) SearchAfter(sortresults ...types.FieldValueVariant) *QueryRo
 	return r
 }
 
+func (r *QueryRole) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must not be negative. By default, you cannot
 // page through more than 10,000 hits using the `from` and `size` parameters. To
 // page through more hits, use the `search_after` parameter.
@@ -412,9 +423,10 @@ func (r *QueryRole) Size(size int) *QueryRole {
 	return r
 }
 
-// The sort definition. You can sort on `username`, `roles`, or `enabled`. In
-// addition, sort can also be applied to the `_doc` field to sort by index
-// order.
+// The sort definition. You can sort on `name`, `description`, `metadata`,
+// `applications.application`, `applications.privileges`, and
+// `applications.resources`. In addition, sort can also be applied to the `_doc`
+// field to sort by index order.
 // API name: sort
 func (r *QueryRole) Sort(sorts ...types.SortCombinationsVariant) *QueryRole {
 	// Initialize the request if it is not already initialized
@@ -428,5 +440,14 @@ func (r *QueryRole) Sort(sorts ...types.SortCombinationsVariant) *QueryRole {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryRole) SortValues(sortvalues []types.SortCombinations) *QueryRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

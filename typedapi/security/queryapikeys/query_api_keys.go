@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Find API keys with a query.
 //
@@ -95,7 +95,9 @@ func NewQueryApiKeysFunc(tp elastictransport.Interface) NewQueryApiKeys {
 // `manage_security`), this API returns all API keys regardless of ownership.
 // Refer to the linked documentation for examples of how to find API keys:
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-api-keys
 func New(tp elastictransport.Interface) *QueryApiKeys {
 	r := &QueryApiKeys{
 		transport: tp,
@@ -480,6 +482,15 @@ func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValueVariant) *Quer
 	return r
 }
 
+func (r *QueryApiKeys) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryApiKeys {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must not be negative. The `size` parameter
 // can be set to `0`, in which case no API key matches are returned, only the
 // aggregation results. By default, you cannot page through more than 10,000
@@ -513,5 +524,14 @@ func (r *QueryApiKeys) Sort(sorts ...types.SortCombinationsVariant) *QueryApiKey
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryApiKeys) SortValues(sortvalues []types.SortCombinations) *QueryApiKeys {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

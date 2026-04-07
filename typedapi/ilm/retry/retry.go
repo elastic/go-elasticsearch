@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Retry a policy. Retry running the lifecycle policy for an index that is in
-// the ERROR step. The API sets the policy back to the step where the error
-// occurred and runs the step. Use the explain lifecycle state API to determine
-// whether an index is in the ERROR step.
+// Retry a policy.
+//
+// Retry running the lifecycle policy for an index that is in the ERROR step.
+// The API sets the policy back to the step where the error occurred and runs
+// the step. Use the explain lifecycle state API to determine whether an index
+// is in the ERROR step.
 package retry
 
 import (
@@ -79,10 +81,12 @@ func NewRetryFunc(tp elastictransport.Interface) NewRetry {
 	}
 }
 
-// Retry a policy. Retry running the lifecycle policy for an index that is in
-// the ERROR step. The API sets the policy back to the step where the error
-// occurred and runs the step. Use the explain lifecycle state API to determine
-// whether an index is in the ERROR step.
+// Retry a policy.
+//
+// Retry running the lifecycle policy for an index that is in the ERROR step.
+// The API sets the policy back to the step where the error occurred and runs
+// the step. Use the explain lifecycle state API to determine whether an index
+// is in the ERROR step.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
 func New(tp elastictransport.Interface) *Retry {

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
 // RetentionPolicyContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/transform/_types/Transform.ts#L80-L86
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/transform/_types/Transform.ts#L80-L86
 type RetentionPolicyContainer struct {
 	// Time Specifies that the transform uses a time field to set the retention policy.
 	Time *RetentionPolicy `json:"time,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Delete a search application.
 //
@@ -84,7 +84,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 // Remove a search application and its associated alias. Indices attached to the
 // search application are not removed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,

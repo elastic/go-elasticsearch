@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Close a point in time. A point in time must be opened explicitly before being
-// used in search requests. The `keep_alive` parameter tells Elasticsearch how
-// long it should persist. A point in time is automatically closed when the
-// `keep_alive` period has elapsed. However, keeping points in time has a cost;
-// close them as soon as they are no longer required for search requests.
+// Close a point in time.
+//
+// A point in time must be opened explicitly before being used in search
+// requests. The `keep_alive` parameter tells Elasticsearch how long it should
+// persist. A point in time is automatically closed when the `keep_alive` period
+// has elapsed. However, keeping points in time has a cost; close them as soon
+// as they are no longer required for search requests.
 package closepointintime
 
 import (
@@ -78,13 +80,17 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 	}
 }
 
-// Close a point in time. A point in time must be opened explicitly before being
-// used in search requests. The `keep_alive` parameter tells Elasticsearch how
-// long it should persist. A point in time is automatically closed when the
-// `keep_alive` period has elapsed. However, keeping points in time has a cost;
-// close them as soon as they are no longer required for search requests.
+// Close a point in time.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// A point in time must be opened explicitly before being used in search
+// requests. The `keep_alive` parameter tells Elasticsearch how long it should
+// persist. A point in time is automatically closed when the `keep_alive` period
+// has elapsed. However, keeping points in time has a cost; close them as soon
+// as they are no longer required for search requests.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func New(tp elastictransport.Interface) *ClosePointInTime {
 	r := &ClosePointInTime{
 		transport: tp,

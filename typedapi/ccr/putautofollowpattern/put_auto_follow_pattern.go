@@ -16,14 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update auto-follow patterns. Create a collection of cross-cluster
-// replication auto-follow patterns for a remote cluster. Newly created indices
-// on the remote cluster that match any of the patterns are automatically
-// configured as follower indices. Indices on the remote cluster that were
-// created before the auto-follow pattern was created will not be auto-followed
-// even if they match the pattern.
+// Create or update auto-follow patterns.
+//
+// Create a collection of cross-cluster replication auto-follow patterns for a
+// remote cluster. Newly created indices on the remote cluster that match any of
+// the patterns are automatically configured as follower indices. Indices on the
+// remote cluster that were created before the auto-follow pattern was created
+// will not be auto-followed even if they match the pattern.
 //
 // This API can also be used to update auto-follow patterns. NOTE: Follower
 // indices that were configured automatically before updating an auto-follow
@@ -91,12 +92,13 @@ func NewPutAutoFollowPatternFunc(tp elastictransport.Interface) NewPutAutoFollow
 	}
 }
 
-// Create or update auto-follow patterns. Create a collection of cross-cluster
-// replication auto-follow patterns for a remote cluster. Newly created indices
-// on the remote cluster that match any of the patterns are automatically
-// configured as follower indices. Indices on the remote cluster that were
-// created before the auto-follow pattern was created will not be auto-followed
-// even if they match the pattern.
+// Create or update auto-follow patterns.
+//
+// Create a collection of cross-cluster replication auto-follow patterns for a
+// remote cluster. Newly created indices on the remote cluster that match any of
+// the patterns are automatically configured as follower indices. Indices on the
+// remote cluster that were created before the auto-follow pattern was created
+// will not be auto-followed even if they match the pattern.
 //
 // This API can also be used to update auto-follow patterns. NOTE: Follower
 // indices that were configured automatically before updating an auto-follow

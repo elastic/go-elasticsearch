@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Set a connector sync job error. Set the `error` field for a connector sync
-// job and set its `status` to `error`.
+// Set a connector sync job error.
+//
+// Set the `error` field for a connector sync job and set its `status` to
+// `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
@@ -86,8 +88,10 @@ func NewSyncJobErrorFunc(tp elastictransport.Interface) NewSyncJobError {
 	}
 }
 
-// Set a connector sync job error. Set the `error` field for a connector sync
-// job and set its `status` to `error`.
+// Set a connector sync job error.
+//
+// Set the `error` field for a connector sync job and set its `status` to
+// `error`.
 //
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically

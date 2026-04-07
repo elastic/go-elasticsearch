@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -40,6 +40,12 @@ func (s *_roleMappingRule) All(alls ...types.RoleMappingRuleVariant) *_roleMappi
 	return s
 }
 
+func (s *_roleMappingRule) AllValues(allvalues []types.RoleMappingRule) *_roleMappingRule {
+
+	s.v.All = allvalues
+	return s
+}
+
 func (s *_roleMappingRule) Any(anies ...types.RoleMappingRuleVariant) *_roleMappingRule {
 
 	for _, v := range anies {
@@ -47,6 +53,12 @@ func (s *_roleMappingRule) Any(anies ...types.RoleMappingRuleVariant) *_roleMapp
 		s.v.Any = append(s.v.Any, *v.RoleMappingRuleCaster())
 
 	}
+	return s
+}
+
+func (s *_roleMappingRule) AnyValues(anyvalues []types.RoleMappingRule) *_roleMappingRule {
+
+	s.v.Any = anyvalues
 	return s
 }
 

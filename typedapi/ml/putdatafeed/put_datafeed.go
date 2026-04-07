@@ -16,14 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create a datafeed. Datafeeds retrieve data from Elasticsearch for analysis by
-// an anomaly detection job. You can associate only one datafeed with each
-// anomaly detection job. The datafeed contains a query that runs at a defined
-// interval (`frequency`). If you are concerned about delayed data, you can add
-// a delay (`query_delay') at each interval. By default, the datafeed uses the
-// following query: `{"match_all": {"boost": 1}}`.
+// Create a datafeed.
+//
+// Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
+// detection job. You can associate only one datafeed with each anomaly
+// detection job. The datafeed contains a query that runs at a defined interval
+// (`frequency`). If you are concerned about delayed data, you can add a delay
+// (`query_delay') at each interval. By default, the datafeed uses the following
+// query: `{"match_all": {"boost": 1}}`.
 //
 // When Elasticsearch security features are enabled, your datafeed remembers
 // which roles the user who created it had at the time of creation and runs the
@@ -95,12 +97,14 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 	}
 }
 
-// Create a datafeed. Datafeeds retrieve data from Elasticsearch for analysis by
-// an anomaly detection job. You can associate only one datafeed with each
-// anomaly detection job. The datafeed contains a query that runs at a defined
-// interval (`frequency`). If you are concerned about delayed data, you can add
-// a delay (`query_delay') at each interval. By default, the datafeed uses the
-// following query: `{"match_all": {"boost": 1}}`.
+// Create a datafeed.
+//
+// Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
+// detection job. You can associate only one datafeed with each anomaly
+// detection job. The datafeed contains a query that runs at a defined interval
+// (`frequency`). If you are concerned about delayed data, you can add a delay
+// (`query_delay') at each interval. By default, the datafeed uses the following
+// query: `{"match_all": {"boost": 1}}`.
 //
 // When Elasticsearch security features are enabled, your datafeed remembers
 // which roles the user who created it had at the time of creation and runs the
@@ -110,7 +114,9 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 // directly to the `.ml-config` index. Do not give users `write` privileges on
 // the `.ml-config` index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-datafeed
 func New(tp elastictransport.Interface) *PutDatafeed {
 	r := &PutDatafeed{
 		transport: tp,

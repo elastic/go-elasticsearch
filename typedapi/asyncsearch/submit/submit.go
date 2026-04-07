@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Run an async search.
 //
@@ -42,6 +42,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -109,7 +110,9 @@ func NewSubmitFunc(tp elastictransport.Interface) NewSubmit {
 // maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Submit {
 	r := &Submit{
 		transport: tp,
@@ -297,7 +300,8 @@ func (r Submit) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404, 400, 500, 429}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -399,8 +403,7 @@ func (r *Submit) Analyzer(analyzer string) *Submit {
 	return r
 }
 
-// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed (default:
-// false)
+// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed
 // API name: analyze_wildcard
 func (r *Submit) AnalyzeWildcard(analyzewildcard bool) *Submit {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -445,7 +448,7 @@ func (r *Submit) Df(df string) *Submit {
 }
 
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// closed or both
 // API name: expand_wildcards
 func (r *Submit) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Submit {
 	tmp := []string{}
@@ -494,8 +497,7 @@ func (r *Submit) MaxConcurrentShardRequests(maxconcurrentshardrequests int) *Sub
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random)
+// Preference Specify the node or shard the operation should be performed on
 // API name: preference
 func (r *Submit) Preference(preference string) *Submit {
 	r.values.Set("preference", preference)
@@ -712,6 +714,15 @@ func (r *Submit) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *
 	return r
 }
 
+func (r *Submit) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *Submit {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.DocvalueFields = docvaluefieldsvalues
+	return r
+}
+
 // If true, returns detailed information about score computation as part of a
 // hit.
 // API name: explain
@@ -769,6 +780,15 @@ func (r *Submit) Fields(fields ...types.FieldAndFormatVariant) *Submit {
 		r.req.Fields = append(r.req.Fields, *v.FieldAndFormatCaster())
 
 	}
+	return r
+}
+
+func (r *Submit) FieldsValues(fieldsvalues []types.FieldAndFormat) *Submit {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Fields = fieldsvalues
 	return r
 }
 
@@ -966,6 +986,15 @@ func (r *Submit) SearchAfter(sortresults ...types.FieldValueVariant) *Submit {
 	return r
 }
 
+func (r *Submit) SearchAfterValues(sortresultsvalues []types.FieldValue) *Submit {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // If true, returns sequence number and primary term of the last modification of
 // each hit. See Optimistic concurrency control.
 // API name: seq_no_primary_term
@@ -1020,6 +1049,15 @@ func (r *Submit) Sort(sorts ...types.SortCombinationsVariant) *Submit {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *Submit) SortValues(sortvalues []types.SortCombinations) *Submit {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

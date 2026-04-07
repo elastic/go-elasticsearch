@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Get async search results.
 //
@@ -34,6 +34,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -88,7 +89,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // a specific async search is restricted to the user or API key that submitted
 // it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -223,7 +226,8 @@ func (r Get) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{404, 400, 500, 429}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {

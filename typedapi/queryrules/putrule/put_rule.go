@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a query rule. Create or update a query rule within a query
-// ruleset.
+// Create or update a query rule.
+//
+// Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin
 // documents using ids or docs, but cannot use both in single rule. It is
@@ -95,8 +96,9 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 	}
 }
 
-// Create or update a query rule. Create or update a query rule within a query
-// ruleset.
+// Create or update a query rule.
+//
+// Create or update a query rule within a query ruleset.
 //
 // IMPORTANT: Due to limitations within pinned queries, you can only pin
 // documents using ids or docs, but cannot use both in single rule. It is
@@ -105,7 +107,9 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 // multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-put-rule
 func New(tp elastictransport.Interface) *PutRule {
 	r := &PutRule{
 		transport: tp,

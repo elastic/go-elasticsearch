@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete component templates. Component templates are building blocks for
-// constructing index templates that specify index mappings, settings, and
-// aliases.
+// Delete component templates.
+//
+// Component templates are building blocks for constructing index templates that
+// specify index mappings, settings, and aliases.
 package deletecomponenttemplate
 
 import (
@@ -78,11 +79,14 @@ func NewDeleteComponentTemplateFunc(tp elastictransport.Interface) NewDeleteComp
 	}
 }
 
-// Delete component templates. Component templates are building blocks for
-// constructing index templates that specify index mappings, settings, and
-// aliases.
+// Delete component templates.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// Component templates are building blocks for constructing index templates that
+// specify index mappings, settings, and aliases.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func New(tp elastictransport.Interface) *DeleteComponentTemplate {
 	r := &DeleteComponentTemplate{
 		transport: tp,

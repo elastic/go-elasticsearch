@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the status for a data stream lifecycle. Get information about an index or
-// data stream's current data stream lifecycle status, such as time since index
-// creation, time since rollover, the lifecycle configuration managing the
-// index, or any errors encountered during lifecycle execution.
+// Get the status for a data stream lifecycle.
+//
+// Get information about an index or data stream's current data stream lifecycle
+// status, such as time since index creation, time since rollover, the lifecycle
+// configuration managing the index, or any errors encountered during lifecycle
+// execution.
 package explaindatalifecycle
 
 import (
@@ -79,12 +81,16 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 	}
 }
 
-// Get the status for a data stream lifecycle. Get information about an index or
-// data stream's current data stream lifecycle status, such as time since index
-// creation, time since rollover, the lifecycle configuration managing the
-// index, or any errors encountered during lifecycle execution.
+// Get the status for a data stream lifecycle.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+// Get information about an index or data stream's current data stream lifecycle
+// status, such as time since index creation, time since rollover, the lifecycle
+// configuration managing the index, or any errors encountered during lifecycle
+// execution.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-explain-data-lifecycle
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,
@@ -296,7 +302,7 @@ func (r *ExplainDataLifecycle) Header(key, value string) *ExplainDataLifecycle {
 	return r
 }
 
-// Index The name of the index to explain
+// Index Comma-separated list of index names to explain
 // API Name: index
 func (r *ExplainDataLifecycle) _index(index string) *ExplainDataLifecycle {
 	r.paramSet |= indexMask
@@ -305,7 +311,7 @@ func (r *ExplainDataLifecycle) _index(index string) *ExplainDataLifecycle {
 	return r
 }
 
-// IncludeDefaults indicates if the API should return the default values the system uses for the
+// IncludeDefaults Indicates if the API should return the default values the system uses for the
 // index's lifecycle
 // API name: include_defaults
 func (r *ExplainDataLifecycle) IncludeDefaults(includedefaults bool) *ExplainDataLifecycle {
@@ -314,7 +320,7 @@ func (r *ExplainDataLifecycle) IncludeDefaults(includedefaults bool) *ExplainDat
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *ExplainDataLifecycle) MasterTimeout(duration string) *ExplainDataLifecycle {
 	r.values.Set("master_timeout", duration)

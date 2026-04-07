@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package esdsl
 
@@ -39,10 +39,19 @@ func (s *_dataStreamLifecycle) DataRetention(duration types.DurationVariant) *_d
 	return s
 }
 
-func (s *_dataStreamLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *_dataStreamLifecycle {
+func (s *_dataStreamLifecycle) Downsampling(downsamplings ...types.DownsamplingRoundVariant) *_dataStreamLifecycle {
 
-	s.v.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+	for _, v := range downsamplings {
 
+		s.v.Downsampling = append(s.v.Downsampling, *v.DownsamplingRoundCaster())
+
+	}
+	return s
+}
+
+func (s *_dataStreamLifecycle) DownsamplingValues(downsamplingvalues []types.DownsamplingRound) *_dataStreamLifecycle {
+
+	s.v.Downsampling = downsamplingvalues
 	return s
 }
 

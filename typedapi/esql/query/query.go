@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Run an ES|QL query. Get search results for an ES|QL (Elasticsearch query
-// language) query.
+// Run an ES|QL query.
+//
+// Get search results for an ES|QL (Elasticsearch query language) query.
 package query
 
 import (
@@ -75,8 +76,9 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 	}
 }
 
-// Run an ES|QL query. Get search results for an ES|QL (Elasticsearch query
-// language) query.
+// Run an ES|QL query.
+//
+// Get search results for an ES|QL (Elasticsearch query language) query.
 //
 // https://www.elastic.co/docs/explore-analyze/query-filter/languages/esql-rest
 func New(tp elastictransport.Interface) *Query {
@@ -439,16 +441,14 @@ func (r *Query) Locale(locale string) *Query {
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *Query) Params(params ...types.FieldValueVariant) *Query {
+func (r *Query) Params(esqlparams types.ESQLParamsVariant) *Query {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range params {
 
-		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+	r.req.Params = *esqlparams.ESQLParamsCaster()
 
-	}
 	return r
 }
 

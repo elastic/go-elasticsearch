@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get node statistics. Get statistics for nodes in a cluster. By default, all
-// stats are returned. You can limit the returned information by using metrics.
+// Get node statistics.
+//
+// Get statistics for nodes in a cluster. By default, all stats are returned.
+// You can limit the returned information by using metrics.
 package stats
 
 import (
@@ -82,8 +84,10 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Get node statistics. Get statistics for nodes in a cluster. By default, all
-// stats are returned. You can limit the returned information by using metrics.
+// Get node statistics.
+//
+// Get statistics for nodes in a cluster. By default, all stats are returned.
+// You can limit the returned information by using metrics.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
 func New(tp elastictransport.Interface) *Stats {
@@ -389,7 +393,7 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// Metric Limit the information returned to the specified metrics
+// Metric Limits the information returned to the specific metrics.
 // API Name: metric
 func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask

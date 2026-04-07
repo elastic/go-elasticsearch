@@ -16,11 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
-// ESQLParam type alias.
+// ESQLParams holds the union for the following types:
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/esql/_types/types.ts#L22-L22
-type ESQLParam []FieldValue
+//	[][]FieldValue
+//	[]NamedValue
+//
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/esql/_types/types.ts#L23-L26
+type ESQLParams any
+
+type ESQLParamsVariant interface {
+	ESQLParamsCaster() *ESQLParams
+}

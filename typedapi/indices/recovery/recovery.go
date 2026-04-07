@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get index recovery information. Get information about ongoing and completed
-// shard recoveries for one or more indices. For data streams, the API returns
-// information for the stream's backing indices.
+// Get index recovery information.
+//
+// Get information about ongoing and completed shard recoveries for one or more
+// indices. For data streams, the API returns information for the stream's
+// backing indices.
 //
 // All recoveries, whether ongoing or complete, are kept in the cluster state
 // and may be reported on at any time.
@@ -107,9 +109,11 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 	}
 }
 
-// Get index recovery information. Get information about ongoing and completed
-// shard recoveries for one or more indices. For data streams, the API returns
-// information for the stream's backing indices.
+// Get index recovery information.
+//
+// Get information about ongoing and completed shard recoveries for one or more
+// indices. For data streams, the API returns information for the stream's
+// backing indices.
 //
 // All recoveries, whether ongoing or complete, are kept in the cluster state
 // and may be reported on at any time.

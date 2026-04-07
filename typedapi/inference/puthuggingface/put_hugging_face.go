@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create a Hugging Face inference endpoint.
 //
@@ -177,7 +177,9 @@ func NewPutHuggingFaceFunc(tp elastictransport.Interface) NewPutHuggingFace {
 //   - `bge-reranker-base`
 //   - `jina-reranker-v1-turbo-en-GGUF`
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-hugging-face
 func New(tp elastictransport.Interface) *PutHuggingFace {
 	r := &PutHuggingFace{
 		transport: tp,
@@ -471,7 +473,9 @@ func (r *PutHuggingFace) Pretty(pretty bool) *PutHuggingFace {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task
+// types.
 // API name: chunking_settings
 func (r *PutHuggingFace) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutHuggingFace {
 	// Initialize the request if it is not already initialized

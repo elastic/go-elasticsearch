@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Get the cluster health. Get a report with the health status of an
-// Elasticsearch cluster. The report contains a list of indicators that compose
-// Elasticsearch functionality.
+// Get the cluster health.
+//
+// Get a report with the health status of an Elasticsearch cluster. The report
+// contains a list of indicators that compose Elasticsearch functionality.
 //
 // Each indicator has a health status of: green, unknown, yellow or red. The
 // indicator will provide an explanation and metadata describing the reason for
@@ -101,9 +102,10 @@ func NewHealthReportFunc(tp elastictransport.Interface) NewHealthReport {
 	}
 }
 
-// Get the cluster health. Get a report with the health status of an
-// Elasticsearch cluster. The report contains a list of indicators that compose
-// Elasticsearch functionality.
+// Get the cluster health.
+//
+// Get a report with the health status of an Elasticsearch cluster. The report
+// contains a list of indicators that compose Elasticsearch functionality.
 //
 // Each indicator has a health status of: green, unknown, yellow or red. The
 // indicator will provide an explanation and metadata describing the reason for

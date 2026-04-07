@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/esql/query/QueryRequest.ts#L27-L117
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/esql/query/QueryRequest.ts#L28-L121
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
@@ -52,7 +52,7 @@ type Request struct {
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
-	Params []types.FieldValue `json:"params,omitempty"`
+	Params types.ESQLParams `json:"params,omitempty"`
 	// Profile If provided and `true` the response will include an extra `profile` object
 	// with information on how the query was executed. This information is for human
 	// debugging and its format can change at any time but it can give some insight

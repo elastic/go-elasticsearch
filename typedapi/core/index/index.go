@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create or update a document in an index.
 //
@@ -190,11 +190,17 @@
 //	  }
 //	}
 //
-//	In this example, the operation will succeed since the supplied version of 2 is higher than the current document version of 1.
-//	If the document was already updated and its version was set to 2 or higher, the indexing command will fail and result in a conflict (409 HTTP status code).
+// In this example, the operation will succeed since the supplied version of 2
+// is higher than the current document version of 1. If the document was already
+// updated and its version was set to 2 or higher, the indexing command will
+// fail and result in a conflict (409 HTTP status code).
 //
-//	A nice side effect is that there is no need to maintain strict ordering of async indexing operations run as a result of changes to a source database, as long as version numbers from the source database are used.
-//	Even the simple case of updating the Elasticsearch index using data from a database is simplified if external versioning is used, as only the latest version will be used if the index operations arrive out of order.
+// A nice side effect is that there is no need to maintain strict ordering of
+// async indexing operations run as a result of changes to a source database, as
+// long as version numbers from the source database are used. Even the simple
+// case of updating the Elasticsearch index using data from a database is
+// simplified if external versioning is used, as only the latest version will be
+// used if the index operations arrive out of order.
 package index
 
 import (
@@ -435,13 +441,21 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 //	  }
 //	}
 //
-//	In this example, the operation will succeed since the supplied version of 2 is higher than the current document version of 1.
-//	If the document was already updated and its version was set to 2 or higher, the indexing command will fail and result in a conflict (409 HTTP status code).
+// In this example, the operation will succeed since the supplied version of 2
+// is higher than the current document version of 1. If the document was already
+// updated and its version was set to 2 or higher, the indexing command will
+// fail and result in a conflict (409 HTTP status code).
 //
-//	A nice side effect is that there is no need to maintain strict ordering of async indexing operations run as a result of changes to a source database, as long as version numbers from the source database are used.
-//	Even the simple case of updating the Elasticsearch index using data from a database is simplified if external versioning is used, as only the latest version will be used if the index operations arrive out of order.
+// A nice side effect is that there is no need to maintain strict ordering of
+// async indexing operations run as a result of changes to a source database, as
+// long as version numbers from the source database are used. Even the simple
+// case of updating the Elasticsearch index using data from a database is
+// simplified if external versioning is used, as only the latest version will be
+// used if the index operations arrive out of order.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func New(tp elastictransport.Interface) *Index {
 	r := &Index{
 		transport: tp,

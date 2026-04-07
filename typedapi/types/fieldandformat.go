@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // A reference to a field with formatting instructions on how to return the
 // value
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/_types/query_dsl/abstractions.ts#L535-L549
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/_types/query_dsl/abstractions.ts#L535-L549
 type FieldAndFormat struct {
 	// Field A wildcard pattern. The request returns values for field names matching this
 	// pattern.

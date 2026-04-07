@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create a Mistral inference endpoint.
 //
@@ -95,7 +95,9 @@ func NewPutMistralFunc(tp elastictransport.Interface) NewPutMistral {
 // Create an inference endpoint to perform an inference task with the `mistral`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-mistral
 func New(tp elastictransport.Interface) *PutMistral {
 	r := &PutMistral{
 		transport: tp,
@@ -389,7 +391,8 @@ func (r *PutMistral) Pretty(pretty bool) *PutMistral {
 	return r
 }
 
-// The chunking configuration object.
+// The chunking configuration object. Applies only to the `text_embedding` task
+// type. Not applicable to the `completion` or `chat_completion` task types.
 // API name: chunking_settings
 func (r *PutMistral) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutMistral {
 	// Initialize the request if it is not already initialized

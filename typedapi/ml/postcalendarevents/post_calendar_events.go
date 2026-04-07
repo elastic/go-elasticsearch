@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Add scheduled events to the calendar.
 package postcalendarevents
@@ -83,7 +83,9 @@ func NewPostCalendarEventsFunc(tp elastictransport.Interface) NewPostCalendarEve
 
 // Add scheduled events to the calendar.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-post-calendar-events
 func New(tp elastictransport.Interface) *PostCalendarEvents {
 	r := &PostCalendarEvents{
 		transport: tp,
@@ -371,5 +373,14 @@ func (r *PostCalendarEvents) Events(events ...types.CalendarEventVariant) *PostC
 		r.req.Events = append(r.req.Events, *v.CalendarEventCaster())
 
 	}
+	return r
+}
+
+func (r *PostCalendarEvents) EventsValues(eventsvalues []types.CalendarEvent) *PostCalendarEvents {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Events = eventsvalues
 	return r
 }

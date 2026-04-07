@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Resolve indices. Resolve the names and/or index patterns for indices,
-// aliases, and data streams. Multiple patterns and remote clusters are
-// supported.
+// Resolve indices.
+//
+// Resolve the names and/or index patterns for indices, aliases, and data
+// streams. Multiple patterns and remote clusters are supported.
 package resolveindex
 
 import (
@@ -80,11 +81,14 @@ func NewResolveIndexFunc(tp elastictransport.Interface) NewResolveIndex {
 	}
 }
 
-// Resolve indices. Resolve the names and/or index patterns for indices,
-// aliases, and data streams. Multiple patterns and remote clusters are
-// supported.
+// Resolve indices.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+// Resolve the names and/or index patterns for indices, aliases, and data
+// streams. Multiple patterns and remote clusters are supported.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-resolve-index
 func New(tp elastictransport.Interface) *ResolveIndex {
 	r := &ResolveIndex{
 		transport: tp,

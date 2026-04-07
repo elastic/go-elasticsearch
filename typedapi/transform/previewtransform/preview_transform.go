@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Preview a transform. Generates a preview of the results that you will get
-// when you create a transform with the same configuration.
+// Preview a transform.
+//
+// Generates a preview of the results that you will get when you create a
+// transform with the same configuration.
 //
 // It returns a maximum of 100 results. The calculations are based on all the
 // current data in the source index. It also generates a list of mappings and
@@ -85,15 +87,19 @@ func NewPreviewTransformFunc(tp elastictransport.Interface) NewPreviewTransform 
 	}
 }
 
-// Preview a transform. Generates a preview of the results that you will get
-// when you create a transform with the same configuration.
+// Preview a transform.
+//
+// Generates a preview of the results that you will get when you create a
+// transform with the same configuration.
 //
 // It returns a maximum of 100 results. The calculations are based on all the
 // current data in the source index. It also generates a list of mappings and
 // settings for the destination index. These values are determined based on the
 // field types of the source index and the transform aggregations.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-preview-transform
 func New(tp elastictransport.Interface) *PreviewTransform {
 	r := &PreviewTransform{
 		transport: tp,

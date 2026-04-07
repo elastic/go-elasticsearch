@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Create a DeepSeek inference endpoint.
 //
@@ -95,7 +95,9 @@ func NewPutDeepseekFunc(tp elastictransport.Interface) NewPutDeepseek {
 // Create an inference endpoint to perform an inference task with the `deepseek`
 // service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-deepseek
 func New(tp elastictransport.Interface) *PutDeepseek {
 	r := &PutDeepseek{
 		transport: tp,
@@ -385,19 +387,6 @@ func (r *PutDeepseek) Human(human bool) *PutDeepseek {
 // API name: pretty
 func (r *PutDeepseek) Pretty(pretty bool) *PutDeepseek {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
-
-	return r
-}
-
-// The chunking configuration object.
-// API name: chunking_settings
-func (r *PutDeepseek) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *PutDeepseek {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-
-	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
 
 	return r
 }

@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Start a trained model deployment. It allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
+//
+// It allocates the model to every machine learning node.
 package starttrainedmodeldeployment
 
 import (
@@ -84,10 +85,13 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 	}
 }
 
-// Start a trained model deployment. It allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+// It allocates the model to every machine learning node.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-trained-model-deployment
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
 	r := &StartTrainedModelDeployment{
 		transport: tp,
@@ -354,7 +358,7 @@ func (r *StartTrainedModelDeployment) NumberOfAllocations(numberofallocations in
 	return r
 }
 
-// Priority The deployment priority.
+// Priority The deployment priority
 // API name: priority
 func (r *StartTrainedModelDeployment) Priority(priority trainingpriority.TrainingPriority) *StartTrainedModelDeployment {
 	r.values.Set("priority", priority.String())

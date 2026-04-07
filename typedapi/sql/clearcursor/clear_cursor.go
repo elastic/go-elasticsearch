@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Clear an SQL search cursor.
 package clearcursor
@@ -75,7 +75,9 @@ func NewClearCursorFunc(tp elastictransport.Interface) NewClearCursor {
 
 // Clear an SQL search cursor.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-clear-cursor
 func New(tp elastictransport.Interface) *ClearCursor {
 	r := &ClearCursor{
 		transport: tp,

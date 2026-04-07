@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 package putrole
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d520d9e8cf14cad487de5e0654007686c395b494/specification/security/put_role/SecurityPutRoleRequest.ts#L32-L111
+// https://github.com/elastic/elasticsearch-specification/blob/49022a2c08d291955de83e26c583b7dc628fb558/specification/security/put_role/SecurityPutRoleRequest.ts#L32-L116
 type Request struct {
 	// Applications A list of application privilege entries.
 	Applications []types.ApplicationPrivileges `json:"applications,omitempty"`

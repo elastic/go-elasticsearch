@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete indices. Deleting an index deletes its documents, shards, and
-// metadata. It does not delete related Kibana components, such as data views,
-// visualizations, or dashboards.
+// Delete indices.
+//
+// Deleting an index deletes its documents, shards, and metadata. It does not
+// delete related Kibana components, such as data views, visualizations, or
+// dashboards.
 //
 // You cannot delete the current write index of a data stream. To delete the
 // index, you must roll over the data stream so a new write index is created.
@@ -83,15 +85,19 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Delete indices. Deleting an index deletes its documents, shards, and
-// metadata. It does not delete related Kibana components, such as data views,
-// visualizations, or dashboards.
+// Delete indices.
+//
+// Deleting an index deletes its documents, shards, and metadata. It does not
+// delete related Kibana components, such as data views, visualizations, or
+// dashboards.
 //
 // You cannot delete the current write index of a data stream. To delete the
 // index, you must roll over the data stream so a new write index is created.
 // You can then use the delete index API to delete the previous write index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,

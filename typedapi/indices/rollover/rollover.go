@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Roll over to a new index. TIP: We recommend using the index lifecycle
-// rollover action to automate rollovers. However, Serverless does not support
-// Index Lifecycle Management (ILM), so don't use this approach in the
-// Serverless context.
+// Roll over to a new index.
+//
+// TIP: We recommend using the index lifecycle rollover action to automate
+// rollovers. However, Serverless does not support Index Lifecycle Management
+// (ILM), so don't use this approach in the Serverless context.
 //
 // The rollover API creates a new index for a data stream or index alias. The
 // API behavior depends on the rollover target.
@@ -134,10 +135,11 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 	}
 }
 
-// Roll over to a new index. TIP: We recommend using the index lifecycle
-// rollover action to automate rollovers. However, Serverless does not support
-// Index Lifecycle Management (ILM), so don't use this approach in the
-// Serverless context.
+// Roll over to a new index.
+//
+// TIP: We recommend using the index lifecycle rollover action to automate
+// rollovers. However, Serverless does not support Index Lifecycle Management
+// (ILM), so don't use this approach in the Serverless context.
 //
 // The rollover API creates a new index for a data stream or index alias. The
 // API behavior depends on the rollover target.
@@ -186,7 +188,9 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 // you roll over the alias on May 7, 2099, the new index's name is
 // `my-index-2099.05.07-000002`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-rollover
 func New(tp elastictransport.Interface) *Rollover {
 	r := &Rollover{
 		transport: tp,

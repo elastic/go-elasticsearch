@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
 // Update the connector name and description.
 package updatename
@@ -83,7 +83,9 @@ func NewUpdateNameFunc(tp elastictransport.Interface) NewUpdateName {
 
 // Update the connector name and description.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-name
 func New(tp elastictransport.Interface) *UpdateName {
 	r := &UpdateName{
 		transport: tp,

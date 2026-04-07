@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Create or update a watch. When a watch is registered, a new document that
-// represents the watch is added to the `.watches` index and its trigger is
-// immediately registered with the relevant trigger engine. Typically for the
-// `schedule` trigger, the scheduler is the trigger engine.
+// Create or update a watch.
+//
+// When a watch is registered, a new document that represents the watch is added
+// to the `.watches` index and its trigger is immediately registered with the
+// relevant trigger engine. Typically for the `schedule` trigger, the scheduler
+// is the trigger engine.
 //
 // IMPORTANT: You must use Kibana or this API to create a watch. Do not add a
 // watch directly to the `.watches` index by using the Elasticsearch index API.
@@ -97,10 +99,12 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 	}
 }
 
-// Create or update a watch. When a watch is registered, a new document that
-// represents the watch is added to the `.watches` index and its trigger is
-// immediately registered with the relevant trigger engine. Typically for the
-// `schedule` trigger, the scheduler is the trigger engine.
+// Create or update a watch.
+//
+// When a watch is registered, a new document that represents the watch is added
+// to the `.watches` index and its trigger is immediately registered with the
+// relevant trigger engine. Typically for the `schedule` trigger, the scheduler
+// is the trigger engine.
 //
 // IMPORTANT: You must use Kibana or this API to create a watch. Do not add a
 // watch directly to the `.watches` index by using the Elasticsearch index API.
@@ -354,7 +358,7 @@ func (r *PutWatch) Active(active bool) *PutWatch {
 	return r
 }
 
-// IfPrimaryTerm only update the watch if the last operation that has changed the watch has
+// IfPrimaryTerm Only update the watch if the last operation that has changed the watch has
 // the specified primary term
 // API name: if_primary_term
 func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
@@ -363,7 +367,7 @@ func (r *PutWatch) IfPrimaryTerm(ifprimaryterm string) *PutWatch {
 	return r
 }
 
-// IfSeqNo only update the watch if the last operation that has changed the watch has
+// IfSeqNo Only update the watch if the last operation that has changed the watch has
 // the specified sequence number
 // API name: if_seq_no
 func (r *PutWatch) IfSeqNo(sequencenumber string) *PutWatch {

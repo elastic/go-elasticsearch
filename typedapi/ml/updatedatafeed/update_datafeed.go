@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update a datafeed. You must stop and start the datafeed for the changes to be
-// applied. When Elasticsearch security features are enabled, your datafeed
-// remembers which roles the user who updated it had at the time of the update
-// and runs the query using those same roles. If you provide secondary
-// authorization headers, those credentials are used instead.
+// Update a datafeed.
+//
+// You must stop and start the datafeed for the changes to be applied. When
+// Elasticsearch security features are enabled, your datafeed remembers which
+// roles the user who updated it had at the time of the update and runs the
+// query using those same roles. If you provide secondary authorization headers,
+// those credentials are used instead.
 package updatedatafeed
 
 import (
@@ -86,13 +88,17 @@ func NewUpdateDatafeedFunc(tp elastictransport.Interface) NewUpdateDatafeed {
 	}
 }
 
-// Update a datafeed. You must stop and start the datafeed for the changes to be
-// applied. When Elasticsearch security features are enabled, your datafeed
-// remembers which roles the user who updated it had at the time of the update
-// and runs the query using those same roles. If you provide secondary
-// authorization headers, those credentials are used instead.
+// Update a datafeed.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+// You must stop and start the datafeed for the changes to be applied. When
+// Elasticsearch security features are enabled, your datafeed remembers which
+// roles the user who updated it had at the time of the update and runs the
+// query using those same roles. If you provide secondary authorization headers,
+// those credentials are used instead.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-datafeed
 func New(tp elastictransport.Interface) *UpdateDatafeed {
 	r := &UpdateDatafeed{
 		transport: tp,

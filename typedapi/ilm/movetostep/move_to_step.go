@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Move to a lifecycle step. Manually move an index into a specific step in the
-// lifecycle policy and run that step.
+// Move to a lifecycle step.
+//
+// Manually move an index into a specific step in the lifecycle policy and run
+// that step.
 //
 // WARNING: This operation can result in the loss of data. Manually moving an
 // index into a specific step runs that step even if it has already been
@@ -100,8 +102,10 @@ func NewMoveToStepFunc(tp elastictransport.Interface) NewMoveToStep {
 	}
 }
 
-// Move to a lifecycle step. Manually move an index into a specific step in the
-// lifecycle policy and run that step.
+// Move to a lifecycle step.
+//
+// Manually move an index into a specific step in the lifecycle policy and run
+// that step.
 //
 // WARNING: This operation can result in the loss of data. Manually moving an
 // index into a specific step runs that step even if it has already been

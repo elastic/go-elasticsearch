@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete an index template. The provided <index-template> may contain multiple
-// template names separated by a comma. If multiple template names are specified
-// then there is no wildcard support and the provided names should match
-// completely with existing templates.
+// Delete an index template.
+//
+// The provided <index-template> may contain multiple template names separated
+// by a comma. If multiple template names are specified then there is no
+// wildcard support and the provided names should match completely with existing
+// templates.
 package deleteindextemplate
 
 import (
@@ -79,12 +81,16 @@ func NewDeleteIndexTemplateFunc(tp elastictransport.Interface) NewDeleteIndexTem
 	}
 }
 
-// Delete an index template. The provided <index-template> may contain multiple
-// template names separated by a comma. If multiple template names are specified
-// then there is no wildcard support and the provided names should match
-// completely with existing templates.
+// Delete an index template.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+// The provided <index-template> may contain multiple template names separated
+// by a comma. If multiple template names are specified then there is no
+// wildcard support and the provided names should match completely with existing
+// templates.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-index-template
 func New(tp elastictransport.Interface) *DeleteIndexTemplate {
 	r := &DeleteIndexTemplate{
 		transport: tp,

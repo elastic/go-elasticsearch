@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Shrink an index. Shrink an index into a new index with fewer primary shards.
+// Shrink an index.
+//
+// Shrink an index into a new index with fewer primary shards.
 //
 // Before you can shrink an index:
 //
@@ -37,6 +39,10 @@
 // the index is a prime number it can only be shrunk into a single primary shard
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
+//
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
 //
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a
@@ -137,7 +143,9 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 	}
 }
 
-// Shrink an index. Shrink an index into a new index with fewer primary shards.
+// Shrink an index.
+//
+// Shrink an index into a new index with fewer primary shards.
 //
 // Before you can shrink an index:
 //
@@ -156,6 +164,10 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 // the index is a prime number it can only be shrunk into a single primary shard
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
+//
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
 //
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a

@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Delete a dangling index. If Elasticsearch encounters index data that is
-// absent from the current cluster state, those indices are considered to be
-// dangling. For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// Delete a dangling index.
+//
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 package deletedanglingindex
 
 import (
@@ -80,11 +81,12 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 	}
 }
 
-// Delete a dangling index. If Elasticsearch encounters index data that is
-// absent from the current cluster state, those indices are considered to be
-// dangling. For example, this can happen if you delete more than
-// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
-// offline.
+// Delete a dangling index.
+//
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling. For example, this
+// can happen if you delete more than `cluster.indices.tombstones.size` indices
+// while an Elasticsearch node is offline.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index
 func New(tp elastictransport.Interface) *DeleteDanglingIndex {
@@ -315,7 +317,7 @@ func (r *DeleteDanglingIndex) AcceptDataLoss(acceptdataloss bool) *DeleteDanglin
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *DeleteDanglingIndex) MasterTimeout(duration string) *DeleteDanglingIndex {
 	r.values.Set("master_timeout", duration)
@@ -323,7 +325,7 @@ func (r *DeleteDanglingIndex) MasterTimeout(duration string) *DeleteDanglingInde
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *DeleteDanglingIndex) Timeout(duration string) *DeleteDanglingIndex {
 	r.values.Set("timeout", duration)

@@ -16,16 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Flush data streams or indices. Flushing a data stream or index is the process
-// of making sure that any data that is currently only stored in the transaction
-// log is also permanently stored in the Lucene index. When restarting,
-// Elasticsearch replays any unflushed operations from the transaction log into
-// the Lucene index to bring it back into the state that it was in before the
-// restart. Elasticsearch automatically triggers flushes as needed, using
-// heuristics that trade off the size of the unflushed transaction log against
-// the cost of performing each flush.
+// Flush data streams or indices.
+//
+// Flushing a data stream or index is the process of making sure that any data
+// that is currently only stored in the transaction log is also permanently
+// stored in the Lucene index. When restarting, Elasticsearch replays any
+// unflushed operations from the transaction log into the Lucene index to bring
+// it back into the state that it was in before the restart. Elasticsearch
+// automatically triggers flushes as needed, using heuristics that trade off the
+// size of the unflushed transaction log against the cost of performing each
+// flush.
 //
 // After each operation has been flushed it is permanently stored in the Lucene
 // index. This may mean that there is no need to maintain an additional copy of
@@ -94,14 +96,16 @@ func NewFlushFunc(tp elastictransport.Interface) NewFlush {
 	}
 }
 
-// Flush data streams or indices. Flushing a data stream or index is the process
-// of making sure that any data that is currently only stored in the transaction
-// log is also permanently stored in the Lucene index. When restarting,
-// Elasticsearch replays any unflushed operations from the transaction log into
-// the Lucene index to bring it back into the state that it was in before the
-// restart. Elasticsearch automatically triggers flushes as needed, using
-// heuristics that trade off the size of the unflushed transaction log against
-// the cost of performing each flush.
+// Flush data streams or indices.
+//
+// Flushing a data stream or index is the process of making sure that any data
+// that is currently only stored in the transaction log is also permanently
+// stored in the Lucene index. When restarting, Elasticsearch replays any
+// unflushed operations from the transaction log into the Lucene index to bring
+// it back into the state that it was in before the restart. Elasticsearch
+// automatically triggers flushes as needed, using heuristics that trade off the
+// size of the unflushed transaction log against the cost of performing each
+// flush.
 //
 // After each operation has been flushed it is permanently stored in the Lucene
 // index. This may mean that there is no need to maintain an additional copy of

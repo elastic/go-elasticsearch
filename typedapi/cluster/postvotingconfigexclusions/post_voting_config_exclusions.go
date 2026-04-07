@@ -16,18 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d520d9e8cf14cad487de5e0654007686c395b494
+// https://github.com/elastic/elasticsearch-specification/tree/49022a2c08d291955de83e26c583b7dc628fb558
 
-// Update voting configuration exclusions. Update the cluster voting config
-// exclusions by node IDs or node names. By default, if there are more than
-// three master-eligible nodes in the cluster and you remove fewer than half of
-// the master-eligible nodes in the cluster at once, the voting configuration
-// automatically shrinks. If you want to shrink the voting configuration to
-// contain fewer than three nodes or to remove half or more of the
-// master-eligible nodes in the cluster at once, use this API to remove
-// departing nodes from the voting configuration manually. The API adds an entry
-// for each specified node to the cluster’s voting configuration exclusions
-// list. It then waits until the cluster has reconfigured its voting
+// Update voting configuration exclusions.
+//
+// Update the cluster voting config exclusions by node IDs or node names. By
+// default, if there are more than three master-eligible nodes in the cluster
+// and you remove fewer than half of the master-eligible nodes in the cluster at
+// once, the voting configuration automatically shrinks. If you want to shrink
+// the voting configuration to contain fewer than three nodes or to remove half
+// or more of the master-eligible nodes in the cluster at once, use this API to
+// remove departing nodes from the voting configuration manually. The API adds
+// an entry for each specified node to the cluster’s voting configuration
+// exclusions list. It then waits until the cluster has reconfigured its voting
 // configuration to exclude the specified nodes.
 //
 // Clusters should have no voting configuration exclusions in normal operation.
@@ -100,16 +101,17 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 	}
 }
 
-// Update voting configuration exclusions. Update the cluster voting config
-// exclusions by node IDs or node names. By default, if there are more than
-// three master-eligible nodes in the cluster and you remove fewer than half of
-// the master-eligible nodes in the cluster at once, the voting configuration
-// automatically shrinks. If you want to shrink the voting configuration to
-// contain fewer than three nodes or to remove half or more of the
-// master-eligible nodes in the cluster at once, use this API to remove
-// departing nodes from the voting configuration manually. The API adds an entry
-// for each specified node to the cluster’s voting configuration exclusions
-// list. It then waits until the cluster has reconfigured its voting
+// Update voting configuration exclusions.
+//
+// Update the cluster voting config exclusions by node IDs or node names. By
+// default, if there are more than three master-eligible nodes in the cluster
+// and you remove fewer than half of the master-eligible nodes in the cluster at
+// once, the voting configuration automatically shrinks. If you want to shrink
+// the voting configuration to contain fewer than three nodes or to remove half
+// or more of the master-eligible nodes in the cluster at once, use this API to
+// remove departing nodes from the voting configuration manually. The API adds
+// an entry for each specified node to the cluster’s voting configuration
+// exclusions list. It then waits until the cluster has reconfigured its voting
 // configuration to exclude the specified nodes.
 //
 // Clusters should have no voting configuration exclusions in normal operation.
