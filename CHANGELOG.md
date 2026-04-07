@@ -1,5 +1,59 @@
 # Changelog
 
+## [9.3.0](https://github.com/elastic/go-elasticsearch/compare/v9.3.0...v9.3.0) (2026-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* BulkIndexer requires an explicit Client ([#1335](https://github.com/elastic/go-elasticsearch/issues/1335))
+* bump go version to 1.25 ([#1261](https://github.com/elastic/go-elasticsearch/issues/1261))
+* bump go version to 1.24.12 ([#1136](https://github.com/elastic/go-elasticsearch/issues/1136))
+
+### Features
+
+* Add Close method to BaseClient ([#1056](https://github.com/elastic/go-elasticsearch/issues/1056)) ([9d9d191](https://github.com/elastic/go-elasticsearch/commit/9d9d1911ef368906e09dd872ae641620eb9d3d53))
+* Add constructor for baseclient ([#990](https://github.com/elastic/go-elasticsearch/issues/990)) ([1461d61](https://github.com/elastic/go-elasticsearch/commit/1461d61a1dd9eaf40a784e17587e9a1fdbeb8d9d))
+* Add functional options pattern for client instantiation ([#1295](https://github.com/elastic/go-elasticsearch/issues/1295)) ([a42d1b4](https://github.com/elastic/go-elasticsearch/commit/a42d1b4b018fd8ec319b55a368b27270ef7bed39))
+* Add queue size multiplier config to BulkIndexer ([#1029](https://github.com/elastic/go-elasticsearch/issues/1029)) ([c2f52b5](https://github.com/elastic/go-elasticsearch/commit/c2f52b53a9d0ca70b16f2bfd5f97f0ae570eb066))
+* Add support for interceptors in Elasticsearch client ([#1080](https://github.com/elastic/go-elasticsearch/issues/1080)) ([d224538](https://github.com/elastic/go-elasticsearch/commit/d224538670d824086e629f47f316a886ffb4066a))
+* Bump go version to 1.24.12 ([#1136](https://github.com/elastic/go-elasticsearch/issues/1136)) ([0cec060](https://github.com/elastic/go-elasticsearch/commit/0cec06087be7eadf453b2b1beeba41d4a152f8c8))
+* Bump go version to 1.25 ([#1261](https://github.com/elastic/go-elasticsearch/issues/1261)) ([4cb12ad](https://github.com/elastic/go-elasticsearch/commit/4cb12ad0dceb8c872c11408dd3964adbe7719ff0))
+* Expose FlushedMs metric in BulkIndexer ([#932](https://github.com/elastic/go-elasticsearch/issues/932)) ([7792665](https://github.com/elastic/go-elasticsearch/commit/7792665c6dba46d2211f52208ba7c85a9a0f15a8))
+* Implement if_seq_no and if_primary_term parameters in bulk indexer ([#783](https://github.com/elastic/go-elasticsearch/issues/783)) ([4592403](https://github.com/elastic/go-elasticsearch/commit/45924031df61a6581918b5e7bbe0aba240888b81))
+* **Typed API:** Add schema descriptions to generated code for IDE intellisense ([#1288](https://github.com/elastic/go-elasticsearch/issues/1288)) ([50c9510](https://github.com/elastic/go-elasticsearch/commit/50c95101503a76d0200cf60e5dfb3d29cf026817))
+* **Typed API:** Improved generated code comments ([63584e4](https://github.com/elastic/go-elasticsearch/commit/63584e49dffcf4bfba981a1821d00fe1cf72d045))
+* **Typed API:** Update client from spec 836fca8 ([#1352](https://github.com/elastic/go-elasticsearch/issues/1352)) ([27b32e4](https://github.com/elastic/go-elasticsearch/commit/27b32e40d9b1c3be12665db5d6431a62c58f80aa))
+* Use testcontainers-go for the integration tests ([#824](https://github.com/elastic/go-elasticsearch/issues/824)) ([ded7e68](https://github.com/elastic/go-elasticsearch/commit/ded7e68604d5a354425c638b3a8166fdb1a401f8))
+
+
+### Bug Fixes
+
+* **buildkite:** Improve error handling for HTTP requests and add fallback for 404 responses ([#1040](https://github.com/elastic/go-elasticsearch/issues/1040)) ([b5631f4](https://github.com/elastic/go-elasticsearch/commit/b5631f47c95408861ad6d0630953ed1b7c515fa9))
+* **build:** Update releases API URL to new S3 endpoint ([#1317](https://github.com/elastic/go-elasticsearch/issues/1317)) ([278f580](https://github.com/elastic/go-elasticsearch/commit/278f580c8e0afcc6d80f94bfcb02aeaf8b2c2f46))
+* **bulk_indexer:** Enable instrumentation support in bulk index requests ([#1238](https://github.com/elastic/go-elasticsearch/issues/1238)) ([d66e587](https://github.com/elastic/go-elasticsearch/commit/d66e58716204b6a336dfd005e2a782b94e2b49d5))
+* BulkIndexer requires an explicit Client ([#1335](https://github.com/elastic/go-elasticsearch/issues/1335)) ([c0ce835](https://github.com/elastic/go-elasticsearch/commit/c0ce8353ed3d8023cd7f2a02970e82296f20fa46))
+* Close open file ([#320](https://github.com/elastic/go-elasticsearch/issues/320)) ([3bf20f7](https://github.com/elastic/go-elasticsearch/commit/3bf20f71870e7956d27a229664858fcecc7d6be5))
+* **esapi:** Adds escaping to fix failing test generation ([#1309](https://github.com/elastic/go-elasticsearch/issues/1309)) ([d083e0c](https://github.com/elastic/go-elasticsearch/commit/d083e0c42196202a11696c8e3638cd3a8db12acf))
+* **esutil:** Avoid duplicate bulk indexer OnError callbacks ([#1246](https://github.com/elastic/go-elasticsearch/issues/1246)) ([36d286f](https://github.com/elastic/go-elasticsearch/commit/36d286fcd39ee3e7d6e0c950cf26ed5a7161867c))
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1337](https://github.com/elastic/go-elasticsearch/issues/1337)) ([cd12347](https://github.com/elastic/go-elasticsearch/commit/cd12347c08d9ed25a00a6e1233c339e188106026))
+* **esutil:** Handle error from Seek in BulkIndexer.writeBody ([#1148](https://github.com/elastic/go-elasticsearch/issues/1148)) ([5b90625](https://github.com/elastic/go-elasticsearch/commit/5b9062598cc60c3f06d1abb088e6ef9e560780cd))
+* **esutil:** Make JSONReader implement io.ReadSeeker ([#1304](https://github.com/elastic/go-elasticsearch/issues/1304)) ([acfd010](https://github.com/elastic/go-elasticsearch/commit/acfd010fb5374d74a40654b22a08db1dea3c8b4d))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1303](https://github.com/elastic/go-elasticsearch/issues/1303)) ([8d505a7](https://github.com/elastic/go-elasticsearch/commit/8d505a75e7ff6aa76fed8a2fbf2ec49c25f584c2))
+* **esutil:** Propagate context timeout while closing bulk indexer ([#1247](https://github.com/elastic/go-elasticsearch/issues/1247)) ([aeac8b8](https://github.com/elastic/go-elasticsearch/commit/aeac8b87b4b918bffb9687ab03449c22c8d2632f))
+* **examples:** Guard retryBackoff with a mutex to prevent data race ([#1306](https://github.com/elastic/go-elasticsearch/issues/1306)) ([edd6a7e](https://github.com/elastic/go-elasticsearch/commit/edd6a7ea0f07e515c67c9fae932793ad59a0257f))
+* Notify items if an error occurs in bulk indexer ([#615](https://github.com/elastic/go-elasticsearch/issues/615)) ([6ea4a8a](https://github.com/elastic/go-elasticsearch/commit/6ea4a8a76c8c2948762e32e5c5396da265ab9e92))
+* Prevent BulkIndexer from silently dropping items on flush failure  ([#1227](https://github.com/elastic/go-elasticsearch/issues/1227)) ([746f856](https://github.com/elastic/go-elasticsearch/commit/746f856f4fd1911dc6a567fc4b219cf7ebbee8ef))
+* Return error when default URL cannot be parsed ([#205](https://github.com/elastic/go-elasticsearch/issues/205)) ([a339e1f](https://github.com/elastic/go-elasticsearch/commit/a339e1f6bfc5cf47f153e319f04682e0d1d28db2))
+* **test:** Generate TLS certificate dynamically in TestFingerprint ([#1334](https://github.com/elastic/go-elasticsearch/issues/1334)) ([01d159f](https://github.com/elastic/go-elasticsearch/commit/01d159f9adf70d6c27ce047426cf54eb4fca5b7f))
+* **Typed API:** Add field-level nil checks during deserialisation ([#1226](https://github.com/elastic/go-elasticsearch/issues/1226)) ([fec3ccd](https://github.com/elastic/go-elasticsearch/commit/fec3ccd3f3089d87222cf5b635a2f555ba15aa0d))
+* **Typed API:** Add missing custom UnmarshalJSON methods for types with additional properties ([fec3ccd](https://github.com/elastic/go-elasticsearch/commit/fec3ccd3f3089d87222cf5b635a2f555ba15aa0d))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1332](https://github.com/elastic/go-elasticsearch/issues/1332)) ([63584e4](https://github.com/elastic/go-elasticsearch/commit/63584e49dffcf4bfba981a1821d00fe1cf72d045))
+
+
+### Miscellaneous Chores
+
+* Bootstrap release-please for 9.3 ([#1097](https://github.com/elastic/go-elasticsearch/issues/1097)) ([9843e8a](https://github.com/elastic/go-elasticsearch/commit/9843e8a31164f4532350d972b2df43a6cdfdfa16))
+
 ## [9.3.1](https://github.com/elastic/go-elasticsearch/compare/v9.3.0...v9.3.1) (2026-02-11)
 
 
