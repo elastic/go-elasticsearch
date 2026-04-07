@@ -752,15 +752,13 @@ func buildStrippedVersion(version string) string {
 	return "0.0p"
 }
 
-// ------------- auto draining response body related code -------------
-
-const maxDrainBytes = 512 * 1024
+const autoDrainingMaxBytes = 512 * 1024
 
 type autoDrainingReader struct {
 	io.ReadCloser
 }
 
 func (a *autoDrainingReader) Close() error {
-	_, _ = io.Copy(io.Discard, io.LimitReader(a.ReadCloser, maxDrainBytes))
+	_, _ = io.Copy(io.Discard, io.LimitReader(a.ReadCloser, autoDrainingMaxBytes))
 	return a.ReadCloser.Close()
 }
