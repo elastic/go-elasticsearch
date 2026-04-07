@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Result of a `terms` aggregation when the field is unmapped. `buckets` is
 // always empty.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L535-L541
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/aggregations/Aggregate.ts#L535-L541
 type UnmappedTermsAggregate struct {
 	Buckets                 BucketsVoid `json:"buckets"`
 	DocCountErrorUpperBound *int64      `json:"doc_count_error_upper_bound,omitempty"`

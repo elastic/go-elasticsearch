@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Start a trained model deployment.
 //
@@ -89,7 +89,7 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 //
 // It allocates the model to every machine learning node.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-trained-model-deployment
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-trained-model-deployment
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {

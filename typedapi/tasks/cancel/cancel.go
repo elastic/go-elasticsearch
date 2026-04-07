@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Cancel a task.
 //
@@ -110,7 +110,7 @@ func NewCancelFunc(tp elastictransport.Interface) NewCancel {
 // obtain detailed information about the work the system is doing instead of
 // completing the cancelled task.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func New(tp elastictransport.Interface) *Cancel {
 	r := &Cancel{
 		transport: tp,

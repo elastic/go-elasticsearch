@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -73,6 +73,12 @@ func (s *_ensemble) TrainedModels(trainedmodels ...types.TrainedModelVariant) *_
 		s.v.TrainedModels = append(s.v.TrainedModels, *v.TrainedModelCaster())
 
 	}
+	return s
+}
+
+func (s *_ensemble) TrainedModelsValues(trainedmodelsvalues []types.TrainedModel) *_ensemble {
+
+	s.v.TrainedModels = trainedmodelsvalues
 	return s
 }
 

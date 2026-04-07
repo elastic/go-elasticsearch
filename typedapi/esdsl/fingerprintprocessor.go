@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -99,6 +99,12 @@ func (s *_fingerprintProcessor) OnFailure(onfailures ...types.ProcessorContainer
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_fingerprintProcessor) OnFailureValues(onfailurevalues []types.ProcessorContainer) *_fingerprintProcessor {
+
+	s.v.OnFailure = onfailurevalues
 	return s
 }
 

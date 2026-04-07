@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get multiple term vectors.
 //
@@ -106,7 +106,7 @@ func NewMtermvectorsFunc(tp elastictransport.Interface) NewMtermvectors {
 // documents provided in the body of the request. The mapping used is determined
 // by the specified `_index`.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mtermvectors
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mtermvectors
 func New(tp elastictransport.Interface) *Mtermvectors {
@@ -487,6 +487,15 @@ func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperationVariant) *Mtermve
 		r.req.Docs = append(r.req.Docs, *v.MTermVectorsOperationCaster())
 
 	}
+	return r
+}
+
+func (r *Mtermvectors) DocsValues(docsvalues []types.MTermVectorsOperation) *Mtermvectors {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

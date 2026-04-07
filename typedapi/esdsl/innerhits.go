@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -46,6 +46,12 @@ func (s *_innerHits) DocvalueFields(docvaluefields ...types.FieldAndFormatVarian
 		s.v.DocvalueFields = append(s.v.DocvalueFields, *v.FieldAndFormatCaster())
 
 	}
+	return s
+}
+
+func (s *_innerHits) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *_innerHits {
+
+	s.v.DocvalueFields = docvaluefieldsvalues
 	return s
 }
 
@@ -137,6 +143,12 @@ func (s *_innerHits) Sort(sorts ...types.SortCombinationsVariant) *_innerHits {
 	}
 	s.v.Sort = convertedItems
 
+	return s
+}
+
+func (s *_innerHits) SortValues(sortvalues []types.SortCombinations) *_innerHits {
+
+	s.v.Sort = sortvalues
 	return s
 }
 

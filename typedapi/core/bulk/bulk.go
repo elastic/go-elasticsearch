@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Bulk index or delete documents.
 //
@@ -386,7 +386,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // indexing throughput for large bulk requests. Refer to the linked
 // documentation for step-by-step instructions using the index settings API.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-bulk
 func New(tp elastictransport.Interface) *Bulk {

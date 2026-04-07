@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Enroll a node.
 //
@@ -88,7 +88,7 @@ func NewEnrollNodeFunc(tp elastictransport.Interface) NewEnrollNode {
 // allows the caller to generate valid signed certificates for the HTTP layer of
 // all nodes in the cluster.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-node
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enroll-node
 func New(tp elastictransport.Interface) *EnrollNode {
 	r := &EnrollNode{
 		transport: tp,

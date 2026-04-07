@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EsqlClusterDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/esql/_types/EsqlResult.ts#L75-L81
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/esql/_types/EsqlResult.ts#L75-L81
 type EsqlClusterDetails struct {
 	Failures []EsqlShardFailure                  `json:"failures,omitempty"`
 	Indices  string                              `json:"indices"`

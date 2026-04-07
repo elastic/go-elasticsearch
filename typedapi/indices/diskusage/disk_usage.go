@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Analyze the index disk usage.
 //
@@ -115,7 +115,7 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 // example](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/index-disk-usage)
 // for an example.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-disk-usage
 func New(tp elastictransport.Interface) *DiskUsage {
 	r := &DiskUsage{
 		transport: tp,

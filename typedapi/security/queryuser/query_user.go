@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Find users with a query.
 //
@@ -87,7 +87,7 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 // NOTE: As opposed to the get user API, built-in users are excluded from the
 // result. This API is only for native users.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-user
 func New(tp elastictransport.Interface) *QueryUser {
 	r := &QueryUser{
 		transport: tp,
@@ -405,6 +405,15 @@ func (r *QueryUser) SearchAfter(sortresults ...types.FieldValueVariant) *QueryUs
 	return r
 }
 
+func (r *QueryUser) SearchAfterValues(sortresultsvalues []types.FieldValue) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // The number of hits to return. It must not be negative. By default, you cannot
 // page through more than 10,000 hits using the `from` and `size` parameters. To
 // page through more hits, use the `search_after` parameter.
@@ -436,5 +445,14 @@ func (r *QueryUser) Sort(sorts ...types.SortCombinationsVariant) *QueryUser {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *QueryUser) SortValues(sortvalues []types.SortCombinations) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }

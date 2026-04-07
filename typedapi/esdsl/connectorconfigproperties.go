@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -74,6 +74,12 @@ func (s *_connectorConfigProperties) DependsOn(dependsons ...types.DependencyVar
 	return s
 }
 
+func (s *_connectorConfigProperties) DependsOnValues(dependsonvalues []types.Dependency) *_connectorConfigProperties {
+
+	s.v.DependsOn = dependsonvalues
+	return s
+}
+
 func (s *_connectorConfigProperties) Display(display displaytype.DisplayType) *_connectorConfigProperties {
 
 	s.v.Display = display
@@ -94,6 +100,12 @@ func (s *_connectorConfigProperties) Options(options ...types.SelectOptionVarian
 		s.v.Options = append(s.v.Options, *v.SelectOptionCaster())
 
 	}
+	return s
+}
+
+func (s *_connectorConfigProperties) OptionsValues(optionsvalues []types.SelectOption) *_connectorConfigProperties {
+
+	s.v.Options = optionsvalues
 	return s
 }
 
@@ -155,6 +167,12 @@ func (s *_connectorConfigProperties) Validations(validations ...types.Validation
 		s.v.Validations = append(s.v.Validations, *v.ValidationCaster())
 
 	}
+	return s
+}
+
+func (s *_connectorConfigProperties) ValidationsValues(validationsvalues []types.Validation) *_connectorConfigProperties {
+
+	s.v.Validations = validationsvalues
 	return s
 }
 

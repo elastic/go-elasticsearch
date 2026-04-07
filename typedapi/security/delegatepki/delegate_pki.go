@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Delegate PKI authentication.
 //
@@ -111,7 +111,7 @@ func NewDelegatePkiFunc(tp elastictransport.Interface) NewDelegatePki {
 // this API. The proxy is trusted to have performed the TLS authentication and
 // this API translates that authentication into an Elasticsearch access token.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delegate-pki
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delegate-pki
 func New(tp elastictransport.Interface) *DelegatePki {
 	r := &DelegatePki{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get EQL search results.
 //
@@ -91,7 +91,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Returns search results for an Event Query Language (EQL) query. EQL assumes
 // each document in a data stream or index corresponds to an event.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-search
 func New(tp elastictransport.Interface) *Search {

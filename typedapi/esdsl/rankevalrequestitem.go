@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -71,6 +71,12 @@ func (s *_rankEvalRequestItem) Ratings(ratings ...types.DocumentRatingVariant) *
 		s.v.Ratings = append(s.v.Ratings, *v.DocumentRatingCaster())
 
 	}
+	return s
+}
+
+func (s *_rankEvalRequestItem) RatingsValues(ratingsvalues []types.DocumentRating) *_rankEvalRequestItem {
+
+	s.v.Ratings = ratingsvalues
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Stop datafeeds.
 //
@@ -89,7 +89,7 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped multiple times throughout its lifecycle.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-datafeed
 func New(tp elastictransport.Interface) *StopDatafeed {

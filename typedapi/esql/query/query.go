@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Run an ES|QL query.
 //
@@ -457,16 +457,14 @@ func (r *Query) Locale(locale string) *Query {
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *Query) Params(params ...types.FieldValueVariant) *Query {
+func (r *Query) Params(esqlparams types.ESQLParamsVariant) *Query {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range params {
 
-		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+	r.req.Params = *esqlparams.ESQLParamsCaster()
 
-	}
 	return r
 }
 
@@ -482,6 +480,22 @@ func (r *Query) Profile(profile bool) *Query {
 	}
 
 	r.req.Profile = &profile
+
+	return r
+}
+
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
+// API name: project_routing
+func (r *Query) ProjectRouting(projectrouting string) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

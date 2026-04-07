@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package reindexrethrottle
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package reindexrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L23-L25
 type Response struct {
 	Nodes map[string]types.ReindexNode `json:"nodes"`
 }

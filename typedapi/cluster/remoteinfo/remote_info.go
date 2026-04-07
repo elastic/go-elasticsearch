@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get remote cluster information.
 //
@@ -94,7 +94,7 @@ func NewRemoteInfoFunc(tp elastictransport.Interface) NewRemoteInfo {
 // [resolve cluster
 // endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-remote-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-remote-info
 func New(tp elastictransport.Interface) *RemoteInfo {
 	r := &RemoteInfo{
 		transport: tp,

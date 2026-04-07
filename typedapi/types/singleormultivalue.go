@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
-// ESQLParam type alias.
+// SingleOrMultiValue type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/esql/_types/types.ts#L22-L22
-type ESQLParam []FieldValue
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/esql/_types/types.ts#L28-L28
+type SingleOrMultiValue []FieldValue
+
+type SingleOrMultiValueVariant interface {
+	SingleOrMultiValueCaster() *SingleOrMultiValue
+}

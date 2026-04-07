@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package putwatsonx
 
@@ -30,10 +30,11 @@ import (
 
 // Request holds the request body struct for the package putwatsonx
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/inference/put_watsonx/PutWatsonxRequest.ts#L30-L85
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/put_watsonx/PutWatsonxRequest.ts#L30-L85
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
-	// type. Not applicable to the `completion` or `chat_completion` task types.
+	// type. Not applicable to the `rerank`, `completion` or `chat_completion` task
+	// types.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The type of service supported for the specified task type. In this case,
 	// `watsonxai`.

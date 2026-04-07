@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package esdsl
 
@@ -100,6 +100,12 @@ func (s *_ingestPipeline) OnFailure(onfailures ...types.ProcessorContainerVarian
 	return s
 }
 
+func (s *_ingestPipeline) OnFailureValues(onfailurevalues []types.ProcessorContainer) *_ingestPipeline {
+
+	s.v.OnFailure = onfailurevalues
+	return s
+}
+
 func (s *_ingestPipeline) Processors(processors ...types.ProcessorContainerVariant) *_ingestPipeline {
 
 	for _, v := range processors {
@@ -107,6 +113,12 @@ func (s *_ingestPipeline) Processors(processors ...types.ProcessorContainerVaria
 		s.v.Processors = append(s.v.Processors, *v.ProcessorContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_ingestPipeline) ProcessorsValues(processorsvalues []types.ProcessorContainer) *_ingestPipeline {
+
+	s.v.Processors = processorsvalues
 	return s
 }
 

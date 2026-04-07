@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -31,11 +31,12 @@ import (
 
 // IndicesValidationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L33-L39
 type IndicesValidationExplanation struct {
 	Error       *string `json:"error,omitempty"`
 	Explanation *string `json:"explanation,omitempty"`
-	Index       string  `json:"index"`
+	Index       *string `json:"index,omitempty"`
+	Shard       *int    `json:"shard,omitempty"`
 	Valid       bool    `json:"valid"`
 }
 
@@ -81,6 +82,22 @@ func (s *IndicesValidationExplanation) UnmarshalJSON(data []byte) error {
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
+			}
+
+		case "shard":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Shard", err)
+				}
+				s.Shard = &value
+			case float64:
+				f := int(v)
+				s.Shard = &f
 			}
 
 		case "valid":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Enable a user profile.
 //
@@ -103,7 +103,7 @@ func NewEnableUserProfileFunc(tp elastictransport.Interface) NewEnableUserProfil
 // user profile searches. If you later disable the user profile, you can use the
 // enable user profile API to make the profile visible in these searches again.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enable-user-profile
 func New(tp elastictransport.Interface) *EnableUserProfile {
 	r := &EnableUserProfile{
 		transport: tp,

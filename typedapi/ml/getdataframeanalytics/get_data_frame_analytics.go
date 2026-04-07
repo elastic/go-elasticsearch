@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get data frame analytics job configuration info.
 //
@@ -84,7 +84,7 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics
 func New(tp elastictransport.Interface) *GetDataFrameAnalytics {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Authenticate OpenID Connect.
 //
@@ -93,7 +93,7 @@ func NewOidcAuthenticateFunc(tp elastictransport.Interface) NewOidcAuthenticate 
 // order to provide OpenID Connect based authentication, but can also be used by
 // other, custom web applications or other clients.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-authenticate
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-authenticate
 func New(tp elastictransport.Interface) *OidcAuthenticate {
 	r := &OidcAuthenticate{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get an inference endpoint.
 //
@@ -85,7 +85,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-get
 func New(tp elastictransport.Interface) *Get {
@@ -147,6 +147,19 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
 		}
 		path.WriteString(r.inferenceid)
+
+		method = http.MethodGet
+	case r.paramSet == tasktypeMask:
+		path.WriteString("/")
+		path.WriteString("_inference")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
+		}
+		path.WriteString(r.tasktype)
+		path.WriteString("/")
+		path.WriteString("_all")
 
 		method = http.MethodGet
 	}
@@ -319,7 +332,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// TaskType The task type
+// TaskType The task type of the endpoint to return
 // API Name: tasktype
 func (r *Get) TaskType(tasktype string) *Get {
 	r.paramSet |= tasktypeMask
@@ -328,7 +341,9 @@ func (r *Get) TaskType(tasktype string) *Get {
 	return r
 }
 
-// InferenceId The inference Id
+// InferenceId The inference Id of the endpoint to return. Using `_all` or `*` will return
+// all endpoints with the specified `task_type` if one is specified, or all
+// endpoints for all task types if no `task_type` is specified
 // API Name: inferenceid
 func (r *Get) InferenceId(inferenceid string) *Get {
 	r.paramSet |= inferenceidMask

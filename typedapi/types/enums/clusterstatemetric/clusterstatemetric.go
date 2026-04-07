@@ -16,35 +16,50 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Package clusterstatemetric
 package clusterstatemetric
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/cluster/state/ClusterStateRequest.ts#L123-L133
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/cluster/state/ClusterStateRequest.ts#L123-L142
 type ClusterStateMetric struct {
 	Name string
 }
 
 var (
+
+	// All Shows all metrics.
 	All = ClusterStateMetric{"_all"}
 
+	// Version Shows the cluster state version.
 	Version = ClusterStateMetric{"version"}
 
+	// Masternode Shows the elected `master_node` part of the response.
 	Masternode = ClusterStateMetric{"master_node"}
 
+	// Blocks Shows the `blocks` part of the response.
 	Blocks = ClusterStateMetric{"blocks"}
 
+	// Nodes Shows the `nodes` part of the response.
 	Nodes = ClusterStateMetric{"nodes"}
 
+	// Metadata Shows the `metadata` part of the response. If you supply a comma-separated
+	// list of indices, the returned output will only contain metadata for these
+	// indices.
 	Metadata = ClusterStateMetric{"metadata"}
 
+	// Routingtable Shows the `routing_table` part of the response. If you supply a
+	// comma-separated list of indices, the returned output will only contain the
+	// routing table for these indices.
 	Routingtable = ClusterStateMetric{"routing_table"}
 
+	// Routingnodes Shows the `routing_nodes` part of the response.
 	Routingnodes = ClusterStateMetric{"routing_nodes"}
 
+	// Customs Shows the `customs` part of the response, which includes custom cluster state
+	// information.
 	Customs = ClusterStateMetric{"customs"}
 )
 

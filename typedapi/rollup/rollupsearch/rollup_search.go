@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Search rolled-up data.
 //
@@ -121,7 +121,7 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 // rolled-up data only or combining rolled-up and live data, refer to the
 // External documentation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-rollup-search
 //
 // Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *RollupSearch {

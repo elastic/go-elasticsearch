@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Package queryrulecriteriatype
 package queryrulecriteriatype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/query_rules/_types/QueryRuleset.ts#L95-L108
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/query_rules/_types/QueryRuleset.ts#L95-L107
 type QueryRuleCriteriaType struct {
 	Name string
 }
@@ -32,8 +32,6 @@ var (
 	Global = QueryRuleCriteriaType{"global"}
 
 	Exact = QueryRuleCriteriaType{"exact"}
-
-	Exactfuzzy = QueryRuleCriteriaType{"exact_fuzzy"}
 
 	Fuzzy = QueryRuleCriteriaType{"fuzzy"}
 
@@ -65,8 +63,6 @@ func (q *QueryRuleCriteriaType) UnmarshalText(text []byte) error {
 		*q = Global
 	case "exact":
 		*q = Exact
-	case "exact_fuzzy":
-		*q = Exactfuzzy
 	case "fuzzy":
 		*q = Fuzzy
 	case "prefix":

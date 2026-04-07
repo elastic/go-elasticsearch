@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Perform chat completion inference on the service.
 //
@@ -107,7 +107,7 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 // whether a given inference service supports this task type, please see the
 // page for that service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-unified-inference
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
 	r := &ChatCompletionUnified{
 		transport: tp,
@@ -422,6 +422,15 @@ func (r *ChatCompletionUnified) Messages(messages ...types.MessageVariant) *Chat
 	return r
 }
 
+func (r *ChatCompletionUnified) MessagesValues(messagesvalues []types.Message) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Messages = messagesvalues
+	return r
+}
+
 // The ID of the model to use. By default, the model ID is set to the value
 // included when creating the inference endpoint.
 // API name: model
@@ -528,6 +537,15 @@ func (r *ChatCompletionUnified) Tools(tools ...types.CompletionToolVariant) *Cha
 		r.req.Tools = append(r.req.Tools, *v.CompletionToolCaster())
 
 	}
+	return r
+}
+
+func (r *ChatCompletionUnified) ToolsValues(toolsvalues []types.CompletionTool) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Tools = toolsvalues
 	return r
 }
 

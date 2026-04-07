@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Mount a snapshot.
 //
@@ -96,7 +96,7 @@ func NewMountFunc(tp elastictransport.Interface) NewMount {
 // snapshots managed by index lifecycle management (ILM). Manually mounting
 // ILM-managed snapshots can interfere with ILM processes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-mount
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-mount
 func New(tp elastictransport.Interface) *Mount {
 	r := &Mount{
 		transport: tp,

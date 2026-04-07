@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package typedapi
 
@@ -734,6 +734,10 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the count API.
+	//
+	// NOTE: Starting in Elasticsearch 9.3.0, this endpoint also supports the `POST`
+	// method. This is primarily intended for project routing in serverless
+	// environments.
 	Count cat_count.NewCount
 	// Get field data cache information.
 	//
@@ -780,6 +784,16 @@ type Cat struct {
 	// internally to power indexing and search. As a result, all document counts
 	// include hidden nested documents. To get an accurate count of Elasticsearch
 	// documents, use the cat count or count APIs.
+	//
+	// NOTE: Storage metrics reported by this API reflect the post-compression size
+	// of the indices on disk. Because these values are calculated after
+	// Elasticsearch compresses the data and processes deletions, they are typically
+	// significantly smaller than the raw, uncompressed data volume ingested.
+	//
+	// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+	// uncompressed data volume, not the post-compression metrics reported here. To
+	// learn more, refer to [Elasticsearch billing
+	// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
 	//
 	// CAT APIs are only intended for human consumption using the command line or
 	// Kibana console. They are not intended for use by applications. For
@@ -4282,6 +4296,10 @@ type Indices struct {
 	// Before shrinking, a (primary or replica) copy of every shard in the index
 	// must be present on the same node.
 	//
+	// IMPORTANT: If the source index already has one primary shard, configuring the
+	// shrink operation with 'index.number_of_shards: 1' will cause the request to
+	// fail. An index with one primary shard cannot be shrunk further.
+	//
 	// The current write index on a data stream cannot be shrunk. In order to shrink
 	// the current write index, the data stream must first be rolled over so that a
 	// new write index is created and then the previous write index can be shrunk.
@@ -4501,7 +4519,7 @@ type Inference struct {
 	//   - OpenShift AI (`chat_completion`, `completion`, `rerank`,
 	//     `text_embedding`)
 	//   - VoyageAI (`rerank`, `text_embedding`)
-	//   - Watsonx inference integration (`text_embedding`)
+	//   - Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
 	Put inference_put.NewPut
 	// Create a AI21 inference endpoint.
 	//
@@ -4972,12 +4990,21 @@ type Logstash struct {
 type Migration struct {
 	// Get deprecation information.
 	//
-	// Get information about different cluster, node, and index level settings that
-	// use deprecated features that will be removed or changed in the next major
-	// version.
+	// Returns information about deprecated features which are in use in the
+	// cluster. The reported features include cluster, node, and index level
+	// settings that will be removed or changed in the next major version. You must
+	// address the reported issues before upgrading to the next major version.
+	// However, no action is required when upgrading within the current major
+	// version. Deprecated features remain fully supported and will continue to work
+	// in the current version, and when upgrading to a newer minor or patch release
+	// in the same major version. Use this API to review your usage of these
+	// features and migrate away from them at your own pace, before upgrading to a
+	// new major version.
 	//
-	// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-	// strongly recommended to use the Upgrade Assistant.
+	// > info > This API is designed for indirect use by the [Upgrade
+	// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+	// > We recommend learning about deprecated features using the Upgrade Assistant
+	// rather than calling this API directly.
 	Deprecations migration_deprecations.NewDeprecations
 	// Get feature migration information.
 	//
@@ -7281,8 +7308,7 @@ type Synonyms struct {
 	GetSynonymsSets synonyms_get_synonyms_sets.NewGetSynonymsSets
 	// Create or update a synonym set.
 	//
-	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
-	// you need to manage more synonym rules, you can create multiple synonym sets.
+	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 	//
 	// When an existing synonyms set is updated, the search analyzers that use the
 	// synonyms set are reloaded automatically for all indices. This is equivalent
@@ -10440,7 +10466,7 @@ type MethodAPI struct {
 // You might want to disable the refresh interval temporarily to improve
 // indexing throughput for large bulk requests. Refer to the linked
 // documentation for step-by-step instructions using the index settings API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-bulk
 func (p *MethodAPI) Bulk() *core_bulk.Bulk {
@@ -10459,7 +10485,7 @@ func (p *MethodAPI) Capabilities() *core_capabilities.Capabilities {
 // Clear a scrolling search.
 //
 // Clear the search context and results for a scrolling search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-clear-scroll
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-clear-scroll
 func (p *MethodAPI) ClearScroll() *core_clear_scroll.ClearScroll {
@@ -10474,7 +10500,7 @@ func (p *MethodAPI) ClearScroll() *core_clear_scroll.ClearScroll {
 // persist. A point in time is automatically closed when the `keep_alive` period
 // has elapsed. However, keeping points in time has a cost; close them as soon
 // as they are no longer required for search requests.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func (p *MethodAPI) ClosePointInTime() *core_close_point_in_time.ClosePointInTime {
@@ -10497,7 +10523,7 @@ func (p *MethodAPI) ClosePointInTime() *core_close_point_in_time.ClosePointInTim
 // The operation is broadcast across all shards. For each shard ID group, a
 // replica is chosen and the search is run against it. This means that replicas
 // increase the scalability of the count.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-count
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-count
 func (p *MethodAPI) Count() *core_count.Count {
@@ -10619,7 +10645,7 @@ func (p *MethodAPI) Count() *core_count.Count {
 // is still possible for replication to fail on any number of shard copies but
 // still succeed on the primary. The `_shards` section of the API response
 // reveals the number of shard copies on which replication succeeded and failed.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func (p *MethodAPI) Create(index, id string) *core_create.Create {
@@ -10675,7 +10701,7 @@ func (p *MethodAPI) Create(index, id string) *core_create.Create {
 // The delete operation gets hashed into a specific shard ID. It then gets
 // redirected into the primary shard within that ID group and replicated (if
 // needed) to shard replicas within that ID group.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete
 func (p *MethodAPI) Delete(index, id string) *core_delete.Delete {
@@ -10799,7 +10825,7 @@ func (p *MethodAPI) Delete(index, id string) *core_delete.Delete {
 // Cancellation should happen quickly but might take a few seconds. The get task
 // status API will continue to list the delete by query task until this task
 // checks that it has been cancelled and terminates itself.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-by-query
 func (p *MethodAPI) DeleteByQuery(index string) *core_delete_by_query.DeleteByQuery {
@@ -10813,7 +10839,7 @@ func (p *MethodAPI) DeleteByQuery(index string) *core_delete_by_query.DeleteByQu
 // operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query-rethrottle
 func (p *MethodAPI) DeleteByQueryRethrottle(taskid string) *core_delete_by_query_rethrottle.DeleteByQueryRethrottle {
 	_deletebyqueryrethrottle := core_delete_by_query_rethrottle.NewDeleteByQueryRethrottleFunc(p.tp)
 	return _deletebyqueryrethrottle(taskid)
@@ -10822,7 +10848,7 @@ func (p *MethodAPI) DeleteByQueryRethrottle(taskid string) *core_delete_by_query
 // Delete a script or search template.
 //
 // Deletes a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-script
 func (p *MethodAPI) DeleteScript(id string) *core_delete_script.DeleteScript {
@@ -10849,7 +10875,7 @@ func (p *MethodAPI) DeleteScript(id string) *core_delete_script.DeleteScript {
 // entirely new document. The old version of the document doesn't disappear
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodAPI) Exists(index, id string) *core_exists.Exists {
@@ -10864,7 +10890,7 @@ func (p *MethodAPI) Exists(index, id string) *core_exists.Exists {
 //	HEAD my-index-000001/_source/1
 //
 // A document's source is not available if it is disabled in the mapping.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodAPI) ExistsSource(index, id string) *core_exists_source.ExistsSource {
@@ -10876,7 +10902,7 @@ func (p *MethodAPI) ExistsSource(index, id string) *core_exists_source.ExistsSou
 //
 // Get information about why a specific document matches, or doesn't match, a
 // query. It computes a score explanation for a query and a specific document.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-explain
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-explain
 func (p *MethodAPI) Explain(index, id string) *core_explain.Explain {
@@ -10892,7 +10918,7 @@ func (p *MethodAPI) Explain(index, id string) *core_explain.Explain {
 // backing indices. It returns runtime fields like any other field. For example,
 // a runtime field with a type of keyword is returned the same as any other
 // field that belongs to the `keyword` family.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-field-caps
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-field-caps
 func (p *MethodAPI) FieldCaps() *core_field_caps.FieldCaps {
@@ -10958,7 +10984,7 @@ func (p *MethodAPI) FieldCaps() *core_field_caps.FieldCaps {
 // entirely new document. The old version of the document doesn't disappear
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodAPI) Get(index, id string) *core_get.Get {
@@ -10969,7 +10995,7 @@ func (p *MethodAPI) Get(index, id string) *core_get.Get {
 // Get a script or search template.
 //
 // Retrieves a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get-script
 func (p *MethodAPI) GetScript(id string) *core_get_script.GetScript {
@@ -10980,7 +11006,7 @@ func (p *MethodAPI) GetScript(id string) *core_get_script.GetScript {
 // Get script contexts.
 //
 // Get a list of supported script contexts and their methods.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-context
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-context
 func (p *MethodAPI) GetScriptContext() *core_get_script_context.GetScriptContext {
 	_getscriptcontext := core_get_script_context.NewGetScriptContextFunc(p.tp)
 	return _getscriptcontext()
@@ -10989,7 +11015,7 @@ func (p *MethodAPI) GetScriptContext() *core_get_script_context.GetScriptContext
 // Get script languages.
 //
 // Get a list of available script types, languages, and contexts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-languages
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-languages
 func (p *MethodAPI) GetScriptLanguages() *core_get_script_languages.GetScriptLanguages {
 	_getscriptlanguages := core_get_script_languages.NewGetScriptLanguagesFunc(p.tp)
 	return _getscriptlanguages()
@@ -11006,7 +11032,7 @@ func (p *MethodAPI) GetScriptLanguages() *core_get_script_languages.GetScriptLan
 //
 //	GET my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodAPI) GetSource(index, id string) *core_get_source.GetSource {
@@ -11043,7 +11069,7 @@ func (p *MethodAPI) GetSource(index, id string) *core_get_source.GetSource {
 // statuses. This can be computationally expensive when called frequently. When
 // setting up automated polling of the API for health status, set verbose to
 // false to disable the more expensive analysis logic.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-health-report
 func (p *MethodAPI) HealthReport() *core_health_report.HealthReport {
 	_healthreport := core_health_report.NewHealthReportFunc(p.tp)
 	return _healthreport()
@@ -11232,7 +11258,7 @@ func (p *MethodAPI) HealthReport() *core_health_report.HealthReport {
 // case of updating the Elasticsearch index using data from a database is
 // simplified if external versioning is used, as only the latest version will be
 // used if the index operations arrive out of order.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func (p *MethodAPI) Index(index string) *core_index.Index {
@@ -11245,7 +11271,7 @@ func (p *MethodAPI) Index(index string) *core_index.Index {
 // Get basic build, version, and cluster information. ::: In Serverless, this
 // API is retained for backward compatibility only. Some response fields, such
 // as the version number, should be ignored.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 func (p *MethodAPI) Info() *core_info.Info {
 	_info := core_info.NewInfoFunc(p.tp)
 	return _info()
@@ -11255,7 +11281,6 @@ func (p *MethodAPI) Info() *core_info.Info {
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
 //
 // Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 // option in the search API.
@@ -11286,7 +11311,7 @@ func (p *MethodAPI) KnnSearch(index string) *core_knn_search.KnnSearch {
 // want to retrieve. Any requested fields that are not stored are ignored. You
 // can include the `stored_fields` query parameter in the request URI to specify
 // the defaults to use when there are no per-document instructions.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mget
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mget
 func (p *MethodAPI) Mget() *core_mget.Mget {
@@ -11311,7 +11336,7 @@ func (p *MethodAPI) Mget() *core_mget.Mget {
 // Each newline character may be preceded by a carriage return `\r`. When
 // sending requests to this endpoint the `Content-Type` header should be set to
 // `application/x-ndjson`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch
 func (p *MethodAPI) Msearch() *core_msearch.Msearch {
@@ -11333,7 +11358,7 @@ func (p *MethodAPI) Msearch() *core_msearch.Msearch {
 //
 //	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch-template
 func (p *MethodAPI) MsearchTemplate() *core_msearch_template.MsearchTemplate {
@@ -11354,7 +11379,7 @@ func (p *MethodAPI) MsearchTemplate() *core_msearch_template.MsearchTemplate {
 // You can also use `mtermvectors` to generate term vectors for artificial
 // documents provided in the body of the request. The mapping used is determined
 // by the specified `_index`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mtermvectors
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mtermvectors
 func (p *MethodAPI) Mtermvectors() *core_mtermvectors.Mtermvectors {
@@ -11417,7 +11442,7 @@ func (p *MethodAPI) Mtermvectors() *core_mtermvectors.Mtermvectors {
 // is subject to ongoing deletes or updates. Note that a point-in-time doesn't
 // prevent its associated indices from being deleted. You can check how many
 // point-in-times (that is, search contexts) are open with the nodes stats API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func (p *MethodAPI) OpenPointInTime(index string) *core_open_point_in_time.OpenPointInTime {
@@ -11428,7 +11453,7 @@ func (p *MethodAPI) OpenPointInTime(index string) *core_open_point_in_time.OpenP
 // Ping the cluster.
 //
 // Get information about whether the cluster is running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cluster
 func (p *MethodAPI) Ping() *core_ping.Ping {
 	_ping := core_ping.NewPingFunc(p.tp)
 	return _ping()
@@ -11437,7 +11462,7 @@ func (p *MethodAPI) Ping() *core_ping.Ping {
 // Create or update a script or search template.
 //
 // Creates or updates a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-put-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-put-script
 func (p *MethodAPI) PutScript(id string) *core_put_script.PutScript {
@@ -11449,7 +11474,7 @@ func (p *MethodAPI) PutScript(id string) *core_put_script.PutScript {
 //
 // Evaluate the quality of ranked search results over a set of typical search
 // queries.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-rank-eval
 func (p *MethodAPI) RankEval() *core_rank_eval.RankEval {
@@ -11532,7 +11557,7 @@ func (p *MethodAPI) RankEval() *core_rank_eval.RankEval {
 //     fetching index recovery information can help address the root cause.
 //
 // Refer to the linked documentation for examples of how to reindex documents.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func (p *MethodAPI) Reindex() *core_reindex.Reindex {
@@ -11550,7 +11575,7 @@ func (p *MethodAPI) Reindex() *core_reindex.Reindex {
 // Rethrottling that speeds up the query takes effect immediately. Rethrottling
 // that slows down the query will take effect after completing the current
 // batch. This behavior prevents scroll timeouts.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func (p *MethodAPI) ReindexRethrottle(taskid string) *core_reindex_rethrottle.ReindexRethrottle {
@@ -11561,7 +11586,7 @@ func (p *MethodAPI) ReindexRethrottle(taskid string) *core_reindex_rethrottle.Re
 // Render a search template.
 //
 // Render a search template as a search request body.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-render-search-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-render-search-template
 func (p *MethodAPI) RenderSearchTemplate() *core_render_search_template.RenderSearchTemplate {
@@ -11609,7 +11634,7 @@ func (p *MethodAPI) ScriptsPainlessExecute() *core_scripts_painless_execute.Scri
 // IMPORTANT: Results from a scrolling search reflect the state of the index at
 // the time of the initial search request. Subsequent indexing or document
 // changes only affect later search and scroll requests.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-scroll
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-scroll
 func (p *MethodAPI) Scroll() *core_scroll.Scroll {
@@ -11645,7 +11670,7 @@ func (p *MethodAPI) Scroll() *core_scroll.Scroll {
 // different PIT IDs are used, slices can overlap and miss documents. This
 // situation can occur because the splitting criterion is based on Lucene
 // document IDs, which are not stable across changes to the index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
 func (p *MethodAPI) Search() *core_search.Search {
@@ -11759,7 +11784,7 @@ func (p *MethodAPI) Search() *core_search.Search {
 // [Vector tile search
 // examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
 // guide.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-mvt
 func (p *MethodAPI) SearchMvt(index, field, zoom, x, y string) *core_search_mvt.SearchMvt {
@@ -11777,14 +11802,14 @@ func (p *MethodAPI) SearchMvt(index, field, zoom, x, y string) *core_search_mvt.
 // If the Elasticsearch security features are enabled, you must have the
 // `view_index_metadata` or `manage` index privilege for the target data stream,
 // index, or alias.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-shards
 func (p *MethodAPI) SearchShards() *core_search_shards.SearchShards {
 	_searchshards := core_search_shards.NewSearchShardsFunc(p.tp)
 	return _searchshards()
 }
 
 // Run a search with a search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-template
 func (p *MethodAPI) SearchTemplate() *core_search_template.SearchTemplate {
@@ -11801,7 +11826,7 @@ func (p *MethodAPI) SearchTemplate() *core_search_template.SearchTemplate {
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-terms-enum
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-terms-enum
 func (p *MethodAPI) TermsEnum(index string) *core_terms_enum.TermsEnum {
@@ -11856,7 +11881,7 @@ func (p *MethodAPI) TermsEnum(index string) *core_terms_enum.TermsEnum {
 // documents, a shard to get the statistics from is randomly selected. Use
 // `routing` only to hit a particular shard. Refer to the linked documentation
 // for detailed examples of how to use this API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-termvectors
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-termvectors
 func (p *MethodAPI) Termvectors(index string) *core_termvectors.Termvectors {
@@ -11889,7 +11914,7 @@ func (p *MethodAPI) Termvectors(index string) *core_termvectors.Termvectors {
 // `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the current
 // timestamp). For usage examples such as partial updates, upserts, and scripted
 // updates, see the External documentation.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update
 func (p *MethodAPI) Update(index, id string) *core_update.Update {
@@ -12035,7 +12060,7 @@ func (p *MethodAPI) Update(index, id string) *core_update.Update {
 // documents being reindexed and cluster resources. Refer to the linked
 // documentation for examples of how to update documents using the
 // `_update_by_query` API:
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update-by-query
 func (p *MethodAPI) UpdateByQuery(index string) *core_update_by_query.UpdateByQuery {
@@ -12049,7 +12074,7 @@ func (p *MethodAPI) UpdateByQuery(index string) *core_update_by_query.UpdateByQu
 // operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query-rethrottle
 func (p *MethodAPI) UpdateByQueryRethrottle(taskid string) *core_update_by_query_rethrottle.UpdateByQueryRethrottle {
 	_updatebyqueryrethrottle := core_update_by_query_rethrottle.NewUpdateByQueryRethrottleFunc(p.tp)
 	return _updatebyqueryrethrottle(taskid)
@@ -12062,7 +12087,7 @@ func (p *MethodAPI) UpdateByQueryRethrottle(taskid string) *core_update_by_query
 // enabled, the deletion of a specific async search is restricted to: the
 // authenticated user that submitted the original search request; users that
 // have the `cancel_task` cluster privilege.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func (p *MethodAsyncSearch) Delete(id string) *async_search_delete.Delete {
@@ -12076,7 +12101,7 @@ func (p *MethodAsyncSearch) Delete(id string) *async_search_delete.Delete {
 // If the Elasticsearch security features are enabled, access to the results of
 // a specific async search is restricted to the user or API key that submitted
 // it.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func (p *MethodAsyncSearch) Get(id string) *async_search_get.Get {
@@ -12094,7 +12119,7 @@ func (p *MethodAsyncSearch) Get(id string) *async_search_get.Get {
 //   - The user or API key that submitted the original async search request.
 //   - Users that have the `monitor` cluster privilege or greater privileges.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func (p *MethodAsyncSearch) Status(id string) *async_search_status.Status {
@@ -12115,7 +12140,7 @@ func (p *MethodAsyncSearch) Status(id string) *async_search_status.Status {
 // response larger than 10Mb and an attempt to do this results in an error. The
 // maximum allowed size for a stored async search response can be set by
 // changing the `search.max_async_search_response_size` cluster level setting.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-async-search-submit
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-async-search-submit
 func (p *MethodAsyncSearch) Submit() *async_search_submit.Submit {
@@ -12128,7 +12153,7 @@ func (p *MethodAsyncSearch) Submit() *async_search_submit.Submit {
 // NOTE: This feature is designed for indirect use by Elasticsearch Service,
 // Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-delete-autoscaling-policy
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-delete-autoscaling-policy
 func (p *MethodAutoscaling) DeleteAutoscalingPolicy(name string) *autoscaling_delete_autoscaling_policy.DeleteAutoscalingPolicy {
 	_deleteautoscalingpolicy := autoscaling_delete_autoscaling_policy.NewDeleteAutoscalingPolicyFunc(p.tp)
 	return _deleteautoscalingpolicy(name)
@@ -12156,7 +12181,7 @@ func (p *MethodAutoscaling) DeleteAutoscalingPolicy(name string) *autoscaling_de
 // how and why autoscaling determined a certain capacity was required. This
 // information is provided for diagnosis only. Do not use this information to
 // make autoscaling decisions.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-get-autoscaling-capacity
 func (p *MethodAutoscaling) GetAutoscalingCapacity() *autoscaling_get_autoscaling_capacity.GetAutoscalingCapacity {
 	_getautoscalingcapacity := autoscaling_get_autoscaling_capacity.NewGetAutoscalingCapacityFunc(p.tp)
 	return _getautoscalingcapacity()
@@ -12167,7 +12192,7 @@ func (p *MethodAutoscaling) GetAutoscalingCapacity() *autoscaling_get_autoscalin
 // NOTE: This feature is designed for indirect use by Elasticsearch Service,
 // Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-get-autoscaling-capacity
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-get-autoscaling-capacity
 func (p *MethodAutoscaling) GetAutoscalingPolicy(name string) *autoscaling_get_autoscaling_policy.GetAutoscalingPolicy {
 	_getautoscalingpolicy := autoscaling_get_autoscaling_policy.NewGetAutoscalingPolicyFunc(p.tp)
 	return _getautoscalingpolicy(name)
@@ -12178,7 +12203,7 @@ func (p *MethodAutoscaling) GetAutoscalingPolicy(name string) *autoscaling_get_a
 // NOTE: This feature is designed for indirect use by Elasticsearch Service,
 // Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-autoscaling-put-autoscaling-policy
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-autoscaling-put-autoscaling-policy
 func (p *MethodAutoscaling) PutAutoscalingPolicy(name string) *autoscaling_put_autoscaling_policy.PutAutoscalingPolicy {
 	_putautoscalingpolicy := autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicyFunc(p.tp)
 	return _putautoscalingpolicy(name)
@@ -12192,7 +12217,7 @@ func (p *MethodAutoscaling) PutAutoscalingPolicy(name string) *autoscaling_put_a
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or the Kibana console. They are not intended for use by applications.
 // For application consumption, use the aliases API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-aliases
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-aliases
 func (p *MethodCat) Aliases() *cat_aliases.Aliases {
@@ -12207,7 +12232,7 @@ func (p *MethodCat) Aliases() *cat_aliases.Aliases {
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-allocation
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-allocation
 func (p *MethodCat) Allocation() *cat_allocation.Allocation {
 	_allocation := cat_allocation.NewAllocationFunc(p.tp)
 	return _allocation()
@@ -12217,7 +12242,7 @@ func (p *MethodCat) Allocation() *cat_allocation.Allocation {
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-circuit-breaker
 func (p *MethodCat) CircuitBreaker() *cat_circuit_breaker.CircuitBreaker {
 	_circuitbreaker := cat_circuit_breaker.NewCircuitBreakerFunc(p.tp)
 	return _circuitbreaker()
@@ -12232,7 +12257,7 @@ func (p *MethodCat) CircuitBreaker() *cat_circuit_breaker.CircuitBreaker {
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get component template API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-component-templates
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-component-templates
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-component-templates
 func (p *MethodCat) ComponentTemplates() *cat_component_templates.ComponentTemplates {
@@ -12249,7 +12274,11 @@ func (p *MethodCat) ComponentTemplates() *cat_component_templates.ComponentTempl
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the count API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-count
+//
+// NOTE: Starting in Elasticsearch 9.3.0, this endpoint also supports the `POST`
+// method. This is primarily intended for project routing in serverless
+// environments.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-count
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-count
 func (p *MethodCat) Count() *cat_count.Count {
@@ -12265,7 +12294,7 @@ func (p *MethodCat) Count() *cat_count.Count {
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes stats API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-fielddata
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-fielddata
 func (p *MethodCat) Fielddata() *cat_fielddata.Fielddata {
 	_fielddata := cat_fielddata.NewFielddataFunc(p.tp)
 	return _fielddata()
@@ -12284,7 +12313,7 @@ func (p *MethodCat) Fielddata() *cat_fielddata.Fielddata {
 // can use the cat health API to verify cluster health across multiple nodes.
 // You also can use the API to track the recovery of a large cluster over a
 // longer period of time.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-health
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-health
 func (p *MethodCat) Health() *cat_health.Health {
 	_health := cat_health.NewHealthFunc(p.tp)
 	return _health()
@@ -12293,7 +12322,7 @@ func (p *MethodCat) Health() *cat_health.Health {
 // Get CAT help.
 //
 // Get help for the CAT APIs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cat
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cat
 func (p *MethodCat) Help() *cat_help.Help {
 	_help := cat_help.NewHelpFunc(p.tp)
 	return _help()
@@ -12318,10 +12347,20 @@ func (p *MethodCat) Help() *cat_help.Help {
 // include hidden nested documents. To get an accurate count of Elasticsearch
 // documents, use the cat count or count APIs.
 //
+// NOTE: Storage metrics reported by this API reflect the post-compression size
+// of the indices on disk. Because these values are calculated after
+// Elasticsearch compresses the data and processes deletions, they are typically
+// significantly smaller than the raw, uncompressed data volume ingested.
+//
+// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+// uncompressed data volume, not the post-compression metrics reported here. To
+// learn more, refer to [Elasticsearch billing
+// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
+//
 // CAT APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For
 // application consumption, use an index endpoint.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-indices
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-indices
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-indices
 func (p *MethodCat) Indices() *cat_indices.Indices {
@@ -12337,7 +12376,7 @@ func (p *MethodCat) Indices() *cat_indices.Indices {
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-master
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-master
 func (p *MethodCat) Master() *cat_master.Master {
 	_master := cat_master.NewMasterFunc(p.tp)
 	return _master()
@@ -12351,7 +12390,7 @@ func (p *MethodCat) Master() *cat_master.Master {
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get data frame analytics jobs statistics
 // API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-data-frame-analytics
 func (p *MethodCat) MlDataFrameAnalytics() *cat_ml_data_frame_analytics.MlDataFrameAnalytics {
@@ -12369,7 +12408,7 @@ func (p *MethodCat) MlDataFrameAnalytics() *cat_ml_data_frame_analytics.MlDataFr
 // IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get datafeed statistics API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-datafeeds
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-datafeeds
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-datafeeds
 func (p *MethodCat) MlDatafeeds() *cat_ml_datafeeds.MlDatafeeds {
@@ -12387,7 +12426,7 @@ func (p *MethodCat) MlDatafeeds() *cat_ml_datafeeds.MlDatafeeds {
 // IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get anomaly detection job statistics API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-jobs
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-jobs
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-jobs
 func (p *MethodCat) MlJobs() *cat_ml_jobs.MlJobs {
@@ -12402,7 +12441,7 @@ func (p *MethodCat) MlJobs() *cat_ml_jobs.MlJobs {
 // IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get trained models statistics API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-ml-trained-models
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-ml-trained-models
 func (p *MethodCat) MlTrainedModels() *cat_ml_trained_models.MlTrainedModels {
@@ -12416,7 +12455,7 @@ func (p *MethodCat) MlTrainedModels() *cat_ml_trained_models.MlTrainedModels {
 // intended for human consumption using the command line or Kibana console. They
 // are not intended for use by applications. For application consumption, use
 // the nodes info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-nodeattrs
 func (p *MethodCat) Nodeattrs() *cat_nodeattrs.Nodeattrs {
 	_nodeattrs := cat_nodeattrs.NewNodeattrsFunc(p.tp)
 	return _nodeattrs()
@@ -12428,7 +12467,7 @@ func (p *MethodCat) Nodeattrs() *cat_nodeattrs.Nodeattrs {
 // intended for human consumption using the command line or Kibana console. They
 // are not intended for use by applications. For application consumption, use
 // the nodes info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodes
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-nodes
 func (p *MethodCat) Nodes() *cat_nodes.Nodes {
 	_nodes := cat_nodes.NewNodesFunc(p.tp)
 	return _nodes()
@@ -12440,7 +12479,7 @@ func (p *MethodCat) Nodes() *cat_nodes.Nodes {
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the pending cluster tasks API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-pending-tasks
 func (p *MethodCat) PendingTasks() *cat_pending_tasks.PendingTasks {
 	_pendingtasks := cat_pending_tasks.NewPendingTasksFunc(p.tp)
 	return _pendingtasks()
@@ -12452,7 +12491,7 @@ func (p *MethodCat) PendingTasks() *cat_pending_tasks.PendingTasks {
 // are only intended for human consumption using the command line or Kibana
 // console. They are not intended for use by applications. For application
 // consumption, use the nodes info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-plugins
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-plugins
 func (p *MethodCat) Plugins() *cat_plugins.Plugins {
 	_plugins := cat_plugins.NewPluginsFunc(p.tp)
 	return _plugins()
@@ -12468,7 +12507,7 @@ func (p *MethodCat) Plugins() *cat_plugins.Plugins {
 // backing indices. IMPORTANT: cat APIs are only intended for human consumption
 // using the command line or Kibana console. They are not intended for use by
 // applications. For application consumption, use the index recovery API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-recovery
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-recovery
 func (p *MethodCat) Recovery() *cat_recovery.Recovery {
 	_recovery := cat_recovery.NewRecoveryFunc(p.tp)
 	return _recovery()
@@ -12480,7 +12519,7 @@ func (p *MethodCat) Recovery() *cat_recovery.Recovery {
 // only intended for human consumption using the command line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the get snapshot repository API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-repositories
 func (p *MethodCat) Repositories() *cat_repositories.Repositories {
 	_repositories := cat_repositories.NewRepositoriesFunc(p.tp)
 	return _repositories()
@@ -12493,7 +12532,7 @@ func (p *MethodCat) Repositories() *cat_repositories.Repositories {
 // cat APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For
 // application consumption, use the index segments API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-segments
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-segments
 func (p *MethodCat) Segments() *cat_segments.Segments {
 	_segments := cat_segments.NewSegmentsFunc(p.tp)
 	return _segments()
@@ -12505,7 +12544,7 @@ func (p *MethodCat) Segments() *cat_segments.Segments {
 // returns information about the backing indices. IMPORTANT: cat APIs are only
 // intended for human consumption using the command line or Kibana console. They
 // are not intended for use by applications.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-shards
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-shards
 func (p *MethodCat) Shards() *cat_shards.Shards {
 	_shards := cat_shards.NewShardsFunc(p.tp)
 	return _shards()
@@ -12518,7 +12557,7 @@ func (p *MethodCat) Shards() *cat_shards.Shards {
 // cat APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For
 // application consumption, use the get snapshot API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-snapshots
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-snapshots
 func (p *MethodCat) Snapshots() *cat_snapshots.Snapshots {
 	_snapshots := cat_snapshots.NewSnapshotsFunc(p.tp)
 	return _snapshots()
@@ -12530,7 +12569,7 @@ func (p *MethodCat) Snapshots() *cat_snapshots.Snapshots {
 // APIs are only intended for human consumption using the command line or Kibana
 // console. They are not intended for use by applications. For application
 // consumption, use the task management API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-tasks
 func (p *MethodCat) Tasks() *cat_tasks.Tasks {
 	_tasks := cat_tasks.NewTasksFunc(p.tp)
 	return _tasks()
@@ -12543,7 +12582,7 @@ func (p *MethodCat) Tasks() *cat_tasks.Tasks {
 // creation. IMPORTANT: cat APIs are only intended for human consumption using
 // the command line or Kibana console. They are not intended for use by
 // applications. For application consumption, use the get index template API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-templates
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-templates
 func (p *MethodCat) Templates() *cat_templates.Templates {
 	_templates := cat_templates.NewTemplatesFunc(p.tp)
 	return _templates()
@@ -12556,7 +12595,7 @@ func (p *MethodCat) Templates() *cat_templates.Templates {
 // APIs are only intended for human consumption using the command line or Kibana
 // console. They are not intended for use by applications. For application
 // consumption, use the nodes info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-thread-pool
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-thread-pool
 func (p *MethodCat) ThreadPool() *cat_thread_pool.ThreadPool {
 	_threadpool := cat_thread_pool.NewThreadPoolFunc(p.tp)
 	return _threadpool()
@@ -12569,7 +12608,7 @@ func (p *MethodCat) ThreadPool() *cat_thread_pool.ThreadPool {
 // CAT APIs are only intended for human consumption using the Kibana console or
 // command line. They are not intended for use by applications. For application
 // consumption, use the get transform statistics API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cat-transforms
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cat-transforms
 func (p *MethodCat) Transforms() *cat_transforms.Transforms {
@@ -12580,7 +12619,7 @@ func (p *MethodCat) Transforms() *cat_transforms.Transforms {
 // Delete auto-follow patterns.
 //
 // Delete a collection of cross-cluster replication auto-follow patterns.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-delete-auto-follow-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-delete-auto-follow-pattern
 func (p *MethodCcr) DeleteAutoFollowPattern(name string) *ccr_delete_auto_follow_pattern.DeleteAutoFollowPattern {
 	_deleteautofollowpattern := ccr_delete_auto_follow_pattern.NewDeleteAutoFollowPatternFunc(p.tp)
 	return _deleteautofollowpattern(name)
@@ -12592,7 +12631,7 @@ func (p *MethodCcr) DeleteAutoFollowPattern(name string) *ccr_delete_auto_follow
 // leader index. When the API returns, the follower index exists and
 // cross-cluster replication starts replicating operations from the leader index
 // to the follower index.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow
 func (p *MethodCcr) Follow(index string) *ccr_follow.Follow {
 	_follow := ccr_follow.NewFollowFunc(p.tp)
 	return _follow(index)
@@ -12603,7 +12642,7 @@ func (p *MethodCcr) Follow(index string) *ccr_follow.Follow {
 // Get information about all cross-cluster replication follower indices. For
 // example, the results include follower index names, leader index names,
 // replication options, and whether the follower indices are active or paused.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow-info
 func (p *MethodCcr) FollowInfo(index string) *ccr_follow_info.FollowInfo {
 	_followinfo := ccr_follow_info.NewFollowInfoFunc(p.tp)
 	return _followinfo(index)
@@ -12614,7 +12653,7 @@ func (p *MethodCcr) FollowInfo(index string) *ccr_follow_info.FollowInfo {
 // Get cross-cluster replication follower stats. The API returns shard-level
 // stats about the "following tasks" associated with each shard for the
 // specified indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-follow-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-follow-stats
 func (p *MethodCcr) FollowStats(index string) *ccr_follow_stats.FollowStats {
 	_followstats := ccr_follow_stats.NewFollowStatsFunc(p.tp)
 	return _followstats(index)
@@ -12643,7 +12682,7 @@ func (p *MethodCcr) FollowStats(index string) *ccr_follow_stats.FollowStats {
 // following index will add back retention leases on the leader. The only
 // purpose of this API is to handle the case of failure to remove the following
 // retention leases after the unfollow API is invoked.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-forget-follower
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-forget-follower
 func (p *MethodCcr) ForgetFollower(index string) *ccr_forget_follower.ForgetFollower {
 	_forgetfollower := ccr_forget_follower.NewForgetFollowerFunc(p.tp)
 	return _forgetfollower(index)
@@ -12652,7 +12691,7 @@ func (p *MethodCcr) ForgetFollower(index string) *ccr_forget_follower.ForgetFoll
 // Get auto-follow patterns.
 //
 // Get cross-cluster replication auto-follow patterns.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-get-auto-follow-pattern-1
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-get-auto-follow-pattern-1
 func (p *MethodCcr) GetAutoFollowPattern() *ccr_get_auto_follow_pattern.GetAutoFollowPattern {
 	_getautofollowpattern := ccr_get_auto_follow_pattern.NewGetAutoFollowPatternFunc(p.tp)
 	return _getautofollowpattern()
@@ -12670,7 +12709,7 @@ func (p *MethodCcr) GetAutoFollowPattern() *ccr_get_auto_follow_pattern.GetAutoF
 // that match its patterns. Remote indices that were created while the pattern
 // was paused will also be followed, unless they have been deleted or closed in
 // the interim.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-auto-follow-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-pause-auto-follow-pattern
 func (p *MethodCcr) PauseAutoFollowPattern(name string) *ccr_pause_auto_follow_pattern.PauseAutoFollowPattern {
 	_pauseautofollowpattern := ccr_pause_auto_follow_pattern.NewPauseAutoFollowPatternFunc(p.tp)
 	return _pauseautofollowpattern(name)
@@ -12682,7 +12721,7 @@ func (p *MethodCcr) PauseAutoFollowPattern(name string) *ccr_pause_auto_follow_p
 // fetch any additional operations from the leader index. You can resume
 // following with the resume follower API. You can pause and resume a follower
 // index to change the configuration of the following task.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-pause-follow
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-pause-follow
 func (p *MethodCcr) PauseFollow(index string) *ccr_pause_follow.PauseFollow {
 	_pausefollow := ccr_pause_follow.NewPauseFollowFunc(p.tp)
 	return _pausefollow(index)
@@ -12700,7 +12739,7 @@ func (p *MethodCcr) PauseFollow(index string) *ccr_pause_follow.PauseFollow {
 // indices that were configured automatically before updating an auto-follow
 // pattern will remain unchanged even if they do not match against the new
 // patterns.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-put-auto-follow-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-put-auto-follow-pattern
 func (p *MethodCcr) PutAutoFollowPattern(name string) *ccr_put_auto_follow_pattern.PutAutoFollowPattern {
 	_putautofollowpattern := ccr_put_auto_follow_pattern.NewPutAutoFollowPatternFunc(p.tp)
 	return _putautofollowpattern(name)
@@ -12713,7 +12752,7 @@ func (p *MethodCcr) PutAutoFollowPattern(name string) *ccr_put_auto_follow_patte
 // created indices that match its patterns on the remote cluster. Remote indices
 // created while the pattern was paused will also be followed unless they have
 // been deleted or closed in the interim.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-auto-follow-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-resume-auto-follow-pattern
 func (p *MethodCcr) ResumeAutoFollowPattern(name string) *ccr_resume_auto_follow_pattern.ResumeAutoFollowPattern {
 	_resumeautofollowpattern := ccr_resume_auto_follow_pattern.NewResumeAutoFollowPatternFunc(p.tp)
 	return _resumeautofollowpattern(name)
@@ -12726,7 +12765,7 @@ func (p *MethodCcr) ResumeAutoFollowPattern(name string) *ccr_resume_auto_follow
 // Alternatively it could be paused due to replication that cannot be retried
 // due to failures during following tasks. When this API returns, the follower
 // index will resume fetching operations from the leader index.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-follow
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-resume-follow
 func (p *MethodCcr) ResumeFollow(index string) *ccr_resume_follow.ResumeFollow {
 	_resumefollow := ccr_resume_follow.NewResumeFollowFunc(p.tp)
 	return _resumefollow(index)
@@ -12736,7 +12775,7 @@ func (p *MethodCcr) ResumeFollow(index string) *ccr_resume_follow.ResumeFollow {
 //
 // This API returns stats about auto-following and the same shard-level stats as
 // the get follower stats API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-stats
 func (p *MethodCcr) Stats() *ccr_stats.Stats {
 	_stats := ccr_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -12752,7 +12791,7 @@ func (p *MethodCcr) Stats() *ccr_stats.Stats {
 // > info > Currently cross-cluster replication does not support converting an
 // existing regular index to a follower index. Converting a follower index to a
 // regular index is an irreversible operation.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-unfollow
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-unfollow
 func (p *MethodCcr) Unfollow(index string) *ccr_unfollow.Unfollow {
 	_unfollow := ccr_unfollow.NewUnfollowFunc(p.tp)
 	return _unfollow(index)
@@ -12770,7 +12809,7 @@ func (p *MethodCcr) Unfollow(index string) *ccr_unfollow.Unfollow {
 // continues to remain on its current node when you might expect otherwise.
 // Refer to the linked documentation for examples of how to troubleshoot
 // allocation issues using this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-allocation-explain
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-allocation-explain
 func (p *MethodCluster) AllocationExplain() *cluster_allocation_explain.AllocationExplain {
 	_allocationexplain := cluster_allocation_explain.NewAllocationExplainFunc(p.tp)
 	return _allocationexplain()
@@ -12780,7 +12819,7 @@ func (p *MethodCluster) AllocationExplain() *cluster_allocation_explain.Allocati
 //
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func (p *MethodCluster) DeleteComponentTemplate(name string) *cluster_delete_component_template.DeleteComponentTemplate {
@@ -12791,7 +12830,7 @@ func (p *MethodCluster) DeleteComponentTemplate(name string) *cluster_delete_com
 // Clear cluster voting config exclusions.
 //
 // Remove master-eligible nodes from the voting configuration exclusion list.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-post-voting-config-exclusions
 func (p *MethodCluster) DeleteVotingConfigExclusions() *cluster_delete_voting_config_exclusions.DeleteVotingConfigExclusions {
 	_deletevotingconfigexclusions := cluster_delete_voting_config_exclusions.NewDeleteVotingConfigExclusionsFunc(p.tp)
 	return _deletevotingconfigexclusions()
@@ -12800,7 +12839,7 @@ func (p *MethodCluster) DeleteVotingConfigExclusions() *cluster_delete_voting_co
 // Check component templates.
 //
 // Returns information about whether a particular component template exists.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func (p *MethodCluster) ExistsComponentTemplate(name string) *cluster_exists_component_template.ExistsComponentTemplate {
@@ -12811,7 +12850,7 @@ func (p *MethodCluster) ExistsComponentTemplate(name string) *cluster_exists_com
 // Get component templates.
 //
 // Get information about component templates.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func (p *MethodCluster) GetComponentTemplate() *cluster_get_component_template.GetComponentTemplate {
@@ -12822,7 +12861,7 @@ func (p *MethodCluster) GetComponentTemplate() *cluster_get_component_template.G
 // Get cluster-wide settings.
 //
 // By default, it returns only settings that have been explicitly defined.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-get-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-get-settings
 func (p *MethodCluster) GetSettings() *cluster_get_settings.GetSettings {
 	_getsettings := cluster_get_settings.NewGetSettingsFunc(p.tp)
 	return _getsettings()
@@ -12843,7 +12882,7 @@ func (p *MethodCluster) GetSettings() *cluster_get_settings.GetSettings {
 // One of the main benefits of the API is the ability to wait until the cluster
 // reaches a certain high watermark health level. The cluster status is
 // controlled by the worst index status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-health
 func (p *MethodCluster) Health() *cluster_health.Health {
 	_health := cluster_health.NewHealthFunc(p.tp)
 	return _health()
@@ -12852,7 +12891,7 @@ func (p *MethodCluster) Health() *cluster_health.Health {
 // Get cluster info.
 //
 // Returns basic information about the cluster.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-info
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-info
 func (p *MethodCluster) Info(target string) *cluster_info.Info {
@@ -12871,7 +12910,7 @@ func (p *MethodCluster) Info(target string) *cluster_info.Info {
 // search queries, or create index requests. However, if a user-initiated task
 // such as a create index command causes a cluster state update, the activity of
 // this task might be reported by both task api and pending cluster tasks API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-pending-tasks
 func (p *MethodCluster) PendingTasks() *cluster_pending_tasks.PendingTasks {
 	_pendingtasks := cluster_pending_tasks.NewPendingTasksFunc(p.tp)
 	return _pendingtasks()
@@ -12913,7 +12952,7 @@ func (p *MethodCluster) PendingTasks() *cluster_pending_tasks.PendingTasks {
 // the master-eligible nodes from a cluster in a short time period. They are not
 // required when removing master-ineligible nodes or when removing fewer than
 // half of the master-eligible nodes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-post-voting-config-exclusions
 func (p *MethodCluster) PostVotingConfigExclusions() *cluster_post_voting_config_exclusions.PostVotingConfigExclusions {
 	_postvotingconfigexclusions := cluster_post_voting_config_exclusions.NewPostVotingConfigExclusionsFunc(p.tp)
 	return _postvotingconfigexclusions()
@@ -12947,7 +12986,7 @@ func (p *MethodCluster) PostVotingConfigExclusions() *cluster_post_voting_config
 // You cannot directly apply a component template to a data stream or index. To
 // be applied, a component template must be included in an index template's
 // `composed_of` list.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-component-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-cluster-put-component-template
 func (p *MethodCluster) PutComponentTemplate(name string) *cluster_put_component_template.PutComponentTemplate {
@@ -12984,7 +13023,7 @@ func (p *MethodCluster) PutComponentTemplate(name string) *cluster_put_component
 // cluster settings instead. If a cluster becomes unstable, transient settings
 // can clear unexpectedly, resulting in a potentially undesired cluster
 // configuration.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-put-settings
 func (p *MethodCluster) PutSettings() *cluster_put_settings.PutSettings {
 	_putsettings := cluster_put_settings.NewPutSettingsFunc(p.tp)
 	return _putsettings()
@@ -13003,7 +13042,7 @@ func (p *MethodCluster) PutSettings() *cluster_put_settings.PutSettings {
 // attempt a cross-cluster search, ES|QL cross-cluster search, or try the
 // [resolve cluster
 // endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-remote-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-remote-info
 func (p *MethodCluster) RemoteInfo() *cluster_remote_info.RemoteInfo {
 	_remoteinfo := cluster_remote_info.NewRemoteInfoFunc(p.tp)
 	return _remoteinfo()
@@ -13037,7 +13076,7 @@ func (p *MethodCluster) RemoteInfo() *cluster_remote_info.RemoteInfo {
 // Once the problem has been corrected, allocation can be manually retried by
 // calling the reroute API with the `?retry_failed` URI query parameter, which
 // will attempt a single retry round for these shards.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-reroute
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-reroute
 func (p *MethodCluster) Reroute() *cluster_reroute.Reroute {
 	_reroute := cluster_reroute.NewRerouteFunc(p.tp)
 	return _reroute()
@@ -13074,7 +13113,7 @@ func (p *MethodCluster) Reroute() *cluster_reroute.Reroute {
 // stable APIs and may change from version to version. Do not query this API
 // using external monitoring tools. Instead, obtain the information you require
 // using other more stable cluster APIs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-state
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-state
 func (p *MethodCluster) State() *cluster_state.State {
 	_state := cluster_state.NewStateFunc(p.tp)
 	return _state()
@@ -13085,7 +13124,7 @@ func (p *MethodCluster) State() *cluster_state.State {
 // Get basic index metrics (shard numbers, store size, memory usage) and
 // information about the current nodes that form the cluster (number, roles, os,
 // jvm versions, memory usage, cpu and installed plugins).
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-cluster-stats
 func (p *MethodCluster) Stats() *cluster_stats.Stats {
 	_stats := cluster_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -13095,7 +13134,7 @@ func (p *MethodCluster) Stats() *cluster_stats.Stats {
 //
 // Update the `last_seen` field in the connector and set it to the current
 // timestamp.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-check-in
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-check-in
 func (p *MethodConnector) CheckIn(connectorid string) *connector_check_in.CheckIn {
@@ -13109,7 +13148,7 @@ func (p *MethodConnector) CheckIn(connectorid string) *connector_check_in.CheckI
 // that is not recoverable. NOTE: This action doesn’t delete any API keys,
 // ingest pipelines, or data indices associated with the connector. These need
 // to be removed manually.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-delete
 func (p *MethodConnector) Delete(connectorid string) *connector_delete.Delete {
@@ -13120,7 +13159,7 @@ func (p *MethodConnector) Delete(connectorid string) *connector_delete.Delete {
 // Get a connector.
 //
 // Get the details about a connector.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-get
 func (p *MethodConnector) Get(connectorid string) *connector_get.Get {
@@ -13132,7 +13171,7 @@ func (p *MethodConnector) Get(connectorid string) *connector_get.Get {
 //
 // Update the fields related to the last sync of a connector. This action is
 // used for analytics and monitoring.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-last-sync
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-last-sync
 func (p *MethodConnector) LastSync(connectorid string) *connector_last_sync.LastSync {
 	_lastsync := connector_last_sync.NewLastSyncFunc(p.tp)
 	return _lastsync(connectorid)
@@ -13141,7 +13180,7 @@ func (p *MethodConnector) LastSync(connectorid string) *connector_last_sync.Last
 // Get all connectors.
 //
 // Get information about all connectors.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-list
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-list
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-list
 func (p *MethodConnector) List() *connector_list.List {
@@ -13156,7 +13195,7 @@ func (p *MethodConnector) List() *connector_list.List {
 // infrastructure. Elastic managed connectors (Native connectors) are a managed
 // service on Elastic Cloud. Self-managed connectors (Connector clients) are
 // self-managed on your infrastructure.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-put
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-put
 func (p *MethodConnector) Post() *connector_post.Post {
@@ -13165,7 +13204,7 @@ func (p *MethodConnector) Post() *connector_post.Post {
 }
 
 // Create or update a connector.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-put
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-put
 func (p *MethodConnector) Put() *connector_put.Put {
@@ -13202,7 +13241,7 @@ func (p *MethodConnector) SecretPut(id string) *connector_secret_put.SecretPut {
 // Cancel a connector sync job, which sets the status to cancelling and updates
 // `cancellation_requested_at` to the current time. The connector service is
 // then responsible for setting the status of connector sync jobs to cancelled.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-cancel
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-cancel
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-cancel
 func (p *MethodConnector) SyncJobCancel(connectorsyncjobid string) *connector_sync_job_cancel.SyncJobCancel {
@@ -13218,7 +13257,7 @@ func (p *MethodConnector) SyncJobCancel(connectorsyncjobid string) *connector_sy
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
 // on Elastic Cloud for Elastic managed connectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-check-in
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-check-in
 func (p *MethodConnector) SyncJobCheckIn(connectorsyncjobid string) *connector_sync_job_check_in.SyncJobCheckIn {
 	_syncjobcheckin := connector_sync_job_check_in.NewSyncJobCheckInFunc(p.tp)
 	return _syncjobcheckin(connectorsyncjobid)
@@ -13237,7 +13276,7 @@ func (p *MethodConnector) SyncJobCheckIn(connectorsyncjobid string) *connector_s
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
 // on Elastic Cloud for Elastic managed connectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-claim
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-claim
 func (p *MethodConnector) SyncJobClaim(connectorsyncjobid string) *connector_sync_job_claim.SyncJobClaim {
 	_syncjobclaim := connector_sync_job_claim.NewSyncJobClaimFunc(p.tp)
 	return _syncjobclaim(connectorsyncjobid)
@@ -13247,7 +13286,7 @@ func (p *MethodConnector) SyncJobClaim(connectorsyncjobid string) *connector_syn
 //
 // Remove a connector sync job and its associated data. This is a destructive
 // action that is not recoverable.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-delete
 func (p *MethodConnector) SyncJobDelete(connectorsyncjobid string) *connector_sync_job_delete.SyncJobDelete {
@@ -13263,14 +13302,14 @@ func (p *MethodConnector) SyncJobDelete(connectorsyncjobid string) *connector_sy
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
 // on Elastic Cloud for Elastic managed connectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-error
 func (p *MethodConnector) SyncJobError(connectorsyncjobid string) *connector_sync_job_error.SyncJobError {
 	_syncjoberror := connector_sync_job_error.NewSyncJobErrorFunc(p.tp)
 	return _syncjoberror(connectorsyncjobid)
 }
 
 // Get a connector sync job.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-get
 func (p *MethodConnector) SyncJobGet(connectorsyncjobid string) *connector_sync_job_get.SyncJobGet {
@@ -13282,7 +13321,7 @@ func (p *MethodConnector) SyncJobGet(connectorsyncjobid string) *connector_sync_
 //
 // Get information about all stored connector sync jobs listed by their creation
 // date in ascending order.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-list
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-list
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-list
 func (p *MethodConnector) SyncJobList() *connector_sync_job_list.SyncJobList {
@@ -13294,7 +13333,7 @@ func (p *MethodConnector) SyncJobList() *connector_sync_job_list.SyncJobList {
 //
 // Create a connector sync job document in the internal index and initialize its
 // counters and timestamps with default values.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-post
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-post
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-sync-job-post
 func (p *MethodConnector) SyncJobPost() *connector_sync_job_post.SyncJobPost {
@@ -13312,7 +13351,7 @@ func (p *MethodConnector) SyncJobPost() *connector_sync_job_post.SyncJobPost {
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
 // on Elastic Cloud for Elastic managed connectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-update-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-sync-job-update-stats
 func (p *MethodConnector) SyncJobUpdateStats(connectorsyncjobid string) *connector_sync_job_update_stats.SyncJobUpdateStats {
 	_syncjobupdatestats := connector_sync_job_update_stats.NewSyncJobUpdateStatsFunc(p.tp)
 	return _syncjobupdatestats(connectorsyncjobid)
@@ -13321,7 +13360,7 @@ func (p *MethodConnector) SyncJobUpdateStats(connectorsyncjobid string) *connect
 // Activate the connector draft filter.
 //
 // Activates the valid draft filtering for a connector.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering
 func (p *MethodConnector) UpdateActiveFiltering(connectorid string) *connector_update_active_filtering.UpdateActiveFiltering {
@@ -13336,7 +13375,7 @@ func (p *MethodConnector) UpdateActiveFiltering(connectorid string) *connector_u
 // connector secret where the API key is stored. The connector secret ID is
 // required only for Elastic managed (native) connectors. Self-managed
 // connectors (connector clients) do not use this field.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-api-key-id
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-api-key-id
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-api-key-id
 func (p *MethodConnector) UpdateApiKeyId(connectorid string) *connector_update_api_key_id.UpdateApiKeyId {
@@ -13347,7 +13386,7 @@ func (p *MethodConnector) UpdateApiKeyId(connectorid string) *connector_update_a
 // Update the connector configuration.
 //
 // Update the configuration field in the connector document.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-configuration
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-configuration
 func (p *MethodConnector) UpdateConfiguration(connectorid string) *connector_update_configuration.UpdateConfiguration {
@@ -13360,7 +13399,7 @@ func (p *MethodConnector) UpdateConfiguration(connectorid string) *connector_upd
 // Set the error field for the connector. If the error provided in the request
 // body is non-null, the connector’s status is updated to error. Otherwise, if
 // the error is reset to null, the connector status is updated to connected.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-error
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-error
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-error
 func (p *MethodConnector) UpdateError(connectorid string) *connector_update_error.UpdateError {
@@ -13384,7 +13423,7 @@ func (p *MethodConnector) UpdateError(connectorid string) *connector_update_erro
 // To sync data using self-managed connectors, you need to deploy the Elastic
 // connector service on your own infrastructure. This service runs automatically
 // on Elastic Cloud for Elastic managed connectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-features
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-features
 func (p *MethodConnector) UpdateFeatures(connectorid string) *connector_update_features.UpdateFeatures {
 	_updatefeatures := connector_update_features.NewUpdateFeaturesFunc(p.tp)
 	return _updatefeatures(connectorid)
@@ -13396,7 +13435,7 @@ func (p *MethodConnector) UpdateFeatures(connectorid string) *connector_update_f
 // validation state as edited. The filtering draft is activated once validated
 // by the running Elastic connector service. The filtering property is used to
 // configure sync rules (both basic and advanced) for a connector.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering
 func (p *MethodConnector) UpdateFiltering(connectorid string) *connector_update_filtering.UpdateFiltering {
@@ -13407,7 +13446,7 @@ func (p *MethodConnector) UpdateFiltering(connectorid string) *connector_update_
 // Update the connector draft filtering validation.
 //
 // Update the draft filtering validation info for a connector.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-filtering-validation
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-filtering-validation
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-filtering-validation
 func (p *MethodConnector) UpdateFilteringValidation(connectorid string) *connector_update_filtering_validation.UpdateFilteringValidation {
@@ -13419,7 +13458,7 @@ func (p *MethodConnector) UpdateFilteringValidation(connectorid string) *connect
 //
 // Update the `index_name` field of a connector, specifying the index where the
 // data ingested by the connector is stored.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-index-name
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-index-name
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-index-name
 func (p *MethodConnector) UpdateIndexName(connectorid string) *connector_update_index_name.UpdateIndexName {
@@ -13428,7 +13467,7 @@ func (p *MethodConnector) UpdateIndexName(connectorid string) *connector_update_
 }
 
 // Update the connector name and description.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-name
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-name
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-name
 func (p *MethodConnector) UpdateName(connectorid string) *connector_update_name.UpdateName {
@@ -13437,7 +13476,7 @@ func (p *MethodConnector) UpdateName(connectorid string) *connector_update_name.
 }
 
 // Update the connector is_native flag.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-native
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-native
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-native
 func (p *MethodConnector) UpdateNative(connectorid string) *connector_update_native.UpdateNative {
@@ -13449,7 +13488,7 @@ func (p *MethodConnector) UpdateNative(connectorid string) *connector_update_nat
 //
 // When you create a new connector, the configuration of an ingest pipeline is
 // populated with default settings.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-pipeline
 func (p *MethodConnector) UpdatePipeline(connectorid string) *connector_update_pipeline.UpdatePipeline {
@@ -13458,7 +13497,7 @@ func (p *MethodConnector) UpdatePipeline(connectorid string) *connector_update_p
 }
 
 // Update the connector scheduling.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-scheduling
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-scheduling
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-scheduling
 func (p *MethodConnector) UpdateScheduling(connectorid string) *connector_update_scheduling.UpdateScheduling {
@@ -13467,7 +13506,7 @@ func (p *MethodConnector) UpdateScheduling(connectorid string) *connector_update
 }
 
 // Update the connector service type.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-service-type
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-service-type
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-service-type
 func (p *MethodConnector) UpdateServiceType(connectorid string) *connector_update_service_type.UpdateServiceType {
@@ -13476,7 +13515,7 @@ func (p *MethodConnector) UpdateServiceType(connectorid string) *connector_updat
 }
 
 // Update the connector status.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-connector-update-status
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-update-status
 func (p *MethodConnector) UpdateStatus(connectorid string) *connector_update_status.UpdateStatus {
@@ -13637,7 +13676,7 @@ func (p *MethodConnector) UpdateStatus(connectorid string) *connector_update_sta
 // You might want to disable the refresh interval temporarily to improve
 // indexing throughput for large bulk requests. Refer to the linked
 // documentation for step-by-step instructions using the index settings API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-bulk
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-bulk
 func (p *MethodCore) Bulk() *core_bulk.Bulk {
@@ -13656,7 +13695,7 @@ func (p *MethodCore) Capabilities() *core_capabilities.Capabilities {
 // Clear a scrolling search.
 //
 // Clear the search context and results for a scrolling search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-clear-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-clear-scroll
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-clear-scroll
 func (p *MethodCore) ClearScroll() *core_clear_scroll.ClearScroll {
@@ -13671,7 +13710,7 @@ func (p *MethodCore) ClearScroll() *core_clear_scroll.ClearScroll {
 // persist. A point in time is automatically closed when the `keep_alive` period
 // has elapsed. However, keeping points in time has a cost; close them as soon
 // as they are no longer required for search requests.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func (p *MethodCore) ClosePointInTime() *core_close_point_in_time.ClosePointInTime {
@@ -13694,7 +13733,7 @@ func (p *MethodCore) ClosePointInTime() *core_close_point_in_time.ClosePointInTi
 // The operation is broadcast across all shards. For each shard ID group, a
 // replica is chosen and the search is run against it. This means that replicas
 // increase the scalability of the count.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-count
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-count
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-count
 func (p *MethodCore) Count() *core_count.Count {
@@ -13816,7 +13855,7 @@ func (p *MethodCore) Count() *core_count.Count {
 // is still possible for replication to fail on any number of shard copies but
 // still succeed on the primary. The `_shards` section of the API response
 // reveals the number of shard copies on which replication succeeded and failed.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func (p *MethodCore) Create(index, id string) *core_create.Create {
@@ -13872,7 +13911,7 @@ func (p *MethodCore) Create(index, id string) *core_create.Create {
 // The delete operation gets hashed into a specific shard ID. It then gets
 // redirected into the primary shard within that ID group and replicated (if
 // needed) to shard replicas within that ID group.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete
 func (p *MethodCore) Delete(index, id string) *core_delete.Delete {
@@ -13996,7 +14035,7 @@ func (p *MethodCore) Delete(index, id string) *core_delete.Delete {
 // Cancellation should happen quickly but might take a few seconds. The get task
 // status API will continue to list the delete by query task until this task
 // checks that it has been cancelled and terminates itself.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-by-query
 func (p *MethodCore) DeleteByQuery(index string) *core_delete_by_query.DeleteByQuery {
@@ -14010,7 +14049,7 @@ func (p *MethodCore) DeleteByQuery(index string) *core_delete_by_query.DeleteByQ
 // operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-by-query-rethrottle
 func (p *MethodCore) DeleteByQueryRethrottle(taskid string) *core_delete_by_query_rethrottle.DeleteByQueryRethrottle {
 	_deletebyqueryrethrottle := core_delete_by_query_rethrottle.NewDeleteByQueryRethrottleFunc(p.tp)
 	return _deletebyqueryrethrottle(taskid)
@@ -14019,7 +14058,7 @@ func (p *MethodCore) DeleteByQueryRethrottle(taskid string) *core_delete_by_quer
 // Delete a script or search template.
 //
 // Deletes a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-delete-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-delete-script
 func (p *MethodCore) DeleteScript(id string) *core_delete_script.DeleteScript {
@@ -14046,7 +14085,7 @@ func (p *MethodCore) DeleteScript(id string) *core_delete_script.DeleteScript {
 // entirely new document. The old version of the document doesn't disappear
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodCore) Exists(index, id string) *core_exists.Exists {
@@ -14061,7 +14100,7 @@ func (p *MethodCore) Exists(index, id string) *core_exists.Exists {
 //	HEAD my-index-000001/_source/1
 //
 // A document's source is not available if it is disabled in the mapping.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodCore) ExistsSource(index, id string) *core_exists_source.ExistsSource {
@@ -14073,7 +14112,7 @@ func (p *MethodCore) ExistsSource(index, id string) *core_exists_source.ExistsSo
 //
 // Get information about why a specific document matches, or doesn't match, a
 // query. It computes a score explanation for a query and a specific document.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-explain
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-explain
 func (p *MethodCore) Explain(index, id string) *core_explain.Explain {
@@ -14089,7 +14128,7 @@ func (p *MethodCore) Explain(index, id string) *core_explain.Explain {
 // backing indices. It returns runtime fields like any other field. For example,
 // a runtime field with a type of keyword is returned the same as any other
 // field that belongs to the `keyword` family.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-field-caps
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-field-caps
 func (p *MethodCore) FieldCaps() *core_field_caps.FieldCaps {
@@ -14155,7 +14194,7 @@ func (p *MethodCore) FieldCaps() *core_field_caps.FieldCaps {
 // entirely new document. The old version of the document doesn't disappear
 // immediately, although you won't be able to access it. Elasticsearch cleans up
 // deleted documents in the background as you continue to index more data.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodCore) Get(index, id string) *core_get.Get {
@@ -14166,7 +14205,7 @@ func (p *MethodCore) Get(index, id string) *core_get.Get {
 // Get a script or search template.
 //
 // Retrieves a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get-script
 func (p *MethodCore) GetScript(id string) *core_get_script.GetScript {
@@ -14177,7 +14216,7 @@ func (p *MethodCore) GetScript(id string) *core_get_script.GetScript {
 // Get script contexts.
 //
 // Get a list of supported script contexts and their methods.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-context
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-context
 func (p *MethodCore) GetScriptContext() *core_get_script_context.GetScriptContext {
 	_getscriptcontext := core_get_script_context.NewGetScriptContextFunc(p.tp)
 	return _getscriptcontext()
@@ -14186,7 +14225,7 @@ func (p *MethodCore) GetScriptContext() *core_get_script_context.GetScriptContex
 // Get script languages.
 //
 // Get a list of available script types, languages, and contexts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-script-languages
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get-script-languages
 func (p *MethodCore) GetScriptLanguages() *core_get_script_languages.GetScriptLanguages {
 	_getscriptlanguages := core_get_script_languages.NewGetScriptLanguagesFunc(p.tp)
 	return _getscriptlanguages()
@@ -14203,7 +14242,7 @@ func (p *MethodCore) GetScriptLanguages() *core_get_script_languages.GetScriptLa
 //
 //	GET my-index-000001/_source/1/?_source_includes=*.id&_source_excludes=entities
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-get
 func (p *MethodCore) GetSource(index, id string) *core_get_source.GetSource {
@@ -14240,7 +14279,7 @@ func (p *MethodCore) GetSource(index, id string) *core_get_source.GetSource {
 // statuses. This can be computationally expensive when called frequently. When
 // setting up automated polling of the API for health status, set verbose to
 // false to disable the more expensive analysis logic.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-health-report
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-health-report
 func (p *MethodCore) HealthReport() *core_health_report.HealthReport {
 	_healthreport := core_health_report.NewHealthReportFunc(p.tp)
 	return _healthreport()
@@ -14429,7 +14468,7 @@ func (p *MethodCore) HealthReport() *core_health_report.HealthReport {
 // case of updating the Elasticsearch index using data from a database is
 // simplified if external versioning is used, as only the latest version will be
 // used if the index operations arrive out of order.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-create
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-create
 func (p *MethodCore) Index(index string) *core_index.Index {
@@ -14442,7 +14481,7 @@ func (p *MethodCore) Index(index string) *core_index.Index {
 // Get basic build, version, and cluster information. ::: In Serverless, this
 // API is retained for backward compatibility only. Some response fields, such
 // as the version number, should be ignored.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-info
 func (p *MethodCore) Info() *core_info.Info {
 	_info := core_info.NewInfoFunc(p.tp)
 	return _info()
@@ -14452,7 +14491,6 @@ func (p *MethodCore) Info() *core_info.Info {
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
 // API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-search
 //
 // Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 // option in the search API.
@@ -14483,7 +14521,7 @@ func (p *MethodCore) KnnSearch(index string) *core_knn_search.KnnSearch {
 // want to retrieve. Any requested fields that are not stored are ignored. You
 // can include the `stored_fields` query parameter in the request URI to specify
 // the defaults to use when there are no per-document instructions.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mget
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mget
 func (p *MethodCore) Mget() *core_mget.Mget {
@@ -14508,7 +14546,7 @@ func (p *MethodCore) Mget() *core_mget.Mget {
 // Each newline character may be preceded by a carriage return `\r`. When
 // sending requests to this endpoint the `Content-Type` header should be set to
 // `application/x-ndjson`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch
 func (p *MethodCore) Msearch() *core_msearch.Msearch {
@@ -14530,7 +14568,7 @@ func (p *MethodCore) Msearch() *core_msearch.Msearch {
 //
 //	$ curl -H "Content-Type: application/x-ndjson" -XGET localhost:9200/_msearch/template --data-binary "@requests"; echo
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-msearch-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-msearch-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-msearch-template
 func (p *MethodCore) MsearchTemplate() *core_msearch_template.MsearchTemplate {
@@ -14551,7 +14589,7 @@ func (p *MethodCore) MsearchTemplate() *core_msearch_template.MsearchTemplate {
 // You can also use `mtermvectors` to generate term vectors for artificial
 // documents provided in the body of the request. The mapping used is determined
 // by the specified `_index`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mtermvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-mtermvectors
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-mtermvectors
 func (p *MethodCore) Mtermvectors() *core_mtermvectors.Mtermvectors {
@@ -14614,7 +14652,7 @@ func (p *MethodCore) Mtermvectors() *core_mtermvectors.Mtermvectors {
 // is subject to ongoing deletes or updates. Note that a point-in-time doesn't
 // prevent its associated indices from being deleted. You can check how many
 // point-in-times (that is, search contexts) are open with the nodes stats API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-open-point-in-time
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-open-point-in-time
 func (p *MethodCore) OpenPointInTime(index string) *core_open_point_in_time.OpenPointInTime {
@@ -14625,7 +14663,7 @@ func (p *MethodCore) OpenPointInTime(index string) *core_open_point_in_time.Open
 // Ping the cluster.
 //
 // Get information about whether the cluster is running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-cluster
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-cluster
 func (p *MethodCore) Ping() *core_ping.Ping {
 	_ping := core_ping.NewPingFunc(p.tp)
 	return _ping()
@@ -14634,7 +14672,7 @@ func (p *MethodCore) Ping() *core_ping.Ping {
 // Create or update a script or search template.
 //
 // Creates or updates a stored script or search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-put-script
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-put-script
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-put-script
 func (p *MethodCore) PutScript(id string) *core_put_script.PutScript {
@@ -14646,7 +14684,7 @@ func (p *MethodCore) PutScript(id string) *core_put_script.PutScript {
 //
 // Evaluate the quality of ranked search results over a set of typical search
 // queries.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rank-eval
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rank-eval
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-rank-eval
 func (p *MethodCore) RankEval() *core_rank_eval.RankEval {
@@ -14729,7 +14767,7 @@ func (p *MethodCore) RankEval() *core_rank_eval.RankEval {
 //     fetching index recovery information can help address the root cause.
 //
 // Refer to the linked documentation for examples of how to reindex documents.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func (p *MethodCore) Reindex() *core_reindex.Reindex {
@@ -14747,7 +14785,7 @@ func (p *MethodCore) Reindex() *core_reindex.Reindex {
 // Rethrottling that speeds up the query takes effect immediately. Rethrottling
 // that slows down the query will take effect after completing the current
 // batch. This behavior prevents scroll timeouts.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
 func (p *MethodCore) ReindexRethrottle(taskid string) *core_reindex_rethrottle.ReindexRethrottle {
@@ -14758,7 +14796,7 @@ func (p *MethodCore) ReindexRethrottle(taskid string) *core_reindex_rethrottle.R
 // Render a search template.
 //
 // Render a search template as a search request body.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-render-search-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-render-search-template
 func (p *MethodCore) RenderSearchTemplate() *core_render_search_template.RenderSearchTemplate {
@@ -14806,7 +14844,7 @@ func (p *MethodCore) ScriptsPainlessExecute() *core_scripts_painless_execute.Scr
 // IMPORTANT: Results from a scrolling search reflect the state of the index at
 // the time of the initial search request. Subsequent indexing or document
 // changes only affect later search and scroll requests.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-scroll
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-scroll
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-scroll
 func (p *MethodCore) Scroll() *core_scroll.Scroll {
@@ -14842,7 +14880,7 @@ func (p *MethodCore) Scroll() *core_scroll.Scroll {
 // different PIT IDs are used, slices can overlap and miss documents. This
 // situation can occur because the splitting criterion is based on Lucene
 // document IDs, which are not stable across changes to the index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
 func (p *MethodCore) Search() *core_search.Search {
@@ -14956,7 +14994,7 @@ func (p *MethodCore) Search() *core_search.Search {
 // [Vector tile search
 // examples](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/vector-tile-search)
 // guide.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-mvt
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-mvt
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-mvt
 func (p *MethodCore) SearchMvt(index, field, zoom, x, y string) *core_search_mvt.SearchMvt {
@@ -14974,14 +15012,14 @@ func (p *MethodCore) SearchMvt(index, field, zoom, x, y string) *core_search_mvt
 // If the Elasticsearch security features are enabled, you must have the
 // `view_index_metadata` or `manage` index privilege for the target data stream,
 // index, or alias.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-shards
 func (p *MethodCore) SearchShards() *core_search_shards.SearchShards {
 	_searchshards := core_search_shards.NewSearchShardsFunc(p.tp)
 	return _searchshards()
 }
 
 // Run a search with a search template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-template
 func (p *MethodCore) SearchTemplate() *core_search_template.SearchTemplate {
@@ -14998,7 +15036,7 @@ func (p *MethodCore) SearchTemplate() *core_search_template.SearchTemplate {
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-terms-enum
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-terms-enum
 func (p *MethodCore) TermsEnum(index string) *core_terms_enum.TermsEnum {
@@ -15053,7 +15091,7 @@ func (p *MethodCore) TermsEnum(index string) *core_terms_enum.TermsEnum {
 // documents, a shard to get the statistics from is randomly selected. Use
 // `routing` only to hit a particular shard. Refer to the linked documentation
 // for detailed examples of how to use this API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-termvectors
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-termvectors
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-termvectors
 func (p *MethodCore) Termvectors(index string) *core_termvectors.Termvectors {
@@ -15086,7 +15124,7 @@ func (p *MethodCore) Termvectors(index string) *core_termvectors.Termvectors {
 // `_index`, `_type`, `_id`, `_version`, `_routing`, and `_now` (the current
 // timestamp). For usage examples such as partial updates, upserts, and scripted
 // updates, see the External documentation.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update
 func (p *MethodCore) Update(index, id string) *core_update.Update {
@@ -15232,7 +15270,7 @@ func (p *MethodCore) Update(index, id string) *core_update.Update {
 // documents being reindexed and cluster resources. Refer to the linked
 // documentation for examples of how to update documents using the
 // `_update_by_query` API:
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update-by-query
 func (p *MethodCore) UpdateByQuery(index string) *core_update_by_query.UpdateByQuery {
@@ -15246,7 +15284,7 @@ func (p *MethodCore) UpdateByQuery(index string) *core_update_by_query.UpdateByQ
 // operation. Rethrottling that speeds up the query takes effect immediately but
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query-rethrottle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query-rethrottle
 func (p *MethodCore) UpdateByQueryRethrottle(taskid string) *core_update_by_query_rethrottle.UpdateByQueryRethrottle {
 	_updatebyqueryrethrottle := core_update_by_query_rethrottle.NewUpdateByQueryRethrottleFunc(p.tp)
 	return _updatebyqueryrethrottle(taskid)
@@ -15258,7 +15296,7 @@ func (p *MethodCore) UpdateByQueryRethrottle(taskid string) *core_update_by_quer
 // cluster state, those indices are considered to be dangling. For example, this
 // can happen if you delete more than `cluster.indices.tombstones.size` indices
 // while an Elasticsearch node is offline.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-delete-dangling-index
 func (p *MethodDanglingIndices) DeleteDanglingIndex(indexuuid string) *dangling_indices_delete_dangling_index.DeleteDanglingIndex {
 	_deletedanglingindex := dangling_indices_delete_dangling_index.NewDeleteDanglingIndexFunc(p.tp)
 	return _deletedanglingindex(indexuuid)
@@ -15270,7 +15308,7 @@ func (p *MethodDanglingIndices) DeleteDanglingIndex(indexuuid string) *dangling_
 // cluster state, those indices are considered to be dangling. For example, this
 // can happen if you delete more than `cluster.indices.tombstones.size` indices
 // while an Elasticsearch node is offline.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-import-dangling-index
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-import-dangling-index
 func (p *MethodDanglingIndices) ImportDanglingIndex(indexuuid string) *dangling_indices_import_dangling_index.ImportDanglingIndex {
 	_importdanglingindex := dangling_indices_import_dangling_index.NewImportDanglingIndexFunc(p.tp)
 	return _importdanglingindex(indexuuid)
@@ -15284,7 +15322,7 @@ func (p *MethodDanglingIndices) ImportDanglingIndex(indexuuid string) *dangling_
 // while an Elasticsearch node is offline.
 //
 // Use this API to list dangling indices, which you can then import or delete.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-list-dangling-indices
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-dangling-indices-list-dangling-indices
 func (p *MethodDanglingIndices) ListDanglingIndices() *dangling_indices_list_dangling_indices.ListDanglingIndices {
 	_listdanglingindices := dangling_indices_list_dangling_indices.NewListDanglingIndicesFunc(p.tp)
 	return _listdanglingindices()
@@ -15293,7 +15331,7 @@ func (p *MethodDanglingIndices) ListDanglingIndices() *dangling_indices_list_dan
 // Delete an enrich policy.
 //
 // Deletes an existing enrich policy and its enrich index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-delete-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-delete-policy
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-delete-policy
 func (p *MethodEnrich) DeletePolicy(name string) *enrich_delete_policy.DeletePolicy {
@@ -15304,7 +15342,7 @@ func (p *MethodEnrich) DeletePolicy(name string) *enrich_delete_policy.DeletePol
 // Run an enrich policy.
 //
 // Create the enrich index for an existing enrich policy.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-execute-policy
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-execute-policy
 func (p *MethodEnrich) ExecutePolicy(name string) *enrich_execute_policy.ExecutePolicy {
@@ -15315,7 +15353,7 @@ func (p *MethodEnrich) ExecutePolicy(name string) *enrich_execute_policy.Execute
 // Get an enrich policy.
 //
 // Returns information about an enrich policy.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-get-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-get-policy
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-get-policy
 func (p *MethodEnrich) GetPolicy() *enrich_get_policy.GetPolicy {
@@ -15326,7 +15364,7 @@ func (p *MethodEnrich) GetPolicy() *enrich_get_policy.GetPolicy {
 // Create an enrich policy.
 //
 // Creates an enrich policy.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-put-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-put-policy
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-put-policy
 func (p *MethodEnrich) PutPolicy(name string) *enrich_put_policy.PutPolicy {
@@ -15338,7 +15376,7 @@ func (p *MethodEnrich) PutPolicy(name string) *enrich_put_policy.PutPolicy {
 //
 // Returns enrich coordinator statistics and information about enrich policies
 // that are currently executing.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-enrich-stats
 func (p *MethodEnrich) Stats() *enrich_stats.Stats {
 	_stats := enrich_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -15348,7 +15386,7 @@ func (p *MethodEnrich) Stats() *enrich_stats.Stats {
 //
 // Delete an async EQL search or a stored synchronous EQL search. The API also
 // deletes results for the search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-delete
 func (p *MethodEql) Delete(id string) *eql_delete.Delete {
@@ -15360,7 +15398,7 @@ func (p *MethodEql) Delete(id string) *eql_delete.Delete {
 //
 // Get the current status and available results for an async EQL search or a
 // stored synchronous EQL search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get
 func (p *MethodEql) Get(id string) *eql_get.Get {
@@ -15372,7 +15410,7 @@ func (p *MethodEql) Get(id string) *eql_get.Get {
 //
 // Get the current status for an async EQL search or a stored synchronous EQL
 // search without returning results.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-get-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-get-status
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-get-status
 func (p *MethodEql) GetStatus(id string) *eql_get_status.GetStatus {
@@ -15384,7 +15422,7 @@ func (p *MethodEql) GetStatus(id string) *eql_get_status.GetStatus {
 //
 // Returns search results for an Event Query Language (EQL) query. EQL assumes
 // each document in a data stream or index corresponds to an event.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-eql-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-eql-search
 func (p *MethodEql) Search(index string) *eql_search.Search {
@@ -15399,7 +15437,7 @@ func (p *MethodEql) Search(index string) *eql_search.Search {
 //
 // The API accepts the same parameters and request body as the synchronous query
 // API, along with additional async related properties.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query
 func (p *MethodEsql) AsyncQuery() *esql_async_query.AsyncQuery {
 	_asyncquery := esql_async_query.NewAsyncQueryFunc(p.tp)
 	return _asyncquery()
@@ -15416,7 +15454,7 @@ func (p *MethodEsql) AsyncQuery() *esql_async_query.AsyncQuery {
 //   - The authenticated user that submitted the original query request
 //   - Users with the `cancel_task` cluster privilege
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-delete
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-delete
 func (p *MethodEsql) AsyncQueryDelete(id string) *esql_async_query_delete.AsyncQueryDelete {
 	_asyncquerydelete := esql_async_query_delete.NewAsyncQueryDeleteFunc(p.tp)
 	return _asyncquerydelete(id)
@@ -15428,7 +15466,7 @@ func (p *MethodEsql) AsyncQueryDelete(id string) *esql_async_query_delete.AsyncQ
 // asynchronous query. If the Elasticsearch security features are enabled, only
 // the user who first submitted the ES|QL query can retrieve the results using
 // this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-get
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-get
 func (p *MethodEsql) AsyncQueryGet(id string) *esql_async_query_get.AsyncQueryGet {
 	_asyncqueryget := esql_async_query_get.NewAsyncQueryGetFunc(p.tp)
 	return _asyncqueryget(id)
@@ -15439,7 +15477,7 @@ func (p *MethodEsql) AsyncQueryGet(id string) *esql_async_query_get.AsyncQueryGe
 // This API interrupts the query execution and returns the results so far. If
 // the Elasticsearch security features are enabled, only the user who first
 // submitted the ES|QL query can stop it.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query-stop
 func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQueryStop {
 	_asyncquerystop := esql_async_query_stop.NewAsyncQueryStopFunc(p.tp)
 	return _asyncquerystop(id)
@@ -15457,7 +15495,7 @@ func (p *MethodEsql) DeleteView(name string) *esql_delete_view.DeleteView {
 // Get a specific running ES|QL query information.
 //
 // Returns an object extended information about a running ES|QL query.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-get-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-query
 func (p *MethodEsql) GetQuery(id string) *esql_get_query.GetQuery {
@@ -15478,7 +15516,7 @@ func (p *MethodEsql) GetView() *esql_get_view.GetView {
 //
 // Returns an object containing IDs and other information about the running
 // ES|QL queries.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-list-queries
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-list-queries
 func (p *MethodEsql) ListQueries() *esql_list_queries.ListQueries {
@@ -15518,7 +15556,7 @@ func (p *MethodEsql) Query() *esql_query.Query {
 // features defined by plugins. In order for a feature state to be listed in
 // this API and recognized as a valid feature state by the create snapshot API,
 // the plugin that defines that feature must be installed on the master node.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-get-features
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-features-get-features
 func (p *MethodFeatures) GetFeatures() *features_get_features.GetFeatures {
 	_getfeatures := features_get_features.NewGetFeaturesFunc(p.tp)
 	return _getfeatures()
@@ -15548,7 +15586,7 @@ func (p *MethodFeatures) GetFeatures() *features_get_features.GetFeatures {
 // IMPORTANT: The features installed on the node you submit this request to are
 // the features that will be reset. Run on the master node if you have any
 // doubts about which plugins are installed on individual nodes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-reset-features
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-features-reset-features
 func (p *MethodFeatures) ResetFeatures() *features_reset_features.ResetFeatures {
 	_resetfeatures := features_reset_features.NewResetFeaturesFunc(p.tp)
 	return _resetfeatures()
@@ -15570,7 +15608,7 @@ func (p *MethodFleet) GetSecret(id string) *fleet_get_secret.GetSecret {
 //
 // Get the current global checkpoints for an index. This API is designed for
 // internal use by the Fleet server project.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-fleet
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-fleet
 func (p *MethodFleet) GlobalCheckpoints(index string) *fleet_global_checkpoints.GlobalCheckpoints {
 	_globalcheckpoints := fleet_global_checkpoints.NewGlobalCheckpointsFunc(p.tp)
 	return _globalcheckpoints(index)
@@ -15581,7 +15619,7 @@ func (p *MethodFleet) GlobalCheckpoints(index string) *fleet_global_checkpoints.
 // Run several Fleet searches with a single API request. The API follows the
 // same structure as the multi search API. However, similar to the Fleet search
 // API, it supports the `wait_for_checkpoints` parameter.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-msearch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-fleet-msearch
 func (p *MethodFleet) Msearch() *fleet_msearch.Msearch {
 	_msearch := fleet_msearch.NewMsearchFunc(p.tp)
 	return _msearch()
@@ -15598,7 +15636,7 @@ func (p *MethodFleet) PostSecret() *fleet_post_secret.PostSecret {
 // The purpose of the Fleet search API is to provide an API where the search
 // will be run only after the provided checkpoint has been processed and is
 // visible for searches inside of Elasticsearch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-fleet-search
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-fleet-search
 func (p *MethodFleet) Search(index string) *fleet_search.Search {
 	_search := fleet_search.NewSearchFunc(p.tp)
 	return _search(index)
@@ -15624,7 +15662,7 @@ func (p *MethodGraph) Explore(index string) *graph_explore.Explore {
 //
 // You cannot delete policies that are currently in use. If the policy is being
 // used to manage any indices, the request fails and returns an error.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-delete-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-delete-lifecycle
 func (p *MethodIlm) DeleteLifecycle(policy string) *ilm_delete_lifecycle.DeleteLifecycle {
 	_deletelifecycle := ilm_delete_lifecycle.NewDeleteLifecycleFunc(p.tp)
 	return _deletelifecycle(policy)
@@ -15638,14 +15676,14 @@ func (p *MethodIlm) DeleteLifecycle(policy string) *ilm_delete_lifecycle.DeleteL
 //
 // The response indicates when the index entered each lifecycle state, provides
 // the definition of the running phase, and information about any failures.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-explain-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-explain-lifecycle
 func (p *MethodIlm) ExplainLifecycle(index string) *ilm_explain_lifecycle.ExplainLifecycle {
 	_explainlifecycle := ilm_explain_lifecycle.NewExplainLifecycleFunc(p.tp)
 	return _explainlifecycle(index)
 }
 
 // Get lifecycle policies.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-get-lifecycle
 func (p *MethodIlm) GetLifecycle() *ilm_get_lifecycle.GetLifecycle {
 	_getlifecycle := ilm_get_lifecycle.NewGetLifecycleFunc(p.tp)
 	return _getlifecycle()
@@ -15654,7 +15692,7 @@ func (p *MethodIlm) GetLifecycle() *ilm_get_lifecycle.GetLifecycle {
 // Get the ILM status.
 //
 // Get the current index lifecycle management status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-get-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-get-status
 func (p *MethodIlm) GetStatus() *ilm_get_status.GetStatus {
 	_getstatus := ilm_get_status.NewGetStatusFunc(p.tp)
 	return _getstatus()
@@ -15678,7 +15716,7 @@ func (p *MethodIlm) GetStatus() *ilm_get_status.GetStatus {
 //
 // ILM must be stopped before performing the migration. Use the stop ILM and get
 // ILM status APIs to wait until the reported operation mode is `STOPPED`.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-migrate-to-data-tiers
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-migrate-to-data-tiers
 func (p *MethodIlm) MigrateToDataTiers() *ilm_migrate_to_data_tiers.MigrateToDataTiers {
 	_migratetodatatiers := ilm_migrate_to_data_tiers.NewMigrateToDataTiersFunc(p.tp)
 	return _migratetodatatiers()
@@ -15706,7 +15744,7 @@ func (p *MethodIlm) MigrateToDataTiers() *ilm_migrate_to_data_tiers.MigrateToDat
 // move to the first step of the specified action in the specified phase. Only
 // actions specified in the ILM policy are considered valid. An index cannot
 // move to a step that is not part of its policy.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-move-to-step
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-move-to-step
 func (p *MethodIlm) MoveToStep(index string) *ilm_move_to_step.MoveToStep {
 	_movetostep := ilm_move_to_step.NewMoveToStepFunc(p.tp)
 	return _movetostep(index)
@@ -15719,7 +15757,7 @@ func (p *MethodIlm) MoveToStep(index string) *ilm_move_to_step.MoveToStep {
 //
 // NOTE: Only the latest version of the policy is stored, you cannot revert to
 // previous versions.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-put-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-put-lifecycle
 func (p *MethodIlm) PutLifecycle(policy string) *ilm_put_lifecycle.PutLifecycle {
 	_putlifecycle := ilm_put_lifecycle.NewPutLifecycleFunc(p.tp)
 	return _putlifecycle(policy)
@@ -15729,7 +15767,7 @@ func (p *MethodIlm) PutLifecycle(policy string) *ilm_put_lifecycle.PutLifecycle 
 //
 // Remove the assigned lifecycle policies from an index or a data stream's
 // backing indices. It also stops managing the indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-remove-policy
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-remove-policy
 func (p *MethodIlm) RemovePolicy(index string) *ilm_remove_policy.RemovePolicy {
 	_removepolicy := ilm_remove_policy.NewRemovePolicyFunc(p.tp)
 	return _removepolicy(index)
@@ -15741,7 +15779,7 @@ func (p *MethodIlm) RemovePolicy(index string) *ilm_remove_policy.RemovePolicy {
 // The API sets the policy back to the step where the error occurred and runs
 // the step. Use the explain lifecycle state API to determine whether an index
 // is in the ERROR step.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-retry
 func (p *MethodIlm) Retry(index string) *ilm_retry.Retry {
 	_retry := ilm_retry.NewRetryFunc(p.tp)
 	return _retry(index)
@@ -15752,7 +15790,7 @@ func (p *MethodIlm) Retry(index string) *ilm_retry.Retry {
 // Start the index lifecycle management plugin if it is currently stopped. ILM
 // is started automatically when the cluster is formed. Restarting ILM is
 // necessary only when it has been stopped using the stop ILM API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-start
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-start
 func (p *MethodIlm) Start() *ilm_start.Start {
 	_start := ilm_start.NewStartFunc(p.tp)
 	return _start()
@@ -15768,7 +15806,7 @@ func (p *MethodIlm) Start() *ilm_start.Start {
 // plugin might continue to run until in-progress operations complete and the
 // plugin can be safely stopped. Use the get ILM status API to check whether ILM
 // is running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ilm-stop
 func (p *MethodIlm) Stop() *ilm_stop.Stop {
 	_stop := ilm_stop.NewStopFunc(p.tp)
 	return _stop()
@@ -15778,7 +15816,7 @@ func (p *MethodIlm) Stop() *ilm_stop.Stop {
 //
 // Add an index block to an index. Index blocks limit the operations allowed on
 // an index by blocking specific operation types.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-add-block
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-add-block
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-add-block
 func (p *MethodIndices) AddBlock(index, block string) *indices_add_block.AddBlock {
@@ -15796,7 +15834,7 @@ func (p *MethodIndices) AddBlock(index, block string) *indices_add_block.AddBloc
 // of tokens that can be produced. If more than this limit of tokens gets
 // generated, an error occurs. The `_analyze` endpoint without a specified index
 // will always use `10000` as its limit.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-analyze
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-analyze
 func (p *MethodIndices) Analyze() *indices_analyze.Analyze {
@@ -15807,7 +15845,7 @@ func (p *MethodIndices) Analyze() *indices_analyze.Analyze {
 // Cancel a migration reindex operation.
 //
 // Cancel a migration reindex attempt for a data stream or index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-cancel-migrate-reindex
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-cancel-migrate-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-cancel-migrate-reindex
 func (p *MethodIndices) CancelMigrateReindex(index string) *indices_cancel_migrate_reindex.CancelMigrateReindex {
@@ -15823,7 +15861,7 @@ func (p *MethodIndices) CancelMigrateReindex(index string) *indices_cancel_migra
 // By default, the clear cache API clears all caches. To clear only specific
 // caches, use the `fielddata`, `query`, or `request` parameters. To clear the
 // cache only of specific fields, use the `fields` parameter.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clear-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clear-cache
 func (p *MethodIndices) ClearCache() *indices_clear_cache.ClearCache {
 	_clearcache := indices_clear_cache.NewClearCacheFunc(p.tp)
 	return _clearcache()
@@ -15896,7 +15934,7 @@ func (p *MethodIndices) ClearCache() *indices_clear_cache.ClearCache {
 // Because the clone operation creates a new index to clone the shards to, the
 // wait for active shards setting on index creation applies to the clone index
 // action as well.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-clone
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-clone
 func (p *MethodIndices) Clone(index, target string) *indices_clone.Clone {
 	_clone := indices_clone.NewCloneFunc(p.tp)
 	return _clone(index, target)
@@ -15928,7 +15966,7 @@ func (p *MethodIndices) Clone(index, target string) *indices_clone.Clone {
 // Closed indices consume a significant amount of disk-space which can cause
 // problems in managed environments. Closing indices can be turned off with the
 // cluster settings API by setting `cluster.indices.close.enable` to `false`.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-close
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-close
 func (p *MethodIndices) Close(index string) *indices_close.Close {
 	_close := indices_close.NewCloseFunc(p.tp)
 	return _close(index)
@@ -15966,7 +16004,7 @@ func (p *MethodIndices) Close(index string) *indices_close.Close {
 // through the index setting `index.write.wait_for_active_shards`. Note that
 // changing this setting will also affect the `wait_for_active_shards` value on
 // all subsequent write operations.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create
 func (p *MethodIndices) Create(index string) *indices_create.Create {
@@ -15977,7 +16015,7 @@ func (p *MethodIndices) Create(index string) *indices_create.Create {
 // Create a data stream.
 //
 // You must have a matching index template with data stream enabled.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create-data-stream
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-data-stream
 func (p *MethodIndices) CreateDataStream(name string) *indices_create_data_stream.CreateDataStream {
@@ -15989,7 +16027,7 @@ func (p *MethodIndices) CreateDataStream(name string) *indices_create_data_strea
 //
 // Copy the mappings and settings from the source index to a destination index
 // while allowing request settings and mappings to override the source values.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-create-from
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-from
 func (p *MethodIndices) CreateFrom(source, dest string) *indices_create_from.CreateFrom {
@@ -16000,7 +16038,7 @@ func (p *MethodIndices) CreateFrom(source, dest string) *indices_create_from.Cre
 // Get data stream stats.
 //
 // Get statistics for one or more data streams.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-data-streams-stats-1
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-data-streams-stats-1
 func (p *MethodIndices) DataStreamsStats() *indices_data_streams_stats.DataStreamsStats {
 	_datastreamsstats := indices_data_streams_stats.NewDataStreamsStatsFunc(p.tp)
 	return _datastreamsstats()
@@ -16015,7 +16053,7 @@ func (p *MethodIndices) DataStreamsStats() *indices_data_streams_stats.DataStrea
 // You cannot delete the current write index of a data stream. To delete the
 // index, you must roll over the data stream so a new write index is created.
 // You can then use the delete index API to delete the previous write index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete
 func (p *MethodIndices) Delete(index string) *indices_delete.Delete {
@@ -16026,7 +16064,7 @@ func (p *MethodIndices) Delete(index string) *indices_delete.Delete {
 // Delete an alias.
 //
 // Removes a data stream or index from an alias.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-alias
 func (p *MethodIndices) DeleteAlias(index, name string) *indices_delete_alias.DeleteAlias {
@@ -16038,7 +16076,7 @@ func (p *MethodIndices) DeleteAlias(index, name string) *indices_delete_alias.De
 //
 // Removes the data stream lifecycle from a data stream, rendering it not
 // managed by the data stream lifecycle.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-data-lifecycle
 func (p *MethodIndices) DeleteDataLifecycle(name string) *indices_delete_data_lifecycle.DeleteDataLifecycle {
 	_deletedatalifecycle := indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(p.tp)
 	return _deletedatalifecycle(name)
@@ -16047,7 +16085,7 @@ func (p *MethodIndices) DeleteDataLifecycle(name string) *indices_delete_data_li
 // Delete data streams.
 //
 // Deletes one or more data streams and their backing indices.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-data-stream
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-data-stream
 func (p *MethodIndices) DeleteDataStream(name string) *indices_delete_data_stream.DeleteDataStream {
@@ -16058,7 +16096,7 @@ func (p *MethodIndices) DeleteDataStream(name string) *indices_delete_data_strea
 // Delete data stream options.
 //
 // Removes the data stream options from a data stream.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-data-stream-options
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-data-stream-options
 func (p *MethodIndices) DeleteDataStreamOptions(name string) *indices_delete_data_stream_options.DeleteDataStreamOptions {
 	_deletedatastreamoptions := indices_delete_data_stream_options.NewDeleteDataStreamOptionsFunc(p.tp)
 	return _deletedatastreamoptions(name)
@@ -16070,7 +16108,7 @@ func (p *MethodIndices) DeleteDataStreamOptions(name string) *indices_delete_dat
 // by a comma. If multiple template names are specified then there is no
 // wildcard support and the provided names should match completely with existing
 // templates.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-index-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-delete-index-template
 func (p *MethodIndices) DeleteIndexTemplate(name string) *indices_delete_index_template.DeleteIndexTemplate {
@@ -16092,7 +16130,7 @@ func (p *MethodIndices) DeleteSampleConfiguration(index string) *indices_delete_
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-delete-template
 //
 // Deprecated: Since 7.8.0.
 func (p *MethodIndices) DeleteTemplate(name string) *indices_delete_template.DeleteTemplate {
@@ -16119,7 +16157,7 @@ func (p *MethodIndices) DeleteTemplate(name string) *indices_delete_template.Del
 // index disk usage
 // example](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/index-disk-usage)
 // for an example.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-disk-usage
 func (p *MethodIndices) DiskUsage(index string) *indices_disk_usage.DiskUsage {
 	_diskusage := indices_disk_usage.NewDiskUsageFunc(p.tp)
 	return _diskusage(index)
@@ -16144,7 +16182,7 @@ func (p *MethodIndices) DiskUsage(index string) *indices_disk_usage.DiskUsage {
 // NOTE: Only indices in a time series data stream are supported. Neither field
 // nor document level security can be defined on the source index. The source
 // index must be read-only (`index.blocks.write: true`).
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-downsample
 func (p *MethodIndices) Downsample(index, targetindex string) *indices_downsample.Downsample {
 	_downsample := indices_downsample.NewDownsampleFunc(p.tp)
 	return _downsample(index, targetindex)
@@ -16153,7 +16191,7 @@ func (p *MethodIndices) Downsample(index, targetindex string) *indices_downsampl
 // Check indices.
 //
 // Check if one or more indices, index aliases, or data streams exist.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists
 func (p *MethodIndices) Exists(index string) *indices_exists.Exists {
@@ -16164,7 +16202,7 @@ func (p *MethodIndices) Exists(index string) *indices_exists.Exists {
 // Check aliases.
 //
 // Check if one or more data stream or index aliases exist.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists-alias
 func (p *MethodIndices) ExistsAlias(name string) *indices_exists_alias.ExistsAlias {
@@ -16175,7 +16213,7 @@ func (p *MethodIndices) ExistsAlias(name string) *indices_exists_alias.ExistsAli
 // Check index templates.
 //
 // Check whether index templates exist.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-index-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-exists-index-template
 func (p *MethodIndices) ExistsIndexTemplate(name string) *indices_exists_index_template.ExistsIndexTemplate {
@@ -16192,7 +16230,7 @@ func (p *MethodIndices) ExistsIndexTemplate(name string) *indices_exists_index_t
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-exists-template
 func (p *MethodIndices) ExistsTemplate(name string) *indices_exists_template.ExistsTemplate {
 	_existstemplate := indices_exists_template.NewExistsTemplateFunc(p.tp)
 	return _existstemplate(name)
@@ -16204,7 +16242,7 @@ func (p *MethodIndices) ExistsTemplate(name string) *indices_exists_template.Exi
 // status, such as time since index creation, time since rollover, the lifecycle
 // configuration managing the index, or any errors encountered during lifecycle
 // execution.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-explain-data-lifecycle
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-explain-data-lifecycle
 func (p *MethodIndices) ExplainDataLifecycle(index string) *indices_explain_data_lifecycle.ExplainDataLifecycle {
@@ -16223,7 +16261,7 @@ func (p *MethodIndices) ExplainDataLifecycle(index string) *indices_explain_data
 // that back the fields in the index. A given request will increment each count
 // by a maximum value of 1, even if the request accesses the same field multiple
 // times.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-field-usage-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-field-usage-stats
 func (p *MethodIndices) FieldUsageStats(index string) *indices_field_usage_stats.FieldUsageStats {
 	_fieldusagestats := indices_field_usage_stats.NewFieldUsageStatsFunc(p.tp)
 	return _fieldusagestats(index)
@@ -16251,7 +16289,7 @@ func (p *MethodIndices) FieldUsageStats(index string) *indices_field_usage_stats
 // call the flush API after indexing some documents then a successful response
 // indicates that Elasticsearch has flushed all the documents that were indexed
 // before the flush API was called.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-flush
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-flush
 func (p *MethodIndices) Flush() *indices_flush.Flush {
 	_flush := indices_flush.NewFlushFunc(p.tp)
 	return _flush()
@@ -16328,7 +16366,7 @@ func (p *MethodIndices) Flush() *indices_flush.Flush {
 //
 //	POST /.ds-my-data-stream-2099.03.07-000001/_forcemerge?max_num_segments=1
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-forcemerge
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-forcemerge
 func (p *MethodIndices) Forcemerge() *indices_forcemerge.Forcemerge {
 	_forcemerge := indices_forcemerge.NewForcemergeFunc(p.tp)
 	return _forcemerge()
@@ -16338,7 +16376,7 @@ func (p *MethodIndices) Forcemerge() *indices_forcemerge.Forcemerge {
 //
 // Get information about one or more indices. For data streams, the API returns
 // information about the stream’s backing indices.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get
 func (p *MethodIndices) Get(index string) *indices_get.Get {
@@ -16349,7 +16387,7 @@ func (p *MethodIndices) Get(index string) *indices_get.Get {
 // Get aliases.
 //
 // Retrieves information for one or more data stream or index aliases.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-alias
 func (p *MethodIndices) GetAlias() *indices_get_alias.GetAlias {
@@ -16369,7 +16407,7 @@ func (p *MethodIndices) GetAllSampleConfiguration() *indices_get_all_sample_conf
 // Get data stream lifecycles.
 //
 // Get the data stream lifecycle configuration of one or more data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-lifecycle
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-lifecycle
 func (p *MethodIndices) GetDataLifecycle(name string) *indices_get_data_lifecycle.GetDataLifecycle {
@@ -16381,7 +16419,7 @@ func (p *MethodIndices) GetDataLifecycle(name string) *indices_get_data_lifecycl
 //
 // Get statistics about the data streams that are managed by a data stream
 // lifecycle.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-lifecycle-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-lifecycle-stats
 func (p *MethodIndices) GetDataLifecycleStats() *indices_get_data_lifecycle_stats.GetDataLifecycleStats {
 	_getdatalifecyclestats := indices_get_data_lifecycle_stats.NewGetDataLifecycleStatsFunc(p.tp)
 	return _getdatalifecyclestats()
@@ -16390,7 +16428,7 @@ func (p *MethodIndices) GetDataLifecycleStats() *indices_get_data_lifecycle_stat
 // Get data streams.
 //
 // Get information about one or more data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-stream
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream
 func (p *MethodIndices) GetDataStream() *indices_get_data_stream.GetDataStream {
@@ -16401,7 +16439,7 @@ func (p *MethodIndices) GetDataStream() *indices_get_data_stream.GetDataStream {
 // Get data stream mappings.
 //
 // Get mapping information for one or more data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-stream-mappings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-mappings
 func (p *MethodIndices) GetDataStreamMappings(name string) *indices_get_data_stream_mappings.GetDataStreamMappings {
@@ -16412,7 +16450,7 @@ func (p *MethodIndices) GetDataStreamMappings(name string) *indices_get_data_str
 // Get data stream options.
 //
 // Get the data stream options configuration of one or more data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-options
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-stream-options
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-options
 func (p *MethodIndices) GetDataStreamOptions(name string) *indices_get_data_stream_options.GetDataStreamOptions {
@@ -16423,7 +16461,7 @@ func (p *MethodIndices) GetDataStreamOptions(name string) *indices_get_data_stre
 // Get data stream settings.
 //
 // Get setting information for one or more data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-data-stream-settings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-data-stream-settings
 func (p *MethodIndices) GetDataStreamSettings(name string) *indices_get_data_stream_settings.GetDataStreamSettings {
@@ -16438,7 +16476,7 @@ func (p *MethodIndices) GetDataStreamSettings(name string) *indices_get_data_str
 //
 // This API is useful if you don't need a complete mapping or if an index
 // mapping contains a large number of fields.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-mapping
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-mapping
 func (p *MethodIndices) GetFieldMapping(fields string) *indices_get_field_mapping.GetFieldMapping {
@@ -16449,7 +16487,7 @@ func (p *MethodIndices) GetFieldMapping(fields string) *indices_get_field_mappin
 // Get index templates.
 //
 // Get information about one or more index templates.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-index-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-index-template
 func (p *MethodIndices) GetIndexTemplate() *indices_get_index_template.GetIndexTemplate {
@@ -16461,7 +16499,7 @@ func (p *MethodIndices) GetIndexTemplate() *indices_get_index_template.GetIndexT
 //
 // For data streams, the API retrieves mappings for the stream’s backing
 // indices.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-mapping
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-mapping
 func (p *MethodIndices) GetMapping() *indices_get_mapping.GetMapping {
@@ -16507,7 +16545,7 @@ func (p *MethodIndices) GetSampleStats(index string) *indices_get_sample_stats.G
 //
 // Get setting information for one or more indices. For data streams, it returns
 // setting information for the stream's backing indices.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-settings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get-settings
 func (p *MethodIndices) GetSettings() *indices_get_settings.GetSettings {
@@ -16522,7 +16560,7 @@ func (p *MethodIndices) GetSettings() *indices_get_settings.GetSettings {
 // IMPORTANT: This documentation is about legacy index templates, which are
 // deprecated and will be replaced by the composable templates introduced in
 // Elasticsearch 7.8.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-get-template
 //
 // Deprecated: Since 7.8.0.
 func (p *MethodIndices) GetTemplate() *indices_get_template.GetTemplate {
@@ -16535,7 +16573,7 @@ func (p *MethodIndices) GetTemplate() *indices_get_template.GetTemplate {
 // Reindex all legacy backing indices for a data stream. This operation occurs
 // in a persistent task. The persistent task ID is returned immediately and the
 // reindexing work is completed in that task.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-reindex
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-migrate-reindex
 func (p *MethodIndices) MigrateReindex() *indices_migrate_reindex.MigrateReindex {
 	_migratereindex := indices_migrate_reindex.NewMigrateReindexFunc(p.tp)
 	return _migratereindex()
@@ -16551,7 +16589,7 @@ func (p *MethodIndices) MigrateReindex() *indices_migrate_reindex.MigrateReindex
 // successful, the request removes the alias and creates a data stream with the
 // same name. The indices for the alias become hidden backing indices for the
 // stream. The write index for the alias becomes the write index for the stream.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-migrate-to-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-migrate-to-data-stream
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-migrate-to-data-stream
 func (p *MethodIndices) MigrateToDataStream(name string) *indices_migrate_to_data_stream.MigrateToDataStream {
@@ -16563,7 +16601,7 @@ func (p *MethodIndices) MigrateToDataStream(name string) *indices_migrate_to_dat
 //
 // Performs one or more data stream modification actions in a single atomic
 // operation.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-modify-data-stream
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-modify-data-stream
 func (p *MethodIndices) ModifyDataStream() *indices_modify_data_stream.ModifyDataStream {
@@ -16603,7 +16641,7 @@ func (p *MethodIndices) ModifyDataStream() *indices_modify_data_stream.ModifyDat
 // Because opening or closing an index allocates its shards, the
 // `wait_for_active_shards` setting on index creation applies to the `_open` and
 // `_close` index actions as well.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-open
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-open
 func (p *MethodIndices) Open(index string) *indices_open.Open {
 	_open := indices_open.NewOpenFunc(p.tp)
 	return _open(index)
@@ -16627,7 +16665,7 @@ func (p *MethodIndices) Open(index string) *indices_open.Open {
 // missing, the data stream will not be able to roll over until a matching index
 // template is created. This will affect the lifecycle management of the data
 // stream and interfere with the data stream size and retention.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-promote-data-stream
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-promote-data-stream
 func (p *MethodIndices) PromoteDataStream(name string) *indices_promote_data_stream.PromoteDataStream {
 	_promotedatastream := indices_promote_data_stream.NewPromoteDataStreamFunc(p.tp)
 	return _promotedatastream(name)
@@ -16636,7 +16674,7 @@ func (p *MethodIndices) PromoteDataStream(name string) *indices_promote_data_str
 // Create or update an alias.
 //
 // Adds a data stream or index to an alias.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-alias
 func (p *MethodIndices) PutAlias(index, name string) *indices_put_alias.PutAlias {
@@ -16647,7 +16685,7 @@ func (p *MethodIndices) PutAlias(index, name string) *indices_put_alias.PutAlias
 // Update data stream lifecycles.
 //
 // Update the data stream lifecycle of the specified data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-lifecycle
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-lifecycle
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-lifecycle
 func (p *MethodIndices) PutDataLifecycle(name string) *indices_put_data_lifecycle.PutDataLifecycle {
@@ -16662,7 +16700,7 @@ func (p *MethodIndices) PutDataLifecycle(name string) *indices_put_data_lifecycl
 // the data stream matches. The mapping change is only applied to new write
 // indices that are created during rollover after this API is called. No indices
 // are changed by this API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-stream-mappings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-mappings
 func (p *MethodIndices) PutDataStreamMappings(name string) *indices_put_data_stream_mappings.PutDataStreamMappings {
@@ -16673,7 +16711,7 @@ func (p *MethodIndices) PutDataStreamMappings(name string) *indices_put_data_str
 // Update data stream options.
 //
 // Update the data stream options of the specified data streams.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-options
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-stream-options
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-options
 func (p *MethodIndices) PutDataStreamOptions(name string) *indices_put_data_stream_options.PutDataStreamOptions {
@@ -16689,7 +16727,7 @@ func (p *MethodIndices) PutDataStreamOptions(name string) *indices_put_data_stre
 // invalid state, only certain settings are allowed. If possible, the setting
 // change is applied to all backing indices. Otherwise, it will be applied when
 // the data stream is next rolled over.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-data-stream-settings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-data-stream-settings
 func (p *MethodIndices) PutDataStreamSettings(name string) *indices_put_data_stream_settings.PutDataStreamSettings {
@@ -16739,7 +16777,7 @@ func (p *MethodIndices) PutDataStreamSettings(name string) *indices_put_data_str
 // `dynamic_templates` block, then by default new `dynamic_templates` entries
 // are appended onto the end. If an entry already exists with the same key, then
 // it is overwritten by the new definition.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-index-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-index-template
 func (p *MethodIndices) PutIndexTemplate(name string) *indices_put_index_template.PutIndexTemplate {
@@ -16764,7 +16802,7 @@ func (p *MethodIndices) PutIndexTemplate(name string) *indices_put_index_templat
 // [Update mapping API
 // examples](https://www.elastic.co/docs/manage-data/data-store/mapping/update-mappings-examples)
 // guide.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-mapping
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-mapping
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-mapping
 func (p *MethodIndices) PutMapping(index string) *indices_put_mapping.PutMapping {
@@ -16839,7 +16877,7 @@ func (p *MethodIndices) PutSampleConfiguration(index string) *indices_put_sample
 // Refer to [updating analyzers on existing
 // indices](https://www.elastic.co/docs/manage-data/data-store/text-analysis/specify-an-analyzer#update-analyzers-on-existing-indices)
 // for step-by-step examples.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-settings
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-settings
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-put-settings
 func (p *MethodIndices) PutSettings() *indices_put_settings.PutSettings {
@@ -16878,7 +16916,7 @@ func (p *MethodIndices) PutSettings() *indices_put_settings.PutSettings {
 // with lower order being applied first, and higher orders overriding them.
 // NOTE: Multiple matching templates with the same order value will result in a
 // non-deterministic merging order.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-put-template
 //
 // Deprecated: Since 7.8.0.
 func (p *MethodIndices) PutTemplate(name string) *indices_put_template.PutTemplate {
@@ -16921,7 +16959,7 @@ func (p *MethodIndices) PutTemplate(name string) *indices_put_template.PutTempla
 // completes a recovery and then Elasticsearch relocates it onto a different
 // node then the information about the original recovery will not be shown in
 // the recovery API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-recovery
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-recovery
 func (p *MethodIndices) Recovery() *indices_recovery.Recovery {
 	_recovery := indices_recovery.NewRecoveryFunc(p.tp)
 	return _recovery()
@@ -16952,7 +16990,7 @@ func (p *MethodIndices) Recovery() *indices_recovery.Recovery {
 // retrieve the indexed document, it's recommended to use the index API's
 // `refresh=wait_for` query parameter option. This option ensures the indexing
 // operation waits for a periodic refresh before running the search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-refresh
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-refresh
 func (p *MethodIndices) Refresh() *indices_refresh.Refresh {
@@ -16982,7 +17020,7 @@ func (p *MethodIndices) Refresh() *indices_refresh.Refresh {
 // cluster--including nodes that don't contain a shard replica--before using
 // this API. This ensures the synonym file is updated everywhere in the cluster
 // in case shards are relocated in the future.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-reload-search-analyzers
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-reload-search-analyzers
 func (p *MethodIndices) ReloadSearchAnalyzers(index string) *indices_reload_search_analyzers.ReloadSearchAnalyzers {
 	_reloadsearchanalyzers := indices_reload_search_analyzers.NewReloadSearchAnalyzersFunc(p.tp)
 	return _reloadsearchanalyzers(index)
@@ -16992,7 +17030,7 @@ func (p *MethodIndices) ReloadSearchAnalyzers(index string) *indices_reload_sear
 //
 // Remove an index block from an index. Index blocks limit the operations
 // allowed on an index by blocking specific operation types.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-remove-block
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-remove-block
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-remove-block
 func (p *MethodIndices) RemoveBlock(index, block string) *indices_remove_block.RemoveBlock {
@@ -17076,7 +17114,7 @@ func (p *MethodIndices) RemoveBlock(index, block string) *indices_remove_block.R
 // _resolve/cluster/*:*`. The `connected` field in the response will indicate
 // whether it was successful. If a connection was (re-)established, this will
 // also cause the `remote/info` endpoint to now indicate a connected status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-resolve-cluster
 func (p *MethodIndices) ResolveCluster() *indices_resolve_cluster.ResolveCluster {
 	_resolvecluster := indices_resolve_cluster.NewResolveClusterFunc(p.tp)
 	return _resolvecluster()
@@ -17086,7 +17124,7 @@ func (p *MethodIndices) ResolveCluster() *indices_resolve_cluster.ResolveCluster
 //
 // Resolve the names and/or index patterns for indices, aliases, and data
 // streams. Multiple patterns and remote clusters are supported.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-index
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-resolve-index
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-resolve-index
 func (p *MethodIndices) ResolveIndex(name string) *indices_resolve_index.ResolveIndex {
@@ -17146,7 +17184,7 @@ func (p *MethodIndices) ResolveIndex(name string) *indices_resolve_index.Resolve
 // index on May 6, 2099, the index's name is `my-index-2099.05.06-000001`. If
 // you roll over the alias on May 7, 2099, the new index's name is
 // `my-index-2099.05.07-000002`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-rollover
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-rollover
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-rollover
 func (p *MethodIndices) Rollover(alias string) *indices_rollover.Rollover {
@@ -17158,7 +17196,7 @@ func (p *MethodIndices) Rollover(alias string) *indices_rollover.Rollover {
 //
 // Get low-level information about the Lucene segments in index shards. For data
 // streams, the API returns information about the stream's backing indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-segments
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-segments
 func (p *MethodIndices) Segments() *indices_segments.Segments {
 	_segments := indices_segments.NewSegmentsFunc(p.tp)
 	return _segments()
@@ -17180,7 +17218,7 @@ func (p *MethodIndices) Segments() *indices_segments.Segments {
 //
 // By default, the API returns store information only for primary shards that
 // are unassigned or have one or more unassigned replica shards.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shard-stores
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shard-stores
 func (p *MethodIndices) ShardStores() *indices_shard_stores.ShardStores {
 	_shardstores := indices_shard_stores.NewShardStoresFunc(p.tp)
 	return _shardstores()
@@ -17207,6 +17245,10 @@ func (p *MethodIndices) ShardStores() *indices_shard_stores.ShardStores {
 // the index is a prime number it can only be shrunk into a single primary shard
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
+//
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
 //
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a
@@ -17241,7 +17283,7 @@ func (p *MethodIndices) ShardStores() *indices_shard_stores.ShardStores {
 //   - The node handling the shrink process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shrink
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shrink
 func (p *MethodIndices) Shrink(index, target string) *indices_shrink.Shrink {
 	_shrink := indices_shrink.NewShrinkFunc(p.tp)
 	return _shrink(index, target)
@@ -17251,7 +17293,7 @@ func (p *MethodIndices) Shrink(index, target string) *indices_shrink.Shrink {
 //
 // Get the index configuration that would be applied to the specified index from
 // an existing index template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-index-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-simulate-index-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-simulate-index-template
 func (p *MethodIndices) SimulateIndexTemplate(name string) *indices_simulate_index_template.SimulateIndexTemplate {
@@ -17263,7 +17305,7 @@ func (p *MethodIndices) SimulateIndexTemplate(name string) *indices_simulate_ind
 //
 // Get the index configuration that would be applied by a particular index
 // template.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-simulate-template
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-simulate-template
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-simulate-template
 func (p *MethodIndices) SimulateTemplate() *indices_simulate_template.SimulateTemplate {
@@ -17318,7 +17360,7 @@ func (p *MethodIndices) SimulateTemplate() *indices_simulate_template.SimulateTe
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-split
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-split
 func (p *MethodIndices) Split(index, target string) *indices_split.Split {
 	_split := indices_split.NewSplitFunc(p.tp)
 	return _split(index, target)
@@ -17338,7 +17380,7 @@ func (p *MethodIndices) Split(index, target string) *indices_split.Split {
 // NOTE: When moving to another node, the shard-level statistics for a shard are
 // cleared. Although the shard is no longer part of the node, that node retains
 // any node-level statistics to which the shard contributed.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-stats
 func (p *MethodIndices) Stats() *indices_stats.Stats {
 	_stats := indices_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -17347,7 +17389,7 @@ func (p *MethodIndices) Stats() *indices_stats.Stats {
 // Create or update an alias.
 //
 // Adds a data stream or index to an alias.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-update-aliases
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-update-aliases
 func (p *MethodIndices) UpdateAliases() *indices_update_aliases.UpdateAliases {
@@ -17358,7 +17400,7 @@ func (p *MethodIndices) UpdateAliases() *indices_update_aliases.UpdateAliases {
 // Validate a query.
 //
 // Validates a query without running it.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-validate-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-validate-query
 func (p *MethodIndices) ValidateQuery() *indices_validate_query.ValidateQuery {
@@ -17379,7 +17421,7 @@ func (p *MethodIndices) ValidateQuery() *indices_validate_query.ValidateQuery {
 // options through more fields and function calling support. To determine
 // whether a given inference service supports this task type, please see the
 // page for that service.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-unified-inference
 func (p *MethodInference) ChatCompletionUnified(inferenceid string) *inference_chat_completion_unified.ChatCompletionUnified {
 	_chatcompletionunified := inference_chat_completion_unified.NewChatCompletionUnifiedFunc(p.tp)
 	return _chatcompletionunified(inferenceid)
@@ -17401,7 +17443,7 @@ func (p *MethodInference) ChatCompletionUnified(inferenceid string) *inference_c
 //
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func (p *MethodInference) Completion(inferenceid string) *inference_completion.Completion {
@@ -17413,7 +17455,7 @@ func (p *MethodInference) Completion(inferenceid string) *inference_completion.C
 //
 // This API requires the manage_inference cluster privilege (the built-in
 // `inference_admin` role grants this privilege).
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete
 func (p *MethodInference) Delete(inferenceid string) *inference_delete.Delete {
@@ -17425,7 +17467,7 @@ func (p *MethodInference) Delete(inferenceid string) *inference_delete.Delete {
 //
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege).
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-get
 func (p *MethodInference) Get() *inference_get.Get {
@@ -17452,7 +17494,7 @@ func (p *MethodInference) Get() *inference_get.Get {
 // models. However, if you do not plan to use the inference APIs to use these
 // models or if you want to use non-NLP models, use the machine learning trained
 // model APIs.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inference {
@@ -17502,9 +17544,9 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 //   - OpenShift AI (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)
 //   - VoyageAI (`rerank`, `text_embedding`)
-//   - Watsonx inference integration (`text_embedding`)
+//   - Watsonx (`chat_completion`, `completion`, `rerank`, `text_embedding`)
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put
 func (p *MethodInference) Put(inferenceid string) *inference_put.Put {
@@ -17516,7 +17558,7 @@ func (p *MethodInference) Put(inferenceid string) *inference_put.Put {
 //
 // Create an inference endpoint to perform an inference task with the `ai21`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-ai21
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-ai21
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-ai21
 func (p *MethodInference) PutAi21(tasktype, ai21inferenceid string) *inference_put_ai21.PutAi21 {
@@ -17528,7 +17570,7 @@ func (p *MethodInference) PutAi21(tasktype, ai21inferenceid string) *inference_p
 //
 // Create an inference endpoint to perform an inference task with the
 // `alibabacloud-ai-search` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-alibabacloud
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-alibabacloud
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-alibabacloud
 func (p *MethodInference) PutAlibabacloud(tasktype, alibabacloudinferenceid string) *inference_put_alibabacloud.PutAlibabacloud {
@@ -17547,7 +17589,7 @@ func (p *MethodInference) PutAlibabacloud(tasktype, alibabacloudinferenceid stri
 // associated key pairs. If you want to use a different access and secret key
 // pair, delete the inference model and recreate it with the same name and the
 // updated keys.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonbedrock
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-amazonbedrock
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonbedrock
 func (p *MethodInference) PutAmazonbedrock(tasktype, amazonbedrockinferenceid string) *inference_put_amazonbedrock.PutAmazonbedrock {
@@ -17559,7 +17601,7 @@ func (p *MethodInference) PutAmazonbedrock(tasktype, amazonbedrockinferenceid st
 //
 // Create an inference endpoint to perform an inference task with the
 // `amazon_sagemaker` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-amazonsagemaker
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-amazonsagemaker
 func (p *MethodInference) PutAmazonsagemaker(tasktype, amazonsagemakerinferenceid string) *inference_put_amazonsagemaker.PutAmazonsagemaker {
@@ -17571,7 +17613,7 @@ func (p *MethodInference) PutAmazonsagemaker(tasktype, amazonsagemakerinferencei
 //
 // Create an inference endpoint to perform an inference task with the
 // `anthropic` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-anthropic
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-anthropic
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-anthropic
 func (p *MethodInference) PutAnthropic(tasktype, anthropicinferenceid string) *inference_put_anthropic.PutAnthropic {
@@ -17583,7 +17625,7 @@ func (p *MethodInference) PutAnthropic(tasktype, anthropicinferenceid string) *i
 //
 // Create an inference endpoint to perform an inference task with the
 // `azureaistudio` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureaistudio
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-azureaistudio
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-azureaistudio
 func (p *MethodInference) PutAzureaistudio(tasktype, azureaistudioinferenceid string) *inference_put_azureaistudio.PutAzureaistudio {
@@ -17606,7 +17648,7 @@ func (p *MethodInference) PutAzureaistudio(tasktype, azureaistudioinferenceid st
 // The list of embeddings models that you can choose from in your deployment can
 // be found in the [Azure models
 // documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#embeddings).
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-azureopenai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-azureopenai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-azureopenai
 func (p *MethodInference) PutAzureopenai(tasktype, azureopenaiinferenceid string) *inference_put_azureopenai.PutAzureopenai {
@@ -17618,7 +17660,7 @@ func (p *MethodInference) PutAzureopenai(tasktype, azureopenaiinferenceid string
 //
 // Create an inference endpoint to perform an inference task with the `cohere`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-cohere
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-cohere
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-cohere
 func (p *MethodInference) PutCohere(tasktype, cohereinferenceid string) *inference_put_cohere.PutCohere {
@@ -17633,7 +17675,7 @@ func (p *MethodInference) PutCohere(tasktype, cohereinferenceid string) *inferen
 //
 // To review the available `rerank` models, refer to
 // <https://docs.contextual.ai/api-reference/rerank/rerank#body-model>.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-contextualai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-contextualai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-contextualai
 func (p *MethodInference) PutContextualai(tasktype, contextualaiinferenceid string) *inference_put_contextualai.PutContextualai {
@@ -17694,7 +17736,7 @@ func (p *MethodInference) PutContextualai(tasktype, contextualaiinferenceid stri
 //   - `${return_documents}` refers to the `return_documents` field available
 //     when performing rerank requests.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-custom
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-custom
 func (p *MethodInference) PutCustom(tasktype, custominferenceid string) *inference_put_custom.PutCustom {
@@ -17706,7 +17748,7 @@ func (p *MethodInference) PutCustom(tasktype, custominferenceid string) *inferen
 //
 // Create an inference endpoint to perform an inference task with the `deepseek`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-deepseek
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-deepseek
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-deepseek
 func (p *MethodInference) PutDeepseek(tasktype, deepseekinferenceid string) *inference_put_deepseek.PutDeepseek {
@@ -17739,7 +17781,7 @@ func (p *MethodInference) PutDeepseek(tasktype, deepseekinferenceid string) *inf
 // ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elasticsearch
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-elasticsearch
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elasticsearch
 func (p *MethodInference) PutElasticsearch(tasktype, elasticsearchinferenceid string) *inference_put_elasticsearch.PutElasticsearch {
@@ -17772,7 +17814,7 @@ func (p *MethodInference) PutElasticsearch(tasktype, elasticsearchinferenceid st
 // ensure that the `"allocation_count"` matches the `"target_allocation_count"`.
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-elser
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-elser
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-elser
 //
@@ -17788,7 +17830,7 @@ func (p *MethodInference) PutElser(tasktype, elserinferenceid string) *inference
 //
 // Create an inference endpoint to perform an inference task with the
 // `googleaistudio` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googleaistudio
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-googleaistudio
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-googleaistudio
 func (p *MethodInference) PutGoogleaistudio(tasktype, googleaistudioinferenceid string) *inference_put_googleaistudio.PutGoogleaistudio {
@@ -17800,7 +17842,7 @@ func (p *MethodInference) PutGoogleaistudio(tasktype, googleaistudioinferenceid 
 //
 // Create an inference endpoint to perform an inference task with the
 // `googlevertexai` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-googlevertexai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-googlevertexai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-googlevertexai
 func (p *MethodInference) PutGooglevertexai(tasktype, googlevertexaiinferenceid string) *inference_put_googlevertexai.PutGooglevertexai {
@@ -17812,7 +17854,7 @@ func (p *MethodInference) PutGooglevertexai(tasktype, googlevertexaiinferenceid 
 //
 // Create an inference endpoint to perform an inference task with the `groq`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-groq
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-groq
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-groq
 func (p *MethodInference) PutGroq(tasktype, groqinferenceid string) *inference_put_groq.PutGroq {
@@ -17866,7 +17908,7 @@ func (p *MethodInference) PutGroq(tasktype, groqinferenceid string) *inference_p
 //   - `bge-reranker-base`
 //   - `jina-reranker-v1-turbo-en-GGUF`
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-hugging-face
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-hugging-face
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-hugging-face
 func (p *MethodInference) PutHuggingFace(tasktype, huggingfaceinferenceid string) *inference_put_hugging_face.PutHuggingFace {
@@ -17882,7 +17924,7 @@ func (p *MethodInference) PutHuggingFace(tasktype, huggingfaceinferenceid string
 // To review the available `rerank` models, refer to <https://jina.ai/reranker>.
 // To review the available `text_embedding` models, refer to the
 // <https://jina.ai/embeddings/>.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-jinaai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-jinaai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-jinaai
 func (p *MethodInference) PutJinaai(tasktype, jinaaiinferenceid string) *inference_put_jinaai.PutJinaai {
@@ -17894,7 +17936,7 @@ func (p *MethodInference) PutJinaai(tasktype, jinaaiinferenceid string) *inferen
 //
 // Create an inference endpoint to perform an inference task with the `llama`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-llama
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-llama
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-llama
 func (p *MethodInference) PutLlama(tasktype, llamainferenceid string) *inference_put_llama.PutLlama {
@@ -17906,7 +17948,7 @@ func (p *MethodInference) PutLlama(tasktype, llamainferenceid string) *inference
 //
 // Create an inference endpoint to perform an inference task with the `mistral`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-mistral
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-mistral
 func (p *MethodInference) PutMistral(tasktype, mistralinferenceid string) *inference_put_mistral.PutMistral {
@@ -17918,7 +17960,7 @@ func (p *MethodInference) PutMistral(tasktype, mistralinferenceid string) *infer
 //
 // Create an inference endpoint to perform an inference task with the `nvidia`
 // service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-nvidia
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-nvidia
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-nvidia
 func (p *MethodInference) PutNvidia(tasktype, nvidiainferenceid string) *inference_put_nvidia.PutNvidia {
@@ -17930,7 +17972,7 @@ func (p *MethodInference) PutNvidia(tasktype, nvidiainferenceid string) *inferen
 //
 // Create an inference endpoint to perform an inference task with the `openai`
 // service or `openai` compatible APIs.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-openai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-openai
 func (p *MethodInference) PutOpenai(tasktype, openaiinferenceid string) *inference_put_openai.PutOpenai {
@@ -17942,7 +17984,7 @@ func (p *MethodInference) PutOpenai(tasktype, openaiinferenceid string) *inferen
 //
 // Create an inference endpoint to perform an inference task with the
 // `openshift_ai` service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-openshift-ai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-openshift-ai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-openshift-ai
 func (p *MethodInference) PutOpenshiftAi(tasktype, openshiftaiinferenceid string) *inference_put_openshift_ai.PutOpenshiftAi {
@@ -17957,7 +17999,7 @@ func (p *MethodInference) PutOpenshiftAi(tasktype, openshiftaiinferenceid string
 //
 // Avoid creating multiple endpoints for the same model unless required, as each
 // endpoint consumes significant resources.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-voyageai
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-voyageai
 func (p *MethodInference) PutVoyageai(tasktype, voyageaiinferenceid string) *inference_put_voyageai.PutVoyageai {
@@ -17972,7 +18014,7 @@ func (p *MethodInference) PutVoyageai(tasktype, voyageaiinferenceid string) *inf
 // deployment to use the `watsonxai` inference service. You can provision one
 // through the IBM catalog, the Cloud Databases CLI plug-in, the Cloud Databases
 // API, or Terraform.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-watsonx
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-put-watsonx
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-watsonx
 func (p *MethodInference) PutWatsonx(tasktype, watsonxinferenceid string) *inference_put_watsonx.PutWatsonx {
@@ -17981,7 +18023,7 @@ func (p *MethodInference) PutWatsonx(tasktype, watsonxinferenceid string) *infer
 }
 
 // Perform reranking inference on the service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func (p *MethodInference) Rerank(inferenceid string) *inference_rerank.Rerank {
@@ -17990,7 +18032,7 @@ func (p *MethodInference) Rerank(inferenceid string) *inference_rerank.Rerank {
 }
 
 // Perform sparse embedding inference on the service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func (p *MethodInference) SparseEmbedding(inferenceid string) *inference_sparse_embedding.SparseEmbedding {
@@ -18016,14 +18058,14 @@ func (p *MethodInference) SparseEmbedding(inferenceid string) *inference_sparse_
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege). You must
 // use a client that supports streaming.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-stream-inference
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-stream-inference
 func (p *MethodInference) StreamCompletion(inferenceid string) *inference_stream_completion.StreamCompletion {
 	_streamcompletion := inference_stream_completion.NewStreamCompletionFunc(p.tp)
 	return _streamcompletion(inferenceid)
 }
 
 // Perform text embedding inference on the service.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-inference
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
 func (p *MethodInference) TextEmbedding(inferenceid string) *inference_text_embedding.TextEmbedding {
@@ -18045,7 +18087,7 @@ func (p *MethodInference) TextEmbedding(inferenceid string) *inference_text_embe
 // models. However, if you do not plan to use the inference APIs to use these
 // models or if you want to use non-NLP models, use the machine learning trained
 // model APIs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-update
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-update
 func (p *MethodInference) Update(inferenceid string) *inference_update.Update {
 	_update := inference_update.NewUpdateFunc(p.tp)
 	return _update(inferenceid)
@@ -18054,14 +18096,14 @@ func (p *MethodInference) Update(inferenceid string) *inference_update.Update {
 // Delete GeoIP database configurations.
 //
 // Delete one or more IP geolocation database configurations.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-geoip-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-geoip-database
 func (p *MethodIngest) DeleteGeoipDatabase(id string) *ingest_delete_geoip_database.DeleteGeoipDatabase {
 	_deletegeoipdatabase := ingest_delete_geoip_database.NewDeleteGeoipDatabaseFunc(p.tp)
 	return _deletegeoipdatabase(id)
 }
 
 // Delete IP geolocation database configurations.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-ip-location-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-ip-location-database
 func (p *MethodIngest) DeleteIpLocationDatabase(id string) *ingest_delete_ip_location_database.DeleteIpLocationDatabase {
 	_deleteiplocationdatabase := ingest_delete_ip_location_database.NewDeleteIpLocationDatabaseFunc(p.tp)
 	return _deleteiplocationdatabase(id)
@@ -18070,7 +18112,7 @@ func (p *MethodIngest) DeleteIpLocationDatabase(id string) *ingest_delete_ip_loc
 // Delete pipelines.
 //
 // Delete one or more ingest pipelines.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-delete-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-delete-pipeline
 func (p *MethodIngest) DeletePipeline(id string) *ingest_delete_pipeline.DeletePipeline {
@@ -18091,14 +18133,14 @@ func (p *MethodIngest) GeoIpStats() *ingest_geo_ip_stats.GeoIpStats {
 // Get GeoIP database configurations.
 //
 // Get information about one or more IP geolocation database configurations.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-geoip-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-geoip-database
 func (p *MethodIngest) GetGeoipDatabase() *ingest_get_geoip_database.GetGeoipDatabase {
 	_getgeoipdatabase := ingest_get_geoip_database.NewGetGeoipDatabaseFunc(p.tp)
 	return _getgeoipdatabase()
 }
 
 // Get IP geolocation database configurations.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-ip-location-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-ip-location-database
 func (p *MethodIngest) GetIpLocationDatabase() *ingest_get_ip_location_database.GetIpLocationDatabase {
 	_getiplocationdatabase := ingest_get_ip_location_database.NewGetIpLocationDatabaseFunc(p.tp)
 	return _getiplocationdatabase()
@@ -18108,7 +18150,7 @@ func (p *MethodIngest) GetIpLocationDatabase() *ingest_get_ip_location_database.
 //
 // Get information about one or more ingest pipelines. This API returns a local
 // reference of the pipeline.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-get-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-get-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-get-pipeline
 func (p *MethodIngest) GetPipeline() *ingest_get_pipeline.GetPipeline {
@@ -18131,14 +18173,14 @@ func (p *MethodIngest) ProcessorGrok() *ingest_processor_grok.ProcessorGrok {
 // Create or update a GeoIP database configuration.
 //
 // Refer to the create or update IP geolocation database configuration API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-put-geoip-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-put-geoip-database
 func (p *MethodIngest) PutGeoipDatabase(id string) *ingest_put_geoip_database.PutGeoipDatabase {
 	_putgeoipdatabase := ingest_put_geoip_database.NewPutGeoipDatabaseFunc(p.tp)
 	return _putgeoipdatabase(id)
 }
 
 // Create or update an IP geolocation database configuration.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-put-ip-location-database
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-put-ip-location-database
 func (p *MethodIngest) PutIpLocationDatabase(id string) *ingest_put_ip_location_database.PutIpLocationDatabase {
 	_putiplocationdatabase := ingest_put_ip_location_database.NewPutIpLocationDatabaseFunc(p.tp)
 	return _putiplocationdatabase(id)
@@ -18158,7 +18200,7 @@ func (p *MethodIngest) PutPipeline(id string) *ingest_put_pipeline.PutPipeline {
 // Run an ingest pipeline against a set of provided documents. You can either
 // specify an existing pipeline to use with the provided documents or supply a
 // pipeline definition in the body of the request.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-simulate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-simulate
 func (p *MethodIngest) Simulate() *ingest_simulate.Simulate {
@@ -18172,7 +18214,7 @@ func (p *MethodIngest) Simulate() *ingest_simulate.Simulate {
 //
 // If the operator privileges feature is enabled, only operator users can use
 // this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-delete
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-delete
 func (p *MethodLicense) Delete() *license_delete.Delete {
 	_delete := license_delete.NewDeleteFunc(p.tp)
 	return _delete()
@@ -18186,7 +18228,7 @@ func (p *MethodLicense) Delete() *license_delete.Delete {
 // >info > If the master node is generating a new cluster state, the get license
 // API may return a `404 Not Found` response. > If you receive an unexpected 404
 // response after cluster startup, wait a short period and retry the request.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-license-get
 func (p *MethodLicense) Get() *license_get.Get {
@@ -18195,14 +18237,14 @@ func (p *MethodLicense) Get() *license_get.Get {
 }
 
 // Get the basic license status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-basic-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get-basic-status
 func (p *MethodLicense) GetBasicStatus() *license_get_basic_status.GetBasicStatus {
 	_getbasicstatus := license_get_basic_status.NewGetBasicStatusFunc(p.tp)
 	return _getbasicstatus()
 }
 
 // Get the trial status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get-trial-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-get-trial-status
 func (p *MethodLicense) GetTrialStatus() *license_get_trial_status.GetTrialStatus {
 	_gettrialstatus := license_get_trial_status.NewGetTrialStatusFunc(p.tp)
 	return _gettrialstatus()
@@ -18220,7 +18262,7 @@ func (p *MethodLicense) GetTrialStatus() *license_get_trial_status.GetTrialStatu
 // gold or higher license, you must enable TLS on the transport networking layer
 // before you install the license. If the operator privileges feature is
 // enabled, only operator users can use this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post
 func (p *MethodLicense) Post() *license_post.Post {
 	_post := license_post.NewPostFunc(p.tp)
 	return _post()
@@ -18240,7 +18282,7 @@ func (p *MethodLicense) Post() *license_post.Post {
 // `true`.
 //
 // To check the status of your basic license, use the get basic license API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-basic
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-basic
 func (p *MethodLicense) PostStartBasic() *license_post_start_basic.PostStartBasic {
 	_poststartbasic := license_post_start_basic.NewPostStartBasicFunc(p.tp)
 	return _poststartbasic()
@@ -18257,7 +18299,7 @@ func (p *MethodLicense) PostStartBasic() *license_post_start_basic.PostStartBasi
 // https://www.elastic.co/trialextension.
 //
 // To check the status of your trial, use the get trial status API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-trial
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-license-post-start-trial
 func (p *MethodLicense) PostStartTrial() *license_post_start_trial.PostStartTrial {
 	_poststarttrial := license_post_start_trial.NewPostStartTrialFunc(p.tp)
 	return _poststarttrial()
@@ -18268,7 +18310,7 @@ func (p *MethodLicense) PostStartTrial() *license_post_start_trial.PostStartTria
 // Delete a pipeline that is used for Logstash Central Management. If the
 // request succeeds, you receive an empty response with an appropriate status
 // code.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-delete-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-delete-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-delete-pipeline
 func (p *MethodLogstash) DeletePipeline(id string) *logstash_delete_pipeline.DeletePipeline {
@@ -18279,7 +18321,7 @@ func (p *MethodLogstash) DeletePipeline(id string) *logstash_delete_pipeline.Del
 // Get Logstash pipelines.
 //
 // Get pipelines that are used for Logstash Central Management.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-get-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-get-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-get-pipeline
 func (p *MethodLogstash) GetPipeline() *logstash_get_pipeline.GetPipeline {
@@ -18291,7 +18333,7 @@ func (p *MethodLogstash) GetPipeline() *logstash_get_pipeline.GetPipeline {
 //
 // Create a pipeline that is used for Logstash Central Management. If the
 // specified pipeline exists, it is replaced.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-put-pipeline
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-logstash-put-pipeline
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-logstash-put-pipeline
 func (p *MethodLogstash) PutPipeline(id string) *logstash_put_pipeline.PutPipeline {
@@ -18301,13 +18343,22 @@ func (p *MethodLogstash) PutPipeline(id string) *logstash_put_pipeline.PutPipeli
 
 // Get deprecation information.
 //
-// Get information about different cluster, node, and index level settings that
-// use deprecated features that will be removed or changed in the next major
-// version.
+// Returns information about deprecated features which are in use in the
+// cluster. The reported features include cluster, node, and index level
+// settings that will be removed or changed in the next major version. You must
+// address the reported issues before upgrading to the next major version.
+// However, no action is required when upgrading within the current major
+// version. Deprecated features remain fully supported and will continue to work
+// in the current version, and when upgrading to a newer minor or patch release
+// in the same major version. Use this API to review your usage of these
+// features and migrate away from them at your own pace, before upgrading to a
+// new major version.
 //
-// TIP: This APIs is designed for indirect use by the Upgrade Assistant. You are
-// strongly recommended to use the Upgrade Assistant.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-deprecations
+// > info > This API is designed for indirect use by the [Upgrade
+// Assistant](https://www.elastic.co/docs/deploy-manage/upgrade/prepare-to-upgrade/upgrade-assistant).
+// > We recommend learning about deprecated features using the Upgrade Assistant
+// rather than calling this API directly.
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-deprecations
 func (p *MethodMigration) Deprecations() *migration_deprecations.Deprecations {
 	_deprecations := migration_deprecations.NewDeprecationsFunc(p.tp)
 	return _deprecations()
@@ -18321,7 +18372,7 @@ func (p *MethodMigration) Deprecations() *migration_deprecations.Deprecations {
 //
 // TIP: This API is designed for indirect use by the Upgrade Assistant. You are
 // strongly recommended to use the Upgrade Assistant.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-get-feature-upgrade-status
 func (p *MethodMigration) GetFeatureUpgradeStatus() *migration_get_feature_upgrade_status.GetFeatureUpgradeStatus {
 	_getfeatureupgradestatus := migration_get_feature_upgrade_status.NewGetFeatureUpgradeStatusFunc(p.tp)
 	return _getfeatureupgradestatus()
@@ -18338,7 +18389,7 @@ func (p *MethodMigration) GetFeatureUpgradeStatus() *migration_get_feature_upgra
 //
 // TIP: The API is designed for indirect use by the Upgrade Assistant. We
 // strongly recommend you use the Upgrade Assistant.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-migration-get-feature-upgrade-status
 func (p *MethodMigration) PostFeatureUpgrade() *migration_post_feature_upgrade.PostFeatureUpgrade {
 	_postfeatureupgrade := migration_post_feature_upgrade.NewPostFeatureUpgradeFunc(p.tp)
 	return _postfeatureupgrade()
@@ -18351,7 +18402,7 @@ func (p *MethodMigration) PostFeatureUpgrade() *migration_post_feature_upgrade.P
 // handled by each allocated node, their responses may be cached on that
 // individual node. Calling this API clears the caches without restarting the
 // deployment.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-clear-trained-model-deployment-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-clear-trained-model-deployment-cache
 func (p *MethodMl) ClearTrainedModelDeploymentCache(modelid string) *ml_clear_trained_model_deployment_cache.ClearTrainedModelDeploymentCache {
 	_cleartrainedmodeldeploymentcache := ml_clear_trained_model_deployment_cache.NewClearTrainedModelDeploymentCacheFunc(p.tp)
 	return _cleartrainedmodeldeploymentcache(modelid)
@@ -18373,7 +18424,7 @@ func (p *MethodMl) ClearTrainedModelDeploymentCache(modelid string) *ml_clear_tr
 // datafeed API with the same timeout and force parameters as the close job
 // request. When a datafeed that has a specified end date stops, it
 // automatically closes its associated job.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-close-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-close-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-close-job
 func (p *MethodMl) CloseJob(jobid string) *ml_close_job.CloseJob {
@@ -18384,7 +18435,7 @@ func (p *MethodMl) CloseJob(jobid string) *ml_close_job.CloseJob {
 // Delete a calendar.
 //
 // Remove all scheduled events from a calendar, then delete it.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-calendar
 func (p *MethodMl) DeleteCalendar(calendarid string) *ml_delete_calendar.DeleteCalendar {
@@ -18393,7 +18444,7 @@ func (p *MethodMl) DeleteCalendar(calendarid string) *ml_delete_calendar.DeleteC
 }
 
 // Delete events from a calendar.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-event
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar-event
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-calendar-event
 func (p *MethodMl) DeleteCalendarEvent(calendarid, eventid string) *ml_delete_calendar_event.DeleteCalendarEvent {
@@ -18402,7 +18453,7 @@ func (p *MethodMl) DeleteCalendarEvent(calendarid, eventid string) *ml_delete_ca
 }
 
 // Delete anomaly jobs from a calendar.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-calendar-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-calendar-job
 func (p *MethodMl) DeleteCalendarJob(calendarid, jobid string) *ml_delete_calendar_job.DeleteCalendarJob {
@@ -18411,7 +18462,7 @@ func (p *MethodMl) DeleteCalendarJob(calendarid, jobid string) *ml_delete_calend
 }
 
 // Delete a data frame analytics job.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-data-frame-analytics
 func (p *MethodMl) DeleteDataFrameAnalytics(id string) *ml_delete_data_frame_analytics.DeleteDataFrameAnalytics {
@@ -18420,7 +18471,7 @@ func (p *MethodMl) DeleteDataFrameAnalytics(id string) *ml_delete_data_frame_ana
 }
 
 // Delete a datafeed.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-datafeed
 func (p *MethodMl) DeleteDatafeed(datafeedid string) *ml_delete_datafeed.DeleteDatafeed {
@@ -18437,7 +18488,7 @@ func (p *MethodMl) DeleteDatafeed(datafeedid string) *ml_delete_datafeed.DeleteD
 // name, a comma-separated list of jobs, or a wildcard expression. You can
 // delete expired data for all anomaly detection jobs by using `_all`, by
 // specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-expired-data
 func (p *MethodMl) DeleteExpiredData() *ml_delete_expired_data.DeleteExpiredData {
 	_deleteexpireddata := ml_delete_expired_data.NewDeleteExpiredDataFunc(p.tp)
 	return _deleteexpireddata()
@@ -18447,7 +18498,7 @@ func (p *MethodMl) DeleteExpiredData() *ml_delete_expired_data.DeleteExpiredData
 //
 // If an anomaly detection job references the filter, you cannot delete the
 // filter. You must update or delete the job before you can delete the filter.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-filter
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-filter
 func (p *MethodMl) DeleteFilter(filterid string) *ml_delete_filter.DeleteFilter {
@@ -18461,7 +18512,7 @@ func (p *MethodMl) DeleteFilter(filterid string) *ml_delete_filter.DeleteFilter 
 // retention period with the `expires_in` parameter in the forecast jobs API.
 // The delete forecast API enables you to delete one or more forecasts before
 // they expire.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-forecast
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-forecast
 func (p *MethodMl) DeleteForecast(jobid string) *ml_delete_forecast.DeleteForecast {
 	_deleteforecast := ml_delete_forecast.NewDeleteForecastFunc(p.tp)
 	return _deleteforecast(jobid)
@@ -18475,7 +18526,7 @@ func (p *MethodMl) DeleteForecast(jobid string) *ml_delete_forecast.DeleteForeca
 // tries to delete the datafeed. This behavior is equivalent to calling the
 // delete datafeed API with the same timeout and force parameters as the delete
 // job request.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-job
 func (p *MethodMl) DeleteJob(jobid string) *ml_delete_job.DeleteJob {
@@ -18488,7 +18539,7 @@ func (p *MethodMl) DeleteJob(jobid string) *ml_delete_job.DeleteJob {
 // You cannot delete the active model snapshot. To delete that snapshot, first
 // revert to a different one. To identify the active model snapshot, refer to
 // the `model_snapshot_id` in the results from the get jobs API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-model-snapshot
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-model-snapshot
 func (p *MethodMl) DeleteModelSnapshot(jobid, snapshotid string) *ml_delete_model_snapshot.DeleteModelSnapshot {
 	_deletemodelsnapshot := ml_delete_model_snapshot.NewDeleteModelSnapshotFunc(p.tp)
 	return _deletemodelsnapshot(jobid, snapshotid)
@@ -18498,7 +18549,7 @@ func (p *MethodMl) DeleteModelSnapshot(jobid, snapshotid string) *ml_delete_mode
 //
 // The request deletes a trained inference model that is not referenced by an
 // ingest pipeline.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-trained-model
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-trained-model
 func (p *MethodMl) DeleteTrainedModel(modelid string) *ml_delete_trained_model.DeleteTrainedModel {
@@ -18511,7 +18562,7 @@ func (p *MethodMl) DeleteTrainedModel(modelid string) *ml_delete_trained_model.D
 // This API deletes an existing model alias that refers to a trained model. If
 // the model alias is missing or refers to a model other than the one identified
 // by the `model_id`, this API returns an error.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-delete-trained-model-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-delete-trained-model-alias
 func (p *MethodMl) DeleteTrainedModelAlias(modelid, modelalias string) *ml_delete_trained_model_alias.DeleteTrainedModelAlias {
@@ -18524,7 +18575,7 @@ func (p *MethodMl) DeleteTrainedModelAlias(modelid, modelalias string) *ml_delet
 // Make an estimation of the memory usage for an anomaly detection job model.
 // The estimate is based on analysis configuration details for the job and
 // cardinality estimates for the fields it references.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-estimate-model-memory
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-estimate-model-memory
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-estimate-model-memory
 func (p *MethodMl) EstimateModelMemory() *ml_estimate_model_memory.EstimateModelMemory {
@@ -18538,7 +18589,7 @@ func (p *MethodMl) EstimateModelMemory() *ml_estimate_model_memory.EstimateModel
 // of machine learning features. This has been designed for use on indexes
 // created by data frame analytics. Evaluation requires both a ground truth
 // field and an analytics result field to be present.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-evaluate-data-frame
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-evaluate-data-frame
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-evaluate-data-frame
 func (p *MethodMl) EvaluateDataFrame() *ml_evaluate_data_frame.EvaluateDataFrame {
@@ -18558,7 +18609,7 @@ func (p *MethodMl) EvaluateDataFrame() *ml_evaluate_data_frame.EvaluateDataFrame
 //     on. If you have object fields or fields that are excluded via source
 //     filtering, they are not included in the explanation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-explain-data-frame-analytics
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-explain-data-frame-analytics
 func (p *MethodMl) ExplainDataFrameAnalytics() *ml_explain_data_frame_analytics.ExplainDataFrameAnalytics {
 	_explaindataframeanalytics := ml_explain_data_frame_analytics.NewExplainDataFrameAnalyticsFunc(p.tp)
 	return _explaindataframeanalytics()
@@ -18574,7 +18625,7 @@ func (p *MethodMl) ExplainDataFrameAnalytics() *ml_explain_data_frame_analytics.
 // to continue analyzing data. A close operation additionally prunes and
 // persists the model state to disk and the job must be opened again before
 // analyzing further data.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-flush-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-flush-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-flush-job
 //
@@ -18591,7 +18642,7 @@ func (p *MethodMl) FlushJob(jobid string) *ml_flush_job.FlushJob {
 // error occurs if you try to create a forecast for a job that has an
 // `over_field_name` in its configuration. Forcasts predict future behavior
 // based on historical data.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-forecast
 func (p *MethodMl) Forecast(jobid string) *ml_forecast.Forecast {
 	_forecast := ml_forecast.NewForecastFunc(p.tp)
 	return _forecast(jobid)
@@ -18600,14 +18651,14 @@ func (p *MethodMl) Forecast(jobid string) *ml_forecast.Forecast {
 // Get anomaly detection job results for buckets.
 //
 // The API presents a chronological view of the records, grouped by bucket.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-buckets
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-buckets
 func (p *MethodMl) GetBuckets(jobid string) *ml_get_buckets.GetBuckets {
 	_getbuckets := ml_get_buckets.NewGetBucketsFunc(p.tp)
 	return _getbuckets(jobid)
 }
 
 // Get info about events in calendars.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendar-events
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-calendar-events
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-calendar-events
 func (p *MethodMl) GetCalendarEvents(calendarid string) *ml_get_calendar_events.GetCalendarEvents {
@@ -18616,7 +18667,7 @@ func (p *MethodMl) GetCalendarEvents(calendarid string) *ml_get_calendar_events.
 }
 
 // Get calendar configuration info.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-calendars
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-calendars
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-calendars
 func (p *MethodMl) GetCalendars() *ml_get_calendars.GetCalendars {
@@ -18625,7 +18676,7 @@ func (p *MethodMl) GetCalendars() *ml_get_calendars.GetCalendars {
 }
 
 // Get anomaly detection job results for categories.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-categories
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-categories
 func (p *MethodMl) GetCategories(jobid string) *ml_get_categories.GetCategories {
 	_getcategories := ml_get_categories.NewGetCategoriesFunc(p.tp)
 	return _getcategories(jobid)
@@ -18636,7 +18687,7 @@ func (p *MethodMl) GetCategories(jobid string) *ml_get_categories.GetCategories 
 // You can get information for multiple data frame analytics jobs in a single
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics
 func (p *MethodMl) GetDataFrameAnalytics() *ml_get_data_frame_analytics.GetDataFrameAnalytics {
@@ -18645,7 +18696,7 @@ func (p *MethodMl) GetDataFrameAnalytics() *ml_get_data_frame_analytics.GetDataF
 }
 
 // Get data frame analytics job stats.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-data-frame-analytics-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-data-frame-analytics-stats
 func (p *MethodMl) GetDataFrameAnalyticsStats() *ml_get_data_frame_analytics_stats.GetDataFrameAnalyticsStats {
@@ -18661,7 +18712,7 @@ func (p *MethodMl) GetDataFrameAnalyticsStats() *ml_get_data_frame_analytics_sta
 // `<feed_id>`, or by omitting the `<feed_id>`. If the datafeed is stopped, the
 // only information you receive is the `datafeed_id` and the `state`. This API
 // returns a maximum of 10,000 datafeeds.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeed-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-datafeed-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-datafeed-stats
 func (p *MethodMl) GetDatafeedStats() *ml_get_datafeed_stats.GetDatafeedStats {
@@ -18676,7 +18727,7 @@ func (p *MethodMl) GetDatafeedStats() *ml_get_datafeed_stats.GetDatafeedStats {
 // get information for all datafeeds by using `_all`, by specifying `*` as the
 // `<feed_id>`, or by omitting the `<feed_id>`. This API returns a maximum of
 // 10,000 datafeeds.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-datafeeds
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-datafeeds
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-datafeeds
 func (p *MethodMl) GetDatafeeds() *ml_get_datafeeds.GetDatafeeds {
@@ -18687,7 +18738,7 @@ func (p *MethodMl) GetDatafeeds() *ml_get_datafeeds.GetDatafeeds {
 // Get filters.
 //
 // You can get a single filter or all filters.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-filters
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-filters
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-filters
 func (p *MethodMl) GetFilters() *ml_get_filters.GetFilters {
@@ -18700,14 +18751,14 @@ func (p *MethodMl) GetFilters() *ml_get_filters.GetFilters {
 // Influencers are the entities that have contributed to, or are to blame for,
 // the anomalies. Influencer results are available only if an
 // `influencer_field_name` is specified in the job configuration.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-influencers
 func (p *MethodMl) GetInfluencers(jobid string) *ml_get_influencers.GetInfluencers {
 	_getinfluencers := ml_get_influencers.NewGetInfluencersFunc(p.tp)
 	return _getinfluencers(jobid)
 }
 
 // Get anomaly detection job stats.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-job-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-job-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-job-stats
 func (p *MethodMl) GetJobStats() *ml_get_job_stats.GetJobStats {
@@ -18721,7 +18772,7 @@ func (p *MethodMl) GetJobStats() *ml_get_job_stats.GetJobStats {
 // request by using a group name, a comma-separated list of jobs, or a wildcard
 // expression. You can get information for all anomaly detection jobs by using
 // `_all`, by specifying `*` as the `<job_id>`, or by omitting the `<job_id>`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-jobs
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-jobs
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-jobs
 func (p *MethodMl) GetJobs() *ml_get_jobs.GetJobs {
@@ -18734,21 +18785,21 @@ func (p *MethodMl) GetJobs() *ml_get_jobs.GetJobs {
 // Get information about how machine learning jobs and trained models are using
 // memory, on each node, both within the JVM heap, and natively, outside of the
 // JVM.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-memory-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-memory-stats
 func (p *MethodMl) GetMemoryStats() *ml_get_memory_stats.GetMemoryStats {
 	_getmemorystats := ml_get_memory_stats.NewGetMemoryStatsFunc(p.tp)
 	return _getmemorystats()
 }
 
 // Get anomaly detection job model snapshot upgrade usage info.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshot-upgrade-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-model-snapshot-upgrade-stats
 func (p *MethodMl) GetModelSnapshotUpgradeStats(jobid, snapshotid string) *ml_get_model_snapshot_upgrade_stats.GetModelSnapshotUpgradeStats {
 	_getmodelsnapshotupgradestats := ml_get_model_snapshot_upgrade_stats.NewGetModelSnapshotUpgradeStatsFunc(p.tp)
 	return _getmodelsnapshotupgradestats(jobid, snapshotid)
 }
 
 // Get model snapshots info.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-model-snapshots
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-model-snapshots
 func (p *MethodMl) GetModelSnapshots(jobid string) *ml_get_model_snapshots.GetModelSnapshots {
 	_getmodelsnapshots := ml_get_model_snapshots.NewGetModelSnapshotsFunc(p.tp)
 	return _getmodelsnapshots(jobid)
@@ -18772,7 +18823,7 @@ func (p *MethodMl) GetModelSnapshots(jobid string) *ml_get_model_snapshots.GetMo
 // greater than its default), the `overall_score` is the maximum `overall_score`
 // of the overall buckets that have a span equal to the jobs' largest bucket
 // span.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-overall-buckets
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-overall-buckets
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-overall-buckets
 func (p *MethodMl) GetOverallBuckets(jobid string) *ml_get_overall_buckets.GetOverallBuckets {
@@ -18791,14 +18842,14 @@ func (p *MethodMl) GetOverallBuckets(jobid string) *ml_get_overall_buckets.GetOv
 // buckets. The number of record results depends on the number of anomalies
 // found in each bucket, which relates to the number of time series being
 // modeled and the number of detectors.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-records
 func (p *MethodMl) GetRecords(jobid string) *ml_get_records.GetRecords {
 	_getrecords := ml_get_records.NewGetRecordsFunc(p.tp)
 	return _getrecords(jobid)
 }
 
 // Get trained model configuration info.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-trained-models
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models
 func (p *MethodMl) GetTrainedModels() *ml_get_trained_models.GetTrainedModels {
@@ -18811,7 +18862,7 @@ func (p *MethodMl) GetTrainedModels() *ml_get_trained_models.GetTrainedModels {
 // You can get usage information for multiple trained models in a single API
 // request by using a comma-separated list of model IDs or a wildcard
 // expression.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-get-trained-models-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models-stats
 func (p *MethodMl) GetTrainedModelsStats() *ml_get_trained_models_stats.GetTrainedModelsStats {
@@ -18820,7 +18871,7 @@ func (p *MethodMl) GetTrainedModelsStats() *ml_get_trained_models_stats.GetTrain
 }
 
 // Evaluate a trained model.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-infer-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-infer-trained-model
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-infer-trained-model
 func (p *MethodMl) InferTrainedModel(modelid string) *ml_infer_trained_model.InferTrainedModel {
@@ -18836,7 +18887,7 @@ func (p *MethodMl) InferTrainedModel(modelid string) *ml_infer_trained_model.Inf
 // the defaults should be used. This endpoint may be used to find out what those
 // defaults are. It also provides information about the maximum size of machine
 // learning jobs that could run in the current cluster configuration.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-info
 func (p *MethodMl) Info() *ml_info.Info {
 	_info := ml_info.NewInfoFunc(p.tp)
 	return _info()
@@ -18850,7 +18901,7 @@ func (p *MethodMl) Info() *ml_info.Info {
 // existing job, the most recent model state is automatically loaded. The job is
 // ready to resume its analysis from where it left off, once new data is
 // received.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-open-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-open-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-open-job
 func (p *MethodMl) OpenJob(jobid string) *ml_open_job.OpenJob {
@@ -18859,7 +18910,7 @@ func (p *MethodMl) OpenJob(jobid string) *ml_open_job.OpenJob {
 }
 
 // Add scheduled events to the calendar.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-calendar-events
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-post-calendar-events
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-post-calendar-events
 func (p *MethodMl) PostCalendarEvents(calendarid string) *ml_post_calendar_events.PostCalendarEvents {
@@ -18872,7 +18923,7 @@ func (p *MethodMl) PostCalendarEvents(calendarid string) *ml_post_calendar_event
 // IMPORTANT: For each job, data can be accepted from only a single connection
 // at a time. It is not currently possible to post data to multiple jobs using
 // wildcards or a comma-separated list.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-post-data
 //
 // Deprecated: Since 7.11.0. Posting data directly to anomaly detection jobs is
 // deprecated, in a future major version a datafeed will be required.
@@ -18884,7 +18935,7 @@ func (p *MethodMl) PostData(jobid string) *ml_post_data.PostData {
 // Preview features used by data frame analytics.
 //
 // Preview the extracted features used by a data frame analytics config.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-preview-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-data-frame-analytics
 func (p *MethodMl) PreviewDataFrameAnalytics() *ml_preview_data_frame_analytics.PreviewDataFrameAnalytics {
@@ -18904,7 +18955,7 @@ func (p *MethodMl) PreviewDataFrameAnalytics() *ml_preview_data_frame_analytics.
 // preview that accurately reflects the behavior of the datafeed, use the
 // appropriate credentials. You can also use secondary authorization headers to
 // supply the credentials.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-preview-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-preview-datafeed
 func (p *MethodMl) PreviewDatafeed() *ml_preview_datafeed.PreviewDatafeed {
@@ -18913,7 +18964,7 @@ func (p *MethodMl) PreviewDatafeed() *ml_preview_datafeed.PreviewDatafeed {
 }
 
 // Create a calendar.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-calendar
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-calendar
 func (p *MethodMl) PutCalendar(calendarid string) *ml_put_calendar.PutCalendar {
@@ -18922,7 +18973,7 @@ func (p *MethodMl) PutCalendar(calendarid string) *ml_put_calendar.PutCalendar {
 }
 
 // Add anomaly detection job to calendar.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-calendar-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-calendar-job
 func (p *MethodMl) PutCalendarJob(calendarid, jobid string) *ml_put_calendar_job.PutCalendarJob {
@@ -18942,7 +18993,7 @@ func (p *MethodMl) PutCalendarJob(calendarid, jobid string) *ml_put_calendar_job
 // If you supply only a subset of the regression or classification parameters,
 // hyperparameter optimization occurs. It determines a value for each of the
 // undefined parameters.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-data-frame-analytics
 func (p *MethodMl) PutDataFrameAnalytics(id string) *ml_put_data_frame_analytics.PutDataFrameAnalytics {
@@ -18966,7 +19017,7 @@ func (p *MethodMl) PutDataFrameAnalytics(id string) *ml_put_data_frame_analytics
 // create anomaly detection jobs API to create a datafeed. Do not add a datafeed
 // directly to the `.ml-config` index. Do not give users `write` privileges on
 // the `.ml-config` index.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-datafeed
 func (p *MethodMl) PutDatafeed(datafeedid string) *ml_put_datafeed.PutDatafeed {
@@ -18979,7 +19030,7 @@ func (p *MethodMl) PutDatafeed(datafeedid string) *ml_put_datafeed.PutDatafeed {
 // A filter contains a list of strings. It can be used by one or more anomaly
 // detection jobs. Specifically, filters are referenced in the `custom_rules`
 // property of detector configuration objects.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-filter
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-filter
 func (p *MethodMl) PutFilter(filterid string) *ml_put_filter.PutFilter {
@@ -18992,7 +19043,7 @@ func (p *MethodMl) PutFilter(filterid string) *ml_put_filter.PutFilter {
 // If you include a `datafeed_config`, you must have read index privileges on
 // the source index. If you include a `datafeed_config` but do not provide a
 // query, the datafeed uses `{"match_all": {"boost": 1}}`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-job
 func (p *MethodMl) PutJob(jobid string) *ml_put_job.PutJob {
@@ -19004,7 +19055,7 @@ func (p *MethodMl) PutJob(jobid string) *ml_put_job.PutJob {
 //
 // Enable you to supply a trained model that is not created by data frame
 // analytics.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model
 func (p *MethodMl) PutTrainedModel(modelid string) *ml_put_trained_model.PutTrainedModel {
@@ -19027,7 +19078,7 @@ func (p *MethodMl) PutTrainedModel(modelid string) *ml_put_trained_model.PutTrai
 // trained model to another. If you use this API to update an alias and there
 // are very few input fields in common between the old and new trained models
 // for the model alias, the API returns a warning.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-alias
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-alias
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-alias
 func (p *MethodMl) PutTrainedModelAlias(modelid, modelalias string) *ml_put_trained_model_alias.PutTrainedModelAlias {
@@ -19036,7 +19087,7 @@ func (p *MethodMl) PutTrainedModelAlias(modelid, modelalias string) *ml_put_trai
 }
 
 // Create part of a trained model definition.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-definition-part
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-definition-part
 func (p *MethodMl) PutTrainedModelDefinitionPart(modelid, part string) *ml_put_trained_model_definition_part.PutTrainedModelDefinitionPart {
@@ -19049,7 +19100,7 @@ func (p *MethodMl) PutTrainedModelDefinitionPart(modelid, part string) *ml_put_t
 // This API is supported only for natural language processing (NLP) models. The
 // vocabulary is stored in the index as described in
 // `inference_config.*.vocabulary` of the trained model definition.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-vocabulary
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-put-trained-model-vocabulary
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-put-trained-model-vocabulary
 func (p *MethodMl) PutTrainedModelVocabulary(modelid string) *ml_put_trained_model_vocabulary.PutTrainedModelVocabulary {
@@ -19062,7 +19113,7 @@ func (p *MethodMl) PutTrainedModelVocabulary(modelid string) *ml_put_trained_mod
 // All model state and results are deleted. The job is ready to start over as if
 // it had just been created. It is not currently possible to reset multiple jobs
 // using wildcards or a comma separated list.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-reset-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-reset-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-reset-job
 func (p *MethodMl) ResetJob(jobid string) *ml_reset_job.ResetJob {
@@ -19079,7 +19130,7 @@ func (p *MethodMl) ResetJob(jobid string) *ml_reset_job.ResetJob {
 // one-off, then it might be appropriate to reset the model state to a time
 // before this event. For example, you might consider reverting to a saved
 // snapshot after Black Friday or a critical system failure.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-revert-model-snapshot
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-revert-model-snapshot
 func (p *MethodMl) RevertModelSnapshot(jobid, snapshotid string) *ml_revert_model_snapshot.RevertModelSnapshot {
 	_revertmodelsnapshot := ml_revert_model_snapshot.NewRevertModelSnapshotFunc(p.tp)
 	return _revertmodelsnapshot(jobid, snapshotid)
@@ -19098,7 +19149,7 @@ func (p *MethodMl) RevertModelSnapshot(jobid, snapshotid string) *ml_revert_mode
 // machine learning indices, though stopping jobs is not a requirement in that
 // case. You can see the current value for the upgrade_mode setting by using the
 // get machine learning info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-set-upgrade-mode
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-set-upgrade-mode
 func (p *MethodMl) SetUpgradeMode() *ml_set_upgrade_mode.SetUpgradeMode {
 	_setupgrademode := ml_set_upgrade_mode.NewSetUpgradeModeFunc(p.tp)
 	return _setupgrademode()
@@ -19116,7 +19167,7 @@ func (p *MethodMl) SetUpgradeMode() *ml_set_upgrade_mode.SetUpgradeMode {
 // If there are any mapping conflicts, the job fails to start. If the
 // destination index exists, it is used as is. You can therefore set up the
 // destination index in advance with custom settings and mappings.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-data-frame-analytics
 func (p *MethodMl) StartDataFrameAnalytics(id string) *ml_start_data_frame_analytics.StartDataFrameAnalytics {
@@ -19141,7 +19192,7 @@ func (p *MethodMl) StartDataFrameAnalytics(id string) *ml_start_data_frame_analy
 // or update and runs the query using those same roles. If you provided
 // secondary authorization headers when you created or updated the datafeed,
 // those credentials are used instead.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-datafeed
 func (p *MethodMl) StartDatafeed(datafeedid string) *ml_start_datafeed.StartDatafeed {
@@ -19152,7 +19203,7 @@ func (p *MethodMl) StartDatafeed(datafeedid string) *ml_start_datafeed.StartData
 // Start a trained model deployment.
 //
 // It allocates the model to every machine learning node.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-start-trained-model-deployment
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-start-trained-model-deployment
 func (p *MethodMl) StartTrainedModelDeployment(modelid string) *ml_start_trained_model_deployment.StartTrainedModelDeployment {
@@ -19164,7 +19215,7 @@ func (p *MethodMl) StartTrainedModelDeployment(modelid string) *ml_start_trained
 //
 // A data frame analytics job can be started and stopped multiple times
 // throughout its lifecycle.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-data-frame-analytics
 func (p *MethodMl) StopDataFrameAnalytics(id string) *ml_stop_data_frame_analytics.StopDataFrameAnalytics {
@@ -19176,7 +19227,7 @@ func (p *MethodMl) StopDataFrameAnalytics(id string) *ml_stop_data_frame_analyti
 //
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped multiple times throughout its lifecycle.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-datafeed
 func (p *MethodMl) StopDatafeed(datafeedid string) *ml_stop_datafeed.StopDatafeed {
@@ -19185,7 +19236,7 @@ func (p *MethodMl) StopDatafeed(datafeedid string) *ml_stop_datafeed.StopDatafee
 }
 
 // Stop a trained model deployment.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-stop-trained-model-deployment
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-stop-trained-model-deployment
 func (p *MethodMl) StopTrainedModelDeployment(modelid string) *ml_stop_trained_model_deployment.StopTrainedModelDeployment {
@@ -19194,7 +19245,7 @@ func (p *MethodMl) StopTrainedModelDeployment(modelid string) *ml_stop_trained_m
 }
 
 // Update a data frame analytics job.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-data-frame-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-data-frame-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-data-frame-analytics
 func (p *MethodMl) UpdateDataFrameAnalytics(id string) *ml_update_data_frame_analytics.UpdateDataFrameAnalytics {
@@ -19209,7 +19260,7 @@ func (p *MethodMl) UpdateDataFrameAnalytics(id string) *ml_update_data_frame_ana
 // roles the user who updated it had at the time of the update and runs the
 // query using those same roles. If you provide secondary authorization headers,
 // those credentials are used instead.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-datafeed
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-datafeed
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-datafeed
 func (p *MethodMl) UpdateDatafeed(datafeedid string) *ml_update_datafeed.UpdateDatafeed {
@@ -19221,7 +19272,7 @@ func (p *MethodMl) UpdateDatafeed(datafeedid string) *ml_update_datafeed.UpdateD
 //
 // Updates the description of a filter, adds items, or removes items from the
 // list.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-filter
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-filter
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-filter
 func (p *MethodMl) UpdateFilter(filterid string) *ml_update_filter.UpdateFilter {
@@ -19232,7 +19283,7 @@ func (p *MethodMl) UpdateFilter(filterid string) *ml_update_filter.UpdateFilter 
 // Update an anomaly detection job.
 //
 // Updates certain properties of an anomaly detection job.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-job
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-job
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-job
 func (p *MethodMl) UpdateJob(jobid string) *ml_update_job.UpdateJob {
@@ -19243,14 +19294,14 @@ func (p *MethodMl) UpdateJob(jobid string) *ml_update_job.UpdateJob {
 // Update a snapshot.
 //
 // Updates certain properties of a snapshot.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-model-snapshot
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-model-snapshot
 func (p *MethodMl) UpdateModelSnapshot(jobid, snapshotid string) *ml_update_model_snapshot.UpdateModelSnapshot {
 	_updatemodelsnapshot := ml_update_model_snapshot.NewUpdateModelSnapshotFunc(p.tp)
 	return _updatemodelsnapshot(jobid, snapshotid)
 }
 
 // Update a trained model deployment.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-trained-model-deployment
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-update-trained-model-deployment
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-update-trained-model-deployment
 func (p *MethodMl) UpdateTrainedModelDeployment(modelid string) *ml_update_trained_model_deployment.UpdateTrainedModelDeployment {
@@ -19268,7 +19319,7 @@ func (p *MethodMl) UpdateTrainedModelDeployment(modelid string) *ml_update_train
 // version. Only one snapshot per anomaly detection job can be upgraded at a
 // time and the upgraded snapshot cannot be the current snapshot of the anomaly
 // detection job.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-upgrade-job-snapshot
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-upgrade-job-snapshot
 func (p *MethodMl) UpgradeJobSnapshot(jobid, snapshotid string) *ml_upgrade_job_snapshot.UpgradeJobSnapshot {
 	_upgradejobsnapshot := ml_upgrade_job_snapshot.NewUpgradeJobSnapshotFunc(p.tp)
 	return _upgradejobsnapshot(jobid, snapshotid)
@@ -19282,7 +19333,6 @@ func (p *MethodMl) Validate() *ml_validate.Validate {
 }
 
 // Validate an anomaly detection job.
-// https://www.elastic.co/docs/api/doc/elasticsearch
 func (p *MethodMl) ValidateDetector() *ml_validate_detector.ValidateDetector {
 	_validatedetector := ml_validate_detector.NewValidateDetectorFunc(p.tp)
 	return _validatedetector()
@@ -19291,7 +19341,7 @@ func (p *MethodMl) ValidateDetector() *ml_validate_detector.ValidateDetector {
 // Send monitoring data.
 //
 // This API is used by the monitoring features to send monitoring data.
-// https://www.elastic.co/docs/api/doc/elasticsearch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/
 func (p *MethodMonitoring) Bulk() *monitoring_bulk.Bulk {
 	_bulk := monitoring_bulk.NewBulkFunc(p.tp)
 	return _bulk()
@@ -19300,7 +19350,7 @@ func (p *MethodMonitoring) Bulk() *monitoring_bulk.Bulk {
 // Clear the archived repositories metering.
 //
 // Clear the archived repositories metering information in the cluster.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-clear-repositories-metering-archive
 func (p *MethodNodes) ClearRepositoriesMeteringArchive(nodeid, maxarchiveversion string) *nodes_clear_repositories_metering_archive.ClearRepositoriesMeteringArchive {
 	_clearrepositoriesmeteringarchive := nodes_clear_repositories_metering_archive.NewClearRepositoriesMeteringArchiveFunc(p.tp)
 	return _clearrepositoriesmeteringarchive(nodeid, maxarchiveversion)
@@ -19313,7 +19363,7 @@ func (p *MethodNodes) ClearRepositoriesMeteringArchive(nodeid, maxarchiveversion
 // durably store the information needed to compute aggregations over a period of
 // time. Additionally, the information exposed by this API is volatile, meaning
 // that it will not be present after node restarts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-get-repositories-metering-info
 func (p *MethodNodes) GetRepositoriesMeteringInfo(nodeid string) *nodes_get_repositories_metering_info.GetRepositoriesMeteringInfo {
 	_getrepositoriesmeteringinfo := nodes_get_repositories_metering_info.NewGetRepositoriesMeteringInfoFunc(p.tp)
 	return _getrepositoriesmeteringinfo(nodeid)
@@ -19323,7 +19373,7 @@ func (p *MethodNodes) GetRepositoriesMeteringInfo(nodeid string) *nodes_get_repo
 //
 // Get a breakdown of the hot threads on each selected node in the cluster. The
 // output is plain text with a breakdown of the top hot threads for each node.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-hot-threads
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-hot-threads
 func (p *MethodNodes) HotThreads() *nodes_hot_threads.HotThreads {
 	_hotthreads := nodes_hot_threads.NewHotThreadsFunc(p.tp)
 	return _hotthreads()
@@ -19333,7 +19383,7 @@ func (p *MethodNodes) HotThreads() *nodes_hot_threads.HotThreads {
 //
 // By default, the API returns all attributes and core settings for cluster
 // nodes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-info
 func (p *MethodNodes) Info() *nodes_info.Info {
 	_info := nodes_info.NewInfoFunc(p.tp)
 	return _info()
@@ -19355,7 +19405,7 @@ func (p *MethodNodes) Info() *nodes_info.Info {
 // Alternatively, you can reload the secure settings on each node by locally
 // accessing the API and passing the node-specific Elasticsearch keystore
 // password.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-reload-secure-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-reload-secure-settings
 func (p *MethodNodes) ReloadSecureSettings() *nodes_reload_secure_settings.ReloadSecureSettings {
 	_reloadsecuresettings := nodes_reload_secure_settings.NewReloadSecureSettingsFunc(p.tp)
 	return _reloadsecuresettings()
@@ -19365,14 +19415,14 @@ func (p *MethodNodes) ReloadSecureSettings() *nodes_reload_secure_settings.Reloa
 //
 // Get statistics for nodes in a cluster. By default, all stats are returned.
 // You can limit the returned information by using metrics.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-stats
 func (p *MethodNodes) Stats() *nodes_stats.Stats {
 	_stats := nodes_stats.NewStatsFunc(p.tp)
 	return _stats()
 }
 
 // Get feature usage information.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-usage
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-usage
 func (p *MethodNodes) Usage() *nodes_usage.Usage {
 	_usage := nodes_usage.NewUsageFunc(p.tp)
 	return _usage()
@@ -19420,7 +19470,7 @@ func (p *MethodProject) Tags() *project_tags.Tags {
 // Delete a query rule within a query ruleset. This is a destructive action that
 // is only recoverable by re-adding the same rule with the create or update
 // query rule API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-delete-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-delete-rule
 func (p *MethodQueryRules) DeleteRule(rulesetid, ruleid string) *query_rules_delete_rule.DeleteRule {
@@ -19432,7 +19482,7 @@ func (p *MethodQueryRules) DeleteRule(rulesetid, ruleid string) *query_rules_del
 //
 // Remove a query ruleset and its associated data. This is a destructive action
 // that is not recoverable.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-delete-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-delete-ruleset
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-delete-ruleset
 func (p *MethodQueryRules) DeleteRuleset(rulesetid string) *query_rules_delete_ruleset.DeleteRuleset {
@@ -19443,7 +19493,7 @@ func (p *MethodQueryRules) DeleteRuleset(rulesetid string) *query_rules_delete_r
 // Get a query rule.
 //
 // Get details about a query rule within a query ruleset.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-get-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-get-rule
 func (p *MethodQueryRules) GetRule(rulesetid, ruleid string) *query_rules_get_rule.GetRule {
@@ -19454,7 +19504,7 @@ func (p *MethodQueryRules) GetRule(rulesetid, ruleid string) *query_rules_get_ru
 // Get a query ruleset.
 //
 // Get details about a query ruleset.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-get-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-get-ruleset
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-get-ruleset
 func (p *MethodQueryRules) GetRuleset(rulesetid string) *query_rules_get_ruleset.GetRuleset {
@@ -19465,7 +19515,7 @@ func (p *MethodQueryRules) GetRuleset(rulesetid string) *query_rules_get_ruleset
 // Get all query rulesets.
 //
 // Get summarized information about the query rulesets.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-list-rulesets
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-list-rulesets
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-list-rulesets
 func (p *MethodQueryRules) ListRulesets() *query_rules_list_rulesets.ListRulesets {
@@ -19483,7 +19533,7 @@ func (p *MethodQueryRules) ListRulesets() *query_rules_list_rulesets.ListRuleset
 // Additionally, pinned queries have a maximum limit of 100 pinned hits. If
 // multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-put-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-put-rule
 func (p *MethodQueryRules) PutRule(rulesetid, ruleid string) *query_rules_put_rule.PutRule {
@@ -19502,7 +19552,7 @@ func (p *MethodQueryRules) PutRule(rulesetid, ruleid string) *query_rules_put_ru
 // Additionally, pinned queries have a maximum limit of 100 pinned hits. If
 // multiple matching rules pin more than 100 documents, only the first 100
 // documents are pinned in the order they are specified in the ruleset.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-put-ruleset
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-put-ruleset
 func (p *MethodQueryRules) PutRuleset(rulesetid string) *query_rules_put_ruleset.PutRuleset {
@@ -19514,7 +19564,7 @@ func (p *MethodQueryRules) PutRuleset(rulesetid string) *query_rules_put_ruleset
 //
 // Evaluate match criteria against a query ruleset to identify the rules that
 // would match that criteria.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-test
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-query-rules-test
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-query-rules-test
 func (p *MethodQueryRules) Test(rulesetid string) *query_rules_test.Test {
@@ -19549,7 +19599,7 @@ func (p *MethodQueryRules) Test(rulesetid string) *query_rules_test.Test {
 //	  }
 //	}
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-delete-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-delete-job
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) DeleteJob(id string) *rollup_delete_job.DeleteJob {
@@ -19565,7 +19615,7 @@ func (p *MethodRollup) DeleteJob(id string) *rollup_delete_job.DeleteJob {
 // job was created, ran for a while, then was deleted, the API does not return
 // any details about it. For details about a historical rollup job, the rollup
 // capabilities API may be more useful.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-jobs
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-jobs
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) GetJobs() *rollup_get_jobs.GetJobs {
@@ -19587,7 +19637,7 @@ func (p *MethodRollup) GetJobs() *rollup_get_jobs.GetJobs {
 // 1. Does this index have associated rollup data somewhere in the cluster? 2.
 // If yes to the first question, what fields were rolled up, what aggregations
 // can be performed, and where does the data live?
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-caps
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-caps
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) GetRollupCaps() *rollup_get_rollup_caps.GetRollupCaps {
@@ -19606,7 +19656,7 @@ func (p *MethodRollup) GetRollupCaps() *rollup_get_rollup_caps.GetRollupCaps {
 //   - What target indices were rolled up, what fields were used in those
 //     rollups, and what aggregations can be performed on each job?
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-get-rollup-index-caps
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) GetRollupIndexCaps(index string) *rollup_get_rollup_index_caps.GetRollupIndexCaps {
@@ -19631,7 +19681,7 @@ func (p *MethodRollup) GetRollupIndexCaps(index string) *rollup_get_rollup_index
 //
 // Jobs are created in a `STOPPED` state. You can start them with the start
 // rollup jobs API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-put-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-put-job
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) PutJob(id string) *rollup_put_job.PutJob {
@@ -19658,7 +19708,7 @@ func (p *MethodRollup) PutJob(id string) *rollup_put_job.PutJob {
 // For more detailed examples of using the rollup search API, including querying
 // rolled-up data only or combining rolled-up and live data, refer to the
 // External documentation.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-rollup-search
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-rollup-search
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) RollupSearch(index string) *rollup_rollup_search.RollupSearch {
@@ -19670,7 +19720,7 @@ func (p *MethodRollup) RollupSearch(index string) *rollup_rollup_search.RollupSe
 //
 // If you try to start a job that does not exist, an exception occurs. If you
 // try to start a job that is already started, nothing happens.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-start-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-start-job
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) StartJob(id string) *rollup_start_job.StartJob {
@@ -19692,7 +19742,7 @@ func (p *MethodRollup) StartJob(id string) *rollup_start_job.StartJob {
 // The parameter blocks the API call from returning until either the job has
 // moved to STOPPED or the specified time has elapsed. If the specified time
 // elapses without the job moving to STOPPED, a timeout exception occurs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-stop-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-rollup-stop-job
 //
 // Deprecated: Since 8.11.0.
 func (p *MethodRollup) StopJob(id string) *rollup_stop_job.StopJob {
@@ -19704,7 +19754,7 @@ func (p *MethodRollup) StopJob(id string) *rollup_stop_job.StopJob {
 //
 // Remove a search application and its associated alias. Indices attached to the
 // search application are not removed.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-delete
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-delete
 func (p *MethodSearchApplication) Delete(name string) *search_application_delete.Delete {
@@ -19715,7 +19765,7 @@ func (p *MethodSearchApplication) Delete(name string) *search_application_delete
 // Delete a behavioral analytics collection.
 //
 // The associated data stream is also deleted.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-delete-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-delete-behavioral-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-delete-behavioral-analytics
 //
@@ -19726,7 +19776,7 @@ func (p *MethodSearchApplication) DeleteBehavioralAnalytics(name string) *search
 }
 
 // Get search application details.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get
 func (p *MethodSearchApplication) Get(name string) *search_application_get.Get {
@@ -19735,7 +19785,7 @@ func (p *MethodSearchApplication) Get(name string) *search_application_get.Get {
 }
 
 // Get behavioral analytics collections.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get-behavioral-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 //
@@ -19748,7 +19798,7 @@ func (p *MethodSearchApplication) GetBehavioralAnalytics() *search_application_g
 // Get search applications.
 //
 // Get information about search applications.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-get-behavioral-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 func (p *MethodSearchApplication) List() *search_application_list.List {
@@ -19757,7 +19807,7 @@ func (p *MethodSearchApplication) List() *search_application_list.List {
 }
 
 // Create a behavioral analytics collection event.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-post-behavioral-analytics-event
 //
 // Deprecated: Since 9.0.0.
 func (p *MethodSearchApplication) PostBehavioralAnalyticsEvent(collectionname, eventtype string) *search_application_post_behavioral_analytics_event.PostBehavioralAnalyticsEvent {
@@ -19766,7 +19816,7 @@ func (p *MethodSearchApplication) PostBehavioralAnalyticsEvent(collectionname, e
 }
 
 // Create or update a search application.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-put
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-put
 func (p *MethodSearchApplication) Put(name string) *search_application_put.Put {
@@ -19775,7 +19825,7 @@ func (p *MethodSearchApplication) Put(name string) *search_application_put.Put {
 }
 
 // Create a behavioral analytics collection.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-put-behavioral-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-put-behavioral-analytics
 //
@@ -19796,7 +19846,7 @@ func (p *MethodSearchApplication) PutBehavioralAnalytics(name string) *search_ap
 //
 // You must have `read` privileges on the backing alias of the search
 // application.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-render-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-render-query
 func (p *MethodSearchApplication) RenderQuery(name string) *search_application_render_query.RenderQuery {
 	_renderquery := search_application_render_query.NewRenderQueryFunc(p.tp)
 	return _renderquery(name)
@@ -19808,7 +19858,7 @@ func (p *MethodSearchApplication) RenderQuery(name string) *search_application_r
 // parameteter and the search template associated with the search application or
 // default template. Unspecified template parameters are assigned their default
 // values if applicable.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-search-application-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-search
 func (p *MethodSearchApplication) Search(name string) *search_application_search.Search {
@@ -19819,7 +19869,7 @@ func (p *MethodSearchApplication) Search(name string) *search_application_search
 // Get cache statistics.
 //
 // Get statistics about the shared cache for partially mounted indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-cache-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-cache-stats
 func (p *MethodSearchableSnapshots) CacheStats() *searchable_snapshots_cache_stats.CacheStats {
 	_cachestats := searchable_snapshots_cache_stats.NewCacheStatsFunc(p.tp)
 	return _cachestats()
@@ -19829,7 +19879,7 @@ func (p *MethodSearchableSnapshots) CacheStats() *searchable_snapshots_cache_sta
 //
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-clear-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-clear-cache
 func (p *MethodSearchableSnapshots) ClearCache() *searchable_snapshots_clear_cache.ClearCache {
 	_clearcache := searchable_snapshots_clear_cache.NewClearCacheFunc(p.tp)
 	return _clearcache()
@@ -19840,14 +19890,14 @@ func (p *MethodSearchableSnapshots) ClearCache() *searchable_snapshots_clear_cac
 // Mount a snapshot as a searchable snapshot index. Do not use this API for
 // snapshots managed by index lifecycle management (ILM). Manually mounting
 // ILM-managed snapshots can interfere with ILM processes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-mount
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-mount
 func (p *MethodSearchableSnapshots) Mount(repository, snapshot string) *searchable_snapshots_mount.Mount {
 	_mount := searchable_snapshots_mount.NewMountFunc(p.tp)
 	return _mount(repository, snapshot)
 }
 
 // Get searchable snapshot statistics.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-searchable-snapshots-stats
 func (p *MethodSearchableSnapshots) Stats() *searchable_snapshots_stats.Stats {
 	_stats := searchable_snapshots_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -19875,7 +19925,7 @@ func (p *MethodSearchableSnapshots) Stats() *searchable_snapshots_stats.Stats {
 // When updating a profile document, the API enables the document if it was
 // disabled. Any updates do not change existing content for either the `labels`
 // or `data` fields.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-activate-user-profile
 func (p *MethodSecurity) ActivateUserProfile() *security_activate_user_profile.ActivateUserProfile {
 	_activateuserprofile := security_activate_user_profile.NewActivateUserProfileFunc(p.tp)
 	return _activateuserprofile()
@@ -19891,7 +19941,7 @@ func (p *MethodSecurity) ActivateUserProfile() *security_activate_user_profile.A
 // metadata, and information about the realms that authenticated and authorized
 // the user. If the user cannot be authenticated, this API returns a 401 status
 // code.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-authenticate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-authenticate
 func (p *MethodSecurity) Authenticate() *security_authenticate.Authenticate {
@@ -19904,7 +19954,7 @@ func (p *MethodSecurity) Authenticate() *security_authenticate.Authenticate {
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management. The bulk delete roles API
 // cannot delete roles that are defined in roles files.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-delete-role
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-delete-role
 func (p *MethodSecurity) BulkDeleteRole() *security_bulk_delete_role.BulkDeleteRole {
 	_bulkdeleterole := security_bulk_delete_role.NewBulkDeleteRoleFunc(p.tp)
 	return _bulkdeleterole()
@@ -19915,7 +19965,7 @@ func (p *MethodSecurity) BulkDeleteRole() *security_bulk_delete_role.BulkDeleteR
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management. The bulk create or update roles
 // API cannot update roles that are defined in roles files.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-put-role
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-put-role
 func (p *MethodSecurity) BulkPutRole() *security_bulk_put_role.BulkPutRole {
 	_bulkputrole := security_bulk_put_role.NewBulkPutRoleFunc(p.tp)
 	return _bulkputrole()
@@ -19949,7 +19999,7 @@ func (p *MethodSecurity) BulkPutRole() *security_bulk_put_role.BulkPutRole {
 // A successful request returns a JSON structure that contains the IDs of all
 // updated API keys, the IDs of API keys that already had the requested changes
 // and did not require an update, and error details for any failed update.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-update-api-keys
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-update-api-keys
 func (p *MethodSecurity) BulkUpdateApiKeys() *security_bulk_update_api_keys.BulkUpdateApiKeys {
 	_bulkupdateapikeys := security_bulk_update_api_keys.NewBulkUpdateApiKeysFunc(p.tp)
 	return _bulkupdateapikeys()
@@ -19958,7 +20008,7 @@ func (p *MethodSecurity) BulkUpdateApiKeys() *security_bulk_update_api_keys.Bulk
 // Change passwords.
 //
 // Change the passwords of users in the native realm and built-in users.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-change-password
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-change-password
 func (p *MethodSecurity) ChangePassword() *security_change_password.ChangePassword {
 	_changepassword := security_change_password.NewChangePasswordFunc(p.tp)
 	return _changepassword()
@@ -19968,7 +20018,7 @@ func (p *MethodSecurity) ChangePassword() *security_change_password.ChangePasswo
 //
 // Evict a subset of all entries from the API key cache. The cache is also
 // automatically cleared on state changes of the security index.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-api-key-cache
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-api-key-cache
 func (p *MethodSecurity) ClearApiKeyCache(ids string) *security_clear_api_key_cache.ClearApiKeyCache {
 	_clearapikeycache := security_clear_api_key_cache.NewClearApiKeyCacheFunc(p.tp)
 	return _clearapikeycache(ids)
@@ -19979,7 +20029,7 @@ func (p *MethodSecurity) ClearApiKeyCache(ids string) *security_clear_api_key_ca
 // Evict privileges from the native application privilege cache. The cache is
 // also automatically cleared for applications that have their privileges
 // updated.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-privileges
 func (p *MethodSecurity) ClearCachedPrivileges(application string) *security_clear_cached_privileges.ClearCachedPrivileges {
 	_clearcachedprivileges := security_clear_cached_privileges.NewClearCachedPrivilegesFunc(p.tp)
 	return _clearcachedprivileges(application)
@@ -19995,7 +20045,7 @@ func (p *MethodSecurity) ClearCachedPrivileges(application string) *security_cle
 // There are realm settings that you can use to configure the user cache. For
 // more information, refer to the documentation about controlling the user
 // cache.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-realms
 func (p *MethodSecurity) ClearCachedRealms(realms string) *security_clear_cached_realms.ClearCachedRealms {
 	_clearcachedrealms := security_clear_cached_realms.NewClearCachedRealmsFunc(p.tp)
 	return _clearcachedrealms(realms)
@@ -20004,7 +20054,7 @@ func (p *MethodSecurity) ClearCachedRealms(realms string) *security_clear_cached
 // Clear the roles cache.
 //
 // Evict roles from the native role cache.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-roles
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-roles
 func (p *MethodSecurity) ClearCachedRoles(name string) *security_clear_cached_roles.ClearCachedRoles {
 	_clearcachedroles := security_clear_cached_roles.NewClearCachedRolesFunc(p.tp)
 	return _clearcachedroles(name)
@@ -20021,7 +20071,7 @@ func (p *MethodSecurity) ClearCachedRoles(name string) *security_clear_cached_ro
 // cleared automatically on state changes of the security index. The cache for
 // tokens backed by the `service_tokens` file is cleared automatically on file
 // changes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-service-tokens
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-service-tokens
 func (p *MethodSecurity) ClearCachedServiceTokens(namespace, service, name string) *security_clear_cached_service_tokens.ClearCachedServiceTokens {
 	_clearcachedservicetokens := security_clear_cached_service_tokens.NewClearCachedServiceTokensFunc(p.tp)
 	return _clearcachedservicetokens(namespace, service, name)
@@ -20045,7 +20095,7 @@ func (p *MethodSecurity) ClearCachedServiceTokens(namespace, service, name strin
 // The API keys are created by the Elasticsearch API key service, which is
 // automatically enabled. To configure or turn off the API key service, refer to
 // API key service setting documentation.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-api-key
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-create-api-key
 func (p *MethodSecurity) CreateApiKey() *security_create_api_key.CreateApiKey {
@@ -20080,7 +20130,7 @@ func (p *MethodSecurity) CreateApiKey() *security_create_api_key.CreateApiKey {
 // Cross-cluster API keys can only be updated with the update cross-cluster API
 // key API. Attempting to update them with the update REST API key API or the
 // bulk update REST API keys API will result in an error.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-cross-cluster-api-key
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-cross-cluster-api-key
 func (p *MethodSecurity) CreateCrossClusterApiKey() *security_create_cross_cluster_api_key.CreateCrossClusterApiKey {
 	_createcrossclusterapikey := security_create_cross_cluster_api_key.NewCreateCrossClusterApiKeyFunc(p.tp)
 	return _createcrossclusterapikey()
@@ -20093,7 +20143,7 @@ func (p *MethodSecurity) CreateCrossClusterApiKey() *security_create_cross_clust
 //
 // NOTE: Service account tokens never expire. You must actively delete them if
 // they are no longer needed.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-create-service-token
 func (p *MethodSecurity) CreateServiceToken(namespace, service string) *security_create_service_token.CreateServiceToken {
 	_createservicetoken := security_create_service_token.NewCreateServiceTokenFunc(p.tp)
 	return _createservicetoken(namespace, service)
@@ -20118,7 +20168,7 @@ func (p *MethodSecurity) CreateServiceToken(namespace, service string) *security
 // of the TLS authentication process and it is delegated to the proxy that calls
 // this API. The proxy is trusted to have performed the TLS authentication and
 // this API translates that authentication into an Elasticsearch access token.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delegate-pki
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delegate-pki
 func (p *MethodSecurity) DelegatePki() *security_delegate_pki.DelegatePki {
 	_delegatepki := security_delegate_pki.NewDelegatePkiFunc(p.tp)
 	return _delegatepki()
@@ -20133,7 +20183,7 @@ func (p *MethodSecurity) DelegatePki() *security_delegate_pki.DelegatePki {
 //   - The "Manage Application Privileges" global privilege for the application
 //     being referenced in the request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-privileges
 func (p *MethodSecurity) DeletePrivileges(application, name string) *security_delete_privileges.DeletePrivileges {
 	_deleteprivileges := security_delete_privileges.NewDeletePrivilegesFunc(p.tp)
 	return _deleteprivileges(application, name)
@@ -20144,7 +20194,7 @@ func (p *MethodSecurity) DeletePrivileges(application, name string) *security_de
 // Delete roles in the native realm. The role management APIs are generally the
 // preferred way to manage roles, rather than using file-based role management.
 // The delete roles API cannot remove roles that are defined in roles files.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-role
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-delete-role
 func (p *MethodSecurity) DeleteRole(name string) *security_delete_role.DeleteRole {
@@ -20158,7 +20208,7 @@ func (p *MethodSecurity) DeleteRole(name string) *security_delete_role.DeleteRol
 // APIs are generally the preferred way to manage role mappings rather than
 // using role mapping files. The delete role mappings API cannot remove role
 // mappings that are defined in role mapping files.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role-mapping
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-role-mapping
 func (p *MethodSecurity) DeleteRoleMapping(name string) *security_delete_role_mapping.DeleteRoleMapping {
 	_deleterolemapping := security_delete_role_mapping.NewDeleteRoleMappingFunc(p.tp)
 	return _deleterolemapping(name)
@@ -20167,7 +20217,7 @@ func (p *MethodSecurity) DeleteRoleMapping(name string) *security_delete_role_ma
 // Delete service account tokens.
 //
 // Delete service account tokens for a service in a specified namespace.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-service-token
 func (p *MethodSecurity) DeleteServiceToken(namespace, service, name string) *security_delete_service_token.DeleteServiceToken {
 	_deleteservicetoken := security_delete_service_token.NewDeleteServiceTokenFunc(p.tp)
 	return _deleteservicetoken(namespace, service, name)
@@ -20176,7 +20226,7 @@ func (p *MethodSecurity) DeleteServiceToken(namespace, service, name string) *se
 // Delete users.
 //
 // Delete users from the native realm.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-delete-user
 func (p *MethodSecurity) DeleteUser(username string) *security_delete_user.DeleteUser {
 	_deleteuser := security_delete_user.NewDeleteUserFunc(p.tp)
 	return _deleteuser(username)
@@ -20186,7 +20236,7 @@ func (p *MethodSecurity) DeleteUser(username string) *security_delete_user.Delet
 //
 // Disable users in the native realm. By default, when you create users, they
 // are enabled. You can use this API to revoke a user's access to Elasticsearch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-disable-user
 func (p *MethodSecurity) DisableUser(username string) *security_disable_user.DisableUser {
 	_disableuser := security_disable_user.NewDisableUserFunc(p.tp)
 	return _disableuser(username)
@@ -20206,7 +20256,7 @@ func (p *MethodSecurity) DisableUser(username string) *security_disable_user.Dis
 // user profile searches. You can use the disable user profile API to disable a
 // user profile so it’s not visible in these searches. To re-enable a disabled
 // user profile, use the enable user profile API .
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-disable-user-profile
 func (p *MethodSecurity) DisableUserProfile(uid string) *security_disable_user_profile.DisableUserProfile {
 	_disableuserprofile := security_disable_user_profile.NewDisableUserProfileFunc(p.tp)
 	return _disableuserprofile(uid)
@@ -20216,7 +20266,7 @@ func (p *MethodSecurity) DisableUserProfile(uid string) *security_disable_user_p
 //
 // Enable users in the native realm. By default, when you create users, they are
 // enabled.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enable-user
 func (p *MethodSecurity) EnableUser(username string) *security_enable_user.EnableUser {
 	_enableuser := security_enable_user.NewEnableUserFunc(p.tp)
 	return _enableuser(username)
@@ -20235,7 +20285,7 @@ func (p *MethodSecurity) EnableUser(username string) *security_enable_user.Enabl
 // When you activate a user profile, it's automatically enabled and visible in
 // user profile searches. If you later disable the user profile, you can use the
 // enable user profile API to make the profile visible in these searches again.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enable-user-profile
 func (p *MethodSecurity) EnableUserProfile(uid string) *security_enable_user_profile.EnableUserProfile {
 	_enableuserprofile := security_enable_user_profile.NewEnableUserProfileFunc(p.tp)
 	return _enableuserprofile(uid)
@@ -20249,7 +20299,7 @@ func (p *MethodSecurity) EnableUserProfile(uid string) *security_enable_user_pro
 // NOTE: This API is currently intended for internal use only by Kibana. Kibana
 // uses this API internally to configure itself for communications with an
 // Elasticsearch cluster that already has security features enabled.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-kibana
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enroll-kibana
 func (p *MethodSecurity) EnrollKibana() *security_enroll_kibana.EnrollKibana {
 	_enrollkibana := security_enroll_kibana.NewEnrollKibanaFunc(p.tp)
 	return _enrollkibana()
@@ -20265,7 +20315,7 @@ func (p *MethodSecurity) EnrollKibana() *security_enroll_kibana.EnrollKibana {
 // join the cluster. The response contains key and certificate material that
 // allows the caller to generate valid signed certificates for the HTTP layer of
 // all nodes in the cluster.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enroll-node
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-enroll-node
 func (p *MethodSecurity) EnrollNode() *security_enroll_node.EnrollNode {
 	_enrollnode := security_enroll_node.NewEnrollNodeFunc(p.tp)
 	return _enrollnode()
@@ -20278,7 +20328,7 @@ func (p *MethodSecurity) EnrollNode() *security_enroll_node.EnrollNode {
 // own. If you have `read_security`, `manage_api_key` or greater privileges
 // (including `manage_security`), this API returns all API keys regardless of
 // ownership.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-api-key
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-api-key
 func (p *MethodSecurity) GetApiKey() *security_get_api_key.GetApiKey {
@@ -20290,7 +20340,7 @@ func (p *MethodSecurity) GetApiKey() *security_get_api_key.GetApiKey {
 //
 // Get the list of cluster privileges and index privileges that are available in
 // this version of Elasticsearch.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-builtin-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-builtin-privileges
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-builtin-privileges
 func (p *MethodSecurity) GetBuiltinPrivileges() *security_get_builtin_privileges.GetBuiltinPrivileges {
@@ -20307,7 +20357,7 @@ func (p *MethodSecurity) GetBuiltinPrivileges() *security_get_builtin_privileges
 //   - The "Manage Application Privileges" global privilege for the application
 //     being referenced in the request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-privileges
 func (p *MethodSecurity) GetPrivileges() *security_get_privileges.GetPrivileges {
 	_getprivileges := security_get_privileges.NewGetPrivilegesFunc(p.tp)
 	return _getprivileges()
@@ -20318,7 +20368,7 @@ func (p *MethodSecurity) GetPrivileges() *security_get_privileges.GetPrivileges 
 // Get roles in the native realm. The role management APIs are generally the
 // preferred way to manage roles, rather than using file-based role management.
 // The get roles API cannot retrieve roles that are defined in roles files.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-role
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-get-role
 func (p *MethodSecurity) GetRole() *security_get_role.GetRole {
@@ -20332,7 +20382,7 @@ func (p *MethodSecurity) GetRole() *security_get_role.GetRole {
 // APIs are generally the preferred way to manage role mappings rather than
 // using role mapping files. The get role mappings API cannot retrieve role
 // mappings that are defined in role mapping files.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role-mapping
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-role-mapping
 func (p *MethodSecurity) GetRoleMapping() *security_get_role_mapping.GetRoleMapping {
 	_getrolemapping := security_get_role_mapping.NewGetRoleMappingFunc(p.tp)
 	return _getrolemapping()
@@ -20344,7 +20394,7 @@ func (p *MethodSecurity) GetRoleMapping() *security_get_role_mapping.GetRoleMapp
 //
 // NOTE: Currently, only the `elastic/fleet-server` service account is
 // available.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-accounts
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-service-accounts
 func (p *MethodSecurity) GetServiceAccounts() *security_get_service_accounts.GetServiceAccounts {
 	_getserviceaccounts := security_get_service_accounts.NewGetServiceAccountsFunc(p.tp)
 	return _getserviceaccounts()
@@ -20364,7 +20414,7 @@ func (p *MethodSecurity) GetServiceAccounts() *security_get_service_accounts.Get
 // from all nodes of the cluster. Tokens with the same name from different nodes
 // are assumed to be the same token and are only counted once towards the total
 // number of service tokens.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-credentials
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-service-credentials
 func (p *MethodSecurity) GetServiceCredentials(namespace, service string) *security_get_service_credentials.GetServiceCredentials {
 	_getservicecredentials := security_get_service_credentials.NewGetServiceCredentialsFunc(p.tp)
 	return _getservicecredentials(namespace, service)
@@ -20379,7 +20429,7 @@ func (p *MethodSecurity) GetServiceCredentials(namespace, service string) *secur
 //   - `index.auto_expand_replicas`
 //   - `index.number_of_replicas`
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-settings
 func (p *MethodSecurity) GetSettings() *security_get_settings.GetSettings {
 	_getsettings := security_get_settings.NewGetSettingsFunc(p.tp)
 	return _getsettings()
@@ -20388,7 +20438,7 @@ func (p *MethodSecurity) GetSettings() *security_get_settings.GetSettings {
 // Get security stats.
 //
 // Gather security usage statistics from all node(s) within the cluster.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-stats
 func (p *MethodSecurity) GetStats() *security_get_stats.GetStats {
 	_getstats := security_get_stats.NewGetStatsFunc(p.tp)
 	return _getstats()
@@ -20415,7 +20465,7 @@ func (p *MethodSecurity) GetStats() *security_get_stats.GetStats {
 // That time period is defined by the `xpack.security.authc.token.timeout`
 // setting. If you want to invalidate a token immediately, you can do so by
 // using the invalidate token API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-token
 func (p *MethodSecurity) GetToken() *security_get_token.GetToken {
 	_gettoken := security_get_token.NewGetTokenFunc(p.tp)
 	return _gettoken()
@@ -20424,7 +20474,7 @@ func (p *MethodSecurity) GetToken() *security_get_token.GetToken {
 // Get users.
 //
 // Get information about users in the native realm and built-in users.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user
 func (p *MethodSecurity) GetUser() *security_get_user.GetUser {
 	_getuser := security_get_user.NewGetUserFunc(p.tp)
 	return _getuser()
@@ -20436,7 +20486,7 @@ func (p *MethodSecurity) GetUser() *security_get_user.GetUser {
 // API, but only to determine their own privileges. To check the privileges of
 // other users, you must use the run as feature. To check whether a user has a
 // specific list of privileges, use the has privileges API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user-privileges
 func (p *MethodSecurity) GetUserPrivileges() *security_get_user_privileges.GetUserPrivileges {
 	_getuserprivileges := security_get_user_privileges.NewGetUserPrivilegesFunc(p.tp)
 	return _getuserprivileges()
@@ -20451,7 +20501,7 @@ func (p *MethodSecurity) GetUserPrivileges() *security_get_user_privileges.GetUs
 // Individual users and external applications should not call this API directly.
 // Elastic reserves the right to change or remove this feature in future
 // releases without prior notice.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-get-user-profile
 func (p *MethodSecurity) GetUserProfile(uid string) *security_get_user_profile.GetUserProfile {
 	_getuserprofile := security_get_user_profile.NewGetUserProfileFunc(p.tp)
 	return _getuserprofile(uid)
@@ -20485,7 +20535,7 @@ func (p *MethodSecurity) GetUserProfile(uid string) *security_get_user_profile.G
 //
 // By default, API keys never expire. You can specify expiration information
 // when you create the API keys.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-grant-api-key
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-grant-api-key
 func (p *MethodSecurity) GrantApiKey() *security_grant_api_key.GrantApiKey {
 	_grantapikey := security_grant_api_key.NewGrantApiKeyFunc(p.tp)
 	return _grantapikey()
@@ -20496,7 +20546,7 @@ func (p *MethodSecurity) GrantApiKey() *security_grant_api_key.GrantApiKey {
 // Determine whether the specified user has a specified list of privileges. All
 // users can use this API, but only to determine their own privileges. To check
 // the privileges of other users, you must use the run as feature.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-has-privileges
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-has-privileges
 func (p *MethodSecurity) HasPrivileges() *security_has_privileges.HasPrivileges {
@@ -20514,7 +20564,7 @@ func (p *MethodSecurity) HasPrivileges() *security_has_privileges.HasPrivileges 
 // Individual users and external applications should not call this API directly.
 // Elastic reserves the right to change or remove this feature in future
 // releases without prior notice.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-has-privileges-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-has-privileges-user-profile
 func (p *MethodSecurity) HasPrivilegesUserProfile() *security_has_privileges_user_profile.HasPrivilegesUserProfile {
 	_hasprivilegesuserprofile := security_has_privileges_user_profile.NewHasPrivilegesUserProfileFunc(p.tp)
 	return _hasprivilegesuserprofile()
@@ -20541,7 +20591,7 @@ func (p *MethodSecurity) HasPrivilegesUserProfile() *security_has_privileges_use
 //   - Or, if the request is issued by an API key, that is to say an API key
 //     invalidates itself, specify its ID in the `ids` field.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-invalidate-api-key
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-invalidate-api-key
 func (p *MethodSecurity) InvalidateApiKey() *security_invalidate_api_key.InvalidateApiKey {
@@ -20564,7 +20614,7 @@ func (p *MethodSecurity) InvalidateApiKey() *security_invalidate_api_key.Invalid
 // More specifically, either one of `token` or `refresh_token` parameters is
 // required. If none of these two are specified, then `realm_name` and/or
 // `username` need to be specified.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-invalidate-token
 func (p *MethodSecurity) InvalidateToken() *security_invalidate_token.InvalidateToken {
 	_invalidatetoken := security_invalidate_token.NewInvalidateTokenFunc(p.tp)
 	return _invalidatetoken()
@@ -20580,7 +20630,7 @@ func (p *MethodSecurity) InvalidateToken() *security_invalidate_token.Invalidate
 // with the OpenID Connect APIs. These APIs are used internally by Kibana in
 // order to provide OpenID Connect based authentication, but can also be used by
 // other, custom web applications or other clients.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-authenticate
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-authenticate
 func (p *MethodSecurity) OidcAuthenticate() *security_oidc_authenticate.OidcAuthenticate {
 	_oidcauthenticate := security_oidc_authenticate.NewOidcAuthenticateFunc(p.tp)
 	return _oidcauthenticate()
@@ -20600,7 +20650,7 @@ func (p *MethodSecurity) OidcAuthenticate() *security_oidc_authenticate.OidcAuth
 // with the OpenID Connect APIs. These APIs are used internally by Kibana in
 // order to provide OpenID Connect based authentication, but can also be used by
 // other, custom web applications or other clients.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-logout
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-logout
 func (p *MethodSecurity) OidcLogout() *security_oidc_logout.OidcLogout {
 	_oidclogout := security_oidc_logout.NewOidcLogoutFunc(p.tp)
 	return _oidclogout()
@@ -20619,7 +20669,7 @@ func (p *MethodSecurity) OidcLogout() *security_oidc_logout.OidcLogout {
 // with the OpenID Connect APIs. These APIs are used internally by Kibana in
 // order to provide OpenID Connect based authentication, but can also be used by
 // other, custom web applications or other clients.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-oidc-prepare-authentication
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-oidc-prepare-authentication
 func (p *MethodSecurity) OidcPrepareAuthentication() *security_oidc_prepare_authentication.OidcPrepareAuthentication {
 	_oidcprepareauthentication := security_oidc_prepare_authentication.NewOidcPrepareAuthenticationFunc(p.tp)
 	return _oidcprepareauthentication()
@@ -20650,7 +20700,7 @@ func (p *MethodSecurity) OidcPrepareAuthentication() *security_oidc_prepare_auth
 //
 // Action names can contain any number of printable ASCII characters and must
 // contain at least one of the following characters: `/`, `*`, `:`.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-privileges
 func (p *MethodSecurity) PutPrivileges() *security_put_privileges.PutPrivileges {
 	_putprivileges := security_put_privileges.NewPutPrivilegesFunc(p.tp)
 	return _putprivileges()
@@ -20662,7 +20712,7 @@ func (p *MethodSecurity) PutPrivileges() *security_put_privileges.PutPrivileges 
 // the native realm, rather than using file-based role management. The create or
 // update roles API cannot update roles that are defined in roles files.
 // File-based role management is not available in Elastic Serverless.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-role
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-put-role
 func (p *MethodSecurity) PutRole(name string) *security_put_role.PutRole {
@@ -20707,7 +20757,7 @@ func (p *MethodSecurity) PutRole(name string) *security_put_role.PutRole {
 // name of the role which should be assigned to the user. If the format of the
 // template is set to "json" then the template is expected to produce a JSON
 // string or an array of JSON strings for the role names.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-role-mapping
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-role-mapping
 func (p *MethodSecurity) PutRoleMapping(name string) *security_put_role_mapping.PutRoleMapping {
 	_putrolemapping := security_put_role_mapping.NewPutRoleMappingFunc(p.tp)
 	return _putrolemapping(name)
@@ -20718,7 +20768,7 @@ func (p *MethodSecurity) PutRoleMapping(name string) *security_put_role_mapping.
 // Add and update users in the native realm. A password is required for adding a
 // new user but is optional when updating an existing user. To change a user's
 // password without updating any other fields, use the change password API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-user
 func (p *MethodSecurity) PutUser(username string) *security_put_user.PutUser {
 	_putuser := security_put_user.NewPutUserFunc(p.tp)
 	return _putuser(username)
@@ -20735,7 +20785,7 @@ func (p *MethodSecurity) PutUser(username string) *security_put_user.PutUser {
 // `read_security`, `manage_api_key`, or greater privileges (including
 // `manage_security`), this API returns all API keys regardless of ownership.
 // Refer to the linked documentation for examples of how to find API keys:
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-api-keys
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-api-keys
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-api-keys
 func (p *MethodSecurity) QueryApiKeys() *security_query_api_keys.QueryApiKeys {
@@ -20750,7 +20800,7 @@ func (p *MethodSecurity) QueryApiKeys() *security_query_api_keys.QueryApiKeys {
 // The query roles API does not retrieve roles that are defined in roles files,
 // nor built-in ones. You can optionally filter the results with a query. Also,
 // the results can be paginated and sorted.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-role
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-role
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-query-role
 func (p *MethodSecurity) QueryRole() *security_query_role.QueryRole {
@@ -20765,7 +20815,7 @@ func (p *MethodSecurity) QueryRole() *security_query_role.QueryRole {
 //
 // NOTE: As opposed to the get user API, built-in users are excluded from the
 // result. This API is only for native users.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-user
 func (p *MethodSecurity) QueryUser() *security_query_user.QueryUser {
 	_queryuser := security_query_user.NewQueryUserFunc(p.tp)
 	return _queryuser()
@@ -20794,7 +20844,7 @@ func (p *MethodSecurity) QueryUser() *security_query_user.QueryUser {
 // authentication. This API endpoint essentially exchanges SAML responses that
 // indicate successful authentication in the IdP for Elasticsearch access and
 // refresh tokens, which can be used for authentication against Elasticsearch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-authenticate
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-authenticate
 func (p *MethodSecurity) SamlAuthenticate() *security_saml_authenticate.SamlAuthenticate {
 	_samlauthenticate := security_saml_authenticate.NewSamlAuthenticateFunc(p.tp)
 	return _samlauthenticate()
@@ -20815,7 +20865,7 @@ func (p *MethodSecurity) SamlAuthenticate() *security_saml_authenticate.SamlAuth
 // by the IdP with either the HTTP-Redirect or the HTTP-Post binding. The caller
 // of this API must prepare the request accordingly so that this API can handle
 // either of them.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-complete-logout
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-complete-logout
 func (p *MethodSecurity) SamlCompleteLogout() *security_saml_complete_logout.SamlCompleteLogout {
 	_samlcompletelogout := security_saml_complete_logout.NewSamlCompleteLogoutFunc(p.tp)
 	return _samlcompletelogout()
@@ -20835,7 +20885,7 @@ func (p *MethodSecurity) SamlCompleteLogout() *security_saml_complete_logout.Sam
 // Elasticsearch invalidates the access token and refresh token that corresponds
 // to that specific SAML principal and provides a URL that contains a SAML
 // LogoutResponse message. Thus the user can be redirected back to their IdP.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-invalidate
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-invalidate
 func (p *MethodSecurity) SamlInvalidate() *security_saml_invalidate.SamlInvalidate {
 	_samlinvalidate := security_saml_invalidate.NewSamlInvalidateFunc(p.tp)
 	return _samlinvalidate()
@@ -20854,7 +20904,7 @@ func (p *MethodSecurity) SamlInvalidate() *security_saml_invalidate.SamlInvalida
 // accordingly and the SAML IdP supports this, the Elasticsearch response
 // contains a URL to redirect the user to the IdP that contains a SAML logout
 // request (starting an SP-initiated SAML Single Logout).
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-logout
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-logout
 func (p *MethodSecurity) SamlLogout() *security_saml_logout.SamlLogout {
 	_samllogout := security_saml_logout.NewSamlLogoutFunc(p.tp)
 	return _samllogout()
@@ -20880,7 +20930,7 @@ func (p *MethodSecurity) SamlLogout() *security_saml_logout.SamlLogout {
 // that uniquely identifies this SAML Authentication request. The caller of this
 // API needs to store this identifier as it needs to be used in a following step
 // of the authentication process.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-prepare-authentication
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-prepare-authentication
 func (p *MethodSecurity) SamlPrepareAuthentication() *security_saml_prepare_authentication.SamlPrepareAuthentication {
 	_samlprepareauthentication := security_saml_prepare_authentication.NewSamlPrepareAuthenticationFunc(p.tp)
 	return _samlprepareauthentication()
@@ -20894,7 +20944,7 @@ func (p *MethodSecurity) SamlPrepareAuthentication() *security_saml_prepare_auth
 // describe their capabilities and configuration using a metadata file. This API
 // generates Service Provider metadata based on the configuration of a SAML
 // realm in Elasticsearch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-service-provider-metadata
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-service-provider-metadata
 func (p *MethodSecurity) SamlServiceProviderMetadata(realmname string) *security_saml_service_provider_metadata.SamlServiceProviderMetadata {
 	_samlserviceprovidermetadata := security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(p.tp)
 	return _samlserviceprovidermetadata(realmname)
@@ -20909,7 +20959,7 @@ func (p *MethodSecurity) SamlServiceProviderMetadata(realmname string) *security
 // Individual users and external applications should not call this API directly.
 // Elastic reserves the right to change or remove this feature in future
 // releases without prior notice.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-suggest-user-profiles
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-suggest-user-profiles
 func (p *MethodSecurity) SuggestUserProfiles() *security_suggest_user_profiles.SuggestUserProfiles {
 	_suggestuserprofiles := security_suggest_user_profiles.NewSuggestUserProfilesFunc(p.tp)
 	return _suggestuserprofiles()
@@ -20943,7 +20993,7 @@ func (p *MethodSecurity) SuggestUserProfiles() *security_suggest_user_profiles.S
 // this API might still change the API key's access scope. This change can occur
 // if the owner user's permissions have changed since the API key was created or
 // last modified.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-api-key
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-api-key
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-update-api-key
 func (p *MethodSecurity) UpdateApiKey(id string) *security_update_api_key.UpdateApiKey {
@@ -20978,7 +21028,7 @@ func (p *MethodSecurity) UpdateApiKey(id string) *security_update_api_key.Update
 // To learn more about how to use this API, refer to the [Update cross cluter
 // API key API examples
 // page](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/update-cc-api-key-examples).
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-cross-cluster-api-key
 func (p *MethodSecurity) UpdateCrossClusterApiKey(id string) *security_update_cross_cluster_api_key.UpdateCrossClusterApiKey {
 	_updatecrossclusterapikey := security_update_cross_cluster_api_key.NewUpdateCrossClusterApiKeyFunc(p.tp)
 	return _updatecrossclusterapikey(id)
@@ -20997,7 +21047,7 @@ func (p *MethodSecurity) UpdateCrossClusterApiKey(id string) *security_update_cr
 // If a specific index is not in use on the system and settings are provided for
 // it, the request will be rejected. This API does not yet support configuring
 // the settings for indices before they are in use.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-settings
 func (p *MethodSecurity) UpdateSettings() *security_update_settings.UpdateSettings {
 	_updatesettings := security_update_settings.NewUpdateSettingsFunc(p.tp)
 	return _updatesettings()
@@ -21028,7 +21078,7 @@ func (p *MethodSecurity) UpdateSettings() *security_update_settings.UpdateSettin
 // For both labels and data, content is namespaced by the top-level fields. The
 // `update_profile_data` global privilege grants privileges for updating only
 // the allowed namespaces.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-user-profile-data
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-user-profile-data
 func (p *MethodSecurity) UpdateUserProfileData(uid string) *security_update_user_profile_data.UpdateUserProfileData {
 	_updateuserprofiledata := security_update_user_profile_data.NewUpdateUserProfileDataFunc(p.tp)
 	return _updateuserprofiledata(uid)
@@ -21047,7 +21097,7 @@ func (p *MethodSecurity) UpdateUserProfileData(uid string) *security_update_user
 //
 // If the operator privileges feature is enabled, you must be an operator to use
 // this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-delete-node
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-delete-node
 func (p *MethodShutdown) DeleteNode(nodeid string) *shutdown_delete_node.DeleteNode {
 	_deletenode := shutdown_delete_node.NewDeleteNodeFunc(p.tp)
 	return _deletenode(nodeid)
@@ -21065,7 +21115,7 @@ func (p *MethodShutdown) DeleteNode(nodeid string) *shutdown_delete_node.DeleteN
 //
 // If the operator privileges feature is enabled, you must be an operator to use
 // this API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-get-node
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-get-node
 func (p *MethodShutdown) GetNode() *shutdown_get_node.GetNode {
 	_getnode := shutdown_get_node.NewGetNodeFunc(p.tp)
 	return _getnode()
@@ -21094,7 +21144,7 @@ func (p *MethodShutdown) GetNode() *shutdown_get_node.GetNode {
 //
 // IMPORTANT: This API does NOT terminate the Elasticsearch process. Monitor the
 // node shutdown status to determine when it is safe to stop Elasticsearch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-put-node
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-shutdown-put-node
 func (p *MethodShutdown) PutNode(nodeid string) *shutdown_put_node.PutNode {
 	_putnode := shutdown_put_node.NewPutNodeFunc(p.tp)
 	return _putnode(nodeid)
@@ -21131,7 +21181,7 @@ func (p *MethodShutdown) PutNode(nodeid string) *shutdown_put_node.PutNode {
 // already in the system. This can be used to replace existing pipeline
 // definitions or to create new ones. The pipeline substitutions are used only
 // within this request.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-simulate-ingest
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-simulate-ingest
 func (p *MethodSimulate) Ingest() *simulate_ingest.Ingest {
 	_ingest := simulate_ingest.NewIngestFunc(p.tp)
 	return _ingest()
@@ -21142,7 +21192,7 @@ func (p *MethodSimulate) Ingest() *simulate_ingest.Ingest {
 // Delete a snapshot lifecycle policy definition. This operation prevents any
 // future snapshots from being taken but does not cancel in-progress snapshots
 // or remove previously-taken snapshots.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-delete-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-delete-lifecycle
 func (p *MethodSlm) DeleteLifecycle(policyid string) *slm_delete_lifecycle.DeleteLifecycle {
 	_deletelifecycle := slm_delete_lifecycle.NewDeleteLifecycleFunc(p.tp)
 	return _deletelifecycle(policyid)
@@ -21154,7 +21204,7 @@ func (p *MethodSlm) DeleteLifecycle(policyid string) *slm_delete_lifecycle.Delet
 // without waiting for the scheduled time. The snapshot policy is normally
 // applied according to its schedule, but you might want to manually run a
 // policy before performing an upgrade or other maintenance.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-execute-lifecycle
 func (p *MethodSlm) ExecuteLifecycle(policyid string) *slm_execute_lifecycle.ExecuteLifecycle {
 	_executelifecycle := slm_execute_lifecycle.NewExecuteLifecycleFunc(p.tp)
 	return _executelifecycle(policyid)
@@ -21165,7 +21215,7 @@ func (p *MethodSlm) ExecuteLifecycle(policyid string) *slm_execute_lifecycle.Exe
 // Manually apply the retention policy to force immediate removal of snapshots
 // that are expired according to the snapshot lifecycle policy retention rules.
 // The retention policy is normally applied according to its schedule.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-retention
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-execute-retention
 func (p *MethodSlm) ExecuteRetention() *slm_execute_retention.ExecuteRetention {
 	_executeretention := slm_execute_retention.NewExecuteRetentionFunc(p.tp)
 	return _executeretention()
@@ -21175,7 +21225,7 @@ func (p *MethodSlm) ExecuteRetention() *slm_execute_retention.ExecuteRetention {
 //
 // Get snapshot lifecycle policy definitions and information about the latest
 // snapshot attempts.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-lifecycle
 func (p *MethodSlm) GetLifecycle() *slm_get_lifecycle.GetLifecycle {
 	_getlifecycle := slm_get_lifecycle.NewGetLifecycleFunc(p.tp)
 	return _getlifecycle()
@@ -21185,14 +21235,14 @@ func (p *MethodSlm) GetLifecycle() *slm_get_lifecycle.GetLifecycle {
 //
 // Get global and policy-level statistics about actions taken by snapshot
 // lifecycle management.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-stats
 func (p *MethodSlm) GetStats() *slm_get_stats.GetStats {
 	_getstats := slm_get_stats.NewGetStatsFunc(p.tp)
 	return _getstats()
 }
 
 // Get the snapshot lifecycle management status.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-get-status
 func (p *MethodSlm) GetStatus() *slm_get_status.GetStatus {
 	_getstatus := slm_get_status.NewGetStatusFunc(p.tp)
 	return _getstatus()
@@ -21203,7 +21253,7 @@ func (p *MethodSlm) GetStatus() *slm_get_status.GetStatus {
 // Create or update a snapshot lifecycle policy. If the policy already exists,
 // this request increments the policy version. Only the latest version of a
 // policy is stored.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-put-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-put-lifecycle
 func (p *MethodSlm) PutLifecycle(policyid string) *slm_put_lifecycle.PutLifecycle {
 	_putlifecycle := slm_put_lifecycle.NewPutLifecycleFunc(p.tp)
 	return _putlifecycle(policyid)
@@ -21214,7 +21264,7 @@ func (p *MethodSlm) PutLifecycle(policyid string) *slm_put_lifecycle.PutLifecycl
 // Snapshot lifecycle management (SLM) starts automatically when a cluster is
 // formed. Manually starting SLM is necessary only if it has been stopped using
 // the stop SLM API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-start
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-start
 func (p *MethodSlm) Start() *slm_start.Start {
 	_start := slm_start.NewStartFunc(p.tp)
 	return _start()
@@ -21233,7 +21283,7 @@ func (p *MethodSlm) Start() *slm_start.Start {
 // plugin might continue to run until in-progress operations complete and it can
 // be safely stopped. Use the get snapshot lifecycle management status API to
 // see if SLM is running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-slm-stop
 func (p *MethodSlm) Stop() *slm_stop.Stop {
 	_stop := slm_stop.NewStopFunc(p.tp)
 	return _stop()
@@ -21243,7 +21293,7 @@ func (p *MethodSlm) Stop() *slm_stop.Stop {
 //
 // Trigger the review of the contents of a snapshot repository and delete any
 // stale data not referenced by existing snapshots.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-cleanup-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-cleanup-repository
 func (p *MethodSnapshot) CleanupRepository(repository string) *snapshot_cleanup_repository.CleanupRepository {
 	_cleanuprepository := snapshot_cleanup_repository.NewCleanupRepositoryFunc(p.tp)
 	return _cleanuprepository(repository)
@@ -21252,7 +21302,7 @@ func (p *MethodSnapshot) CleanupRepository(repository string) *snapshot_cleanup_
 // Clone a snapshot.
 //
 // Clone part of all of a snapshot into another snapshot in the same repository.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-clone
 func (p *MethodSnapshot) Clone(repository, snapshot, targetsnapshot string) *snapshot_clone.Clone {
 	_clone := snapshot_clone.NewCloneFunc(p.tp)
 	return _clone(repository, snapshot, targetsnapshot)
@@ -21261,7 +21311,7 @@ func (p *MethodSnapshot) Clone(repository, snapshot, targetsnapshot string) *sna
 // Create a snapshot.
 //
 // Take a snapshot of a cluster or of data streams and indices.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-create
 func (p *MethodSnapshot) Create(repository, snapshot string) *snapshot_create.Create {
 	_create := snapshot_create.NewCreateFunc(p.tp)
 	return _create(repository, snapshot)
@@ -21278,14 +21328,14 @@ func (p *MethodSnapshot) Create(repository, snapshot string) *snapshot_create.Cr
 // Several options for this API can be specified using a query parameter or a
 // request body parameter. If both parameters are specified, only the query
 // parameter is used.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-create-repository
 func (p *MethodSnapshot) CreateRepository(repository string) *snapshot_create_repository.CreateRepository {
 	_createrepository := snapshot_create_repository.NewCreateRepositoryFunc(p.tp)
 	return _createrepository(repository)
 }
 
 // Delete snapshots.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-delete
 func (p *MethodSnapshot) Delete(repository, snapshot string) *snapshot_delete.Delete {
 	_delete := snapshot_delete.NewDeleteFunc(p.tp)
 	return _delete(repository, snapshot)
@@ -21296,7 +21346,7 @@ func (p *MethodSnapshot) Delete(repository, snapshot string) *snapshot_delete.De
 // When a repository is unregistered, Elasticsearch removes only the reference
 // to the location where the repository is storing the snapshots. The snapshots
 // themselves are left untouched and in place.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-delete-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-delete-repository
 func (p *MethodSnapshot) DeleteRepository(repository string) *snapshot_delete_repository.DeleteRepository {
 	_deleterepository := snapshot_delete_repository.NewDeleteRepositoryFunc(p.tp)
 	return _deleterepository(repository)
@@ -21310,14 +21360,14 @@ func (p *MethodSnapshot) DeleteRepository(repository string) *snapshot_delete_re
 // beginning of the iteration and is not concurrently deleted will be seen
 // during the iteration. Snapshots concurrently created may be seen during an
 // iteration.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-get
 func (p *MethodSnapshot) Get(repository, snapshot string) *snapshot_get.Get {
 	_get := snapshot_get.NewGetFunc(p.tp)
 	return _get(repository, snapshot)
 }
 
 // Get snapshot repository information.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-get-repository
 func (p *MethodSnapshot) GetRepository() *snapshot_get_repository.GetRepository {
 	_getrepository := snapshot_get_repository.NewGetRepositoryFunc(p.tp)
 	return _getrepository()
@@ -21497,7 +21547,7 @@ func (p *MethodSnapshot) GetRepository() *snapshot_get_repository.GetRepository 
 // compare-and-exchange operations performed by repository analysis atomically
 // increment a counter which is represented as an 8-byte blob. Some operations
 // also verify the behavior on small blobs with sizes other than 8 bytes.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-analyze
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-repository-analyze
 func (p *MethodSnapshot) RepositoryAnalyze(repository string) *snapshot_repository_analyze.RepositoryAnalyze {
 	_repositoryanalyze := snapshot_repository_analyze.NewRepositoryAnalyzeFunc(p.tp)
 	return _repositoryanalyze(repository)
@@ -21566,7 +21616,7 @@ func (p *MethodSnapshot) RepositoryAnalyze(repository string) *snapshot_reposito
 // The response exposes implementation details of the analysis which may change
 // from version to version. The response body format is therefore not considered
 // stable and may be different in newer versions.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-repository-verify-integrity
 func (p *MethodSnapshot) RepositoryVerifyIntegrity(repository string) *snapshot_repository_verify_integrity.RepositoryVerifyIntegrity {
 	_repositoryverifyintegrity := snapshot_repository_verify_integrity.NewRepositoryVerifyIntegrityFunc(p.tp)
 	return _repositoryverifyintegrity(repository)
@@ -21596,7 +21646,7 @@ func (p *MethodSnapshot) RepositoryVerifyIntegrity(repository string) *snapshot_
 //
 // If your snapshot contains data from App Search or Workplace Search, you must
 // restore the Enterprise Search encryption key before you restore the snapshot.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-restore
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-restore
 func (p *MethodSnapshot) Restore(repository, snapshot string) *snapshot_restore.Restore {
 	_restore := snapshot_restore.NewRestoreFunc(p.tp)
 	return _restore(repository, snapshot)
@@ -21636,7 +21686,7 @@ func (p *MethodSnapshot) Restore(repository, snapshot string) *snapshot_restore.
 // Depending on the latency of your storage, such requests can take an extremely
 // long time to return results. These requests can also tax machine resources
 // and, when using cloud storage, incur high processing costs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-status
 func (p *MethodSnapshot) Status() *snapshot_status.Status {
 	_status := snapshot_status.NewStatusFunc(p.tp)
 	return _status()
@@ -21645,14 +21695,14 @@ func (p *MethodSnapshot) Status() *snapshot_status.Status {
 // Verify a snapshot repository.
 //
 // Check for common misconfigurations in a snapshot repository.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-verify-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-verify-repository
 func (p *MethodSnapshot) VerifyRepository(repository string) *snapshot_verify_repository.VerifyRepository {
 	_verifyrepository := snapshot_verify_repository.NewVerifyRepositoryFunc(p.tp)
 	return _verifyrepository(repository)
 }
 
 // Clear an SQL search cursor.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-clear-cursor
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-clear-cursor
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-clear-cursor
 func (p *MethodSql) ClearCursor() *sql_clear_cursor.ClearCursor {
@@ -21671,7 +21721,7 @@ func (p *MethodSql) ClearCursor() *sql_clear_cursor.ClearCursor {
 //   - Users with the `cancel_task` cluster privilege.
 //   - The user who first submitted the search.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-delete-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-delete-async
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-delete-async
 func (p *MethodSql) DeleteAsync(id string) *sql_delete_async.DeleteAsync {
@@ -21686,7 +21736,7 @@ func (p *MethodSql) DeleteAsync(id string) *sql_delete_async.DeleteAsync {
 //
 // If the Elasticsearch security features are enabled, only the user who first
 // submitted the SQL search can retrieve the search using this API.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-get-async
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-get-async
 func (p *MethodSql) GetAsync(id string) *sql_get_async.GetAsync {
@@ -21698,7 +21748,7 @@ func (p *MethodSql) GetAsync(id string) *sql_get_async.GetAsync {
 //
 // Get the current status of an async SQL search or a stored synchronous SQL
 // search.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-get-async-status
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-get-async-status
 func (p *MethodSql) GetAsyncStatus(id string) *sql_get_async_status.GetAsyncStatus {
@@ -21709,7 +21759,7 @@ func (p *MethodSql) GetAsyncStatus(id string) *sql_get_async_status.GetAsyncStat
 // Get SQL search results.
 //
 // Run an SQL request.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-query
 func (p *MethodSql) Query() *sql_query.Query {
@@ -21722,7 +21772,7 @@ func (p *MethodSql) Query() *sql_query.Query {
 // Translate an SQL search into a search API request containing Query DSL. It
 // accepts the same request body parameters as the SQL search API, excluding
 // `cursor`.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-translate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-sql-translate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-sql-translate
 func (p *MethodSql) Translate() *sql_translate.Translate {
@@ -21759,7 +21809,7 @@ func (p *MethodSql) Translate() *sql_translate.Translate {
 // If Elasticsearch is configured to use a keystore or truststore, the API
 // output includes all certificates in that store, even though some of the
 // certificates might not be in active use within the cluster.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ssl-certificates
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ssl-certificates
 func (p *MethodSsl) Certificates() *ssl_certificates.Certificates {
 	_certificates := ssl_certificates.NewCertificatesFunc(p.tp)
 	return _certificates()
@@ -21819,7 +21869,7 @@ func (p *MethodStreams) Status() *streams_status.Status {
 // API in order to copy over the index data. Once finished, you can delete the
 // index. When the synonyms set is not used in analyzers, you will be able to
 // delete it.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-delete-synonym
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-delete-synonym
 func (p *MethodSynonyms) DeleteSynonym(id string) *synonyms_delete_synonym.DeleteSynonym {
@@ -21830,7 +21880,7 @@ func (p *MethodSynonyms) DeleteSynonym(id string) *synonyms_delete_synonym.Delet
 // Delete a synonym rule.
 //
 // Delete a synonym rule from a synonym set.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-delete-synonym-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-delete-synonym-rule
 func (p *MethodSynonyms) DeleteSynonymRule(setid, ruleid string) *synonyms_delete_synonym_rule.DeleteSynonymRule {
@@ -21839,7 +21889,7 @@ func (p *MethodSynonyms) DeleteSynonymRule(setid, ruleid string) *synonyms_delet
 }
 
 // Get a synonym set.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym
 func (p *MethodSynonyms) GetSynonym(id string) *synonyms_get_synonym.GetSynonym {
@@ -21850,7 +21900,7 @@ func (p *MethodSynonyms) GetSynonym(id string) *synonyms_get_synonym.GetSynonym 
 // Get a synonym rule.
 //
 // Get a synonym rule from a synonym set.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym-rule
 func (p *MethodSynonyms) GetSynonymRule(setid, ruleid string) *synonyms_get_synonym_rule.GetSynonymRule {
@@ -21861,7 +21911,7 @@ func (p *MethodSynonyms) GetSynonymRule(setid, ruleid string) *synonyms_get_syno
 // Get all synonym sets.
 //
 // Get a summary of all defined synonym sets.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-get-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-get-synonym
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-get-synonym
 func (p *MethodSynonyms) GetSynonymsSets() *synonyms_get_synonyms_sets.GetSynonymsSets {
@@ -21871,8 +21921,7 @@ func (p *MethodSynonyms) GetSynonymsSets() *synonyms_get_synonyms_sets.GetSynony
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set. If
-// you need to manage more synonym rules, you can create multiple synonym sets.
+// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
 // synonyms set are reloaded automatically for all indices. This is equivalent
@@ -21881,7 +21930,7 @@ func (p *MethodSynonyms) GetSynonymsSets() *synonyms_get_synonyms_sets.GetSynony
 //
 // For practical examples of how to create or update a synonyms set, refer to
 // the External documentation.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-put-synonym
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym
 func (p *MethodSynonyms) PutSynonym(id string) *synonyms_put_synonym.PutSynonym {
@@ -21897,7 +21946,7 @@ func (p *MethodSynonyms) PutSynonym(id string) *synonyms_put_synonym.PutSynonym 
 //
 // When you update a synonym rule, all analyzers using the synonyms set will be
 // reloaded automatically to reflect the new rule.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-put-synonym-rule
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-synonyms-put-synonym-rule
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-synonyms-put-synonym-rule
 func (p *MethodSynonyms) PutSynonymRule(setid, ruleid string) *synonyms_put_synonym_rule.PutSynonymRule {
@@ -21923,7 +21972,7 @@ func (p *MethodSynonyms) PutSynonymRule(setid, ruleid string) *synonyms_put_syno
 // tasks the system is running. You can also use the node hot threads API to
 // obtain detailed information about the work the system is doing instead of
 // completing the cancelled task.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func (p *MethodTasks) Cancel() *tasks_cancel.Cancel {
 	_cancel := tasks_cancel.NewCancelFunc(p.tp)
 	return _cancel()
@@ -21938,7 +21987,7 @@ func (p *MethodTasks) Cancel() *tasks_cancel.Cancel {
 //
 // If the task identifier is not found, a 404 response code indicates that there
 // are no resources that match the request.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func (p *MethodTasks) Get(taskid string) *tasks_get.Get {
 	_get := tasks_get.NewGetFunc(p.tp)
 	return _get(taskid)
@@ -22005,7 +22054,7 @@ func (p *MethodTasks) Get(taskid string) *tasks_get.Get {
 // was initiated by the REST request. The `X-Opaque-Id` in the children
 // `headers` is the child task of the task that was initiated by the REST
 // request.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func (p *MethodTasks) List() *tasks_list.List {
 	_list := tasks_list.NewListFunc(p.tp)
 	return _list()
@@ -22072,7 +22121,7 @@ func (p *MethodTextStructure) FindFieldStructure() *text_structure_find_field_st
 // If the structure finder produces unexpected results, specify the `explain`
 // query parameter and an explanation will appear in the response. It helps
 // determine why the returned structure was chosen.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-message-structure
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-message-structure
 func (p *MethodTextStructure) FindMessageStructure() *text_structure_find_message_structure.FindMessageStructure {
 	_findmessagestructure := text_structure_find_message_structure.NewFindMessageStructureFunc(p.tp)
 	return _findmessagestructure()
@@ -22104,7 +22153,7 @@ func (p *MethodTextStructure) FindMessageStructure() *text_structure_find_messag
 // All this information can be calculated by the structure finder with no
 // guidance. However, you can optionally override some of the decisions about
 // the text structure by specifying one or more query parameters.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-find-structure
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-find-structure
 func (p *MethodTextStructure) FindStructure() *text_structure_find_structure.FindStructure {
 	_findstructure := text_structure_find_structure.NewFindStructureFunc(p.tp)
 	return _findstructure()
@@ -22115,14 +22164,14 @@ func (p *MethodTextStructure) FindStructure() *text_structure_find_structure.Fin
 // Test a Grok pattern on one or more lines of text. The API indicates whether
 // the lines match the pattern together with the offsets and lengths of the
 // matched substrings.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-text-structure-test-grok-pattern
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-text-structure-test-grok-pattern
 func (p *MethodTextStructure) TestGrokPattern() *text_structure_test_grok_pattern.TestGrokPattern {
 	_testgrokpattern := text_structure_test_grok_pattern.NewTestGrokPatternFunc(p.tp)
 	return _testgrokpattern()
 }
 
 // Delete a transform.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-delete-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-delete-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-delete-transform
 func (p *MethodTransform) DeleteTransform(transformid string) *transform_delete_transform.DeleteTransform {
@@ -22133,7 +22182,7 @@ func (p *MethodTransform) DeleteTransform(transformid string) *transform_delete_
 // Get node stats.
 //
 // Get per-node information about transform usage.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-node-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-get-node-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-node-stats
 func (p *MethodTransform) GetNodeStats() *transform_get_node_stats.GetNodeStats {
@@ -22144,7 +22193,7 @@ func (p *MethodTransform) GetNodeStats() *transform_get_node_stats.GetNodeStats 
 // Get transforms.
 //
 // Get configuration information for transforms.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-get-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-transform
 func (p *MethodTransform) GetTransform() *transform_get_transform.GetTransform {
@@ -22155,7 +22204,7 @@ func (p *MethodTransform) GetTransform() *transform_get_transform.GetTransform {
 // Get transform stats.
 //
 // Get usage information for transforms.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-get-transform-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-get-transform-stats
 func (p *MethodTransform) GetTransformStats(transformid string) *transform_get_transform_stats.GetTransformStats {
@@ -22172,7 +22221,7 @@ func (p *MethodTransform) GetTransformStats(transformid string) *transform_get_t
 // current data in the source index. It also generates a list of mappings and
 // settings for the destination index. These values are determined based on the
 // field types of the source index and the transform aggregations.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-preview-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-preview-transform
 func (p *MethodTransform) PreviewTransform() *transform_preview_transform.PreviewTransform {
@@ -22210,7 +22259,7 @@ func (p *MethodTransform) PreviewTransform() *transform_preview_transform.Previe
 // not give users any privileges on `.transform-internal*` indices. If you used
 // transforms prior to 7.5, also do not give users any privileges on
 // `.data-frame-internal*` indices.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-put-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-put-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-put-transform
 func (p *MethodTransform) PutTransform(transformid string) *transform_put_transform.PutTransform {
@@ -22223,7 +22272,7 @@ func (p *MethodTransform) PutTransform(transformid string) *transform_put_transf
 // Before you can reset it, you must stop it; alternatively, use the `force`
 // query parameter. If the destination index was created by the transform, it is
 // deleted.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-reset-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-reset-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-reset-transform
 func (p *MethodTransform) ResetTransform(transformid string) *transform_reset_transform.ResetTransform {
@@ -22237,7 +22286,7 @@ func (p *MethodTransform) ResetTransform(transformid string) *transform_reset_tr
 // will process the new data instantly, without waiting for the configured
 // frequency interval. After the API is called, the transform will be processed
 // again at `now + frequency` unless the API is called again in the meantime.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-schedule-now-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-schedule-now-transform
 func (p *MethodTransform) ScheduleNowTransform(transformid string) *transform_schedule_now_transform.ScheduleNowTransform {
@@ -22258,7 +22307,7 @@ func (p *MethodTransform) ScheduleNowTransform(transformid string) *transform_sc
 // indices, though stopping transforms is not a requirement in that case. You
 // can see the current value for the upgrade_mode setting by using the get
 // transform info API.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-set-upgrade-mode
 func (p *MethodTransform) SetUpgradeMode() *transform_set_upgrade_mode.SetUpgradeMode {
 	_setupgrademode := transform_set_upgrade_mode.NewSetUpgradeModeFunc(p.tp)
 	return _setupgrademode()
@@ -22287,7 +22336,7 @@ func (p *MethodTransform) SetUpgradeMode() *transform_set_upgrade_mode.SetUpgrad
 // and uses those same roles. If those roles do not have the required privileges
 // on the source and destination indices, the transform fails when it attempts
 // unauthorized operations.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-start-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-start-transform
 func (p *MethodTransform) StartTransform(transformid string) *transform_start_transform.StartTransform {
@@ -22298,7 +22347,7 @@ func (p *MethodTransform) StartTransform(transformid string) *transform_start_tr
 // Stop transforms.
 //
 // Stops one or more transforms.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-stop-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-stop-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-stop-transform
 func (p *MethodTransform) StopTransform(transformid string) *transform_stop_transform.StopTransform {
@@ -22317,7 +22366,7 @@ func (p *MethodTransform) StopTransform(transformid string) *transform_stop_tran
 // `index` and `read` privileges for the destination index. When Elasticsearch
 // security features are enabled, the transform remembers which roles the user
 // who updated it had at the time of update and runs with those privileges.
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-update-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-update-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-update-transform
 func (p *MethodTransform) UpdateTransform(transformid string) *transform_update_transform.UpdateTransform {
@@ -22345,7 +22394,7 @@ func (p *MethodTransform) UpdateTransform(transformid string) *transform_update_
 // of the cluster – for example, from 7.16 to 8.0 – it is recommended to
 // upgrade transforms before upgrading the cluster. You may want to perform a
 // recent cluster backup prior to the upgrade.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-upgrade-transforms
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-upgrade-transforms
 func (p *MethodTransform) UpgradeTransforms() *transform_upgrade_transforms.UpgradeTransforms {
 	_upgradetransforms := transform_upgrade_transforms.NewUpgradeTransformsFunc(p.tp)
 	return _upgradetransforms()
@@ -22368,7 +22417,7 @@ func (p *MethodTransform) UpgradeTransforms() *transform_upgrade_transforms.Upgr
 // condition of the watch is not met (the condition evaluates to false). To
 // demonstrate how throttling works in practice and how it can be configured for
 // individual actions within a watch, refer to External documentation.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-ack-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-ack-watch
 func (p *MethodWatcher) AckWatch(watchid string) *watcher_ack_watch.AckWatch {
 	_ackwatch := watcher_ack_watch.NewAckWatchFunc(p.tp)
 	return _ackwatch(watchid)
@@ -22377,7 +22426,7 @@ func (p *MethodWatcher) AckWatch(watchid string) *watcher_ack_watch.AckWatch {
 // Activate a watch.
 //
 // A watch can be either active or inactive.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-activate-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-activate-watch
 func (p *MethodWatcher) ActivateWatch(watchid string) *watcher_activate_watch.ActivateWatch {
 	_activatewatch := watcher_activate_watch.NewActivateWatchFunc(p.tp)
 	return _activatewatch(watchid)
@@ -22386,7 +22435,7 @@ func (p *MethodWatcher) ActivateWatch(watchid string) *watcher_activate_watch.Ac
 // Deactivate a watch.
 //
 // A watch can be either active or inactive.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-deactivate-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-deactivate-watch
 func (p *MethodWatcher) DeactivateWatch(watchid string) *watcher_deactivate_watch.DeactivateWatch {
 	_deactivatewatch := watcher_deactivate_watch.NewDeactivateWatchFunc(p.tp)
 	return _deactivatewatch(watchid)
@@ -22404,7 +22453,7 @@ func (p *MethodWatcher) DeactivateWatch(watchid string) *watcher_deactivate_watc
 // delete the watch directly from the `.watches` index using the Elasticsearch
 // delete document API When Elasticsearch security features are enabled, make
 // sure no write privileges are granted to anyone for the `.watches` index.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-delete-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-delete-watch
 func (p *MethodWatcher) DeleteWatch(id string) *watcher_delete_watch.DeleteWatch {
 	_deletewatch := watcher_delete_watch.NewDeleteWatchFunc(p.tp)
 	return _deletewatch(id)
@@ -22434,7 +22483,7 @@ func (p *MethodWatcher) DeleteWatch(id string) *watcher_delete_watch.DeleteWatch
 // the API will be used as a base, instead of the information who stored the
 // watch. Refer to the external documentation for examples of watch execution
 // requests, including existing, customized, and inline watches.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-execute-watch
 func (p *MethodWatcher) ExecuteWatch() *watcher_execute_watch.ExecuteWatch {
 	_executewatch := watcher_execute_watch.NewExecuteWatchFunc(p.tp)
 	return _executewatch()
@@ -22445,14 +22494,14 @@ func (p *MethodWatcher) ExecuteWatch() *watcher_execute_watch.ExecuteWatch {
 // Get settings for the Watcher internal index (`.watches`). Only a subset of
 // settings are shown, for example `index.auto_expand_replicas` and
 // `index.number_of_replicas`.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-get-settings
 func (p *MethodWatcher) GetSettings() *watcher_get_settings.GetSettings {
 	_getsettings := watcher_get_settings.NewGetSettingsFunc(p.tp)
 	return _getsettings()
 }
 
 // Get a watch.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-get-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-get-watch
 func (p *MethodWatcher) GetWatch(id string) *watcher_get_watch.GetWatch {
 	_getwatch := watcher_get_watch.NewGetWatchFunc(p.tp)
 	return _getwatch(id)
@@ -22477,7 +22526,7 @@ func (p *MethodWatcher) GetWatch(id string) *watcher_get_watch.GetWatch {
 // search only on indices for which the user that stored the watch has
 // privileges. If the user is able to read index `a`, but not index `b`, the
 // same will apply when the watch runs.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-put-watch
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-put-watch
 func (p *MethodWatcher) PutWatch(id string) *watcher_put_watch.PutWatch {
 	_putwatch := watcher_put_watch.NewPutWatchFunc(p.tp)
 	return _putwatch(id)
@@ -22489,7 +22538,7 @@ func (p *MethodWatcher) PutWatch(id string) *watcher_put_watch.PutWatch {
 // watches by a query.
 //
 // Note that only the `_id` and `metadata.*` fields are queryable or sortable.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-query-watches
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-query-watches
 func (p *MethodWatcher) QueryWatches() *watcher_query_watches.QueryWatches {
 	_querywatches := watcher_query_watches.NewQueryWatchesFunc(p.tp)
 	return _querywatches()
@@ -22498,7 +22547,7 @@ func (p *MethodWatcher) QueryWatches() *watcher_query_watches.QueryWatches {
 // Start the watch service.
 //
 // Start the Watcher service if it is not already running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-start
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-start
 func (p *MethodWatcher) Start() *watcher_start.Start {
 	_start := watcher_start.NewStartFunc(p.tp)
 	return _start()
@@ -22508,7 +22557,7 @@ func (p *MethodWatcher) Start() *watcher_start.Start {
 //
 // This API always returns basic metrics. You retrieve more metrics by using the
 // metric parameter.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-stats
 func (p *MethodWatcher) Stats() *watcher_stats.Stats {
 	_stats := watcher_stats.NewStatsFunc(p.tp)
 	return _stats()
@@ -22517,7 +22566,7 @@ func (p *MethodWatcher) Stats() *watcher_stats.Stats {
 // Stop the watch service.
 //
 // Stop the Watcher service if it is running.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-stop
 func (p *MethodWatcher) Stop() *watcher_stop.Stop {
 	_stop := watcher_stop.NewStopFunc(p.tp)
 	return _stop()
@@ -22532,7 +22581,7 @@ func (p *MethodWatcher) Stop() *watcher_stop.Stop {
 // `index.routing.allocation.require.*`. Modification of
 // `index.routing.allocation.include._tier_preference` is an exception and is
 // not allowed as the Watcher shards must always be in the `data_content` tier.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-update-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-watcher-update-settings
 func (p *MethodWatcher) UpdateSettings() *watcher_update_settings.UpdateSettings {
 	_updatesettings := watcher_update_settings.NewUpdateSettingsFunc(p.tp)
 	return _updatesettings()
@@ -22547,7 +22596,7 @@ func (p *MethodWatcher) UpdateSettings() *watcher_update_settings.UpdateSettings
 //   - Feature information for the features that are currently enabled and
 //     available under the current license.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-info
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-info
 func (p *MethodXpack) Info() *xpack_info.Info {
@@ -22559,7 +22608,7 @@ func (p *MethodXpack) Info() *xpack_info.Info {
 //
 // Get information about the features that are currently enabled and available
 // under the current license. The API also provides some usage statistics.
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-xpack
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-xpack
 func (p *MethodXpack) Usage() *xpack_usage.Usage {
 	_usage := xpack_usage.NewUsageFunc(p.tp)
 	return _usage()

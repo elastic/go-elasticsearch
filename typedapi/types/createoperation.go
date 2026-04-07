@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CreateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_global/bulk/types.ts#L140-L140
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_global/bulk/types.ts#L139-L139
 type CreateOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates. It
 	// defaults to an empty map. If a name matches a dynamic template, that template
@@ -54,8 +54,9 @@ type CreateOperation struct {
 	Pipeline *string `json:"pipeline,omitempty"`
 	// RequireAlias If `true`, the request's actions must target an index alias.
 	RequireAlias *bool `json:"require_alias,omitempty"`
-	// Routing A custom value used to route operations to a specific shard.
-	Routing     []string                 `json:"routing,omitempty"`
+	// Routing A custom value used to route operations to a specific shard, or multiple
+	// comma separated values.
+	Routing     *string                  `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -140,20 +141,16 @@ func (s *CreateOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "routing":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
-
-				s.Routing = append(s.Routing, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Routing); err != nil {
-					return fmt.Errorf("%s | %w", "Routing", err)
-				}
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Routing = &o
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {

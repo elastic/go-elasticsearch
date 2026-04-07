@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Resume a follower.
 //
@@ -95,7 +95,7 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 // due to failures during following tasks. When this API returns, the follower
 // index will resume fetching operations from the leader index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-resume-follow
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ccr-resume-follow
 func New(tp elastictransport.Interface) *ResumeFollow {
 	r := &ResumeFollow{
 		transport: tp,

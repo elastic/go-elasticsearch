@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Shrink an index.
 //
@@ -39,6 +39,10 @@
 // the index is a prime number it can only be shrunk into a single primary shard
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
+//
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
 //
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a
@@ -161,6 +165,10 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 // Before shrinking, a (primary or replica) copy of every shard in the index
 // must be present on the same node.
 //
+// IMPORTANT: If the source index already has one primary shard, configuring the
+// shrink operation with 'index.number_of_shards: 1' will cause the request to
+// fail. An index with one primary shard cannot be shrunk further.
+//
 // The current write index on a data stream cannot be shrunk. In order to shrink
 // the current write index, the data stream must first be rolled over so that a
 // new write index is created and then the previous write index can be shrunk.
@@ -194,7 +202,7 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 //   - The node handling the shrink process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-shrink
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-indices-shrink
 func New(tp elastictransport.Interface) *Shrink {
 	r := &Shrink{
 		transport: tp,

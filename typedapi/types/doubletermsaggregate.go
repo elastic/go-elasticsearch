@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Result of a `terms` aggregation when the field is some kind of decimal number
 // like a float, double, or distance.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/_types/aggregations/Aggregate.ts#L523-L528
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/aggregations/Aggregate.ts#L523-L528
 type DoubleTermsAggregate struct {
 	Buckets                 BucketsDoubleTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`

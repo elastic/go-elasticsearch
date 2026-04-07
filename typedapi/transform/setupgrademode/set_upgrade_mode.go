@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Set upgrade_mode for transform indices.
 //
@@ -94,7 +94,7 @@ func NewSetUpgradeModeFunc(tp elastictransport.Interface) NewSetUpgradeMode {
 // can see the current value for the upgrade_mode setting by using the get
 // transform info API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-transform-set-upgrade-mode
 func New(tp elastictransport.Interface) *SetUpgradeMode {
 	r := &SetUpgradeMode{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get the snapshot status.
 //
@@ -145,7 +145,7 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 // long time to return results. These requests can also tax machine resources
 // and, when using cloud storage, incur high processing costs.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-status
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-snapshot-status
 func New(tp elastictransport.Interface) *Status {
 	r := &Status{
 		transport: tp,

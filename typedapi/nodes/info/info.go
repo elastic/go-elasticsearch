@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Get node information.
 //
@@ -85,7 +85,7 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 // By default, the API returns all attributes and core settings for cluster
 // nodes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-info
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-nodes-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,

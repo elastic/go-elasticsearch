@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 package types
 
@@ -31,11 +31,14 @@ import (
 
 // ShardSegmentRouting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b1811e10a0722431d79d1c234dd412ff47d8656f/specification/indices/segments/types.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/segments/types.ts#L64-L71
 type ShardSegmentRouting struct {
-	Node    string `json:"node"`
-	Primary bool   `json:"primary"`
-	State   string `json:"state"`
+	// Node The node ID of the node that holds the shard.
+	Node string `json:"node"`
+	// Primary If `true`, the shard is a primary shard.
+	Primary bool `json:"primary"`
+	// State The state of the shard, such as `STARTED` or `RELOCATING`.
+	State string `json:"state"`
 }
 
 func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {

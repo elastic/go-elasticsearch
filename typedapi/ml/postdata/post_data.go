@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Send data to an anomaly detection job for analysis.
 //
@@ -94,7 +94,7 @@ func NewPostDataFunc(tp elastictransport.Interface) NewPostData {
 // at a time. It is not currently possible to post data to multiple jobs using
 // wildcards or a comma-separated list.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-post-data
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ml-post-data
 //
 // Deprecated: Since 7.11.0. Posting data directly to anomaly detection jobs is
 // deprecated, in a future major version a datafeed will be required.
@@ -151,18 +151,13 @@ func (r *PostData) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if r.raw == nil && r.req != nil {
 
-		for _, elem := range *r.req {
-			data, err := json.Marshal(elem)
-			if err != nil {
-				return nil, err
-			}
-			r.buf.Write(data)
-			r.buf.Write([]byte("\n"))
-		}
+		data, err := json.Marshal(r.req)
 
 		if err != nil {
 			return nil, fmt.Errorf("could not serialise request for PostData: %w", err)
 		}
+
+		r.buf.Write(data)
 
 	}
 
@@ -207,7 +202,7 @@ func (r *PostData) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+x-ndjson;compatible-with=9")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 

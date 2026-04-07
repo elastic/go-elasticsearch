@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Simulate a pipeline.
 //
@@ -89,7 +89,7 @@ func NewSimulateFunc(tp elastictransport.Interface) NewSimulate {
 // specify an existing pipeline to use with the provided documents or supply a
 // pipeline definition in the body of the request.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-ingest-simulate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-simulate
 func New(tp elastictransport.Interface) *Simulate {
@@ -396,6 +396,15 @@ func (r *Simulate) Docs(docs ...types.DocumentVariant) *Simulate {
 		r.req.Docs = append(r.req.Docs, *v.DocumentCaster())
 
 	}
+	return r
+}
+
+func (r *Simulate) DocsValues(docsvalues []types.Document) *Simulate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Docs = docsvalues
 	return r
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b1811e10a0722431d79d1c234dd412ff47d8656f
+// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
 
 // Run an async ES|QL query.
 //
@@ -88,7 +88,7 @@ func NewAsyncQueryFunc(tp elastictransport.Interface) NewAsyncQuery {
 // The API accepts the same parameters and request body as the synchronous query
 // API, along with additional async related properties.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-esql-async-query
 func New(tp elastictransport.Interface) *AsyncQuery {
 	r := &AsyncQuery{
 		transport: tp,
@@ -506,16 +506,14 @@ func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *AsyncQuery) Params(params ...types.FieldValueVariant) *AsyncQuery {
+func (r *AsyncQuery) Params(esqlparams types.ESQLParamsVariant) *AsyncQuery {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range params {
 
-		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+	r.req.Params = *esqlparams.ESQLParamsCaster()
 
-	}
 	return r
 }
 
@@ -531,6 +529,22 @@ func (r *AsyncQuery) Profile(profile bool) *AsyncQuery {
 	}
 
 	r.req.Profile = &profile
+
+	return r
+}
+
+// Specifies a subset of projects to target using project metadata tags in a
+// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a
+// single value (possibly wildcarded). Examples: _alias:my-project
+// _alias:_origin _alias:*pr* Supported in serverless only.
+// API name: project_routing
+func (r *AsyncQuery) ProjectRouting(projectrouting string) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }
