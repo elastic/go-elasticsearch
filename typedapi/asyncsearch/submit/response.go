@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package submit
 
@@ -33,12 +33,13 @@ import (
 
 // Response holds the response body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/async_search/submit/AsyncSearchSubmitResponse.ts#L25-L33
 type Response struct {
 	// CompletionTime Indicates when the async search completed. It is present only when the search
 	// has completed.
-	CompletionTime         types.DateTime `json:"completion_time,omitempty"`
-	CompletionTimeInMillis *int64         `json:"completion_time_in_millis,omitempty"`
+	CompletionTime         types.DateTime    `json:"completion_time,omitempty"`
+	CompletionTimeInMillis *int64            `json:"completion_time_in_millis,omitempty"`
+	Error                  *types.ErrorCause `json:"error,omitempty"`
 	// ExpirationTime Indicates when the async search will expire.
 	ExpirationTime         types.DateTime `json:"expiration_time,omitempty"`
 	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`
@@ -86,6 +87,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		case "completion_time_in_millis":
 			if err := dec.Decode(&s.CompletionTimeInMillis); err != nil {
 				return fmt.Errorf("%s | %w", "CompletionTimeInMillis", err)
+			}
+
+		case "error":
+			if err := dec.Decode(&s.Error); err != nil {
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 
 		case "expiration_time":

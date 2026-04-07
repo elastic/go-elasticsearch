@@ -16,19 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
 // IndexTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/indices/_types/IndexTemplate.ts#L96-L118
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/indices/_types/IndexTemplate.ts#L97-L124
 type IndexTemplateSummary struct {
 	// Aliases Aliases to add. If the index template includes a `data_stream` object, these
 	// are data stream aliases. Otherwise, these are index aliases. Data stream
 	// aliases ignore the `index_routing`, `routing`, and `search_routing` options.
-	Aliases   map[string]Alias                 `json:"aliases,omitempty"`
-	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Aliases           map[string]Alias                 `json:"aliases,omitempty"`
+	DataStreamOptions *DataStreamOptions               `json:"data_stream_options,omitempty"`
+	Lifecycle         *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
 	// Mappings Mapping for fields in the index. If specified, this mapping can include field
 	// names, field data types, and mapping parameters.
 	Mappings *TypeMapping `json:"mappings,omitempty"`

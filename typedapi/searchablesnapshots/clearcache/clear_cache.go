@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Clear the cache. Clear indices and data streams from the shared cache for
 // partially mounted indices.
@@ -313,7 +313,7 @@ func (r *ClearCache) Index(index string) *ClearCache {
 }
 
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// closed or both
 // API name: expand_wildcards
 func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ClearCache {
 	tmp := []string{}

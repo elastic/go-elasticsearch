@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package queryrole
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package queryrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/security/query_role/QueryRolesRequest.ts#L25-L85
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/security/query_role/QueryRolesRequest.ts#L26-L88
 type Request struct {
 	// From The starting document offset. It must not be negative. By default, you cannot
 	// page through more than 10,000 hits using the `from` and `size` parameters. To
@@ -153,4 +153,21 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+func (r Request) MarshalJSON() ([]byte, error) {
+	if len(r.SearchAfter) > 0 {
+		allNil := true
+		for _, v := range r.SearchAfter {
+			if v != nil {
+				allNil = false
+				break
+			}
+		}
+		if allNil {
+			r.SearchAfter = nil
+		}
+	}
+	type plain Request
+	return json.Marshal(plain(r))
 }

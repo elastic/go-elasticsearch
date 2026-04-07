@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // The source of the data for the transform.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/transform/_types/Transform.ts#L98-L144
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/transform/_types/Transform.ts#L98-L166
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align checkpoint ranges with the date
@@ -55,11 +55,27 @@ type Settings struct {
 	// adjusted to a lower value. The minimum value is `10` and the maximum is
 	// `65,536`.
 	MaxPageSearchSize *int `json:"max_page_search_size,omitempty"`
+	// NumFailureRetries Defines the number of retries on a recoverable failure before the transform
+	// task is marked as `failed`. The minimum value is `0` and the maximum is
+	// `100`, where `-1` indicates that the transform retries indefinitely. If
+	// unset, the cluster-level setting `num_transform_failure_retries` is used.
+	//
+	// This setting cannot be specified when `unattended` is `true`, because
+	// unattended transforms always retry indefinitely.
+	NumFailureRetries *int `json:"num_failure_retries,omitempty"`
 	// Unattended If `true`, the transform runs in unattended mode. In unattended mode, the
 	// transform retries indefinitely in case of an error which means the transform
 	// never fails. Setting the number of retries other than infinite fails in
 	// validation.
 	Unattended *bool `json:"unattended,omitempty"`
+	// UsePointInTime Specifies whether the transform checkpoint will use the Point In Time API
+	// while searching over the source index. In general, Point In Time is an
+	// optimization that will reduce pressure on the source index by reducing the
+	// amount of refreshes and merges, but it can be expensive if a large number of
+	// Point In Times are opened and closed for a given index. The benefits and
+	// impact depend on the data being searched, the ingest rate into the source
+	// index, and the amount of other consumers searching the same source index.
+	UsePointInTime *bool `json:"use_point_in_time,omitempty"`
 }
 
 func (s *Settings) UnmarshalJSON(data []byte) error {
@@ -151,6 +167,22 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 				s.MaxPageSearchSize = &f
 			}
 
+		case "num_failure_retries":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "NumFailureRetries", err)
+				}
+				s.NumFailureRetries = &value
+			case float64:
+				f := int(v)
+				s.NumFailureRetries = &f
+			}
+
 		case "unattended":
 			var tmp any
 			dec.Decode(&tmp)
@@ -163,6 +195,20 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 				s.Unattended = &value
 			case bool:
 				s.Unattended = &v
+			}
+
+		case "use_point_in_time":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UsePointInTime", err)
+				}
+				s.UsePointInTime = &value
+			case bool:
+				s.UsePointInTime = &v
 			}
 
 		}

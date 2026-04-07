@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/eql/search/EqlSearchRequest.ts#L28-L166
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/eql/search/EqlSearchRequest.ts#L28-L173
 type Request struct {
 	// AllowPartialSearchResults Allow query execution also in case of shard failures. If true, the query will
 	// keep running and will return results based on the available shards. For
@@ -74,7 +74,7 @@ type Request struct {
 	Size *uint `json:"size,omitempty"`
 	// TiebreakerField Field used to sort hits with the same timestamp in ascending order
 	TiebreakerField *string `json:"tiebreaker_field,omitempty"`
-	// TimestampField Field containing event timestamp. Default "@timestamp"
+	// TimestampField Field containing event timestamp.
 	TimestampField           *string        `json:"timestamp_field,omitempty"`
 	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }

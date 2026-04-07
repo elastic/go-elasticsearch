@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -30,13 +30,21 @@ import (
 
 // SnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/snapshot/_types/SnapshotStats.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/snapshot/_types/SnapshotStats.ts#L23-L42
 type SnapshotStats struct {
-	Incremental       FileCountSnapshotStats `json:"incremental"`
-	StartTimeInMillis int64                  `json:"start_time_in_millis"`
-	Time              Duration               `json:"time,omitempty"`
-	TimeInMillis      int64                  `json:"time_in_millis"`
-	Total             FileCountSnapshotStats `json:"total"`
+	// Incremental The number and size of files that still need to be copied as part of the
+	// incremental snapshot. For completed snapshots, this property indicates the
+	// number and size of files that were not already in the repository and were
+	// copied as part of the incremental snapshot.
+	Incremental FileCountSnapshotStats `json:"incremental"`
+	// StartTimeInMillis The time, in milliseconds, when the snapshot creation process started.
+	StartTimeInMillis int64    `json:"start_time_in_millis"`
+	Time              Duration `json:"time,omitempty"`
+	// TimeInMillis The total time, in milliseconds, that it took for the snapshot process to
+	// complete.
+	TimeInMillis int64 `json:"time_in_millis"`
+	// Total The total number and size of files that are referenced by the snapshot.
+	Total FileCountSnapshotStats `json:"total"`
 }
 
 func (s *SnapshotStats) UnmarshalJSON(data []byte) error {

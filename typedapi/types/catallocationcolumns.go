@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catanomalydetectorcolumn"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catallocationcolumn"
 )
 
-// CatAnonalyDetectorColumns type alias.
+// CatAllocationColumns type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/cat/_types/CatBase.ts#L402-L404
-type CatAnonalyDetectorColumns []catanomalydetectorcolumn.CatAnomalyDetectorColumn
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/cat/_types/CatBase.ts#L1481-L1481
+type CatAllocationColumns []catallocationcolumn.CatAllocationColumn

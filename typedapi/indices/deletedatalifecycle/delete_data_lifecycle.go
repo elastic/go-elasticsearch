@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Delete data stream lifecycles. Removes the data stream lifecycle from a data
 // stream, rendering it not managed by the data stream lifecycle.
@@ -294,7 +294,7 @@ func (r *DeleteDataLifecycle) Header(key, value string) *DeleteDataLifecycle {
 }
 
 // Name A comma-separated list of data streams of which the data stream lifecycle
-// will be deleted; use `*` to get all data streams
+// will be deleted. Use `*` to get all data streams
 // API Name: name
 func (r *DeleteDataLifecycle) _name(name string) *DeleteDataLifecycle {
 	r.paramSet |= nameMask
@@ -316,7 +316,7 @@ func (r *DeleteDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *DeleteDataLifecycle) MasterTimeout(duration string) *DeleteDataLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -324,7 +324,7 @@ func (r *DeleteDataLifecycle) MasterTimeout(duration string) *DeleteDataLifecycl
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout The period to wait for a response.
 // API name: timeout
 func (r *DeleteDataLifecycle) Timeout(duration string) *DeleteDataLifecycle {
 	r.values.Set("timeout", duration)

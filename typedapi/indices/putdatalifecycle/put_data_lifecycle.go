@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Update data stream lifecycles. Update the data stream lifecycle of the
 // specified data streams.
@@ -407,12 +407,11 @@ func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecy
 // Downsampling The downsampling configuration to execute for the managed backing index after
 // rollover.
 // API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
+func (r *PutDataLifecycle) Downsampling(downsamplings ...types.DownsamplingRound) *PutDataLifecycle {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-
-	r.req.Downsampling = downsampling
+	r.req.Downsampling = downsamplings
 
 	return r
 }

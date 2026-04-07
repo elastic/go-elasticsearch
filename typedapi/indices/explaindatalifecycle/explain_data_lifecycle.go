@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Get the status for a data stream lifecycle. Get information about an index or
 // data stream's current data stream lifecycle status, such as time since index
@@ -296,7 +296,7 @@ func (r *ExplainDataLifecycle) Header(key, value string) *ExplainDataLifecycle {
 	return r
 }
 
-// Index The name of the index to explain
+// Index Comma-separated list of index names to explain
 // API Name: index
 func (r *ExplainDataLifecycle) _index(index string) *ExplainDataLifecycle {
 	r.paramSet |= indexMask
@@ -305,7 +305,7 @@ func (r *ExplainDataLifecycle) _index(index string) *ExplainDataLifecycle {
 	return r
 }
 
-// IncludeDefaults indicates if the API should return the default values the system uses for the
+// IncludeDefaults Indicates if the API should return the default values the system uses for the
 // index's lifecycle
 // API name: include_defaults
 func (r *ExplainDataLifecycle) IncludeDefaults(includedefaults bool) *ExplainDataLifecycle {
@@ -314,7 +314,7 @@ func (r *ExplainDataLifecycle) IncludeDefaults(includedefaults bool) *ExplainDat
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *ExplainDataLifecycle) MasterTimeout(duration string) *ExplainDataLifecycle {
 	r.values.Set("master_timeout", duration)

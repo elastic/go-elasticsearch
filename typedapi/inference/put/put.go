@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Create an inference endpoint.
 //
@@ -41,19 +41,21 @@
 //   - Azure AI Studio (`completion`, `text_embedding`)
 //   - Azure OpenAI (`completion`, `text_embedding`)
 //   - Cohere (`completion`, `rerank`, `text_embedding`)
-//   - DeepSeek (`completion`, `chat_completion`)
+//   - DeepSeek (`chat_completion`, `completion`)
 //   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 //     service is for built-in models and models uploaded through Eland)
 //   - ELSER (`sparse_embedding`)
 //   - Google AI Studio (`completion`, `text_embedding`)
-//   - Google Vertex AI (`rerank`, `text_embedding`)
+//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
 //   - Hugging Face (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)
+//   - JinaAI (`rerank`, `text_embedding`)
+//   - Llama (`chat_completion`, `completion`, `text_embedding`)
 //   - Mistral (`chat_completion`, `completion`, `text_embedding`)
 //   - OpenAI (`chat_completion`, `completion`, `text_embedding`)
-//   - VoyageAI (`text_embedding`, `rerank`)
-//   - Watsonx inference integration (`text_embedding`)
-//   - JinaAI (`text_embedding`, `rerank`)
+//   - VoyageAI (`rerank`, `text_embedding`)
+//   - Watsonx (`rerank`, `text_embedding`)
 package put
 
 import (
@@ -142,19 +144,21 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 //   - Azure AI Studio (`completion`, `text_embedding`)
 //   - Azure OpenAI (`completion`, `text_embedding`)
 //   - Cohere (`completion`, `rerank`, `text_embedding`)
-//   - DeepSeek (`completion`, `chat_completion`)
+//   - DeepSeek (`chat_completion`, `completion`)
 //   - Elasticsearch (`rerank`, `sparse_embedding`, `text_embedding` - this
 //     service is for built-in models and models uploaded through Eland)
 //   - ELSER (`sparse_embedding`)
 //   - Google AI Studio (`completion`, `text_embedding`)
-//   - Google Vertex AI (`rerank`, `text_embedding`)
+//   - Google Vertex AI (`chat_completion`, `completion`, `rerank`,
+//     `text_embedding`)
 //   - Hugging Face (`chat_completion`, `completion`, `rerank`,
 //     `text_embedding`)
+//   - JinaAI (`rerank`, `text_embedding`)
+//   - Llama (`chat_completion`, `completion`, `text_embedding`)
 //   - Mistral (`chat_completion`, `completion`, `text_embedding`)
 //   - OpenAI (`chat_completion`, `completion`, `text_embedding`)
-//   - VoyageAI (`text_embedding`, `rerank`)
-//   - Watsonx inference integration (`text_embedding`)
-//   - JinaAI (`text_embedding`, `rerank`)
+//   - VoyageAI (`rerank`, `text_embedding`)
+//   - Watsonx (`rerank`, `text_embedding`)
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
 func New(tp elastictransport.Interface) *Put {

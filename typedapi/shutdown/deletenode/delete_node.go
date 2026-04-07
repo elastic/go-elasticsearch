@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 // Cancel node shutdown preparations. Remove a node from the shutdown list so it
 // can resume normal operations. You must explicitly clear the shutdown request
@@ -44,7 +44,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -329,8 +328,8 @@ func (r *DeleteNode) _nodeid(nodeid string) *DeleteNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *DeleteNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("master_timeout", mastertimeout.String())
+func (r *DeleteNode) MasterTimeout(duration string) *DeleteNode {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -338,8 +337,8 @@ func (r *DeleteNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *DeleteNode 
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteNode) Timeout(timeout timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("timeout", timeout.String())
+func (r *DeleteNode) Timeout(duration string) *DeleteNode {
+	r.values.Set("timeout", duration)
 
 	return r
 }

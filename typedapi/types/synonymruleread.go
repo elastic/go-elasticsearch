@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/470b4b9aaaa25cae633ec690e54b725c6fc939c7
+// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
 
 package types
 
@@ -30,12 +30,13 @@ import (
 
 // SynonymRuleRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/470b4b9aaaa25cae633ec690e54b725c6fc939c7/specification/synonyms/_types/SynonymRule.ts#L40-L49
+// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/synonyms/_types/SynonymRule.ts#L40-L42
 type SynonymRuleRead struct {
-	// Id Synonym Rule identifier
+	// Id The identifier for the synonym rule. If you do not specify a synonym rule ID
+	// when you create a rule, an identifier is created automatically by
+	// Elasticsearch.
 	Id string `json:"id"`
-	// Synonyms Synonyms, in Solr format, that conform the synonym rule. See
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-synonym-graph-tokenfilter.html#_solr_synonyms_2
+	// Synonyms The synonyms that conform the synonym rule in Solr format.
 	Synonyms string `json:"synonyms"`
 }
 
