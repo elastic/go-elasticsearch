@@ -1672,7 +1672,7 @@ func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
 	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
-		if _, err := w.Write([]byte(`{"status":"ok"}`)); err != nil {
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
@@ -1712,7 +1712,7 @@ func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
 	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
-		if _, err := w.Write([]byte(`{"status":"ok"}`)); err != nil {
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
@@ -1752,7 +1752,7 @@ func TestAutoDrainBodyWithPartialRead(t *testing.T) {
 	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("X-Elastic-Product", "Elasticsearch")
 		w.WriteHeader(http.StatusOK)
-		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"hello elasticsearch this is a longer response"}`)); err != nil {
+		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
 			t.Errorf("failed to write response: %v", err)
 		}
 	}))
