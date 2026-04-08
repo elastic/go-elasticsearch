@@ -4,14 +4,13 @@ navigation_title: Configuration
 
 # Configuration reference [configuration]
 
-The `elasticsearch.Config` struct controls all aspects of the Go client's behavior. The same configuration is shared by both `NewClient` (low-level API) and `NewTypedClient` (typed API) — both use the same underlying transport.
+The Go client is configured using functional options passed to `New` (low-level API) or `NewTyped` (typed API). Both constructors share the same underlying transport.
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"},
-    Username:  "elastic",
-    Password:  "changeme",
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", "changeme"),
+)
 ```
 
 For details on connecting to Elasticsearch, see [Connecting](connecting.md).
@@ -26,10 +25,10 @@ For details on connecting to Elasticsearch, see [Connecting](connecting.md).
 :::{dropdown} Example: Connecting to Elastic Cloud
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    CloudID: "my-deployment:dXMtY2VudHJhbC0xLmd...",
-    APIKey:  "base64_api_key_here",
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithCloudID("my-deployment:dXMtY2VudHJhbC0xLmd..."),
+    elasticsearch.WithAPIKey("base64_api_key_here"),
+)
 ```
 
 :::
@@ -61,12 +60,11 @@ For more information on securing your {{es}} cluster, see [Security](docs-conten
 ```go
 cert, _ := os.ReadFile("/path/to/http_ca.crt")
 
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"},
-    Username:  "elastic",
-    Password:  "changeme",
-    CACert:    cert,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithBasicAuth("elastic", "changeme"),
+    elasticsearch.WithCACert(cert),
+)
 ```
 
 :::
@@ -86,14 +84,15 @@ The client automatically retries failed requests for certain HTTP status codes. 
 :::{dropdown} Example: Custom retry with exponential backoff
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    RetryOnStatus: []int{429, 502, 503, 504},
-    MaxRetries:    5,
-    RetryBackoff: func(attempt int) time.Duration {
-        // Exponential backoff: 100ms, 200ms, 400ms, 800ms, 1600ms
-        return time.Duration(1<<uint(attempt)) * 100 * time.Millisecond
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithRetry(5, 429, 502, 503, 504),
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithRetryBackoff(func(attempt int) time.Duration {
+            // Exponential backoff: 100ms, 200ms, 400ms, 800ms, 1600ms
+            return time.Duration(1<<uint(attempt)) * 100 * time.Millisecond
+        }),
+    ),
+)
 ```
 
 :::
@@ -111,10 +110,9 @@ Request body compression reduces bandwidth usage at the cost of CPU time.
 :::{dropdown} Example: Enable compression
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    CompressRequestBody: true,
-    PoolCompressor:      true,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithCompression(),
+)
 ```
 
 :::
@@ -131,11 +129,13 @@ Node discovery (sniffing) allows the client to automatically discover and use al
 :::{dropdown} Example: Enable node discovery
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Addresses:             []string{"https://localhost:9200"},
-    DiscoverNodesOnStart:  true,
-    DiscoverNodesInterval: 5 * time.Minute,
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithDiscoverNodesOnStart(),
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithDiscoverNodesInterval(5 * time.Minute),
+    ),
+)
 ```
 
 :::
@@ -154,15 +154,17 @@ These fields allow advanced customization of the HTTP transport layer.
 :::{dropdown} Example: Custom HTTP transport with timeouts
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Transport: &http.Transport{
-        MaxIdleConnsPerHost:   10,
-        ResponseHeaderTimeout: 10 * time.Second,
-        TLSClientConfig: &tls.Config{
-            MinVersion: tls.VersionTLS12,
-        },
-    },
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithTransportOptions(
+        elastictransport.WithTransport(&http.Transport{
+            MaxIdleConnsPerHost:   10,
+            ResponseHeaderTimeout: 10 * time.Second,
+            TLSClientConfig: &tls.Config{
+                MinVersion: tls.VersionTLS12,
+            },
+        }),
+    ),
+)
 ```
 
 :::
@@ -181,9 +183,9 @@ For details, see [Observability](advanced/observability.md).
 :::{dropdown} Example: OpenTelemetry instrumentation
 
 ```go
-es, err := elasticsearch.NewClient(elasticsearch.Config{
-    Instrumentation: elasticsearch.NewOpenTelemetryInstrumentation(nil, true),
-})
+es, err := elasticsearch.New(
+    elasticsearch.WithInstrumentation(elasticsearch.NewOpenTelemetryInstrumentation(nil, true)),
+)
 ```
 
 :::

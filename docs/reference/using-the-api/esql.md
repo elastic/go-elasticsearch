@@ -112,7 +112,7 @@ type Book struct {
 }
 
 func main() {
-    client, err := elasticsearch.NewTypedClient(elasticsearch.Config{Addresses: []string{"ELASTICSEARCH_URL"}})
+    client, err := elasticsearch.NewTyped(elasticsearch.WithAddresses("ELASTICSEARCH_URL"))
     if err != nil {
         log.Fatal(err)
     }
