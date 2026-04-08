@@ -118,6 +118,9 @@
 - name: "backport 9.3"
   color: "#000000"
 
+- name: "backport 9.4"
+  color: "#000000"
+
 - name: "skip: gencheck"
   color: "#ededed"
 
