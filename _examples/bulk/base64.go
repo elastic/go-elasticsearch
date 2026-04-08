@@ -83,10 +83,7 @@ func main() {
 	)
 	log.Println("▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
 
-	cfg := elasticsearch.Config{
-		CompressRequestBody: false,
-	}
-	es, err := elasticsearch.NewTypedClient(cfg)
+	es, err := elasticsearch.NewTyped()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

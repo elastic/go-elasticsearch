@@ -78,7 +78,7 @@ func main() {
 	)
 	log.Println(strings.Repeat("▁", 65))
 
-	client, err := elasticsearch.NewTypedClient(elasticsearch.Config{})
+	client, err := elasticsearch.NewTyped()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
