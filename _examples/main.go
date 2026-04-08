@@ -48,7 +48,7 @@ func main() {
 	//
 	// An `ELASTICSEARCH_URL` environment variable will be used when exported.
 	//
-	es, err := elasticsearch.NewDefaultClient()
+	es, err := elasticsearch.New()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

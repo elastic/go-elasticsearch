@@ -20,6 +20,7 @@ package fasthttp_test
 import (
 	"testing"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/_examples/fasthttp"
 )
@@ -27,7 +28,7 @@ import (
 func BenchmarkHTTPClient(b *testing.B) {
 	b.ReportAllocs()
 
-	client, err := elasticsearch.NewDefaultClient()
+	client, err := elasticsearch.New()
 	if err != nil {
 		b.Fatalf("ERROR: %s", err)
 	}
@@ -48,8 +49,8 @@ func BenchmarkHTTPClient(b *testing.B) {
 func BenchmarkFastHTTPClient(b *testing.B) {
 	b.ReportAllocs()
 
-	client, err := elasticsearch.NewClient(
-		elasticsearch.Config{Transport: &fasthttp.Transport{}},
+	client, err := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&fasthttp.Transport{})),
 	)
 	if err != nil {
 		b.Fatalf("ERROR: %s", err)
