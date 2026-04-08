@@ -2,7 +2,7 @@ module github.com/elastic/go-elasticsearch/v9
 
 go 1.25
 
-toolchain go1.25.8
+toolchain go1.25.9
 
 require (
 	github.com/elastic/elastic-transport-go/v8 v8.9.0
