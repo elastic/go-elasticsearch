@@ -21,7 +21,7 @@ Package esapi provides the Go API for Elasticsearch.
 It is automatically included in the client provided by the
 github.com/elastic/go-elasticsearch package:
 
-	es, _ := elasticsearch.NewDefaultClient()
+	es, _ := elasticsearch.New()
 	res, _ := es.Info()
 	log.Println(res)
 

@@ -28,6 +28,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
@@ -62,7 +63,7 @@ func BenchmarkClient(b *testing.B) {
 
 	b.Run("Create client with defaults", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_, err := elasticsearch.NewDefaultClient()
+			_, err := elasticsearch.New()
 
 			if err != nil {
 				b.Fatalf("Unexpected error when creating a client: %s", err)
@@ -76,10 +77,10 @@ func BenchmarkClientAPI(b *testing.B) {
 
 	ctx := context.Background()
 
-	client, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{"http://localhost:9200"},
-		Transport: newFakeTransport(),
-	})
+	client, err := elasticsearch.New(
+		elasticsearch.WithAddresses("http://localhost:9200"),
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(newFakeTransport())),
+	)
 	if err != nil {
 		b.Fatalf("ERROR: %s", err)
 	}
@@ -252,8 +253,8 @@ func (m mockTransp) RoundTrip(request *http.Request) (*http.Response, error) {
 
 func BenchmarkAllocsSearch(t *testing.B) {
 	t.Run("struct search", func(b *testing.B) {
-		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-			Transport: &mockTransp{
+		c, err := elasticsearch.NewTyped(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransp{
 				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
@@ -262,8 +263,8 @@ func BenchmarkAllocsSearch(t *testing.B) {
 						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
-			},
-		})
+			}),
+		))
 
 		if err != nil {
 			b.Fatalf("Unexpected error when creating a client: %s", err)
@@ -283,8 +284,8 @@ func BenchmarkAllocsSearch(t *testing.B) {
 	})
 
 	t.Run("esdsl search", func(b *testing.B) {
-		c, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-			Transport: &mockTransp{
+		c, err := elasticsearch.NewTyped(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransp{
 				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
@@ -293,8 +294,8 @@ func BenchmarkAllocsSearch(t *testing.B) {
 						Body:       io.NopCloser(strings.NewReader("{}")),
 					}, nil
 				},
-			},
-		})
+			}),
+		))
 
 		if err != nil {
 			b.Fatalf("Unexpected error when creating a client: %s", err)
