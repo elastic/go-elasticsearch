@@ -9,7 +9,6 @@ or
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/elastic/go-elasticsearch/v9.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
-[![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=main)](https://codecov.io/gh/elastic/go-elasticsearch?branch=main)
 [![Build](https://github.com/elastic/go-elasticsearch/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/build.yml?query=branch%3Amain)
 [![Unit](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-unit.yml?query=branch%3Amain)
 [![Integration](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-integration.yml?query=branch%3Amain)
