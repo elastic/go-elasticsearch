@@ -72,10 +72,10 @@ func main() {
 	//
 	go startServer(started)
 
-	esclient, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{"http://localhost:" + port},
-		Logger:    &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
-	})
+	esclient, err := elasticsearch.New(
+		elasticsearch.WithAddresses("http://localhost:"+port),
+		elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}),
+	)
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

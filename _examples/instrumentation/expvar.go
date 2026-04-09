@@ -84,22 +84,21 @@ func main() {
 		}(i)
 	}
 
-	es, err := elasticsearch.NewClient(
-		elasticsearch.Config{
-			Addresses: []string{
-				"http://localhost:10001",
-				"http://localhost:10002",
-				"http://localhost:10003",
-			},
-
-			Logger:            &elastictransport.ColorLogger{Output: os.Stdout},
-			DisableRetry:      true,
-			EnableDebugLogger: true,
-
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses(
+			"http://localhost:10001",
+			"http://localhost:10002",
+			"http://localhost:10003",
+		),
+		elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}),
+		elasticsearch.WithTransportOptions(
+			elastictransport.WithDisableRetry(),
+			elastictransport.WithDebugLogger(),
 			// Enable metric collection >>>>>>>>>>>>>>>>>>>>>>>>>
-			EnableMetrics: true,
+			elastictransport.WithMetrics(),
 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		})
+		),
+	)
 	if err != nil {
 		log.Fatalf("ERROR: %s", err)
 	}
