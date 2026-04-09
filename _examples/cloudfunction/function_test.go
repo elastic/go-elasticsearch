@@ -25,6 +25,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 
 	"github.com/elastic/go-elasticsearch/v9/_examples/clusterstatus"
@@ -42,7 +43,9 @@ func (t *MockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func TestHealth(t *testing.T) {
-	clusterstatus.ES, _ = elasticsearch.NewClient(elasticsearch.Config{Transport: &MockTransport{}})
+	clusterstatus.ES, _ = elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&MockTransport{})),
+	)
 
 	w := httptest.NewRecorder()
 	clusterstatus.Health(w, &http.Request{})

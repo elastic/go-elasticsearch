@@ -29,6 +29,7 @@ import (
 	"sync"
 	"sync/atomic"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
@@ -79,8 +80,8 @@ func main() {
 
 	// Pass the custom transport to the client.
 	//
-	es, _ := elasticsearch.NewClient(
-		elasticsearch.Config{Transport: &tp},
+	es, _ := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&tp)),
 	)
 
 	for i := 0; i < 25; i++ {
