@@ -21,6 +21,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -36,6 +37,9 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
+// ErrIndexerClosed is returned when Flush is called on a closed indexer.
+var ErrIndexerClosed = errors.New("bulk indexer is closed")
+
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
 type BulkIndexer interface {
 	// Add adds an item to the indexer. It returns an error when the item cannot be added.
@@ -50,6 +54,25 @@ type BulkIndexer interface {
 	// Close waits until all added items are flushed and closes the indexer.
 	Close(context.Context) error
 
+	// Flush drains all currently queued items, flushes all worker buffers to
+	// Elasticsearch, and waits for the flushes to complete. The indexer remains
+	// usable after Flush returns; new items may be added with Add.
+	//
+	// Per-item results are delivered through the OnSuccess and OnFailure
+	// callbacks on each BulkIndexerItem, exactly as with automatic flushes.
+	// Flush itself only returns an error for transport-level failures or
+	// context cancellation.
+	//
+	// Items added concurrently with Flush may or may not be included in the
+	// flush; only items already enqueued at the time each worker receives the
+	// flush signal are guaranteed to be sent.
+	//
+	// Concurrent calls to Flush are serialised. Flush returns ErrIndexerClosed
+	// if the indexer has been closed.
+	//
+	// It is safe for concurrent use with Add.
+	Flush(context.Context) error
+
 	// Stats returns indexer statistics.
 	Stats() BulkIndexerStats
 }
@@ -59,9 +82,9 @@ type BulkIndexerConfig struct {
 	NumWorkers          int           // The number of workers. Defaults to runtime.NumCPU().
 	FlushBytes          int           // The flush threshold in bytes. Defaults to 5MB.
 	FlushInterval       time.Duration // The flush threshold as duration. Defaults to 30sec.
-	QueueSizeMultiplier int           // The multiplier on the size of the worker queue. Defaults to 1.
+	QueueSizeMultiplier int           // The capacity of each worker's item queue. Total capacity is NumWorkers * QueueSizeMultiplier. Defaults to 1.
 
-	Client      esapi.Transport         // The Elasticsearch client.
+	Client      esapi.Transport         // The Elasticsearch client (required).
 	Decoder     BulkResponseJSONDecoder // A custom JSON decoder.
 	DebugLogger BulkIndexerDebugLogger  // An optional logger for debugging.
 
@@ -114,8 +137,10 @@ type BulkIndexerItem struct {
 	RetryOnConflict *int
 	IfSeqNo         *int64
 	IfPrimaryTerm   *int64
-	meta            bytes.Buffer // Item metadata header
-	payloadLength   int          // Item payload total length metadata+newline+body length
+	ctx             context.Context // per-item context, populated from Add(ctx, item)
+	meta            bytes.Buffer    // Item metadata header
+	payloadLength   int             // Item payload total length metadata+newline+body length
+	flushDone       chan struct{}   // non-nil marks a flush sentinel; worker closes it when flush completes
 
 	OnSuccess func(context.Context, BulkIndexerItem, BulkIndexerResponseItem)        // Per item
 	OnFailure func(context.Context, BulkIndexerItem, BulkIndexerResponseItem, error) // Per item
@@ -265,11 +290,13 @@ type BulkIndexerDebugLogger interface {
 
 type bulkIndexer struct {
 	wg      sync.WaitGroup
-	queue   chan BulkIndexerItem
 	workers []*worker
 	stats   *bulkIndexerStats
 
-	config BulkIndexerConfig
+	config     BulkIndexerConfig
+	addCounter atomic.Uint64 // round-robin dispatch counter for Add()
+	flushMu    sync.Mutex    // serialises Flush() and Close()
+	closed     atomic.Bool   // set by Close()
 }
 
 type bulkIndexerStats struct {
@@ -286,9 +313,11 @@ type bulkIndexerStats struct {
 }
 
 // NewBulkIndexer creates a new bulk indexer.
+//
+// Returns an error when cfg.Client is nil.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
-		cfg.Client, _ = elasticsearch.New()
+		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
 	}
 
 	if cfg.Decoder == nil {
@@ -327,6 +356,10 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
 
+	if item.ctx == nil {
+		item.ctx = ctx
+	}
+
 	// Serialize metadata to JSON
 	item.marshallMeta()
 	// Compute length for body & metadata
@@ -334,13 +367,38 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 		return err
 	}
 
+	n := bi.addCounter.Add(1) - 1
+	numWorkers := uint64(len(bi.workers))
+	primary := bi.workers[n%numWorkers]
+
+	// Avoid the O(N) scan when the hashed worker can take the item immediately.
+	select {
+	case primary.ch <- item:
+		return nil
+	default:
+	}
+
+	// Spread load: prefer making progress on any idle worker over blocking
+	// on one busy worker. Start after primary to avoid retrying it and to
+	// distribute scan pressure evenly under sustained back-pressure.
+	for i := uint64(1); i < numWorkers; i++ {
+		w := bi.workers[(n+i)%numWorkers]
+		select {
+		case w.ch <- item:
+			return nil
+		default:
+		}
+	}
+
+	// Back-pressure: all queues full; block until primary drains or the
+	// context is cancelled.
 	select {
 	case <-ctx.Done():
 		if bi.config.OnError != nil {
 			bi.config.OnError(ctx, ctx.Err())
 		}
 		return ctx.Err()
-	case bi.queue <- item:
+	case primary.ch <- item:
 	}
 
 	return nil
@@ -350,7 +408,19 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 // which triggers the workers to flush and stop.
 // Note: it is the user's responsibility to call Close on the elasticsearch Client passed in to the BulkIndexerConfig.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
-	close(bi.queue)
+	bi.flushMu.Lock()
+	bi.closed.Store(true)
+	for _, w := range bi.workers {
+		close(w.ch)
+	}
+	bi.flushMu.Unlock()
+
+	if err := ctx.Err(); err != nil {
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx, err)
+		}
+		return err
+	}
 
 	done := make(chan struct{})
 	go func() {
@@ -367,6 +437,54 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		}
 		return ctx.Err()
 	}
+}
+
+// Flush drains all currently queued items, flushes all worker buffers to
+// Elasticsearch, and waits for the flushes to complete. The indexer remains
+// usable after Flush returns.
+func (bi *bulkIndexer) Flush(ctx context.Context) error {
+	if bi.closed.Load() {
+		return ErrIndexerClosed
+	}
+
+	bi.flushMu.Lock()
+	defer bi.flushMu.Unlock()
+
+	if bi.closed.Load() {
+		return ErrIndexerClosed
+	}
+
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+
+	numWorkers := len(bi.workers)
+	dones := make([]chan struct{}, numWorkers)
+	for i := range dones {
+		dones[i] = make(chan struct{})
+	}
+
+	for i, w := range bi.workers {
+		sentinel := BulkIndexerItem{flushDone: dones[i]}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case w.ch <- sentinel:
+		}
+	}
+
+	for i := 0; i < numWorkers; i++ {
+		select {
+		case <-dones[i]:
+		case <-ctx.Done():
+			if bi.config.OnError != nil {
+				bi.config.OnError(ctx, ctx.Err())
+			}
+			return ctx.Err()
+		}
+	}
+
+	return nil
 }
 
 // Stats returns indexer statistics.
@@ -387,13 +505,11 @@ func (bi *bulkIndexer) Stats() BulkIndexerStats {
 
 // init initializes the bulk indexer.
 func (bi *bulkIndexer) init() {
-	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers*bi.config.QueueSizeMultiplier)
-
 	for i := 1; i <= bi.config.NumWorkers; i++ {
 		bi.wg.Add(1)
 		w := worker{
 			id:     i,
-			ch:     bi.queue,
+			ch:     make(chan BulkIndexerItem, bi.config.QueueSizeMultiplier),
 			bi:     bi,
 			buf:    bytes.NewBuffer(make([]byte, 0, bi.config.FlushBytes)),
 			ticker: time.NewTicker(bi.config.FlushInterval),
@@ -406,7 +522,7 @@ func (bi *bulkIndexer) init() {
 // worker represents an indexer worker.
 type worker struct {
 	id     int
-	ch     <-chan BulkIndexerItem
+	ch     chan BulkIndexerItem
 	bi     *bulkIndexer
 	buf    *bytes.Buffer
 	items  []BulkIndexerItem
@@ -440,6 +556,15 @@ func (w *worker) run() {
 					return
 				}
 
+				if item.flushDone != nil {
+					if w.bi.config.DebugLogger != nil {
+						w.bi.config.DebugLogger.Printf("[worker-%03d] Flush sentinel received\n", w.id)
+					}
+					w.flush(ctx)
+					close(item.flushDone)
+					continue
+				}
+
 				if w.bi.config.DebugLogger != nil {
 					w.bi.config.DebugLogger.Printf("[worker-%03d] Received item [%s:%s]\n", w.id, item.Action, item.DocumentID)
 				}
@@ -451,7 +576,7 @@ func (w *worker) run() {
 
 				if err := w.writeMeta(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -459,7 +584,7 @@ func (w *worker) run() {
 
 				if err := w.writeBody(&item); err != nil {
 					if item.OnFailure != nil {
-						item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+						item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 					}
 					atomic.AddUint64(&w.bi.stats.numFailed, 1)
 					continue
@@ -633,7 +758,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		if info.Error.Type != "" || info.Status > 201 {
 			atomic.AddUint64(&w.bi.stats.numFailed, 1)
 			if item.OnFailure != nil {
-				item.OnFailure(ctx, item, info, nil)
+				item.OnFailure(item.ctx, item, info, nil)
 			}
 		} else {
 			atomic.AddUint64(&w.bi.stats.numFlushed, 1)
@@ -650,7 +775,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 			}
 
 			if item.OnSuccess != nil {
-				item.OnSuccess(ctx, item, info)
+				item.OnSuccess(item.ctx, item, info)
 			}
 		}
 	}
@@ -663,10 +788,10 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 	return err
 }
 
-func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
+func (w *worker) notifyItemsOnError(err error) {
 	for _, item := range w.items {
 		if item.OnFailure != nil {
-			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+			item.OnFailure(item.ctx, item, BulkIndexerResponseItem{}, err)
 		}
 	}
 }
@@ -675,7 +800,7 @@ func (w *worker) handleError(ctx context.Context, err error) {
 	if w.bi.config.OnError != nil {
 		w.bi.config.OnError(ctx, err)
 	}
-	w.notifyItemsOnError(ctx, err)
+	w.notifyItemsOnError(err)
 }
 
 type defaultJSONDecoder struct{}

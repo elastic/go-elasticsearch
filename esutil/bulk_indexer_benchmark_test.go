@@ -29,7 +29,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
 )
@@ -65,7 +64,7 @@ func BenchmarkBulkIndexer(b *testing.B) {
 	b.Run("Basic", func(b *testing.B) {
 		b.ResetTimer()
 
-		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
 		if err != nil {
 			b.Fatalf("Unexpected error: %s", err)
 		}
