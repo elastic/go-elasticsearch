@@ -40,6 +40,7 @@ type clientOptions struct {
 	discoverNodesOnStart bool
 	compatibilityMode    bool
 	disableMetaHeader    bool
+	autoDrainBody        bool
 	transportOptions     []elastictransport.Option
 }
 
@@ -89,6 +90,17 @@ func WithCompatibilityMode() Option {
 func WithDisableMetaHeader() Option {
 	return Option{apply: func(o *clientOptions) error {
 		o.disableMetaHeader = true
+		return nil
+	}}
+}
+
+// WithAutoDrainBody enables automatic draining of the response body on Close.
+// When enabled, calling Close on the response body will automatically read
+// and discard any remaining data before closing the underlying connection.
+// This allows HTTP connection reuse even if the full response body is not read.
+func WithAutoDrainBody() Option {
+	return Option{apply: func(o *clientOptions) error {
+		o.autoDrainBody = true
 		return nil
 	}}
 }
@@ -182,6 +194,7 @@ type resolvedOptions struct {
 	disableMetaHeader    bool
 	compatibilityHeader  bool
 	discoverNodesOnStart bool
+	autoDrainBody        bool
 }
 
 // resolveOptions applies opts, resolves addresses, creates the transport via
@@ -263,5 +276,6 @@ func resolveOptions(opts []Option, metaHeaderSuffix string) (*resolvedOptions, e
 		disableMetaHeader:    co.disableMetaHeader,
 		compatibilityHeader:  co.compatibilityMode || envCompat,
 		discoverNodesOnStart: co.discoverNodesOnStart,
+		autoDrainBody:        co.autoDrainBody,
 	}, nil
 }
