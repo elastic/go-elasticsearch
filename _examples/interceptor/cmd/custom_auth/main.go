@@ -57,12 +57,12 @@ func main() {
 	defer srv.Close()
 
 	// Create an Elasticsearch client with the Kerberos interceptor
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{srv.URL()},
-		Interceptors: []elastictransport.InterceptorFunc{
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses(srv.URL()),
+		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			KerberosInterceptor(MockTokenProvider),
-		},
-	})
+		)),
+	)
 	if err != nil {
 		panic(err)
 	}

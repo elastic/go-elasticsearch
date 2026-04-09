@@ -38,7 +38,7 @@ func main() {
 		err error
 	)
 
-	es, err := elasticsearch.NewDefaultClient()
+	es, err := elasticsearch.New()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
@@ -58,8 +58,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
+
 	log.Println(res)
-	res.Body.Close()
 
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
@@ -77,7 +77,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
-	defer res.Body.Close()
 
 	log.Println(res)
 }
