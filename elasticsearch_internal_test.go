@@ -1623,7 +1623,7 @@ func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to create client: %v", err)
 	}
-	for range 5 {
+	for i := 0; i < 5; i++ {
 		func() {
 			res, err := es.Info()
 			if err != nil {
@@ -1663,7 +1663,7 @@ func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to create client: %v", err)
 	}
-	for range 5 {
+	for i := 0; i < 5; i++ {
 		func() {
 			res, err := es.Info()
 			if err != nil {
@@ -1703,7 +1703,7 @@ func TestAutoDrainBodyWithPartialRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to create client: %v", err)
 	}
-	for range 3 {
+	for i := 0; i < 3; i++ {
 		res, err := es.Info()
 		if err != nil {
 			t.Fatalf("Request failed: %v", err)
