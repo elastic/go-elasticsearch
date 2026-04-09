@@ -22,6 +22,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -113,6 +114,13 @@ type Config struct {
 
 	DisableMetaHeader bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
 
+	// AutoDrainBody enables automatic draining of the response body on Close.
+	// When enabled, calling Close on the response body will automatically read
+	// and discard any remaining data before closing the underlying connection.
+	// This allows HTTP connection reuse even if the full response body is not read.
+	// Default: false.
+	AutoDrainBody bool
+
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
 	Transport http.RoundTripper         // The HTTP transport object.
@@ -154,6 +162,7 @@ type BaseClient struct {
 	metaHeader          string
 	compatibilityHeader bool
 
+	autoDrainBody       bool
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
@@ -188,6 +197,7 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 		disableMetaHeader:   cfg.DisableMetaHeader,
 		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+		autoDrainBody:       cfg.AutoDrainBody,
 	}
 
 	if cfg.DiscoverNodesOnStart {
@@ -233,6 +243,7 @@ func NewClient(cfg Config) (*Client, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          initMetaHeader(tp),
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			autoDrainBody:       cfg.AutoDrainBody,
 		},
 	}
 	client.API = esapi.New(client)
@@ -266,6 +277,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          metaHeader,
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			autoDrainBody:       cfg.AutoDrainBody,
 		},
 	}
 	client.MethodAPI = typedapi.NewMethodAPI(client)
@@ -297,6 +309,7 @@ func New(opts ...Option) (*Client, error) {
 			disableMetaHeader:   ro.disableMetaHeader,
 			metaHeader:          ro.metaHeader,
 			compatibilityHeader: ro.compatibilityHeader,
+			autoDrainBody:       ro.autoDrainBody,
 		},
 	}
 	client.API = esapi.New(client)
@@ -327,6 +340,7 @@ func NewBase(opts ...Option) (*BaseClient, error) {
 		disableMetaHeader:   ro.disableMetaHeader,
 		metaHeader:          ro.metaHeader,
 		compatibilityHeader: ro.compatibilityHeader,
+		autoDrainBody:       ro.autoDrainBody,
 	}
 	if ro.discoverNodesOnStart {
 		go func() { _ = client.DiscoverNodes() }()
@@ -354,6 +368,7 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 			disableMetaHeader:   ro.disableMetaHeader,
 			metaHeader:          ro.metaHeader,
 			compatibilityHeader: ro.compatibilityHeader,
+			autoDrainBody:       ro.autoDrainBody,
 		},
 	}
 	client.MethodAPI = typedapi.NewMethodAPI(client)
@@ -480,6 +495,11 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 	if err != nil {
 		return nil, err
+	}
+
+	// Wrap the response body with auto-draining reader if enabled
+	if c.autoDrainBody && res.Body != nil {
+		res.Body = &autoDrainingReader{res.Body}
 	}
 
 	// ResponseCheck, we run the header check on the first answer from ES.
@@ -730,4 +750,15 @@ func buildStrippedVersion(version string) string {
 	}
 
 	return "0.0p"
+}
+
+const autoDrainingMaxBytes = 512 * 1024
+
+type autoDrainingReader struct {
+	io.ReadCloser
+}
+
+func (a *autoDrainingReader) Close() error {
+	_, _ = io.Copy(io.Discard, io.LimitReader(a.ReadCloser, autoDrainingMaxBytes))
+	return a.ReadCloser.Close()
 }
