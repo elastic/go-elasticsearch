@@ -411,11 +411,10 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		cfg.Password = pw
 	}
 
-	if cfg.Username != "" || cfg.Password != "" {
-		opts = append(opts, elastictransport.WithBasicAuth(cfg.Username, cfg.Password))
-	}
 	if cfg.APIKey != "" {
 		opts = append(opts, elastictransport.WithAPIKey(cfg.APIKey))
+	} else if cfg.Username != "" || cfg.Password != "" {
+		opts = append(opts, elastictransport.WithBasicAuth(cfg.Username, cfg.Password))
 	}
 	if cfg.ServiceToken != "" {
 		opts = append(opts, elastictransport.WithServiceToken(cfg.ServiceToken))
