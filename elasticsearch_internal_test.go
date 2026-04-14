@@ -44,6 +44,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -1611,4 +1612,182 @@ func (m mockESTransport) Close(ctx context.Context) error {
 		return m.CloseFunc(ctx)
 	}
 	return nil
+}
+
+// ------------- auto draining response body related tests -------------
+
+type readCloser struct {
+	io.Reader
+	closed bool
+}
+
+func (rc *readCloser) Close() error {
+	rc.closed = true
+	return nil
+}
+
+func TestAutoDrainingReader(t *testing.T) {
+	content := strings.NewReader("hello elasticsearch")
+	wrapped := &autoDrainingReader{ReadCloser: &readCloser{Reader: content}}
+	buf := make([]byte, 5)
+	n, err := wrapped.Read(buf)
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 5 {
+		t.Errorf("expected 5 bytes, got %d", n)
+	}
+	if string(buf[:n]) != "hello" {
+		t.Errorf("expected 'hello', got '%s'", string(buf[:n]))
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+}
+
+func TestAutoDrainingReaderDrainsOnClose(t *testing.T) {
+	content := bytes.Buffer{}
+	content.Grow(100)
+	content.Write(make([]byte, 100))
+	wrapped := &autoDrainingReader{
+		ReadCloser: &readCloser{Reader: &content},
+	}
+	n, err := wrapped.Read(make([]byte, 10))
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 10 {
+		t.Errorf("expected 10 bytes, got %d", n)
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+	if content.Len() != 0 {
+		t.Errorf("expected content to be drained, remaining: %d bytes", content.Len())
+	}
+}
+
+func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse (1 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: false,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) != 5 {
+		t.Errorf("Expected connection to not be reused (5 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyWithPartialRead(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 3 {
+		res, err := es.Info()
+		if err != nil {
+			t.Fatalf("Request failed: %v", err)
+		}
+		buf := make([]byte, 10)
+		n, err := res.Body.Read(buf)
+		if err != nil && err != io.EOF {
+			t.Fatalf("Read error: %v", err)
+		}
+		if n == 0 {
+			t.Error("Expected to read some data")
+		}
+		if err := res.Body.Close(); err != nil {
+			t.Fatalf("Close error: %v", err)
+		}
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse after partial read (1 connection), but saw %d", actualConnections)
+	}
 }

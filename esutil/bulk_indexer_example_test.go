@@ -138,3 +138,73 @@ func ExampleNewBulkIndexer() {
 	//
 	// --> https://github.com/elastic/go-elasticsearch/tree/master/_examples/bulk
 }
+
+func ExampleBulkIndexer_Flush() {
+	log.SetFlags(0)
+
+	es, err := elasticsearch.NewClient(elasticsearch.Config{})
+	if err != nil {
+		log.Fatalf("Error creating the client: %s", err)
+	}
+	defer func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if closeErr := es.Close(ctx); closeErr != nil {
+			log.Fatalf("Error closing the client: %s", closeErr)
+		}
+	}()
+
+	indexer, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+		Client:     es,
+		Index:      "test",
+		NumWorkers: 4,
+		FlushBytes: 5e+6,
+	})
+	if err != nil {
+		log.Printf("Error creating the indexer: %s", err)
+		return
+	}
+
+	// Add items to the indexer
+	//
+	for i := 0; i < 10; i++ {
+		_ = indexer.Add(
+			context.Background(),
+			esutil.BulkIndexerItem{
+				Action:     "index",
+				DocumentID: fmt.Sprintf("%d", i),
+				Body:       strings.NewReader(`{"title":"Test"}`),
+			},
+		)
+	}
+
+	// Flush ensures all queued items are sent to Elasticsearch.
+	// The indexer remains usable after Flush — you can keep adding items.
+	//
+	if err := indexer.Flush(context.Background()); err != nil {
+		log.Printf("Flush error: %s", err)
+		return
+	}
+
+	log.Printf("Flushed [%d] documents", indexer.Stats().NumFlushed)
+
+	// Continue adding more items after the flush
+	//
+	_ = indexer.Add(
+		context.Background(),
+		esutil.BulkIndexerItem{
+			Action:     "index",
+			DocumentID: "11",
+			Body:       strings.NewReader(`{"title":"After flush"}`),
+		},
+	)
+
+	// Close the indexer when done
+	//
+	if err := indexer.Close(context.Background()); err != nil {
+		log.Printf("Unexpected error: %s", err)
+		return
+	}
+
+	log.Printf("Total flushed [%d] documents", indexer.Stats().NumFlushed)
+}
