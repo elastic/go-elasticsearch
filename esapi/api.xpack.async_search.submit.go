@@ -61,7 +61,7 @@ type AsyncSearchSubmitRequest struct {
 	AllowPartialSearchResults  *bool
 	Analyzer                   string
 	AnalyzeWildcard            *bool
-	BatchedReduceSize          *int
+	BatchedReduceSize          *int64
 	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
@@ -91,9 +91,9 @@ type AsyncSearchSubmitRequest struct {
 	StoredFields               []string
 	SuggestField               string
 	SuggestMode                string
-	SuggestSize                *int
+	SuggestSize                *int64
 	SuggestText                string
-	TerminateAfter             *int
+	TerminateAfter             *int64
 	Timeout                    time.Duration
 	TrackScores                *bool
 	TrackTotalHits             interface{}
@@ -163,7 +163,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.BatchedReduceSize != nil {
-		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
+		params["batched_reduce_size"] = strconv.FormatInt(*r.BatchedReduceSize, 10)
 	}
 
 	if r.CcsMinimizeRoundtrips != nil {
@@ -283,7 +283,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.SuggestSize != nil {
-		params["suggest_size"] = strconv.FormatInt(int64(*r.SuggestSize), 10)
+		params["suggest_size"] = strconv.FormatInt(*r.SuggestSize, 10)
 	}
 
 	if r.SuggestText != "" {
@@ -291,7 +291,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -417,7 +417,7 @@ func (f AsyncSearchSubmit) WithIndex(v ...string) func(*AsyncSearchSubmitRequest
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f AsyncSearchSubmit) WithAllowNoIndices(v bool) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.AllowNoIndices = &v
@@ -446,7 +446,7 @@ func (f AsyncSearchSubmit) WithAnalyzeWildcard(v bool) func(*AsyncSearchSubmitRe
 }
 
 // WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. this value should be used as the granularity at which progress results will be made available..
-func (f AsyncSearchSubmit) WithBatchedReduceSize(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithBatchedReduceSize(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.BatchedReduceSize = &v
 	}
@@ -656,7 +656,7 @@ func (f AsyncSearchSubmit) WithSuggestMode(v string) func(*AsyncSearchSubmitRequ
 }
 
 // WithSuggestSize - how many suggestions to return in response.
-func (f AsyncSearchSubmit) WithSuggestSize(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithSuggestSize(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.SuggestSize = &v
 	}
@@ -670,7 +670,7 @@ func (f AsyncSearchSubmit) WithSuggestText(v string) func(*AsyncSearchSubmitRequ
 }
 
 // WithTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early..
-func (f AsyncSearchSubmit) WithTerminateAfter(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithTerminateAfter(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.TerminateAfter = &v
 	}

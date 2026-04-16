@@ -29,7 +29,7 @@ import (
 
 func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldStructure {
 	return func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
-		var r = TextStructureFindFieldStructureRequest{Index: index, Field: field}
+		var r = TextStructureFindFieldStructureRequest{Field: field, Index: index}
 		for _, f := range o {
 			f(&r)
 		}

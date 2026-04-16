@@ -55,8 +55,8 @@ type TransformGetTransformStatsRequest struct {
 	TransformID []string
 
 	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	From         *int64
+	Size         *int64
 	Timeout      time.Duration
 
 	Pretty     bool
@@ -113,11 +113,11 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 	}
 
 	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+		params["from"] = strconv.FormatInt(*r.From, 10)
 	}
 
 	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+		params["size"] = strconv.FormatInt(*r.Size, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -210,14 +210,14 @@ func (f TransformGetTransformStats) WithAllowNoMatch(v bool) func(*TransformGetT
 }
 
 // WithFrom - skips a number of transform stats, defaults to 0.
-func (f TransformGetTransformStats) WithFrom(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithFrom(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.From = &v
 	}
 }
 
 // WithSize - specifies a max number of transform stats to get, defaults to 100.
-func (f TransformGetTransformStats) WithSize(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithSize(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.Size = &v
 	}

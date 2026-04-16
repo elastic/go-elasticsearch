@@ -208,7 +208,7 @@ func (f IndicesFlush) WithIndex(v ...string) func(*IndicesFlushRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f IndicesFlush) WithAllowNoIndices(v bool) func(*IndicesFlushRequest) {
 	return func(r *IndicesFlushRequest) {
 		r.AllowNoIndices = &v

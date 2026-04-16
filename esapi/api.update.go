@@ -57,8 +57,8 @@ type UpdateRequest struct {
 
 	Body io.Reader
 
-	IfPrimaryTerm        *int
-	IfSeqNo              *int
+	IfPrimaryTerm        *int64
+	IfSeqNo              *int64
 	IncludeSourceOnError *bool
 	Lang                 string
 	Refresh              string
@@ -120,11 +120,11 @@ func (r UpdateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	params = make(map[string]string)
 
 	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
+		params["if_primary_term"] = strconv.FormatInt(*r.IfPrimaryTerm, 10)
 	}
 
 	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+		params["if_seq_no"] = strconv.FormatInt(*r.IfSeqNo, 10)
 	}
 
 	if r.IncludeSourceOnError != nil {
@@ -257,14 +257,14 @@ func (f Update) WithContext(v context.Context) func(*UpdateRequest) {
 }
 
 // WithIfPrimaryTerm - only perform the update operation if the last operation that has changed the document has the specified primary term.
-func (f Update) WithIfPrimaryTerm(v int) func(*UpdateRequest) {
+func (f Update) WithIfPrimaryTerm(v int64) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.IfPrimaryTerm = &v
 	}
 }
 
 // WithIfSeqNo - only perform the update operation if the last operation that has changed the document has the specified sequence number.
-func (f Update) WithIfSeqNo(v int) func(*UpdateRequest) {
+func (f Update) WithIfSeqNo(v int64) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.IfSeqNo = &v
 	}
