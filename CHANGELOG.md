@@ -1,5 +1,28 @@
 # Changelog
 
+## [9.3.2](https://github.com/elastic/go-elasticsearch/compare/v9.3.1...v9.3.2) (2026-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Typed API:** update client from spec df81426
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1372](https://github.com/elastic/go-elasticsearch/issues/1372)) ([783c1ac](https://github.com/elastic/go-elasticsearch/commit/783c1acba726019d60579b985798f89ff2790ac5))
+* Add functional options pattern for client instantiation ([#1295](https://github.com/elastic/go-elasticsearch/issues/1295)) ([#1323](https://github.com/elastic/go-elasticsearch/issues/1323)) ([c0a69b1](https://github.com/elastic/go-elasticsearch/commit/c0a69b19d4e5e2eb2a9dc51c7df8d60356594939))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1363](https://github.com/elastic/go-elasticsearch/issues/1363)) ([892f0d6](https://github.com/elastic/go-elasticsearch/commit/892f0d652a25465a1ebf9f14683e51f48df0be15))
+* **Typed API:** Improved generated code comments ([f37f7d1](https://github.com/elastic/go-elasticsearch/commit/f37f7d17abbcce255e1124f3d3f82e885566c0b3))
+* **Typed API:** Update client from spec df81426 ([32ea244](https://github.com/elastic/go-elasticsearch/commit/32ea2446ee295a7f54137e82ff642db63637b20c))
+
+
+### Bug Fixes
+
+* **esapi:** Document Response.Body must be closed; fix leaks in examples ([#1313](https://github.com/elastic/go-elasticsearch/issues/1313)) ([3b3dd1e](https://github.com/elastic/go-elasticsearch/commit/3b3dd1e33bc8b91a0127c3b3abe986c6fcafb1f4))
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1340](https://github.com/elastic/go-elasticsearch/issues/1340)) ([a02272b](https://github.com/elastic/go-elasticsearch/commit/a02272b6210e326981df3bacb8327d8133582f1c))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1316](https://github.com/elastic/go-elasticsearch/issues/1316)) ([d28cd9d](https://github.com/elastic/go-elasticsearch/commit/d28cd9dc91703ac40818216897e734ad9ff83ba9))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1331](https://github.com/elastic/go-elasticsearch/issues/1331)) ([f37f7d1](https://github.com/elastic/go-elasticsearch/commit/f37f7d17abbcce255e1124f3d3f82e885566c0b3))
+
 ## [9.2.4](https://github.com/elastic/go-elasticsearch/compare/v9.2.3...v9.2.4) (2026-04-16)
 
 
