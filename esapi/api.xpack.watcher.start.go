@@ -43,9 +43,9 @@ func newWatcherStartFunc(t Transport) WatcherStart {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherStart - Starts Watcher if it is not already running.
+// WatcherStart - Start the watch service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-start.
 type WatcherStart func(o ...func(*WatcherStartRequest)) (*Response, error)
 
 // WatcherStartRequest configures the Watcher Start API request.

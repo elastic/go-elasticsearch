@@ -44,9 +44,9 @@ func newIndicesValidateQueryFunc(t Transport) IndicesValidateQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesValidateQuery allows a user to validate a potentially expensive query without executing it.
+// IndicesValidateQuery validate a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-validate.html.
 type IndicesValidateQuery func(o ...func(*IndicesValidateQueryRequest)) (*Response, error)
 
 // IndicesValidateQueryRequest configures the Indices Validate Query API request.

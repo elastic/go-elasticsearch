@@ -42,9 +42,9 @@ func newEqlDeleteFunc(t Transport) EqlDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlDelete - Deletes an async EQL search by ID. If the search is still running, the search request will be cancelled. Otherwise, the saved search results are deleted.
+// EqlDelete - Delete an async EQL search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-eql-delete.
 type EqlDelete func(id string, o ...func(*EqlDeleteRequest)) (*Response, error)
 
 // EqlDeleteRequest configures the Eql Delete API request.

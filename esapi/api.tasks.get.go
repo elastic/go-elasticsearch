@@ -44,11 +44,11 @@ func newTasksGetFunc(t Transport) TasksGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// TasksGet returns information about a task.
+// TasksGet get task information
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/tasks.html.
 type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, error)
 
 // TasksGetRequest configures the Tasks Get API request.

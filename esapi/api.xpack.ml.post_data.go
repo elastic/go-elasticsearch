@@ -43,9 +43,9 @@ func newMLPostDataFunc(t Transport) MLPostData {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostData - Sends data to an anomaly detection job for analysis.
+// MLPostData - Send data to an anomaly detection job for analysis
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-data.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-post-data.html.
 type MLPostData func(job_id string, body io.Reader, o ...func(*MLPostDataRequest)) (*Response, error)
 
 // MLPostDataRequest configures the ML Post Data API request.

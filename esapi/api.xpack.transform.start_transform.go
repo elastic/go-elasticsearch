@@ -43,9 +43,9 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStartTransform - Starts one or more transforms.
+// TransformStartTransform - Start a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-transform.html.
 type TransformStartTransform func(transform_id string, o ...func(*TransformStartTransformRequest)) (*Response, error)
 
 // TransformStartTransformRequest configures the Transform Start Transform API request.

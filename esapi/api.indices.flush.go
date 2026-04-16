@@ -43,9 +43,9 @@ func newIndicesFlushFunc(t Transport) IndicesFlush {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesFlush performs the flush operation on one or more indices.
+// IndicesFlush flush data streams or indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-flush.html.
 type IndicesFlush func(o ...func(*IndicesFlushRequest)) (*Response, error)
 
 // IndicesFlushRequest configures the Indices Flush API request.

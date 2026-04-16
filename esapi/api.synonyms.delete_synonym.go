@@ -42,9 +42,9 @@ func newSynonymsDeleteSynonymFunc(t Transport) SynonymsDeleteSynonym {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsDeleteSynonym deletes a synonym set
+// SynonymsDeleteSynonym delete a synonym set
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms-set.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-synonyms-set.html.
 type SynonymsDeleteSynonym func(id string, o ...func(*SynonymsDeleteSynonymRequest)) (*Response, error)
 
 // SynonymsDeleteSynonymRequest configures the Synonyms Delete Synonym API request.

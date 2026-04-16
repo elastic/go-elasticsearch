@@ -43,9 +43,9 @@ func newExistsFunc(t Transport) Exists {
 
 // ----- API Definition -------------------------------------------------------
 
-// Exists returns information about whether a document exists in an index.
+// Exists check a document
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-get.html.
 type Exists func(index string, id string, o ...func(*ExistsRequest)) (*Response, error)
 
 // ExistsRequest configures the Exists API request.

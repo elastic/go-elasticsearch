@@ -42,11 +42,11 @@ func newRollupGetJobsFunc(t Transport) RollupGetJobs {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupGetJobs - Retrieves the configuration, stats, and status of rollup jobs.
+// RollupGetJobs - Get rollup job information
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-get-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-get-job.html.
 type RollupGetJobs func(o ...func(*RollupGetJobsRequest)) (*Response, error)
 
 // RollupGetJobsRequest configures the Rollup Get Jobs API request.

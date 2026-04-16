@@ -43,9 +43,9 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDatafeed - Previews a datafeed.
+// MLPreviewDatafeed - Preview a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-preview-datafeed.html.
 type MLPreviewDatafeed func(o ...func(*MLPreviewDatafeedRequest)) (*Response, error)
 
 // MLPreviewDatafeedRequest configures the ML Preview Datafeed API request.

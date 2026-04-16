@@ -44,9 +44,9 @@ func newIndicesResolveClusterFunc(t Transport) IndicesResolveCluster {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesResolveCluster resolves the specified index expressions to return information about each cluster. If no index expression is provided, this endpoint will return information about all the remote clusters that are configured on the local cluster.
+// IndicesResolveCluster resolve the cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-resolve-cluster-api.html.
 type IndicesResolveCluster func(o ...func(*IndicesResolveClusterRequest)) (*Response, error)
 
 // IndicesResolveClusterRequest configures the Indices Resolve Cluster API request.

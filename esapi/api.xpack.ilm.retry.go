@@ -42,9 +42,9 @@ func newILMRetryFunc(t Transport) ILMRetry {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMRetry - Retries executing the policy for an index that is in the ERROR step.
+// ILMRetry - Retry a policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-retry-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-retry-policy.html.
 type ILMRetry func(index string, o ...func(*ILMRetryRequest)) (*Response, error)
 
 // ILMRetryRequest configures the ILM Retry API request.

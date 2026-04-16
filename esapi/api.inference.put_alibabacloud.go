@@ -43,9 +43,9 @@ func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAlibabacloud configure an AlibabaCloud AI Search inference endpoint
+// InferencePutAlibabacloud create an AlibabaCloud AI Search inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-alibabacloud-ai-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-alibabacloud-ai-search.html.
 type InferencePutAlibabacloud func(alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error)
 
 // InferencePutAlibabacloudRequest configures the Inference Put Alibabacloud API request.

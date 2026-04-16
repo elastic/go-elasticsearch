@@ -43,11 +43,11 @@ func newConnectorUpdateSchedulingFunc(t Transport) ConnectorUpdateScheduling {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateScheduling updates the scheduling field in the connector document.
+// ConnectorUpdateScheduling update the connector scheduling
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-scheduling-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-scheduling-api.html.
 type ConnectorUpdateScheduling func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateSchedulingRequest)) (*Response, error)
 
 // ConnectorUpdateSchedulingRequest configures the Connector Update Scheduling API request.

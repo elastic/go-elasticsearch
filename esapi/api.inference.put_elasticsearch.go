@@ -43,9 +43,9 @@ func newInferencePutElasticsearchFunc(t Transport) InferencePutElasticsearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutElasticsearch configure an Elasticsearch inference endpoint
+// InferencePutElasticsearch create an Elasticsearch inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elasticsearch.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-elasticsearch.html.
 type InferencePutElasticsearch func(elasticsearch_inference_id string, task_type string, o ...func(*InferencePutElasticsearchRequest)) (*Response, error)
 
 // InferencePutElasticsearchRequest configures the Inference Put Elasticsearch API request.

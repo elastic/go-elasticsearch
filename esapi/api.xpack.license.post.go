@@ -45,9 +45,9 @@ func newLicensePostFunc(t Transport) LicensePost {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePost - Updates the license for the cluster.
+// LicensePost - Update the license
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-license.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-license-post.
 type LicensePost func(o ...func(*LicensePostRequest)) (*Response, error)
 
 // LicensePostRequest configures the License Post API request.

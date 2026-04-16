@@ -43,9 +43,9 @@ func newUpdateByQueryRethrottleFunc(t Transport) UpdateByQueryRethrottle {
 
 // ----- API Definition -------------------------------------------------------
 
-// UpdateByQueryRethrottle changes the number of requests per second for a particular Update By Query operation.
+// UpdateByQueryRethrottle throttle an update by query operation
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-update-by-query.html#docs-update-by-query-rethrottle.
 type UpdateByQueryRethrottle func(task_id string, requests_per_second *int, o ...func(*UpdateByQueryRethrottleRequest)) (*Response, error)
 
 // UpdateByQueryRethrottleRequest configures the Update By Query Rethrottle API request.

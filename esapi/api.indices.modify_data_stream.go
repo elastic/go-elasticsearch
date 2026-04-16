@@ -43,9 +43,9 @@ func newIndicesModifyDataStreamFunc(t Transport) IndicesModifyDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesModifyDataStream modifies a data stream
+// IndicesModifyDataStream update data streams
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-modify-data-stream.
 type IndicesModifyDataStream func(body io.Reader, o ...func(*IndicesModifyDataStreamRequest)) (*Response, error)
 
 // IndicesModifyDataStreamRequest configures the Indices Modify Data Stream API request.

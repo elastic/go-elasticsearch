@@ -43,9 +43,9 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichGetPolicy - Gets information about an enrich policy.
+// EnrichGetPolicy - Get an enrich policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-enrich-policy-api.html.
 type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
 
 // EnrichGetPolicyRequest configures the Enrich Get Policy API request.

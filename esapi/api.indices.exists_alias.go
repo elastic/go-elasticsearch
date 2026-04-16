@@ -44,9 +44,9 @@ func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExistsAlias returns information about whether a particular alias exists.
+// IndicesExistsAlias check aliases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-exists-alias.
 type IndicesExistsAlias func(name []string, o ...func(*IndicesExistsAliasRequest)) (*Response, error)
 
 // IndicesExistsAliasRequest configures the Indices Exists Alias API request.

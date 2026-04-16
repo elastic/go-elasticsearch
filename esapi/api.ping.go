@@ -42,9 +42,9 @@ func newPingFunc(t Transport) Ping {
 
 // ----- API Definition -------------------------------------------------------
 
-// Ping returns whether the cluster is running.
+// Ping ping the cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster.html.
 type Ping func(o ...func(*PingRequest)) (*Response, error)
 
 // PingRequest configures the Ping API request.

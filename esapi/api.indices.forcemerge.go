@@ -43,9 +43,9 @@ func newIndicesForcemergeFunc(t Transport) IndicesForcemerge {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesForcemerge performs the force merge operation on one or more indices.
+// IndicesForcemerge force a merge
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-forcemerge.html.
 type IndicesForcemerge func(o ...func(*IndicesForcemergeRequest)) (*Response, error)
 
 // IndicesForcemergeRequest configures the Indices Forcemerge API request.

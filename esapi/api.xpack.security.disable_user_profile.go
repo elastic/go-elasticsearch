@@ -42,9 +42,9 @@ func newSecurityDisableUserProfileFunc(t Transport) SecurityDisableUserProfile {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDisableUserProfile - Disables a user profile so it's not visible in user profile searches.
+// SecurityDisableUserProfile - Disable a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-disable-user-profile.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-disable-user-profile.html.
 type SecurityDisableUserProfile func(uid string, o ...func(*SecurityDisableUserProfileRequest)) (*Response, error)
 
 // SecurityDisableUserProfileRequest configures the Security Disable User Profile API request.

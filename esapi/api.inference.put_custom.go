@@ -43,7 +43,7 @@ func newInferencePutCustomFunc(t Transport) InferencePutCustom {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutCustom configure a custom inference endpoint
+// InferencePutCustom create a custom inference endpoint
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-custom.
 type InferencePutCustom func(custom_inference_id string, task_type string, o ...func(*InferencePutCustomRequest)) (*Response, error)

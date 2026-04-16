@@ -44,9 +44,9 @@ func newSnapshotDeleteRepositoryFunc(t Transport) SnapshotDeleteRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotDeleteRepository deletes a repository.
+// SnapshotDeleteRepository delete snapshot repositories
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-snapshot-repo-api.html.
 type SnapshotDeleteRepository func(repository []string, o ...func(*SnapshotDeleteRepositoryRequest)) (*Response, error)
 
 // SnapshotDeleteRepositoryRequest configures the Snapshot Delete Repository API request.

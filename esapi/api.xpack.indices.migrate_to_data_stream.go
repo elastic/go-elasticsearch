@@ -43,9 +43,9 @@ func newIndicesMigrateToDataStreamFunc(t Transport) IndicesMigrateToDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesMigrateToDataStream - Migrates an alias to a data stream
+// IndicesMigrateToDataStream - Convert an index alias to a data stream
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-migrate-to-data-stream.
 type IndicesMigrateToDataStream func(name string, o ...func(*IndicesMigrateToDataStreamRequest)) (*Response, error)
 
 // IndicesMigrateToDataStreamRequest configures the Indices Migrate To Data Stream API request.

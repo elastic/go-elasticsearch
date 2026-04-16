@@ -42,9 +42,9 @@ func newSynonymsDeleteSynonymRuleFunc(t Transport) SynonymsDeleteSynonymRule {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsDeleteSynonymRule deletes a synonym rule in a synonym set
+// SynonymsDeleteSynonymRule delete a synonym rule
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-synonym-rule.html.
 type SynonymsDeleteSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error)
 
 // SynonymsDeleteSynonymRuleRequest configures the Synonyms Delete Synonym Rule API request.

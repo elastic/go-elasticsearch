@@ -44,9 +44,9 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRForgetFollower - Removes the follower retention leases from the leader.
+// CCRForgetFollower - Forget a follower
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-post-forget-follower.html.
 type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
 
 // CCRForgetFollowerRequest configures the CCR Forget Follower API request.

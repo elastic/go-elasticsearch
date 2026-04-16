@@ -45,9 +45,9 @@ func newSnapshotCreateFunc(t Transport) SnapshotCreate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotCreate creates a snapshot in a repository.
+// SnapshotCreate create a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-snapshot-api.html.
 type SnapshotCreate func(repository string, snapshot string, o ...func(*SnapshotCreateRequest)) (*Response, error)
 
 // SnapshotCreateRequest configures the Snapshot Create API request.

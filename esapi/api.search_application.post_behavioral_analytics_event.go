@@ -44,11 +44,11 @@ func newSearchApplicationPostBehavioralAnalyticsEventFunc(t Transport) SearchApp
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationPostBehavioralAnalyticsEvent creates a behavioral analytics event for existing collection.
+// SearchApplicationPostBehavioralAnalyticsEvent create a behavioral analytics collection event
 //
 // This API is experimental.
 //
-// See full documentation at http://todo.com/tbd.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-analytics-collection-event.html.
 type SearchApplicationPostBehavioralAnalyticsEvent func(body io.Reader, collection_name string, event_type string, o ...func(*SearchApplicationPostBehavioralAnalyticsEventRequest)) (*Response, error)
 
 // SearchApplicationPostBehavioralAnalyticsEventRequest configures the Search Application Post Behavioral Analytics Event API request.

@@ -42,9 +42,9 @@ func newWatcherAckWatchFunc(t Transport) WatcherAckWatch {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherAckWatch - Acknowledges a watch, manually throttling the execution of the watch's actions.
+// WatcherAckWatch - Acknowledge a watch
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-ack-watch.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-ack-watch.
 type WatcherAckWatch func(watch_id string, o ...func(*WatcherAckWatchRequest)) (*Response, error)
 
 // WatcherAckWatchRequest configures the Watcher Ack Watch API request.

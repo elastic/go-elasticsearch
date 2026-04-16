@@ -43,9 +43,9 @@ func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMMoveToStep - Manually moves an index into the specified step and executes that step.
+// ILMMoveToStep - Move to a lifecycle step
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-move-to-step.html.
 type ILMMoveToStep func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error)
 
 // ILMMoveToStepRequest configures the ILM Move To Step API request.

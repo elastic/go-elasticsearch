@@ -45,9 +45,9 @@ func newTransformPutTransformFunc(t Transport) TransformPutTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformPutTransform - Instantiates a transform.
+// TransformPutTransform - Create a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-transform.html.
 type TransformPutTransform func(body io.Reader, transform_id string, o ...func(*TransformPutTransformRequest)) (*Response, error)
 
 // TransformPutTransformRequest configures the Transform Put Transform API request.

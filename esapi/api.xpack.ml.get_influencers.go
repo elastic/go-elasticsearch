@@ -45,9 +45,9 @@ func newMLGetInfluencersFunc(t Transport) MLGetInfluencers {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetInfluencers - Retrieves anomaly detection job results for one or more influencers.
+// MLGetInfluencers - Get anomaly detection job results for influencers
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-influencer.html.
 type MLGetInfluencers func(job_id string, o ...func(*MLGetInfluencersRequest)) (*Response, error)
 
 // MLGetInfluencersRequest configures the ML Get Influencers API request.

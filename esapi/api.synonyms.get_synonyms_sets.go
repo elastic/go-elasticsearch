@@ -43,9 +43,9 @@ func newSynonymsGetSynonymsSetsFunc(t Transport) SynonymsGetSynonymsSets {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsGetSynonymsSets retrieves a summary of all defined synonym sets
+// SynonymsGetSynonymsSets get all synonym sets
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-synonyms-set.html.
 type SynonymsGetSynonymsSets func(o ...func(*SynonymsGetSynonymsSetsRequest)) (*Response, error)
 
 // SynonymsGetSynonymsSetsRequest configures the Synonyms Get Synonyms Sets API request.

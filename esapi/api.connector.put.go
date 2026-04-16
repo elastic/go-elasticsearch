@@ -43,11 +43,11 @@ func newConnectorPutFunc(t Transport) ConnectorPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorPut creates or updates a connector.
+// ConnectorPut create or update a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-connector-api.html.
 type ConnectorPut func(o ...func(*ConnectorPutRequest)) (*Response, error)
 
 // ConnectorPutRequest configures the Connector Put API request.

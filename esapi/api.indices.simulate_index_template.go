@@ -45,9 +45,9 @@ func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTempla
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesSimulateIndexTemplate simulate matching the given index name against the index templates in the system
+// IndicesSimulateIndexTemplate simulate an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-simulate-index.html.
 type IndicesSimulateIndexTemplate func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error)
 
 // IndicesSimulateIndexTemplateRequest configures the Indices Simulate Index Template API request.

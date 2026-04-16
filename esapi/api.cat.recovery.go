@@ -43,9 +43,9 @@ func newCatRecoveryFunc(t Transport) CatRecovery {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatRecovery returns information about index shard recoveries, both on-going completed.
+// CatRecovery get shard recovery information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-recovery.html.
 type CatRecovery func(o ...func(*CatRecoveryRequest)) (*Response, error)
 
 // CatRecoveryRequest configures the Cat Recovery API request.

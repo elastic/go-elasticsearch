@@ -43,9 +43,9 @@ func newGetSourceFunc(t Transport) GetSource {
 
 // ----- API Definition -------------------------------------------------------
 
-// GetSource returns the source of a document.
+// GetSource get a document's source
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-get.html.
 type GetSource func(index string, id string, o ...func(*GetSourceRequest)) (*Response, error)
 
 // GetSourceRequest configures the Get Source API request.

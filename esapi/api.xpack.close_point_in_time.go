@@ -45,7 +45,7 @@ func newClosePointInTimeFunc(t Transport) ClosePointInTime {
 
 // ClosePointInTime - Close a point in time
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/point-in-time-api.html.
 type ClosePointInTime func(o ...func(*ClosePointInTimeRequest)) (*Response, error)
 
 // ClosePointInTimeRequest configures the Close Point In Time API request.

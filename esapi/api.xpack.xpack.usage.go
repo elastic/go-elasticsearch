@@ -43,9 +43,9 @@ func newXPackUsageFunc(t Transport) XPackUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// XPackUsage - Retrieves usage information about the installed X-Pack features.
+// XPackUsage - Get usage information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/usage-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/group/endpoint-xpack.
 type XPackUsage func(o ...func(*XPackUsageRequest)) (*Response, error)
 
 // XPackUsageRequest configures the X Pack Usage API request.

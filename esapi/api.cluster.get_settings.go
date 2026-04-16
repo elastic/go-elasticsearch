@@ -44,9 +44,9 @@ func newClusterGetSettingsFunc(t Transport) ClusterGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetSettings returns cluster settings.
+// ClusterGetSettings get cluster-wide settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-get-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-get-settings.html.
 type ClusterGetSettings func(o ...func(*ClusterGetSettingsRequest)) (*Response, error)
 
 // ClusterGetSettingsRequest configures the Cluster Get Settings API request.

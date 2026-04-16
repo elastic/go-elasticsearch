@@ -43,9 +43,9 @@ func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceSparseEmbedding perform sparse embedding inference
+// InferenceSparseEmbedding perform sparse embedding inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
 type InferenceSparseEmbedding func(inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error)
 
 // InferenceSparseEmbeddingRequest configures the Inference Sparse Embedding API request.

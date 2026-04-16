@@ -43,7 +43,7 @@ func newProfilingTopnFunctionsFunc(t Transport) ProfilingTopnFunctions {
 
 // ----- API Definition -------------------------------------------------------
 
-// ProfilingTopnFunctions extracts a list of topN functions from Universal Profiling.
+// ProfilingTopnFunctions extracts a list of topN functions from Universal Profiling
 //
 // See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
 type ProfilingTopnFunctions func(body io.Reader, o ...func(*ProfilingTopnFunctionsRequest)) (*Response, error)

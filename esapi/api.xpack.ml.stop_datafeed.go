@@ -45,9 +45,9 @@ func newMLStopDatafeedFunc(t Transport) MLStopDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopDatafeed - Stops one or more datafeeds.
+// MLStopDatafeed - Stop datafeeds
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-stop-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-stop-datafeed.html.
 type MLStopDatafeed func(datafeed_id string, o ...func(*MLStopDatafeedRequest)) (*Response, error)
 
 // MLStopDatafeedRequest configures the ML Stop Datafeed API request.
@@ -56,10 +56,9 @@ type MLStopDatafeedRequest struct {
 
 	DatafeedID string
 
-	AllowNoDatafeeds *bool
-	AllowNoMatch     *bool
-	Force            *bool
-	Timeout          time.Duration
+	AllowNoMatch *bool
+	Force        *bool
+	Timeout      time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -107,10 +106,6 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("_stop")
 
 	params = make(map[string]string)
-
-	if r.AllowNoDatafeeds != nil {
-		params["allow_no_datafeeds"] = strconv.FormatBool(*r.AllowNoDatafeeds)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -213,13 +208,6 @@ func (f MLStopDatafeed) WithContext(v context.Context) func(*MLStopDatafeedReque
 func (f MLStopDatafeed) WithBody(v io.Reader) func(*MLStopDatafeedRequest) {
 	return func(r *MLStopDatafeedRequest) {
 		r.Body = v
-	}
-}
-
-// WithAllowNoDatafeeds - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
-func (f MLStopDatafeed) WithAllowNoDatafeeds(v bool) func(*MLStopDatafeedRequest) {
-	return func(r *MLStopDatafeedRequest) {
-		r.AllowNoDatafeeds = &v
 	}
 }
 

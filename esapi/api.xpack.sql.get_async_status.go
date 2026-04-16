@@ -42,9 +42,9 @@ func newSQLGetAsyncStatusFunc(t Transport) SQLGetAsyncStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLGetAsyncStatus - Returns the current status of an async SQL search or a stored synchronous SQL search
+// SQLGetAsyncStatus - Get the async SQL search status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-status-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-async-sql-search-status-api.html.
 type SQLGetAsyncStatus func(id string, o ...func(*SQLGetAsyncStatusRequest)) (*Response, error)
 
 // SQLGetAsyncStatusRequest configures the SQL Get Async Status API request.

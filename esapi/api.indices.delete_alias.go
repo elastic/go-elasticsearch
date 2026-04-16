@@ -44,9 +44,9 @@ func newIndicesDeleteAliasFunc(t Transport) IndicesDeleteAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteAlias deletes an alias.
+// IndicesDeleteAlias delete an alias
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-delete-alias.html.
 type IndicesDeleteAlias func(index []string, name []string, o ...func(*IndicesDeleteAliasRequest)) (*Response, error)
 
 // IndicesDeleteAliasRequest configures the Indices Delete Alias API request.

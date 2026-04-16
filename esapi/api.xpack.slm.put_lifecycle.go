@@ -44,9 +44,9 @@ func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmPutLifecycle - Creates or updates a snapshot lifecycle policy.
+// SlmPutLifecycle - Create or update a policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-put-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/slm-api-put-policy.html.
 type SlmPutLifecycle func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error)
 
 // SlmPutLifecycleRequest configures the Slm Put Lifecycle API request.

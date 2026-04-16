@@ -45,9 +45,9 @@ func newSnapshotRestoreFunc(t Transport) SnapshotRestore {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotRestore restores a snapshot.
+// SnapshotRestore restore a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/restore-snapshot-api.html.
 type SnapshotRestore func(repository string, snapshot string, o ...func(*SnapshotRestoreRequest)) (*Response, error)
 
 // SnapshotRestoreRequest configures the Snapshot Restore API request.

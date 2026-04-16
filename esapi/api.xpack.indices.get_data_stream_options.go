@@ -44,7 +44,7 @@ func newIndicesGetDataStreamOptionsFunc(t Transport) IndicesGetDataStreamOptions
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataStreamOptions - Returns the data stream options of the selected data streams.
+// IndicesGetDataStreamOptions - Returns the data stream options of the selected data streams
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
 type IndicesGetDataStreamOptions func(name []string, o ...func(*IndicesGetDataStreamOptionsRequest)) (*Response, error)

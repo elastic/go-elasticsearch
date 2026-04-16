@@ -43,9 +43,9 @@ func newSecurityActivateUserProfileFunc(t Transport) SecurityActivateUserProfile
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityActivateUserProfile - Creates or updates the user profile on behalf of another user.
+// SecurityActivateUserProfile - Activate a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-activate-user-profile.html.
 type SecurityActivateUserProfile func(body io.Reader, o ...func(*SecurityActivateUserProfileRequest)) (*Response, error)
 
 // SecurityActivateUserProfileRequest configures the Security Activate User Profile API request.

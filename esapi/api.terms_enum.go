@@ -44,9 +44,9 @@ func newTermsEnumFunc(t Transport) TermsEnum {
 
 // ----- API Definition -------------------------------------------------------
 
-// TermsEnum the terms enum API  can be used to discover terms in the index that begin with the provided string. It is designed for low-latency look-ups used in auto-complete scenarios.
+// TermsEnum get terms in an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-terms-enum.html.
 type TermsEnum func(index []string, o ...func(*TermsEnumRequest)) (*Response, error)
 
 // TermsEnumRequest configures the Terms Enum API request.

@@ -43,11 +43,11 @@ func newSearchApplicationRenderQueryFunc(t Transport) SearchApplicationRenderQue
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationRenderQuery renders a query for given search application search parameters
+// SearchApplicationRenderQuery render a search application query
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-application-render-query.html.
 type SearchApplicationRenderQuery func(name string, o ...func(*SearchApplicationRenderQueryRequest)) (*Response, error)
 
 // SearchApplicationRenderQueryRequest configures the Search Application Render Query API request.

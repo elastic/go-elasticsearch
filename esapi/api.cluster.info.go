@@ -43,9 +43,9 @@ func newClusterInfoFunc(t Transport) ClusterInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterInfo returns different information about the cluster.
+// ClusterInfo get cluster info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-info.html.
 type ClusterInfo func(target []string, o ...func(*ClusterInfoRequest)) (*Response, error)
 
 // ClusterInfoRequest configures the Cluster Info API request.

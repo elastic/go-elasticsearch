@@ -44,9 +44,9 @@ func newIndicesSplitFunc(t Transport) IndicesSplit {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesSplit allows you to split an existing index into a new index with more primary shards.
+// IndicesSplit split an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-split-index.html.
 type IndicesSplit func(index string, target string, o ...func(*IndicesSplitRequest)) (*Response, error)
 
 // IndicesSplitRequest configures the Indices Split API request.

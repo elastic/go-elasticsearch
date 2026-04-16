@@ -44,9 +44,9 @@ func newMLForecastFunc(t Transport) MLForecast {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLForecast - Predicts the future behavior of a time series by using its historical behavior.
+// MLForecast - Predict future behavior of a time series
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-forecast.html.
 type MLForecast func(job_id string, o ...func(*MLForecastRequest)) (*Response, error)
 
 // MLForecastRequest configures the ML Forecast API request.

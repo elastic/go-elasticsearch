@@ -43,9 +43,9 @@ func newInferenceStreamCompletionFunc(t Transport) InferenceStreamCompletion {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceStreamCompletion perform streaming completion inference
+// InferenceStreamCompletion perform streaming inference
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-stream-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stream-inference-api.html.
 type InferenceStreamCompletion func(inference_id string, o ...func(*InferenceStreamCompletionRequest)) (*Response, error)
 
 // InferenceStreamCompletionRequest configures the Inference Stream Completion API request.

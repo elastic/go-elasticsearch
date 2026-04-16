@@ -43,11 +43,11 @@ func newConnectorUpdatePipelineFunc(t Transport) ConnectorUpdatePipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdatePipeline updates the pipeline field in the connector document.
+// ConnectorUpdatePipeline update the connector pipeline
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-pipeline-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-pipeline-api.html.
 type ConnectorUpdatePipeline func(body io.Reader, connector_id string, o ...func(*ConnectorUpdatePipelineRequest)) (*Response, error)
 
 // ConnectorUpdatePipelineRequest configures the Connector Update Pipeline API request.

@@ -45,9 +45,9 @@ func newTransformUpdateTransformFunc(t Transport) TransformUpdateTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformUpdateTransform - Updates certain properties of a transform.
+// TransformUpdateTransform - Update a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-update-transform.
 type TransformUpdateTransform func(body io.Reader, transform_id string, o ...func(*TransformUpdateTransformRequest)) (*Response, error)
 
 // TransformUpdateTransformRequest configures the Transform Update Transform API request.

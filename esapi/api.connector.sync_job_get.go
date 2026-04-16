@@ -42,11 +42,11 @@ func newConnectorSyncJobGetFunc(t Transport) ConnectorSyncJobGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobGet returns the details about a connector sync job.
+// ConnectorSyncJobGet get a connector sync job
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-connector-sync-job-api.html.
 type ConnectorSyncJobGet func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error)
 
 // ConnectorSyncJobGetRequest configures the Connector Sync Job Get API request.

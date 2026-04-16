@@ -43,9 +43,9 @@ func newMLUpdateFilterFunc(t Transport) MLUpdateFilter {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpdateFilter - Updates the description of a filter, adds items, or removes items.
+// MLUpdateFilter - Update a filter
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-filter.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-update-filter.html.
 type MLUpdateFilter func(body io.Reader, filter_id string, o ...func(*MLUpdateFilterRequest)) (*Response, error)
 
 // MLUpdateFilterRequest configures the ML Update Filter API request.

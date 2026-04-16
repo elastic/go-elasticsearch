@@ -42,9 +42,9 @@ func newSecurityGetPrivilegesFunc(t Transport) SecurityGetPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetPrivileges - Retrieves application privileges.
+// SecurityGetPrivileges - Get application privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-privileges.html.
 type SecurityGetPrivileges func(o ...func(*SecurityGetPrivilegesRequest)) (*Response, error)
 
 // SecurityGetPrivilegesRequest configures the Security Get Privileges API request.

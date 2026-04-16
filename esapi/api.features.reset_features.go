@@ -43,11 +43,11 @@ func newFeaturesResetFeaturesFunc(t Transport) FeaturesResetFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// FeaturesResetFeatures resets the internal state of features, usually by deleting system indices
+// FeaturesResetFeatures reset the features
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/reset-features-api.html.
 type FeaturesResetFeatures func(o ...func(*FeaturesResetFeaturesRequest)) (*Response, error)
 
 // FeaturesResetFeaturesRequest configures the Features Reset Features API request.

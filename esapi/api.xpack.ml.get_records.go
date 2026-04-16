@@ -45,9 +45,9 @@ func newMLGetRecordsFunc(t Transport) MLGetRecords {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetRecords - Retrieves anomaly records for an anomaly detection job.
+// MLGetRecords - Get anomaly records for an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-record.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-record.html.
 type MLGetRecords func(job_id string, o ...func(*MLGetRecordsRequest)) (*Response, error)
 
 // MLGetRecordsRequest configures the ML Get Records API request.

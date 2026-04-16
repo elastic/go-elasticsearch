@@ -43,11 +43,9 @@ func newIndicesCreateFromFunc(t Transport) IndicesCreateFrom {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreateFrom this API creates a destination from a source index. It copies the mappings and settings from the source index while allowing request settings and mappings to override the source values.
+// IndicesCreateFrom create an index from a source index
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index-from-source.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/migrate-data-stream.html.
 type IndicesCreateFrom func(dest string, source string, o ...func(*IndicesCreateFromRequest)) (*Response, error)
 
 // IndicesCreateFromRequest configures the Indices Create From API request.

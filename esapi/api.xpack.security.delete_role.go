@@ -42,9 +42,9 @@ func newSecurityDeleteRoleFunc(t Transport) SecurityDeleteRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteRole - Removes roles in the native realm.
+// SecurityDeleteRole - Delete roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-delete-role.html.
 type SecurityDeleteRole func(name string, o ...func(*SecurityDeleteRoleRequest)) (*Response, error)
 
 // SecurityDeleteRoleRequest configures the Security Delete Role API request.

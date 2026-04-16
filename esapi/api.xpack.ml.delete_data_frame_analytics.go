@@ -44,9 +44,9 @@ func newMLDeleteDataFrameAnalyticsFunc(t Transport) MLDeleteDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDataFrameAnalytics - Deletes an existing data frame analytics job.
+// MLDeleteDataFrameAnalytics - Delete a data frame analytics job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-dfanalytics.html.
 type MLDeleteDataFrameAnalytics func(id string, o ...func(*MLDeleteDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLDeleteDataFrameAnalyticsRequest configures the ML Delete Data Frame Analytics API request.

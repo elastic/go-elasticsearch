@@ -43,11 +43,11 @@ func newConnectorDeleteFunc(t Transport) ConnectorDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorDelete deletes a connector.
+// ConnectorDelete delete a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-connector-api.html.
 type ConnectorDelete func(connector_id string, o ...func(*ConnectorDeleteRequest)) (*Response, error)
 
 // ConnectorDeleteRequest configures the Connector Delete API request.

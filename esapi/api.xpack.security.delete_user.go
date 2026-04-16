@@ -42,9 +42,9 @@ func newSecurityDeleteUserFunc(t Transport) SecurityDeleteUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeleteUser - Deletes users from the native realm.
+// SecurityDeleteUser - Delete users
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-delete-user.html.
 type SecurityDeleteUser func(username string, o ...func(*SecurityDeleteUserRequest)) (*Response, error)
 
 // SecurityDeleteUserRequest configures the Security Delete User API request.

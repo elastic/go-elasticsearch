@@ -44,7 +44,7 @@ func newInferenceGetFunc(t Transport) InferenceGet {
 
 // InferenceGet get an inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-inference-api.html.
 type InferenceGet func(o ...func(*InferenceGetRequest)) (*Response, error)
 
 // InferenceGetRequest configures the Inference Get API request.

@@ -43,9 +43,9 @@ func newTransformScheduleNowTransformFunc(t Transport) TransformScheduleNowTrans
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformScheduleNowTransform - Schedules now a transform.
+// TransformScheduleNowTransform - Schedule a transform to start now
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/schedule-now-transform.html.
 type TransformScheduleNowTransform func(transform_id string, o ...func(*TransformScheduleNowTransformRequest)) (*Response, error)
 
 // TransformScheduleNowTransformRequest configures the Transform Schedule Now Transform API request.

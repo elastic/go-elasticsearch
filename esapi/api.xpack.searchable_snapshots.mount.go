@@ -45,9 +45,9 @@ func newSearchableSnapshotsMountFunc(t Transport) SearchableSnapshotsMount {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsMount - Mount a snapshot as a searchable index.
+// SearchableSnapshotsMount - Mount a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-api-mount-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-mount-snapshot.html.
 type SearchableSnapshotsMount func(repository string, snapshot string, body io.Reader, o ...func(*SearchableSnapshotsMountRequest)) (*Response, error)
 
 // SearchableSnapshotsMountRequest configures the Searchable Snapshots Mount API request.

@@ -44,9 +44,9 @@ func newMsearchTemplateFunc(t Transport) MsearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// MsearchTemplate allows to execute several search template operations in one request.
+// MsearchTemplate run multiple templated searches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/multi-search-template.html.
 type MsearchTemplate func(body io.Reader, o ...func(*MsearchTemplateRequest)) (*Response, error)
 
 // MsearchTemplateRequest configures the Msearch Template API request.

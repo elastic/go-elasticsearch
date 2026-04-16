@@ -44,9 +44,9 @@ func newSecurityQueryUserFunc(t Transport) SecurityQueryUser {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityQueryUser - Retrieves information for Users using a subset of query DSL
+// SecurityQueryUser - Find users with a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-query-user.html.
 type SecurityQueryUser func(o ...func(*SecurityQueryUserRequest)) (*Response, error)
 
 // SecurityQueryUserRequest configures the Security Query User API request.

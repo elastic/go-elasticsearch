@@ -43,9 +43,9 @@ func newDeleteByQueryRethrottleFunc(t Transport) DeleteByQueryRethrottle {
 
 // ----- API Definition -------------------------------------------------------
 
-// DeleteByQueryRethrottle changes the number of requests per second for a particular Delete By Query operation.
+// DeleteByQueryRethrottle throttle a delete by query operation
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-delete-by-query.html#docs-delete-by-query-rethrottle.
 type DeleteByQueryRethrottle func(task_id string, requests_per_second *int, o ...func(*DeleteByQueryRethrottleRequest)) (*Response, error)
 
 // DeleteByQueryRethrottleRequest configures the Delete By Query Rethrottle API request.

@@ -44,11 +44,11 @@ func newTasksListFunc(t Transport) TasksList {
 
 // ----- API Definition -------------------------------------------------------
 
-// TasksList returns a list of tasks.
+// TasksList get all tasks
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/tasks.html.
 type TasksList func(o ...func(*TasksListRequest)) (*Response, error)
 
 // TasksListRequest configures the Tasks List API request.

@@ -44,9 +44,9 @@ func newMLDeleteTrainedModelFunc(t Transport) MLDeleteTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteTrainedModel - Deletes an existing trained inference model that is currently not referenced by an ingest pipeline.
+// MLDeleteTrainedModel - Delete an unreferenced trained model
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-trained-models.html.
 type MLDeleteTrainedModel func(model_id string, o ...func(*MLDeleteTrainedModelRequest)) (*Response, error)
 
 // MLDeleteTrainedModelRequest configures the ML Delete Trained Model API request.

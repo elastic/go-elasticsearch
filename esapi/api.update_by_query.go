@@ -47,10 +47,9 @@ func newUpdateByQueryFunc(t Transport) UpdateByQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// UpdateByQuery performs an update on every document in the index without changing the source,
-// for example to pick up a mapping change.
+// UpdateByQuery update documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-update-by-query.html.
 type UpdateByQuery func(index []string, o ...func(*UpdateByQueryRequest)) (*Response, error)
 
 // UpdateByQueryRequest configures the Update By Query API request.

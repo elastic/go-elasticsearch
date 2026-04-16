@@ -45,9 +45,9 @@ func newSnapshotCreateRepositoryFunc(t Transport) SnapshotCreateRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotCreateRepository creates a repository.
+// SnapshotCreateRepository create or update a snapshot repository
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-snapshot-repo-api.html.
 type SnapshotCreateRepository func(repository string, body io.Reader, o ...func(*SnapshotCreateRepositoryRequest)) (*Response, error)
 
 // SnapshotCreateRepositoryRequest configures the Snapshot Create Repository API request.

@@ -44,9 +44,9 @@ func newIndicesReloadSearchAnalyzersFunc(t Transport) IndicesReloadSearchAnalyze
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesReloadSearchAnalyzers - Reloads an index's search analyzers and their resources.
+// IndicesReloadSearchAnalyzers - Reload search analyzers
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-reload-analyzers.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-reload-analyzers.html.
 type IndicesReloadSearchAnalyzers func(index []string, o ...func(*IndicesReloadSearchAnalyzersRequest)) (*Response, error)
 
 // IndicesReloadSearchAnalyzersRequest configures the Indices Reload Search Analyzers API request.

@@ -42,11 +42,11 @@ func newConnectorUpdateActiveFilteringFunc(t Transport) ConnectorUpdateActiveFil
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateActiveFiltering activates the draft filtering rules if they are in a validated state.
+// ConnectorUpdateActiveFiltering activate the connector draft filter
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-filtering-api.html.
 type ConnectorUpdateActiveFiltering func(connector_id string, o ...func(*ConnectorUpdateActiveFilteringRequest)) (*Response, error)
 
 // ConnectorUpdateActiveFilteringRequest configures the Connector Update Active Filtering API request.

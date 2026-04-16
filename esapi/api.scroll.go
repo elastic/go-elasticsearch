@@ -45,9 +45,9 @@ func newScrollFunc(t Transport) Scroll {
 
 // ----- API Definition -------------------------------------------------------
 
-// Scroll allows to retrieve a large numbers of results from a single search request.
+// Scroll run a scrolling search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/scroll-api.html.
 type Scroll func(o ...func(*ScrollRequest)) (*Response, error)
 
 // ScrollRequest configures the Scroll API request.

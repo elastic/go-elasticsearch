@@ -42,9 +42,9 @@ func newInfoFunc(t Transport) Info {
 
 // ----- API Definition -------------------------------------------------------
 
-// Info returns basic information about the cluster.
+// Info get cluster info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rest-api-root.html.
 type Info func(o ...func(*InfoRequest)) (*Response, error)
 
 // InfoRequest configures the Info API request.

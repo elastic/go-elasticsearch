@@ -43,9 +43,9 @@ func newSecurityDelegatePkiFunc(t Transport) SecurityDelegatePki {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDelegatePki - Delegate PKI authentication.
+// SecurityDelegatePki - Delegate PKI authentication
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-delegate-pki-authentication.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-delegate-pki-authentication.html.
 type SecurityDelegatePki func(body io.Reader, o ...func(*SecurityDelegatePkiRequest)) (*Response, error)
 
 // SecurityDelegatePkiRequest configures the Security Delegate Pki API request.

@@ -43,9 +43,9 @@ func newIndicesDeleteIndexTemplateFunc(t Transport) IndicesDeleteIndexTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteIndexTemplate deletes an index template.
+// IndicesDeleteIndexTemplate delete an index template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-delete-template.html.
 type IndicesDeleteIndexTemplate func(name string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error)
 
 // IndicesDeleteIndexTemplateRequest configures the Indices Delete Index Template API request.

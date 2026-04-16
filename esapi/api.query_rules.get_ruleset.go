@@ -42,9 +42,9 @@ func newQueryRulesGetRulesetFunc(t Transport) QueryRulesGetRuleset {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesGetRuleset returns the details about a query ruleset.
+// QueryRulesGetRuleset get a query ruleset
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-query-ruleset.html.
 type QueryRulesGetRuleset func(ruleset_id string, o ...func(*QueryRulesGetRulesetRequest)) (*Response, error)
 
 // QueryRulesGetRulesetRequest configures the Query Rules Get Ruleset API request.

@@ -43,9 +43,9 @@ func newInferencePutMistralFunc(t Transport) InferencePutMistral {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutMistral configure a Mistral inference endpoint
+// InferencePutMistral create a Mistral inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-mistral.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-mistral.html.
 type InferencePutMistral func(mistral_inference_id string, task_type string, o ...func(*InferencePutMistralRequest)) (*Response, error)
 
 // InferencePutMistralRequest configures the Inference Put Mistral API request.

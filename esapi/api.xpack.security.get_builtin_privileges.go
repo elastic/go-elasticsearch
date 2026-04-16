@@ -42,9 +42,9 @@ func newSecurityGetBuiltinPrivilegesFunc(t Transport) SecurityGetBuiltinPrivileg
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetBuiltinPrivileges - Retrieves the list of cluster privileges and index privileges that are available in this version of Elasticsearch.
+// SecurityGetBuiltinPrivileges - Get builtin privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-builtin-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-builtin-privileges.html.
 type SecurityGetBuiltinPrivileges func(o ...func(*SecurityGetBuiltinPrivilegesRequest)) (*Response, error)
 
 // SecurityGetBuiltinPrivilegesRequest configures the Security Get Builtin Privileges API request.

@@ -43,9 +43,9 @@ func newSecuritySamlCompleteLogoutFunc(t Transport) SecuritySamlCompleteLogout {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlCompleteLogout - Verifies the logout response sent from the SAML IdP
+// SecuritySamlCompleteLogout - Logout of SAML completely
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-complete-logout.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-complete-logout.html.
 type SecuritySamlCompleteLogout func(body io.Reader, o ...func(*SecuritySamlCompleteLogoutRequest)) (*Response, error)
 
 // SecuritySamlCompleteLogoutRequest configures the Security Saml Complete Logout API request.

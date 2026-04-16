@@ -45,9 +45,9 @@ func newGraphExploreFunc(t Transport) GraphExplore {
 
 // ----- API Definition -------------------------------------------------------
 
-// GraphExplore - Explore extracted and summarized information about the documents and terms in an index.
+// GraphExplore - Explore graph analytics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/graph-explore-api.html.
 type GraphExplore func(index []string, o ...func(*GraphExploreRequest)) (*Response, error)
 
 // GraphExploreRequest configures the Graph Explore API request.

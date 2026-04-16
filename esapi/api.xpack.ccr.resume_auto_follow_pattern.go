@@ -43,9 +43,9 @@ func newCCRResumeAutoFollowPatternFunc(t Transport) CCRResumeAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRResumeAutoFollowPattern - Resumes an auto-follow pattern that has been paused
+// CCRResumeAutoFollowPattern - Resume an auto-follow pattern
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-resume-auto-follow-pattern.html.
 type CCRResumeAutoFollowPattern func(name string, o ...func(*CCRResumeAutoFollowPatternRequest)) (*Response, error)
 
 // CCRResumeAutoFollowPatternRequest configures the CCR Resume Auto Follow Pattern API request.

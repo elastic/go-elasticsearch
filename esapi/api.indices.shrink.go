@@ -44,9 +44,9 @@ func newIndicesShrinkFunc(t Transport) IndicesShrink {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesShrink allow to shrink an existing index into a new index with fewer primary shards.
+// IndicesShrink shrink an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-shrink-index.html.
 type IndicesShrink func(index string, target string, o ...func(*IndicesShrinkRequest)) (*Response, error)
 
 // IndicesShrinkRequest configures the Indices Shrink API request.

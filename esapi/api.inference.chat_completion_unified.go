@@ -45,7 +45,7 @@ func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionU
 
 // InferenceChatCompletionUnified perform chat completion inference
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/chat-completion-inference.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/chat-completion-inference-api.html.
 type InferenceChatCompletionUnified func(inference_id string, o ...func(*InferenceChatCompletionUnifiedRequest)) (*Response, error)
 
 // InferenceChatCompletionUnifiedRequest configures the Inference Chat Completion Unified API request.

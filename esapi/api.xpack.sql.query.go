@@ -43,9 +43,9 @@ func newSQLQueryFunc(t Transport) SQLQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLQuery - Executes a SQL request
+// SQLQuery - Get SQL search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-search-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/sql-search-api.html.
 type SQLQuery func(body io.Reader, o ...func(*SQLQueryRequest)) (*Response, error)
 
 // SQLQueryRequest configures the SQL Query API request.

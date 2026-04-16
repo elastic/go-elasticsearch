@@ -42,9 +42,9 @@ func newLogstashDeletePipelineFunc(t Transport) LogstashDeletePipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashDeletePipeline - Deletes Logstash Pipelines used by Central Management
+// LogstashDeletePipeline - Delete a Logstash pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-delete-pipeline.html.
 type LogstashDeletePipeline func(id string, o ...func(*LogstashDeletePipelineRequest)) (*Response, error)
 
 // LogstashDeletePipelineRequest configures the Logstash Delete Pipeline API request.

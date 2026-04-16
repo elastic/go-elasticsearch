@@ -42,11 +42,11 @@ func newConnectorCheckInFunc(t Transport) ConnectorCheckIn {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorCheckIn updates the last_seen timestamp in the connector document.
+// ConnectorCheckIn check in a connector
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/check-in-connector-api.html.
 type ConnectorCheckIn func(connector_id string, o ...func(*ConnectorCheckInRequest)) (*Response, error)
 
 // ConnectorCheckInRequest configures the Connector Check In API request.

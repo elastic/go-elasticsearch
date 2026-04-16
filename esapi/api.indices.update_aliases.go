@@ -44,9 +44,9 @@ func newIndicesUpdateAliasesFunc(t Transport) IndicesUpdateAliases {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesUpdateAliases updates index aliases.
+// IndicesUpdateAliases create or update an alias
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-update-aliases.
 type IndicesUpdateAliases func(body io.Reader, o ...func(*IndicesUpdateAliasesRequest)) (*Response, error)
 
 // IndicesUpdateAliasesRequest configures the Indices Update Aliases API request.

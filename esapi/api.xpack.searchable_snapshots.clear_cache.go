@@ -47,7 +47,7 @@ func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearC
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-clear-cache.html.
 type SearchableSnapshotsClearCache func(o ...func(*SearchableSnapshotsClearCacheRequest)) (*Response, error)
 
 // SearchableSnapshotsClearCacheRequest configures the Searchable Snapshots Clear Cache API request.
@@ -197,7 +197,7 @@ func (f SearchableSnapshotsClearCache) WithContext(v context.Context) func(*Sear
 	}
 }
 
-// WithIndex - a list of index names.
+// WithIndex - clear the cache.
 func (f SearchableSnapshotsClearCache) WithIndex(v ...string) func(*SearchableSnapshotsClearCacheRequest) {
 	return func(r *SearchableSnapshotsClearCacheRequest) {
 		r.Index = v

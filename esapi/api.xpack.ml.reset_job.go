@@ -43,9 +43,9 @@ func newMLResetJobFunc(t Transport) MLResetJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLResetJob - Resets an existing anomaly detection job.
+// MLResetJob - Reset an anomaly detection job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-reset-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-reset-job.html.
 type MLResetJob func(job_id string, o ...func(*MLResetJobRequest)) (*Response, error)
 
 // MLResetJobRequest configures the ML Reset Job API request.

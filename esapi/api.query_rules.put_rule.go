@@ -43,9 +43,9 @@ func newQueryRulesPutRuleFunc(t Transport) QueryRulesPutRule {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesPutRule creates or updates a query rule within a ruleset.
+// QueryRulesPutRule create or update a query rule
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-rule.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-query-rule.html.
 type QueryRulesPutRule func(body io.Reader, rule_id string, ruleset_id string, o ...func(*QueryRulesPutRuleRequest)) (*Response, error)
 
 // QueryRulesPutRuleRequest configures the Query Rules Put Rule API request.

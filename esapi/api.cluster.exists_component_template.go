@@ -44,9 +44,9 @@ func newClusterExistsComponentTemplateFunc(t Transport) ClusterExistsComponentTe
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterExistsComponentTemplate returns information about whether a particular component template exist
+// ClusterExistsComponentTemplate check component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-component-template.html.
 type ClusterExistsComponentTemplate func(name string, o ...func(*ClusterExistsComponentTemplateRequest)) (*Response, error)
 
 // ClusterExistsComponentTemplateRequest configures the Cluster Exists Component Template API request.

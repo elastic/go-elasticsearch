@@ -42,9 +42,9 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// LogstashGetPipeline - Get Logstash pipelines
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-get-pipeline.html.
 type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
 
 // LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.

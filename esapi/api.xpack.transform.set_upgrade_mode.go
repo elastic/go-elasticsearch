@@ -21,14 +21,15 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
-func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles {
-	return func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error) {
-		var r = SecuritySuggestUserProfilesRequest{}
+func newTransformSetUpgradeModeFunc(t Transport) TransformSetUpgradeMode {
+	return func(o ...func(*TransformSetUpgradeModeRequest)) (*Response, error) {
+		var r = TransformSetUpgradeModeRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,16 +44,15 @@ func newSecuritySuggestUserProfilesFunc(t Transport) SecuritySuggestUserProfiles
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySuggestUserProfiles - Suggest a user profile
+// TransformSetUpgradeMode - Set upgrade_mode for transform indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-suggest-user-profile.html.
-type SecuritySuggestUserProfiles func(o ...func(*SecuritySuggestUserProfilesRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-set-upgrade-mode.
+type TransformSetUpgradeMode func(o ...func(*TransformSetUpgradeModeRequest)) (*Response, error)
 
-// SecuritySuggestUserProfilesRequest configures the Security Suggest User Profiles API request.
-type SecuritySuggestUserProfilesRequest struct {
-	Body io.Reader
-
-	Data []string
+// TransformSetUpgradeModeRequest configures the Transform Set Upgrade Mode API request.
+type TransformSetUpgradeModeRequest struct {
+	Enabled *bool
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +67,7 @@ type SecuritySuggestUserProfilesRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r TransformSetUpgradeModeRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,7 +76,7 @@ func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, tran
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "security.suggest_user_profiles")
+		ctx = instrument.Start(providedCtx, "transform.set_upgrade_mode")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -85,14 +85,18 @@ func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, tran
 
 	method = "POST"
 
-	path.Grow(7 + len("/_security/profile/_suggest"))
+	path.Grow(7 + len("/_transform/set_upgrade_mode"))
 	path.WriteString("http://")
-	path.WriteString("/_security/profile/_suggest")
+	path.WriteString("/_transform/set_upgrade_mode")
 
 	params = make(map[string]string)
 
-	if len(r.Data) > 0 {
-		params["data"] = strings.Join(r.Data, ",")
+	if r.Enabled != nil {
+		params["enabled"] = strconv.FormatBool(*r.Enabled)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -111,7 +115,7 @@ func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, tran
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -139,23 +143,16 @@ func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, tran
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "security.suggest_user_profiles")
-		if reader := instrument.RecordRequestBody(ctx, "security.suggest_user_profiles", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "transform.set_upgrade_mode")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "security.suggest_user_profiles")
+		instrument.AfterRequest(req, "elasticsearch", "transform.set_upgrade_mode")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -174,57 +171,57 @@ func (r SecuritySuggestUserProfilesRequest) Do(providedCtx context.Context, tran
 }
 
 // WithContext sets the request context.
-func (f SecuritySuggestUserProfiles) WithContext(v context.Context) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithContext(v context.Context) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The suggestion definition for user profiles.
-func (f SecuritySuggestUserProfiles) WithBody(v io.Reader) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
-		r.Body = v
+// WithEnabled - whether to enable upgrade_mode transform setting or not. defaults to false..
+func (f TransformSetUpgradeMode) WithEnabled(v bool) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
+		r.Enabled = &v
 	}
 }
 
-// WithData - a list of keys for which the corresponding application data are retrieved..
-func (f SecuritySuggestUserProfiles) WithData(v ...string) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
-		r.Data = v
+// WithTimeout - controls the time to wait before action times out. defaults to 30 seconds.
+func (f TransformSetUpgradeMode) WithTimeout(v time.Duration) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SecuritySuggestUserProfiles) WithPretty() func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithPretty() func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SecuritySuggestUserProfiles) WithHuman() func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithHuman() func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SecuritySuggestUserProfiles) WithErrorTrace() func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithErrorTrace() func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SecuritySuggestUserProfiles) WithFilterPath(v ...string) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithFilterPath(v ...string) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SecuritySuggestUserProfiles) WithHeader(h map[string]string) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithHeader(h map[string]string) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -235,8 +232,8 @@ func (f SecuritySuggestUserProfiles) WithHeader(h map[string]string) func(*Secur
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SecuritySuggestUserProfiles) WithOpaqueID(s string) func(*SecuritySuggestUserProfilesRequest) {
-	return func(r *SecuritySuggestUserProfilesRequest) {
+func (f TransformSetUpgradeMode) WithOpaqueID(s string) func(*TransformSetUpgradeModeRequest) {
+	return func(r *TransformSetUpgradeModeRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

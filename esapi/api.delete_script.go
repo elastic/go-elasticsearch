@@ -43,9 +43,9 @@ func newDeleteScriptFunc(t Transport) DeleteScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// DeleteScript deletes a script.
+// DeleteScript delete a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-stored-script-api.html.
 type DeleteScript func(id string, o ...func(*DeleteScriptRequest)) (*Response, error)
 
 // DeleteScriptRequest configures the Delete Script API request.

@@ -42,9 +42,9 @@ func newMLDeleteCalendarJobFunc(t Transport) MLDeleteCalendarJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteCalendarJob - Deletes anomaly detection jobs from a calendar.
+// MLDeleteCalendarJob - Delete anomaly jobs from a calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-delete-calendar-job.html.
 type MLDeleteCalendarJob func(calendar_id string, job_id string, o ...func(*MLDeleteCalendarJobRequest)) (*Response, error)
 
 // MLDeleteCalendarJobRequest configures the ML Delete Calendar Job API request.

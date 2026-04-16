@@ -43,9 +43,9 @@ func newWatcherQueryWatchesFunc(t Transport) WatcherQueryWatches {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherQueryWatches - Retrieves stored watches.
+// WatcherQueryWatches - Query watches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-query-watches.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-query-watches.
 type WatcherQueryWatches func(o ...func(*WatcherQueryWatchesRequest)) (*Response, error)
 
 // WatcherQueryWatchesRequest configures the Watcher Query Watches API request.

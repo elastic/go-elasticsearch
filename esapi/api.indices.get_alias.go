@@ -43,9 +43,9 @@ func newIndicesGetAliasFunc(t Transport) IndicesGetAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetAlias returns an alias.
+// IndicesGetAlias get aliases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-get-alias.html.
 type IndicesGetAlias func(o ...func(*IndicesGetAliasRequest)) (*Response, error)
 
 // IndicesGetAliasRequest configures the Indices Get Alias API request.

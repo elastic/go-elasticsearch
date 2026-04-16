@@ -42,9 +42,9 @@ func newIngestGetIPLocationDatabaseFunc(t Transport) IngestGetIPLocationDatabase
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGetIPLocationDatabase returns the specified ip location database configuration
+// IngestGetIPLocationDatabase get IP geolocation database configurations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-ip-location-database-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-ip-location-database-api.html.
 type IngestGetIPLocationDatabase func(o ...func(*IngestGetIPLocationDatabaseRequest)) (*Response, error)
 
 // IngestGetIPLocationDatabaseRequest configures the Ingest GetIP Location Database API request.

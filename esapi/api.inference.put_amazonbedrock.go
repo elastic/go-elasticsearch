@@ -43,9 +43,9 @@ func newInferencePutAmazonbedrockFunc(t Transport) InferencePutAmazonbedrock {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAmazonbedrock configure an Amazon Bedrock inference endpoint
+// InferencePutAmazonbedrock create an Amazon Bedrock inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-bedrock.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-amazon-bedrock.html.
 type InferencePutAmazonbedrock func(amazonbedrock_inference_id string, task_type string, o ...func(*InferencePutAmazonbedrockRequest)) (*Response, error)
 
 // InferencePutAmazonbedrockRequest configures the Inference Put Amazonbedrock API request.

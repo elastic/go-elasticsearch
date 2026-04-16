@@ -45,9 +45,9 @@ func newClusterAllocationExplainFunc(t Transport) ClusterAllocationExplain {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterAllocationExplain provides explanations for shard allocations in the cluster.
+// ClusterAllocationExplain explain the shard allocations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-allocation-explain.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-allocation-explain.html.
 type ClusterAllocationExplain func(o ...func(*ClusterAllocationExplainRequest)) (*Response, error)
 
 // ClusterAllocationExplainRequest configures the Cluster Allocation Explain API request.

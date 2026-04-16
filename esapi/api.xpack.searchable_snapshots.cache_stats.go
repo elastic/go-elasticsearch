@@ -42,11 +42,11 @@ func newSearchableSnapshotsCacheStatsFunc(t Transport) SearchableSnapshotsCacheS
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsCacheStats - Retrieve node-level cache statistics about searchable snapshots.
+// SearchableSnapshotsCacheStats - Get cache statistics
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-cache-stats.html.
 type SearchableSnapshotsCacheStats func(o ...func(*SearchableSnapshotsCacheStatsRequest)) (*Response, error)
 
 // SearchableSnapshotsCacheStatsRequest configures the Searchable Snapshots Cache Stats API request.

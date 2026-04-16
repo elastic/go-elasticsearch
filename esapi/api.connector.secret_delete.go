@@ -42,7 +42,7 @@ func newConnectorSecretDeleteFunc(t Transport) ConnectorSecretDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretDelete deletes a connector secret.
+// ConnectorSecretDelete deletes a connector secret
 //
 // This API is experimental.
 type ConnectorSecretDelete func(id string, o ...func(*ConnectorSecretDeleteRequest)) (*Response, error)

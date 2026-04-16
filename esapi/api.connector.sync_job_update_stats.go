@@ -43,11 +43,11 @@ func newConnectorSyncJobUpdateStatsFunc(t Transport) ConnectorSyncJobUpdateStats
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobUpdateStats updates the stats fields in the connector sync job document.
+// ConnectorSyncJobUpdateStats set the connector sync job stats
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/set-connector-sync-job-stats-api.html.
 type ConnectorSyncJobUpdateStats func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error)
 
 // ConnectorSyncJobUpdateStatsRequest configures the Connector Sync Job Update Stats API request.

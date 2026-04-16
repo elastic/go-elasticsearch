@@ -44,9 +44,9 @@ func newIndicesExplainDataLifecycleFunc(t Transport) IndicesExplainDataLifecycle
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExplainDataLifecycle retrieves information about the index's current data stream lifecycle, such as any potential encountered error, time since creation etc.
+// IndicesExplainDataLifecycle get the status for a data stream lifecycle
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/data-streams-explain-lifecycle.html.
 type IndicesExplainDataLifecycle func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error)
 
 // IndicesExplainDataLifecycleRequest configures the Indices Explain Data Lifecycle API request.

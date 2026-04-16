@@ -44,9 +44,9 @@ func newEsqlAsyncQueryGetFunc(t Transport) EsqlAsyncQueryGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryGet - Retrieves the results of a previously submitted async query request given its ID.
+// EsqlAsyncQueryGet - Get async ES|QL query results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-get-api.html.
 type EsqlAsyncQueryGet func(id string, o ...func(*EsqlAsyncQueryGetRequest)) (*Response, error)
 
 // EsqlAsyncQueryGetRequest configures the Esql Async Query Get API request.

@@ -43,11 +43,11 @@ func newSimulateIngestFunc(t Transport) SimulateIngest {
 
 // ----- API Definition -------------------------------------------------------
 
-// SimulateIngest simulates running ingest with example documents.
+// SimulateIngest simulate data ingestion
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-ingest-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/simulate-ingest-api.html.
 type SimulateIngest func(body io.Reader, o ...func(*SimulateIngestRequest)) (*Response, error)
 
 // SimulateIngestRequest configures the Simulate Ingest API request.

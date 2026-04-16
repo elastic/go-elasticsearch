@@ -42,11 +42,11 @@ func newConnectorSyncJobCheckInFunc(t Transport) ConnectorSyncJobCheckIn {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobCheckIn checks in a connector sync job (refreshes 'last_seen').
+// ConnectorSyncJobCheckIn check in a connector sync job
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/check-in-connector-sync-job-api.html.
 type ConnectorSyncJobCheckIn func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCheckInRequest)) (*Response, error)
 
 // ConnectorSyncJobCheckInRequest configures the Connector Sync Job Check In API request.

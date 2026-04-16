@@ -47,7 +47,7 @@ func newIndicesDownsampleFunc(t Transport) IndicesDownsample {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-downsample-data-stream.html.
 type IndicesDownsample func(index string, body io.Reader, target_index string, o ...func(*IndicesDownsampleRequest)) (*Response, error)
 
 // IndicesDownsampleRequest configures the Indices Downsample API request.

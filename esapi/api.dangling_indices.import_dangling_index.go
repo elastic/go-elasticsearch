@@ -44,9 +44,9 @@ func newDanglingIndicesImportDanglingIndexFunc(t Transport) DanglingIndicesImpor
 
 // ----- API Definition -------------------------------------------------------
 
-// DanglingIndicesImportDanglingIndex imports the specified dangling index
+// DanglingIndicesImportDanglingIndex import a dangling index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-index-import.html.
 type DanglingIndicesImportDanglingIndex func(index_uuid string, o ...func(*DanglingIndicesImportDanglingIndexRequest)) (*Response, error)
 
 // DanglingIndicesImportDanglingIndexRequest configures the Dangling Indices Import Dangling Index API request.

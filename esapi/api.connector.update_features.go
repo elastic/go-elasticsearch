@@ -43,11 +43,11 @@ func newConnectorUpdateFeaturesFunc(t Transport) ConnectorUpdateFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateFeatures updates the connector features in the connector document.
+// ConnectorUpdateFeatures update the connector features
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-features-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-features-api.html.
 type ConnectorUpdateFeatures func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateFeaturesRequest)) (*Response, error)
 
 // ConnectorUpdateFeaturesRequest configures the Connector Update Features API request.

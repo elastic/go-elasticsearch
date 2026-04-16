@@ -43,9 +43,9 @@ func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceTextEmbedding perform text embedding inference
+// InferenceTextEmbedding perform text embedding inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
 type InferenceTextEmbedding func(inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error)
 
 // InferenceTextEmbeddingRequest configures the Inference Text Embedding API request.

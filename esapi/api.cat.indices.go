@@ -44,9 +44,9 @@ func newCatIndicesFunc(t Transport) CatIndices {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatIndices returns information about indices: number of primaries and replicas, document counts, disk size, ...
+// CatIndices get index information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-indices.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-indices.html.
 type CatIndices func(o ...func(*CatIndicesRequest)) (*Response, error)
 
 // CatIndicesRequest configures the Cat Indices API request.

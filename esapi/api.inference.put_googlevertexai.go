@@ -43,9 +43,9 @@ func newInferencePutGooglevertexaiFunc(t Transport) InferencePutGooglevertexai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutGooglevertexai configure a Google Vertex AI inference endpoint
+// InferencePutGooglevertexai create a Google Vertex AI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-vertex-ai.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-google-vertex-ai.html.
 type InferencePutGooglevertexai func(googlevertexai_inference_id string, task_type string, o ...func(*InferencePutGooglevertexaiRequest)) (*Response, error)
 
 // InferencePutGooglevertexaiRequest configures the Inference Put Googlevertexai API request.

@@ -45,9 +45,9 @@ func newIndicesCloseFunc(t Transport) IndicesClose {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClose closes an index.
+// IndicesClose close an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-close.html.
 type IndicesClose func(index []string, o ...func(*IndicesCloseRequest)) (*Response, error)
 
 // IndicesCloseRequest configures the Indices Close API request.

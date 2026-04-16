@@ -44,9 +44,9 @@ func newMLPutTrainedModelFunc(t Transport) MLPutTrainedModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModel - Creates an inference trained model.
+// MLPutTrainedModel - Create a trained model
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-trained-models.html.
 type MLPutTrainedModel func(body io.Reader, model_id string, o ...func(*MLPutTrainedModelRequest)) (*Response, error)
 
 // MLPutTrainedModelRequest configures the ML Put Trained Model API request.

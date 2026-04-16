@@ -43,9 +43,9 @@ func newTextStructureTestGrokPatternFunc(t Transport) TextStructureTestGrokPatte
 
 // ----- API Definition -------------------------------------------------------
 
-// TextStructureTestGrokPattern - Tests a Grok pattern on some text.
+// TextStructureTestGrokPattern - Test a Grok pattern
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/test-grok-pattern.html.
 type TextStructureTestGrokPattern func(body io.Reader, o ...func(*TextStructureTestGrokPatternRequest)) (*Response, error)
 
 // TextStructureTestGrokPatternRequest configures the Text Structure Test Grok Pattern API request.

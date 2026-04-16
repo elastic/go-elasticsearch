@@ -44,9 +44,9 @@ func newLicensePostStartTrialFunc(t Transport) LicensePostStartTrial {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicensePostStartTrial - starts a limited time trial license.
+// LicensePostStartTrial - Start a trial
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trial.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-trial.html.
 type LicensePostStartTrial func(o ...func(*LicensePostStartTrialRequest)) (*Response, error)
 
 // LicensePostStartTrialRequest configures the License Post Start Trial API request.

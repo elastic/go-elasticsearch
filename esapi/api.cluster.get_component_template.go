@@ -44,9 +44,9 @@ func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetComponentTemplate returns one or more component templates
+// ClusterGetComponentTemplate get component templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-component-template.html.
 type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error)
 
 // ClusterGetComponentTemplateRequest configures the Cluster Get Component Template API request.

@@ -45,9 +45,9 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 
 // ----- API Definition -------------------------------------------------------
 
-// OpenPointInTime - Open a point in time that can be used in subsequent searches
+// OpenPointInTime - Open a point in time
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/point-in-time-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/point-in-time-api.html.
 type OpenPointInTime func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.

@@ -43,9 +43,9 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeeds - Retrieves configuration information for datafeeds.
+// MLGetDatafeeds - Get datafeeds configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-datafeed.html.
 type MLGetDatafeeds func(o ...func(*MLGetDatafeedsRequest)) (*Response, error)
 
 // MLGetDatafeedsRequest configures the ML Get Datafeeds API request.

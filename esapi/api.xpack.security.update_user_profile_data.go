@@ -44,9 +44,9 @@ func newSecurityUpdateUserProfileDataFunc(t Transport) SecurityUpdateUserProfile
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateUserProfileData - Update application specific data for the user profile of the given unique ID.
+// SecurityUpdateUserProfileData - Update user profile data
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-update-user-profile-data.html.
 type SecurityUpdateUserProfileData func(body io.Reader, uid string, o ...func(*SecurityUpdateUserProfileDataRequest)) (*Response, error)
 
 // SecurityUpdateUserProfileDataRequest configures the Security Update User Profile Data API request.

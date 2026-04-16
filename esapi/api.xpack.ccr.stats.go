@@ -43,9 +43,9 @@ func newCCRStatsFunc(t Transport) CCRStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRStats - Gets all stats related to cross-cluster replication.
+// CCRStats - Get cross-cluster replication stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-get-stats.html.
 type CCRStats func(o ...func(*CCRStatsRequest)) (*Response, error)
 
 // CCRStatsRequest configures the CCR Stats API request.

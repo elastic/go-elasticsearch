@@ -44,9 +44,9 @@ func newTermvectorsFunc(t Transport) Termvectors {
 
 // ----- API Definition -------------------------------------------------------
 
-// Termvectors returns information and statistics about terms in the fields of a particular document.
+// Termvectors get term vector information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-termvectors.html.
 type Termvectors func(index string, o ...func(*TermvectorsRequest)) (*Response, error)
 
 // TermvectorsRequest configures the Termvectors API request.

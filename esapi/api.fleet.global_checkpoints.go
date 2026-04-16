@@ -44,9 +44,9 @@ func newFleetGlobalCheckpointsFunc(t Transport) FleetGlobalCheckpoints {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetGlobalCheckpoints returns the current global checkpoints for an index. This API is design for internal use by the fleet server project.
+// FleetGlobalCheckpoints get global checkpoints
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-global-checkpoints.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-global-checkpoints.html.
 type FleetGlobalCheckpoints func(index string, o ...func(*FleetGlobalCheckpointsRequest)) (*Response, error)
 
 // FleetGlobalCheckpointsRequest configures the Fleet Global Checkpoints API request.

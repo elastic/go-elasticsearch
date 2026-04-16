@@ -42,9 +42,9 @@ func newQueryRulesDeleteRulesetFunc(t Transport) QueryRulesDeleteRuleset {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesDeleteRuleset deletes a query ruleset.
+// QueryRulesDeleteRuleset delete a query ruleset
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-query-ruleset.html.
 type QueryRulesDeleteRuleset func(ruleset_id string, o ...func(*QueryRulesDeleteRulesetRequest)) (*Response, error)
 
 // QueryRulesDeleteRulesetRequest configures the Query Rules Delete Ruleset API request.

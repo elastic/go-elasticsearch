@@ -45,7 +45,7 @@ func newInferenceDeleteFunc(t Transport) InferenceDelete {
 
 // InferenceDelete delete an inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-inference-api.html.
 type InferenceDelete func(inference_id string, o ...func(*InferenceDeleteRequest)) (*Response, error)
 
 // InferenceDeleteRequest configures the Inference Delete API request.

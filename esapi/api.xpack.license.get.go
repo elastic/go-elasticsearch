@@ -43,9 +43,9 @@ func newLicenseGetFunc(t Transport) LicenseGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGet - Retrieves licensing information for the cluster
+// LicenseGet - Get license information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-license.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-license.html.
 type LicenseGet func(o ...func(*LicenseGetRequest)) (*Response, error)
 
 // LicenseGetRequest configures the License Get API request.

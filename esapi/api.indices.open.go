@@ -45,9 +45,9 @@ func newIndicesOpenFunc(t Transport) IndicesOpen {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesOpen opens an index.
+// IndicesOpen open a closed index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-open-close.html.
 type IndicesOpen func(index []string, o ...func(*IndicesOpenRequest)) (*Response, error)
 
 // IndicesOpenRequest configures the Indices Open API request.

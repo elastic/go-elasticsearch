@@ -43,11 +43,11 @@ func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDiskUsage analyzes the disk usage of each field of an index or data stream
+// IndicesDiskUsage analyze the index disk usage
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-disk-usage.html.
 type IndicesDiskUsage func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
 
 // IndicesDiskUsageRequest configures the Indices Disk Usage API request.

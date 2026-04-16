@@ -43,9 +43,9 @@ func newAsyncSearchStatusFunc(t Transport) AsyncSearchStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// AsyncSearchStatus - Retrieves the status of a previously submitted async search request given its ID.
+// AsyncSearchStatus - Get the async search status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/async-search.html.
 type AsyncSearchStatus func(id string, o ...func(*AsyncSearchStatusRequest)) (*Response, error)
 
 // AsyncSearchStatusRequest configures the Async Search Status API request.

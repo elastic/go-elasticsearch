@@ -44,9 +44,9 @@ func newIndicesUnfreezeFunc(t Transport) IndicesUnfreeze {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesUnfreeze - Unfreezes an index. When a frozen index is unfrozen, the index goes through the normal recovery process and becomes writeable again.
+// IndicesUnfreeze - Unfreeze an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/unfreeze-index-api.html.
 type IndicesUnfreeze func(index string, o ...func(*IndicesUnfreezeRequest)) (*Response, error)
 
 // IndicesUnfreezeRequest configures the Indices Unfreeze API request.

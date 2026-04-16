@@ -44,9 +44,9 @@ func newMsearchFunc(t Transport) Msearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// Msearch allows to execute several search operations in one request.
+// Msearch run multiple searches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-multi-search.html.
 type Msearch func(body io.Reader, o ...func(*MsearchRequest)) (*Response, error)
 
 // MsearchRequest configures the Msearch API request.
@@ -318,7 +318,7 @@ func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 	}
 }
 
-// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
+// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
 func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.PreFilterShardSize = &v

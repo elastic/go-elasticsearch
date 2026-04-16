@@ -44,9 +44,9 @@ func newNodesHotThreadsFunc(t Transport) NodesHotThreads {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesHotThreads returns information about hot threads on each node in the cluster.
+// NodesHotThreads get the hot threads for nodes
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-hot-threads.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-nodes-hot-threads.html.
 type NodesHotThreads func(o ...func(*NodesHotThreadsRequest)) (*Response, error)
 
 // NodesHotThreadsRequest configures the Nodes Hot Threads API request.

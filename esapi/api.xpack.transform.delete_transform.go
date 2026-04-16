@@ -44,9 +44,9 @@ func newTransformDeleteTransformFunc(t Transport) TransformDeleteTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformDeleteTransform - Deletes an existing transform.
+// TransformDeleteTransform - Delete a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-transform.html.
 type TransformDeleteTransform func(transform_id string, o ...func(*TransformDeleteTransformRequest)) (*Response, error)
 
 // TransformDeleteTransformRequest configures the Transform Delete Transform API request.

@@ -44,9 +44,9 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStopTrainedModelDeployment - Stop a trained model deployment.
+// MLStopTrainedModelDeployment - Stop a trained model deployment
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/stop-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stop-trained-model-deployment.html.
 type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLStopTrainedModelDeploymentRequest configures the ML Stop Trained Model Deployment API request.

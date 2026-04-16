@@ -44,9 +44,9 @@ func newMLStartDatafeedFunc(t Transport) MLStartDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartDatafeed - Starts one or more datafeeds.
+// MLStartDatafeed - Start datafeeds
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-start-datafeed.html.
 type MLStartDatafeed func(datafeed_id string, o ...func(*MLStartDatafeedRequest)) (*Response, error)
 
 // MLStartDatafeedRequest configures the ML Start Datafeed API request.

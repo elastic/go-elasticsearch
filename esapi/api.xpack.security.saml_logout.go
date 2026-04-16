@@ -43,9 +43,9 @@ func newSecuritySamlLogoutFunc(t Transport) SecuritySamlLogout {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlLogout - Invalidates an access token and a refresh token that were generated via the SAML Authenticate API
+// SecuritySamlLogout - Logout of SAML
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-logout.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-logout.html.
 type SecuritySamlLogout func(body io.Reader, o ...func(*SecuritySamlLogoutRequest)) (*Response, error)
 
 // SecuritySamlLogoutRequest configures the Security Saml Logout API request.

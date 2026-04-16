@@ -43,9 +43,9 @@ func newSecurityHasPrivilegesFunc(t Transport) SecurityHasPrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityHasPrivileges - Determines whether the specified user has a specified list of privileges.
+// SecurityHasPrivileges - Check user privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-has-privileges.html.
 type SecurityHasPrivileges func(body io.Reader, o ...func(*SecurityHasPrivilegesRequest)) (*Response, error)
 
 // SecurityHasPrivilegesRequest configures the Security Has Privileges API request.

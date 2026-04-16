@@ -45,7 +45,7 @@ func newFleetSearchFunc(t Transport) FleetSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetSearch search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+// FleetSearch the purpose of the fleet search api is to provide a search api where the search will only be executed
 //
 // This API is experimental.
 type FleetSearch func(index string, o ...func(*FleetSearchRequest)) (*Response, error)

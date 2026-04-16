@@ -43,9 +43,9 @@ func newInferencePutDeepseekFunc(t Transport) InferencePutDeepseek {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutDeepseek configure a DeepSeek inference endpoint
+// InferencePutDeepseek create a DeepSeek inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-deepseek.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-deepseek.html.
 type InferencePutDeepseek func(deepseek_inference_id string, task_type string, o ...func(*InferencePutDeepseekRequest)) (*Response, error)
 
 // InferencePutDeepseekRequest configures the Inference Put Deepseek API request.

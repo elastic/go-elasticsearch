@@ -43,9 +43,9 @@ func newInferencePutElserFunc(t Transport) InferencePutElser {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutElser configure an ELSER inference endpoint
+// InferencePutElser create an ELSER inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-elser.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-elser.html.
 type InferencePutElser func(elser_inference_id string, task_type string, o ...func(*InferencePutElserRequest)) (*Response, error)
 
 // InferencePutElserRequest configures the Inference Put Elser API request.

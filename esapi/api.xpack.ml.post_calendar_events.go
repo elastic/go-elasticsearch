@@ -43,9 +43,9 @@ func newMLPostCalendarEventsFunc(t Transport) MLPostCalendarEvents {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPostCalendarEvents - Posts scheduled events in a calendar.
+// MLPostCalendarEvents - Add scheduled events to the calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-calendar-event.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-post-calendar-event.html.
 type MLPostCalendarEvents func(calendar_id string, body io.Reader, o ...func(*MLPostCalendarEventsRequest)) (*Response, error)
 
 // MLPostCalendarEventsRequest configures the ML Post Calendar Events API request.

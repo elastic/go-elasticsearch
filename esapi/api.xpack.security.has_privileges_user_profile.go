@@ -43,9 +43,9 @@ func newSecurityHasPrivilegesUserProfileFunc(t Transport) SecurityHasPrivilegesU
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityHasPrivilegesUserProfile - Determines whether the users associated with the specified profile IDs have all the requested privileges.
+// SecurityHasPrivilegesUserProfile - Check user profile privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-has-privileges-user-profile.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-has-privileges-user-profile.html.
 type SecurityHasPrivilegesUserProfile func(body io.Reader, o ...func(*SecurityHasPrivilegesUserProfileRequest)) (*Response, error)
 
 // SecurityHasPrivilegesUserProfileRequest configures the Security Has Privileges User Profile API request.

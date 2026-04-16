@@ -43,9 +43,9 @@ func newSecurityClearCachedRealmsFunc(t Transport) SecurityClearCachedRealms {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedRealms - Evicts users from the user cache. Can completely clear the cache or evict specific users.
+// SecurityClearCachedRealms - Clear the user cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-clear-cache.html.
 type SecurityClearCachedRealms func(realms []string, o ...func(*SecurityClearCachedRealmsRequest)) (*Response, error)
 
 // SecurityClearCachedRealmsRequest configures the Security Clear Cached Realms API request.

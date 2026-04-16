@@ -45,9 +45,9 @@ func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetOverallBuckets - Retrieves overall bucket results that summarize the bucket results of multiple anomaly detection jobs.
+// MLGetOverallBuckets - Get overall bucket results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-overall-buckets.html.
 type MLGetOverallBuckets func(job_id string, o ...func(*MLGetOverallBucketsRequest)) (*Response, error)
 
 // MLGetOverallBucketsRequest configures the ML Get Overall Buckets API request.

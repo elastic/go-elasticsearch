@@ -43,9 +43,9 @@ func newInferencePutJinaaiFunc(t Transport) InferencePutJinaai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutJinaai configure a JinaAI inference endpoint
+// InferencePutJinaai create an JinaAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-jinaai.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-jinaai.html.
 type InferencePutJinaai func(jinaai_inference_id string, task_type string, o ...func(*InferencePutJinaaiRequest)) (*Response, error)
 
 // InferencePutJinaaiRequest configures the Inference Put Jinaai API request.

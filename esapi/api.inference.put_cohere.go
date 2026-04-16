@@ -43,9 +43,9 @@ func newInferencePutCohereFunc(t Transport) InferencePutCohere {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutCohere configure a Cohere inference endpoint
+// InferencePutCohere create a Cohere inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-cohere.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-cohere.html.
 type InferencePutCohere func(cohere_inference_id string, task_type string, o ...func(*InferencePutCohereRequest)) (*Response, error)
 
 // InferencePutCohereRequest configures the Inference Put Cohere API request.

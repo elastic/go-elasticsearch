@@ -43,9 +43,9 @@ func newEnrichStatsFunc(t Transport) EnrichStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichStats - Gets enrich coordinator statistics and information about enrich policies that are currently executing.
+// EnrichStats - Get enrich stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/enrich-stats-api.html.
 type EnrichStats func(o ...func(*EnrichStatsRequest)) (*Response, error)
 
 // EnrichStatsRequest configures the Enrich Stats API request.

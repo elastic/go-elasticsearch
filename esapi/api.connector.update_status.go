@@ -43,11 +43,11 @@ func newConnectorUpdateStatusFunc(t Transport) ConnectorUpdateStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateStatus updates the status of the connector.
+// ConnectorUpdateStatus update the connector status
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-status-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-status-api.html.
 type ConnectorUpdateStatus func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateStatusRequest)) (*Response, error)
 
 // ConnectorUpdateStatusRequest configures the Connector Update Status API request.

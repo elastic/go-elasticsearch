@@ -43,9 +43,9 @@ func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDatafeed - Deletes an existing datafeed.
+// MLDeleteDatafeed - Delete a datafeed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-delete-datafeed.html.
 type MLDeleteDatafeed func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error)
 
 // MLDeleteDatafeedRequest configures the ML Delete Datafeed API request.

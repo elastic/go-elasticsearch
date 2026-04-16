@@ -43,11 +43,11 @@ func newConnectorUpdateFilteringValidationFunc(t Transport) ConnectorUpdateFilte
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateFilteringValidation updates the validation info of the draft filtering rules.
+// ConnectorUpdateFilteringValidation update the connector draft filtering validation
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-filtering-validation-api.html.
 type ConnectorUpdateFilteringValidation func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateFilteringValidationRequest)) (*Response, error)
 
 // ConnectorUpdateFilteringValidationRequest configures the Connector Update Filtering Validation API request.

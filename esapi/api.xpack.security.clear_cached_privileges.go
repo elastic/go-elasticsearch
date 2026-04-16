@@ -43,9 +43,9 @@ func newSecurityClearCachedPrivilegesFunc(t Transport) SecurityClearCachedPrivil
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedPrivileges - Evicts application privileges from the native application privileges cache.
+// SecurityClearCachedPrivileges - Clear the privileges cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-clear-privilege-cache.html.
 type SecurityClearCachedPrivileges func(application []string, o ...func(*SecurityClearCachedPrivilegesRequest)) (*Response, error)
 
 // SecurityClearCachedPrivilegesRequest configures the Security Clear Cached Privileges API request.

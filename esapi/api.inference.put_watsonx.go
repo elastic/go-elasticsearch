@@ -43,9 +43,9 @@ func newInferencePutWatsonxFunc(t Transport) InferencePutWatsonx {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutWatsonx configure a Watsonx inference endpoint
+// InferencePutWatsonx create a Watsonx inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-watsonx-ai.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-watsonx-ai.html.
 type InferencePutWatsonx func(task_type string, watsonx_inference_id string, o ...func(*InferencePutWatsonxRequest)) (*Response, error)
 
 // InferencePutWatsonxRequest configures the Inference Put Watsonx API request.

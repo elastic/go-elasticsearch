@@ -42,9 +42,9 @@ func newSecurityDeletePrivilegesFunc(t Transport) SecurityDeletePrivileges {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityDeletePrivileges - Removes application privileges.
+// SecurityDeletePrivileges - Delete application privileges
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-delete-privilege.html.
 type SecurityDeletePrivileges func(name string, application string, o ...func(*SecurityDeletePrivilegesRequest)) (*Response, error)
 
 // SecurityDeletePrivilegesRequest configures the Security Delete Privileges API request.

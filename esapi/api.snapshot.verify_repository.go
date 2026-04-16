@@ -43,9 +43,9 @@ func newSnapshotVerifyRepositoryFunc(t Transport) SnapshotVerifyRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotVerifyRepository verifies a repository.
+// SnapshotVerifyRepository verify a snapshot repository
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/verify-snapshot-repo-api.html.
 type SnapshotVerifyRepository func(repository string, o ...func(*SnapshotVerifyRepositoryRequest)) (*Response, error)
 
 // SnapshotVerifyRepositoryRequest configures the Snapshot Verify Repository API request.

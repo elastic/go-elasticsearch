@@ -45,9 +45,9 @@ func newIndicesGetFunc(t Transport) IndicesGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGet returns information about one or more indices.
+// IndicesGet get index information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-get-index.html.
 type IndicesGet func(index []string, o ...func(*IndicesGetRequest)) (*Response, error)
 
 // IndicesGetRequest configures the Indices Get API request.

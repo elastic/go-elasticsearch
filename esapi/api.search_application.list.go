@@ -43,11 +43,11 @@ func newSearchApplicationListFunc(t Transport) SearchApplicationList {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationList returns the existing search applications.
+// SearchApplicationList get search applications
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-analytics-collection.html.
 type SearchApplicationList func(o ...func(*SearchApplicationListRequest)) (*Response, error)
 
 // SearchApplicationListRequest configures the Search Application List API request.

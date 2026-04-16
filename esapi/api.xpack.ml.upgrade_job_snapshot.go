@@ -44,9 +44,9 @@ func newMLUpgradeJobSnapshotFunc(t Transport) MLUpgradeJobSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLUpgradeJobSnapshot - Upgrades a given job snapshot to the current major version.
+// MLUpgradeJobSnapshot - Upgrade a snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-upgrade-job-model-snapshot.html.
 type MLUpgradeJobSnapshot func(snapshot_id string, job_id string, o ...func(*MLUpgradeJobSnapshotRequest)) (*Response, error)
 
 // MLUpgradeJobSnapshotRequest configures the ML Upgrade Job Snapshot API request.

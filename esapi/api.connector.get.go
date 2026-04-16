@@ -42,11 +42,11 @@ func newConnectorGetFunc(t Transport) ConnectorGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorGet returns the details about a connector.
+// ConnectorGet get a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-connector-api.html.
 type ConnectorGet func(connector_id string, o ...func(*ConnectorGetRequest)) (*Response, error)
 
 // ConnectorGetRequest configures the Connector Get API request.

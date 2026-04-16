@@ -42,9 +42,9 @@ func newMLDeleteModelSnapshotFunc(t Transport) MLDeleteModelSnapshot {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteModelSnapshot - Deletes an existing model snapshot.
+// MLDeleteModelSnapshot - Delete a model snapshot
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-snapshot.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-delete-snapshot.html.
 type MLDeleteModelSnapshot func(snapshot_id string, job_id string, o ...func(*MLDeleteModelSnapshotRequest)) (*Response, error)
 
 // MLDeleteModelSnapshotRequest configures the ML Delete Model Snapshot API request.

@@ -43,9 +43,9 @@ func newFeaturesGetFeaturesFunc(t Transport) FeaturesGetFeatures {
 
 // ----- API Definition -------------------------------------------------------
 
-// FeaturesGetFeatures gets a list of features which can be included in snapshots using the feature_states field when creating a snapshot
+// FeaturesGetFeatures get the features
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-features-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-features-api.html.
 type FeaturesGetFeatures func(o ...func(*FeaturesGetFeaturesRequest)) (*Response, error)
 
 // FeaturesGetFeaturesRequest configures the Features Get Features API request.

@@ -44,9 +44,9 @@ func newNodesInfoFunc(t Transport) NodesInfo {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesInfo returns information about nodes in the cluster.
+// NodesInfo get node information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-info.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-nodes-info.html.
 type NodesInfo func(o ...func(*NodesInfoRequest)) (*Response, error)
 
 // NodesInfoRequest configures the Nodes Info API request.

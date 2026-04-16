@@ -42,9 +42,9 @@ func newIndicesGetDataLifecycleStatsFunc(t Transport) IndicesGetDataLifecycleSta
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataLifecycleStats get data stream lifecycle statistics.
+// IndicesGetDataLifecycleStats get data stream lifecycle stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/data-streams-get-lifecycle-stats.html.
 type IndicesGetDataLifecycleStats func(o ...func(*IndicesGetDataLifecycleStatsRequest)) (*Response, error)
 
 // IndicesGetDataLifecycleStatsRequest configures the Indices Get Data Lifecycle Stats API request.

@@ -28,7 +28,7 @@ import (
 )
 
 func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearRepositoriesMeteringArchive {
-	return func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
+	return func(max_archive_version *int64, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
 		var r = NodesClearRepositoriesMeteringArchiveRequest{MaxArchiveVersion: max_archive_version, NodeID: node_id}
 		for _, f := range o {
 			f(&r)
@@ -44,16 +44,16 @@ func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearReposit
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesClearRepositoriesMeteringArchive removes the archived repositories metering information present in the cluster.
+// NodesClearRepositoriesMeteringArchive clear the archived repositories metering
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-repositories-metering-archive-api.html.
-type NodesClearRepositoriesMeteringArchive func(max_archive_version *int, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/clear-repositories-metering-archive-api.html.
+type NodesClearRepositoriesMeteringArchive func(max_archive_version *int64, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
 
 // NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.
 type NodesClearRepositoriesMeteringArchiveRequest struct {
-	MaxArchiveVersion *int
+	MaxArchiveVersion *int64
 	NodeID            []string
 
 	Pretty     bool
@@ -94,7 +94,7 @@ func (r NodesClearRepositoriesMeteringArchiveRequest) Do(providedCtx context.Con
 		return nil, errors.New("max_archive_version is required and cannot be nil")
 	}
 
-	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.Itoa(*r.MaxArchiveVersion)))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.FormatInt(*r.MaxArchiveVersion, 10)))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
@@ -106,9 +106,9 @@ func (r NodesClearRepositoriesMeteringArchiveRequest) Do(providedCtx context.Con
 	path.WriteString("/")
 	path.WriteString("_repositories_metering")
 	path.WriteString("/")
-	path.WriteString(strconv.Itoa(*r.MaxArchiveVersion))
+	path.WriteString(strconv.FormatInt(*r.MaxArchiveVersion, 10))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "max_archive_version", strconv.Itoa(*r.MaxArchiveVersion))
+		instrument.RecordPathPart(ctx, "max_archive_version", strconv.FormatInt(*r.MaxArchiveVersion, 10))
 	}
 
 	params = make(map[string]string)

@@ -44,9 +44,9 @@ func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutGeoipDatabase puts the configuration for a geoip database to be downloaded
+// IngestPutGeoipDatabase create or update a GeoIP database configuration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-geoip-database-api.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-ingest-put-geoip-database.
 type IngestPutGeoipDatabase func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error)
 
 // IngestPutGeoipDatabaseRequest configures the Ingest Put Geoip Database API request.

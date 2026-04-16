@@ -44,9 +44,9 @@ func newIngestDeleteIPLocationDatabaseFunc(t Transport) IngestDeleteIPLocationDa
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestDeleteIPLocationDatabase deletes an ip location database configuration
+// IngestDeleteIPLocationDatabase delete IP geolocation database configurations
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-ip-location-database-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-ip-location-database-api.html.
 type IngestDeleteIPLocationDatabase func(id []string, o ...func(*IngestDeleteIPLocationDatabaseRequest)) (*Response, error)
 
 // IngestDeleteIPLocationDatabaseRequest configures the Ingest DeleteIP Location Database API request.
