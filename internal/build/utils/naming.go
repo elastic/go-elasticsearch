@@ -28,7 +28,7 @@ var (
 		"number":  "*int",
 		"int":     "*int",
 		"integer": "*int",
-		"long":    "*int",
+		"long":    "*int64",
 		"string":  "string",
 		"time":    "time.Duration",
 	}
