@@ -1,5 +1,27 @@
 # Changelog
 
+## [8.19.4](https://github.com/elastic/go-elasticsearch/compare/v8.19.3...v8.19.4) (2026-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Typed API:** update client from spec 6ee016a
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1370](https://github.com/elastic/go-elasticsearch/issues/1370)) ([c9a2b0b](https://github.com/elastic/go-elasticsearch/commit/c9a2b0b0e7ed10f44e0b2cf8374d7eea09851da3))
+* Add functional options pattern for client instantiation  ([#1321](https://github.com/elastic/go-elasticsearch/issues/1321)) ([7561adf](https://github.com/elastic/go-elasticsearch/commit/7561adf790844fcd452b0c8e59e71d411d6cd8c3))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1361](https://github.com/elastic/go-elasticsearch/issues/1361)) ([be8564d](https://github.com/elastic/go-elasticsearch/commit/be8564d3c7ada9b716eef73da43efb7659166a9e))
+* **Typed API:** Improved generated code comments ([fe06c54](https://github.com/elastic/go-elasticsearch/commit/fe06c5464042d04515370275894e3e8a1c99851b))
+* **Typed API:** Update client from spec 6ee016a ([74ed65d](https://github.com/elastic/go-elasticsearch/commit/74ed65da267c0efc909172df233edc88c853f089))
+
+
+### Bug Fixes
+
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1338](https://github.com/elastic/go-elasticsearch/issues/1338)) ([a00439e](https://github.com/elastic/go-elasticsearch/commit/a00439efa2561f1da7c431f170bcac400eda6bf9))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1314](https://github.com/elastic/go-elasticsearch/issues/1314)) ([ca77d44](https://github.com/elastic/go-elasticsearch/commit/ca77d4484355780c7e65ee4aac3c7a86f20943b2))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1329](https://github.com/elastic/go-elasticsearch/issues/1329)) ([fe06c54](https://github.com/elastic/go-elasticsearch/commit/fe06c5464042d04515370275894e3e8a1c99851b))
+
 ## [8.19.3](https://github.com/elastic/go-elasticsearch/compare/v8.19.2...v8.19.3) (2026-02-10)
 
 
