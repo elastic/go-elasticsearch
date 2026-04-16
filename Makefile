@@ -415,7 +415,7 @@ endif
 	@printf "\033[2m→ Generating API package from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/build/go.mod" INT TERM EXIT; \
+		trap "test -e $(PWD)/.git && git checkout --quiet $(PWD)/internal/build/go.mod $(PWD)/internal/build/go.sum" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		cd internal/build && \
@@ -445,7 +445,7 @@ endif
 	@printf "\033[2m→ Generating API tests from specification ($(version):$(build_hash))...\033[0m\n"
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+		trap "test -e $(PWD)/.git && git checkout --quiet $(PWD)/internal/build/go.mod $(PWD)/internal/build/go.sum" INT TERM EXIT; \
 		export ELASTICSEARCH_BUILD_VERSION=$(version) && \
 		export ELASTICSEARCH_BUILD_HASH=$(build_hash) && \
 		rm -rf $(output)/*_test.go && \
@@ -461,7 +461,7 @@ gen-docs:  ## Generate the skeleton of documentation examples
 	$(eval update ?= no)
 	@{ \
 		set -e; \
-		trap "test -d .git && git checkout --quiet $(PWD)/internal/cmd/generate/go.mod" INT TERM EXIT; \
+		trap "test -e $(PWD)/.git && git checkout --quiet $(PWD)/internal/build/go.mod $(PWD)/internal/build/go.sum" INT TERM EXIT; \
 		if [ "$(update)" = "yes" ]; then \
 			printf "\033[2m→ Updating the alternatives_report.json file\033[0m\n" && \
 			curl -s https://raw.githubusercontent.com/elastic/built-docs/master/raw/en/elasticsearch/reference/master/alternatives_report.json > tmp/alternatives_report.json; \
