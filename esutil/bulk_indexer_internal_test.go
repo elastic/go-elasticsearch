@@ -2224,16 +2224,18 @@ func TestBulkIndexerNextFlushInterval(t *testing.T) {
 
 func TestBulkIndexerFlushJitter(t *testing.T) {
 	t.Run("auto-flush fires with jitter configured", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusOK,
-					Status:     "200 OK",
-					Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
-					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-				}, nil
-			},
-		}})
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			}),
+		))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -2267,16 +2269,18 @@ func TestBulkIndexerFlushJitter(t *testing.T) {
 	})
 
 	t.Run("default FlushJitter is zero", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
-				return &http.Response{
-					StatusCode: http.StatusOK,
-					Status:     "200 OK",
-					Body:       io.NopCloser(strings.NewReader(`{}`)),
-					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-				}, nil
-			},
-		}})
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			}),
+		))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}

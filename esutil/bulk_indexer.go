@@ -528,7 +528,7 @@ func (bi *bulkIndexer) nextFlushInterval() time.Duration {
 	if bi.config.FlushJitter <= 0 {
 		return bi.config.FlushInterval
 	}
-	return bi.config.FlushInterval + rand.N(bi.config.FlushJitter)
+	return bi.config.FlushInterval + rand.N(bi.config.FlushJitter) //nolint:gosec // G404: non-crypto randomness is intentional for flush-interval jitter
 }
 
 // worker represents an indexer worker.
