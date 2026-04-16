@@ -56,6 +56,13 @@ make gen-api                    # regenerate esapi/ from specs
 - All exported types and functions must have godoc comments.
 - Before finishing, always run: `make lint && make test-unit`.
 
+## Regeneration
+
+- `make gen-api` regenerates `esapi/` from the REST spec. Commit only this output in regeneration PRs.
+- `make gen-tests` regenerates the YAML-driven tests in `esapi/test/` and `internal/build/cmd/generate/commands/gentests/api_registry.gen.go`. This runs in Buildkite CI; do not commit its output locally.
+- Regenerating after a generator fix or long gap will include spec drift (new endpoints, reworded descriptions, additive fields). Mention it in the PR body alongside the motivating change.
+- `make download-specs` uses the Makefile's default version. Override with `ELASTICSEARCH_BUILD_VERSION=X.Y.Z make download-specs` when regenerating a version branch from a checkout whose default targets a different version.
+
 ## Commits and Pull Requests
 
 PRs are squash-merged into a single commit when landing on `main` or a version branch. Because of this, each PR should represent one distinct, self-contained change — a single feature, bug fix, or refactor. Mixing unrelated changes in one PR means they become inseparable in history, making reviews harder and reverts riskier (reverting one change would also revert the unrelated ones).
@@ -66,6 +73,10 @@ When planning work:
 - Keep each PR focused on a single logical change with a clear purpose.
 - Avoid bundling unrelated fixes or refactors into a feature PR — send them separately.
 - Prefer multiple small PRs over one large PR, even if they land in quick succession.
+
+### Breaking changes
+
+Commits containing breaking API changes need a `BREAKING-CHANGE:` footer (preceded by a blank line) on a `fix:` or `feat:` commit. release-please reads the footer from the squash-merged commit to flag the release accordingly. Do not mark a breaking change as `chore:` or `refactor:`.
 
 ## Architecture
 
