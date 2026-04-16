@@ -54,6 +54,13 @@ func BoolPtr(v bool) *bool { return &v }
 // which expects a pointer.
 func IntPtr(v int) *int { return &v }
 
+// Int64Ptr returns a pointer to v.
+//
+// It is used as a convenience function for converting an int64 value
+// into a pointer when passing the value to a function or struct field
+// which expects a pointer.
+func Int64Ptr(v int64) *int64 { return &v }
+
 // formatDuration converts duration to a string in the format
 // accepted by Elasticsearch.
 func formatDuration(d time.Duration) string {
