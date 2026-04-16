@@ -485,7 +485,7 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			res, _ = es.Indices.DeleteIndexTemplate("*")
+			res, _ = es.Indices.DeleteIndexTemplate([]string{"*"})
 			if res != nil && res.Body != nil { defer res.Body.Close() }
 		}
 
