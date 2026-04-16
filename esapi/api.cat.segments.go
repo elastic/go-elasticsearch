@@ -56,7 +56,7 @@ type CatSegmentsRequest struct {
 	AllowClosed       *bool
 	AllowNoIndices    *bool
 	Bytes             string
-	ExpandWildcards   string
+	ExpandWildcards   []string
 	Format            string
 	H                 []string
 	Help              *bool
@@ -127,8 +127,8 @@ func (r CatSegmentsRequest) Do(providedCtx context.Context, transport Transport)
 		params["bytes"] = r.Bytes
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Format != "" {
@@ -278,7 +278,7 @@ func (f CatSegments) WithBytes(v string) func(*CatSegmentsRequest) {
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f CatSegments) WithExpandWildcards(v string) func(*CatSegmentsRequest) {
+func (f CatSegments) WithExpandWildcards(v ...string) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.ExpandWildcards = v
 	}

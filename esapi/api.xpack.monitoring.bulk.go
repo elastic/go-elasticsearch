@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body}
+	return func(body io.Reader, interval time.Duration, system_api_version string, system_id string, o ...func(*MonitoringBulkRequest)) (*Response, error) {
+		var r = MonitoringBulkRequest{Body: body, Interval: interval, SystemAPIVersion: system_api_version, SystemID: system_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,15 +47,13 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 // MonitoringBulk - Send monitoring data
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch.
-type MonitoringBulk func(body io.Reader, o ...func(*MonitoringBulkRequest)) (*Response, error)
+type MonitoringBulk func(body io.Reader, interval time.Duration, system_api_version string, system_id string, o ...func(*MonitoringBulkRequest)) (*Response, error)
 
 // MonitoringBulkRequest configures the Monitoring Bulk API request.
 type MonitoringBulkRequest struct {
 	Body io.Reader
 
-	DocumentType string
-
-	Interval         string
+	Interval         time.Duration
 	SystemAPIVersion string
 	SystemID         string
 
@@ -89,24 +88,14 @@ func (r MonitoringBulkRequest) Do(providedCtx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_monitoring") + 1 + len(r.DocumentType) + 1 + len("bulk"))
+	path.Grow(7 + len("/_monitoring/bulk"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_monitoring")
-	if r.DocumentType != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentType)
-		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "type", r.DocumentType)
-		}
-	}
-	path.WriteString("/")
-	path.WriteString("bulk")
+	path.WriteString("/_monitoring/bulk")
 
 	params = make(map[string]string)
 
-	if r.Interval != "" {
-		params["interval"] = r.Interval
+	if r.Interval != 0 {
+		params["interval"] = formatDuration(r.Interval)
 	}
 
 	if r.SystemAPIVersion != "" {
@@ -202,15 +191,8 @@ func (f MonitoringBulk) WithContext(v context.Context) func(*MonitoringBulkReque
 	}
 }
 
-// WithDocumentType - default document type for items which don't provide one.
-func (f MonitoringBulk) WithDocumentType(v string) func(*MonitoringBulkRequest) {
-	return func(r *MonitoringBulkRequest) {
-		r.DocumentType = v
-	}
-}
-
 // WithInterval - collection interval (e.g., '10s' or '10000ms') of the payload.
-func (f MonitoringBulk) WithInterval(v string) func(*MonitoringBulkRequest) {
+func (f MonitoringBulk) WithInterval(v time.Duration) func(*MonitoringBulkRequest) {
 	return func(r *MonitoringBulkRequest) {
 		r.Interval = v
 	}

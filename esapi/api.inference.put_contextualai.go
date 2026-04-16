@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutContextualaiFunc(t Transport) InferencePutContextualai {
@@ -54,6 +55,8 @@ type InferencePutContextualaiRequest struct {
 
 	ContextualaiInferenceID string
 	TaskType                string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutContextualaiRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutContextualaiRequest) Do(providedCtx context.Context, transpo
 func (f InferencePutContextualai) WithContext(v context.Context) func(*InferencePutContextualaiRequest) {
 	return func(r *InferencePutContextualaiRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutContextualai) WithTimeout(v time.Duration) func(*InferencePutContextualaiRequest) {
+	return func(r *InferencePutContextualaiRequest) {
+		r.Timeout = v
 	}
 }
 

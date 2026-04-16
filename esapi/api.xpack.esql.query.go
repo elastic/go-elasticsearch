@@ -217,7 +217,7 @@ func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response..
 func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.Format = v

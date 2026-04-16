@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutMistralFunc(t Transport) InferencePutMistral {
@@ -54,6 +55,8 @@ type InferencePutMistralRequest struct {
 
 	MistralInferenceID string
 	TaskType           string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutMistralRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutMistralRequest) Do(providedCtx context.Context, transport Tr
 func (f InferencePutMistral) WithContext(v context.Context) func(*InferencePutMistralRequest) {
 	return func(r *InferencePutMistralRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutMistral) WithTimeout(v time.Duration) func(*InferencePutMistralRequest) {
+	return func(r *InferencePutMistralRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
@@ -53,6 +54,8 @@ type InferenceSparseEmbeddingRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceSparseEmbeddingRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r InferenceSparseEmbeddingRequest) Do(providedCtx context.Context, transpo
 func (f InferenceSparseEmbedding) WithContext(v context.Context) func(*InferenceSparseEmbeddingRequest) {
 	return func(r *InferenceSparseEmbeddingRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceSparseEmbedding) WithTimeout(v time.Duration) func(*InferenceSparseEmbeddingRequest) {
+	return func(r *InferenceSparseEmbeddingRequest) {
+		r.Timeout = v
 	}
 }
 

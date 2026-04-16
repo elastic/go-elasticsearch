@@ -246,7 +246,7 @@ func (f TextStructureFindMessageStructure) WithDelimiter(v string) func(*TextStr
 	}
 }
 
-// WithEcsCompatibility - optional parameter to specify the compatibility mode with ecs grok patterns - may be either 'v1' or 'disabled'.
+// WithEcsCompatibility - the mode of compatibility with ecs compliant grok patterns.use this parameter to specify whether to use ecs grok patterns instead of legacy ones when the structure finder creates a grok pattern.this setting primarily has an impact when a whole message grok pattern such as `%{catalinalog}` matches the input.if the structure finder identifies a common structure but has no idea of meaning then generic field names such as `path`, `ipaddress`, `field1`, and `field2` are used in the `grok_pattern` output, with the intention that a user who knows the meanings rename these fields before using it..
 func (f TextStructureFindMessageStructure) WithEcsCompatibility(v string) func(*TextStructureFindMessageStructureRequest) {
 	return func(r *TextStructureFindMessageStructureRequest) {
 		r.EcsCompatibility = v

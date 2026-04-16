@@ -206,7 +206,7 @@ func (f SimulateIngest) WithIndex(v string) func(*SimulateIngestRequest) {
 	}
 }
 
-// WithMergeType - the mapping merge type if mapping overrides are being provided in mapping_addition. the allowed values are one of index or template. the index option merges mappings the way they would be merged into an existing index. the template option merges mappings the way they would be merged into a template..
+// WithMergeType - the mapping merge type if mapping overrides are being provided in mapping_addition.the allowed values are one of index or template.the index option merges mappings the way they would be merged into an existing index.the template option merges mappings the way they would be merged into a template..
 func (f SimulateIngest) WithMergeType(v string) func(*SimulateIngestRequest) {
 	return func(r *SimulateIngestRequest) {
 		r.MergeType = v

@@ -21,12 +21,13 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newMLDeleteCalendarJobFunc(t Transport) MLDeleteCalendarJob {
-	return func(calendar_id string, job_id string, o ...func(*MLDeleteCalendarJobRequest)) (*Response, error) {
+	return func(calendar_id string, job_id []string, o ...func(*MLDeleteCalendarJobRequest)) (*Response, error) {
 		var r = MLDeleteCalendarJobRequest{CalendarID: calendar_id, JobID: job_id}
 		for _, f := range o {
 			f(&r)
@@ -45,12 +46,12 @@ func newMLDeleteCalendarJobFunc(t Transport) MLDeleteCalendarJob {
 // MLDeleteCalendarJob - Delete anomaly jobs from a calendar
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-calendar-job.
-type MLDeleteCalendarJob func(calendar_id string, job_id string, o ...func(*MLDeleteCalendarJobRequest)) (*Response, error)
+type MLDeleteCalendarJob func(calendar_id string, job_id []string, o ...func(*MLDeleteCalendarJobRequest)) (*Response, error)
 
 // MLDeleteCalendarJobRequest configures the ML Delete Calendar Job API request.
 type MLDeleteCalendarJobRequest struct {
 	CalendarID string
-	JobID      string
+	JobID      []string
 
 	Pretty     bool
 	Human      bool
@@ -83,7 +84,11 @@ func (r MLDeleteCalendarJobRequest) Do(providedCtx context.Context, transport Tr
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("jobs") + 1 + len(r.JobID))
+	if len(r.JobID) == 0 {
+		return nil, errors.New("job_id is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_ml") + 1 + len("calendars") + 1 + len(r.CalendarID) + 1 + len("jobs") + 1 + len(strings.Join(r.JobID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ml")
@@ -97,9 +102,9 @@ func (r MLDeleteCalendarJobRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("/")
 	path.WriteString("jobs")
 	path.WriteString("/")
-	path.WriteString(r.JobID)
+	path.WriteString(strings.Join(r.JobID, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+		instrument.RecordPathPart(ctx, "job_id", strings.Join(r.JobID, ","))
 	}
 
 	params = make(map[string]string)

@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutElasticsearchFunc(t Transport) InferencePutElasticsearch {
@@ -54,6 +55,8 @@ type InferencePutElasticsearchRequest struct {
 
 	ElasticsearchInferenceID string
 	TaskType                 string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutElasticsearchRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutElasticsearchRequest) Do(providedCtx context.Context, transp
 func (f InferencePutElasticsearch) WithContext(v context.Context) func(*InferencePutElasticsearchRequest) {
 	return func(r *InferencePutElasticsearchRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutElasticsearch) WithTimeout(v time.Duration) func(*InferencePutElasticsearchRequest) {
+	return func(r *InferencePutElasticsearchRequest) {
+		r.Timeout = v
 	}
 }
 

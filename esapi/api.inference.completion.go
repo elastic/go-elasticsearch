@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceCompletionFunc(t Transport) InferenceCompletion {
@@ -53,6 +54,8 @@ type InferenceCompletionRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceCompletionRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r InferenceCompletionRequest) Do(providedCtx context.Context, transport Tr
 func (f InferenceCompletion) WithContext(v context.Context) func(*InferenceCompletionRequest) {
 	return func(r *InferenceCompletionRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceCompletion) WithTimeout(v time.Duration) func(*InferenceCompletionRequest) {
+	return func(r *InferenceCompletionRequest) {
+		r.Timeout = v
 	}
 }
 

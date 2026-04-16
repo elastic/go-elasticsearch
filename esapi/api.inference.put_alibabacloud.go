@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
@@ -54,6 +55,8 @@ type InferencePutAlibabacloudRequest struct {
 
 	AlibabacloudInferenceID string
 	TaskType                string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAlibabacloudRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutAlibabacloudRequest) Do(providedCtx context.Context, transpo
 func (f InferencePutAlibabacloud) WithContext(v context.Context) func(*InferencePutAlibabacloudRequest) {
 	return func(r *InferencePutAlibabacloudRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAlibabacloud) WithTimeout(v time.Duration) func(*InferencePutAlibabacloudRequest) {
+	return func(r *InferencePutAlibabacloudRequest) {
+		r.Timeout = v
 	}
 }
 

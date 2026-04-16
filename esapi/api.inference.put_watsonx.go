@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutWatsonxFunc(t Transport) InferencePutWatsonx {
@@ -54,6 +55,8 @@ type InferencePutWatsonxRequest struct {
 
 	TaskType           string
 	WatsonxInferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutWatsonxRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutWatsonxRequest) Do(providedCtx context.Context, transport Tr
 func (f InferencePutWatsonx) WithContext(v context.Context) func(*InferencePutWatsonxRequest) {
 	return func(r *InferencePutWatsonxRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutWatsonx) WithTimeout(v time.Duration) func(*InferencePutWatsonxRequest) {
+	return func(r *InferencePutWatsonxRequest) {
+		r.Timeout = v
 	}
 }
 

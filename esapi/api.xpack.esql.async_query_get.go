@@ -204,7 +204,7 @@ func (f EsqlAsyncQueryGet) WithDropNullColumns(v bool) func(*EsqlAsyncQueryGetRe
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, for example `json` or `yaml`..
 func (f EsqlAsyncQueryGet) WithFormat(v string) func(*EsqlAsyncQueryGetRequest) {
 	return func(r *EsqlAsyncQueryGetRequest) {
 		r.Format = v

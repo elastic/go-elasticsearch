@@ -61,7 +61,7 @@ type SearchRequest struct {
 	AllowPartialSearchResults  *bool
 	Analyzer                   string
 	AnalyzeWildcard            *bool
-	BatchedReduceSize          *int
+	BatchedReduceSize          *int64
 	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
@@ -76,7 +76,7 @@ type SearchRequest struct {
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
 	Preference                 string
-	PreFilterShardSize         *int
+	PreFilterShardSize         *int64
 	ProjectRouting             string
 	Query                      string
 	RequestCache               *bool
@@ -95,9 +95,9 @@ type SearchRequest struct {
 	StoredFields               []string
 	SuggestField               string
 	SuggestMode                string
-	SuggestSize                *int
+	SuggestSize                *int64
 	SuggestText                string
-	TerminateAfter             *int
+	TerminateAfter             *int64
 	Timeout                    time.Duration
 	TrackScores                *bool
 	TrackTotalHits             interface{}
@@ -166,7 +166,7 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	if r.BatchedReduceSize != nil {
-		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
+		params["batched_reduce_size"] = strconv.FormatInt(*r.BatchedReduceSize, 10)
 	}
 
 	if r.CcsMinimizeRoundtrips != nil {
@@ -226,7 +226,7 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	if r.PreFilterShardSize != nil {
-		params["pre_filter_shard_size"] = strconv.FormatInt(int64(*r.PreFilterShardSize), 10)
+		params["pre_filter_shard_size"] = strconv.FormatInt(*r.PreFilterShardSize, 10)
 	}
 
 	if r.ProjectRouting != "" {
@@ -302,7 +302,7 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	if r.SuggestSize != nil {
-		params["suggest_size"] = strconv.FormatInt(int64(*r.SuggestSize), 10)
+		params["suggest_size"] = strconv.FormatInt(*r.SuggestSize, 10)
 	}
 
 	if r.SuggestText != "" {
@@ -310,7 +310,7 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -461,7 +461,7 @@ func (f Search) WithAnalyzeWildcard(v bool) func(*SearchRequest) {
 }
 
 // WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. this value should be used as a protection mechanism to reduce the memory overhead per search request if the potential number of shards in the request can be large..
-func (f Search) WithBatchedReduceSize(v int) func(*SearchRequest) {
+func (f Search) WithBatchedReduceSize(v int64) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.BatchedReduceSize = &v
 	}
@@ -566,7 +566,7 @@ func (f Search) WithPreference(v string) func(*SearchRequest) {
 }
 
 // WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
-func (f Search) WithPreFilterShardSize(v int) func(*SearchRequest) {
+func (f Search) WithPreFilterShardSize(v int64) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.PreFilterShardSize = &v
 	}
@@ -699,7 +699,7 @@ func (f Search) WithSuggestMode(v string) func(*SearchRequest) {
 }
 
 // WithSuggestSize - how many suggestions to return in response.
-func (f Search) WithSuggestSize(v int) func(*SearchRequest) {
+func (f Search) WithSuggestSize(v int64) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.SuggestSize = &v
 	}
@@ -713,7 +713,7 @@ func (f Search) WithSuggestText(v string) func(*SearchRequest) {
 }
 
 // WithTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early..
-func (f Search) WithTerminateAfter(v int) func(*SearchRequest) {
+func (f Search) WithTerminateAfter(v int64) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.TerminateAfter = &v
 	}

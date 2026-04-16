@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceStreamCompletionFunc(t Transport) InferenceStreamCompletion {
@@ -53,6 +54,8 @@ type InferenceStreamCompletionRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r InferenceStreamCompletionRequest) Do(providedCtx context.Context, transp
 	path.WriteString("_stream")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -183,6 +190,13 @@ func (r InferenceStreamCompletionRequest) Do(providedCtx context.Context, transp
 func (f InferenceStreamCompletion) WithContext(v context.Context) func(*InferenceStreamCompletionRequest) {
 	return func(r *InferenceStreamCompletionRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceStreamCompletion) WithTimeout(v time.Duration) func(*InferenceStreamCompletionRequest) {
+	return func(r *InferenceStreamCompletionRequest) {
+		r.Timeout = v
 	}
 }
 

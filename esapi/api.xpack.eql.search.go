@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,7 +30,7 @@ import (
 )
 
 func newEqlSearchFunc(t Transport) EqlSearch {
-	return func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error) {
+	return func(index []string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error) {
 		var r = EqlSearchRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
@@ -48,11 +49,11 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 // EqlSearch - Get EQL search results
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-eql-search.
-type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
+type EqlSearch func(index []string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
 
 // EqlSearchRequest configures the Eql Search API request.
 type EqlSearchRequest struct {
-	Index string
+	Index []string
 
 	Body io.Reader
 
@@ -98,12 +99,16 @@ func (r EqlSearchRequest) Do(providedCtx context.Context, transport Transport) (
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_eql") + 1 + len("search"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_eql") + 1 + len("search"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_eql")

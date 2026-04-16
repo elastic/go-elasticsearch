@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func newIndicesDeleteIndexTemplateFunc(t Transport) IndicesDeleteIndexTemplate {
-	return func(name string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error) {
+	return func(name []string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error) {
 		var r = IndicesDeleteIndexTemplateRequest{Name: name}
 		for _, f := range o {
 			f(&r)
@@ -46,11 +47,11 @@ func newIndicesDeleteIndexTemplateFunc(t Transport) IndicesDeleteIndexTemplate {
 // IndicesDeleteIndexTemplate delete an index template
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-index-template.
-type IndicesDeleteIndexTemplate func(name string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error)
+type IndicesDeleteIndexTemplate func(name []string, o ...func(*IndicesDeleteIndexTemplateRequest)) (*Response, error)
 
 // IndicesDeleteIndexTemplateRequest configures the Indices Delete Index Template API request.
 type IndicesDeleteIndexTemplateRequest struct {
-	Name string
+	Name []string
 
 	MasterTimeout time.Duration
 	Timeout       time.Duration
@@ -86,14 +87,18 @@ func (r IndicesDeleteIndexTemplateRequest) Do(providedCtx context.Context, trans
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_index_template") + 1 + len(r.Name))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_index_template") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_index_template")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)

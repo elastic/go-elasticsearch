@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
@@ -54,6 +55,8 @@ type InferencePutAnthropicRequest struct {
 
 	AnthropicInferenceID string
 	TaskType             string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAnthropicRequest) Do(providedCtx context.Context, transport 
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutAnthropicRequest) Do(providedCtx context.Context, transport 
 func (f InferencePutAnthropic) WithContext(v context.Context) func(*InferencePutAnthropicRequest) {
 	return func(r *InferencePutAnthropicRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAnthropic) WithTimeout(v time.Duration) func(*InferencePutAnthropicRequest) {
+	return func(r *InferencePutAnthropicRequest) {
+		r.Timeout = v
 	}
 }
 

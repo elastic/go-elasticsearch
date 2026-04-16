@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
@@ -53,6 +54,8 @@ type InferenceTextEmbeddingRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceTextEmbeddingRequest) Do(providedCtx context.Context, transport
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r InferenceTextEmbeddingRequest) Do(providedCtx context.Context, transport
 func (f InferenceTextEmbedding) WithContext(v context.Context) func(*InferenceTextEmbeddingRequest) {
 	return func(r *InferenceTextEmbeddingRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceTextEmbedding) WithTimeout(v time.Duration) func(*InferenceTextEmbeddingRequest) {
+	return func(r *InferenceTextEmbeddingRequest) {
+		r.Timeout = v
 	}
 }
 

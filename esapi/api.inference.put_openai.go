@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutOpenaiFunc(t Transport) InferencePutOpenai {
@@ -54,6 +55,8 @@ type InferencePutOpenaiRequest struct {
 
 	OpenaiInferenceID string
 	TaskType          string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutOpenaiRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutOpenaiRequest) Do(providedCtx context.Context, transport Tra
 func (f InferencePutOpenai) WithContext(v context.Context) func(*InferencePutOpenaiRequest) {
 	return func(r *InferencePutOpenaiRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutOpenai) WithTimeout(v time.Duration) func(*InferencePutOpenaiRequest) {
+	return func(r *InferencePutOpenaiRequest) {
+		r.Timeout = v
 	}
 }
 

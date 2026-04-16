@@ -60,7 +60,7 @@ type ExistsSourceRequest struct {
 	Source         []string
 	SourceExcludes []string
 	SourceIncludes []string
-	Version        *int
+	Version        *int64
 	VersionType    string
 
 	Pretty     bool
@@ -140,7 +140,7 @@ func (r ExistsSourceRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -275,7 +275,7 @@ func (f ExistsSource) WithSourceIncludes(v ...string) func(*ExistsSourceRequest)
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f ExistsSource) WithVersion(v int) func(*ExistsSourceRequest) {
+func (f ExistsSource) WithVersion(v int64) func(*ExistsSourceRequest) {
 	return func(r *ExistsSourceRequest) {
 		r.Version = &v
 	}

@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func newIndicesGetDataStreamMappingsFunc(t Transport) IndicesGetDataStreamMappings {
-	return func(name string, o ...func(*IndicesGetDataStreamMappingsRequest)) (*Response, error) {
+	return func(name []string, o ...func(*IndicesGetDataStreamMappingsRequest)) (*Response, error) {
 		var r = IndicesGetDataStreamMappingsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
@@ -46,11 +47,11 @@ func newIndicesGetDataStreamMappingsFunc(t Transport) IndicesGetDataStreamMappin
 // IndicesGetDataStreamMappings - Get data stream mappings
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-data-stream-mappings.
-type IndicesGetDataStreamMappings func(name string, o ...func(*IndicesGetDataStreamMappingsRequest)) (*Response, error)
+type IndicesGetDataStreamMappings func(name []string, o ...func(*IndicesGetDataStreamMappingsRequest)) (*Response, error)
 
 // IndicesGetDataStreamMappingsRequest configures the Indices Get Data Stream Mappings API request.
 type IndicesGetDataStreamMappingsRequest struct {
-	Name string
+	Name []string
 
 	MasterTimeout time.Duration
 
@@ -85,14 +86,18 @@ func (r IndicesGetDataStreamMappingsRequest) Do(providedCtx context.Context, tra
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_mappings"))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_mappings"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mappings")

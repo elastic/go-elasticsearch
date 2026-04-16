@@ -21,12 +21,13 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newIndicesGetMigrateReindexStatusFunc(t Transport) IndicesGetMigrateReindexStatus {
-	return func(index string, o ...func(*IndicesGetMigrateReindexStatusRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesGetMigrateReindexStatusRequest)) (*Response, error) {
 		var r = IndicesGetMigrateReindexStatusRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -45,11 +46,11 @@ func newIndicesGetMigrateReindexStatusFunc(t Transport) IndicesGetMigrateReindex
 // IndicesGetMigrateReindexStatus get the migration reindexing status
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-migration.
-type IndicesGetMigrateReindexStatus func(index string, o ...func(*IndicesGetMigrateReindexStatusRequest)) (*Response, error)
+type IndicesGetMigrateReindexStatus func(index []string, o ...func(*IndicesGetMigrateReindexStatusRequest)) (*Response, error)
 
 // IndicesGetMigrateReindexStatusRequest configures the Indices Get Migrate Reindex Status API request.
 type IndicesGetMigrateReindexStatusRequest struct {
-	Index string
+	Index []string
 
 	Pretty     bool
 	Human      bool
@@ -82,16 +83,20 @@ func (r IndicesGetMigrateReindexStatusRequest) Do(providedCtx context.Context, t
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_migration") + 1 + len("reindex") + 1 + len(r.Index) + 1 + len("_status"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_migration") + 1 + len("reindex") + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_status"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_migration")
 	path.WriteString("/")
 	path.WriteString("reindex")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_status")

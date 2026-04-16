@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceInferenceFunc(t Transport) InferenceInference {
@@ -54,6 +55,8 @@ type InferenceInferenceRequest struct {
 
 	InferenceID string
 	TaskType    string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +107,10 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -194,6 +201,13 @@ func (f InferenceInference) WithContext(v context.Context) func(*InferenceInfere
 func (f InferenceInference) WithTaskType(v string) func(*InferenceInferenceRequest) {
 	return func(r *InferenceInferenceRequest) {
 		r.TaskType = v
+	}
+}
+
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceInference) WithTimeout(v time.Duration) func(*InferenceInferenceRequest) {
+	return func(r *InferenceInferenceRequest) {
+		r.Timeout = v
 	}
 }
 

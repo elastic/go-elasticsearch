@@ -70,7 +70,7 @@ type CountRequest struct {
 	ProjectRouting    string
 	Query             string
 	Routing           []string
-	TerminateAfter    *int
+	TerminateAfter    *int64
 
 	Pretty     bool
 	Human      bool
@@ -174,7 +174,7 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Pretty {
@@ -375,7 +375,7 @@ func (f Count) WithRouting(v ...string) func(*CountRequest) {
 }
 
 // WithTerminateAfter - the maximum count for each shard, upon reaching which the query execution will terminate early.
-func (f Count) WithTerminateAfter(v int) func(*CountRequest) {
+func (f Count) WithTerminateAfter(v int64) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.TerminateAfter = &v
 	}

@@ -21,12 +21,13 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 )
 
 func newRollupGetRollupIndexCapsFunc(t Transport) RollupGetRollupIndexCaps {
-	return func(index string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error) {
+	return func(index []string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error) {
 		var r = RollupGetRollupIndexCapsRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -47,11 +48,11 @@ func newRollupGetRollupIndexCapsFunc(t Transport) RollupGetRollupIndexCaps {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-index-caps.
-type RollupGetRollupIndexCaps func(index string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error)
+type RollupGetRollupIndexCaps func(index []string, o ...func(*RollupGetRollupIndexCapsRequest)) (*Response, error)
 
 // RollupGetRollupIndexCapsRequest configures the Rollup Get Rollup Index Caps API request.
 type RollupGetRollupIndexCapsRequest struct {
-	Index string
+	Index []string
 
 	Pretty     bool
 	Human      bool
@@ -84,12 +85,16 @@ func (r RollupGetRollupIndexCapsRequest) Do(providedCtx context.Context, transpo
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_rollup") + 1 + len("data"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_rollup") + 1 + len("data"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_rollup")

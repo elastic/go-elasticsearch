@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutVoyageaiFunc(t Transport) InferencePutVoyageai {
@@ -54,6 +55,8 @@ type InferencePutVoyageaiRequest struct {
 
 	TaskType            string
 	VoyageaiInferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutVoyageaiRequest) Do(providedCtx context.Context, transport T
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutVoyageaiRequest) Do(providedCtx context.Context, transport T
 func (f InferencePutVoyageai) WithContext(v context.Context) func(*InferencePutVoyageaiRequest) {
 	return func(r *InferencePutVoyageaiRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutVoyageai) WithTimeout(v time.Duration) func(*InferencePutVoyageaiRequest) {
+	return func(r *InferencePutVoyageaiRequest) {
+		r.Timeout = v
 	}
 }
 

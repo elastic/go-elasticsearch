@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAi21Func(t Transport) InferencePutAi21 {
@@ -54,6 +55,8 @@ type InferencePutAi21Request struct {
 
 	Ai21InferenceID string
 	TaskType        string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAi21Request) Do(providedCtx context.Context, transport Trans
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutAi21Request) Do(providedCtx context.Context, transport Trans
 func (f InferencePutAi21) WithContext(v context.Context) func(*InferencePutAi21Request) {
 	return func(r *InferencePutAi21Request) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAi21) WithTimeout(v time.Duration) func(*InferencePutAi21Request) {
+	return func(r *InferencePutAi21Request) {
+		r.Timeout = v
 	}
 }
 

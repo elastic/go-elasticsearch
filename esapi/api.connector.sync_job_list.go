@@ -221,7 +221,7 @@ func (f ConnectorSyncJobList) WithSize(v int) func(*ConnectorSyncJobListRequest)
 	}
 }
 
-// WithStatus - sync job status, which sync jobs are fetched for.
+// WithStatus - a sync job status to fetch connector sync jobs for.
 func (f ConnectorSyncJobList) WithStatus(v string) func(*ConnectorSyncJobListRequest) {
 	return func(r *ConnectorSyncJobListRequest) {
 		r.Status = v

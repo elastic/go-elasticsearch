@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAmazonbedrockFunc(t Transport) InferencePutAmazonbedrock {
@@ -54,6 +55,8 @@ type InferencePutAmazonbedrockRequest struct {
 
 	AmazonbedrockInferenceID string
 	TaskType                 string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAmazonbedrockRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutAmazonbedrockRequest) Do(providedCtx context.Context, transp
 func (f InferencePutAmazonbedrock) WithContext(v context.Context) func(*InferencePutAmazonbedrockRequest) {
 	return func(r *InferencePutAmazonbedrockRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAmazonbedrock) WithTimeout(v time.Duration) func(*InferencePutAmazonbedrockRequest) {
+	return func(r *InferencePutAmazonbedrockRequest) {
+		r.Timeout = v
 	}
 }
 

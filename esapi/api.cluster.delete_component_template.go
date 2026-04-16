@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 )
 
 func newClusterDeleteComponentTemplateFunc(t Transport) ClusterDeleteComponentTemplate {
-	return func(name string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error) {
+	return func(name []string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error) {
 		var r = ClusterDeleteComponentTemplateRequest{Name: name}
 		for _, f := range o {
 			f(&r)
@@ -46,11 +47,11 @@ func newClusterDeleteComponentTemplateFunc(t Transport) ClusterDeleteComponentTe
 // ClusterDeleteComponentTemplate delete component templates
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-put-component-template.
-type ClusterDeleteComponentTemplate func(name string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error)
+type ClusterDeleteComponentTemplate func(name []string, o ...func(*ClusterDeleteComponentTemplateRequest)) (*Response, error)
 
 // ClusterDeleteComponentTemplateRequest configures the Cluster Delete Component Template API request.
 type ClusterDeleteComponentTemplateRequest struct {
-	Name string
+	Name []string
 
 	MasterTimeout time.Duration
 	Timeout       time.Duration
@@ -86,14 +87,18 @@ func (r ClusterDeleteComponentTemplateRequest) Do(providedCtx context.Context, t
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_component_template") + 1 + len(r.Name))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_component_template") + 1 + len(strings.Join(r.Name, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_component_template")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 
 	params = make(map[string]string)

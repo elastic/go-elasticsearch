@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutLlamaFunc(t Transport) InferencePutLlama {
@@ -54,6 +55,8 @@ type InferencePutLlamaRequest struct {
 
 	LlamaInferenceID string
 	TaskType         string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutLlamaRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutLlamaRequest) Do(providedCtx context.Context, transport Tran
 func (f InferencePutLlama) WithContext(v context.Context) func(*InferencePutLlamaRequest) {
 	return func(r *InferencePutLlamaRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutLlama) WithTimeout(v time.Duration) func(*InferencePutLlamaRequest) {
+	return func(r *InferencePutLlamaRequest) {
+		r.Timeout = v
 	}
 }
 
