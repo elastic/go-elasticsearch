@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceChatCompletionUnifiedFunc(t Transport) InferenceChatCompletionUnified {
@@ -53,6 +54,8 @@ type InferenceChatCompletionUnifiedRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 	path.WriteString("_stream")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -183,6 +190,13 @@ func (r InferenceChatCompletionUnifiedRequest) Do(providedCtx context.Context, t
 func (f InferenceChatCompletionUnified) WithContext(v context.Context) func(*InferenceChatCompletionUnifiedRequest) {
 	return func(r *InferenceChatCompletionUnifiedRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceChatCompletionUnified) WithTimeout(v time.Duration) func(*InferenceChatCompletionUnifiedRequest) {
+	return func(r *InferenceChatCompletionUnifiedRequest) {
+		r.Timeout = v
 	}
 }
 

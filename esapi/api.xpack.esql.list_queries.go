@@ -45,6 +45,8 @@ func newEsqlListQueriesFunc(t Transport) EsqlListQueries {
 // EsqlListQueries - Get running ES|QL queries information
 //
 // This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-list-queries.
 type EsqlListQueries func(o ...func(*EsqlListQueriesRequest)) (*Response, error)
 
 // EsqlListQueriesRequest configures the Esql List Queries API request.

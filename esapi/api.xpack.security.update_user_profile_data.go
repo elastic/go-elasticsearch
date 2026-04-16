@@ -55,8 +55,8 @@ type SecurityUpdateUserProfileDataRequest struct {
 
 	UID string
 
-	IfPrimaryTerm *int
-	IfSeqNo       *int
+	IfPrimaryTerm *int64
+	IfSeqNo       *int64
 	Refresh       string
 
 	Pretty     bool
@@ -107,11 +107,11 @@ func (r SecurityUpdateUserProfileDataRequest) Do(providedCtx context.Context, tr
 	params = make(map[string]string)
 
 	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
+		params["if_primary_term"] = strconv.FormatInt(*r.IfPrimaryTerm, 10)
 	}
 
 	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+		params["if_seq_no"] = strconv.FormatInt(*r.IfSeqNo, 10)
 	}
 
 	if r.Refresh != "" {
@@ -204,14 +204,14 @@ func (f SecurityUpdateUserProfileData) WithContext(v context.Context) func(*Secu
 }
 
 // WithIfPrimaryTerm - only perform the update operation if the last operation that has changed the document has the specified primary term.
-func (f SecurityUpdateUserProfileData) WithIfPrimaryTerm(v int) func(*SecurityUpdateUserProfileDataRequest) {
+func (f SecurityUpdateUserProfileData) WithIfPrimaryTerm(v int64) func(*SecurityUpdateUserProfileDataRequest) {
 	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.IfPrimaryTerm = &v
 	}
 }
 
 // WithIfSeqNo - only perform the update operation if the last operation that has changed the document has the specified sequence number.
-func (f SecurityUpdateUserProfileData) WithIfSeqNo(v int) func(*SecurityUpdateUserProfileDataRequest) {
+func (f SecurityUpdateUserProfileData) WithIfSeqNo(v int64) func(*SecurityUpdateUserProfileDataRequest) {
 	return func(r *SecurityUpdateUserProfileDataRequest) {
 		r.IfSeqNo = &v
 	}

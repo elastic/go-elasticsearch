@@ -287,7 +287,7 @@ func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStar
 	}
 }
 
-// WithWaitFor - the allocation status for which to wait.
+// WithWaitFor - specifies the allocation status to wait for before returning..
 func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.WaitFor = v

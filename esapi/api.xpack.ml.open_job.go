@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newMLOpenJobFunc(t Transport) MLOpenJob {
@@ -53,6 +54,8 @@ type MLOpenJobRequest struct {
 	Body io.Reader
 
 	JobID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r MLOpenJobRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("_open")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -190,6 +197,13 @@ func (f MLOpenJob) WithContext(v context.Context) func(*MLOpenJobRequest) {
 func (f MLOpenJob) WithBody(v io.Reader) func(*MLOpenJobRequest) {
 	return func(r *MLOpenJobRequest) {
 		r.Body = v
+	}
+}
+
+// WithTimeout - controls the time to wait until a job has opened..
+func (f MLOpenJob) WithTimeout(v time.Duration) func(*MLOpenJobRequest) {
+	return func(r *MLOpenJobRequest) {
+		r.Timeout = v
 	}
 }
 

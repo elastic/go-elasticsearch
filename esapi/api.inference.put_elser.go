@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutElserFunc(t Transport) InferencePutElser {
@@ -54,6 +55,8 @@ type InferencePutElserRequest struct {
 
 	ElserInferenceID string
 	TaskType         string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutElserRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutElserRequest) Do(providedCtx context.Context, transport Tran
 func (f InferencePutElser) WithContext(v context.Context) func(*InferencePutElserRequest) {
 	return func(r *InferencePutElserRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutElser) WithTimeout(v time.Duration) func(*InferencePutElserRequest) {
+	return func(r *InferencePutElserRequest) {
+		r.Timeout = v
 	}
 }
 

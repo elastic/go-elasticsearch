@@ -45,7 +45,9 @@ func newStreamsStatusFunc(t Transport) StreamsStatus {
 
 // StreamsStatus return the current status of the streams feature for each streams type
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/streams-status.html.
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
 type StreamsStatus func(o ...func(*StreamsStatusRequest)) (*Response, error)
 
 // StreamsStatusRequest configures the Streams Status API request.

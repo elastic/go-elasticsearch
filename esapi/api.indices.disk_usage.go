@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
 )
 
 func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
-	return func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesDiskUsageRequest)) (*Response, error) {
 		var r = IndicesDiskUsageRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -48,11 +49,11 @@ func newIndicesDiskUsageFunc(t Transport) IndicesDiskUsage {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-disk-usage.
-type IndicesDiskUsage func(index string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
+type IndicesDiskUsage func(index []string, o ...func(*IndicesDiskUsageRequest)) (*Response, error)
 
 // IndicesDiskUsageRequest configures the Indices Disk Usage API request.
 type IndicesDiskUsageRequest struct {
-	Index string
+	Index []string
 
 	AllowNoIndices    *bool
 	ExpandWildcards   string
@@ -91,12 +92,16 @@ func (r IndicesDiskUsageRequest) Do(providedCtx context.Context, transport Trans
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_disk_usage"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_disk_usage"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_disk_usage")

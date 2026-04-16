@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +29,7 @@ import (
 )
 
 func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
-	return func(transform_id string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error) {
+	return func(transform_id []string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error) {
 		var r = TransformGetTransformStatsRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
@@ -47,15 +48,15 @@ func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
 // TransformGetTransformStats - Get transform stats
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-get-transform-stats.
-type TransformGetTransformStats func(transform_id string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error)
+type TransformGetTransformStats func(transform_id []string, o ...func(*TransformGetTransformStatsRequest)) (*Response, error)
 
 // TransformGetTransformStatsRequest configures the Transform Get Transform Stats API request.
 type TransformGetTransformStatsRequest struct {
-	TransformID string
+	TransformID []string
 
 	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	From         *int64
+	Size         *int64
 	Timeout      time.Duration
 
 	Pretty     bool
@@ -89,14 +90,18 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_stats"))
+	if len(r.TransformID) == 0 {
+		return nil, errors.New("transform_id is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_transform") + 1 + len(strings.Join(r.TransformID, ",")) + 1 + len("_stats"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_transform")
 	path.WriteString("/")
-	path.WriteString(r.TransformID)
+	path.WriteString(strings.Join(r.TransformID, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
+		instrument.RecordPathPart(ctx, "transform_id", strings.Join(r.TransformID, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_stats")
@@ -108,11 +113,11 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 	}
 
 	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+		params["from"] = strconv.FormatInt(*r.From, 10)
 	}
 
 	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+		params["size"] = strconv.FormatInt(*r.Size, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -205,14 +210,14 @@ func (f TransformGetTransformStats) WithAllowNoMatch(v bool) func(*TransformGetT
 }
 
 // WithFrom - skips a number of transform stats, defaults to 0.
-func (f TransformGetTransformStats) WithFrom(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithFrom(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.From = &v
 	}
 }
 
 // WithSize - specifies a max number of transform stats to get, defaults to 100.
-func (f TransformGetTransformStats) WithSize(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithSize(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.Size = &v
 	}

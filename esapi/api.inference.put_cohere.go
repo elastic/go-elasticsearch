@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutCohereFunc(t Transport) InferencePutCohere {
@@ -54,6 +55,8 @@ type InferencePutCohereRequest struct {
 
 	CohereInferenceID string
 	TaskType          string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutCohereRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutCohereRequest) Do(providedCtx context.Context, transport Tra
 func (f InferencePutCohere) WithContext(v context.Context) func(*InferencePutCohereRequest) {
 	return func(r *InferencePutCohereRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutCohere) WithTimeout(v time.Duration) func(*InferencePutCohereRequest) {
+	return func(r *InferencePutCohereRequest) {
+		r.Timeout = v
 	}
 }
 

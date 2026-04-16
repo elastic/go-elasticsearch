@@ -26,10 +26,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
-	return func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
+	return func(index []string, keep_alive time.Duration, o ...func(*OpenPointInTimeRequest)) (*Response, error) {
 		var r = OpenPointInTimeRequest{Index: index, KeepAlive: keep_alive}
 		for _, f := range o {
 			f(&r)
@@ -48,7 +49,7 @@ func newOpenPointInTimeFunc(t Transport) OpenPointInTime {
 // OpenPointInTime - Open a point in time
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-open-point-in-time.
-type OpenPointInTime func(index []string, keep_alive string, o ...func(*OpenPointInTimeRequest)) (*Response, error)
+type OpenPointInTime func(index []string, keep_alive time.Duration, o ...func(*OpenPointInTimeRequest)) (*Response, error)
 
 // OpenPointInTimeRequest configures the Open Point In Time API request.
 type OpenPointInTimeRequest struct {
@@ -59,7 +60,7 @@ type OpenPointInTimeRequest struct {
 	AllowPartialSearchResults  *bool
 	ExpandWildcards            string
 	IgnoreUnavailable          *bool
-	KeepAlive                  string
+	KeepAlive                  time.Duration
 	MaxConcurrentShardRequests *int
 	Preference                 string
 	ProjectRouting             string
@@ -124,8 +125,8 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.KeepAlive != "" {
-		params["keep_alive"] = r.KeepAlive
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
 	}
 
 	if r.MaxConcurrentShardRequests != nil {
@@ -258,7 +259,7 @@ func (f OpenPointInTime) WithIgnoreUnavailable(v bool) func(*OpenPointInTimeRequ
 }
 
 // WithKeepAlive - specific the time to live for the point in time.
-func (f OpenPointInTime) WithKeepAlive(v string) func(*OpenPointInTimeRequest) {
+func (f OpenPointInTime) WithKeepAlive(v time.Duration) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.KeepAlive = v
 	}

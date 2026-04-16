@@ -21,6 +21,7 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"strconv"
@@ -29,7 +30,7 @@ import (
 )
 
 func newIndicesPutDataStreamMappingsFunc(t Transport) IndicesPutDataStreamMappings {
-	return func(name string, body io.Reader, o ...func(*IndicesPutDataStreamMappingsRequest)) (*Response, error) {
+	return func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamMappingsRequest)) (*Response, error) {
 		var r = IndicesPutDataStreamMappingsRequest{Name: name, Body: body}
 		for _, f := range o {
 			f(&r)
@@ -48,13 +49,13 @@ func newIndicesPutDataStreamMappingsFunc(t Transport) IndicesPutDataStreamMappin
 // IndicesPutDataStreamMappings update data stream mappings
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-data-stream-mappings.
-type IndicesPutDataStreamMappings func(name string, body io.Reader, o ...func(*IndicesPutDataStreamMappingsRequest)) (*Response, error)
+type IndicesPutDataStreamMappings func(name []string, body io.Reader, o ...func(*IndicesPutDataStreamMappingsRequest)) (*Response, error)
 
 // IndicesPutDataStreamMappingsRequest configures the Indices Put Data Stream Mappings API request.
 type IndicesPutDataStreamMappingsRequest struct {
 	Body io.Reader
 
-	Name string
+	Name []string
 
 	DryRun        *bool
 	MasterTimeout time.Duration
@@ -91,14 +92,18 @@ func (r IndicesPutDataStreamMappingsRequest) Do(providedCtx context.Context, tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(r.Name) + 1 + len("_mappings"))
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_mappings"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_data_stream")
 	path.WriteString("/")
-	path.WriteString(r.Name)
+	path.WriteString(strings.Join(r.Name, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", r.Name)
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_mappings")

@@ -57,7 +57,7 @@ type ClusterGetComponentTemplateRequest struct {
 	IncludeDefaults *bool
 	Local           *bool
 	MasterTimeout   time.Duration
-	SettingsFilter  string
+	SettingsFilter  []string
 
 	Pretty     bool
 	Human      bool
@@ -120,8 +120,8 @@ func (r ClusterGetComponentTemplateRequest) Do(providedCtx context.Context, tran
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
-	if r.SettingsFilter != "" {
-		params["settings_filter"] = r.SettingsFilter
+	if len(r.SettingsFilter) > 0 {
+		params["settings_filter"] = strings.Join(r.SettingsFilter, ",")
 	}
 
 	if r.Pretty {
@@ -202,7 +202,7 @@ func (f ClusterGetComponentTemplate) WithContext(v context.Context) func(*Cluste
 	}
 }
 
-// WithName - the comma separated names of the component templates.
+// WithName - the name of the component template. wildcard (`*`) expressions are supported..
 func (f ClusterGetComponentTemplate) WithName(v ...string) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
 		r.Name = v
@@ -238,7 +238,7 @@ func (f ClusterGetComponentTemplate) WithMasterTimeout(v time.Duration) func(*Cl
 }
 
 // WithSettingsFilter - filter out results, for example to filter out sensitive information. supports wildcards or full settings keys.
-func (f ClusterGetComponentTemplate) WithSettingsFilter(v string) func(*ClusterGetComponentTemplateRequest) {
+func (f ClusterGetComponentTemplate) WithSettingsFilter(v ...string) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
 		r.SettingsFilter = v
 	}

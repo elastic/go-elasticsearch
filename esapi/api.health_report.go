@@ -51,7 +51,7 @@ type HealthReport func(o ...func(*HealthReportRequest)) (*Response, error)
 
 // HealthReportRequest configures the Health Report API request.
 type HealthReportRequest struct {
-	Feature string
+	Feature []string
 
 	Size    *int
 	Timeout time.Duration
@@ -88,15 +88,15 @@ func (r HealthReportRequest) Do(providedCtx context.Context, transport Transport
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_health_report") + 1 + len(r.Feature))
+	path.Grow(7 + 1 + len("_health_report") + 1 + len(strings.Join(r.Feature, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_health_report")
-	if r.Feature != "" {
+	if len(r.Feature) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.Feature)
+		path.WriteString(strings.Join(r.Feature, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "feature", r.Feature)
+			instrument.RecordPathPart(ctx, "feature", strings.Join(r.Feature, ","))
 		}
 	}
 
@@ -192,8 +192,8 @@ func (f HealthReport) WithContext(v context.Context) func(*HealthReportRequest) 
 	}
 }
 
-// WithFeature - a feature of the cluster, as returned by the top-level health api.
-func (f HealthReport) WithFeature(v string) func(*HealthReportRequest) {
+// WithFeature - comma-separated list of cluster features, as returned by the top-level health report api..
+func (f HealthReport) WithFeature(v ...string) func(*HealthReportRequest) {
 	return func(r *HealthReportRequest) {
 		r.Feature = v
 	}

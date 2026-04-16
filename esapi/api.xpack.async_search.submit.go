@@ -61,7 +61,7 @@ type AsyncSearchSubmitRequest struct {
 	AllowPartialSearchResults  *bool
 	Analyzer                   string
 	AnalyzeWildcard            *bool
-	BatchedReduceSize          *int
+	BatchedReduceSize          *int64
 	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
@@ -92,9 +92,9 @@ type AsyncSearchSubmitRequest struct {
 	StoredFields               []string
 	SuggestField               string
 	SuggestMode                string
-	SuggestSize                *int
+	SuggestSize                *int64
 	SuggestText                string
-	TerminateAfter             *int
+	TerminateAfter             *int64
 	Timeout                    time.Duration
 	TrackScores                *bool
 	TrackTotalHits             interface{}
@@ -164,7 +164,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.BatchedReduceSize != nil {
-		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
+		params["batched_reduce_size"] = strconv.FormatInt(*r.BatchedReduceSize, 10)
 	}
 
 	if r.CcsMinimizeRoundtrips != nil {
@@ -288,7 +288,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.SuggestSize != nil {
-		params["suggest_size"] = strconv.FormatInt(int64(*r.SuggestSize), 10)
+		params["suggest_size"] = strconv.FormatInt(*r.SuggestSize, 10)
 	}
 
 	if r.SuggestText != "" {
@@ -296,7 +296,7 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -451,7 +451,7 @@ func (f AsyncSearchSubmit) WithAnalyzeWildcard(v bool) func(*AsyncSearchSubmitRe
 }
 
 // WithBatchedReduceSize - the number of shard results that should be reduced at once on the coordinating node. this value should be used as the granularity at which progress results will be made available..
-func (f AsyncSearchSubmit) WithBatchedReduceSize(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithBatchedReduceSize(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.BatchedReduceSize = &v
 	}
@@ -499,7 +499,7 @@ func (f AsyncSearchSubmit) WithExplain(v bool) func(*AsyncSearchSubmitRequest) {
 	}
 }
 
-// WithFrom - starting offset (default: 0).
+// WithFrom - starting offset.
 func (f AsyncSearchSubmit) WithFrom(v int) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.From = &v
@@ -604,7 +604,7 @@ func (f AsyncSearchSubmit) WithSeqNoPrimaryTerm(v bool) func(*AsyncSearchSubmitR
 	}
 }
 
-// WithSize - number of hits to return (default: 10).
+// WithSize - number of hits to return.
 func (f AsyncSearchSubmit) WithSize(v int) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.Size = &v
@@ -668,7 +668,7 @@ func (f AsyncSearchSubmit) WithSuggestMode(v string) func(*AsyncSearchSubmitRequ
 }
 
 // WithSuggestSize - how many suggestions to return in response.
-func (f AsyncSearchSubmit) WithSuggestSize(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithSuggestSize(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.SuggestSize = &v
 	}
@@ -682,7 +682,7 @@ func (f AsyncSearchSubmit) WithSuggestText(v string) func(*AsyncSearchSubmitRequ
 }
 
 // WithTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early..
-func (f AsyncSearchSubmit) WithTerminateAfter(v int) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithTerminateAfter(v int64) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.TerminateAfter = &v
 	}

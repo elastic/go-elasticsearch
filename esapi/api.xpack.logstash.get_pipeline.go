@@ -49,7 +49,7 @@ type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response
 
 // LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
 type LogstashGetPipelineRequest struct {
-	DocumentID string
+	DocumentID []string
 
 	Pretty     bool
 	Human      bool
@@ -82,17 +82,17 @@ func (r LogstashGetPipelineRequest) Do(providedCtx context.Context, transport Tr
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(strings.Join(r.DocumentID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_logstash")
 	path.WriteString("/")
 	path.WriteString("pipeline")
-	if r.DocumentID != "" {
+	if len(r.DocumentID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+		path.WriteString(strings.Join(r.DocumentID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "id", r.DocumentID)
+			instrument.RecordPathPart(ctx, "id", strings.Join(r.DocumentID, ","))
 		}
 	}
 
@@ -176,8 +176,8 @@ func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPip
 	}
 }
 
-// WithDocumentID - a list of pipeline ids.
-func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
+// WithDocumentID - a list of pipeline identifiers..
+func (f LogstashGetPipeline) WithDocumentID(v ...string) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.DocumentID = v
 	}

@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutHuggingFaceFunc(t Transport) InferencePutHuggingFace {
@@ -54,6 +55,8 @@ type InferencePutHuggingFaceRequest struct {
 
 	HuggingfaceInferenceID string
 	TaskType               string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutHuggingFaceRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutHuggingFaceRequest) Do(providedCtx context.Context, transpor
 func (f InferencePutHuggingFace) WithContext(v context.Context) func(*InferencePutHuggingFaceRequest) {
 	return func(r *InferencePutHuggingFaceRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutHuggingFace) WithTimeout(v time.Duration) func(*InferencePutHuggingFaceRequest) {
+	return func(r *InferencePutHuggingFaceRequest) {
+		r.Timeout = v
 	}
 }
 

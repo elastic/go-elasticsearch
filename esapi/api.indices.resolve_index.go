@@ -56,7 +56,7 @@ type IndicesResolveIndexRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	Mode              string
+	Mode              []string
 	ProjectRouting    string
 
 	Pretty     bool
@@ -120,8 +120,8 @@ func (r IndicesResolveIndexRequest) Do(providedCtx context.Context, transport Tr
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.Mode != "" {
-		params["mode"] = r.Mode
+	if len(r.Mode) > 0 {
+		params["mode"] = strings.Join(r.Mode, ",")
 	}
 
 	if r.ProjectRouting != "" {
@@ -228,7 +228,7 @@ func (f IndicesResolveIndex) WithIgnoreUnavailable(v bool) func(*IndicesResolveI
 }
 
 // WithMode - filter indices by index mode. comma-separated list of indexmode. empty means no filter..
-func (f IndicesResolveIndex) WithMode(v string) func(*IndicesResolveIndexRequest) {
+func (f IndicesResolveIndex) WithMode(v ...string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.Mode = v
 	}

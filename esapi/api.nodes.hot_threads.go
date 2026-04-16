@@ -55,9 +55,9 @@ type NodesHotThreadsRequest struct {
 
 	IgnoreIdleThreads *bool
 	Interval          time.Duration
-	Snapshots         *int
+	Snapshots         *int64
 	Sort              string
-	Threads           *int
+	Threads           *int64
 	Timeout           time.Duration
 	DocumentType      string
 
@@ -117,7 +117,7 @@ func (r NodesHotThreadsRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if r.Snapshots != nil {
-		params["snapshots"] = strconv.FormatInt(int64(*r.Snapshots), 10)
+		params["snapshots"] = strconv.FormatInt(*r.Snapshots, 10)
 	}
 
 	if r.Sort != "" {
@@ -125,7 +125,7 @@ func (r NodesHotThreadsRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if r.Threads != nil {
-		params["threads"] = strconv.FormatInt(int64(*r.Threads), 10)
+		params["threads"] = strconv.FormatInt(*r.Threads, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -236,7 +236,7 @@ func (f NodesHotThreads) WithInterval(v time.Duration) func(*NodesHotThreadsRequ
 }
 
 // WithSnapshots - number of samples of thread stacktrace (default: 10).
-func (f NodesHotThreads) WithSnapshots(v int) func(*NodesHotThreadsRequest) {
+func (f NodesHotThreads) WithSnapshots(v int64) func(*NodesHotThreadsRequest) {
 	return func(r *NodesHotThreadsRequest) {
 		r.Snapshots = &v
 	}
@@ -250,7 +250,7 @@ func (f NodesHotThreads) WithSort(v string) func(*NodesHotThreadsRequest) {
 }
 
 // WithThreads - specify the number of threads to provide information for (default: 3).
-func (f NodesHotThreads) WithThreads(v int) func(*NodesHotThreadsRequest) {
+func (f NodesHotThreads) WithThreads(v int64) func(*NodesHotThreadsRequest) {
 	return func(r *NodesHotThreadsRequest) {
 		r.Threads = &v
 	}

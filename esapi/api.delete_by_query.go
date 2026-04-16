@@ -65,10 +65,10 @@ type DeleteByQueryRequest struct {
 	DefaultOperator     string
 	Df                  string
 	ExpandWildcards     string
-	From                *int
+	From                *int64
 	IgnoreUnavailable   *bool
 	Lenient             *bool
-	MaxDocs             *int
+	MaxDocs             *int64
 	Preference          string
 	Query               string
 	Refresh             *bool
@@ -76,13 +76,13 @@ type DeleteByQueryRequest struct {
 	RequestsPerSecond   *int
 	Routing             []string
 	Scroll              time.Duration
-	ScrollSize          *int
+	ScrollSize          *int64
 	SearchTimeout       time.Duration
 	SearchType          string
 	Slices              interface{}
 	Sort                []string
 	Stats               []string
-	TerminateAfter      *int
+	TerminateAfter      *int64
 	Timeout             time.Duration
 	Version             *bool
 	WaitForActiveShards string
@@ -164,7 +164,7 @@ func (r DeleteByQueryRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+		params["from"] = strconv.FormatInt(*r.From, 10)
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -176,7 +176,7 @@ func (r DeleteByQueryRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	if r.MaxDocs != nil {
-		params["max_docs"] = strconv.FormatInt(int64(*r.MaxDocs), 10)
+		params["max_docs"] = strconv.FormatInt(*r.MaxDocs, 10)
 	}
 
 	if r.Preference != "" {
@@ -208,7 +208,7 @@ func (r DeleteByQueryRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	if r.ScrollSize != nil {
-		params["scroll_size"] = strconv.FormatInt(int64(*r.ScrollSize), 10)
+		params["scroll_size"] = strconv.FormatInt(*r.ScrollSize, 10)
 	}
 
 	if r.SearchTimeout != 0 {
@@ -232,7 +232,7 @@ func (r DeleteByQueryRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -386,7 +386,7 @@ func (f DeleteByQuery) WithExpandWildcards(v string) func(*DeleteByQueryRequest)
 }
 
 // WithFrom - starting offset (default: 0).
-func (f DeleteByQuery) WithFrom(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithFrom(v int64) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.From = &v
 	}
@@ -407,7 +407,7 @@ func (f DeleteByQuery) WithLenient(v bool) func(*DeleteByQueryRequest) {
 }
 
 // WithMaxDocs - maximum number of documents to process (default: all documents).
-func (f DeleteByQuery) WithMaxDocs(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithMaxDocs(v int64) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.MaxDocs = &v
 	}
@@ -463,7 +463,7 @@ func (f DeleteByQuery) WithScroll(v time.Duration) func(*DeleteByQueryRequest) {
 }
 
 // WithScrollSize - size on the scroll request powering the delete by query.
-func (f DeleteByQuery) WithScrollSize(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithScrollSize(v int64) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.ScrollSize = &v
 	}
@@ -505,7 +505,7 @@ func (f DeleteByQuery) WithStats(v ...string) func(*DeleteByQueryRequest) {
 }
 
 // WithTerminateAfter - the maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early..
-func (f DeleteByQuery) WithTerminateAfter(v int) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithTerminateAfter(v int64) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.TerminateAfter = &v
 	}

@@ -185,7 +185,7 @@ func (f SQLQuery) WithContext(v context.Context) func(*SQLQueryRequest) {
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - the format for the response.you can also specify a format using the `accept` http header.if you specify both this parameter and the `accept` http header, this parameter takes precedence..
 func (f SQLQuery) WithFormat(v string) func(*SQLQueryRequest) {
 	return func(r *SQLQueryRequest) {
 		r.Format = v

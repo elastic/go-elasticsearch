@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutJinaaiFunc(t Transport) InferencePutJinaai {
@@ -54,6 +55,8 @@ type InferencePutJinaaiRequest struct {
 
 	JinaaiInferenceID string
 	TaskType          string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutJinaaiRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutJinaaiRequest) Do(providedCtx context.Context, transport Tra
 func (f InferencePutJinaai) WithContext(v context.Context) func(*InferencePutJinaaiRequest) {
 	return func(r *InferencePutJinaaiRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutJinaai) WithTimeout(v time.Duration) func(*InferencePutJinaaiRequest) {
+	return func(r *InferencePutJinaaiRequest) {
+		r.Timeout = v
 	}
 }
 

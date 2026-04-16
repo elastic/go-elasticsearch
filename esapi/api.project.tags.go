@@ -44,7 +44,7 @@ func newProjectTagsFunc(t Transport) ProjectTags {
 
 // ProjectTags return tags defined for the project
 //
-// This API is experimental.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-project-tags.
 type ProjectTags func(o ...func(*ProjectTagsRequest)) (*Response, error)
 
 // ProjectTagsRequest configures the Project Tags API request.

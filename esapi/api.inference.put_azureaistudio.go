@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAzureaistudioFunc(t Transport) InferencePutAzureaistudio {
@@ -54,6 +55,8 @@ type InferencePutAzureaistudioRequest struct {
 
 	AzureaistudioInferenceID string
 	TaskType                 string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAzureaistudioRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -185,6 +192,13 @@ func (r InferencePutAzureaistudioRequest) Do(providedCtx context.Context, transp
 func (f InferencePutAzureaistudio) WithContext(v context.Context) func(*InferencePutAzureaistudioRequest) {
 	return func(r *InferencePutAzureaistudioRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAzureaistudio) WithTimeout(v time.Duration) func(*InferencePutAzureaistudioRequest) {
+	return func(r *InferencePutAzureaistudioRequest) {
+		r.Timeout = v
 	}
 }
 

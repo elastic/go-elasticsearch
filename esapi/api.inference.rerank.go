@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceRerankFunc(t Transport) InferenceRerank {
@@ -53,6 +54,8 @@ type InferenceRerankRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r InferenceRerankRequest) Do(providedCtx context.Context, transport Transp
 func (f InferenceRerank) WithContext(v context.Context) func(*InferenceRerankRequest) {
 	return func(r *InferenceRerankRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceRerank) WithTimeout(v time.Duration) func(*InferenceRerankRequest) {
+	return func(r *InferenceRerankRequest) {
+		r.Timeout = v
 	}
 }
 

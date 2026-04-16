@@ -50,7 +50,7 @@ type ShutdownGetNode func(o ...func(*ShutdownGetNodeRequest)) (*Response, error)
 
 // ShutdownGetNodeRequest configures the Shutdown Get Node API request.
 type ShutdownGetNodeRequest struct {
-	NodeID string
+	NodeID []string
 
 	MasterTimeout time.Duration
 
@@ -85,15 +85,15 @@ func (r ShutdownGetNodeRequest) Do(providedCtx context.Context, transport Transp
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_nodes") + 1 + len(r.NodeID) + 1 + len("shutdown"))
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("shutdown"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_nodes")
-	if r.NodeID != "" {
+	if len(r.NodeID) > 0 {
 		path.WriteString("/")
-		path.WriteString(r.NodeID)
+		path.WriteString(strings.Join(r.NodeID, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "node_id", r.NodeID)
+			instrument.RecordPathPart(ctx, "node_id", strings.Join(r.NodeID, ","))
 		}
 	}
 	path.WriteString("/")
@@ -183,8 +183,8 @@ func (f ShutdownGetNode) WithContext(v context.Context) func(*ShutdownGetNodeReq
 	}
 }
 
-// WithNodeID - which node for which to retrieve the shutdown status.
-func (f ShutdownGetNode) WithNodeID(v string) func(*ShutdownGetNodeRequest) {
+// WithNodeID - comma-separated list of nodes for which to retrieve the shutdown status.
+func (f ShutdownGetNode) WithNodeID(v ...string) func(*ShutdownGetNodeRequest) {
 	return func(r *ShutdownGetNodeRequest) {
 		r.NodeID = v
 	}
