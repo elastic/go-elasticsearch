@@ -631,7 +631,13 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 	}
 
 	// Return URL params
-	for _, p := range e.URL.Params {
+	var paramKeys []string
+	for k := range e.URL.Params {
+		paramKeys = append(paramKeys, k)
+	}
+	sort.Strings(paramKeys)
+	for _, k := range paramKeys {
+		p := e.URL.Params[k]
 		if contains(p.Name) {
 			continue
 		}
