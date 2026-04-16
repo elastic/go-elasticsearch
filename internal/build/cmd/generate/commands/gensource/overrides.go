@@ -76,16 +76,26 @@ func init() {
 				Matching: []string{"cluster.stats"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `
+	path.WriteString("http://")
+	rawPath.WriteString("http://")
 	path.Grow(len("/nodes/_cluster/stats/nodes/") + len(strings.Join(r.NodeID, ",")))
 	path.WriteString("/")
+	rawPath.WriteString("/")
 	path.WriteString("_cluster")
+	rawPath.WriteString("_cluster")
 	path.WriteString("/")
+	rawPath.WriteString("/")
 	path.WriteString("stats")
+	rawPath.WriteString("stats")
 	if len(r.NodeID) > 0 {
 		path.WriteString("/")
+		rawPath.WriteString("/")
 		path.WriteString("nodes")
+		rawPath.WriteString("nodes")
 		path.WriteString("/")
+		rawPath.WriteString("/")
 		path.WriteString(strings.Join(r.NodeID, ","))
+		rawPath.WriteString(escapePathPart(strings.Join(r.NodeID, ",")))
 	}
 `
 				},
@@ -94,13 +104,19 @@ func init() {
 				Matching: []string{"indices.put_mapping"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `
+	path.WriteString("http://")
+	rawPath.WriteString("http://")
 	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
 	if len(r.Index) > 0 {
 		path.WriteString("/")
+		rawPath.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
+		rawPath.WriteString(escapePathPart(strings.Join(r.Index, ",")))
 	}
 	path.WriteString("/")
+	rawPath.WriteString("/")
 	path.WriteString("_mapping")
+	rawPath.WriteString("_mapping")
 `
 				},
 			},
@@ -108,8 +124,11 @@ func init() {
 				Matching: []string{"scroll"},
 				Func: func(*Endpoint, ...interface{}) string {
 					return `
+	path.WriteString("http://")
+	rawPath.WriteString("http://")
 	path.Grow(len("/_search/scroll"))
 	path.WriteString("/_search/scroll")
+	rawPath.WriteString("/_search/scroll")
 `
 				},
 			},
