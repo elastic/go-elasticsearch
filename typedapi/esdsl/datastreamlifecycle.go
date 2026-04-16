@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -52,6 +52,12 @@ func (s *_dataStreamLifecycle) Downsampling(downsamplings ...types.DownsamplingR
 	return s
 }
 
+func (s *_dataStreamLifecycle) DownsamplingValues(downsamplingvalues []types.DownsamplingRound) *_dataStreamLifecycle {
+
+	s.v.Downsampling = downsamplingvalues
+	return s
+}
+
 func (s *_dataStreamLifecycle) DownsamplingMethod(downsamplingmethod samplingmethod.SamplingMethod) *_dataStreamLifecycle {
 
 	s.v.DownsamplingMethod = &downsamplingmethod
@@ -61,6 +67,13 @@ func (s *_dataStreamLifecycle) DownsamplingMethod(downsamplingmethod samplingmet
 func (s *_dataStreamLifecycle) Enabled(enabled bool) *_dataStreamLifecycle {
 
 	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_dataStreamLifecycle) FrozenAfter(duration types.DurationVariant) *_dataStreamLifecycle {
+
+	s.v.FrozenAfter = *duration.DurationCaster()
 
 	return s
 }

@@ -16,15 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _customTaskSettings struct {
 	v *types.CustomTaskSettings
@@ -36,10 +32,24 @@ func NewCustomTaskSettings() *_customTaskSettings {
 
 }
 
-func (s *_customTaskSettings) Parameters(parameters json.RawMessage) *_customTaskSettings {
+func (s *_customTaskSettings) Parameters(parameters map[string]types.CustomTaskParameter) *_customTaskSettings {
 
 	s.v.Parameters = parameters
+	return s
+}
 
+func (s *_customTaskSettings) AddParameter(key string, value types.CustomTaskParameterVariant) *_customTaskSettings {
+
+	var tmp map[string]types.CustomTaskParameter
+	if s.v.Parameters == nil {
+		s.v.Parameters = make(map[string]types.CustomTaskParameter)
+	} else {
+		tmp = s.v.Parameters
+	}
+
+	tmp[key] = *value.CustomTaskParameterCaster()
+
+	s.v.Parameters = tmp
 	return s
 }
 

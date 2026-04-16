@@ -44,6 +44,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -90,7 +91,7 @@ func TestClientConfiguration(t *testing.T) {
 	t.Parallel()
 
 	t.Run("With empty", func(t *testing.T) {
-		c, err := NewDefaultClient()
+		c, err := New()
 
 		if err != nil {
 			t.Errorf("Unexpected error: %s", err)
@@ -104,7 +105,7 @@ func TestClientConfiguration(t *testing.T) {
 	})
 
 	t.Run("With URL from Addresses", func(t *testing.T) {
-		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
+		c, err := New(WithAddresses("http://localhost:8080//"))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -120,7 +121,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
@@ -136,7 +137,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}})
+		c, err := New(WithAddresses("http://localhost:8080//"))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -152,7 +153,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="})
+		c, err := New(WithCloudID("foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -165,7 +166,7 @@ func TestClientConfiguration(t *testing.T) {
 	})
 
 	t.Run("With cfg.Addresses and cfg.CloudID", func(t *testing.T) {
-		_, err := NewClient(Config{Addresses: []string{"http://localhost:8080//"}, CloudID: "foo:ABC="})
+		_, err := New(WithAddresses("http://localhost:8080//"), WithCloudID("foo:ABC="))
 		if err == nil {
 			t.Fatalf("Expected error, got: %v", err)
 		}
@@ -180,7 +181,7 @@ func TestClientConfiguration(t *testing.T) {
 
 	t.Run("With CloudID", func(t *testing.T) {
 		// bar.cloud.es.io$abc123$def456
-		c, err := NewClient(Config{CloudID: "foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="})
+		c, err := New(WithCloudID("foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -195,17 +196,17 @@ func TestClientConfiguration(t *testing.T) {
 	t.Run("With invalid CloudID", func(t *testing.T) {
 		var err error
 
-		_, err = NewClient(Config{CloudID: "foo:ZZZ==="})
+		_, err = New(WithCloudID("foo:ZZZ==="))
 		if err == nil {
 			t.Errorf("Expected error for CloudID, got: %v", err)
 		}
 
-		_, err = NewClient(Config{CloudID: "foo:Zm9v"})
+		_, err = New(WithCloudID("foo:Zm9v"))
 		if err == nil {
 			t.Errorf("Expected error for CloudID, got: %v", err)
 		}
 
-		_, err = NewClient(Config{CloudID: "foo:"})
+		_, err = New(WithCloudID("foo:"))
 		if err == nil {
 			t.Errorf("Expected error for CloudID, got: %v", err)
 		}
@@ -213,7 +214,7 @@ func TestClientConfiguration(t *testing.T) {
 
 	t.Run("With invalid URL", func(t *testing.T) {
 		u := ":foo"
-		_, err := NewClient(Config{Addresses: []string{u}})
+		_, err := New(WithAddresses(u))
 
 		if err == nil {
 			t.Errorf("Expected error for URL %q, got %v", u, err)
@@ -224,7 +225,7 @@ func TestClientConfiguration(t *testing.T) {
 		os.Setenv("ELASTICSEARCH_URL", ":foobar")
 		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err == nil {
 			t.Errorf("Expected error, got: %+v", c)
 		}
@@ -233,7 +234,7 @@ func TestClientConfiguration(t *testing.T) {
 
 func TestClientInterface(t *testing.T) {
 	t.Run("Transport", func(t *testing.T) {
-		c, err := NewClient(Config{Transport: &mockTransp{}})
+		c, err := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
 
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
@@ -407,7 +408,7 @@ func TestVersion(t *testing.T) {
 }
 
 func TestClientMetrics(t *testing.T) {
-	c, err := NewClient(Config{EnableMetrics: true})
+	c, err := New(WithTransportOptions(elastictransport.WithMetrics()))
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
 	}
@@ -507,11 +508,11 @@ func TestResponseCheckOnly(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c, err := NewClient(Config{
-				Transport: &mockTransp{RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			c, err := New(WithTransportOptions(
+				elastictransport.WithTransport(&mockTransp{RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
 					return tt.response, tt.requestErr
-				}},
-			})
+				}}),
+			))
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
@@ -539,7 +540,7 @@ func TestProductCheckError(t *testing.T) {
 	}))
 	defer server.Close()
 
-	c, err := NewClient(Config{Addresses: []string{server.URL}, DisableRetry: true})
+	c, err := New(WithAddresses(server.URL), WithTransportOptions(elastictransport.WithDisableRetry()))
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
 	}
@@ -603,13 +604,13 @@ func TestFingerprint(t *testing.T) {
 
 	defer server.Close()
 
-	config := Config{
-		Addresses:    []string{server.URL},
-		DisableRetry: true,
+	baseOpts := []Option{
+		WithAddresses(server.URL),
+		WithTransportOptions(elastictransport.WithDisableRetry()),
 	}
 
 	// Without certificate and authority, client should fail on TLS
-	client, _ := NewClient(config)
+	client, _ := New(baseOpts...)
 	_, err = client.Info()
 
 	if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
@@ -617,8 +618,7 @@ func TestFingerprint(t *testing.T) {
 	}
 
 	// We add the fingerprint of the generated certificate
-	config.CertificateFingerprint = fingerprintHex
-	client, _ = NewClient(config)
+	client, _ = New(append(baseOpts, WithCertificateFingerprint(fingerprintHex))...)
 	res, err := client.Info()
 	if err != nil {
 		t.Fatal(err)
@@ -689,10 +689,8 @@ func TestCompatibilityHeader(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			t.Setenv(esCompatHeader, strconv.FormatBool(test.compatibilityHeader))
 
-			c, err := NewClient(Config{
-				EnableCompatibilityMode: test.configVar,
-				Addresses:               []string{},
-				Transport: &mockTransp{
+			opts := []Option{
+				WithTransportOptions(elastictransport.WithTransport(&mockTransp{
 					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
 						if test.compatibilityHeader {
 							if !reflect.DeepEqual(req.Header["Accept"], test.expectsHeader) {
@@ -716,9 +714,13 @@ func TestCompatibilityHeader(t *testing.T) {
 							Body:       io.NopCloser(strings.NewReader("{}")),
 						}, nil
 					},
-				},
-			})
+				})),
+			}
+			if test.configVar {
+				opts = append(opts, WithCompatibilityMode())
+			}
 
+			c, err := New(opts...)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
@@ -816,7 +818,7 @@ func TestMetaHeader(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -854,7 +856,7 @@ func TestMetaHeader(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		c, err := NewTypedClient(Config{})
+		c, err := NewTyped()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -893,7 +895,7 @@ func TestNewTypedClient(t *testing.T) {
 		t.Fatalf("Unexpected error: %s", err)
 	}
 
-	c, err := NewTypedClient(Config{})
+	c, err := NewTyped()
 	if err != nil {
 		t.Fatalf("Unexpected error: %s", err)
 	}
@@ -908,7 +910,7 @@ func TestNewTypedClient(t *testing.T) {
 		t.Fatal("unexpected tagline")
 	}
 
-	_, err = NewClient(Config{})
+	_, err = New()
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
@@ -940,7 +942,7 @@ func TestContentTypeOverride(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -976,7 +978,7 @@ func TestContentTypeOverride(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -1014,7 +1016,7 @@ func TestContentTypeOverride(t *testing.T) {
 			t.Fatalf("Unexpected error: %s", err)
 		}
 
-		c, err := NewDefaultClient()
+		c, err := New()
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -1253,10 +1255,10 @@ func TestInstrumentation(t *testing.T) {
 				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
-				es, err := NewTypedClient(Config{
-					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
-					Instrumentation: instrument,
-				})
+				es, err := NewTyped(
+					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithInstrumentation(instrument),
+				)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -1298,10 +1300,10 @@ func TestInstrumentation(t *testing.T) {
 				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
-				es, err := NewClient(Config{
-					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
-					Instrumentation: instrument,
-				})
+				es, err := New(
+					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithInstrumentation(instrument),
+				)
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -1352,11 +1354,11 @@ func TestClose(t *testing.T) {
 			return c
 		}},
 		{name: "Client", c: func() closeable {
-			c, _ := NewClient(Config{Transport: &mockTransp{}})
+			c, _ := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
 			return c
 		}},
 		{name: "TypedClient", c: func() closeable {
-			c, _ := NewTypedClient(Config{Transport: &mockTransp{}})
+			c, _ := NewTyped(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
 			return c
 		}},
 	}
@@ -1567,20 +1569,24 @@ func TestIntercepts(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Run("typed client", func(t *testing.T) {
-				es, _ := NewTypedClient(Config{
-					Transport:    &mockTransp{RoundTripFunc: successTp},
-					Interceptors: tt.args.interceptors,
-				})
+				es, _ := NewTyped(
+					WithTransportOptions(
+						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithInterceptors(tt.args.interceptors...),
+					),
+				)
 				_, err := es.Info().Do(context.Background())
 				if (err != nil) != tt.wantErr {
 					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
 				}
 			})
 			t.Run("low-level client", func(t *testing.T) {
-				es, _ := NewClient(Config{
-					Transport:    &mockTransp{RoundTripFunc: successTp},
-					Interceptors: tt.args.interceptors,
-				})
+				es, _ := New(
+					WithTransportOptions(
+						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithInterceptors(tt.args.interceptors...),
+					),
+				)
 				resp, err := es.Info()
 				if (err != nil) != tt.wantErr {
 					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
@@ -1611,4 +1617,182 @@ func (m mockESTransport) Close(ctx context.Context) error {
 		return m.CloseFunc(ctx)
 	}
 	return nil
+}
+
+// ------------- auto draining response body related tests -------------
+
+type readCloser struct {
+	io.Reader
+	closed bool
+}
+
+func (rc *readCloser) Close() error {
+	rc.closed = true
+	return nil
+}
+
+func TestAutoDrainingReader(t *testing.T) {
+	content := strings.NewReader("hello elasticsearch")
+	wrapped := &autoDrainingReader{ReadCloser: &readCloser{Reader: content}}
+	buf := make([]byte, 5)
+	n, err := wrapped.Read(buf)
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 5 {
+		t.Errorf("expected 5 bytes, got %d", n)
+	}
+	if string(buf[:n]) != "hello" {
+		t.Errorf("expected 'hello', got '%s'", string(buf[:n]))
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+}
+
+func TestAutoDrainingReaderDrainsOnClose(t *testing.T) {
+	content := bytes.Buffer{}
+	content.Grow(100)
+	content.Write(make([]byte, 100))
+	wrapped := &autoDrainingReader{
+		ReadCloser: &readCloser{Reader: &content},
+	}
+	n, err := wrapped.Read(make([]byte, 10))
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 10 {
+		t.Errorf("expected 10 bytes, got %d", n)
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+	if content.Len() != 0 {
+		t.Errorf("expected content to be drained, remaining: %d bytes", content.Len())
+	}
+}
+
+func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse (1 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: false,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) != 5 {
+		t.Errorf("Expected connection to not be reused (5 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyWithPartialRead(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 3 {
+		res, err := es.Info()
+		if err != nil {
+			t.Fatalf("Request failed: %v", err)
+		}
+		buf := make([]byte, 10)
+		n, err := res.Body.Read(buf)
+		if err != nil && err != io.EOF {
+			t.Fatalf("Read error: %v", err)
+		}
+		if n == 0 {
+			t.Error("Expected to read some data")
+		}
+		if err := res.Body.Close(); err != nil {
+			t.Fatalf("Close error: %v", err)
+		}
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse after partial read (1 connection), but saw %d", actualConnections)
+	}
 }

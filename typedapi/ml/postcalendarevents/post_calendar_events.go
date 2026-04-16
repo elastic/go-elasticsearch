@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Add scheduled events to the calendar.
 package postcalendarevents
@@ -373,5 +373,14 @@ func (r *PostCalendarEvents) Events(events ...types.CalendarEventVariant) *PostC
 		r.req.Events = append(r.req.Events, *v.CalendarEventCaster())
 
 	}
+	return r
+}
+
+func (r *PostCalendarEvents) EventsValues(eventsvalues []types.CalendarEvent) *PostCalendarEvents {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Events = eventsvalues
 	return r
 }

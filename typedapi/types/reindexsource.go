@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,11 +31,16 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/reindex/types.ts#L69-L113
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/reindex/types.ts#L69-L125
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from. It accepts
 	// a comma-separated list to reindex from multiple sources.
 	Index []string `json:"index"`
+	// ProjectRouting Specifies a subset of projects to target for the search using project
+	// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+	// _alias tag and a single value (possibly wildcarded). Examples:
+	// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The documents to reindex, which is defined with Query DSL.
 	Query *Query `json:"query,omitempty"`
 	// Remote A remote instance of Elasticsearch that you want to index from.
@@ -91,6 +96,11 @@ func (s *ReindexSource) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Index); err != nil {
 					return fmt.Errorf("%s | %w", "Index", err)
 				}
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "query":

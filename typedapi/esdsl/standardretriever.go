@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -58,6 +58,12 @@ func (s *_standardRetriever) SearchAfter(sortresults ...types.FieldValueVariant)
 	return s
 }
 
+func (s *_standardRetriever) SearchAfterValues(sortresultsvalues []types.FieldValue) *_standardRetriever {
+
+	s.v.SearchAfter = sortresultsvalues
+	return s
+}
+
 func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_standardRetriever {
 
 	convertedItems := make([]types.SortCombinations, 0, len(sorts))
@@ -66,6 +72,12 @@ func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_stan
 	}
 	s.v.Sort = convertedItems
 
+	return s
+}
+
+func (s *_standardRetriever) SortValues(sortvalues []types.SortCombinations) *_standardRetriever {
+
+	s.v.Sort = sortvalues
 	return s
 }
 

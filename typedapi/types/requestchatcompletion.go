@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RequestChatCompletion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L25-L97
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L26-L133
 type RequestChatCompletion struct {
 	// MaxCompletionTokens The upper bound limit for the number of tokens that can be generated for a
 	// completion request.
@@ -45,6 +45,43 @@ type RequestChatCompletion struct {
 	// Model The ID of the model to use. By default, the model ID is set to the value
 	// included when creating the inference endpoint.
 	Model *string `json:"model,omitempty"`
+	// Reasoning The reasoning configuration for the completion request. This controls the
+	// model's reasoning process in one of two ways:
+	//
+	//   - By specifying the model’s reasoning effort level with the `effort`
+	//     field.
+	//   - By enabling reasoning with default settings by setting `enabled` field to
+	//     `true`.
+	//
+	// It also includes optional settings to control:
+	//
+	//   - The level of detail in the summary returned in the response with the
+	//     `summary` field.
+	//   - Whether reasoning details are included in the response at all with the
+	//     `exclude` field.
+	//
+	// Example (effort):
+	//
+	//	{
+	//	   "reasoning": {
+	//	       "effort": "high",
+	//	       "summary": "concise",
+	//	       "exclude": false
+	//	   }
+	//	}
+	//
+	// Example (enabled):
+	//
+	//	{
+	//	   "reasoning": {
+	//	       "enabled": true,
+	//	       "summary": "concise",
+	//	       "exclude": false
+	//	   }
+	//	}
+	//
+	// Currently supported only for `elastic` provider.
+	Reasoning *Reasoning `json:"reasoning,omitempty"`
 	// Stop A sequence of strings to control when the model should stop generating
 	// additional tokens.
 	Stop []string `json:"stop,omitempty"`
@@ -140,6 +177,11 @@ func (s *RequestChatCompletion) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Model = &o
+
+		case "reasoning":
+			if err := dec.Decode(&s.Reasoning); err != nil {
+				return fmt.Errorf("%s | %w", "Reasoning", err)
+			}
 
 		case "stop":
 			if err := dec.Decode(&s.Stop); err != nil {

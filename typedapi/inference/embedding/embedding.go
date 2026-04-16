@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Perform dense embedding inference on the service.
 package embedding
@@ -382,7 +382,7 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 //	    "content": {
 //	      "type": "image",
 //	      "format": "base64",
-//	      "value": "data:image/jpg;base64,..."
+//	      "value": "data:image/jpeg;base64,..."
 //	    }
 //	  }
 //
@@ -400,7 +400,7 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 //	    "content": {
 //	      "type": "image",
 //	      "format": "base64",
-//	      "value": "data:image/jpg;base64,..."
+//	      "value": "data:image/jpeg;base64,..."
 //	    }
 //	  }
 //	]

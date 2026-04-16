@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Run a search.
 //
@@ -35,8 +35,7 @@
 // When paging through a large number of documents, it can be helpful to split
 // the search into multiple slices to consume them independently with the
 // `slice` and `pit` properties. By default the splitting is done first on the
-// shards, then locally on each shard. The local splitting partitions the shard
-// into contiguous ranges based on Lucene document IDs.
+// shards, then locally on each shard.
 //
 // For instance if the number of shards is equal to 2 and you request 4 slices,
 // the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -44,8 +43,8 @@
 //
 // IMPORTANT: The same point-in-time ID should be used for all slices. If
 // different PIT IDs are used, slices can overlap and miss documents. This
-// situation can occur because the splitting criterion is based on Lucene
-// document IDs, which are not stable across changes to the index.
+// situation can occur because, by default, the splitting criterion is based on
+// Lucene document IDs, which are not stable across changes to the index.
 package search
 
 import (
@@ -127,8 +126,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // When paging through a large number of documents, it can be helpful to split
 // the search into multiple slices to consume them independently with the
 // `slice` and `pit` properties. By default the splitting is done first on the
-// shards, then locally on each shard. The local splitting partitions the shard
-// into contiguous ranges based on Lucene document IDs.
+// shards, then locally on each shard.
 //
 // For instance if the number of shards is equal to 2 and you request 4 slices,
 // the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
@@ -136,8 +134,8 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 //
 // IMPORTANT: The same point-in-time ID should be used for all slices. If
 // different PIT IDs are used, slices can overlap and miss documents. This
-// situation can occur because the splitting criterion is based on Lucene
-// document IDs, which are not stable across changes to the index.
+// situation can occur because, by default, the splitting criterion is based on
+// Lucene document IDs, which are not stable across changes to the index.
 //
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
 //
@@ -378,11 +376,12 @@ func (r *Search) Index(index string) *Search {
 	return r
 }
 
-// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices. This behavior
-// applies even if the request targets other open indices. For example, a
-// request targeting `foo*,bar*` returns an error if an index starts with `foo`
-// but no index starts with `bar`.
+// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
+// the request returns an error (1) if any wildcard expression (including `_all`
+// and `*`) resolves to zero matching indices or (2) if the complete set of
+// resolved indices, aliases or data streams is empty after all expressions are
+// evaluated. If `true`, index expressions that resolve to no indices are
+// allowed and the request returns an empty result.
 // API name: allow_no_indices
 func (r *Search) AllowNoIndices(allownoindices bool) *Search {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -483,8 +482,10 @@ func (r *Search) IgnoreThrottled(ignorethrottled bool) *Search {
 	return r
 }
 
-// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
-// index.
+// IgnoreUnavailable If `false`, the request returns an error if it targets a concrete
+// (non-wildcarded) index, alias, or data stream that is missing, closed, or
+// otherwise unavailable. If `true`, unavailable concrete targets are silently
+// ignored.
 // API name: ignore_unavailable
 func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -819,6 +820,15 @@ func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *
 	return r
 }
 
+func (r *Search) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.DocvalueFields = docvaluefieldsvalues
+	return r
+}
+
 // If `true`, the request returns detailed information about score computation
 // as part of a hit.
 // API name: explain
@@ -877,6 +887,15 @@ func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
 		r.req.Fields = append(r.req.Fields, *v.FieldAndFormatCaster())
 
 	}
+	return r
+}
+
+func (r *Search) FieldsValues(fieldsvalues []types.FieldAndFormat) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Fields = fieldsvalues
 	return r
 }
 
@@ -1132,6 +1151,15 @@ func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
 	return r
 }
 
+func (r *Search) SearchAfterValues(sortresultsvalues []types.FieldValue) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.SearchAfter = sortresultsvalues
+	return r
+}
+
 // If `true`, the request returns sequence number and primary term of the last
 // modification of each hit.
 // API name: seq_no_primary_term
@@ -1189,6 +1217,15 @@ func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *Search) SortValues(sortvalues []types.SortCombinations) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

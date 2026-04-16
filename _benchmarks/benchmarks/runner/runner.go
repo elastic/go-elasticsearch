@@ -62,7 +62,7 @@ func NewRunner(cfg Config) (*Runner, error) {
 		cfg.NumOperations = 1
 	}
 
-	indexer, _ := esutil.NewBulkIndexer(
+	indexer, err := esutil.NewBulkIndexer(
 		esutil.BulkIndexerConfig{
 			Client:        cfg.ReportClient,
 			Index:         statsIndex,
@@ -71,6 +71,9 @@ func NewRunner(cfg Config) (*Runner, error) {
 			OnError:       func(ctx context.Context, err error) { errs = append(errs, err) },
 		},
 	)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create bulk indexer: %w", err)
+	}
 
 	return &Runner{
 		config:  cfg,

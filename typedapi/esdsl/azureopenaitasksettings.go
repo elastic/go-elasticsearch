@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -30,6 +30,27 @@ func NewAzureOpenAITaskSettings() *_azureOpenAITaskSettings {
 
 	return &_azureOpenAITaskSettings{v: types.NewAzureOpenAITaskSettings()}
 
+}
+
+func (s *_azureOpenAITaskSettings) Headers(headers map[string]string) *_azureOpenAITaskSettings {
+
+	s.v.Headers = headers
+	return s
+}
+
+func (s *_azureOpenAITaskSettings) AddHeader(key string, value string) *_azureOpenAITaskSettings {
+
+	var tmp map[string]string
+	if s.v.Headers == nil {
+		s.v.Headers = make(map[string]string)
+	} else {
+		tmp = s.v.Headers
+	}
+
+	tmp[key] = value
+
+	s.v.Headers = tmp
+	return s
 }
 
 func (s *_azureOpenAITaskSettings) User(user string) *_azureOpenAITaskSettings {

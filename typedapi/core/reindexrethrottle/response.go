@@ -16,19 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package reindexrethrottle
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package reindexrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L31
 type Response struct {
-	Nodes map[string]types.ReindexNode `json:"nodes"`
+	NodeFailures []types.ErrorCause           `json:"node_failures,omitempty"`
+	Nodes        map[string]types.ReindexNode `json:"nodes,omitempty"`
+	TaskFailures []types.TaskFailure          `json:"task_failures,omitempty"`
+	Tasks        types.ReindexTasks           `json:"tasks,omitempty"`
 }
 
 // NewResponse returns a Response
@@ -37,4 +46,62 @@ func NewResponse() *Response {
 		Nodes: make(map[string]types.ReindexNode, 0),
 	}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "node_failures":
+			if err := dec.Decode(&s.NodeFailures); err != nil {
+				return fmt.Errorf("%s | %w", "NodeFailures", err)
+			}
+
+		case "nodes":
+			if s.Nodes == nil {
+				s.Nodes = make(map[string]types.ReindexNode, 0)
+			}
+			if err := dec.Decode(&s.Nodes); err != nil {
+				return fmt.Errorf("%s | %w", "Nodes", err)
+			}
+
+		case "task_failures":
+			if err := dec.Decode(&s.TaskFailures); err != nil {
+				return fmt.Errorf("%s | %w", "TaskFailures", err)
+			}
+
+		case "tasks":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := make(map[string]types.ParentReindexTask, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Tasks", err)
+				}
+				s.Tasks = o
+			case '[':
+				o := []types.ReindexTask{}
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Tasks", err)
+				}
+				s.Tasks = o
+			}
+
+		}
+	}
+	return nil
 }

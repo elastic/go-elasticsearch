@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,26 +31,45 @@ import (
 
 // AzureOpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L888-L931
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L943-L1030
 type AzureOpenAIServiceSettings struct {
-	// ApiKey A valid API key for your Azure OpenAI account. You must specify either
-	// `api_key` or `entra_id`. If you do not provide either or you provide both,
-	// you will receive an error when you try to create your model.
+	// ApiKey A valid API key for your Azure OpenAI account.
 	//
-	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation. The get inference endpoint API does not retrieve your API
-	// key.
+	// IMPORTANT: You must specify either `api_key`, `entra_id`, or `client_secret`.
+	// If you do not provide one or you provide more than one of them, you will
+	// receive an error when you try to create your endpoint.
 	ApiKey *string `json:"api_key,omitempty"`
 	// ApiVersion The Azure API version ID to use. It is recommended to use the latest
 	// supported non-preview version.
 	ApiVersion string `json:"api_version"`
+	// ClientId For OAuth 2.0 authentication using the client credentials grant flow. The
+	// application ID that's assigned to your app.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,
+	// tenant_id, and client_secret together. If one of the fields is missing, you
+	// will receive an error when you try to create your endpoint.
+	ClientId *string `json:"client_id,omitempty"`
+	// ClientSecret For OAuth 2.0 authentication using the client credentials grant flow. The
+	// application secret that you created in the Microsoft app registration portal
+	// for your app.
+	//
+	// IMPORTANT: You must specify either `api_key`, `entra_id`, or `client_secret`.
+	// If you do not provide one or you provide more than one of them, you will
+	// receive an error when you try to create your endpoint.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,
+	// tenant_id, and client_secret together. If one of the fields is missing, you
+	// will receive an error when you try to create your endpoint.
+	ClientSecret *string `json:"client_secret,omitempty"`
 	// DeploymentId The deployment name of your deployed models. Your Azure OpenAI deployments
 	// can be found though the Azure OpenAI Studio portal that is linked to your
 	// subscription.
 	DeploymentId string `json:"deployment_id"`
-	// EntraId A valid Microsoft Entra token. You must specify either `api_key` or
-	// `entra_id`. If you do not provide either or you provide both, you will
-	// receive an error when you try to create your model.
+	// EntraId A valid Microsoft Entra token.
+	//
+	// IMPORTANT: You must specify either `api_key`, `entra_id`, or `client_secret`.
+	// If you do not provide one or you provide more than one of them, you will
+	// receive an error when you try to create your endpoint.
 	EntraId *string `json:"entra_id,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// Azure. The `azureopenai` service sets a default number of requests allowed
@@ -60,6 +79,25 @@ type AzureOpenAIServiceSettings struct {
 	// ResourceName The name of your Azure OpenAI resource. You can find this from the list of
 	// resources in the Azure Portal for your subscription.
 	ResourceName string `json:"resource_name"`
+	// Scopes For OAuth 2.0 authentication using the client credentials grant flow. The
+	// resource identifier (application ID URI) of the resource you want, suffixed
+	// with .default For example:
+	//
+	//	"scopes": [
+	//	  "https://cognitiveservices.azure.com/.default"
+	//	]
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,
+	// tenant_id, and client_secret together. If one of the fields is missing, you
+	// will receive an error when you try to create your endpoint.
+	Scopes []string `json:"scopes,omitempty"`
+	// TenantId For OAuth 2.0 authentication using the client credentials grant flow. The
+	// directory tenant the application plans to operate against.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,
+	// tenant_id, and client_secret together. If one of the fields is missing, you
+	// will receive an error when you try to create your endpoint.
+	TenantId *string `json:"tenant_id,omitempty"`
 }
 
 func (s *AzureOpenAIServiceSettings) UnmarshalJSON(data []byte) error {
@@ -101,6 +139,30 @@ func (s *AzureOpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 			}
 			s.ApiVersion = o
 
+		case "client_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClientId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClientId = &o
+
+		case "client_secret":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClientSecret", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClientSecret = &o
+
 		case "deployment_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -141,6 +203,23 @@ func (s *AzureOpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.ResourceName = o
+
+		case "scopes":
+			if err := dec.Decode(&s.Scopes); err != nil {
+				return fmt.Errorf("%s | %w", "Scopes", err)
+			}
+
+		case "tenant_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "TenantId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.TenantId = &o
 
 		}
 	}

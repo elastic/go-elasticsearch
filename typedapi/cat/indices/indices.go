@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get index information.
 //
@@ -36,6 +36,16 @@
 // internally to power indexing and search. As a result, all document counts
 // include hidden nested documents. To get an accurate count of Elasticsearch
 // documents, use the cat count or count APIs.
+//
+// NOTE: Storage metrics reported by this API reflect the post-compression size
+// of the indices on disk. Because these values are calculated after
+// Elasticsearch compresses the data and processes deletions, they are typically
+// significantly smaller than the raw, uncompressed data volume ingested.
+//
+// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+// uncompressed data volume, not the post-compression metrics reported here. To
+// learn more, refer to [Elasticsearch billing
+// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
 //
 // CAT APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For
@@ -118,6 +128,16 @@ func NewIndicesFunc(tp elastictransport.Interface) NewIndices {
 // internally to power indexing and search. As a result, all document counts
 // include hidden nested documents. To get an accurate count of Elasticsearch
 // documents, use the cat count or count APIs.
+//
+// NOTE: Storage metrics reported by this API reflect the post-compression size
+// of the indices on disk. Because these values are calculated after
+// Elasticsearch compresses the data and processes deletions, they are typically
+// significantly smaller than the raw, uncompressed data volume ingested.
+//
+// IMPORTANT: For Elastic Cloud Serverless, ingest billing is based on the raw,
+// uncompressed data volume, not the post-compression metrics reported here. To
+// learn more, refer to [Elasticsearch billing
+// dimensions](https://www.elastic.co/docs/deploy-manage/cloud-organization/billing/elasticsearch-billing-dimensions).
 //
 // CAT APIs are only intended for human consumption using the command line or
 // Kibana console. They are not intended for use by applications. For

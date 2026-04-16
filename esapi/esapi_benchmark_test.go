@@ -25,6 +25,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
@@ -72,8 +73,9 @@ func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func newFakeClient(b *testing.B) *elasticsearch.Client {
-	cfg := elasticsearch.Config{Transport: &FakeTransport{RoundTripFn: defaultRoundTripFn}}
-	es, err := elasticsearch.NewClient(cfg)
+	es, err := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&FakeTransport{RoundTripFn: defaultRoundTripFn})),
+	)
 
 	if err != nil {
 		b.Fatalf("Unexpected error when creating a client: %s", err)
@@ -83,8 +85,9 @@ func newFakeClient(b *testing.B) *elasticsearch.Client {
 }
 
 func newFakeClientWithError(b *testing.B) *elasticsearch.Client {
-	cfg := elasticsearch.Config{Transport: &FakeTransport{RoundTripFn: errorRoundTripFn}}
-	es, err := elasticsearch.NewClient(cfg)
+	es, err := elasticsearch.New(
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&FakeTransport{RoundTripFn: errorRoundTripFn})),
+	)
 
 	if err != nil {
 		b.Fatalf("Unexpected error when creating a client: %s", err)

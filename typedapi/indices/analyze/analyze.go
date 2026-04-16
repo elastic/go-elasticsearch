@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Get tokens from text analysis.
 //
@@ -425,6 +425,15 @@ func (r *Analyze) CharFilter(charfilters ...types.CharFilterVariant) *Analyze {
 	return r
 }
 
+func (r *Analyze) CharFilterValues(charfiltervalues []types.CharFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.CharFilter = charfiltervalues
+	return r
+}
+
 // If `true`, the response includes token attributes and additional details.
 // API name: explain
 func (r *Analyze) Explain(explain bool) *Analyze {
@@ -464,6 +473,15 @@ func (r *Analyze) Filter(filters ...types.TokenFilterVariant) *Analyze {
 		r.req.Filter = append(r.req.Filter, *v.TokenFilterCaster())
 
 	}
+	return r
+}
+
+func (r *Analyze) FilterValues(filtervalues []types.TokenFilter) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filter = filtervalues
 	return r
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -43,6 +43,12 @@ func (s *_topHitsAggregation) DocvalueFields(docvaluefields ...types.FieldAndFor
 	return s
 }
 
+func (s *_topHitsAggregation) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *_topHitsAggregation {
+
+	s.v.DocvalueFields = docvaluefieldsvalues
+	return s
+}
+
 func (s *_topHitsAggregation) Explain(explain bool) *_topHitsAggregation {
 
 	s.v.Explain = &explain
@@ -57,6 +63,12 @@ func (s *_topHitsAggregation) Fields(fields ...types.FieldAndFormatVariant) *_to
 		s.v.Fields = append(s.v.Fields, *v.FieldAndFormatCaster())
 
 	}
+	return s
+}
+
+func (s *_topHitsAggregation) FieldsValues(fieldsvalues []types.FieldAndFormat) *_topHitsAggregation {
+
+	s.v.Fields = fieldsvalues
 	return s
 }
 
@@ -117,6 +129,12 @@ func (s *_topHitsAggregation) Sort(sorts ...types.SortCombinationsVariant) *_top
 	}
 	s.v.Sort = convertedItems
 
+	return s
+}
+
+func (s *_topHitsAggregation) SortValues(sortvalues []types.SortCombinations) *_topHitsAggregation {
+
+	s.v.Sort = sortvalues
 	return s
 }
 

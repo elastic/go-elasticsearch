@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Count search results.
 //
@@ -348,11 +348,12 @@ func (r *Count) Index(index string) *Count {
 	return r
 }
 
-// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices. This behavior
-// applies even if the request targets other open indices. For example, a
-// request targeting `foo*,bar*` returns an error if an index starts with `foo`
-// but no index starts with `bar`.
+// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
+// the request returns an error (1) if any wildcard expression (including `_all`
+// and `*`) resolves to zero matching indices or (2) if the complete set of
+// resolved indices, aliases or data streams is empty after all expressions are
+// evaluated. If `true`, index expressions that resolve to no indices are
+// allowed and the request returns an empty result.
 // API name: allow_no_indices
 func (r *Count) AllowNoIndices(allownoindices bool) *Count {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -420,8 +421,10 @@ func (r *Count) IgnoreThrottled(ignorethrottled bool) *Count {
 	return r
 }
 
-// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
-// index.
+// IgnoreUnavailable If `false`, the request returns an error if it targets a concrete
+// (non-wildcarded) index, alias, or data stream that is missing, closed, or
+// otherwise unavailable. If `true`, unavailable concrete targets are silently
+// ignored.
 // API name: ignore_unavailable
 func (r *Count) IgnoreUnavailable(ignoreunavailable bool) *Count {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))

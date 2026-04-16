@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Search a vector tile.
 //
@@ -878,6 +878,15 @@ func (r *SearchMvt) Sort(sorts ...types.SortCombinationsVariant) *SearchMvt {
 	}
 	r.req.Sort = convertedItems
 
+	return r
+}
+
+func (r *SearchMvt) SortValues(sortvalues []types.SortCombinations) *SearchMvt {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Sort = sortvalues
 	return r
 }
 

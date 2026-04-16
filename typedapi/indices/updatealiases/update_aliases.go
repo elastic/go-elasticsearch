@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Create or update an alias.
 //
@@ -366,5 +366,14 @@ func (r *UpdateAliases) Actions(actions ...types.IndicesActionVariant) *UpdateAl
 		r.req.Actions = append(r.req.Actions, *v.IndicesActionCaster())
 
 	}
+	return r
+}
+
+func (r *UpdateAliases) ActionsValues(actionsvalues []types.IndicesAction) *UpdateAliases {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Actions = actionsvalues
 	return r
 }

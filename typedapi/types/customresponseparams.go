@@ -16,17 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
-import (
-	"encoding/json"
-)
-
 // CustomResponseParams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1153-L1307
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L1272-L1426
 type CustomResponseParams struct {
 	// JsonParser Specifies the JSON parser that is used to parse the response from the custom
 	// service. Different task types require different json_parser parameters. For
@@ -178,12 +174,14 @@ type CustomResponseParams struct {
 	//	    "completion_result":"$.choices[*].message.content"
 	//	  }
 	//	}
-	JsonParser json.RawMessage `json:"json_parser,omitempty"`
+	JsonParser map[string]string `json:"json_parser"`
 }
 
 // NewCustomResponseParams returns a CustomResponseParams.
 func NewCustomResponseParams() *CustomResponseParams {
-	r := &CustomResponseParams{}
+	r := &CustomResponseParams{
+		JsonParser: make(map[string]string),
+	}
 
 	return r
 }

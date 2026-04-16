@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -50,6 +50,12 @@ func (s *_completionProperty) Contexts(contexts ...types.SuggestContextVariant) 
 		s.v.Contexts = append(s.v.Contexts, *v.SuggestContextCaster())
 
 	}
+	return s
+}
+
+func (s *_completionProperty) ContextsValues(contextsvalues []types.SuggestContext) *_completionProperty {
+
+	s.v.Contexts = contextsvalues
 	return s
 }
 

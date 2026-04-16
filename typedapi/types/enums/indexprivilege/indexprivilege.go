@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Package indexprivilege
 package indexprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/security/_types/Privileges.ts#L388-L430
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/Privileges.ts#L360-L406
 type IndexPrivilege struct {
 	Name string
 }
@@ -39,6 +39,8 @@ var (
 
 	Createindex = IndexPrivilege{"create_index"}
 
+	Createview = IndexPrivilege{"create_view"}
+
 	Crossclusterreplication = IndexPrivilege{"cross_cluster_replication"}
 
 	Crossclusterreplicationinternal = IndexPrivilege{"cross_cluster_replication_internal"}
@@ -46,6 +48,8 @@ var (
 	Delete = IndexPrivilege{"delete"}
 
 	Deleteindex = IndexPrivilege{"delete_index"}
+
+	Deleteview = IndexPrivilege{"delete_view"}
 
 	Index = IndexPrivilege{"index"}
 
@@ -61,6 +65,8 @@ var (
 
 	Manageleaderindex = IndexPrivilege{"manage_leader_index"}
 
+	Manageview = IndexPrivilege{"manage_view"}
+
 	Monitor = IndexPrivilege{"monitor"}
 
 	None = IndexPrivilege{"none"}
@@ -68,6 +74,8 @@ var (
 	Read = IndexPrivilege{"read"}
 
 	Readcrosscluster = IndexPrivilege{"read_cross_cluster"}
+
+	Readviewmetadata = IndexPrivilege{"read_view_metadata"}
 
 	Viewindexmetadata = IndexPrivilege{"view_index_metadata"}
 
@@ -91,6 +99,8 @@ func (i *IndexPrivilege) UnmarshalText(text []byte) error {
 		*i = Createdoc
 	case "create_index":
 		*i = Createindex
+	case "create_view":
+		*i = Createview
 	case "cross_cluster_replication":
 		*i = Crossclusterreplication
 	case "cross_cluster_replication_internal":
@@ -99,6 +109,8 @@ func (i *IndexPrivilege) UnmarshalText(text []byte) error {
 		*i = Delete
 	case "delete_index":
 		*i = Deleteindex
+	case "delete_view":
+		*i = Deleteview
 	case "index":
 		*i = Index
 	case "maintenance":
@@ -113,6 +125,8 @@ func (i *IndexPrivilege) UnmarshalText(text []byte) error {
 		*i = Manageilm
 	case "manage_leader_index":
 		*i = Manageleaderindex
+	case "manage_view":
+		*i = Manageview
 	case "monitor":
 		*i = Monitor
 	case "none":
@@ -121,6 +135,8 @@ func (i *IndexPrivilege) UnmarshalText(text []byte) error {
 		*i = Read
 	case "read_cross_cluster":
 		*i = Readcrosscluster
+	case "read_view_metadata":
+		*i = Readviewmetadata
 	case "view_index_metadata":
 		*i = Viewindexmetadata
 	case "write":

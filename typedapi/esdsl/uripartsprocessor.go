@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -98,6 +98,12 @@ func (s *_uriPartsProcessor) OnFailure(onfailures ...types.ProcessorContainerVar
 		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
 
 	}
+	return s
+}
+
+func (s *_uriPartsProcessor) OnFailureValues(onfailurevalues []types.ProcessorContainer) *_uriPartsProcessor {
+
+	s.v.OnFailure = onfailurevalues
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -35,6 +35,13 @@ func NewReindexSource() *_reindexSource {
 func (s *_reindexSource) Index(indices ...string) *_reindexSource {
 
 	s.v.Index = indices
+
+	return s
+}
+
+func (s *_reindexSource) ProjectRouting(projectrouting string) *_reindexSource {
+
+	s.v.ProjectRouting = &projectrouting
 
 	return s
 }
@@ -82,6 +89,12 @@ func (s *_reindexSource) Sort(sorts ...types.SortCombinationsVariant) *_reindexS
 	}
 	s.v.Sort = convertedItems
 
+	return s
+}
+
+func (s *_reindexSource) SortValues(sortvalues []types.SortCombinations) *_reindexSource {
+
+	s.v.Sort = sortvalues
 	return s
 }
 

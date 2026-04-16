@@ -16,17 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
-import (
-	"encoding/json"
-)
-
 // CustomTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/inference/_types/CommonTypes.ts#L1320-L1334
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L1441-L1455
 type CustomTaskSettings struct {
 	// Parameters Specifies parameters that are required to run the custom service. The
 	// parameters depend on the model your custom service uses. For example:
@@ -37,12 +33,14 @@ type CustomTaskSettings struct {
 	//	    "return_token":true
 	//	  }
 	//	}
-	Parameters json.RawMessage `json:"parameters,omitempty"`
+	Parameters map[string]CustomTaskParameter `json:"parameters,omitempty"`
 }
 
 // NewCustomTaskSettings returns a CustomTaskSettings.
 func NewCustomTaskSettings() *CustomTaskSettings {
-	r := &CustomTaskSettings{}
+	r := &CustomTaskSettings{
+		Parameters: make(map[string]CustomTaskParameter),
+	}
 
 	return r
 }

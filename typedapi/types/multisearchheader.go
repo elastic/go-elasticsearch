@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -35,20 +35,30 @@ import (
 // Contains parameters used to limit or change the subsequent search body
 // request.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/msearch/types.ts#L37-L53
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/msearch/types.ts#L37-L66
 type MultisearchHeader struct {
+	// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
+	// the request returns an error (1) if any wildcard expression (including `_all`
+	// and `*`) resolves to zero matching indices or (2) if the complete set of
+	// resolved indices, aliases or data streams is empty after all expressions are
+	// evaluated. If `true`, index expressions that resolve to no indices are
+	// allowed and the request returns an empty result.
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
 	CcsMinimizeRoundtrips     *bool                           `json:"ccs_minimize_roundtrips,omitempty"`
 	ExpandWildcards           []expandwildcard.ExpandWildcard `json:"expand_wildcards,omitempty"`
 	IgnoreThrottled           *bool                           `json:"ignore_throttled,omitempty"`
-	IgnoreUnavailable         *bool                           `json:"ignore_unavailable,omitempty"`
-	Index                     []string                        `json:"index,omitempty"`
-	Preference                *string                         `json:"preference,omitempty"`
-	ProjectRouting            *string                         `json:"project_routing,omitempty"`
-	RequestCache              *bool                           `json:"request_cache,omitempty"`
-	Routing                   []string                        `json:"routing,omitempty"`
-	SearchType                *searchtype.SearchType          `json:"search_type,omitempty"`
+	// IgnoreUnavailable If `false`, the request returns an error if it targets a concrete
+	// (non-wildcarded) index, alias, or data stream that is missing, closed, or
+	// otherwise unavailable. If `true`, unavailable concrete targets are silently
+	// ignored.
+	IgnoreUnavailable *bool                  `json:"ignore_unavailable,omitempty"`
+	Index             []string               `json:"index,omitempty"`
+	Preference        *string                `json:"preference,omitempty"`
+	ProjectRouting    *string                `json:"project_routing,omitempty"`
+	RequestCache      *bool                  `json:"request_cache,omitempty"`
+	Routing           []string               `json:"routing,omitempty"`
+	SearchType        *searchtype.SearchType `json:"search_type,omitempty"`
 }
 
 func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {

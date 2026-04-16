@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -39,6 +39,12 @@ func (s *_dailySchedule) At(ats ...types.ScheduleTimeOfDayVariant) *_dailySchedu
 		s.v.At = append(s.v.At, *v.ScheduleTimeOfDayCaster())
 
 	}
+	return s
+}
+
+func (s *_dailySchedule) AtValues(atvalues []types.ScheduleTimeOfDay) *_dailySchedule {
+
+	s.v.At = atvalues
 	return s
 }
 

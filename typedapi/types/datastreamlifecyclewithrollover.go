@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // Data stream lifecycle with rollover can be used to display the configuration
 // including the default rollover conditions, if asked.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/indices/_types/DataStreamLifecycle.ts#L53-L64
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/_types/DataStreamLifecycle.ts#L57-L68
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
@@ -52,6 +52,8 @@ type DataStreamLifecycleWithRollover struct {
 	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
 	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
+	// FrozenAfter Only available with feature flag dlm_searchable_snapshots.
+	FrozenAfter Duration `json:"frozen_after,omitempty"`
 	// Rollover The conditions which will trigger the rollover of a backing index as
 	// configured by the cluster setting `cluster.lifecycle.default.rollover`. This
 	// property is an implementation detail and it will only be retrieved when the
@@ -104,6 +106,11 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 				s.Enabled = &v
 			}
 
+		case "frozen_after":
+			if err := dec.Decode(&s.FrozenAfter); err != nil {
+				return fmt.Errorf("%s | %w", "FrozenAfter", err)
+			}
+
 		case "rollover":
 			if err := dec.Decode(&s.Rollover); err != nil {
 				return fmt.Errorf("%s | %w", "Rollover", err)
@@ -119,12 +126,4 @@ func NewDataStreamLifecycleWithRollover() *DataStreamLifecycleWithRollover {
 	r := &DataStreamLifecycleWithRollover{}
 
 	return r
-}
-
-type DataStreamLifecycleWithRolloverVariant interface {
-	DataStreamLifecycleWithRolloverCaster() *DataStreamLifecycleWithRollover
-}
-
-func (s *DataStreamLifecycleWithRollover) DataStreamLifecycleWithRolloverCaster() *DataStreamLifecycleWithRollover {
-	return s
 }

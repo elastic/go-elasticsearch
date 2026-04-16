@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PhraseSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/bc885996c471cc7c2c7d51cba22aab19867672ac/specification/_global/search/_types/suggester.ts#L361-L419
+// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/search/_types/suggester.ts#L354-L408
 type PhraseSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with. Defaults to the search
 	// analyzer of the suggest field.
@@ -77,10 +77,8 @@ type PhraseSuggester struct {
 	// Smoothing The smoothing model used to balance weight between infrequent grams (grams
 	// (shingles) are not existing in the index) and frequent grams (appear at least
 	// once in the index). The default model is Stupid Backoff.
-	Smoothing *SmoothingModelContainer `json:"smoothing,omitempty"`
-	// Text The text/query to provide suggestions for.
-	Text       *string `json:"text,omitempty"`
-	TokenLimit *int    `json:"token_limit,omitempty"`
+	Smoothing  *SmoothingModelContainer `json:"smoothing,omitempty"`
+	TokenLimit *int                     `json:"token_limit,omitempty"`
 }
 
 func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
@@ -256,18 +254,6 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Smoothing); err != nil {
 				return fmt.Errorf("%s | %w", "Smoothing", err)
 			}
-
-		case "text":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Text", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Text = &o
 
 		case "token_limit":
 

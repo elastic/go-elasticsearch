@@ -60,12 +60,12 @@ func main() {
 	authProvider := NewCredentialProvider("user1", "password1")
 
 	// Create an Elasticsearch client with a custom auth interceptor
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{srv.URL()},
-		Interceptors: []elastictransport.InterceptorFunc{
+	es, err := elasticsearch.New(
+		elasticsearch.WithAddresses(srv.URL()),
+		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			DynamicAuthInterceptor(authProvider),
-		},
-	})
+		)),
+	)
 	if err != nil {
 		panic(err)
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 // Send data to an anomaly detection job for analysis.
 //
@@ -151,18 +151,13 @@ func (r *PostData) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if r.raw == nil && r.req != nil {
 
-		for _, elem := range *r.req {
-			data, err := json.Marshal(elem)
-			if err != nil {
-				return nil, err
-			}
-			r.buf.Write(data)
-			r.buf.Write([]byte("\n"))
-		}
+		data, err := json.Marshal(r.req)
 
 		if err != nil {
 			return nil, fmt.Errorf("could not serialise request for PostData: %w", err)
 		}
+
+		r.buf.Write(data)
 
 	}
 
@@ -207,7 +202,7 @@ func (r *PostData) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	if req.Header.Get("Content-Type") == "" {
 		if r.raw != nil {
-			req.Header.Set("Content-Type", "application/vnd.elasticsearch+x-ndjson;compatible-with=9")
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
 		}
 	}
 

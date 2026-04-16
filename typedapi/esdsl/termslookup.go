@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -53,9 +53,9 @@ func (s *_termsLookup) Path(field string) *_termsLookup {
 	return s
 }
 
-func (s *_termsLookup) Routing(routings ...string) *_termsLookup {
+func (s *_termsLookup) Routing(routing string) *_termsLookup {
 
-	s.v.Routing = routings
+	s.v.Routing = &routing
 
 	return s
 }

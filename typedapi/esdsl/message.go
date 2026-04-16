@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -43,6 +43,29 @@ func (s *_message) Content(messagecontent types.MessageContentVariant) *_message
 	return s
 }
 
+func (s *_message) Reasoning(reasoning string) *_message {
+
+	s.v.Reasoning = &reasoning
+
+	return s
+}
+
+func (s *_message) ReasoningDetails(reasoningdetails ...types.ReasoningDetailVariant) *_message {
+
+	for _, v := range reasoningdetails {
+
+		s.v.ReasoningDetails = append(s.v.ReasoningDetails, *v.ReasoningDetailCaster())
+
+	}
+	return s
+}
+
+func (s *_message) ReasoningDetailsValues(reasoningdetailsvalues []types.ReasoningDetail) *_message {
+
+	s.v.ReasoningDetails = reasoningdetailsvalues
+	return s
+}
+
 func (s *_message) Role(role string) *_message {
 
 	s.v.Role = role
@@ -64,6 +87,12 @@ func (s *_message) ToolCalls(toolcalls ...types.ToolCallVariant) *_message {
 		s.v.ToolCalls = append(s.v.ToolCalls, *v.ToolCallCaster())
 
 	}
+	return s
+}
+
+func (s *_message) ToolCallsValues(toolcallsvalues []types.ToolCall) *_message {
+
+	s.v.ToolCalls = toolcallsvalues
 	return s
 }
 

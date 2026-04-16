@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/bc885996c471cc7c2c7d51cba22aab19867672ac
+// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
 
 package esdsl
 
@@ -74,6 +74,12 @@ func (s *_searchRequestBody) DocvalueFields(docvaluefields ...types.FieldAndForm
 	return s
 }
 
+func (s *_searchRequestBody) DocvalueFieldsValues(docvaluefieldsvalues []types.FieldAndFormat) *_searchRequestBody {
+
+	s.v.DocvalueFields = docvaluefieldsvalues
+	return s
+}
+
 func (s *_searchRequestBody) Explain(explain bool) *_searchRequestBody {
 
 	s.v.Explain = &explain
@@ -109,6 +115,12 @@ func (s *_searchRequestBody) Fields(fields ...types.FieldAndFormatVariant) *_sea
 		s.v.Fields = append(s.v.Fields, *v.FieldAndFormatCaster())
 
 	}
+	return s
+}
+
+func (s *_searchRequestBody) FieldsValues(fieldsvalues []types.FieldAndFormat) *_searchRequestBody {
+
+	s.v.Fields = fieldsvalues
 	return s
 }
 
@@ -241,6 +253,12 @@ func (s *_searchRequestBody) SearchAfter(sortresults ...types.FieldValueVariant)
 	return s
 }
 
+func (s *_searchRequestBody) SearchAfterValues(sortresultsvalues []types.FieldValue) *_searchRequestBody {
+
+	s.v.SearchAfter = sortresultsvalues
+	return s
+}
+
 func (s *_searchRequestBody) SeqNoPrimaryTerm(seqnoprimaryterm bool) *_searchRequestBody {
 
 	s.v.SeqNoPrimaryTerm = &seqnoprimaryterm
@@ -270,6 +288,12 @@ func (s *_searchRequestBody) Sort(sorts ...types.SortCombinationsVariant) *_sear
 	}
 	s.v.Sort = convertedItems
 
+	return s
+}
+
+func (s *_searchRequestBody) SortValues(sortvalues []types.SortCombinations) *_searchRequestBody {
+
+	s.v.Sort = sortvalues
 	return s
 }
 
