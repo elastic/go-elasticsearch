@@ -203,7 +203,7 @@ func (f IndicesDelete) WithContext(v context.Context) func(*IndicesDeleteRequest
 	}
 }
 
-// WithAllowNoIndices - ignore if a wildcard expression resolves to no concrete indices (default: false).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f IndicesDelete) WithAllowNoIndices(v bool) func(*IndicesDeleteRequest) {
 	return func(r *IndicesDeleteRequest) {
 		r.AllowNoIndices = &v

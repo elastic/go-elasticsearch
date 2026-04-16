@@ -69,7 +69,7 @@ type CountRequest struct {
 	Preference        string
 	Query             string
 	Routing           []string
-	TerminateAfter    *int
+	TerminateAfter    *int64
 
 	Pretty     bool
 	Human      bool
@@ -169,7 +169,7 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Pretty {
@@ -271,7 +271,7 @@ func (f Count) WithIndex(v ...string) func(*CountRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f Count) WithAllowNoIndices(v bool) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.AllowNoIndices = &v
@@ -363,7 +363,7 @@ func (f Count) WithRouting(v ...string) func(*CountRequest) {
 }
 
 // WithTerminateAfter - the maximum count for each shard, upon reaching which the query execution will terminate early.
-func (f Count) WithTerminateAfter(v int) func(*CountRequest) {
+func (f Count) WithTerminateAfter(v int64) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.TerminateAfter = &v
 	}

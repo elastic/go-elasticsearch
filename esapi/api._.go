@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0 (da34c45): DO NOT EDIT
+// Code generated from specification version 9.4.0 (5f4b64c): DO NOT EDIT
 
 package esapi
 
@@ -631,6 +631,7 @@ type Security struct {
 	ClearCachedRealms           SecurityClearCachedRealms
 	ClearCachedRoles            SecurityClearCachedRoles
 	ClearCachedServiceTokens    SecurityClearCachedServiceTokens
+	CloneAPIKey                 SecurityCloneAPIKey
 	CreateAPIKey                SecurityCreateAPIKey
 	CreateCrossClusterAPIKey    SecurityCreateCrossClusterAPIKey
 	CreateServiceToken          SecurityCreateServiceToken
@@ -1280,6 +1281,7 @@ func New(t Transport) *API {
 			ClearCachedRealms:           newSecurityClearCachedRealmsFunc(t),
 			ClearCachedRoles:            newSecurityClearCachedRolesFunc(t),
 			ClearCachedServiceTokens:    newSecurityClearCachedServiceTokensFunc(t),
+			CloneAPIKey:                 newSecurityCloneAPIKeyFunc(t),
 			CreateAPIKey:                newSecurityCreateAPIKeyFunc(t),
 			CreateCrossClusterAPIKey:    newSecurityCreateCrossClusterAPIKeyFunc(t),
 			CreateServiceToken:          newSecurityCreateServiceTokenFunc(t),

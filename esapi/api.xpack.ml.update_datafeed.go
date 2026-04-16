@@ -208,7 +208,7 @@ func (f MLUpdateDatafeed) WithContext(v context.Context) func(*MLUpdateDatafeedR
 	}
 }
 
-// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f MLUpdateDatafeed) WithAllowNoIndices(v bool) func(*MLUpdateDatafeedRequest) {
 	return func(r *MLUpdateDatafeedRequest) {
 		r.AllowNoIndices = &v
