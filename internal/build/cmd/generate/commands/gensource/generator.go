@@ -362,6 +362,8 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 			b.WriteString(`v bool`)
 		case "*int":
 			b.WriteString(`v int`)
+		case "*int64":
+			b.WriteString(`v int64`)
 		case "[]string":
 			b.WriteString(`v ...string`)
 		default:
@@ -374,7 +376,7 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 		switch pGoType {
 		case "bool":
 			b.WriteString("\t\t" + `r.` + pFieldName + ` = true`)
-		case "*bool", "*int":
+		case "*bool", "*int", "*int64":
 			b.WriteString("\t\t" + `r.` + pFieldName + ` = &v`)
 		default:
 			b.WriteString("\t\t" + `r.` + pFieldName + ` = v`)
@@ -675,10 +677,10 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							}` + "\n")
 						case "long":
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
-							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
-							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
+							pathGrow.WriteString(`len(strconv.FormatInt(*r.` + p + `, 10)) + `)
+							pathContent.WriteString(`	path.WriteString(strconv.FormatInt(*r.` + p + `, 10))` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
-								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
+								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.FormatInt(*r.` + p + `, 10))
 							}` + "\n")
 						default:
 							panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL part %q\n", g.Endpoint.Name, a.Type, a.Name))
@@ -800,6 +802,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 			case "*int":
 				fieldCondition = `r.` + fieldName + ` != nil`
 				fieldValue = `strconv.FormatInt(int64(*r.` + fieldName + `), 10)`
+			case "*int64":
+				fieldCondition = `r.` + fieldName + ` != nil`
+				fieldValue = `strconv.FormatInt(*r.` + fieldName + `, 10)`
 			case "uint":
 				fieldCondition = `r.` + fieldName + ` != 0`
 				fieldValue = `strconv.FormatUint(uint64(r.` + fieldName + `), 10)`
