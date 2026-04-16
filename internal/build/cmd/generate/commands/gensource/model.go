@@ -451,10 +451,7 @@ type Path struct {
 	Path       string           `json:"path"`
 	Methods    []string         `json:"methods"`
 	Parts      map[string]*Part `json:"parts"`
-	Deprecated struct {
-		Version     string `json:"version"`
-		Description string `json:"description"`
-	}
+	Deprecated Deprecation      `json:"deprecated"`
 }
 
 // Part represents part of the API endpoint URL.
@@ -468,10 +465,28 @@ type Part struct {
 	Description string `json:"description"`
 	Required    bool   `json:"required"`
 
-	Deprecated struct {
-		Version     string `json:"version"`
-		Description string `json:"description"`
+	Deprecated Deprecation `json:"deprecated"`
+}
+
+// Deprecation captures the deprecation state of a Part or Path. Specs express
+// this either as an object with version/description fields or as a bare bool;
+// both forms unmarshal here, with the bool form yielding an empty Version.
+type Deprecation struct {
+	Version     string `json:"version"`
+	Description string `json:"description"`
+}
+
+// UnmarshalJSON accepts either an object ({version, description}) or a bare
+// bool. A bool leaves Version and Description empty, matching the "deprecated
+// but no metadata" case; the existing Version != "" guards then treat it as
+// non-skippable, preserving prior behavior for object-form specs.
+func (d *Deprecation) UnmarshalJSON(data []byte) error {
+	var b bool
+	if err := json.Unmarshal(data, &b); err == nil {
+		return nil
 	}
+	type alias Deprecation
+	return json.Unmarshal(data, (*alias)(d))
 }
 
 // Param represents API endpoint parameter.
