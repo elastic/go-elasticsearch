@@ -1294,6 +1294,24 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				}
 				panic(fmt.Sprintf(` + "`" + `Unexpected type %T for ` + v.(string) + "`" + `, ` + v.(string) + `))
 			}()`
+					case "*int64":
+						value = `func() *int64 {
+				switch ` + v.(string) + `.(type) {
+				case int:
+					v := int64(` + v.(string) + `.(int))
+					return &v
+				case int64:
+					v := ` + v.(string) + `.(int64)
+					return &v
+				case float64:
+					v := int64(` + v.(string) + `.(float64))
+					return &v
+				case json.Number:
+					v, _ := ` + v.(string) + `.(encjson.Number).Int64()
+					return &v
+				}
+				panic(fmt.Sprintf(` + "`" + `Unexpected type %T for ` + v.(string) + "`" + `, ` + v.(string) + `))
+			}()`
 					case "time.Duration":
 						value = `fmt.Sprintf("%d", ` + v.(string) + `)`
 					default:
@@ -1359,6 +1377,17 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				case float64:
 					if vv, ok := v.(float64); ok {
 						g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", int(vv)) + `)`)
+					}
+				default:
+					panic(fmt.Sprintf("Unexpected type [%T] for [%s]", v, k))
+				}
+			case "*int64":
+				switch v.(type) {
+				case int:
+					g.w(`esapi.Int64Ptr(` + fmt.Sprintf("%d", v) + `)`)
+				case float64:
+					if vv, ok := v.(float64); ok {
+						g.w(`esapi.Int64Ptr(` + fmt.Sprintf("%d", int64(vv)) + `)`)
 					}
 				default:
 					panic(fmt.Sprintf("Unexpected type [%T] for [%s]", v, k))
