@@ -81,10 +81,7 @@ func TestBase64BulkIndexing(t *testing.T) {
 
 	if envURL, ok := os.LookupEnv("ELASTICSEARCH_URL"); ok && envURL != "" {
 		t.Logf("ELASTICSEARCH_URL is set, using external Elasticsearch at %s", envURL)
-		// Create a config that will make the client pick addresses from the environment.
-		cfg := elasticsearch.Config{}
-		cfg.CompressRequestBody = false
-		esClient, err = elasticsearch.NewTypedClient(cfg)
+		esClient, err = elasticsearch.NewTyped()
 		if err != nil {
 			t.Fatalf("Error creating the client from environment: %s", err)
 		}
@@ -100,9 +97,7 @@ func TestBase64BulkIndexing(t *testing.T) {
 			}
 		}()
 
-		cfg := elasticsearchSrv.ESConfig()
-		cfg.CompressRequestBody = false
-		esClient, err = elasticsearch.NewTypedClient(cfg)
+		esClient, err = elasticsearch.NewTyped(elasticsearchSrv.ESOptions()...)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s", err)
 		}

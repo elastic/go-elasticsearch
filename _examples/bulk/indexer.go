@@ -35,13 +35,13 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
-	"sync"
 	"sync/atomic"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/dustin/go-humanize"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
@@ -97,7 +97,6 @@ func main() {
 	//
 	// Use a third-party package for implementing the backoff function
 	//
-	var retryBackoffMu sync.Mutex
 	retryBackoff := backoff.NewExponentialBackOff()
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -108,26 +107,22 @@ func main() {
 	// NOTE: For optimal performance, consider using a third-party HTTP transport package.
 	//       See an example in the "benchmarks" folder.
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		// Retry on 429 TooManyRequests statuses
+	es, err := elasticsearch.New(
+		// Retry on 429 TooManyRequests statuses, up to 5 attempts
 		//
-		RetryOnStatus: []int{502, 503, 504, 429},
+		elasticsearch.WithRetry(5, 502, 503, 504, 429),
 
 		// Configure the backoff function
 		//
-		RetryBackoff: func(i int) time.Duration {
-			retryBackoffMu.Lock()
-			defer retryBackoffMu.Unlock()
-			if i == 1 {
-				retryBackoff.Reset()
-			}
-			return retryBackoff.NextBackOff()
-		},
-
-		// Retry up to 5 attempts
-		//
-		MaxRetries: 5,
-	})
+		elasticsearch.WithTransportOptions(
+			elastictransport.WithRetryBackoff(func(i int) time.Duration {
+				if i == 1 {
+					retryBackoff.Reset()
+				}
+				return retryBackoff.NextBackOff()
+			}),
+		),
+	)
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}

@@ -7,6 +7,7 @@ toolchain go1.25.9
 replace github.com/elastic/go-elasticsearch/v9 => ../..
 
 require (
+	github.com/elastic/elastic-transport-go/v8 v8.9.0
 	github.com/elastic/go-elasticsearch/v9 v9.0.0-00010101000000-000000000000
 	github.com/rs/zerolog v1.11.0
 	github.com/spf13/cobra v0.0.3
@@ -14,7 +15,6 @@ require (
 )
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.9.0 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect

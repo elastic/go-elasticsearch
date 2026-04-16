@@ -37,6 +37,7 @@ import (
 
 	"github.com/dustin/go-humanize"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
 
@@ -122,15 +123,16 @@ func main() {
 
 	// Create an Elasticsearch client
 	//
-	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		RetryOnStatus: []int{502, 503, 504, 429}, // Add 429 to the list of retryable statuses
-		RetryBackoff:  func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond },
-		MaxRetries:    5,
-		EnableMetrics: true,
-		Transport:     apmelasticsearch.WrapRoundTripper(http.DefaultTransport),
-	})
+	es, err := elasticsearch.New(
+		elasticsearch.WithRetry(5, 502, 503, 504, 429),
+		elasticsearch.WithTransportOptions(
+			elastictransport.WithRetryBackoff(func(i int) time.Duration { return time.Duration(i) * 100 * time.Millisecond }),
+			elastictransport.WithMetrics(),
+			elastictransport.WithTransport(apmelasticsearch.WrapRoundTripper(http.DefaultTransport)),
+		),
+	)
 	if err != nil {
-		log.Fatalf("Error: NewClient(): %s", err)
+		log.Fatalf("Error creating client: %s", err)
 	}
 	// Export client metrics to the "expvar" package
 	expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} { m, _ := es.Metrics(); return m }))

@@ -22,6 +22,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -78,6 +79,10 @@ func init() {
 }
 
 // Config represents the client configuration.
+//
+// Deprecated: Use [New] or [NewTyped] with [Option] values instead.
+// Config and the legacy constructors remain fully functional for backwards
+// compatibility.
 type Config struct {
 	Addresses []string // A list of Elasticsearch nodes to use.
 	Username  string   // Username for HTTP Basic Authentication.
@@ -112,6 +117,13 @@ type Config struct {
 	EnableCompatibilityMode bool // Enable sends compatibility header
 
 	DisableMetaHeader bool // Disable the additional "X-Elastic-Client-Meta" HTTP header.
+
+	// AutoDrainBody enables automatic draining of the response body on Close.
+	// When enabled, calling Close on the response body will automatically read
+	// and discard any remaining data before closing the underlying connection.
+	// This allows HTTP connection reuse even if the full response body is not read.
+	// Default: false.
+	AutoDrainBody bool
 
 	RetryBackoff func(attempt int) time.Duration // Optional backoff duration. Default: nil.
 
@@ -154,6 +166,7 @@ type BaseClient struct {
 	metaHeader          string
 	compatibilityHeader bool
 
+	autoDrainBody       bool
 	disableMetaHeader   bool
 	productCheckMu      sync.RWMutex
 	productCheckSuccess bool
@@ -174,6 +187,8 @@ type TypedClient struct {
 }
 
 // NewBaseClient creates a new client free of any API.
+//
+// Deprecated: Use [NewBase] with [Option] values instead.
 func NewBaseClient(cfg Config) (*BaseClient, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -188,6 +203,7 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 		disableMetaHeader:   cfg.DisableMetaHeader,
 		metaHeader:          initMetaHeader(tp),
 		compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+		autoDrainBody:       cfg.AutoDrainBody,
 	}
 
 	if cfg.DiscoverNodesOnStart {
@@ -203,6 +219,8 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 //
 // It will use the ELASTICSEARCH_URL environment variable, if set,
 // to configure the addresses; use a comma to separate multiple URLs.
+//
+// Deprecated: Use [New] with no arguments instead.
 func NewDefaultClient() (*Client, error) {
 	return NewClient(Config{})
 }
@@ -218,6 +236,8 @@ func NewDefaultClient() (*Client, error) {
 // environment variable is ignored.
 //
 // It's an error to set both cfg.Addresses and cfg.CloudID.
+//
+// Deprecated: Use [New] with [Option] values instead.
 func NewClient(cfg Config) (*Client, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -233,6 +253,7 @@ func NewClient(cfg Config) (*Client, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          initMetaHeader(tp),
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			autoDrainBody:       cfg.AutoDrainBody,
 		},
 	}
 	client.API = esapi.New(client)
@@ -249,6 +270,8 @@ func NewClient(cfg Config) (*Client, error) {
 // This version uses the same configuration as NewClient.
 //
 // It will return the client with the TypedAPI.
+//
+// Deprecated: Use [NewTyped] with [Option] values instead.
 func NewTypedClient(cfg Config) (*TypedClient, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -266,6 +289,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          metaHeader,
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			autoDrainBody:       cfg.AutoDrainBody,
 		},
 	}
 	client.MethodAPI = typedapi.NewMethodAPI(client)
@@ -297,6 +321,7 @@ func New(opts ...Option) (*Client, error) {
 			disableMetaHeader:   ro.disableMetaHeader,
 			metaHeader:          ro.metaHeader,
 			compatibilityHeader: ro.compatibilityHeader,
+			autoDrainBody:       ro.autoDrainBody,
 		},
 	}
 	client.API = esapi.New(client)
@@ -327,6 +352,7 @@ func NewBase(opts ...Option) (*BaseClient, error) {
 		disableMetaHeader:   ro.disableMetaHeader,
 		metaHeader:          ro.metaHeader,
 		compatibilityHeader: ro.compatibilityHeader,
+		autoDrainBody:       ro.autoDrainBody,
 	}
 	if ro.discoverNodesOnStart {
 		go func() { _ = client.DiscoverNodes() }()
@@ -354,6 +380,7 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 			disableMetaHeader:   ro.disableMetaHeader,
 			metaHeader:          ro.metaHeader,
 			compatibilityHeader: ro.compatibilityHeader,
+			autoDrainBody:       ro.autoDrainBody,
 		},
 	}
 	client.MethodAPI = typedapi.NewMethodAPI(client)
@@ -399,6 +426,11 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		urls = append(urls, u)
 	}
 
+	opts := []elastictransport.Option{
+		elastictransport.WithUserAgent(userAgent),
+		elastictransport.WithURLs(urls...),
+	}
+
 	// TODO(karmi): Refactor
 	if urls[0].User != nil {
 		cfg.Username = urls[0].User.Username()
@@ -406,44 +438,70 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		cfg.Password = pw
 	}
 
-	tpConfig := elastictransport.Config{
-		UserAgent: userAgent,
-
-		URLs:                   urls,
-		Username:               cfg.Username,
-		Password:               cfg.Password,
-		APIKey:                 cfg.APIKey,
-		ServiceToken:           cfg.ServiceToken,
-		CertificateFingerprint: cfg.CertificateFingerprint,
-
-		Header: cfg.Header,
-		CACert: cfg.CACert,
-
-		RetryOnStatus: cfg.RetryOnStatus,
-		DisableRetry:  cfg.DisableRetry,
-		RetryOnError:  cfg.RetryOnError,
-		MaxRetries:    cfg.MaxRetries,
-		RetryBackoff:  cfg.RetryBackoff,
-
-		CompressRequestBody:      cfg.CompressRequestBody,
-		CompressRequestBodyLevel: cfg.CompressRequestBodyLevel,
-		PoolCompressor:           cfg.PoolCompressor,
-
-		EnableMetrics:     cfg.EnableMetrics,
-		EnableDebugLogger: cfg.EnableDebugLogger,
-
-		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
-
-		Transport:          cfg.Transport,
-		Logger:             cfg.Logger,
-		Selector:           cfg.Selector,
-		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
-
-		Instrumentation: cfg.Instrumentation,
-		Interceptors:    cfg.Interceptors,
+	if cfg.APIKey != "" {
+		opts = append(opts, elastictransport.WithAPIKey(cfg.APIKey))
+	} else if cfg.Username != "" || cfg.Password != "" {
+		opts = append(opts, elastictransport.WithBasicAuth(cfg.Username, cfg.Password))
+	}
+	if cfg.ServiceToken != "" {
+		opts = append(opts, elastictransport.WithServiceToken(cfg.ServiceToken))
+	}
+	if cfg.CertificateFingerprint != "" {
+		opts = append(opts, elastictransport.WithCertificateFingerprint(cfg.CertificateFingerprint))
+	}
+	if cfg.Header != nil {
+		opts = append(opts, elastictransport.WithHeader(cfg.Header))
+	}
+	if len(cfg.CACert) > 0 {
+		opts = append(opts, elastictransport.WithCACert(cfg.CACert))
+	}
+	if len(cfg.RetryOnStatus) > 0 {
+		opts = append(opts, elastictransport.WithRetryOnStatus(cfg.RetryOnStatus...))
+	}
+	if cfg.DisableRetry {
+		opts = append(opts, elastictransport.WithDisableRetry())
+	}
+	if cfg.RetryOnError != nil {
+		opts = append(opts, elastictransport.WithRetryOnError(cfg.RetryOnError))
+	}
+	if cfg.MaxRetries > 0 {
+		opts = append(opts, elastictransport.WithMaxRetries(cfg.MaxRetries))
+	}
+	if cfg.RetryBackoff != nil {
+		opts = append(opts, elastictransport.WithRetryBackoff(cfg.RetryBackoff))
+	}
+	if cfg.CompressRequestBody {
+		opts = append(opts, elastictransport.WithCompression(cfg.CompressRequestBodyLevel))
+	}
+	if cfg.EnableMetrics {
+		opts = append(opts, elastictransport.WithMetrics())
+	}
+	if cfg.EnableDebugLogger {
+		opts = append(opts, elastictransport.WithDebugLogger())
+	}
+	if cfg.DiscoverNodesInterval > 0 {
+		opts = append(opts, elastictransport.WithDiscoverNodesInterval(cfg.DiscoverNodesInterval))
+	}
+	if cfg.Transport != nil {
+		opts = append(opts, elastictransport.WithTransport(cfg.Transport))
+	}
+	if cfg.Logger != nil {
+		opts = append(opts, elastictransport.WithLogger(cfg.Logger))
+	}
+	if cfg.Selector != nil {
+		opts = append(opts, elastictransport.WithSelector(cfg.Selector))
+	}
+	if cfg.ConnectionPoolFunc != nil {
+		opts = append(opts, elastictransport.WithConnectionPoolFunc(cfg.ConnectionPoolFunc))
+	}
+	if cfg.Instrumentation != nil {
+		opts = append(opts, elastictransport.WithInstrumentation(cfg.Instrumentation))
+	}
+	if len(cfg.Interceptors) > 0 {
+		opts = append(opts, elastictransport.WithInterceptors(cfg.Interceptors...))
 	}
 
-	tp, err := elastictransport.New(tpConfig)
+	tp, err := elastictransport.NewClient(opts...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
@@ -480,6 +538,11 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	res, err := c.Transport.Perform(req)
 	if err != nil {
 		return nil, err
+	}
+
+	// Wrap the response body with auto-draining reader if enabled
+	if c.autoDrainBody && res.Body != nil {
+		res.Body = &autoDrainingReader{res.Body}
 	}
 
 	// ResponseCheck, we run the header check on the first answer from ES.
@@ -730,4 +793,15 @@ func buildStrippedVersion(version string) string {
 	}
 
 	return "0.0p"
+}
+
+const autoDrainingMaxBytes = 512 * 1024
+
+type autoDrainingReader struct {
+	io.ReadCloser
+}
+
+func (a *autoDrainingReader) Close() error {
+	_, _ = io.Copy(io.Discard, io.LimitReader(a.ReadCloser, autoDrainingMaxBytes))
+	return a.ReadCloser.Close()
 }
