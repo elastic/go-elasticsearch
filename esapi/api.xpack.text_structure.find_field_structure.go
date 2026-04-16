@@ -28,8 +28,8 @@ import (
 )
 
 func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldStructure {
-	return func(index string, field string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
-		var r = TextStructureFindFieldStructureRequest{Index: index, Field: field}
+	return func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
+		var r = TextStructureFindFieldStructureRequest{Field: field, Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldS
 // TextStructureFindFieldStructure - Find the structure of a text field
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-text_structure.
-type TextStructureFindFieldStructure func(index string, field string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error)
+type TextStructureFindFieldStructure func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error)
 
 // TextStructureFindFieldStructureRequest configures the Text Structure Find Field Structure API request.
 type TextStructureFindFieldStructureRequest struct {

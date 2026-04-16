@@ -65,7 +65,7 @@ type MtermvectorsRequest struct {
 	Realtime        *bool
 	Routing         []string
 	TermStatistics  *bool
-	Version         *int
+	Version         *int64
 	VersionType     string
 
 	Pretty     bool
@@ -154,7 +154,7 @@ func (r MtermvectorsRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -331,7 +331,7 @@ func (f Mtermvectors) WithTermStatistics(v bool) func(*MtermvectorsRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f Mtermvectors) WithVersion(v int) func(*MtermvectorsRequest) {
+func (f Mtermvectors) WithVersion(v int64) func(*MtermvectorsRequest) {
 	return func(r *MtermvectorsRequest) {
 		r.Version = &v
 	}

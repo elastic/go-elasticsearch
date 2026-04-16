@@ -192,7 +192,7 @@ func (f ClusterPutSettings) WithContext(v context.Context) func(*ClusterPutSetti
 	}
 }
 
-// WithFlatSettings - return settings in flat format (default: false).
+// WithFlatSettings - return settings in flat format.
 func (f ClusterPutSettings) WithFlatSettings(v bool) func(*ClusterPutSettingsRequest) {
 	return func(r *ClusterPutSettingsRequest) {
 		r.FlatSettings = &v
