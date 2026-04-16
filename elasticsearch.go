@@ -414,6 +414,11 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		urls = append(urls, u)
 	}
 
+	opts := []elastictransport.Option{
+		elastictransport.WithUserAgent(userAgent),
+		elastictransport.WithURLs(urls...),
+	}
+
 	// TODO(karmi): Refactor
 	if urls[0].User != nil {
 		cfg.Username = urls[0].User.Username()
@@ -421,44 +426,70 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		cfg.Password = pw
 	}
 
-	tpConfig := elastictransport.Config{
-		UserAgent: userAgent,
-
-		URLs:                   urls,
-		Username:               cfg.Username,
-		Password:               cfg.Password,
-		APIKey:                 cfg.APIKey,
-		ServiceToken:           cfg.ServiceToken,
-		CertificateFingerprint: cfg.CertificateFingerprint,
-
-		Header: cfg.Header,
-		CACert: cfg.CACert,
-
-		RetryOnStatus: cfg.RetryOnStatus,
-		DisableRetry:  cfg.DisableRetry,
-		RetryOnError:  cfg.RetryOnError,
-		MaxRetries:    cfg.MaxRetries,
-		RetryBackoff:  cfg.RetryBackoff,
-
-		CompressRequestBody:      cfg.CompressRequestBody,
-		CompressRequestBodyLevel: cfg.CompressRequestBodyLevel,
-		PoolCompressor:           cfg.PoolCompressor,
-
-		EnableMetrics:     cfg.EnableMetrics,
-		EnableDebugLogger: cfg.EnableDebugLogger,
-
-		DiscoverNodesInterval: cfg.DiscoverNodesInterval,
-
-		Transport:          cfg.Transport,
-		Logger:             cfg.Logger,
-		Selector:           cfg.Selector,
-		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
-
-		Instrumentation: cfg.Instrumentation,
-		Interceptors:    cfg.Interceptors,
+	if cfg.APIKey != "" {
+		opts = append(opts, elastictransport.WithAPIKey(cfg.APIKey))
+	} else if cfg.Username != "" || cfg.Password != "" {
+		opts = append(opts, elastictransport.WithBasicAuth(cfg.Username, cfg.Password))
+	}
+	if cfg.ServiceToken != "" {
+		opts = append(opts, elastictransport.WithServiceToken(cfg.ServiceToken))
+	}
+	if cfg.CertificateFingerprint != "" {
+		opts = append(opts, elastictransport.WithCertificateFingerprint(cfg.CertificateFingerprint))
+	}
+	if cfg.Header != nil {
+		opts = append(opts, elastictransport.WithHeader(cfg.Header))
+	}
+	if len(cfg.CACert) > 0 {
+		opts = append(opts, elastictransport.WithCACert(cfg.CACert))
+	}
+	if len(cfg.RetryOnStatus) > 0 {
+		opts = append(opts, elastictransport.WithRetryOnStatus(cfg.RetryOnStatus...))
+	}
+	if cfg.DisableRetry {
+		opts = append(opts, elastictransport.WithDisableRetry())
+	}
+	if cfg.RetryOnError != nil {
+		opts = append(opts, elastictransport.WithRetryOnError(cfg.RetryOnError))
+	}
+	if cfg.MaxRetries > 0 {
+		opts = append(opts, elastictransport.WithMaxRetries(cfg.MaxRetries))
+	}
+	if cfg.RetryBackoff != nil {
+		opts = append(opts, elastictransport.WithRetryBackoff(cfg.RetryBackoff))
+	}
+	if cfg.CompressRequestBody {
+		opts = append(opts, elastictransport.WithCompression(cfg.CompressRequestBodyLevel))
+	}
+	if cfg.EnableMetrics {
+		opts = append(opts, elastictransport.WithMetrics())
+	}
+	if cfg.EnableDebugLogger {
+		opts = append(opts, elastictransport.WithDebugLogger())
+	}
+	if cfg.DiscoverNodesInterval > 0 {
+		opts = append(opts, elastictransport.WithDiscoverNodesInterval(cfg.DiscoverNodesInterval))
+	}
+	if cfg.Transport != nil {
+		opts = append(opts, elastictransport.WithTransport(cfg.Transport))
+	}
+	if cfg.Logger != nil {
+		opts = append(opts, elastictransport.WithLogger(cfg.Logger))
+	}
+	if cfg.Selector != nil {
+		opts = append(opts, elastictransport.WithSelector(cfg.Selector))
+	}
+	if cfg.ConnectionPoolFunc != nil {
+		opts = append(opts, elastictransport.WithConnectionPoolFunc(cfg.ConnectionPoolFunc))
+	}
+	if cfg.Instrumentation != nil {
+		opts = append(opts, elastictransport.WithInstrumentation(cfg.Instrumentation))
+	}
+	if len(cfg.Interceptors) > 0 {
+		opts = append(opts, elastictransport.WithInterceptors(cfg.Interceptors...))
 	}
 
-	tp, err := elastictransport.New(tpConfig)
+	tp, err := elastictransport.NewClient(opts...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
