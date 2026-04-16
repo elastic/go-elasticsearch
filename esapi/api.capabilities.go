@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newCapabilitiesFunc(t Transport) Capabilities {
@@ -52,11 +53,12 @@ type Capabilities func(o ...func(*CapabilitiesRequest)) (*Response, error)
 
 // CapabilitiesRequest configures the Capabilities API request.
 type CapabilitiesRequest struct {
-	Capabilities string
+	Capabilities []string
 	LocalOnly    *bool
 	Method       string
-	Parameters   string
+	Parameters   []string
 	Path         string
+	Timeout      time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,8 +97,8 @@ func (r CapabilitiesRequest) Do(providedCtx context.Context, transport Transport
 
 	params = make(map[string]string)
 
-	if r.Capabilities != "" {
-		params["capabilities"] = r.Capabilities
+	if len(r.Capabilities) > 0 {
+		params["capabilities"] = strings.Join(r.Capabilities, ",")
 	}
 
 	if r.LocalOnly != nil {
@@ -107,12 +109,16 @@ func (r CapabilitiesRequest) Do(providedCtx context.Context, transport Transport
 		params["method"] = r.Method
 	}
 
-	if r.Parameters != "" {
-		params["parameters"] = r.Parameters
+	if len(r.Parameters) > 0 {
+		params["parameters"] = strings.Join(r.Parameters, ",")
 	}
 
 	if r.Path != "" {
 		params["path"] = r.Path
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -194,7 +200,7 @@ func (f Capabilities) WithContext(v context.Context) func(*CapabilitiesRequest) 
 }
 
 // WithCapabilities - comma-separated list of arbitrary api capabilities to check.
-func (f Capabilities) WithCapabilities(v string) func(*CapabilitiesRequest) {
+func (f Capabilities) WithCapabilities(v ...string) func(*CapabilitiesRequest) {
 	return func(r *CapabilitiesRequest) {
 		r.Capabilities = v
 	}
@@ -215,7 +221,7 @@ func (f Capabilities) WithMethod(v string) func(*CapabilitiesRequest) {
 }
 
 // WithParameters - comma-separated list of api parameters to check.
-func (f Capabilities) WithParameters(v string) func(*CapabilitiesRequest) {
+func (f Capabilities) WithParameters(v ...string) func(*CapabilitiesRequest) {
 	return func(r *CapabilitiesRequest) {
 		r.Parameters = v
 	}
@@ -225,6 +231,13 @@ func (f Capabilities) WithParameters(v string) func(*CapabilitiesRequest) {
 func (f Capabilities) WithPath(v string) func(*CapabilitiesRequest) {
 	return func(r *CapabilitiesRequest) {
 		r.Path = v
+	}
+}
+
+// WithTimeout - period to wait for a response. if no response is received before the timeout expires, the request fails and returns an error..
+func (f Capabilities) WithTimeout(v time.Duration) func(*CapabilitiesRequest) {
+	return func(r *CapabilitiesRequest) {
+		r.Timeout = v
 	}
 }
 

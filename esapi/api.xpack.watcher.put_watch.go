@@ -56,9 +56,9 @@ type WatcherPutWatchRequest struct {
 	Body io.Reader
 
 	Active        *bool
-	IfPrimaryTerm *int
-	IfSeqNo       *int
-	Version       *int
+	IfPrimaryTerm *int64
+	IfSeqNo       *int64
+	Version       *int64
 
 	Pretty     bool
 	Human      bool
@@ -110,15 +110,15 @@ func (r WatcherPutWatchRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
+		params["if_primary_term"] = strconv.FormatInt(*r.IfPrimaryTerm, 10)
 	}
 
 	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+		params["if_seq_no"] = strconv.FormatInt(*r.IfSeqNo, 10)
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.Pretty {
@@ -214,21 +214,21 @@ func (f WatcherPutWatch) WithActive(v bool) func(*WatcherPutWatchRequest) {
 }
 
 // WithIfPrimaryTerm - only update the watch if the last operation that has changed the watch has the specified primary term.
-func (f WatcherPutWatch) WithIfPrimaryTerm(v int) func(*WatcherPutWatchRequest) {
+func (f WatcherPutWatch) WithIfPrimaryTerm(v int64) func(*WatcherPutWatchRequest) {
 	return func(r *WatcherPutWatchRequest) {
 		r.IfPrimaryTerm = &v
 	}
 }
 
 // WithIfSeqNo - only update the watch if the last operation that has changed the watch has the specified sequence number.
-func (f WatcherPutWatch) WithIfSeqNo(v int) func(*WatcherPutWatchRequest) {
+func (f WatcherPutWatch) WithIfSeqNo(v int64) func(*WatcherPutWatchRequest) {
 	return func(r *WatcherPutWatchRequest) {
 		r.IfSeqNo = &v
 	}
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f WatcherPutWatch) WithVersion(v int) func(*WatcherPutWatchRequest) {
+func (f WatcherPutWatch) WithVersion(v int64) func(*WatcherPutWatchRequest) {
 	return func(r *WatcherPutWatchRequest) {
 		r.Version = &v
 	}

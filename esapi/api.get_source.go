@@ -60,7 +60,7 @@ type GetSourceRequest struct {
 	Source         []string
 	SourceExcludes []string
 	SourceIncludes []string
-	Version        *int
+	Version        *int64
 	VersionType    string
 
 	Pretty     bool
@@ -140,7 +140,7 @@ func (r GetSourceRequest) Do(providedCtx context.Context, transport Transport) (
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -275,7 +275,7 @@ func (f GetSource) WithSourceIncludes(v ...string) func(*GetSourceRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f GetSource) WithVersion(v int) func(*GetSourceRequest) {
+func (f GetSource) WithVersion(v int64) func(*GetSourceRequest) {
 	return func(r *GetSourceRequest) {
 		r.Version = &v
 	}

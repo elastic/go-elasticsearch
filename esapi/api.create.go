@@ -64,7 +64,7 @@ type CreateRequest struct {
 	RequireDataStream    *bool
 	Routing              []string
 	Timeout              time.Duration
-	Version              *int
+	Version              *int64
 	VersionType          string
 	WaitForActiveShards  string
 
@@ -145,7 +145,7 @@ func (r CreateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -291,7 +291,7 @@ func (f Create) WithTimeout(v time.Duration) func(*CreateRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f Create) WithVersion(v int) func(*CreateRequest) {
+func (f Create) WithVersion(v int64) func(*CreateRequest) {
 	return func(r *CreateRequest) {
 		r.Version = &v
 	}

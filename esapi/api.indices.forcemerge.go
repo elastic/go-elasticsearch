@@ -56,7 +56,7 @@ type IndicesForcemergeRequest struct {
 	ExpandWildcards    []string
 	Flush              *bool
 	IgnoreUnavailable  *bool
-	MaxNumSegments     *int
+	MaxNumSegments     *int64
 	OnlyExpungeDeletes *bool
 	WaitForCompletion  *bool
 
@@ -122,7 +122,7 @@ func (r IndicesForcemergeRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if r.MaxNumSegments != nil {
-		params["max_num_segments"] = strconv.FormatInt(int64(*r.MaxNumSegments), 10)
+		params["max_num_segments"] = strconv.FormatInt(*r.MaxNumSegments, 10)
 	}
 
 	if r.OnlyExpungeDeletes != nil {
@@ -247,7 +247,7 @@ func (f IndicesForcemerge) WithIgnoreUnavailable(v bool) func(*IndicesForcemerge
 }
 
 // WithMaxNumSegments - the number of segments the index should be merged into (default: dynamic).
-func (f IndicesForcemerge) WithMaxNumSegments(v int) func(*IndicesForcemergeRequest) {
+func (f IndicesForcemerge) WithMaxNumSegments(v int64) func(*IndicesForcemergeRequest) {
 	return func(r *IndicesForcemergeRequest) {
 		r.MaxNumSegments = &v
 	}

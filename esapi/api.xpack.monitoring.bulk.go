@@ -28,8 +28,8 @@ import (
 )
 
 func newMonitoringBulkFunc(t Transport) MonitoringBulk {
-	return func(body io.Reader, system_id string, system_api_version string, interval time.Duration, o ...func(*MonitoringBulkRequest)) (*Response, error) {
-		var r = MonitoringBulkRequest{Body: body, SystemID: system_id, SystemAPIVersion: system_api_version, Interval: interval}
+	return func(body io.Reader, interval time.Duration, system_api_version string, system_id string, o ...func(*MonitoringBulkRequest)) (*Response, error) {
+		var r = MonitoringBulkRequest{Body: body, Interval: interval, SystemAPIVersion: system_api_version, SystemID: system_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 // MonitoringBulk - Send monitoring data
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch.
-type MonitoringBulk func(body io.Reader, system_id string, system_api_version string, interval time.Duration, o ...func(*MonitoringBulkRequest)) (*Response, error)
+type MonitoringBulk func(body io.Reader, interval time.Duration, system_api_version string, system_id string, o ...func(*MonitoringBulkRequest)) (*Response, error)
 
 // MonitoringBulkRequest configures the Monitoring Bulk API request.
 type MonitoringBulkRequest struct {

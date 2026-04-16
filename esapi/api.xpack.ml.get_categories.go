@@ -53,7 +53,7 @@ type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*R
 type MLGetCategoriesRequest struct {
 	Body io.Reader
 
-	CategoryID *int
+	CategoryID *int64
 	JobID      string
 
 	From                *int
@@ -223,7 +223,7 @@ func (f MLGetCategories) WithBody(v io.Reader) func(*MLGetCategoriesRequest) {
 }
 
 // WithCategoryID - the identifier of the category definition of interest.
-func (f MLGetCategories) WithCategoryID(v int) func(*MLGetCategoriesRequest) {
+func (f MLGetCategories) WithCategoryID(v int64) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.CategoryID = &v
 	}
