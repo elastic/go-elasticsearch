@@ -43,9 +43,9 @@ func newCatMLDataFrameAnalyticsFunc(t Transport) CatMLDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatMLDataFrameAnalytics - Gets configuration and usage information about data frame analytics jobs.
+// CatMLDataFrameAnalytics - Get data frame analytics jobs
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/cat-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-dfanalytics.html.
 type CatMLDataFrameAnalytics func(o ...func(*CatMLDataFrameAnalyticsRequest)) (*Response, error)
 
 // CatMLDataFrameAnalyticsRequest configures the CatML Data Frame Analytics API request.

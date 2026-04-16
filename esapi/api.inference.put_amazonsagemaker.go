@@ -43,9 +43,9 @@ func newInferencePutAmazonsagemakerFunc(t Transport) InferencePutAmazonsagemaker
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAmazonsagemaker configure a Amazon SageMaker inference endpoint
+// InferencePutAmazonsagemaker create an Amazon SageMaker inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-amazon-sagemaker.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-amazonsagemaker.
 type InferencePutAmazonsagemaker func(amazonsagemaker_inference_id string, task_type string, o ...func(*InferencePutAmazonsagemakerRequest)) (*Response, error)
 
 // InferencePutAmazonsagemakerRequest configures the Inference Put Amazonsagemaker API request.

@@ -44,9 +44,9 @@ func newPutScriptFunc(t Transport) PutScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// PutScript creates or updates a script.
+// PutScript create or update a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-stored-script-api.html.
 type PutScript func(id string, body io.Reader, o ...func(*PutScriptRequest)) (*Response, error)
 
 // PutScriptRequest configures the Put Script API request.

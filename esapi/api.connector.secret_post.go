@@ -43,7 +43,7 @@ func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretPost creates a secret for a Connector.
+// ConnectorSecretPost creates a secret for a Connector
 //
 // This API is experimental.
 type ConnectorSecretPost func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error)

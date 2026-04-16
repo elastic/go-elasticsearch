@@ -42,7 +42,7 @@ func newFleetDeleteSecretFunc(t Transport) FleetDeleteSecret {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetDeleteSecret deletes a secret stored by Fleet.
+// FleetDeleteSecret deletes a secret stored by Fleet
 //
 // This API is experimental.
 type FleetDeleteSecret func(id string, o ...func(*FleetDeleteSecretRequest)) (*Response, error)

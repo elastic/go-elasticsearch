@@ -43,9 +43,9 @@ func newInferenceCompletionFunc(t Transport) InferenceCompletion {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceCompletion perform completion inference
+// InferenceCompletion perform completion inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
 type InferenceCompletion func(inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error)
 
 // InferenceCompletionRequest configures the Inference Completion API request.

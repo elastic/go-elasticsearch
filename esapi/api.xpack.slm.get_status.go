@@ -43,9 +43,9 @@ func newSlmGetStatusFunc(t Transport) SlmGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// SlmGetStatus - Retrieves the status of snapshot lifecycle management (SLM).
+// SlmGetStatus - Get the snapshot lifecycle management status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-get-status.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/slm-api-get-status.html.
 type SlmGetStatus func(o ...func(*SlmGetStatusRequest)) (*Response, error)
 
 // SlmGetStatusRequest configures the Slm Get Status API request.

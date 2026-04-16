@@ -43,9 +43,9 @@ func newLogstashPutPipelineFunc(t Transport) LogstashPutPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashPutPipeline - Adds and updates Logstash Pipelines used for Central Management
+// LogstashPutPipeline - Create or update a Logstash pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-put-pipeline.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/logstash-api-put-pipeline.html.
 type LogstashPutPipeline func(id string, body io.Reader, o ...func(*LogstashPutPipelineRequest)) (*Response, error)
 
 // LogstashPutPipelineRequest configures the Logstash Put Pipeline API request.

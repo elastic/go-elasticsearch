@@ -43,9 +43,9 @@ func newMLPutDataFrameAnalyticsFunc(t Transport) MLPutDataFrameAnalytics {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDataFrameAnalytics - Instantiates a data frame analytics job.
+// MLPutDataFrameAnalytics - Create a data frame analytics job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-dfanalytics.html.
 type MLPutDataFrameAnalytics func(id string, body io.Reader, o ...func(*MLPutDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLPutDataFrameAnalyticsRequest configures the ML Put Data Frame Analytics API request.

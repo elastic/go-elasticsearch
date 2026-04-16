@@ -43,9 +43,9 @@ func newMLPutCalendarFunc(t Transport) MLPutCalendar {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutCalendar - Instantiates a calendar.
+// MLPutCalendar - Create a calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-put-calendar.html.
 type MLPutCalendar func(calendar_id string, o ...func(*MLPutCalendarRequest)) (*Response, error)
 
 // MLPutCalendarRequest configures the ML Put Calendar API request.

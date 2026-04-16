@@ -43,9 +43,9 @@ func newSecurityUpdateAPIKeyFunc(t Transport) SecurityUpdateAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateAPIKey - Updates attributes of an existing API key.
+// SecurityUpdateAPIKey - Update an API key
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-update-api-key.html.
 type SecurityUpdateAPIKey func(id string, o ...func(*SecurityUpdateAPIKeyRequest)) (*Response, error)
 
 // SecurityUpdateAPIKeyRequest configures the Security UpdateAPI Key API request.

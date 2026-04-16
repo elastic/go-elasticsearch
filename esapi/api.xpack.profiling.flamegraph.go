@@ -43,7 +43,7 @@ func newProfilingFlamegraphFunc(t Transport) ProfilingFlamegraph {
 
 // ----- API Definition -------------------------------------------------------
 
-// ProfilingFlamegraph - Extracts a UI-optimized structure to render flamegraphs from Universal Profiling.
+// ProfilingFlamegraph - Extracts a UI-optimized structure to render flamegraphs from Universal Profiling
 //
 // See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
 type ProfilingFlamegraph func(body io.Reader, o ...func(*ProfilingFlamegraphRequest)) (*Response, error)

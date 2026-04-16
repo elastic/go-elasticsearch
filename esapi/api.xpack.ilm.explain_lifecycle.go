@@ -44,9 +44,9 @@ func newILMExplainLifecycleFunc(t Transport) ILMExplainLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMExplainLifecycle - Retrieves information about the index's current lifecycle state, such as the currently executing phase, action, and step.
+// ILMExplainLifecycle - Explain the lifecycle state
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-explain-lifecycle.html.
 type ILMExplainLifecycle func(index string, o ...func(*ILMExplainLifecycleRequest)) (*Response, error)
 
 // ILMExplainLifecycleRequest configures the ILM Explain Lifecycle API request.

@@ -43,9 +43,9 @@ func newInferencePutVoyageaiFunc(t Transport) InferencePutVoyageai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutVoyageai configure a VoyageAI inference endpoint
+// InferencePutVoyageai create a VoyageAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/inference-apis.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-voyageai.html.
 type InferencePutVoyageai func(task_type string, voyageai_inference_id string, o ...func(*InferencePutVoyageaiRequest)) (*Response, error)
 
 // InferencePutVoyageaiRequest configures the Inference Put Voyageai API request.

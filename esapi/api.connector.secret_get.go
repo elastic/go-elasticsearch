@@ -42,7 +42,7 @@ func newConnectorSecretGetFunc(t Transport) ConnectorSecretGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretGet retrieves a secret stored by Connectors.
+// ConnectorSecretGet retrieves a secret stored by Connectors
 //
 // This API is experimental.
 type ConnectorSecretGet func(id string, o ...func(*ConnectorSecretGetRequest)) (*Response, error)

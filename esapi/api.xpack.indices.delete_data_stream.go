@@ -44,9 +44,9 @@ func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataStream - Deletes a data stream.
+// IndicesDeleteDataStream - Delete data streams
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-delete-data-stream.html.
 type IndicesDeleteDataStream func(name []string, o ...func(*IndicesDeleteDataStreamRequest)) (*Response, error)
 
 // IndicesDeleteDataStreamRequest configures the Indices Delete Data Stream API request.

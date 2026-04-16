@@ -45,9 +45,9 @@ func newEqlSearchFunc(t Transport) EqlSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// EqlSearch - Returns results matching a query expressed in Event Query Language (EQL)
+// EqlSearch - Get EQL search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/eql-search-api.html.
 type EqlSearch func(index string, body io.Reader, o ...func(*EqlSearchRequest)) (*Response, error)
 
 // EqlSearchRequest configures the Eql Search API request.

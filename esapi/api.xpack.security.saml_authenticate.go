@@ -43,9 +43,9 @@ func newSecuritySamlAuthenticateFunc(t Transport) SecuritySamlAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlAuthenticate - Exchanges a SAML Response message for an Elasticsearch access token and refresh token pair
+// SecuritySamlAuthenticate - Authenticate SAML
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-authenticate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-authenticate.html.
 type SecuritySamlAuthenticate func(body io.Reader, o ...func(*SecuritySamlAuthenticateRequest)) (*Response, error)
 
 // SecuritySamlAuthenticateRequest configures the Security Saml Authenticate API request.

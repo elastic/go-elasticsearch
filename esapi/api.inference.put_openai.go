@@ -43,9 +43,9 @@ func newInferencePutOpenaiFunc(t Transport) InferencePutOpenai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutOpenai configure an OpenAI inference endpoint
+// InferencePutOpenai create an OpenAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-openai.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-openai.html.
 type InferencePutOpenai func(openai_inference_id string, task_type string, o ...func(*InferencePutOpenaiRequest)) (*Response, error)
 
 // InferencePutOpenaiRequest configures the Inference Put Openai API request.

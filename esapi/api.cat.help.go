@@ -42,9 +42,9 @@ func newCatHelpFunc(t Transport) CatHelp {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatHelp returns help for the Cat APIs.
+// CatHelp get CAT help
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat.html.
 type CatHelp func(o ...func(*CatHelpRequest)) (*Response, error)
 
 // CatHelpRequest configures the Cat Help API request.

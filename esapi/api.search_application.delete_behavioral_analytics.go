@@ -42,11 +42,11 @@ func newSearchApplicationDeleteBehavioralAnalyticsFunc(t Transport) SearchApplic
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationDeleteBehavioralAnalytics delete a behavioral analytics collection.
+// SearchApplicationDeleteBehavioralAnalytics delete a behavioral analytics collection
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-analytics-collection.html.
 type SearchApplicationDeleteBehavioralAnalytics func(name string, o ...func(*SearchApplicationDeleteBehavioralAnalyticsRequest)) (*Response, error)
 
 // SearchApplicationDeleteBehavioralAnalyticsRequest configures the Search Application Delete Behavioral Analytics API request.

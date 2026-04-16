@@ -44,9 +44,9 @@ func newSnapshotGetRepositoryFunc(t Transport) SnapshotGetRepository {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotGetRepository returns information about a repository.
+// SnapshotGetRepository get snapshot repository information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-snapshot-repo-api.html.
 type SnapshotGetRepository func(o ...func(*SnapshotGetRepositoryRequest)) (*Response, error)
 
 // SnapshotGetRepositoryRequest configures the Snapshot Get Repository API request.

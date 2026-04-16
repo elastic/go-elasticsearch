@@ -43,9 +43,9 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceInference perform inference
+// InferenceInference perform inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
 type InferenceInference func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
 
 // InferenceInferenceRequest configures the Inference Inference API request.

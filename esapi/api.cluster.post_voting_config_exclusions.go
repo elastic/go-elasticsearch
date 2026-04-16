@@ -43,9 +43,9 @@ func newClusterPostVotingConfigExclusionsFunc(t Transport) ClusterPostVotingConf
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPostVotingConfigExclusions updates the cluster voting config exclusions by node ids or node names.
+// ClusterPostVotingConfigExclusions update voting configuration exclusions
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/voting-config-exclusions.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-cluster-post-voting-config-exclusions.
 type ClusterPostVotingConfigExclusions func(o ...func(*ClusterPostVotingConfigExclusionsRequest)) (*Response, error)
 
 // ClusterPostVotingConfigExclusionsRequest configures the Cluster Post Voting Config Exclusions API request.

@@ -44,9 +44,9 @@ func newExplainFunc(t Transport) Explain {
 
 // ----- API Definition -------------------------------------------------------
 
-// Explain returns information about why a specific matches (or doesn't match) a query.
+// Explain explain a document match result
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-explain.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-explain.html.
 type Explain func(index string, id string, o ...func(*ExplainRequest)) (*Response, error)
 
 // ExplainRequest configures the Explain API request.

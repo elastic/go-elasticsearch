@@ -45,10 +45,9 @@ func newIndicesRolloverFunc(t Transport) IndicesRollover {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesRollover updates an alias to point to a new index when the existing index
-// is considered to be too large or too old.
+// IndicesRollover roll over to a new index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-rollover-index.html.
 type IndicesRollover func(alias string, o ...func(*IndicesRolloverRequest)) (*Response, error)
 
 // IndicesRolloverRequest configures the Indices Rollover API request.

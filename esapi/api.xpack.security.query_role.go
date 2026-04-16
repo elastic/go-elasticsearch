@@ -43,9 +43,9 @@ func newSecurityQueryRoleFunc(t Transport) SecurityQueryRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityQueryRole - Retrieves information for Roles using a subset of query DSL
+// SecurityQueryRole - Find roles with a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-query-role.html.
 type SecurityQueryRole func(o ...func(*SecurityQueryRoleRequest)) (*Response, error)
 
 // SecurityQueryRoleRequest configures the Security Query Role API request.

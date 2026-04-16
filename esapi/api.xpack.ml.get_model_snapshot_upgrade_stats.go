@@ -43,9 +43,9 @@ func newMLGetModelSnapshotUpgradeStatsFunc(t Transport) MLGetModelSnapshotUpgrad
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetModelSnapshotUpgradeStats - Gets stats for anomaly detection job model snapshot upgrades that are in progress.
+// MLGetModelSnapshotUpgradeStats - Get anomaly detection job model snapshot upgrade usage info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-job-model-snapshot-upgrade-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-job-model-snapshot-upgrade-stats.html.
 type MLGetModelSnapshotUpgradeStats func(snapshot_id string, job_id string, o ...func(*MLGetModelSnapshotUpgradeStatsRequest)) (*Response, error)
 
 // MLGetModelSnapshotUpgradeStatsRequest configures the ML Get Model Snapshot Upgrade Stats API request.

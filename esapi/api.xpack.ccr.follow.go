@@ -44,9 +44,9 @@ func newCCRFollowFunc(t Transport) CCRFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRFollow - Creates a new follower index configured to follow the referenced leader index.
+// CCRFollow - Create a follower
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-follow.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-put-follow.html.
 type CCRFollow func(index string, body io.Reader, o ...func(*CCRFollowRequest)) (*Response, error)
 
 // CCRFollowRequest configures the CCR Follow API request.

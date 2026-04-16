@@ -43,9 +43,9 @@ func newMLGetTrainedModelsStatsFunc(t Transport) MLGetTrainedModelsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModelsStats - Retrieves usage information for trained inference models.
+// MLGetTrainedModelsStats - Get trained models usage info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-trained-models-stats.html.
 type MLGetTrainedModelsStats func(o ...func(*MLGetTrainedModelsStatsRequest)) (*Response, error)
 
 // MLGetTrainedModelsStatsRequest configures the ML Get Trained Models Stats API request.

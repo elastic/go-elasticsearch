@@ -43,9 +43,9 @@ func newSecurityPutRoleMappingFunc(t Transport) SecurityPutRoleMapping {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutRoleMapping - Creates and updates role mappings.
+// SecurityPutRoleMapping - Create or update role mappings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role-mapping.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-put-role-mapping.html.
 type SecurityPutRoleMapping func(name string, body io.Reader, o ...func(*SecurityPutRoleMappingRequest)) (*Response, error)
 
 // SecurityPutRoleMappingRequest configures the Security Put Role Mapping API request.

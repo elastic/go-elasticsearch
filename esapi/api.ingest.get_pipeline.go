@@ -44,9 +44,9 @@ func newIngestGetPipelineFunc(t Transport) IngestGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestGetPipeline returns a pipeline.
+// IngestGetPipeline get pipelines
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-pipeline-api.html.
 type IngestGetPipeline func(o ...func(*IngestGetPipelineRequest)) (*Response, error)
 
 // IngestGetPipelineRequest configures the Ingest Get Pipeline API request.

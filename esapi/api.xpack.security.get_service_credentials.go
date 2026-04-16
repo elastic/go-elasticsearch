@@ -42,9 +42,9 @@ func newSecurityGetServiceCredentialsFunc(t Transport) SecurityGetServiceCredent
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceCredentials - Retrieves information of all service credentials for a service account.
+// SecurityGetServiceCredentials - Get service account credentials
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-service-credentials.html.
 type SecurityGetServiceCredentials func(namespace string, service string, o ...func(*SecurityGetServiceCredentialsRequest)) (*Response, error)
 
 // SecurityGetServiceCredentialsRequest configures the Security Get Service Credentials API request.

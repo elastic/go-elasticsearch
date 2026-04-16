@@ -43,11 +43,11 @@ func newConnectorUpdateIndexNameFunc(t Transport) ConnectorUpdateIndexName {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateIndexName updates the index name of the connector.
+// ConnectorUpdateIndexName update the connector index name
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-index-name-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-index-name-api.html.
 type ConnectorUpdateIndexName func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateIndexNameRequest)) (*Response, error)
 
 // ConnectorUpdateIndexNameRequest configures the Connector Update Index Name API request.

@@ -43,11 +43,11 @@ func newNodesGetRepositoriesMeteringInfoFunc(t Transport) NodesGetRepositoriesMe
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesGetRepositoriesMeteringInfo returns cluster repositories metering information.
+// NodesGetRepositoriesMeteringInfo get cluster repositories metering
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-repositories-metering-api.html.
 type NodesGetRepositoriesMeteringInfo func(node_id []string, o ...func(*NodesGetRepositoriesMeteringInfoRequest)) (*Response, error)
 
 // NodesGetRepositoriesMeteringInfoRequest configures the Nodes Get Repositories Metering Info API request.

@@ -44,9 +44,9 @@ func newIndicesGetIndexTemplateFunc(t Transport) IndicesGetIndexTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetIndexTemplate returns an index template.
+// IndicesGetIndexTemplate get index templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-get-template.html.
 type IndicesGetIndexTemplate func(o ...func(*IndicesGetIndexTemplateRequest)) (*Response, error)
 
 // IndicesGetIndexTemplateRequest configures the Indices Get Index Template API request.

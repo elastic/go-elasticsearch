@@ -45,9 +45,9 @@ func newTextStructureFindStructureFunc(t Transport) TextStructureFindStructure {
 
 // ----- API Definition -------------------------------------------------------
 
-// TextStructureFindStructure - Finds the structure of a text file. The text file must contain data that is suitable to be ingested into Elasticsearch.
+// TextStructureFindStructure - Find the structure of a text file
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/find-structure.html.
 type TextStructureFindStructure func(body io.Reader, o ...func(*TextStructureFindStructureRequest)) (*Response, error)
 
 // TextStructureFindStructureRequest configures the Text Structure Find Structure API request.

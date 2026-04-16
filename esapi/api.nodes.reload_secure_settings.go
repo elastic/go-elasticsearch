@@ -44,9 +44,9 @@ func newNodesReloadSecureSettingsFunc(t Transport) NodesReloadSecureSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesReloadSecureSettings reloads secure settings.
+// NodesReloadSecureSettings reload the keystore on nodes in the cluster
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-nodes-reload-secure-settings.html.
 type NodesReloadSecureSettings func(o ...func(*NodesReloadSecureSettingsRequest)) (*Response, error)
 
 // NodesReloadSecureSettingsRequest configures the Nodes Reload Secure Settings API request.

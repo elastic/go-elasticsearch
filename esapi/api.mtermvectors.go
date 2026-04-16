@@ -44,9 +44,9 @@ func newMtermvectorsFunc(t Transport) Mtermvectors {
 
 // ----- API Definition -------------------------------------------------------
 
-// Mtermvectors returns multiple termvectors in one request.
+// Mtermvectors get multiple term vectors
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-multi-termvectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-multi-termvectors.html.
 type Mtermvectors func(o ...func(*MtermvectorsRequest)) (*Response, error)
 
 // MtermvectorsRequest configures the Mtermvectors API request.

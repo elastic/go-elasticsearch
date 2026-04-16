@@ -43,9 +43,9 @@ func newWatcherGetSettingsFunc(t Transport) WatcherGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherGetSettings - Retrieve settings for the watcher system index
+// WatcherGetSettings - Get Watcher index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-get-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-get-settings.
 type WatcherGetSettings func(o ...func(*WatcherGetSettingsRequest)) (*Response, error)
 
 // WatcherGetSettingsRequest configures the Watcher Get Settings API request.

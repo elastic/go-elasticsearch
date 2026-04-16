@@ -43,9 +43,9 @@ func newSecurityBulkDeleteRoleFunc(t Transport) SecurityBulkDeleteRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityBulkDeleteRole - Bulk delete roles in the native realm.
+// SecurityBulkDeleteRole - Bulk delete roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-delete-role.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-bulk-delete-role.html.
 type SecurityBulkDeleteRole func(body io.Reader, o ...func(*SecurityBulkDeleteRoleRequest)) (*Response, error)
 
 // SecurityBulkDeleteRoleRequest configures the Security Bulk Delete Role API request.

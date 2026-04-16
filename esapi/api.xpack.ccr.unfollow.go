@@ -43,9 +43,9 @@ func newCCRUnfollowFunc(t Transport) CCRUnfollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRUnfollow - Stops the following task associated with a follower index and removes index metadata and settings associated with cross-cluster replication.
+// CCRUnfollow - Unfollow an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-post-unfollow.html.
 type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, error)
 
 // CCRUnfollowRequest configures the CCR Unfollow API request.

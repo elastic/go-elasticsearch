@@ -44,9 +44,9 @@ func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRResumeFollow - Resumes a follower index that has been paused
+// CCRResumeFollow - Resume a follower
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-post-resume-follow.html.
 type CCRResumeFollow func(index string, o ...func(*CCRResumeFollowRequest)) (*Response, error)
 
 // CCRResumeFollowRequest configures the CCR Resume Follow API request.

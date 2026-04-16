@@ -44,16 +44,16 @@ func newMLGetCategoriesFunc(t Transport) MLGetCategories {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetCategories - Retrieves anomaly detection job results for one or more categories.
+// MLGetCategories - Get anomaly detection job results for categories
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-category.html.
 type MLGetCategories func(job_id string, o ...func(*MLGetCategoriesRequest)) (*Response, error)
 
 // MLGetCategoriesRequest configures the ML Get Categories API request.
 type MLGetCategoriesRequest struct {
 	Body io.Reader
 
-	CategoryID *int
+	CategoryID *int64
 	JobID      string
 
 	From                *int
@@ -223,7 +223,7 @@ func (f MLGetCategories) WithBody(v io.Reader) func(*MLGetCategoriesRequest) {
 }
 
 // WithCategoryID - the identifier of the category definition of interest.
-func (f MLGetCategories) WithCategoryID(v int) func(*MLGetCategoriesRequest) {
+func (f MLGetCategories) WithCategoryID(v int64) func(*MLGetCategoriesRequest) {
 	return func(r *MLGetCategoriesRequest) {
 		r.CategoryID = &v
 	}

@@ -44,9 +44,9 @@ func newEsqlAsyncQueryFunc(t Transport) EsqlAsyncQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQuery - Executes an ESQL request asynchronously
+// EsqlAsyncQuery - Run an async ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-api.html.
 type EsqlAsyncQuery func(body io.Reader, o ...func(*EsqlAsyncQueryRequest)) (*Response, error)
 
 // EsqlAsyncQueryRequest configures the Esql Async Query API request.

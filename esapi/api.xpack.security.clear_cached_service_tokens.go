@@ -43,9 +43,9 @@ func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedSer
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearCachedServiceTokens - Evicts tokens from the service account token caches.
+// SecurityClearCachedServiceTokens - Clear service account token caches
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-clear-service-token-caches.html.
 type SecurityClearCachedServiceTokens func(name []string, namespace string, service string, o ...func(*SecurityClearCachedServiceTokensRequest)) (*Response, error)
 
 // SecurityClearCachedServiceTokensRequest configures the Security Clear Cached Service Tokens API request.

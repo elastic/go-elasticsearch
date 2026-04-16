@@ -43,9 +43,9 @@ func newSecurityClearAPIKeyCacheFunc(t Transport) SecurityClearAPIKeyCache {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityClearAPIKeyCache - Clear a subset or all entries from the API key cache.
+// SecurityClearAPIKeyCache - Clear the API key cache
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-api-key-cache.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-clear-api-key-cache.html.
 type SecurityClearAPIKeyCache func(ids []string, o ...func(*SecurityClearAPIKeyCacheRequest)) (*Response, error)
 
 // SecurityClearAPIKeyCacheRequest configures the Security ClearAPI Key Cache API request.

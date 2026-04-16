@@ -45,9 +45,9 @@ func newTextStructureFindMessageStructureFunc(t Transport) TextStructureFindMess
 
 // ----- API Definition -------------------------------------------------------
 
-// TextStructureFindMessageStructure - Finds the structure of a list of messages. The messages must contain data that is suitable to be ingested into Elasticsearch.
+// TextStructureFindMessageStructure - Find the structure of text messages
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/find-message-structure.html.
 type TextStructureFindMessageStructure func(body io.Reader, o ...func(*TextStructureFindMessageStructureRequest)) (*Response, error)
 
 // TextStructureFindMessageStructureRequest configures the Text Structure Find Message Structure API request.

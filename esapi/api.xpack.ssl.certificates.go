@@ -42,9 +42,9 @@ func newSSLCertificatesFunc(t Transport) SSLCertificates {
 
 // ----- API Definition -------------------------------------------------------
 
-// SSLCertificates - Retrieves information about the X.509 certificates used to encrypt communications in the cluster.
+// SSLCertificates - Get SSL certificates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-ssl.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-ssl.html.
 type SSLCertificates func(o ...func(*SSLCertificatesRequest)) (*Response, error)
 
 // SSLCertificatesRequest configures the SSL Certificates API request.

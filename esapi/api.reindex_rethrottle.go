@@ -43,9 +43,9 @@ func newReindexRethrottleFunc(t Transport) ReindexRethrottle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ReindexRethrottle changes the number of requests per second for a particular Reindex operation.
+// ReindexRethrottle throttle a reindex operation
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-reindex.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-reindex.html.
 type ReindexRethrottle func(task_id string, requests_per_second *int, o ...func(*ReindexRethrottleRequest)) (*Response, error)
 
 // ReindexRethrottleRequest configures the Reindex Rethrottle API request.

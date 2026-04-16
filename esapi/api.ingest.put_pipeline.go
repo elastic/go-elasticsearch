@@ -45,9 +45,9 @@ func newIngestPutPipelineFunc(t Transport) IngestPutPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutPipeline creates or updates a pipeline.
+// IngestPutPipeline create or update a pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ingest.html.
 type IngestPutPipeline func(id string, body io.Reader, o ...func(*IngestPutPipelineRequest)) (*Response, error)
 
 // IngestPutPipelineRequest configures the Ingest Put Pipeline API request.

@@ -43,9 +43,9 @@ func newQueryRulesListRulesetsFunc(t Transport) QueryRulesListRulesets {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesListRulesets lists query rulesets.
+// QueryRulesListRulesets get all query rulesets
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-query-rulesets.html.
 type QueryRulesListRulesets func(o ...func(*QueryRulesListRulesetsRequest)) (*Response, error)
 
 // QueryRulesListRulesetsRequest configures the Query Rules List Rulesets API request.

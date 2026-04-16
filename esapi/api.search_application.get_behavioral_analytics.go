@@ -42,11 +42,11 @@ func newSearchApplicationGetBehavioralAnalyticsFunc(t Transport) SearchApplicati
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationGetBehavioralAnalytics returns the existing behavioral analytics collections.
+// SearchApplicationGetBehavioralAnalytics get behavioral analytics collections
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-analytics-collection.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-analytics-collection.html.
 type SearchApplicationGetBehavioralAnalytics func(o ...func(*SearchApplicationGetBehavioralAnalyticsRequest)) (*Response, error)
 
 // SearchApplicationGetBehavioralAnalyticsRequest configures the Search Application Get Behavioral Analytics API request.

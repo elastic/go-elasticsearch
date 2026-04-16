@@ -43,9 +43,9 @@ func newEnrichDeletePolicyFunc(t Transport) EnrichDeletePolicy {
 
 // ----- API Definition -------------------------------------------------------
 
-// EnrichDeletePolicy - Deletes an existing enrich policy and its enrich index.
+// EnrichDeletePolicy - Delete an enrich policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-enrich-policy-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-enrich-policy-api.html.
 type EnrichDeletePolicy func(name string, o ...func(*EnrichDeletePolicyRequest)) (*Response, error)
 
 // EnrichDeletePolicyRequest configures the Enrich Delete Policy API request.

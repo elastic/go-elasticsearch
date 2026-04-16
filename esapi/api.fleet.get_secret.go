@@ -42,7 +42,7 @@ func newFleetGetSecretFunc(t Transport) FleetGetSecret {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetGetSecret retrieves a secret stored by Fleet.
+// FleetGetSecret retrieves a secret stored by Fleet
 //
 // This API is experimental.
 type FleetGetSecret func(id string, o ...func(*FleetGetSecretRequest)) (*Response, error)

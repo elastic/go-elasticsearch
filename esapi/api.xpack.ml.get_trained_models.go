@@ -43,9 +43,9 @@ func newMLGetTrainedModelsFunc(t Transport) MLGetTrainedModels {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetTrainedModels - Retrieves configuration information for a trained inference model.
+// MLGetTrainedModels - Get trained model configuration info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-trained-models.html.
 type MLGetTrainedModels func(o ...func(*MLGetTrainedModelsRequest)) (*Response, error)
 
 // MLGetTrainedModelsRequest configures the ML Get Trained Models API request.

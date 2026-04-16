@@ -43,9 +43,9 @@ func newSecuritySamlInvalidateFunc(t Transport) SecuritySamlInvalidate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlInvalidate - Consumes a SAML LogoutRequest
+// SecuritySamlInvalidate - Invalidate SAML
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-invalidate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-invalidate.html.
 type SecuritySamlInvalidate func(body io.Reader, o ...func(*SecuritySamlInvalidateRequest)) (*Response, error)
 
 // SecuritySamlInvalidateRequest configures the Security Saml Invalidate API request.

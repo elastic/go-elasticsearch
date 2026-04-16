@@ -44,9 +44,9 @@ func newCCRPutAutoFollowPatternFunc(t Transport) CCRPutAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRPutAutoFollowPattern - Creates a new named collection of auto-follow patterns against a specified remote cluster. Newly created indices on the remote cluster matching any of the specified patterns will be automatically configured as follower indices.
+// CCRPutAutoFollowPattern - Create or update auto-follow patterns
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-put-auto-follow-pattern.html.
 type CCRPutAutoFollowPattern func(name string, body io.Reader, o ...func(*CCRPutAutoFollowPatternRequest)) (*Response, error)
 
 // CCRPutAutoFollowPatternRequest configures the CCR Put Auto Follow Pattern API request.

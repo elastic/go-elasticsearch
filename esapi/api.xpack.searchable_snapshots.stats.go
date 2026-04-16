@@ -42,9 +42,9 @@ func newSearchableSnapshotsStatsFunc(t Transport) SearchableSnapshotsStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchableSnapshotsStats - Retrieve shard-level statistics about searchable snapshots.
+// SearchableSnapshotsStats - Get searchable snapshot statistics
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/searchable-snapshots-api-stats.html.
 type SearchableSnapshotsStats func(o ...func(*SearchableSnapshotsStatsRequest)) (*Response, error)
 
 // SearchableSnapshotsStatsRequest configures the Searchable Snapshots Stats API request.

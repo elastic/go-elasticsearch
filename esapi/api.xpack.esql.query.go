@@ -44,9 +44,9 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlQuery - Executes an ESQL request
+// EsqlQuery - Run an ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-rest.html.
 type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)
 
 // EsqlQueryRequest configures the Esql Query API request.

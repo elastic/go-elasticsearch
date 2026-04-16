@@ -43,9 +43,9 @@ func newSecurityCreateCrossClusterAPIKeyFunc(t Transport) SecurityCreateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityCreateCrossClusterAPIKey - Creates a cross-cluster API key for API key based remote cluster access.
+// SecurityCreateCrossClusterAPIKey - Create a cross-cluster API key
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-create-cross-cluster-api-key.html.
 type SecurityCreateCrossClusterAPIKey func(body io.Reader, o ...func(*SecurityCreateCrossClusterAPIKeyRequest)) (*Response, error)
 
 // SecurityCreateCrossClusterAPIKeyRequest configures the Security Create Cross ClusterAPI Key API request.

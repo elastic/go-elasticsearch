@@ -45,9 +45,9 @@ func newIndicesPutAliasFunc(t Transport) IndicesPutAlias {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutAlias creates or updates an alias.
+// IndicesPutAlias create or update an alias
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-put-alias.
 type IndicesPutAlias func(index []string, name string, o ...func(*IndicesPutAliasRequest)) (*Response, error)
 
 // IndicesPutAliasRequest configures the Indices Put Alias API request.

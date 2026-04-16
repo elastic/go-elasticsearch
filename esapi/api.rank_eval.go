@@ -44,9 +44,9 @@ func newRankEvalFunc(t Transport) RankEval {
 
 // ----- API Definition -------------------------------------------------------
 
-// RankEval allows to evaluate the quality of ranked search results over a set of typical search queries
+// RankEval evaluate ranked search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-rank-eval.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-rank-eval.html.
 type RankEval func(body io.Reader, o ...func(*RankEvalRequest)) (*Response, error)
 
 // RankEvalRequest configures the Rank Eval API request.

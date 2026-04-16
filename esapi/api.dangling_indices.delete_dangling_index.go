@@ -44,9 +44,9 @@ func newDanglingIndicesDeleteDanglingIndexFunc(t Transport) DanglingIndicesDelet
 
 // ----- API Definition -------------------------------------------------------
 
-// DanglingIndicesDeleteDanglingIndex deletes the specified dangling index
+// DanglingIndicesDeleteDanglingIndex delete a dangling index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-index-delete.html.
 type DanglingIndicesDeleteDanglingIndex func(index_uuid string, o ...func(*DanglingIndicesDeleteDanglingIndexRequest)) (*Response, error)
 
 // DanglingIndicesDeleteDanglingIndexRequest configures the Dangling Indices Delete Dangling Index API request.

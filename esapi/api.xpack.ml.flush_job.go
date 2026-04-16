@@ -44,9 +44,9 @@ func newMLFlushJobFunc(t Transport) MLFlushJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLFlushJob - Forces any buffered data to be processed by the job.
+// MLFlushJob - Force buffered data to be processed
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-flush-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-flush-job.html.
 type MLFlushJob func(job_id string, o ...func(*MLFlushJobRequest)) (*Response, error)
 
 // MLFlushJobRequest configures the ML Flush Job API request.

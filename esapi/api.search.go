@@ -46,9 +46,9 @@ func newSearchFunc(t Transport) Search {
 
 // ----- API Definition -------------------------------------------------------
 
-// Search returns results matching a query.
+// Search run a search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-search.html.
 type Search func(o ...func(*SearchRequest)) (*Response, error)
 
 // SearchRequest configures the Search API request.
@@ -567,7 +567,7 @@ func (f Search) WithPreference(v string) func(*SearchRequest) {
 	}
 }
 
-// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
+// WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
 func (f Search) WithPreFilterShardSize(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.PreFilterShardSize = &v

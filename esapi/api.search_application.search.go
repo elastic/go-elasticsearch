@@ -44,11 +44,11 @@ func newSearchApplicationSearchFunc(t Transport) SearchApplicationSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationSearch perform a search against a search application
+// SearchApplicationSearch run a search application search
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-search.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-application-search.html.
 type SearchApplicationSearch func(name string, o ...func(*SearchApplicationSearchRequest)) (*Response, error)
 
 // SearchApplicationSearchRequest configures the Search Application Search API request.

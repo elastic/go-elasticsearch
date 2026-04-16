@@ -42,9 +42,9 @@ func newSynonymsGetSynonymRuleFunc(t Transport) SynonymsGetSynonymRule {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsGetSynonymRule retrieves a synonym rule from a synonym set
+// SynonymsGetSynonymRule get a synonym rule
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-synonym-rule.html.
 type SynonymsGetSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsGetSynonymRuleRequest)) (*Response, error)
 
 // SynonymsGetSynonymRuleRequest configures the Synonyms Get Synonym Rule API request.

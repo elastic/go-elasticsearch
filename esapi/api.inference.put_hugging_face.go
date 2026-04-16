@@ -43,9 +43,9 @@ func newInferencePutHuggingFaceFunc(t Transport) InferencePutHuggingFace {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutHuggingFace configure a HuggingFace inference endpoint
+// InferencePutHuggingFace create a Hugging Face inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-hugging-face.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-hugging-face.html.
 type InferencePutHuggingFace func(huggingface_inference_id string, task_type string, o ...func(*InferencePutHuggingFaceRequest)) (*Response, error)
 
 // InferencePutHuggingFaceRequest configures the Inference Put Hugging Face API request.

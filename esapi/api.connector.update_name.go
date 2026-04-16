@@ -43,11 +43,11 @@ func newConnectorUpdateNameFunc(t Transport) ConnectorUpdateName {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorUpdateName updates the name and/or description fields in the connector document.
+// ConnectorUpdateName update the connector name and description
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-connector-name-description-api.html.
 type ConnectorUpdateName func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateNameRequest)) (*Response, error)
 
 // ConnectorUpdateNameRequest configures the Connector Update Name API request.

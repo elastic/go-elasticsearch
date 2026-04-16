@@ -43,11 +43,11 @@ func newIndicesFieldUsageStatsFunc(t Transport) IndicesFieldUsageStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesFieldUsageStats returns the field usage stats for each field of an index
+// IndicesFieldUsageStats get field usage stats
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/field-usage-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/field-usage-stats.html.
 type IndicesFieldUsageStats func(index string, o ...func(*IndicesFieldUsageStatsRequest)) (*Response, error)
 
 // IndicesFieldUsageStatsRequest configures the Indices Field Usage Stats API request.

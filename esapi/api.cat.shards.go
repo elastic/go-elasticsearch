@@ -44,9 +44,9 @@ func newCatShardsFunc(t Transport) CatShards {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatShards provides a detailed view of shard allocation on nodes.
+// CatShards get shard information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-shards.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-shards.html.
 type CatShards func(o ...func(*CatShardsRequest)) (*Response, error)
 
 // CatShardsRequest configures the Cat Shards API request.

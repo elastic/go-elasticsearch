@@ -42,9 +42,9 @@ func newMigrationPostFeatureUpgradeFunc(t Transport) MigrationPostFeatureUpgrade
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationPostFeatureUpgrade - Begin upgrades for system features
+// MigrationPostFeatureUpgrade - Start the feature migration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/feature-migration-api.html.
 type MigrationPostFeatureUpgrade func(o ...func(*MigrationPostFeatureUpgradeRequest)) (*Response, error)
 
 // MigrationPostFeatureUpgradeRequest configures the Migration Post Feature Upgrade API request.

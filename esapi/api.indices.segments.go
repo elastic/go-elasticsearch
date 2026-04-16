@@ -43,9 +43,9 @@ func newIndicesSegmentsFunc(t Transport) IndicesSegments {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesSegments provides low-level information about segments in a Lucene index.
+// IndicesSegments get index segments
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-segments.html.
 type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 
 // IndicesSegmentsRequest configures the Indices Segments API request.

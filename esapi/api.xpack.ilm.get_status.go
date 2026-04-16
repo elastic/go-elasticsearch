@@ -42,9 +42,9 @@ func newILMGetStatusFunc(t Transport) ILMGetStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMGetStatus - Retrieves the current index lifecycle management (ILM) status.
+// ILMGetStatus - Get the ILM status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-get-status.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-get-status.html.
 type ILMGetStatus func(o ...func(*ILMGetStatusRequest)) (*Response, error)
 
 // ILMGetStatusRequest configures the ILM Get Status API request.

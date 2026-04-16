@@ -44,9 +44,9 @@ func newCountFunc(t Transport) Count {
 
 // ----- API Definition -------------------------------------------------------
 
-// Count returns number of documents matching a query.
+// Count count search results
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-count.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-count.html.
 type Count func(o ...func(*CountRequest)) (*Response, error)
 
 // CountRequest configures the Count API request.

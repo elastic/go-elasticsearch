@@ -44,9 +44,9 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLSetUpgradeMode - Sets a cluster wide upgrade_mode setting that prepares machine learning indices for an upgrade.
+// MLSetUpgradeMode - Set upgrade_mode for ML indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-set-upgrade-mode.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-set-upgrade-mode.html.
 type MLSetUpgradeMode func(o ...func(*MLSetUpgradeModeRequest)) (*Response, error)
 
 // MLSetUpgradeModeRequest configures the ML Set Upgrade Mode API request.

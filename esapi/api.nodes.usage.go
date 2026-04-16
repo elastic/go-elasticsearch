@@ -43,9 +43,9 @@ func newNodesUsageFunc(t Transport) NodesUsage {
 
 // ----- API Definition -------------------------------------------------------
 
-// NodesUsage returns low-level information about REST actions usage on nodes.
+// NodesUsage get feature usage information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-nodes-usage.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-nodes-usage.html.
 type NodesUsage func(o ...func(*NodesUsageRequest)) (*Response, error)
 
 // NodesUsageRequest configures the Nodes Usage API request.

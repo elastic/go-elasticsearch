@@ -42,9 +42,9 @@ func newSecurityAuthenticateFunc(t Transport) SecurityAuthenticate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityAuthenticate - Enables authentication as a user and retrieve information about the authenticated user.
+// SecurityAuthenticate - Authenticate a user
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-authenticate.html.
 type SecurityAuthenticate func(o ...func(*SecurityAuthenticateRequest)) (*Response, error)
 
 // SecurityAuthenticateRequest configures the Security Authenticate API request.

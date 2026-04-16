@@ -43,9 +43,9 @@ func newGetFunc(t Transport) Get {
 
 // ----- API Definition -------------------------------------------------------
 
-// Get returns a document.
+// Get get a document by its ID
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-get.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-get.html.
 type Get func(index string, id string, o ...func(*GetRequest)) (*Response, error)
 
 // GetRequest configures the Get API request.

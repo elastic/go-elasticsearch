@@ -43,9 +43,9 @@ func newInferencePutAzureopenaiFunc(t Transport) InferencePutAzureopenai {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAzureopenai configure an Azure OpenAI inference endpoint
+// InferencePutAzureopenai create an Azure OpenAI inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-openai.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-azure-openai.html.
 type InferencePutAzureopenai func(azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error)
 
 // InferencePutAzureopenaiRequest configures the Inference Put Azureopenai API request.

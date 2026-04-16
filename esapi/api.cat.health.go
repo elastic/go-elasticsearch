@@ -43,13 +43,14 @@ func newCatHealthFunc(t Transport) CatHealth {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatHealth returns a concise representation of the cluster health.
+// CatHealth get the cluster health status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-health.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-health.html.
 type CatHealth func(o ...func(*CatHealthRequest)) (*Response, error)
 
 // CatHealthRequest configures the Cat Health API request.
 type CatHealthRequest struct {
+	Bytes  string
 	Format string
 	H      []string
 	Help   *bool
@@ -94,6 +95,10 @@ func (r CatHealthRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("/_cat/health")
 
 	params = make(map[string]string)
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -198,6 +203,13 @@ func (r CatHealthRequest) Do(providedCtx context.Context, transport Transport) (
 func (f CatHealth) WithContext(v context.Context) func(*CatHealthRequest) {
 	return func(r *CatHealthRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatHealth) WithBytes(v string) func(*CatHealthRequest) {
+	return func(r *CatHealthRequest) {
+		r.Bytes = v
 	}
 }
 

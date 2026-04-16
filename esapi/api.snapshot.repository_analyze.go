@@ -44,9 +44,9 @@ func newSnapshotRepositoryAnalyzeFunc(t Transport) SnapshotRepositoryAnalyze {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotRepositoryAnalyze analyzes a repository for correctness and performance
+// SnapshotRepositoryAnalyze analyze a snapshot repository
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/repo-analysis-api.html.
 type SnapshotRepositoryAnalyze func(repository string, o ...func(*SnapshotRepositoryAnalyzeRequest)) (*Response, error)
 
 // SnapshotRepositoryAnalyzeRequest configures the Snapshot Repository Analyze API request.

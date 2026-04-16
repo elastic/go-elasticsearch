@@ -45,7 +45,7 @@ func newIndicesPutDataStreamOptionsFunc(t Transport) IndicesPutDataStreamOptions
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataStreamOptions updates the data stream options of the selected data streams.
+// IndicesPutDataStreamOptions updates the data stream options of the selected data streams
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html.
 type IndicesPutDataStreamOptions func(name []string, o ...func(*IndicesPutDataStreamOptionsRequest)) (*Response, error)

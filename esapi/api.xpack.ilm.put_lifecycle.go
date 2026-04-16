@@ -44,9 +44,9 @@ func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMPutLifecycle - Creates a lifecycle policy
+// ILMPutLifecycle - Create or update a lifecycle policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-put-lifecycle.html.
 type ILMPutLifecycle func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error)
 
 // ILMPutLifecycleRequest configures the ILM Put Lifecycle API request.

@@ -43,9 +43,9 @@ func newSecurityGetAPIKeyFunc(t Transport) SecurityGetAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetAPIKey - Retrieves information for one or more API keys.
+// SecurityGetAPIKey - Get API key information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-api-key.html.
 type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, error)
 
 // SecurityGetAPIKeyRequest configures the Security GetAPI Key API request.

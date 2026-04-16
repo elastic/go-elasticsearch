@@ -43,9 +43,9 @@ func newSecurityGrantAPIKeyFunc(t Transport) SecurityGrantAPIKey {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGrantAPIKey - Creates an API key on behalf of another user.
+// SecurityGrantAPIKey - Grant an API key
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-grant-api-key.html.
 type SecurityGrantAPIKey func(body io.Reader, o ...func(*SecurityGrantAPIKeyRequest)) (*Response, error)
 
 // SecurityGrantAPIKeyRequest configures the Security GrantAPI Key API request.

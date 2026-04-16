@@ -42,9 +42,9 @@ func newSQLDeleteAsyncFunc(t Transport) SQLDeleteAsync {
 
 // ----- API Definition -------------------------------------------------------
 
-// SQLDeleteAsync - Deletes an async SQL search or a stored synchronous SQL search. If the search is still running, the API cancels it.
+// SQLDeleteAsync - Delete an async SQL search
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-async-sql-search-api.html.
 type SQLDeleteAsync func(id string, o ...func(*SQLDeleteAsyncRequest)) (*Response, error)
 
 // SQLDeleteAsyncRequest configures the SQL Delete Async API request.

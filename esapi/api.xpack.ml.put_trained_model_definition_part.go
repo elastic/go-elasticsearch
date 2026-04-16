@@ -45,9 +45,9 @@ func newMLPutTrainedModelDefinitionPartFunc(t Transport) MLPutTrainedModelDefini
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutTrainedModelDefinitionPart - Creates part of a trained model definition
+// MLPutTrainedModelDefinitionPart - Create part of a trained model definition
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-definition-part.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/put-trained-model-definition-part.html.
 type MLPutTrainedModelDefinitionPart func(body io.Reader, model_id string, part *int, o ...func(*MLPutTrainedModelDefinitionPartRequest)) (*Response, error)
 
 // MLPutTrainedModelDefinitionPartRequest configures the ML Put Trained Model Definition Part API request.

@@ -43,21 +43,23 @@ func newCatAliasesFunc(t Transport) CatAliases {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatAliases shows information about currently configured aliases to indices including filter and routing infos.
+// CatAliases get aliases
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-alias.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-alias.html.
 type CatAliases func(o ...func(*CatAliasesRequest)) (*Response, error)
 
 // CatAliasesRequest configures the Cat Aliases API request.
 type CatAliasesRequest struct {
 	Name []string
 
+	Bytes           string
 	ExpandWildcards string
 	Format          string
 	H               []string
 	Help            *bool
 	Local           *bool
 	S               []string
+	Time            string
 	V               *bool
 
 	Pretty     bool
@@ -107,6 +109,10 @@ func (r CatAliasesRequest) Do(providedCtx context.Context, transport Transport) 
 
 	params = make(map[string]string)
 
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
+
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
 	}
@@ -129,6 +135,10 @@ func (r CatAliasesRequest) Do(providedCtx context.Context, transport Transport) 
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -220,6 +230,13 @@ func (f CatAliases) WithName(v ...string) func(*CatAliasesRequest) {
 	}
 }
 
+// WithBytes - the unit in which to display byte values.
+func (f CatAliases) WithBytes(v string) func(*CatAliasesRequest) {
+	return func(r *CatAliasesRequest) {
+		r.Bytes = v
+	}
+}
+
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
 func (f CatAliases) WithExpandWildcards(v string) func(*CatAliasesRequest) {
 	return func(r *CatAliasesRequest) {
@@ -259,6 +276,13 @@ func (f CatAliases) WithLocal(v bool) func(*CatAliasesRequest) {
 func (f CatAliases) WithS(v ...string) func(*CatAliasesRequest) {
 	return func(r *CatAliasesRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatAliases) WithTime(v string) func(*CatAliasesRequest) {
+	return func(r *CatAliasesRequest) {
+		r.Time = v
 	}
 }
 

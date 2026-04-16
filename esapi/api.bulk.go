@@ -45,9 +45,9 @@ func newBulkFunc(t Transport) Bulk {
 
 // ----- API Definition -------------------------------------------------------
 
-// Bulk allows to perform multiple index/update/delete operations in a single request.
+// Bulk bulk index or delete documents
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-bulk.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/docs-bulk.html.
 type Bulk func(body io.Reader, o ...func(*BulkRequest)) (*Response, error)
 
 // BulkRequest configures the Bulk API request.
@@ -67,7 +67,6 @@ type BulkRequest struct {
 	SourceExcludes        []string
 	SourceIncludes        []string
 	Timeout               time.Duration
-	DocumentType          string
 	WaitForActiveShards   string
 
 	Pretty     bool
@@ -157,10 +156,6 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
-	}
-
-	if r.DocumentType != "" {
-		params["type"] = r.DocumentType
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -333,13 +328,6 @@ func (f Bulk) WithSourceIncludes(v ...string) func(*BulkRequest) {
 func (f Bulk) WithTimeout(v time.Duration) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Timeout = v
-	}
-}
-
-// WithDocumentType - default document type for items which don't provide one.
-func (f Bulk) WithDocumentType(v string) func(*BulkRequest) {
-	return func(r *BulkRequest) {
-		r.DocumentType = v
 	}
 }
 

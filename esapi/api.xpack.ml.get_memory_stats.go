@@ -43,9 +43,9 @@ func newMLGetMemoryStatsFunc(t Transport) MLGetMemoryStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetMemoryStats - Returns information on how ML is using memory.
+// MLGetMemoryStats - Get machine learning memory usage info
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-memory.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-ml-memory.html.
 type MLGetMemoryStats func(o ...func(*MLGetMemoryStatsRequest)) (*Response, error)
 
 // MLGetMemoryStatsRequest configures the ML Get Memory Stats API request.

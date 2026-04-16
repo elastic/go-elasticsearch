@@ -44,9 +44,9 @@ func newFieldCapsFunc(t Transport) FieldCaps {
 
 // ----- API Definition -------------------------------------------------------
 
-// FieldCaps returns the information about the capabilities of fields among multiple indices.
+// FieldCaps get the field capabilities
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/search-field-caps.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-field-caps.html.
 type FieldCaps func(o ...func(*FieldCapsRequest)) (*Response, error)
 
 // FieldCapsRequest configures the Field Caps API request.

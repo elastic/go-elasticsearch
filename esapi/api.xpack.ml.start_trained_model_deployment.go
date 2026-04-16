@@ -45,9 +45,9 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 
 // ----- API Definition -------------------------------------------------------
 
-// MLStartTrainedModelDeployment - Start a trained model deployment.
+// MLStartTrainedModelDeployment - Start a trained model deployment
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/start-trained-model-deployment.html.
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLStartTrainedModelDeploymentRequest configures the ML Start Trained Model Deployment API request.

@@ -43,11 +43,11 @@ func newConnectorPostFunc(t Transport) ConnectorPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorPost creates a connector.
+// ConnectorPost create a connector
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/create-connector-api.html.
 type ConnectorPost func(o ...func(*ConnectorPostRequest)) (*Response, error)
 
 // ConnectorPostRequest configures the Connector Post API request.

@@ -42,9 +42,9 @@ func newMLDeleteCalendarFunc(t Transport) MLDeleteCalendar {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteCalendar - Deletes a calendar.
+// MLDeleteCalendar - Delete a calendar
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-delete-calendar.html.
 type MLDeleteCalendar func(calendar_id string, o ...func(*MLDeleteCalendarRequest)) (*Response, error)
 
 // MLDeleteCalendarRequest configures the ML Delete Calendar API request.

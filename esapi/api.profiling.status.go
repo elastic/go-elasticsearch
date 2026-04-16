@@ -44,7 +44,7 @@ func newProfilingStatusFunc(t Transport) ProfilingStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// ProfilingStatus returns basic information about the status of Universal Profiling.
+// ProfilingStatus returns basic information about the status of Universal Profiling
 //
 // See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
 type ProfilingStatus func(o ...func(*ProfilingStatusRequest)) (*Response, error)

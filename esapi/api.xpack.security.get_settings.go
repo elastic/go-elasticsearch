@@ -43,9 +43,9 @@ func newSecurityGetSettingsFunc(t Transport) SecurityGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetSettings - Retrieve settings for the security system indices
+// SecurityGetSettings - Get security index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-settings.html.
 type SecurityGetSettings func(o ...func(*SecurityGetSettingsRequest)) (*Response, error)
 
 // SecurityGetSettingsRequest configures the Security Get Settings API request.

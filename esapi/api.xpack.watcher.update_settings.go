@@ -44,9 +44,9 @@ func newWatcherUpdateSettingsFunc(t Transport) WatcherUpdateSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// WatcherUpdateSettings - Update settings for the watcher system index
+// WatcherUpdateSettings - Update Watcher index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-watcher-update-settings.
 type WatcherUpdateSettings func(body io.Reader, o ...func(*WatcherUpdateSettingsRequest)) (*Response, error)
 
 // WatcherUpdateSettingsRequest configures the Watcher Update Settings API request.

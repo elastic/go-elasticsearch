@@ -43,9 +43,9 @@ func newInferencePutAzureaistudioFunc(t Transport) InferencePutAzureaistudio {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAzureaistudio configure an Azure AI Studio inference endpoint
+// InferencePutAzureaistudio create an Azure AI studio inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-azure-ai-studio.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-azure-ai-studio.html.
 type InferencePutAzureaistudio func(azureaistudio_inference_id string, task_type string, o ...func(*InferencePutAzureaistudioRequest)) (*Response, error)
 
 // InferencePutAzureaistudioRequest configures the Inference Put Azureaistudio API request.

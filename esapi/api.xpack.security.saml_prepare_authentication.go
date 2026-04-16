@@ -43,9 +43,9 @@ func newSecuritySamlPrepareAuthenticationFunc(t Transport) SecuritySamlPrepareAu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlPrepareAuthentication - Creates a SAML authentication request
+// SecuritySamlPrepareAuthentication - Prepare SAML authentication
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-prepare-authentication.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-prepare-authentication.html.
 type SecuritySamlPrepareAuthentication func(body io.Reader, o ...func(*SecuritySamlPrepareAuthenticationRequest)) (*Response, error)
 
 // SecuritySamlPrepareAuthenticationRequest configures the Security Saml Prepare Authentication API request.

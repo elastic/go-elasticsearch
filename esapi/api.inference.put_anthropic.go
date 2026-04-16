@@ -43,9 +43,9 @@ func newInferencePutAnthropicFunc(t Transport) InferencePutAnthropic {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutAnthropic configure an Anthropic inference endpoint
+// InferencePutAnthropic create an Anthropic inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-anthropic.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-anthropic.html.
 type InferencePutAnthropic func(anthropic_inference_id string, task_type string, o ...func(*InferencePutAnthropicRequest)) (*Response, error)
 
 // InferencePutAnthropicRequest configures the Inference Put Anthropic API request.

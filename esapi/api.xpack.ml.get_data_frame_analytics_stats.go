@@ -43,9 +43,9 @@ func newMLGetDataFrameAnalyticsStatsFunc(t Transport) MLGetDataFrameAnalyticsSta
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDataFrameAnalyticsStats - Retrieves usage information for data frame analytics jobs.
+// MLGetDataFrameAnalyticsStats - Get data frame analytics job stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-dfanalytics-stats.html.
 type MLGetDataFrameAnalyticsStats func(o ...func(*MLGetDataFrameAnalyticsStatsRequest)) (*Response, error)
 
 // MLGetDataFrameAnalyticsStatsRequest configures the ML Get Data Frame Analytics Stats API request.

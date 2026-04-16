@@ -42,9 +42,9 @@ func newSecuritySamlServiceProviderMetadataFunc(t Transport) SecuritySamlService
 
 // ----- API Definition -------------------------------------------------------
 
-// SecuritySamlServiceProviderMetadata - Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
+// SecuritySamlServiceProviderMetadata - Create SAML service provider metadata
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-sp-metadata.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-saml-sp-metadata.html.
 type SecuritySamlServiceProviderMetadata func(realm_name string, o ...func(*SecuritySamlServiceProviderMetadataRequest)) (*Response, error)
 
 // SecuritySamlServiceProviderMetadataRequest configures the Security Saml Service Provider Metadata API request.

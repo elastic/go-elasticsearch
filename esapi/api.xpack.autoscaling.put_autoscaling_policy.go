@@ -44,9 +44,9 @@ func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscali
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingPutAutoscalingPolicy - Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// AutoscalingPutAutoscalingPolicy - Create or update an autoscaling policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/autoscaling-put-autoscaling-policy.html.
 type AutoscalingPutAutoscalingPolicy func(name string, body io.Reader, o ...func(*AutoscalingPutAutoscalingPolicyRequest)) (*Response, error)
 
 // AutoscalingPutAutoscalingPolicyRequest configures the Autoscaling Put Autoscaling Policy API request.

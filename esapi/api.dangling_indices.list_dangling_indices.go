@@ -42,9 +42,9 @@ func newDanglingIndicesListDanglingIndicesFunc(t Transport) DanglingIndicesListD
 
 // ----- API Definition -------------------------------------------------------
 
-// DanglingIndicesListDanglingIndices returns all dangling indices.
+// DanglingIndicesListDanglingIndices get the dangling indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/dangling-indices-list.html.
 type DanglingIndicesListDanglingIndices func(o ...func(*DanglingIndicesListDanglingIndicesRequest)) (*Response, error)
 
 // DanglingIndicesListDanglingIndicesRequest configures the Dangling Indices List Dangling Indices API request.

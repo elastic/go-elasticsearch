@@ -44,9 +44,9 @@ func newIndicesResolveIndexFunc(t Transport) IndicesResolveIndex {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesResolveIndex returns information about any matching indices, aliases, and data streams
+// IndicesResolveIndex resolve indices
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-index-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-resolve-index-api.html.
 type IndicesResolveIndex func(name []string, o ...func(*IndicesResolveIndexRequest)) (*Response, error)
 
 // IndicesResolveIndexRequest configures the Indices Resolve Index API request.

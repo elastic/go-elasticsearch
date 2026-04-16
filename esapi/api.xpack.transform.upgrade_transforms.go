@@ -44,9 +44,9 @@ func newTransformUpgradeTransformsFunc(t Transport) TransformUpgradeTransforms {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformUpgradeTransforms - Upgrades all transforms.
+// TransformUpgradeTransforms - Upgrade all transforms
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/upgrade-transforms.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-transform-upgrade-transforms.
 type TransformUpgradeTransforms func(o ...func(*TransformUpgradeTransformsRequest)) (*Response, error)
 
 // TransformUpgradeTransformsRequest configures the Transform Upgrade Transforms API request.

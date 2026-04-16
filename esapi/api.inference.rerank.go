@@ -43,9 +43,9 @@ func newInferenceRerankFunc(t Transport) InferenceRerank {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceRerank perform reranking inference
+// InferenceRerank perform reranking inference on the service
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
 type InferenceRerank func(inference_id string, o ...func(*InferenceRerankRequest)) (*Response, error)
 
 // InferenceRerankRequest configures the Inference Rerank API request.

@@ -42,9 +42,9 @@ func newMigrationGetFeatureUpgradeStatusFunc(t Transport) MigrationGetFeatureUpg
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationGetFeatureUpgradeStatus - Find out whether system features need to be upgraded or not
+// MigrationGetFeatureUpgradeStatus - Get feature migration information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/feature-migration-api.html.
 type MigrationGetFeatureUpgradeStatus func(o ...func(*MigrationGetFeatureUpgradeStatusRequest)) (*Response, error)
 
 // MigrationGetFeatureUpgradeStatusRequest configures the Migration Get Feature Upgrade Status API request.

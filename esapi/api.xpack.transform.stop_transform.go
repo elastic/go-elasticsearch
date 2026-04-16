@@ -44,9 +44,9 @@ func newTransformStopTransformFunc(t Transport) TransformStopTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformStopTransform - Stops one or more transforms.
+// TransformStopTransform - Stop transforms
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stop-transform.html.
 type TransformStopTransform func(transform_id string, o ...func(*TransformStopTransformRequest)) (*Response, error)
 
 // TransformStopTransformRequest configures the Transform Stop Transform API request.

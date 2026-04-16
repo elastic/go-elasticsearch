@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0 (de1d79b): DO NOT EDIT
+// Code generated from specification version 8.19.0 (d6dd041): DO NOT EDIT
 
 package esapi
 
@@ -243,6 +243,7 @@ type API struct {
 	TransformPutTransform                         TransformPutTransform
 	TransformResetTransform                       TransformResetTransform
 	TransformScheduleNowTransform                 TransformScheduleNowTransform
+	TransformSetUpgradeMode                       TransformSetUpgradeMode
 	TransformStartTransform                       TransformStartTransform
 	TransformStopTransform                        TransformStopTransform
 	TransformUpdateTransform                      TransformUpdateTransform
@@ -891,6 +892,7 @@ func New(t Transport) *API {
 		TransformPutTransform:                         newTransformPutTransformFunc(t),
 		TransformResetTransform:                       newTransformResetTransformFunc(t),
 		TransformScheduleNowTransform:                 newTransformScheduleNowTransformFunc(t),
+		TransformSetUpgradeMode:                       newTransformSetUpgradeModeFunc(t),
 		TransformStartTransform:                       newTransformStartTransformFunc(t),
 		TransformStopTransform:                        newTransformStopTransformFunc(t),
 		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),

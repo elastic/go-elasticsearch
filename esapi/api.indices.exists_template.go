@@ -45,9 +45,9 @@ func newIndicesExistsTemplateFunc(t Transport) IndicesExistsTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesExistsTemplate returns information about whether a particular index template exists.
+// IndicesExistsTemplate check existence of index templates
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-template-exists-v1.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-template-exists-v1.html.
 type IndicesExistsTemplate func(name []string, o ...func(*IndicesExistsTemplateRequest)) (*Response, error)
 
 // IndicesExistsTemplateRequest configures the Indices Exists Template API request.

@@ -43,9 +43,9 @@ func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAut
 
 // ----- API Definition -------------------------------------------------------
 
-// AutoscalingDeleteAutoscalingPolicy - Deletes an autoscaling policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not supported.
+// AutoscalingDeleteAutoscalingPolicy - Delete an autoscaling policy
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-delete-autoscaling-policy.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/autoscaling-delete-autoscaling-policy.html.
 type AutoscalingDeleteAutoscalingPolicy func(name string, o ...func(*AutoscalingDeleteAutoscalingPolicyRequest)) (*Response, error)
 
 // AutoscalingDeleteAutoscalingPolicyRequest configures the Autoscaling Delete Autoscaling Policy API request.

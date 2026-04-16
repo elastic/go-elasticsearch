@@ -44,13 +44,14 @@ func newCatPendingTasksFunc(t Transport) CatPendingTasks {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatPendingTasks returns a concise representation of the cluster pending tasks.
+// CatPendingTasks get pending task information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-pending-tasks.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-pending-tasks.html.
 type CatPendingTasks func(o ...func(*CatPendingTasksRequest)) (*Response, error)
 
 // CatPendingTasksRequest configures the Cat Pending Tasks API request.
 type CatPendingTasksRequest struct {
+	Bytes         string
 	Format        string
 	H             []string
 	Help          *bool
@@ -96,6 +97,10 @@ func (r CatPendingTasksRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("/_cat/pending_tasks")
 
 	params = make(map[string]string)
+
+	if r.Bytes != "" {
+		params["bytes"] = r.Bytes
+	}
 
 	if r.Format != "" {
 		params["format"] = r.Format
@@ -204,6 +209,13 @@ func (r CatPendingTasksRequest) Do(providedCtx context.Context, transport Transp
 func (f CatPendingTasks) WithContext(v context.Context) func(*CatPendingTasksRequest) {
 	return func(r *CatPendingTasksRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBytes - the unit in which to display byte values.
+func (f CatPendingTasks) WithBytes(v string) func(*CatPendingTasksRequest) {
+	return func(r *CatPendingTasksRequest) {
+		r.Bytes = v
 	}
 }
 

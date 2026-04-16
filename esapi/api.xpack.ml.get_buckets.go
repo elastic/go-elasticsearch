@@ -45,9 +45,9 @@ func newMLGetBucketsFunc(t Transport) MLGetBuckets {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetBuckets - Retrieves anomaly detection job results for one or more buckets.
+// MLGetBuckets - Get anomaly detection job results for buckets
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-bucket.html.
 type MLGetBuckets func(job_id string, o ...func(*MLGetBucketsRequest)) (*Response, error)
 
 // MLGetBucketsRequest configures the ML Get Buckets API request.

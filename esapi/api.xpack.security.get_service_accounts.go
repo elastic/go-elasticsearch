@@ -42,9 +42,9 @@ func newSecurityGetServiceAccountsFunc(t Transport) SecurityGetServiceAccounts {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetServiceAccounts - Retrieves information about service accounts.
+// SecurityGetServiceAccounts - Get service accounts
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-service-accounts.html.
 type SecurityGetServiceAccounts func(o ...func(*SecurityGetServiceAccountsRequest)) (*Response, error)
 
 // SecurityGetServiceAccountsRequest configures the Security Get Service Accounts API request.

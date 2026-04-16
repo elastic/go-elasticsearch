@@ -43,7 +43,7 @@ func newConnectorSecretPutFunc(t Transport) ConnectorSecretPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretPut creates or updates a secret for a Connector.
+// ConnectorSecretPut creates or updates a secret for a Connector
 //
 // This API is experimental.
 type ConnectorSecretPut func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error)

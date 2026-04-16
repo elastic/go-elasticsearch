@@ -45,9 +45,9 @@ func newClusterPutSettingsFunc(t Transport) ClusterPutSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterPutSettings updates the cluster settings.
+// ClusterPutSettings update the cluster settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-update-settings.html.
 type ClusterPutSettings func(body io.Reader, o ...func(*ClusterPutSettingsRequest)) (*Response, error)
 
 // ClusterPutSettingsRequest configures the Cluster Put Settings API request.

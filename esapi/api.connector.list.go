@@ -43,11 +43,11 @@ func newConnectorListFunc(t Transport) ConnectorList {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorList lists all connectors.
+// ConnectorList get all connectors
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/list-connector-api.html.
 type ConnectorList func(o ...func(*ConnectorListRequest)) (*Response, error)
 
 // ConnectorListRequest configures the Connector List API request.

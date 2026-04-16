@@ -43,9 +43,9 @@ func newMLPreviewDataFrameAnalyticsFunc(t Transport) MLPreviewDataFrameAnalytics
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPreviewDataFrameAnalytics - Previews that will be analyzed given a data frame analytics config.
+// MLPreviewDataFrameAnalytics - Preview features used by data frame analytics
 //
-// See full documentation at http://www.elastic.co/guide/en/elasticsearch/reference/current/preview-dfanalytics.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/preview-dfanalytics.html.
 type MLPreviewDataFrameAnalytics func(o ...func(*MLPreviewDataFrameAnalyticsRequest)) (*Response, error)
 
 // MLPreviewDataFrameAnalyticsRequest configures the ML Preview Data Frame Analytics API request.

@@ -43,7 +43,7 @@ func newFleetPostSecretFunc(t Transport) FleetPostSecret {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetPostSecret creates a secret stored by Fleet.
+// FleetPostSecret creates a secret stored by Fleet
 //
 // This API is experimental.
 type FleetPostSecret func(body io.Reader, o ...func(*FleetPostSecretRequest)) (*Response, error)

@@ -43,9 +43,9 @@ func newCCRGetAutoFollowPatternFunc(t Transport) CCRGetAutoFollowPattern {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRGetAutoFollowPattern - Gets configured auto-follow patterns. Returns the specified auto-follow pattern collection.
+// CCRGetAutoFollowPattern - Get auto-follow patterns
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ccr-get-auto-follow-pattern.html.
 type CCRGetAutoFollowPattern func(o ...func(*CCRGetAutoFollowPatternRequest)) (*Response, error)
 
 // CCRGetAutoFollowPatternRequest configures the CCR Get Auto Follow Pattern API request.

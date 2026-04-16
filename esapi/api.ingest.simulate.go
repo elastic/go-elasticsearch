@@ -44,9 +44,9 @@ func newIngestSimulateFunc(t Transport) IngestSimulate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestSimulate allows to simulate a pipeline with example documents.
+// IngestSimulate simulate a pipeline
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/simulate-pipeline-api.html.
 type IngestSimulate func(body io.Reader, o ...func(*IngestSimulateRequest)) (*Response, error)
 
 // IngestSimulateRequest configures the Ingest Simulate API request.

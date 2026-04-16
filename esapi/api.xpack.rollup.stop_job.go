@@ -44,11 +44,11 @@ func newRollupStopJobFunc(t Transport) RollupStopJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupStopJob - Stops an existing, started rollup job.
+// RollupStopJob - Stop rollup jobs
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-stop-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-stop-job.html.
 type RollupStopJob func(id string, o ...func(*RollupStopJobRequest)) (*Response, error)
 
 // RollupStopJobRequest configures the Rollup Stop Job API request.

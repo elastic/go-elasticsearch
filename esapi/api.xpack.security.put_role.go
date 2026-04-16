@@ -43,9 +43,9 @@ func newSecurityPutRoleFunc(t Transport) SecurityPutRole {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityPutRole - Adds and updates roles in the native realm.
+// SecurityPutRole - Create or update roles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-put-role.html.
 type SecurityPutRole func(name string, body io.Reader, o ...func(*SecurityPutRoleRequest)) (*Response, error)
 
 // SecurityPutRoleRequest configures the Security Put Role API request.

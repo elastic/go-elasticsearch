@@ -43,11 +43,11 @@ func newScriptsPainlessExecuteFunc(t Transport) ScriptsPainlessExecute {
 
 // ----- API Definition -------------------------------------------------------
 
-// ScriptsPainlessExecute allows an arbitrary script to be executed and a result to be returned
+// ScriptsPainlessExecute run a script
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/painless/master/painless-execute-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/painless/8.19/painless-execute-api.html.
 type ScriptsPainlessExecute func(o ...func(*ScriptsPainlessExecuteRequest)) (*Response, error)
 
 // ScriptsPainlessExecuteRequest configures the Scripts Painless Execute API request.

@@ -45,9 +45,9 @@ func newSnapshotDeleteFunc(t Transport) SnapshotDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SnapshotDelete deletes one or more snapshots.
+// SnapshotDelete delete snapshots
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-snapshot-api.html.
 type SnapshotDelete func(repository string, snapshot []string, o ...func(*SnapshotDeleteRequest)) (*Response, error)
 
 // SnapshotDeleteRequest configures the Snapshot Delete API request.

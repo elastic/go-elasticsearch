@@ -42,11 +42,11 @@ func newSearchApplicationDeleteFunc(t Transport) SearchApplicationDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchApplicationDelete deletes a search application.
+// SearchApplicationDelete delete a search application
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-search-application.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/delete-search-application.html.
 type SearchApplicationDelete func(name string, o ...func(*SearchApplicationDeleteRequest)) (*Response, error)
 
 // SearchApplicationDeleteRequest configures the Search Application Delete API request.

@@ -43,9 +43,9 @@ func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreateDataStream - Creates a data stream
+// IndicesCreateDataStream - Create a data stream
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-create-data-stream.html.
 type IndicesCreateDataStream func(name string, o ...func(*IndicesCreateDataStreamRequest)) (*Response, error)
 
 // IndicesCreateDataStreamRequest configures the Indices Create Data Stream API request.

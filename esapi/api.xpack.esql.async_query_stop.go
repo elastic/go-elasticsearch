@@ -42,9 +42,9 @@ func newEsqlAsyncQueryStopFunc(t Transport) EsqlAsyncQueryStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// EsqlAsyncQueryStop - Stops a previously submitted async query request given its ID and collects the results.
+// EsqlAsyncQueryStop - Stop async ES|QL query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-stop-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/esql-async-query-stop-api.html.
 type EsqlAsyncQueryStop func(id string, o ...func(*EsqlAsyncQueryStopRequest)) (*Response, error)
 
 // EsqlAsyncQueryStopRequest configures the Esql Async Query Stop API request.

@@ -44,9 +44,9 @@ func newSecurityQueryAPIKeysFunc(t Transport) SecurityQueryAPIKeys {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityQueryAPIKeys - Retrieves information for API keys using a subset of query DSL
+// SecurityQueryAPIKeys - Find API keys with a query
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-query-api-key.html.
 type SecurityQueryAPIKeys func(o ...func(*SecurityQueryAPIKeysRequest)) (*Response, error)
 
 // SecurityQueryAPIKeysRequest configures the Security QueryAPI Keys API request.

@@ -43,7 +43,7 @@ func newFleetMsearchFunc(t Transport) FleetMsearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// FleetMsearch multi Search API where the search will only be executed after specified checkpoints are available due to a refresh. This API is designed for internal use by the fleet server project.
+// FleetMsearch executes several fleet searches with a single API request
 //
 // This API is experimental.
 type FleetMsearch func(body io.Reader, o ...func(*FleetMsearchRequest)) (*Response, error)

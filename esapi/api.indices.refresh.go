@@ -43,9 +43,9 @@ func newIndicesRefreshFunc(t Transport) IndicesRefresh {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesRefresh performs the refresh operation in one or more indices.
+// IndicesRefresh refresh an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-refresh.html.
 type IndicesRefresh func(o ...func(*IndicesRefreshRequest)) (*Response, error)
 
 // IndicesRefreshRequest configures the Indices Refresh API request.

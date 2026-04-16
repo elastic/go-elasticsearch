@@ -43,11 +43,11 @@ func newRollupPutJobFunc(t Transport) RollupPutJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// RollupPutJob - Creates a rollup job.
+// RollupPutJob - Create a rollup job
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/rollup-put-job.html.
 type RollupPutJob func(id string, body io.Reader, o ...func(*RollupPutJobRequest)) (*Response, error)
 
 // RollupPutJobRequest configures the Rollup Put Job API request.

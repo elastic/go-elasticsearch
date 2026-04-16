@@ -43,9 +43,9 @@ func newSecurityGetUserProfileFunc(t Transport) SecurityGetUserProfile {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityGetUserProfile - Retrieves user profiles for the given unique ID(s).
+// SecurityGetUserProfile - Get a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-get-user-profile.html.
 type SecurityGetUserProfile func(uid []string, o ...func(*SecurityGetUserProfileRequest)) (*Response, error)
 
 // SecurityGetUserProfileRequest configures the Security Get User Profile API request.

@@ -43,11 +43,9 @@ func newQueryRulesTestFunc(t Transport) QueryRulesTest {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesTest tests a query ruleset to identify the rules that would match input criteria
+// QueryRulesTest test a query ruleset
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/test-query-ruleset.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/test-query-ruleset.html.
 type QueryRulesTest func(body io.Reader, ruleset_id string, o ...func(*QueryRulesTestRequest)) (*Response, error)
 
 // QueryRulesTestRequest configures the Query Rules Test API request.

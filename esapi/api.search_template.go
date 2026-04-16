@@ -45,9 +45,9 @@ func newSearchTemplateFunc(t Transport) SearchTemplate {
 
 // ----- API Definition -------------------------------------------------------
 
-// SearchTemplate allows to use the Mustache language to pre-render a search definition.
+// SearchTemplate run a search with a search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/search-template-api.html.
 type SearchTemplate func(body io.Reader, o ...func(*SearchTemplateRequest)) (*Response, error)
 
 // SearchTemplateRequest configures the Search Template API request.

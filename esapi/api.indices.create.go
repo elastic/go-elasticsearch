@@ -44,9 +44,9 @@ func newIndicesCreateFunc(t Transport) IndicesCreate {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesCreate creates an index with optional settings and mappings.
+// IndicesCreate create an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-create-index.html.
 type IndicesCreate func(index string, o ...func(*IndicesCreateRequest)) (*Response, error)
 
 // IndicesCreateRequest configures the Indices Create API request.

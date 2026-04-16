@@ -44,9 +44,9 @@ func newIndicesDeleteDataLifecycleFunc(t Transport) IndicesDeleteDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesDeleteDataLifecycle deletes the data stream lifecycle of the selected data streams.
+// IndicesDeleteDataLifecycle delete data stream lifecycles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/data-streams-delete-lifecycle.html.
 type IndicesDeleteDataLifecycle func(name []string, o ...func(*IndicesDeleteDataLifecycleRequest)) (*Response, error)
 
 // IndicesDeleteDataLifecycleRequest configures the Indices Delete Data Lifecycle API request.

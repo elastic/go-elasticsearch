@@ -44,9 +44,9 @@ func newClusterHealthFunc(t Transport) ClusterHealth {
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterHealth returns basic information about the health of the cluster.
+// ClusterHealth get the cluster health status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-health.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cluster-health.html.
 type ClusterHealth func(o ...func(*ClusterHealthRequest)) (*Response, error)
 
 // ClusterHealthRequest configures the Cluster Health API request.

@@ -43,9 +43,9 @@ func newSecurityBulkUpdateAPIKeysFunc(t Transport) SecurityBulkUpdateAPIKeys {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityBulkUpdateAPIKeys - Updates the attributes of multiple existing API keys.
+// SecurityBulkUpdateAPIKeys - Bulk update API keys
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-bulk-update-api-keys.html.
 type SecurityBulkUpdateAPIKeys func(body io.Reader, o ...func(*SecurityBulkUpdateAPIKeysRequest)) (*Response, error)
 
 // SecurityBulkUpdateAPIKeysRequest configures the Security Bulk UpdateAPI Keys API request.

@@ -42,9 +42,9 @@ func newMigrationDeprecationsFunc(t Transport) MigrationDeprecations {
 
 // ----- API Definition -------------------------------------------------------
 
-// MigrationDeprecations - Retrieves information about different cluster, node, and index level settings that use deprecated features that will be removed or changed in the next major version.
+// MigrationDeprecations - Get deprecation information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-deprecation.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/migration-api-deprecation.html.
 type MigrationDeprecations func(o ...func(*MigrationDeprecationsRequest)) (*Response, error)
 
 // MigrationDeprecationsRequest configures the Migration Deprecations API request.

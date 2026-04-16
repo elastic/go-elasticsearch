@@ -43,9 +43,9 @@ func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateCrossClusterAPIKey - Updates attributes of an existing cross-cluster API key.
+// SecurityUpdateCrossClusterAPIKey - Update a cross-cluster API key
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-update-cross-cluster-api-key.html.
 type SecurityUpdateCrossClusterAPIKey func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error)
 
 // SecurityUpdateCrossClusterAPIKeyRequest configures the Security Update Cross ClusterAPI Key API request.

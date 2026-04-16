@@ -43,9 +43,9 @@ func newMLGetDatafeedStatsFunc(t Transport) MLGetDatafeedStats {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLGetDatafeedStats - Retrieves usage information for datafeeds.
+// MLGetDatafeedStats - Get datafeed stats
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-datafeed-stats.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-get-datafeed-stats.html.
 type MLGetDatafeedStats func(o ...func(*MLGetDatafeedStatsRequest)) (*Response, error)
 
 // MLGetDatafeedStatsRequest configures the ML Get Datafeed Stats API request.

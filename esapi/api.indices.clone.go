@@ -44,9 +44,9 @@ func newIndicesCloneFunc(t Transport) IndicesClone {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesClone clones an index
+// IndicesClone clone an index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clone-index.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-clone-index.html.
 type IndicesClone func(index string, target string, o ...func(*IndicesCloneRequest)) (*Response, error)
 
 // IndicesCloneRequest configures the Indices Clone API request.

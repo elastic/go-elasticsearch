@@ -43,9 +43,9 @@ func newGetScriptFunc(t Transport) GetScript {
 
 // ----- API Definition -------------------------------------------------------
 
-// GetScript returns a script.
+// GetScript get a script or search template
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-stored-script-api.html.
 type GetScript func(id string, o ...func(*GetScriptRequest)) (*Response, error)
 
 // GetScriptRequest configures the Get Script API request.

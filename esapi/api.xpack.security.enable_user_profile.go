@@ -42,9 +42,9 @@ func newSecurityEnableUserProfileFunc(t Transport) SecurityEnableUserProfile {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityEnableUserProfile - Enables a user profile so it's visible in user profile searches.
+// SecurityEnableUserProfile - Enable a user profile
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-enable-user-profile.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-enable-user-profile.html.
 type SecurityEnableUserProfile func(uid string, o ...func(*SecurityEnableUserProfileRequest)) (*Response, error)
 
 // SecurityEnableUserProfileRequest configures the Security Enable User Profile API request.

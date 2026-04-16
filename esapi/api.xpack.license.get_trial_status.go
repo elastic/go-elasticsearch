@@ -42,9 +42,9 @@ func newLicenseGetTrialStatusFunc(t Transport) LicenseGetTrialStatus {
 
 // ----- API Definition -------------------------------------------------------
 
-// LicenseGetTrialStatus - Retrieves information about the status of the trial license.
+// LicenseGetTrialStatus - Get the trial status
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/get-trial-status.html.
 type LicenseGetTrialStatus func(o ...func(*LicenseGetTrialStatusRequest)) (*Response, error)
 
 // LicenseGetTrialStatusRequest configures the License Get Trial Status API request.

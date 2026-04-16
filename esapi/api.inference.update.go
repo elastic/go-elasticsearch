@@ -43,9 +43,9 @@ func newInferenceUpdateFunc(t Transport) InferenceUpdate {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceUpdate update inference
+// InferenceUpdate update an inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-inference-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-inference-api.html.
 type InferenceUpdate func(inference_id string, o ...func(*InferenceUpdateRequest)) (*Response, error)
 
 // InferenceUpdateRequest configures the Inference Update API request.

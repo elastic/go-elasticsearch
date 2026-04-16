@@ -45,9 +45,9 @@ func newIndicesPutDataLifecycleFunc(t Transport) IndicesPutDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesPutDataLifecycle updates the data stream lifecycle of the selected data streams.
+// IndicesPutDataLifecycle update data stream lifecycles
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-put-data-lifecycle.
 type IndicesPutDataLifecycle func(name []string, o ...func(*IndicesPutDataLifecycleRequest)) (*Response, error)
 
 // IndicesPutDataLifecycleRequest configures the Indices Put Data Lifecycle API request.

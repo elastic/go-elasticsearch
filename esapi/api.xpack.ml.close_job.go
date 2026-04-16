@@ -45,9 +45,9 @@ func newMLCloseJobFunc(t Transport) MLCloseJob {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLCloseJob - Closes one or more anomaly detection jobs. A job can be opened and closed multiple times throughout its lifecycle.
+// MLCloseJob - Close anomaly detection jobs
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-close-job.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-close-job.html.
 type MLCloseJob func(job_id string, o ...func(*MLCloseJobRequest)) (*Response, error)
 
 // MLCloseJobRequest configures the ML Close Job API request.

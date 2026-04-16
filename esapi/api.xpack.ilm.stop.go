@@ -43,9 +43,9 @@ func newILMStopFunc(t Transport) ILMStop {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMStop - Halts all lifecycle management operations and stops the index lifecycle management (ILM) plugin
+// ILMStop - Stop the ILM plugin
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-stop.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-stop.html.
 type ILMStop func(o ...func(*ILMStopRequest)) (*Response, error)
 
 // ILMStopRequest configures the ILM Stop API request.

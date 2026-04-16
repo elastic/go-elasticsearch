@@ -43,9 +43,9 @@ func newInferencePutGoogleaistudioFunc(t Transport) InferencePutGoogleaistudio {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutGoogleaistudio configure a Google AI Studio inference endpoint
+// InferencePutGoogleaistudio create an Google AI Studio inference endpoint
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-service-google-ai-studio.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-google-ai-studio.html.
 type InferencePutGoogleaistudio func(googleaistudio_inference_id string, task_type string, o ...func(*InferencePutGoogleaistudioRequest)) (*Response, error)
 
 // InferencePutGoogleaistudioRequest configures the Inference Put Googleaistudio API request.

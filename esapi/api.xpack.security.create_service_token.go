@@ -42,9 +42,9 @@ func newSecurityCreateServiceTokenFunc(t Transport) SecurityCreateServiceToken {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityCreateServiceToken - Creates a service account token for access without requiring basic authentication.
+// SecurityCreateServiceToken - Create a service account token
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-service-token.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-create-service-token.html.
 type SecurityCreateServiceToken func(namespace string, service string, o ...func(*SecurityCreateServiceTokenRequest)) (*Response, error)
 
 // SecurityCreateServiceTokenRequest configures the Security Create Service Token API request.

@@ -44,9 +44,9 @@ func newMLDeleteForecastFunc(t Transport) MLDeleteForecast {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteForecast - Deletes forecasts from a machine learning job.
+// MLDeleteForecast - Delete forecasts from a job
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ml-delete-forecast.html.
 type MLDeleteForecast func(job_id string, o ...func(*MLDeleteForecastRequest)) (*Response, error)
 
 // MLDeleteForecastRequest configures the ML Delete Forecast API request.

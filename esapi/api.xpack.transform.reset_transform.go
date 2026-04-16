@@ -44,9 +44,9 @@ func newTransformResetTransformFunc(t Transport) TransformResetTransform {
 
 // ----- API Definition -------------------------------------------------------
 
-// TransformResetTransform - Resets an existing transform.
+// TransformResetTransform - Reset a transform
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/reset-transform.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/reset-transform.html.
 type TransformResetTransform func(transform_id string, o ...func(*TransformResetTransformRequest)) (*Response, error)
 
 // TransformResetTransformRequest configures the Transform Reset Transform API request.

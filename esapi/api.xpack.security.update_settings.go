@@ -44,9 +44,9 @@ func newSecurityUpdateSettingsFunc(t Transport) SecurityUpdateSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateSettings - Update settings for the security system index
+// SecurityUpdateSettings - Update security index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/security-api-update-settings.html.
 type SecurityUpdateSettings func(body io.Reader, o ...func(*SecurityUpdateSettingsRequest)) (*Response, error)
 
 // SecurityUpdateSettingsRequest configures the Security Update Settings API request.

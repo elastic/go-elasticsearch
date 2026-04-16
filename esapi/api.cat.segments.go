@@ -44,9 +44,9 @@ func newCatSegmentsFunc(t Transport) CatSegments {
 
 // ----- API Definition -------------------------------------------------------
 
-// CatSegments provides low-level information about the segments in the shards of an index.
+// CatSegments get segment information
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-segments.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cat-segments.html.
 type CatSegments func(o ...func(*CatSegmentsRequest)) (*Response, error)
 
 // CatSegmentsRequest configures the Cat Segments API request.
@@ -60,6 +60,7 @@ type CatSegmentsRequest struct {
 	Local         *bool
 	MasterTimeout time.Duration
 	S             []string
+	Time          string
 	V             *bool
 
 	Pretty     bool
@@ -135,6 +136,10 @@ func (r CatSegmentsRequest) Do(providedCtx context.Context, transport Transport)
 
 	if len(r.S) > 0 {
 		params["s"] = strings.Join(r.S, ",")
+	}
+
+	if r.Time != "" {
+		params["time"] = r.Time
 	}
 
 	if r.V != nil {
@@ -272,6 +277,13 @@ func (f CatSegments) WithMasterTimeout(v time.Duration) func(*CatSegmentsRequest
 func (f CatSegments) WithS(v ...string) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.S = v
+	}
+}
+
+// WithTime - the unit in which to display time values.
+func (f CatSegments) WithTime(v string) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.Time = v
 	}
 }
 

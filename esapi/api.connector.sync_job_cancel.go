@@ -42,11 +42,11 @@ func newConnectorSyncJobCancelFunc(t Transport) ConnectorSyncJobCancel {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobCancel cancels a connector sync job.
+// ConnectorSyncJobCancel cancel a connector sync job
 //
-// This API is experimental.
+// This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/cancel-connector-sync-job-api.html.
 type ConnectorSyncJobCancel func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCancelRequest)) (*Response, error)
 
 // ConnectorSyncJobCancelRequest configures the Connector Sync Job Cancel API request.

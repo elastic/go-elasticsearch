@@ -44,9 +44,9 @@ func newIndicesGetSettingsFunc(t Transport) IndicesGetSettings {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetSettings returns settings for one or more indices.
+// IndicesGetSettings get index settings
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-get-settings.html.
 type IndicesGetSettings func(o ...func(*IndicesGetSettingsRequest)) (*Response, error)
 
 // IndicesGetSettingsRequest configures the Indices Get Settings API request.

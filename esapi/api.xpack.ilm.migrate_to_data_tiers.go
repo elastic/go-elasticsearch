@@ -44,9 +44,9 @@ func newILMMigrateToDataTiersFunc(t Transport) ILMMigrateToDataTiers {
 
 // ----- API Definition -------------------------------------------------------
 
-// ILMMigrateToDataTiers - Migrates the indices and ILM policies away from custom node attribute allocation routing to data tiers routing
+// ILMMigrateToDataTiers - Migrate to data tiers routing
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-migrate-to-data-tiers.html.
 type ILMMigrateToDataTiers func(o ...func(*ILMMigrateToDataTiersRequest)) (*Response, error)
 
 // ILMMigrateToDataTiersRequest configures the ILM Migrate To Data Tiers API request.
