@@ -207,7 +207,7 @@ func (f IndicesExists) WithContext(v context.Context) func(*IndicesExistsRequest
 	}
 }
 
-// WithAllowNoIndices - ignore if a wildcard expression resolves to no concrete indices (default: false).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f IndicesExists) WithAllowNoIndices(v bool) func(*IndicesExistsRequest) {
 	return func(r *IndicesExistsRequest) {
 		r.AllowNoIndices = &v

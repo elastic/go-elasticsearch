@@ -206,7 +206,7 @@ func (f IndicesDiskUsage) WithContext(v context.Context) func(*IndicesDiskUsageR
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f IndicesDiskUsage) WithAllowNoIndices(v bool) func(*IndicesDiskUsageRequest) {
 	return func(r *IndicesDiskUsageRequest) {
 		r.AllowNoIndices = &v

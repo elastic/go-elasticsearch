@@ -206,7 +206,7 @@ func (f MLPutJob) WithContext(v context.Context) func(*MLPutJobRequest) {
 	}
 }
 
-// WithAllowNoIndices - ignore if the source indices expressions resolves to no concrete indices (default: true). only set if datafeed_config is provided..
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty. only set if datafeed_config is provided..
 func (f MLPutJob) WithAllowNoIndices(v bool) func(*MLPutJobRequest) {
 	return func(r *MLPutJobRequest) {
 		r.AllowNoIndices = &v

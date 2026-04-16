@@ -63,7 +63,7 @@ type MsearchRequest struct {
 	IncludeNamedQueriesScore   *bool
 	MaxConcurrentSearches      *int
 	MaxConcurrentShardRequests *int
-	PreFilterShardSize         *int
+	PreFilterShardSize         *int64
 	ProjectRouting             string
 	RestTotalHitsAsInt         *bool
 	Routing                    []string
@@ -152,7 +152,7 @@ func (r MsearchRequest) Do(providedCtx context.Context, transport Transport) (*R
 	}
 
 	if r.PreFilterShardSize != nil {
-		params["pre_filter_shard_size"] = strconv.FormatInt(int64(*r.PreFilterShardSize), 10)
+		params["pre_filter_shard_size"] = strconv.FormatInt(*r.PreFilterShardSize, 10)
 	}
 
 	if r.ProjectRouting != "" {
@@ -267,7 +267,7 @@ func (f Msearch) WithIndex(v ...string) func(*MsearchRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f Msearch) WithAllowNoIndices(v bool) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.AllowNoIndices = &v
@@ -324,7 +324,7 @@ func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 }
 
 // WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
-func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
+func (f Msearch) WithPreFilterShardSize(v int64) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.PreFilterShardSize = &v
 	}
