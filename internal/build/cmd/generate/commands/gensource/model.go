@@ -280,6 +280,11 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		}
 
 		applyParamOverride(endpoint.Name, name, &param.Type)
+
+		// Date types are handled as strings in the esapi client
+		if param.Type == "date" {
+			param.Type = "string"
+		}
 	}
 
 	if fpath, ok := f.(*os.File); ok {
@@ -303,6 +308,11 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 			part.Endpoint = &endpoint
 			part.Name = partName
 			applyParamOverride(endpoint.Name, partName, &part.Type)
+
+			// Date types are handled as strings in the esapi client
+			if part.Type == "date" {
+				part.Type = "string"
+			}
 		}
 	}
 
