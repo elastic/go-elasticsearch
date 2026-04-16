@@ -43,7 +43,7 @@ func TestJSONReaderIntegration(t *testing.T) {
 		}
 	}()
 
-	tcCfg := elasticsearchSrv.ESConfig()
+	tcOpts := elasticsearchSrv.ESOptions()
 
 	t.Run("Index and search", func(t *testing.T) {
 		var (
@@ -51,7 +51,7 @@ func TestJSONReaderIntegration(t *testing.T) {
 			err error
 		)
 
-		es, err := elasticsearch.NewClient(tcCfg)
+		es, err := elasticsearch.New(tcOpts...)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}

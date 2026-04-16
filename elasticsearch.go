@@ -79,6 +79,10 @@ func init() {
 }
 
 // Config represents the client configuration.
+//
+// Deprecated: Use [New] or [NewTyped] with [Option] values instead.
+// Config and the legacy constructors remain fully functional for backwards
+// compatibility.
 type Config struct {
 	Addresses []string // A list of Elasticsearch nodes to use.
 	Username  string   // Username for HTTP Basic Authentication.
@@ -183,6 +187,8 @@ type TypedClient struct {
 }
 
 // NewBaseClient creates a new client free of any API.
+//
+// Deprecated: Use [NewBase] with [Option] values instead.
 func NewBaseClient(cfg Config) (*BaseClient, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -213,6 +219,8 @@ func NewBaseClient(cfg Config) (*BaseClient, error) {
 //
 // It will use the ELASTICSEARCH_URL environment variable, if set,
 // to configure the addresses; use a comma to separate multiple URLs.
+//
+// Deprecated: Use [New] with no arguments instead.
 func NewDefaultClient() (*Client, error) {
 	return NewClient(Config{})
 }
@@ -228,6 +236,8 @@ func NewDefaultClient() (*Client, error) {
 // environment variable is ignored.
 //
 // It's an error to set both cfg.Addresses and cfg.CloudID.
+//
+// Deprecated: Use [New] with [Option] values instead.
 func NewClient(cfg Config) (*Client, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -260,6 +270,8 @@ func NewClient(cfg Config) (*Client, error) {
 // This version uses the same configuration as NewClient.
 //
 // It will return the client with the TypedAPI.
+//
+// Deprecated: Use [NewTyped] with [Option] values instead.
 func NewTypedClient(cfg Config) (*TypedClient, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
