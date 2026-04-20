@@ -15,6 +15,20 @@ or
 [![API](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml/badge.svg?branch=main)](https://github.com/elastic/go-elasticsearch/actions/workflows/test-api.yml?query=branch%3Amain)
 [![Lint](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml/badge.svg?branch=main&event=push)](https://github.com/elastic/go-elasticsearch/actions/workflows/lint.yml)
 
+## Documentation
+
+Find the full reference documentation at [elastic.co](https://www.elastic.co/docs/reference/elasticsearch/clients/go):
+
+- [Getting started](https://www.elastic.co/docs/reference/elasticsearch/clients/go/getting-started)
+- [Configuration](https://www.elastic.co/docs/reference/elasticsearch/clients/go/configuration)
+- [Using the API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api) (low-level and typed)
+- [Typed API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api) and [esdsl builders](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api/esdsl)
+- [Advanced topics](https://www.elastic.co/docs/reference/elasticsearch/clients/go/advanced) (interceptors, observability)
+
+The Go package reference lives on [pkg.go.dev](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9).
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
 ## Compatibility
 
 ### Go
@@ -76,18 +90,6 @@ page of the documentation.
 ## Helpers
 
 The `esutil` package provides convenience helpers for working with the client. At the moment, it provides the `esutil.JSONReader()` and the [`esutil.BulkIndexer`](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api/bulk-indexing) helpers.
-
-<!-- ----------------------------------------------------------------------------------------------- -->
-
-## Documentation
-
-Find the full reference documentation at [elastic.co](https://www.elastic.co/docs/reference/elasticsearch/clients/go):
-
-- [Getting started](https://www.elastic.co/docs/reference/elasticsearch/clients/go/getting-started)
-- [Configuration](https://www.elastic.co/docs/reference/elasticsearch/clients/go/configuration)
-- [Using the API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/using-the-api) (low-level and typed)
-- [Typed API](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api) and [esdsl builders](https://www.elastic.co/docs/reference/elasticsearch/clients/go/typed-api/esdsl)
-- [Advanced topics](https://www.elastic.co/docs/reference/elasticsearch/clients/go/advanced) (interceptors, observability)
 
 <!-- ----------------------------------------------------------------------------------------------- -->
 
