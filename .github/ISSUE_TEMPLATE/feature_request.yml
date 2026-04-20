@@ -15,7 +15,6 @@ body:
       label: Description
       description: |
         Please give us as much context as possible about the feature.
-      render: markdown
     validations:
       required: true
 
