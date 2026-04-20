@@ -103,18 +103,14 @@ func setupDemoData(ctx context.Context, es *elasticsearch.TypedClient) {
 
 // runEsdslExample shows the recommended query-builder style using the
 // helpers in the `esdsl` package. Each builder satisfies the matching
-// `types.*Variant` interface, so queries compose without touching the
-// underlying struct types.
+// `types.*Variant` interface, which the fluent `Search().Query(...)`
+// setter accepts directly.
 func runEsdslExample(ctx context.Context, es *elasticsearch.TypedClient) {
-	query := esdsl.NewBoolQuery().
-		Must(esdsl.NewMatchQuery("title", "elasticsearch")).
-		Filter(esdsl.NewTermQuery("category", esdsl.NewFieldValue().String("tech")))
-
 	res, err := es.Search().
 		Index(demoIndex).
-		Request(&search.Request{
-			Query: query.QueryCaster(),
-		}).
+		Query(esdsl.NewBoolQuery().
+			Must(esdsl.NewMatchQuery("title", "elasticsearch")).
+			Filter(esdsl.NewTermQuery("category", esdsl.NewFieldValue().String("tech")))).
 		Do(ctx)
 	if err != nil {
 		log.Fatalf("Error running search (esdsl): %s", err)
