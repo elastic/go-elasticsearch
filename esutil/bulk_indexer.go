@@ -24,7 +24,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math/rand/v2"
+	"math/rand"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -523,12 +523,12 @@ func (bi *bulkIndexer) init() {
 
 // nextFlushInterval returns FlushInterval plus a random jitter in
 // [0, FlushJitter) when FlushJitter > 0. Callers are independent worker
-// goroutines; math/rand/v2's top-level functions are goroutine-safe.
+// goroutines; math/rand's top-level functions are goroutine-safe.
 func (bi *bulkIndexer) nextFlushInterval() time.Duration {
 	if bi.config.FlushJitter <= 0 {
 		return bi.config.FlushInterval
 	}
-	return bi.config.FlushInterval + rand.N(bi.config.FlushJitter) //nolint:gosec // G404: non-crypto randomness is intentional for flush-interval jitter
+	return bi.config.FlushInterval + time.Duration(rand.Int63n(int64(bi.config.FlushJitter))) //nolint:gosec // G404: non-crypto randomness is intentional for flush-interval jitter
 }
 
 // worker represents an indexer worker.
