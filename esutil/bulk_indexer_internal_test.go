@@ -2178,3 +2178,121 @@ func TestBulkIndexerFlush(t *testing.T) {
 		}
 	})
 }
+
+func TestBulkIndexerNextFlushInterval(t *testing.T) {
+	interval := 100 * time.Millisecond
+
+	t.Run("zero jitter returns FlushInterval exactly", func(t *testing.T) {
+		bi := &bulkIndexer{config: BulkIndexerConfig{FlushInterval: interval, FlushJitter: 0}}
+		for i := 0; i < 100; i++ {
+			if got := bi.nextFlushInterval(); got != interval {
+				t.Fatalf("iteration %d: want=%s, got=%s", i, interval, got)
+			}
+		}
+	})
+
+	t.Run("negative jitter treated as disabled", func(t *testing.T) {
+		bi := &bulkIndexer{config: BulkIndexerConfig{FlushInterval: interval, FlushJitter: -1 * time.Second}}
+		if got := bi.nextFlushInterval(); got != interval {
+			t.Fatalf("want=%s, got=%s", interval, got)
+		}
+	})
+
+	t.Run("positive jitter stays within [interval, interval+jitter)", func(t *testing.T) {
+		jitter := 50 * time.Millisecond
+		bi := &bulkIndexer{config: BulkIndexerConfig{FlushInterval: interval, FlushJitter: jitter}}
+		sawMin := false
+		sawAboveMin := false
+		for i := 0; i < 1000; i++ {
+			got := bi.nextFlushInterval()
+			if got < interval || got >= interval+jitter {
+				t.Fatalf("iteration %d: out of range [%s, %s): got=%s", i, interval, interval+jitter, got)
+			}
+			if got == interval {
+				sawMin = true
+			}
+			if got > interval {
+				sawAboveMin = true
+			}
+		}
+		if !sawAboveMin {
+			t.Error("expected at least one value above FlushInterval across 1000 samples")
+		}
+		_ = sawMin // hitting the exact min is allowed but not required
+	})
+}
+
+func TestBulkIndexerFlushJitter(t *testing.T) {
+	t.Run("auto-flush fires with jitter configured", func(t *testing.T) {
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			}),
+		))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers:    1,
+			Client:        es,
+			FlushInterval: 50 * time.Millisecond,
+			FlushJitter:   50 * time.Millisecond,
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Add(context.Background(),
+			BulkIndexerItem{Action: "index", Body: strings.NewReader(`{"title":"foo"}`)}); err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		// Upper bound of the jittered interval is 100ms; 300ms is generous.
+		time.Sleep(300 * time.Millisecond)
+
+		stats := bi.Stats()
+		if stats.NumFlushed != 1 {
+			t.Errorf("Unexpected NumFlushed: want=1, got=%d", stats.NumFlushed)
+		}
+
+		// Let any in-flight ticker settle before Close to avoid racing the defer flush.
+		time.Sleep(150 * time.Millisecond)
+		bi.Close(context.Background())
+	})
+
+	t.Run("default FlushJitter is zero", func(t *testing.T) {
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
+			elastictransport.WithTransport(&mockTransport{
+				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					}, nil
+				},
+			}),
+		))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi, err := NewBulkIndexer(BulkIndexerConfig{Client: es})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		defer bi.Close(context.Background())
+
+		if got := bi.(*bulkIndexer).config.FlushJitter; got != 0 {
+			t.Errorf("default FlushJitter should be 0, got=%s", got)
+		}
+	})
+}
