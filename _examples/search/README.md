@@ -13,6 +13,20 @@ make test
 go run -tags search_default default.go
 ```
 
+The [`pagination.go`](pagination.go) example walks the same API through both
+supported pagination strategies:
+
+- `from` + `size` for small result sets, and
+- a point in time (PIT) plus `search_after` for deep pagination over a
+  consistent snapshot of the index.
+
+```bash
+go run -tags search_pagination pagination.go
+```
+
+See [Paginate search results](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/paginate-search-results)
+for the corresponding Elasticsearch reference.
+
 ## Notes
 
 - `TypedClient.Search()` returns a fluent builder. Chain `Index(...)`,
