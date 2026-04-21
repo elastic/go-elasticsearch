@@ -57,6 +57,11 @@ const (
 	HeaderClientMeta = "x-elastic-client-meta"
 
 	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
+
+	// typedClientMetaFlag is the client-meta fragment appended to requests
+	// that go through the TypedClient, marking high-level API usage for
+	// telemetry attribution.
+	typedClientMetaFlag = "hl=1"
 )
 
 var (
@@ -281,7 +286,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 	compatHeaderEnv := os.Getenv(esCompatHeader)
 	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
 
-	metaHeader := strings.Join([]string{initMetaHeader(tp), "hl=1"}, ",")
+	metaHeader := strings.Join([]string{initMetaHeader(tp), typedClientMetaFlag}, ",")
 
 	client := &TypedClient{
 		BaseClient: BaseClient{
@@ -370,7 +375,7 @@ func NewBase(opts ...Option) (*BaseClient, error) {
 //	    elasticsearch.WithAPIKey("base64-encoded-key"),
 //	)
 func NewTyped(opts ...Option) (*TypedClient, error) {
-	ro, err := resolveOptions(opts, "hl=1")
+	ro, err := resolveOptions(opts, typedClientMetaFlag)
 	if err != nil {
 		return nil, err
 	}
@@ -405,8 +410,8 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 // connection pool used by both.
 func (c *Client) ToTyped() *TypedClient {
 	metaHeader := c.metaHeader
-	if !strings.Contains(metaHeader, "hl=1") {
-		metaHeader = strings.Join([]string{metaHeader, "hl=1"}, ",")
+	if !strings.Contains(metaHeader, typedClientMetaFlag) {
+		metaHeader = strings.Join([]string{metaHeader, typedClientMetaFlag}, ",")
 	}
 
 	tc := &TypedClient{
