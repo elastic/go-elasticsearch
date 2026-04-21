@@ -35,7 +35,7 @@ The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing
 
 ## Instrumentation
 
-The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client with the OpenCensus and Elastic APM packages.
+The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client with OpenCensus and for exposing client metrics via `expvar`. For OpenTelemetry-based instrumentation via interceptors, see [**`interceptor/cmd/custom_observability`**](./interceptor/cmd/custom_observability).
 
 ## Interceptors
 

@@ -8,16 +8,10 @@ The [**`opencensus.go`**](./opencensus.go) example uses the [`ochttp.Transport`]
 
 <a href="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf" target="_blank"><img src="https://asciinema.org/a/KhyP3GuuHPJAZQAmrgmdwS7uf.svg" width="750" alt="OpenCensus instrumentation demo" /></a>
 
-## Elastic APM
+## expvar
 
-The [**`apmelasticsearch.go`**](./apmelasticsearch.go) example demonstrates instrumenting the client with the [Go agent for Elastic APM](https://github.com/elastic/apm-agent-go): configuring the transactions for multiple types, creating custom spans within a transaction, and reporting errors.
+The [**`expvar.go`**](./expvar.go) example publishes client metrics via the [`expvar`](https://pkg.go.dev/expvar) package for consumption by any compatible monitoring system.
 
-![Screenshot](screenshot.png)
+## OpenTelemetry
 
-Run the example interactively with Docker and inspect the UI in <a href="http://localhost:5601/app/apm#/go-elasticsearch-demo-instrumentation/transactions?_g=(time:(from:now-15m,to:now))">Kibana</a>:
-
-    docker-compose --file elasticstack.yml up --build
-
-To destroy the Docker assets for the example, run:
-
-    docker-compose --file elasticstack.yml down --remove-orphans --volumes
+For OpenTelemetry-based instrumentation (logs, metrics, and tracing via interceptors) see [**`../interceptor/cmd/custom_observability`**](../interceptor/cmd/custom_observability), which demonstrates the recommended interceptor pattern for adding observability to requests.
