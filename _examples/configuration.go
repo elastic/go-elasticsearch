@@ -18,6 +18,7 @@
 package main
 
 import (
+	"context"
 	"crypto/tls"
 	"log"
 	"net"
@@ -31,12 +32,12 @@ import (
 func main() {
 	log.SetFlags(0)
 
-	// This example demonstrates how to configure the client's Transport.
+	// This example demonstrates how to configure the typed client's Transport.
 	//
 	// NOTE: These values are for illustrative purposes only, and not suitable
 	//       for any production use. The default transport is sufficient.
 	//
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses("http://localhost:9200"),
 		elasticsearch.WithTransportOptions(
 			elastictransport.WithTransport(&http.Transport{
@@ -53,7 +54,7 @@ func main() {
 	if err != nil {
 		log.Printf("Error creating the client: %s", err)
 	} else {
-		log.Println(es.Info())
+		log.Println(es.Info().Do(context.Background()))
 		// => dial tcp: i/o timeout
 	}
 }

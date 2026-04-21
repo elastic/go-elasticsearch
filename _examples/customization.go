@@ -22,6 +22,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -78,17 +79,18 @@ func main() {
 	//
 	tp := CountingTransport{}
 
-	// Pass the custom transport to the client.
+	// Pass the custom transport to the typed client.
 	//
-	es, _ := elasticsearch.New(
+	es, _ := elasticsearch.NewTyped(
 		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&tp)),
 	)
 
+	ctx := context.Background()
 	for i := 0; i < 25; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			es.Info()
+			es.Info().Do(ctx)
 		}()
 	}
 	wg.Wait()

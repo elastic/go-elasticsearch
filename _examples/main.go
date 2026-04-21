@@ -15,7 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// This example demonstrates a basic usage of the Elasticsearch Go client.
+// This example demonstrates a basic usage of the Elasticsearch Go client
+// with the typed client (`TypedClient`) and the `esdsl` query builders.
 //
 // It fetches the version information from the cluster, indexes a couple
 // of documents concurrently, and performs a search request.
@@ -23,9 +24,7 @@
 package main
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"log"
 	"strconv"
 	"strings"
@@ -33,22 +32,22 @@ import (
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v9"
-	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 )
+
+type article struct {
+	Title string `json:"title"`
+}
 
 func main() {
 	log.SetFlags(0)
 
-	var (
-		r  map[string]interface{}
-		wg sync.WaitGroup
-	)
-
-	// Initialize a client with the default settings.
+	// Initialize a typed client with the default settings.
 	//
 	// An `ELASTICSEARCH_URL` environment variable will be used when exported.
 	//
-	es, err := elasticsearch.New()
+	es, err := elasticsearch.NewTyped()
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
@@ -59,69 +58,40 @@ func main() {
 			log.Fatalf("Error closing the client: %s\n", err)
 		}
 	}()
+
+	ctx := context.Background()
+
 	// 1. Get cluster info
 	//
-	res, err := es.Info()
+	info, err := es.Info().Do(ctx)
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
-	defer res.Body.Close()
-	// Check response status
-	if res.IsError() {
-		log.Fatalf("Error: %s", res.String())
-	}
-	// Deserialize the response into a map.
-	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-		log.Fatalf("Error parsing the response body: %s", err)
-	}
 	// Print client and server version numbers.
 	log.Printf("Client: %s", elasticsearch.Version)
-	log.Printf("Server: %s", r["version"].(map[string]interface{})["number"])
+	log.Printf("Server: %s", info.Version.Int)
 	log.Println(strings.Repeat("~", 37))
 
 	// 2. Index documents concurrently
 	//
+	var wg sync.WaitGroup
 	for i, title := range []string{"Test One", "Test Two"} {
 		wg.Add(1)
 
 		go func(i int, title string) {
 			defer wg.Done()
 
-			// Build the request body.
-			data, err := json.Marshal(struct {
-				Title string `json:"title"`
-			}{Title: title})
+			res, err := es.Index("test").
+				Id(strconv.Itoa(i + 1)).
+				Document(article{Title: title}).
+				Refresh(refresh.True).
+				Do(ctx)
 			if err != nil {
-				log.Fatalf("Error marshaling document: %s", err)
+				log.Printf("Error indexing document ID=%d: %s", i+1, err)
+				return
 			}
-
-			// Set up the request object.
-			req := esapi.IndexRequest{
-				Index:      "test",
-				DocumentID: strconv.Itoa(i + 1),
-				Body:       bytes.NewReader(data),
-				Refresh:    "true",
-			}
-
-			// Perform the request with the client.
-			res, err := req.Do(context.Background(), es)
-			if err != nil {
-				log.Fatalf("Error getting response: %s", err)
-			}
-			defer res.Body.Close()
-
-			if res.IsError() {
-				log.Printf("[%s] Error indexing document ID=%d", res.Status(), i+1)
-			} else {
-				// Deserialize the response into a map.
-				var r map[string]interface{}
-				if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-					log.Printf("Error parsing the response body: %s", err)
-				} else {
-					// Print the response status and indexed document version.
-					log.Printf("[%s] %s; version=%d", res.Status(), r["result"], int(r["_version"].(float64)))
-				}
-			}
+			// Print the result and indexed document version.
+			log.Printf("%s; version=%d", res.Result, res.Version_)
 		}(i, title)
 	}
 	wg.Wait()
@@ -130,59 +100,29 @@ func main() {
 
 	// 3. Search for the indexed documents
 	//
-	// Build the request body.
-	var buf bytes.Buffer
-	query := map[string]interface{}{
-		"query": map[string]interface{}{
-			"match": map[string]interface{}{
-				"title": "test",
-			},
-		},
-	}
-	if err := json.NewEncoder(&buf).Encode(query); err != nil {
-		log.Fatalf("Error encoding query: %s", err)
-	}
-
-	// Perform the search request.
-	res, err = es.Search(
-		es.Search.WithContext(context.Background()),
-		es.Search.WithIndex("test"),
-		es.Search.WithBody(&buf),
-		es.Search.WithTrackTotalHits(true),
-		es.Search.WithPretty(),
-	)
+	res, err := es.Search().
+		Index("test").
+		Query(esdsl.NewMatchQuery("title", "test")).
+		TrackTotalHits(esdsl.NewTrackHits().Bool(true)).
+		Pretty(true).
+		Do(ctx)
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
-	defer res.Body.Close()
 
-	if res.IsError() {
-		var e map[string]interface{}
-		if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
-			log.Fatalf("Error parsing the response body: %s", err)
-		} else {
-			// Print the response status and error information.
-			log.Fatalf("[%s] %s: %s",
-				res.Status(),
-				e["error"].(map[string]interface{})["type"],
-				e["error"].(map[string]interface{})["reason"],
-			)
-		}
+	// Print the number of results and request duration.
+	total := int64(0)
+	if res.Hits.Total != nil {
+		total = res.Hits.Total.Value
 	}
-
-	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-		log.Fatalf("Error parsing the response body: %s", err)
-	}
-	// Print the response status, number of results, and request duration.
-	log.Printf(
-		"[%s] %d hits; took: %dms",
-		res.Status(),
-		int(r["hits"].(map[string]interface{})["total"].(map[string]interface{})["value"].(float64)),
-		int(r["took"].(float64)),
-	)
+	log.Printf("%d hits; took: %dms", total, res.Took)
 	// Print the ID and document source for each hit.
-	for _, hit := range r["hits"].(map[string]interface{})["hits"].([]interface{}) {
-		log.Printf(" * ID=%s, %s", hit.(map[string]interface{})["_id"], hit.(map[string]interface{})["_source"])
+	for _, hit := range res.Hits.Hits {
+		id := ""
+		if hit.Id_ != nil {
+			id = *hit.Id_
+		}
+		log.Printf(" * ID=%s, %s", id, string(hit.Source_))
 	}
 
 	log.Println(strings.Repeat("=", 37))
