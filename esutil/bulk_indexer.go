@@ -24,6 +24,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -82,6 +83,7 @@ type BulkIndexerConfig struct {
 	NumWorkers          int           // The number of workers. Defaults to runtime.NumCPU().
 	FlushBytes          int           // The flush threshold in bytes. Defaults to 5MB.
 	FlushInterval       time.Duration // The flush threshold as duration. Defaults to 30sec.
+	FlushJitter         time.Duration // Max random jitter added to FlushInterval per worker, to avoid lockstep flushes. Defaults to 0 (disabled).
 	QueueSizeMultiplier int           // The capacity of each worker's item queue. Total capacity is NumWorkers * QueueSizeMultiplier. Defaults to 1.
 
 	Client      esapi.Transport         // The Elasticsearch client (required).
@@ -512,11 +514,21 @@ func (bi *bulkIndexer) init() {
 			ch:     make(chan BulkIndexerItem, bi.config.QueueSizeMultiplier),
 			bi:     bi,
 			buf:    bytes.NewBuffer(make([]byte, 0, bi.config.FlushBytes)),
-			ticker: time.NewTicker(bi.config.FlushInterval),
+			ticker: time.NewTicker(bi.nextFlushInterval()),
 		}
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
+}
+
+// nextFlushInterval returns FlushInterval plus a random jitter in
+// [0, FlushJitter) when FlushJitter > 0. Callers are independent worker
+// goroutines; math/rand/v2's top-level functions are goroutine-safe.
+func (bi *bulkIndexer) nextFlushInterval() time.Duration {
+	if bi.config.FlushJitter <= 0 {
+		return bi.config.FlushInterval
+	}
+	return bi.config.FlushInterval + rand.N(bi.config.FlushJitter) //nolint:gosec // G404: non-crypto randomness is intentional for flush-interval jitter
 }
 
 // worker represents an indexer worker.
@@ -639,7 +651,7 @@ func (w *worker) flush(ctx context.Context) bool {
 	if err := w.flushBuffer(ctx); err != nil {
 		ok = false
 	}
-	w.ticker.Reset(w.bi.config.FlushInterval)
+	w.ticker.Reset(w.bi.nextFlushInterval())
 	return ok
 }
 
