@@ -18,6 +18,7 @@
 package main
 
 import (
+	"context"
 	"expvar"
 	"fmt"
 	"io"
@@ -84,7 +85,7 @@ func main() {
 		}(i)
 	}
 
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(
 			"http://localhost:10001",
 			"http://localhost:10002",
@@ -107,20 +108,18 @@ func main() {
 	expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} { m, _ := es.Metrics(); return m }))
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+	ctx := context.Background()
+
 	for {
 		select {
 		case t := <-ticker.C:
 
 			go func() {
-				if res, _ := es.Info(); res != nil {
-					res.Body.Close()
-				}
+				_, _ = es.Info().Do(ctx)
 			}()
 
 			go func() {
-				if res, _ := es.Cluster.Health(); res != nil {
-					res.Body.Close()
-				}
+				_, _ = es.Cluster.Health().Do(ctx)
 			}()
 
 			if t.Second()%5 == 0 {

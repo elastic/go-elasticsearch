@@ -50,7 +50,7 @@ func main() {
 		log.Fatalf("ERROR: Unable to read CA from %q: %s", *cacert, err)
 	}
 
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses("https://localhost:9200"),
 		elasticsearch.WithBasicAuth("elastic", *password),
 		// --> Pass the certificate to the client
@@ -68,11 +68,10 @@ func main() {
 		}
 	}()
 
-	res, err := es.Info()
+	res, err := es.Info().Do(context.Background())
 	if err != nil {
 		log.Fatalf("ERROR: Unable to get response: %s", err)
 	}
-	defer res.Body.Close()
 
 	log.Println(res)
 }

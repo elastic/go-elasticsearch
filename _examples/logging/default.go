@@ -18,7 +18,7 @@
 //go:build logging_default
 // +build logging_default
 
-// This collection of examples demonstrates how to configure the default logger of the client.
+// This collection of examples demonstrates how to configure the default logger of the typed client.
 //
 // To enable logging, pass a logger implementation to the "Logger" option in the client configuration.
 //
@@ -35,18 +35,20 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 )
 
 func main() {
 	log.SetFlags(0)
 
-	var es *elasticsearch.Client
+	var es *elasticsearch.TypedClient
 
 	// ==============================================================================================
 	//
 	// "TextLogger" writes basic information about the request and response as plain text to the output.
 	//
-	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.TextLogger{Output: os.Stdout}))
+	es, _ = elasticsearch.NewTyped(elasticsearch.WithLogger(&elastictransport.TextLogger{Output: os.Stdout}))
 	run(es, "Text")
 	_ = es.Close(context.Background())
 
@@ -54,7 +56,7 @@ func main() {
 	//
 	// "ColorLogger" is optimized for displaying information in the terminal during development.
 	//
-	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
+	es, _ = elasticsearch.NewTyped(elasticsearch.WithLogger(&elastictransport.ColorLogger{Output: os.Stdout}))
 	run(es, "Color")
 	_ = es.Close(context.Background())
 
@@ -62,7 +64,7 @@ func main() {
 	//
 	// To log the request and response bodies, use the respective configuration options.
 	//
-	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.ColorLogger{
+	es, _ = elasticsearch.NewTyped(elasticsearch.WithLogger(&elastictransport.ColorLogger{
 		Output:             os.Stdout,
 		EnableRequestBody:  true,
 		EnableResponseBody: true,
@@ -75,7 +77,7 @@ func main() {
 	// "CurlLogger" writes the information formatted as runnable curl commands,
 	// pretty-printing the response body (when enabled), useful eg. for sharing.
 	//
-	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}))
+	es, _ = elasticsearch.NewTyped(elasticsearch.WithLogger(&elastictransport.CurlLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true}))
 	run(es, "Curl")
 	_ = es.Close(context.Background())
 
@@ -83,42 +85,38 @@ func main() {
 	//
 	// "JSONLogger" writes the information as JSON and is suitable for production logging.
 	//
-	es, _ = elasticsearch.New(elasticsearch.WithLogger(&elastictransport.JSONLogger{Output: os.Stdout}))
+	es, _ = elasticsearch.NewTyped(elasticsearch.WithLogger(&elastictransport.JSONLogger{Output: os.Stdout}))
 	run(es, "JSON")
 	_ = es.Close(context.Background())
 }
 
 // ------------------------------------------------------------------------------------------------
 
-func run(es *elasticsearch.Client, name string) {
+func run(es *elasticsearch.TypedClient, name string) {
 	log.Println("███", fmt.Sprintf("\x1b[1m%s\x1b[0m", name), strings.Repeat("█", 75-len(name)))
 
-	es.Delete("test", "1")
-	es.Exists("test", "1")
+	ctx := context.Background()
 
-	es.Index(
-		"test",
-		strings.NewReader(`{"title" : "logging"}`),
-		es.Index.WithRefresh("true"),
-		es.Index.WithPretty(),
-		es.Index.WithFilterPath("result", "_id"),
-	)
+	es.Delete("test", "1").Do(ctx)
+	es.Exists("test", "1").Do(ctx)
 
-	es.Search(es.Search.WithQuery("{FAIL"))
+	es.Index("test").
+		Document(map[string]string{"title": "logging"}).
+		Refresh(refresh.True).
+		Pretty(true).
+		FilterPath("result", "_id").
+		Do(ctx)
 
-	res, err := es.Search(
-		es.Search.WithIndex("test"),
-		es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
-		es.Search.WithSize(1),
-		es.Search.WithPretty(),
-		es.Search.WithFilterPath("took", "hits.hits"),
-	)
+	// Intentionally send a bad query-string (?q=) to show an error being logged.
+	es.Search().Q("{FAIL").Do(ctx)
 
-	s := res.String()
-	// log.Println("\x1b[1mResponse:\x1b[0m", s)
-	if len(s) <= len("[200 OK] ") {
-		log.Fatal("Response body is empty")
-	}
+	_, err := es.Search().
+		Index("test").
+		Query(esdsl.NewMatchQuery("title", "logging")).
+		Size(1).
+		Pretty(true).
+		FilterPath("took", "hits.hits").
+		Do(ctx)
 
 	if err != nil {
 		log.Fatalf("Error:   %s", err)

@@ -20,7 +20,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/signal"
@@ -33,6 +32,9 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/level"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/stats/view"
@@ -127,9 +129,9 @@ func main() {
 	log.SetFlags(0)
 	start := time.Now()
 
-	// Create new elasticsearch client ...
+	// Create new Elasticsearch typed client ...
 	//
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		// ... using the "ochttp" wrapper for instrumentation
 		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&ochttp.Transport{})),
@@ -205,57 +207,41 @@ func main() {
 		// -> Info
 		//
 		case <-tickers.Info.C:
-			res, err := es.Info(es.Info.WithContext(ctx))
-			if err != nil {
+			if _, err := es.Info().Do(ctx); err != nil {
 				boldRed.Printf("Error getting response: %s\n", err)
-			} else {
-				res.Body.Close()
 			}
 
 		// -> Index
 		//
 		case t := <-tickers.Index.C:
-			// Artificially fail some requests...
-			var body io.Reader
+			// Artificially fail some requests by sending an empty document.
+			req := es.Index("test")
 			if t.Second()%4 == 0 {
-				body = strings.NewReader(``)
+				req = req.Raw(strings.NewReader(``))
 			} else {
-				body = strings.NewReader(`{"timestamp":"` + t.Format(time.RFC3339) + `"}`)
+				req = req.Document(map[string]string{"timestamp": t.Format(time.RFC3339)})
 			}
 
-			res, err := es.Index("test", body, es.Index.WithContext(ctx))
-			if err != nil {
+			if _, err := req.Do(ctx); err != nil {
 				boldRed.Printf("Error getting response: %s\n", err)
-			} else {
-				res.Body.Close()
 			}
 
 		// -> Health
 		//
 		case <-tickers.Health.C:
-			res, err := es.Cluster.Health(
-				es.Cluster.Health.WithLevel("indices"),
-				es.Cluster.Health.WithContext(ctx),
-			)
-			if err != nil {
+			if _, err := es.Cluster.Health().Level(level.Indices).Do(ctx); err != nil {
 				boldRed.Printf("Error getting response: %s\n", err)
-			} else {
-				res.Body.Close()
 			}
 
 		// -> Search
 		//
 		case <-tickers.Search.C:
-			res, err := es.Search(
-				es.Search.WithIndex("test"),
-				es.Search.WithSort("timestamp:desc"),
-				es.Search.WithSize(1),
-				es.Search.WithContext(ctx),
-			)
-			if err != nil {
+			if _, err := es.Search().
+				Index("test").
+				Sort(esdsl.NewSortOptions().AddSortOption("timestamp", esdsl.NewFieldSort(sortorder.Desc))).
+				Size(1).
+				Do(ctx); err != nil {
 				boldRed.Printf("Error getting response: %s\n", err)
-			} else {
-				res.Body.Close()
 			}
 		}
 	}

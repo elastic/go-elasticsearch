@@ -55,8 +55,8 @@ func main() {
 	)
 	defer srv.Close()
 
-	// Create an Elasticsearch client with default credentials and context auth interceptor
-	es, err := elasticsearch.New(
+	// Create an Elasticsearch typed client with default credentials and context auth interceptor
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(srv.URL()),
 		elasticsearch.WithBasicAuth("default_user", "default_password"),
 		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
@@ -69,21 +69,21 @@ func main() {
 
 	// Request without context override uses default credentials
 	fmt.Println(">>> Sending request with default credentials")
-	_, _ = es.Info()
+	_, _ = es.Info().Do(context.Background())
 
 	// Request with context override uses the specified credentials
 	fmt.Println("\n>>> Sending request with context override (tenant_a)")
 	ctx := WithBasicAuth(context.Background(), "tenant_a", "tenant_a_secret")
-	_, _ = es.Info(es.Info.WithContext(ctx))
+	_, _ = es.Info().Do(ctx)
 
 	// Another request with different context credentials
 	fmt.Println("\n>>> Sending request with context override (tenant_b)")
 	ctx = WithBasicAuth(context.Background(), "tenant_b", "tenant_b_secret")
-	_, _ = es.Info(es.Info.WithContext(ctx))
+	_, _ = es.Info().Do(ctx)
 
 	// Request without context override still uses default credentials
 	fmt.Println("\n>>> Sending request with default credentials again")
-	_, _ = es.Info()
+	_, _ = es.Info().Do(context.Background())
 }
 
 // basicAuthKey is the context key for storing basic auth credentials.

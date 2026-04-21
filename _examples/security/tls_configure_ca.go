@@ -67,7 +67,7 @@ func main() {
 		log.Fatalf("ERROR: Problem adding CA from file %q", *cacert)
 	}
 
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses("https://localhost:9200"),
 		elasticsearch.WithBasicAuth("elastic", *password),
 		// --> Pass the transport to the client
@@ -85,11 +85,10 @@ func main() {
 		}
 	}()
 
-	res, err := es.Info()
+	res, err := es.Info().Do(context.Background())
 	if err != nil {
 		log.Fatalf("ERROR: Unable to get response: %s", err)
 	}
-	defer res.Body.Close()
 
 	log.Println(res)
 }

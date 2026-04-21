@@ -26,6 +26,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -56,8 +57,8 @@ func main() {
 	)
 	defer srv.Close()
 
-	// Create an Elasticsearch client with the Kerberos interceptor
-	es, err := elasticsearch.New(
+	// Create an Elasticsearch typed client with the Kerberos interceptor
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(srv.URL()),
 		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			KerberosInterceptor(MockTokenProvider),
@@ -69,11 +70,11 @@ func main() {
 
 	// Send a request - the interceptor handles the 401 challenge automatically
 	fmt.Println(">>> Sending request (interceptor will handle SPNEGO challenge)")
-	resp, err := es.Info()
+	resp, err := es.Info().Do(context.Background())
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf(">>> Response status: %s\n", resp.Status())
+	fmt.Printf(">>> Response cluster_name: %s\n", resp.ClusterName)
 }
 
 // KerberosInterceptor creates an interceptor that handles Kerberos/SPNEGO authentication.

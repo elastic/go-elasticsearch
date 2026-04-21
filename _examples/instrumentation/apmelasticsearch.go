@@ -19,10 +19,8 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"log"
 	"math/rand"
 	"net/http"
@@ -37,6 +35,9 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/level"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/sortorder"
 
 	"go.elastic.co/apm"
 	"go.elastic.co/apm/module/apmelasticsearch"
@@ -71,9 +72,9 @@ func main() {
 	log.SetFlags(0)
 	start := time.Now()
 
-	// Create new elasticsearch client ...
+	// Create new Elasticsearch typed client ...
 	//
-	es, err := elasticsearch.New(
+	es, err := elasticsearch.NewTyped(
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		// ... using the "apmelasticsearch" wrapper for instrumentation
 		elasticsearch.WithTransportOptions(elastictransport.WithTransport(apmelasticsearch.WrapRoundTripper(http.DefaultTransport))),
@@ -135,7 +136,7 @@ func main() {
 				defer txn.End()
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				res, err := es.Info(es.Info.WithContext(ctx))
+				_, err := es.Info().Do(ctx)
 				if err != nil {
 					boldRed.Printf("Error getting response: %s\n", err)
 					// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -144,28 +145,19 @@ func main() {
 					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 					return
 				}
-				defer res.Body.Close()
 
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Set the response status as transaction result
-				txn.Result = res.Status()
+				// Set the transaction result
+				txn.Result = "OK"
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				faint.Println(res.Status())
+				faint.Println("OK")
 			}()
 
 		// -> Index
 		//
 		case t := <-tickers.Index.C:
 			func(t time.Time) {
-				// Fail some requests with empty body...
-				var body io.Reader
-				if t.Second()%4 == 0 {
-					body = strings.NewReader(``)
-				} else {
-					body = strings.NewReader(`{"timestamp":"` + t.Format(time.RFC3339) + `"}`)
-				}
-
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 				// Set up the APM transaction
 				txn := apm.DefaultTracer.StartTransaction("Index()", "indexing")
@@ -177,7 +169,15 @@ func main() {
 				defer txn.End()
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				res, err := es.Index("test", body, es.Index.WithContext(ctx))
+				// Fail some requests by sending an empty body.
+				req := es.Index("test")
+				if t.Second()%4 == 0 {
+					req = req.Raw(strings.NewReader(``))
+				} else {
+					req = req.Document(map[string]string{"timestamp": t.Format(time.RFC3339)})
+				}
+
+				_, err := req.Do(ctx)
 				if err != nil {
 					boldRed.Printf("Error getting response: %s\n", err)
 					// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -186,14 +186,13 @@ func main() {
 					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 					return
 				}
-				defer res.Body.Close()
 
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Set the response status as transaction result
-				txn.Result = res.Status()
+				// Set the transaction result
+				txn.Result = "OK"
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				faint.Println(res.Status())
+				faint.Println("OK")
 			}(t)
 
 		// -> Health
@@ -211,10 +210,7 @@ func main() {
 				defer txn.End()
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				res, err := es.Cluster.Health(
-					es.Cluster.Health.WithLevel("indices"),
-					es.Cluster.Health.WithContext(ctx),
-				)
+				_, err := es.Cluster.Health().Level(level.Indices).Do(ctx)
 				if err != nil {
 					boldRed.Printf("Error getting response: %s\n", err)
 					// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -223,14 +219,13 @@ func main() {
 					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 					return
 				}
-				defer res.Body.Close()
 
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Set the response status as transaction result
-				txn.Result = res.Status()
+				// Set the transaction result
+				txn.Result = "OK"
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-				faint.Println(res.Status())
+				faint.Println("OK")
 			}()
 
 		// -> Search
@@ -261,14 +256,13 @@ func main() {
 					return
 				}
 
-				res, err := es.Search(
-					es.Search.WithIndex("test"),
-					es.Search.WithSort("timestamp:desc"),
-					es.Search.WithSize(1),
+				res, err := es.Search().
+					Index("test").
+					Sort(esdsl.NewSortOptions().AddSortOption("timestamp", esdsl.NewFieldSort(sortorder.Desc))).
+					Size(1).
 					// Annotate this search request; https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html#stats-groups
-					es.Search.WithStats("foo"),
-					es.Search.WithContext(ctx),
-				)
+					Stats("foo").
+					Do(ctx)
 				if err != nil {
 					boldRed.Printf("Error getting response: %s\n", err)
 					// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -277,35 +271,17 @@ func main() {
 					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 					return
 				}
-				defer res.Body.Close()
 
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Set the response status as transaction result
-				txn.Result = res.Status()
+				// Set the transaction result
+				txn.Result = "OK"
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 				// Create a custom span within the transaction
-				sp := txn.StartSpan("JSON/Decode", "searching", nil)
+				sp := txn.StartSpan("UI/Render", "searching", nil)
 				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-				var r map[string]interface{}
-				if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-					sp.End()
-					boldRed.Printf("Error parsing the response body: %s\n", err)
-					apm.CaptureError(ctx, err).Send()
-					return
-				}
-				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Mark the span as completed
-				sp.End()
-				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				// Create a custom span within the transaction
-				sp = txn.StartSpan("UI/Render", "searching", nil)
-				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-				faint.Printf("%s ; %vms\n", res.Status(), r["took"])
+				faint.Printf("OK ; %dms\n", res.Took)
 				// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 				// Mark the span as completed
 				sp.End()

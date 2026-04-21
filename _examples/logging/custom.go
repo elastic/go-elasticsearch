@@ -29,12 +29,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/rs/zerolog"
 
 	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/refresh"
 )
 
 // CustomLogger implements the elastictransport.Logger interface.
@@ -112,9 +113,9 @@ func main() {
 
 	// ==============================================================================================
 	//
-	// Pass the logger to the client
+	// Pass the logger to the typed client
 	//
-	es, _ := elasticsearch.New(elasticsearch.WithLogger(&CustomLogger{log}))
+	es, _ := elasticsearch.NewTyped(elasticsearch.WithLogger(&CustomLogger{log}))
 	defer func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -125,18 +126,22 @@ func main() {
 
 	// ----------------------------------------------------------------------------------------------
 	{
-		es.Delete("test", "1")
-		es.Exists("test", "1")
-		es.Index("test", strings.NewReader(`{"title" : "logging"}`), es.Index.WithRefresh("true"))
+		ctx := context.Background()
 
-		es.Search(
-			es.Search.WithQuery("{FAIL"),
-		)
+		es.Delete("test", "1").Do(ctx)
+		es.Exists("test", "1").Do(ctx)
+		es.Index("test").
+			Document(map[string]string{"title": "logging"}).
+			Refresh(refresh.True).
+			Do(ctx)
 
-		es.Search(
-			es.Search.WithIndex("test"),
-			es.Search.WithBody(strings.NewReader(`{"query" : {"match" : { "title" : "logging" } } }`)),
-			es.Search.WithSize(1),
-		)
+		// Intentionally send a bad query-string (?q=) to show an error being logged.
+		es.Search().Q("{FAIL").Do(ctx)
+
+		es.Search().
+			Index("test").
+			Query(esdsl.NewMatchQuery("title", "logging")).
+			Size(1).
+			Do(ctx)
 	}
 }

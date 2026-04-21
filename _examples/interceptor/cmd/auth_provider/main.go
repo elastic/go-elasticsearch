@@ -24,6 +24,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -59,8 +60,8 @@ func main() {
 	// Create a credential provider that can be updated at runtime
 	authProvider := NewCredentialProvider("user1", "password1")
 
-	// Create an Elasticsearch client with a custom auth interceptor
-	es, err := elasticsearch.New(
+	// Create an Elasticsearch typed client with a custom auth interceptor
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(srv.URL()),
 		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			DynamicAuthInterceptor(authProvider),
@@ -70,9 +71,11 @@ func main() {
 		panic(err)
 	}
 
+	ctx := context.Background()
+
 	// First request uses initial credentials
 	fmt.Println(">>> Sending request with initial credentials (user1)")
-	_, _ = es.Info()
+	_, _ = es.Info().Do(ctx)
 
 	// Update credentials (simulating credential rotation)
 	fmt.Println("\n>>> Rotating credentials to (user2)")
@@ -80,7 +83,7 @@ func main() {
 
 	// Second request automatically uses the new credentials
 	fmt.Println("\n>>> Sending request with rotated credentials (user2)")
-	_, _ = es.Info()
+	_, _ = es.Info().Do(ctx)
 }
 
 // DynamicAuthInterceptor creates an interceptor that injects BasicAuth

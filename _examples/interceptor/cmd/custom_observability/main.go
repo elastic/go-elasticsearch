@@ -82,8 +82,8 @@ func main() {
 	// Create tracer
 	tracer := otel.Tracer("elasticsearch-client")
 
-	// Create an Elasticsearch client with observability interceptors
-	es, err := elasticsearch.New(
+	// Create an Elasticsearch typed client with observability interceptors
+	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(srv.URL()),
 		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
 			LoggingInterceptor(),
@@ -101,7 +101,7 @@ func main() {
 
 	for i := 1; i <= 3; i++ {
 		fmt.Printf("--- Request %d ---\n", i)
-		_, _ = es.Info()
+		_, _ = es.Info().Do(context.Background())
 		fmt.Println()
 		time.Sleep(100 * time.Millisecond) // Small delay between requests
 	}
