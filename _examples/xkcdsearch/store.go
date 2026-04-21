@@ -126,7 +126,7 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 	}
 
 	if len(after) > 0 && after[0] != "" && after[0] != "null" {
-		req = req.SearchAfter(parseSearchAfter(after[0])...)
+		req = req.SearchAfterValues(parseSearchAfter(after[0]))
 	}
 
 	res, err := req.Do(context.Background())
@@ -178,22 +178,22 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 	return &results, nil
 }
 
-// parseSearchAfter splits a comma-separated token list and returns typed
-// field-value variants, trying int64 then float64 and falling back to string.
-func parseSearchAfter(s string) []types.FieldValueVariant {
+// parseSearchAfter splits a comma-separated token list into typed field
+// values, trying int64 then float64 and falling back to string.
+func parseSearchAfter(s string) []types.FieldValue {
 	parts := strings.Split(s, ",")
-	out := make([]types.FieldValueVariant, 0, len(parts))
+	out := make([]types.FieldValue, 0, len(parts))
 	for _, p := range parts {
 		p = strings.TrimSpace(p)
 		if i, err := strconv.ParseInt(p, 10, 64); err == nil {
-			out = append(out, esdsl.NewFieldValue().Int64(i))
+			out = append(out, i)
 			continue
 		}
 		if f, err := strconv.ParseFloat(p, 64); err == nil {
-			out = append(out, esdsl.NewFieldValue().Float64(types.Float64(f)))
+			out = append(out, f)
 			continue
 		}
-		out = append(out, esdsl.NewFieldValue().String(p))
+		out = append(out, p)
 	}
 	return out
 }
