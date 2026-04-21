@@ -916,146 +916,136 @@ func TestNewTypedClient(t *testing.T) {
 	}
 }
 
-func TestToTyped(t *testing.T) {
-	newMockTransport := func(capture *http.Header) (elastictransport.Interface, error) {
-		return elastictransport.New(elastictransport.Config{
-			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
-					if capture != nil {
-						*capture = req.Header.Clone()
-					}
-					return &http.Response{
-						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
-						StatusCode: http.StatusOK,
-						Status:     "OK",
-						Body: io.NopCloser(strings.NewReader(`{
-							"version":{"number":"8.0.0-SNAPSHOT","build_flavor":"default"},
-							"tagline":"You Know, for Search"
-						}`)),
-					}, nil
-				},
+func toTypedMockTransport(t *testing.T, capture *http.Header) elastictransport.Interface {
+	t.Helper()
+	tp, err := elastictransport.NewClient(
+		elastictransport.WithURLs(&url.URL{Scheme: "http", Host: "foo"}),
+		elastictransport.WithTransport(&mockTransp{
+			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+				if capture != nil {
+					*capture = req.Header.Clone()
+				}
+				return &http.Response{
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					StatusCode: http.StatusOK,
+					Status:     "OK",
+					Body: io.NopCloser(strings.NewReader(`{
+						"version":{"number":"8.0.0-SNAPSHOT","build_flavor":"default"},
+						"tagline":"You Know, for Search"
+					}`)),
+				}, nil
 			},
-		})
+		}),
+	)
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	return tp
+}
+
+func TestToTyped_AddsTypedFlag(t *testing.T) {
+	var captured http.Header
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	c.Transport = toTypedMockTransport(t, &captured)
+
+	tc := c.ToTyped()
+	if _, err := tc.Info().Do(context.Background()); err != nil {
+		t.Fatalf("unexpected error: %s", err)
 	}
 
-	t.Run("adds hl=1 to meta header", func(t *testing.T) {
-		var captured http.Header
-		tp, err := newMockTransport(&captured)
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
+	h := captured.Get(HeaderClientMeta)
+	if !metaHeaderReValidation.MatchString(h) {
+		t.Errorf("expected meta header to match regexp, got: %s", h)
+	}
+	if !strings.Contains(h, "hl=1") {
+		t.Errorf("expected meta header to contain hl=1, got: %s", h)
+	}
+}
 
-		c, err := New()
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		c.Transport = tp
+func TestToTyped_SharesTransport(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	tc := c.ToTyped()
+	if tc.Transport != c.Transport {
+		t.Errorf("expected converted client to share the source transport")
+	}
+}
 
-		tc := c.ToTyped()
-		if _, err := tc.Info().Do(context.Background()); err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
+func TestToTyped_PreservesConfigFlags(t *testing.T) {
+	c, err := New(WithCompatibilityMode(), WithAutoDrainBody())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	tc := c.ToTyped()
+	if !tc.compatibilityHeader {
+		t.Errorf("expected compatibilityHeader to be carried over")
+	}
+	if !tc.autoDrainBody {
+		t.Errorf("expected autoDrainBody to be carried over")
+	}
+	if tc.disableMetaHeader {
+		t.Errorf("expected disableMetaHeader to remain false")
+	}
+}
 
-		h := captured.Get(HeaderClientMeta)
-		if !metaHeaderReValidation.MatchString(h) {
-			t.Errorf("expected meta header to match regexp, got: %s", h)
-		}
-		if !strings.Contains(h, "hl=1") {
-			t.Errorf("expected meta header to contain hl=1, got: %s", h)
-		}
-	})
+func TestToTyped_PreservesDisableMetaHeader(t *testing.T) {
+	var captured http.Header
+	c, err := New(WithDisableMetaHeader())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	c.Transport = toTypedMockTransport(t, &captured)
 
-	t.Run("shares transport with source client", func(t *testing.T) {
-		c, err := New()
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		tc := c.ToTyped()
-		if tc.Transport != c.Transport {
-			t.Errorf("expected converted client to share the source transport")
-		}
-	})
+	tc := c.ToTyped()
+	if !tc.disableMetaHeader {
+		t.Errorf("expected disableMetaHeader to be carried over")
+	}
 
-	t.Run("preserves configuration flags", func(t *testing.T) {
-		c, err := New(
-			WithCompatibilityMode(),
-			WithAutoDrainBody(),
-		)
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		tc := c.ToTyped()
-		if !tc.compatibilityHeader {
-			t.Errorf("expected compatibilityHeader to be carried over")
-		}
-		if !tc.autoDrainBody {
-			t.Errorf("expected autoDrainBody to be carried over")
-		}
-		if tc.disableMetaHeader {
-			t.Errorf("expected disableMetaHeader to remain false")
-		}
-	})
+	if _, err := tc.Info().Do(context.Background()); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if h := captured.Get(HeaderClientMeta); h != "" {
+		t.Errorf("expected no meta header when disabled, got: %s", h)
+	}
+}
 
-	t.Run("preserves disableMetaHeader", func(t *testing.T) {
-		var captured http.Header
-		tp, err := newMockTransport(&captured)
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
+func TestToTyped_IdempotentFlag(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	first := c.ToTyped()
+	if strings.Count(first.metaHeader, "hl=1") != 1 {
+		t.Errorf("expected exactly one hl=1, got: %s", first.metaHeader)
+	}
 
-		c, err := New(WithDisableMetaHeader())
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		c.Transport = tp
+	// Simulate a Client whose metaHeader already contains hl=1: the
+	// conversion must not append a second occurrence.
+	c.metaHeader = first.metaHeader
+	second := c.ToTyped()
+	if strings.Count(second.metaHeader, "hl=1") != 1 {
+		t.Errorf("expected exactly one hl=1, got: %s", second.metaHeader)
+	}
+}
 
-		tc := c.ToTyped()
-		if !tc.disableMetaHeader {
-			t.Errorf("expected disableMetaHeader to be carried over")
-		}
-
-		if _, err := tc.Info().Do(context.Background()); err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		if h := captured.Get(HeaderClientMeta); h != "" {
-			t.Errorf("expected no meta header when disabled, got: %s", h)
-		}
-	})
-
-	t.Run("hl=1 is not duplicated", func(t *testing.T) {
-		c, err := New()
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		first := c.ToTyped()
-		if strings.Count(first.metaHeader, "hl=1") != 1 {
-			t.Errorf("expected exactly one hl=1, got: %s", first.metaHeader)
-		}
-
-		// Simulate a Client whose metaHeader already contains hl=1: the
-		// conversion must not append a second occurrence.
-		c.metaHeader = first.metaHeader
-		second := c.ToTyped()
-		if strings.Count(second.metaHeader, "hl=1") != 1 {
-			t.Errorf("expected exactly one hl=1, got: %s", second.metaHeader)
-		}
-	})
-
-	t.Run("source client meta header is not mutated", func(t *testing.T) {
-		c, err := New()
-		if err != nil {
-			t.Fatalf("unexpected error: %s", err)
-		}
-		before := c.metaHeader
-		_ = c.ToTyped()
-		if c.metaHeader != before {
-			t.Errorf("source metaHeader mutated: before=%q after=%q", before, c.metaHeader)
-		}
-		if strings.Contains(c.metaHeader, "hl=1") {
-			t.Errorf("source Client metaHeader should not contain hl=1, got: %s", c.metaHeader)
-		}
-	})
+func TestToTyped_SourceNotMutated(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	before := c.metaHeader
+	_ = c.ToTyped()
+	if c.metaHeader != before {
+		t.Errorf("source metaHeader mutated: before=%q after=%q", before, c.metaHeader)
+	}
+	if strings.Contains(c.metaHeader, "hl=1") {
+		t.Errorf("source Client metaHeader should not contain hl=1, got: %s", c.metaHeader)
+	}
 }
 
 func TestContentTypeOverride(t *testing.T) {
