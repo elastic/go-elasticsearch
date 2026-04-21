@@ -152,7 +152,7 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 		for i, v := range hit.Sort {
 			h.Sort[i] = v
 		}
-		h.URL = strings.Join([]string{baseURL, h.ID, ""}, "/")
+		h.URL = baseURL + "/" + h.ID + "/"
 
 		if len(hit.Source_) > 0 {
 			if err := json.Unmarshal(hit.Source_, &h); err != nil {
