@@ -34,55 +34,46 @@ import (
 	"github.com/elastic/go-elasticsearch/v9"
 )
 
-// This example demonstrates how to provide a custom transport implementation to the client
-// in order to read or manipulate the requests and responses, eg. for custom logging
-// implementation, passing custom headers to the request, and so on.
+// This example demonstrates how to observe or manipulate each request and
+// response using an Interceptor on the typed client. Interceptors are the
+// recommended way to add cross-cutting behaviour (custom headers, logging,
+// per-request auth, metrics, tracing) without replacing the HTTP transport.
 //
-// CountingTransport adds a custom header to the request, logs the information about
-// the request and response, and counts the number of requests to the client.
-//
-// Since it implements the `http.RoundTripper` interface, it can be passed
-// to the client as a custom HTTP transport implementation.
-type CountingTransport struct {
-	count uint64
-}
+// CountingInterceptor adds custom headers to each request, logs the request
+// and response to stdout, and counts the total number of requests.
+func CountingInterceptor(count *atomic.Uint64) elastictransport.InterceptorFunc {
+	return func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+		return func(req *http.Request) (*http.Response, error) {
+			count.Add(1)
 
-// RoundTrip executes a request and returns a response.
-func (t *CountingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	var b bytes.Buffer
+			req.Header.Set("Accept", "application/yaml")
+			req.Header.Set("X-Request-ID", "foo-123")
 
-	atomic.AddUint64(&t.count, 1)
+			res, err := next(req)
 
-	req.Header.Set("Accept", "application/yaml")
-	req.Header.Set("X-Request-ID", "foo-123")
+			var b bytes.Buffer
+			b.WriteString(strings.Repeat("-", 80) + "\n")
+			fmt.Fprintf(&b, "%s %s", req.Method, req.URL.String())
+			if err == nil {
+				fmt.Fprintf(&b, " [%s] %s\n", res.Status, res.Header.Get("Content-Type"))
+			} else {
+				fmt.Fprintf(&b, "ERROR: %s\n", err)
+			}
+			b.WriteTo(os.Stdout)
 
-	res, err := http.DefaultTransport.RoundTrip(req)
-
-	b.WriteString(strings.Repeat("-", 80) + "\n")
-	fmt.Fprintf(&b, "%s %s", req.Method, req.URL.String())
-
-	if err == nil {
-		fmt.Fprintf(&b, " [%s] %s\n", res.Status, res.Header.Get("Content-Type"))
-	} else {
-		fmt.Fprintf(&b, "ERROR: %s\n", err)
+			return res, err
+		}
 	}
-
-	b.WriteTo(os.Stdout)
-
-	return res, err
 }
 
 func main() {
 	var wg sync.WaitGroup
+	var count atomic.Uint64
 
-	// Create the custom transport.
-	//
-	tp := CountingTransport{}
-
-	// Pass the custom transport to the typed client.
-	//
 	es, _ := elasticsearch.NewTyped(
-		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&tp)),
+		elasticsearch.WithTransportOptions(elastictransport.WithInterceptors(
+			CountingInterceptor(&count),
+		)),
 	)
 
 	ctx := context.Background()
@@ -96,5 +87,5 @@ func main() {
 	wg.Wait()
 
 	fmt.Println(strings.Repeat("=", 80))
-	fmt.Printf("%80s\n", fmt.Sprintf("Total Requests: %d", atomic.LoadUint64(&tp.count)))
+	fmt.Printf("%80s\n", fmt.Sprintf("Total Requests: %d", count.Load()))
 }
