@@ -124,72 +124,9 @@ A `Search` call returns at most `size` hits per request (defaulting to 10). Two 
 - **`from` + `size`** is the simplest option. It works well for small result sets, but {{es}} refuses to page past the 10,000th hit by default (controlled by `index.max_result_window`). Raising that setting becomes expensive fast because each shard has to materialise and sort `from + size` hits per request.
 - **`search_after`** combined with a **point in time (PIT)** is the recommended approach for deep pagination and for exports where a consistent view across pages matters. The PIT pins a snapshot of the index so concurrent writes do not shift results between pages.
 
-The [`_examples/search/pagination.go`](https://github.com/elastic/go-elasticsearch/blob/main/_examples/search/pagination.go) example is a runnable walkthrough of both strategies with the typed client. See [Paginate search results](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/paginate-search-results) for the full Elasticsearch reference.
+Both examples below use the [`esdsl`](/reference/typed-api/esdsl.md) builders with the typed client. The [`_examples/search/pagination.go`](https://github.com/elastic/go-elasticsearch/blob/main/_examples/search/pagination.go) example is a runnable walkthrough of both strategies. See [Paginate search results](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/paginate-search-results) for the full Elasticsearch reference.
 
 ### `from` + `size` [_from_size]
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-const pageSize = 50
-for page := 0; ; page++ {
-    res, err := client.Search(
-        client.Search.WithContext(ctx),
-        client.Search.WithIndex("index_name"),
-        client.Search.WithBody(strings.NewReader(`{"query":{"match_all":{}}}`)),
-        client.Search.WithFrom(page*pageSize), // <1>
-        client.Search.WithSize(pageSize),      // <2>
-    )
-    if err != nil {
-        log.Fatal(err)
-    }
-    res.Body.Close()
-    // decode and process the page body...
-}
-```
-
-1. Starting document offset. Must be non-negative and, together with `size`, stay below `index.max_result_window`.
-2. Number of hits per page.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
-```go
-const pageSize = 50
-from, size := 0, pageSize
-req := &search.Request{
-    Query: &types.Query{MatchAll: &types.MatchAllQuery{}},
-    From:  &from, // <1>
-    Size:  &size, // <2>
-}
-for {
-    res, err := es.Search().Index("index_name").Request(req).Do(ctx)
-    if err != nil {
-        log.Fatal(err)
-    }
-    for _, hit := range res.Hits.Hits {
-        // process hit
-    }
-    if len(res.Hits.Hits) < pageSize {
-        break
-    }
-    from += pageSize
-    req.From = &from
-}
-```
-
-1. `From` and `Size` are `*int` on `search.Request`; bind a variable and update it between pages.
-2. Number of hits per page.
-
-::::::
-
-::::::{tab-item} esdsl API
-:sync: esdsl
 
 ```go
 const pageSize = 50
@@ -204,7 +141,7 @@ for page := 0; ; page++ {
         log.Fatal(err)
     }
     for _, hit := range res.Hits.Hits {
-        // process hit
+        _ = hit
     }
     if len(res.Hits.Hits) < pageSize {
         break
@@ -215,148 +152,7 @@ for page := 0; ; page++ {
 1. Starting document offset. Must be non-negative and, together with `size`, stay below `index.max_result_window`.
 2. Number of hits per page.
 
-::::::
-
-:::::::
-
 ### PIT + `search_after` [_pit_search_after]
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-The low-level API can drive PIT + `search_after`, but you are responsible for building the request body, decoding the response to pull `pit_id` and the sort cursor out yourself, and closing the PIT by hand. The typed clients below take care of all of that. This tab is here for completeness; prefer the typed or `esdsl` variants for this flow.
-
-```go
-openRes, err := client.OpenPointInTime(
-    []string{"index_name"},
-    time.Minute, // keep_alive
-    client.OpenPointInTime.WithContext(ctx),
-)
-if err != nil {
-    log.Fatal(err)
-}
-var pit struct {
-    ID string `json:"id"`
-}
-json.NewDecoder(openRes.Body).Decode(&pit)
-openRes.Body.Close()
-defer func() {
-    body, _ := json.Marshal(map[string]string{"id": pit.ID})
-    resp, _ := client.ClosePointInTime(bytes.NewReader(body))
-    if resp != nil {
-        resp.Body.Close()
-    }
-}()
-
-body := map[string]any{
-    "query": map[string]any{"match_all": map[string]any{}},
-    "pit":   map[string]any{"id": pit.ID, "keep_alive": "1m"},
-    "sort":  []map[string]any{{"_shard_doc": map[string]any{"order": "asc"}}},
-    "size":  1000,
-}
-for {
-    raw, _ := json.Marshal(body)
-    res, err := client.Search(
-        client.Search.WithContext(ctx),
-        client.Search.WithBody(bytes.NewReader(raw)),
-    )
-    if err != nil {
-        log.Fatal(err)
-    }
-    payload, _ := io.ReadAll(res.Body)
-    res.Body.Close()
-
-    var decoded struct {
-        PitId *string `json:"pit_id,omitempty"`
-        Hits  struct {
-            Hits []struct {
-                Sort []json.RawMessage `json:"sort"`
-            } `json:"hits"`
-        } `json:"hits"`
-    }
-    json.Unmarshal(payload, &decoded)
-
-    if len(decoded.Hits.Hits) == 0 {
-        break
-    }
-    last := decoded.Hits.Hits[len(decoded.Hits.Hits)-1]
-    body["search_after"] = last.Sort             // <1>
-    if decoded.PitId != nil {
-        body["pit"].(map[string]any)["id"] = *decoded.PitId // <2>
-    }
-}
-```
-
-1. Advance the cursor using the raw sort values from the last hit of the previous page.
-2. The PIT id can rotate between requests. When the response includes a new `pit_id`, use it for the next page.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
-```go subs=true
-import (
-    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/core/search"
-    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/types"
-    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/types/enums/sortorder"
-)
-```
-
-```go
-pit, err := es.OpenPointInTime("index_name").KeepAlive("1m").Do(ctx) // <1>
-if err != nil {
-    log.Fatal(err)
-}
-defer es.ClosePointInTime().Id(pit.Id).Do(ctx) // <2>
-
-keepAlive := types.Duration("1m")
-asc := sortorder.Asc
-size := 1000
-req := &search.Request{
-    Query: &types.Query{MatchAll: &types.MatchAllQuery{}},
-    Pit:   &types.PointInTimeReference{Id: pit.Id, KeepAlive: keepAlive}, // <3>
-    Sort: []types.SortCombinations{ // <4>
-        types.SortOptions{
-            SortOptions: map[string]types.FieldSort{
-                "_shard_doc": {Order: &asc},
-            },
-        },
-    },
-    Size: &size,
-}
-for {
-    res, err := es.Search().Request(req).Do(ctx)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if len(res.Hits.Hits) == 0 {
-        break
-    }
-    for _, hit := range res.Hits.Hits {
-        // process hit
-    }
-    last := res.Hits.Hits[len(res.Hits.Hits)-1]
-    req.SearchAfter = last.Sort // <5>
-    if res.PitId != nil {       // <6>
-        req.Pit.Id = *res.PitId
-    }
-}
-```
-
-1. Open a PIT scoped to the target indices. `KeepAlive` only needs to cover the next request, not the whole scan; each search extends it.
-2. Release the PIT when you are done. PITs hold shard resources, so do not leak them.
-3. Attach the PIT to the search. Do not set `Index(...)` together with `Pit`; the index list is baked into the PIT and the server rejects the combination.
-4. A deterministic sort is required for `search_after` to produce stable cursor values. `_shard_doc` is the cheapest tie-breaker and is available whenever a PIT is in use. If you already sort on another field, keep that sort and append `_shard_doc` as a secondary, otherwise hits with equal primary sort values can skip or repeat across pages.
-5. `Request.SearchAfter` is `[]types.FieldValue`, which is exactly the type of `hit.Sort`.
-6. The PIT id can rotate between requests. When the response includes a new `PitId`, use it for the next page.
-
-::::::
-
-::::::{tab-item} esdsl API
-:sync: esdsl
 
 ```go subs=true
 import (
@@ -390,7 +186,7 @@ for {
         break
     }
     for _, hit := range res.Hits.Hits {
-        // process hit
+        _ = hit
     }
     last := res.Hits.Hits[len(res.Hits.Hits)-1]
     req = req.SearchAfterValues(last.Sort) // <5>
@@ -408,10 +204,6 @@ for {
 4. A deterministic sort is required for `search_after` to produce stable cursor values. `_shard_doc` is the cheapest tie-breaker and is available whenever a PIT is in use. If you already sort on another field, keep that sort and append `_shard_doc` as a secondary, otherwise hits with equal primary sort values can skip or repeat across pages.
 5. Advance the cursor using the last hit's sort values. `SearchAfterValues` takes `[]types.FieldValue`, which is exactly the type of `hit.Sort`.
 6. The PIT id can rotate between requests. When the response includes a new `PitId`, use it for the next page.
-
-::::::
-
-:::::::
 
 The older `scroll` API still works but is no longer the recommended approach for deep pagination; prefer PIT + `search_after`.
 
