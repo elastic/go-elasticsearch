@@ -390,6 +390,38 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 	return client, nil
 }
 
+// ToTyped returns a [TypedClient] that shares the underlying transport,
+// connection pool, and configuration of this [Client]. The returned client
+// records typed-API usage in its client-meta telemetry header ("hl=1"),
+// so requests issued through it are attributed correctly.
+//
+// ToTyped is intended to be called once per [Client] and the result reused.
+// Calling it in a hot path (for example, on every request) allocates a new
+// [typedapi.MethodAPI] tree and re-runs the product check on first use,
+// neither of which is free. Cache the returned *TypedClient alongside the
+// original *Client.
+//
+// Because the transport is shared, closing either client closes the
+// connection pool used by both.
+func (c *Client) ToTyped() *TypedClient {
+	metaHeader := c.metaHeader
+	if !strings.Contains(metaHeader, "hl=1") {
+		metaHeader = strings.Join([]string{metaHeader, "hl=1"}, ",")
+	}
+
+	tc := &TypedClient{
+		BaseClient: BaseClient{
+			Transport:           c.Transport,
+			disableMetaHeader:   c.disableMetaHeader,
+			metaHeader:          metaHeader,
+			compatibilityHeader: c.compatibilityHeader,
+			autoDrainBody:       c.autoDrainBody,
+		},
+	}
+	tc.MethodAPI = typedapi.NewMethodAPI(tc)
+	return tc
+}
+
 func newTransport(cfg Config) (*elastictransport.Client, error) {
 	var addrs []string
 
