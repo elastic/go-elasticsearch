@@ -58,7 +58,7 @@ document := Document{
 }
 
 res, err := es.Index("my-vectors").
-    Request(document).
+    Document(document).
     Do(context.Background())
 ```
 
@@ -118,7 +118,7 @@ document := Document{
 }
 
 res, err := es.Index("my-vectors").
-    Request(document).
+    Document(document).
     Do(context.Background())
 ```
 

@@ -47,7 +47,7 @@ document := struct {
 
 res, err := es.Index("index_name"). // <1>
     Id("1").                         // <2>
-    Request(document).               // <3>
+    Document(document).              // <3>
     Do(context.Background())
 ```
 

@@ -82,7 +82,7 @@ defer res.Body.Close()
 ```go
 res, err := client.Index("my-index").
     Id("1").
-    Request(doc).
+    Document(doc).
     Do(ctx)
 ```
 

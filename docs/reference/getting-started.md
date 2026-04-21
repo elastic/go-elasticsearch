@@ -69,7 +69,7 @@ document := struct {
 }
 client.Index("my_index").
     Id("1").
-    Request(document).
+    Document(document).
     Do(context.TODO())
 ```
 
