@@ -5,7 +5,7 @@ mapped_pages:
 
 # Getting started [getting-started-go]
 
-This page guides you through the installation process of the Go client, shows you how to instantiate the client, and how to perform basic Elasticsearch operations with it. You can use the client with either a low-level API or a fully typed API. This getting started shows you examples of both APIs.
+This page guides you through the installation process of the Go client, shows you how to instantiate the client, and how to perform basic Elasticsearch operations with it. The examples use the [typed API](/reference/typed-api/index.md) with the [`esdsl`](/reference/typed-api/esdsl.md) query builders, which is the recommended way to use the client. If you need raw-JSON control or an endpoint not yet covered by the typed API, see the [low-level API](/reference/low-level-api/index.md).
 
 ## Requirements [_requirements]
 
@@ -23,14 +23,10 @@ Refer to the [_Installation_](/reference/installation.md) page to learn more.
 
 ## Connecting [_connecting]
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the low level API:
+Connect to Elastic Cloud using an API key and the Elasticsearch endpoint:
 
 ```go
-client, err := elasticsearch.New(
+client, err := elasticsearch.NewTyped(
     elasticsearch.WithCloudID("<CloudID>"), // <1>
     elasticsearch.WithAPIKey("<ApiKey>"),   // <2>
 )
@@ -39,25 +35,6 @@ client, err := elasticsearch.New(
 1. Your deployment's Cloud ID, found on the **My deployment** page.
 2. Your API key for authentication.
 
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the fully-typed API:
-
-```go
-typedClient, err := elasticsearch.NewTyped(
-    elasticsearch.WithCloudID("<CloudID>"), // <1>
-    elasticsearch.WithAPIKey("<ApiKey>"),   // <2>
-)
-```
-
-1. Your deployment's Cloud ID, found on the **My deployment** page.
-2. Your API key for authentication.
-
-::::::
-
-:::::::
 Your Elasticsearch endpoint can be found on the **My deployment** page of your deployment:
 
 ![Finding Elasticsearch endpoint](images/es-endpoint.jpg)
@@ -76,260 +53,73 @@ Time to use Elasticsearch! This section walks you through the basic, and most im
 
 ::::::::{step} Create an index
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-This is how you create the `my_index` index with the low level API:
-
 ```go
-res, err := client.Indices.Create("my_index")
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
+client.Indices.Create("my_index").Do(context.TODO())
 ```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-This is how you create the `my_index` index with the fully-typed API:
-
-```go
-typedClient.Indices.Create("my_index").Do(context.TODO())
-```
-
-::::::
-
-:::::::
 
 ::::::::
 
 ::::::::{step} Index a document
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-This is a simple way of indexing a document by using the low-level API:
-
 ```go
 document := struct {
     Name string `json:"name"`
 }{
     "go-elasticsearch",
 }
-data, _ := json.Marshal(document)
-res, err := client.Index("my_index", bytes.NewReader(data))
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
+client.Index("my_index").
+    Id("1").
+    Document(document).
+    Do(context.TODO())
 ```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-This is a simple way of indexing a document by using the fully-typed API:
-
-```go
-document := struct {
-    Name string `json:"name"`
-}{
-    "go-elasticsearch",
-}
-typedClient.Index("my_index").
-        Id("1").
-        Request(document).
-        Do(context.TODO())
-```
-
-::::::
-
-:::::::
 
 ::::::::
 
 ::::::::{step} Get a document
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-You can get documents by using the following code with the low-level API:
-
 ```go
-res, err := client.Get("my_index", "id")
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
+client.Get("my_index", "1").Do(context.TODO())
 ```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-This is how you can get documents by using the fully-typed API:
-
-```go
-typedClient.Get("my_index", "id").Do(context.TODO())
-```
-
-::::::
-
-:::::::
 
 ::::::::
 
 ::::::::{step} Search documents
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-This is how you can create a single match query with the low-level API:
+Use the [`esdsl`](/reference/typed-api/esdsl.md) builders for a concise, fluent query syntax:
 
 ```go
-query := `{ "query": { "match_all": {} } }`
-res, err := client.Search(
-    client.Search.WithIndex("my_index"),
-    client.Search.WithBody(strings.NewReader(query)),
-)
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-This is how you can perform a single match query with the fully-typed API:
-
-```go
-typedClient.Search().
-    Index("my_index").
-    Request(&search.Request{
-        Query: &types.Query{MatchAll: &types.MatchAllQuery{}},
-    }).
-    Do(context.TODO())
-```
-
-::::::
-
-::::::{tab-item} esdsl API
-:sync: esdsl
-The [`esdsl`](/reference/typed-api/esdsl.md) package provides fluent builders for queries, aggregations, and mappings:
-
-```go
-typedClient.Search().
+client.Search().
     Index("my_index").
     Query(esdsl.NewMatchAllQuery()).
     Do(context.TODO())
 ```
 
-::::::
-
-:::::::
-
 ::::::::
 
 ::::::::{step} Update a document
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-This is how you can update a document, for example to add a new field, by using the low-level API:
-
 ```go
-res, err := client.Update("my_index", "id", strings.NewReader(`{"doc": {"language": "Go"}}`))
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-This is how you can update a document with the fully-typed API:
-
-```go
-typedClient.Update("my_index", "id").
+client.Update("my_index", "1").
     Request(&update.Request{
         Doc: json.RawMessage(`{"language": "Go"}`),
     }).Do(context.TODO())
 ```
 
-::::::
-
-:::::::
-
 ::::::::
 
 ::::::::{step} Delete a document
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
 ```go
-res, err := client.Delete("my_index", "id")
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
+client.Delete("my_index", "1").Do(context.TODO())
 ```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
-```go
-typedClient.Delete("my_index", "id").Do(context.TODO())
-```
-
-::::::
-
-:::::::
 
 ::::::::
 
 ::::::::{step} Delete an index
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
 ```go
-res, err := client.Indices.Delete([]string{"my_index"})
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
+client.Indices.Delete("my_index").Do(context.TODO())
 ```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
-```go
-typedClient.Indices.Delete("my_index").Do(context.TODO())
-```
-
-::::::
-
-:::::::
 
 ::::::::
 
@@ -339,3 +129,4 @@ typedClient.Indices.Delete("my_index").Do(context.TODO())
 
 - Learn more about the [_Typed API_](/reference/typed-api/index.md), a strongly typed Go API for {{es}}.
 - Explore the [_esdsl builders_](/reference/typed-api/esdsl.md) for a fluent syntax to construct queries, aggregations, and mappings.
+- If you need the low-level API or are migrating from it, see the [_Low-level API_](/reference/low-level-api/index.md) and the [_migration guide_](/reference/low-level-api/migration.md).

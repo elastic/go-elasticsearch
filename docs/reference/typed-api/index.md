@@ -33,7 +33,7 @@ For full configuration options, see the [Configuration reference](../configurati
 
 ## Relationship to the low-level client [_typed_api_relationship]
 
-The typed client and the low-level client share the same underlying transport, configuration, and connection pool. The typed API is a higher-level abstraction built on top of the same infrastructure:
+The typed client and the [low-level client](../low-level-api/index.md) share the same underlying transport, configuration, and connection pool. The typed API is a higher-level abstraction built on top of the same infrastructure:
 
 ```mermaid
 graph TB
@@ -52,7 +52,7 @@ graph TB
     OPTS --> TP
 ```
 
-You can use both clients in the same application since they share the same transport. Choose the typed API for compile-time safety, or fall back to the low-level API for maximum flexibility.
+Because both clients implement the same transport interface, individual typed endpoint packages (`typedapi/core/search`, `typedapi/indices/create`, ...) accept either client type. That means you can mix the two styles in a single application, and you can migrate existing low-level code to the typed API one endpoint at a time. See the [migration guide](../low-level-api/migration.md).
 
 ## API namespaces [_typed_api_namespaces]
 
@@ -165,6 +165,7 @@ If you already have a newline-delimited JSON payload, you can submit it directly
 
 ## Learn more [_typed_api_learn_more]
 
-- [Conventions](conventions.md) — Naming, structure, enums, and unions in the typed API
-- [esdsl builders](esdsl.md) — Fluent DSL builders for queries, aggregations, mappings, and sort options
-- [Using the API](../using-the-api/index.md) — Practical examples comparing both API styles
+- [Conventions](conventions.md): naming, structure, enums, and unions in the typed API
+- [esdsl builders](esdsl.md): fluent DSL builders for queries, aggregations, mappings, and sort options
+- [Using the API](../using-the-api/index.md): practical examples for common operations
+- [Low-level API](../low-level-api/index.md) and [migration guide](../low-level-api/migration.md): raw-JSON control and migration instructions

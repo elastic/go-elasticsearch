@@ -6,7 +6,7 @@ mapped_pages:
 
 # ES|QL in the Go client [esql]
 
-This page helps you understand and use [ES|QL](docs-content://explore-analyze/query-filter/languages/esql.md) in the Go client.
+This page helps you understand and use [ES|QL](docs-content://explore-analyze/query-filter/languages/esql.md) in the Go client with the [typed API](/reference/typed-api/index.md). For raw-JSON ES|QL queries, see the [low-level API](/reference/low-level-api/index.md).
 
 There are two ways to use ES|QL in the Go client:
 
@@ -18,41 +18,6 @@ There are two ways to use ES|QL in the Go client:
 The [ES|QL query API](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-esql) allows you to specify how results should be returned. You can choose a [response format](docs-content://explore-analyze/query-filter/languages/esql-rest.md#esql-rest-format) such as CSV, text, or JSON, then fine-tune it with parameters like column separators and locale.
 
 The following example gets ES|QL results as CSV and parses them:
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-queryBody := `{
-    "query": "from library | where author == \"Isaac Asimov\" | sort release_date desc | limit 10",
-    "format": "csv"
-}`
-
-res, err := client.Esql.Query( // <1>
-    strings.NewReader(queryBody), // <2>
-)
-if err != nil {
-    log.Fatal(err)
-}
-defer res.Body.Close()
-
-reader := csv.NewReader(res.Body) // <3>
-rows, err := reader.ReadAll()
-for _, row := range rows {
-    fmt.Println(row)
-}
-```
-
-1. Call the ES|QL query endpoint.
-2. Pass the query and format as a JSON body.
-3. Parse the CSV response directly from the response body.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
 
 ```go
 queryAuthor := `from library
@@ -78,10 +43,6 @@ for _, row := range rows {
 1. Create an ES|QL query request.
 2. Set the ES|QL query string.
 3. Request CSV format for the response.
-
-::::::
-
-:::::::
 
 ## Consume ES|QL results [esql-consume-results]
 

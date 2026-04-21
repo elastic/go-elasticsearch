@@ -12,10 +12,9 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 
 ## Features [_features]
 
-- One-to-one mapping with REST API.
-- Generalized, pluggable architecture.
-- Two API styles: [low-level](using-the-api/index.md) and [fully typed](typed-api/index.md).
-- [Fluent DSL builders](typed-api/esdsl.md) for constructing queries, aggregations, mappings, and sort options.
+- Strongly typed [typed API](typed-api/index.md) with compile-time safety and decoded responses.
+- Fluent [esdsl builders](typed-api/esdsl.md) for queries, aggregations, mappings, and sort options.
+- [Low-level API](low-level-api/index.md) for raw JSON control and endpoints not yet covered by the typed API.
 - Built-in [OpenTelemetry instrumentation](advanced/observability.md) for distributed tracing.
 - [Interceptors](advanced/interceptors.md) for custom middleware (auth rotation, observability, etc.).
 - Automatic retries, request compression, and node discovery.
@@ -24,7 +23,7 @@ Full documentation is hosted at [GitHub](https://github.com/elastic/go-elasticse
 
 ## Architecture [_architecture]
 
-The client has a layered architecture where both the low-level and typed APIs share the same transport infrastructure:
+The client has a layered architecture where the typed and low-level APIs share the same transport infrastructure:
 
 ```mermaid
 graph LR
@@ -44,62 +43,44 @@ The **transport layer** handles retry logic, request compression, node selection
 
 ## Usage [_usage]
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
+The typed client combined with the `esdsl` builders is the recommended way to use this library:
 
 ```go subs=true
 package main
 
 import (
     "context"
+    "fmt"
     "log"
 
     "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
+    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}/typedapi/esdsl"
 )
 
 func main() {
-    es, _ := elasticsearch.New()
-    defer es.Close(context.Background())
-
-    res, err := es.Info()
+    es, err := elasticsearch.NewTyped(
+        elasticsearch.WithAddresses("http://localhost:9200"),
+    )
     if err != nil {
         log.Fatal(err)
     }
-    defer res.Body.Close()
-
-    log.Println(res)
-}
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
-```go subs=true
-package main
-
-import (
-    "context"
-    "log"
-
-    "github.com/elastic/go-elasticsearch/v{{ version.elasticsearch-client-go | M }}"
-)
-
-func main() {
-    es, _ := elasticsearch.NewTyped(
-        elasticsearch.WithAddresses("http://localhost:9200"),
-    )
     defer es.Close(context.Background())
-    log.Println(es.Info().Do(context.Background()))
+
+    res, err := es.Search().
+        Index("my-index").
+        Query(esdsl.NewMatchQuery("title", "golang")).
+        Do(context.Background())
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, hit := range res.Hits.Hits {
+        fmt.Println(hit.Source_)
+    }
 }
 ```
 
-::::::
-
-:::::::
+If you need raw JSON control or an endpoint the typed API does not yet cover, see the [low-level API](low-level-api/index.md). You can mix both styles in the same program: they share the same transport and can run against the same client. The [migration guide](low-level-api/migration.md) walks through moving existing low-level code to the typed API one endpoint at a time.
 
 ::::{note}
 Please have a look at the collection of comprehensive examples in the repository at <https://github.com/elastic/go-elasticsearch/tree/main/_examples>.

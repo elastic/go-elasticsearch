@@ -20,10 +20,10 @@ type RoundTripFunc func(*http.Request) (*http.Response, error)
 type InterceptorFunc func(next RoundTripFunc) RoundTripFunc
 ```
 
-Interceptors are configured at client creation and cannot be changed after the transport is created.
+Interceptors are configured at client creation and cannot be changed after the transport is created. The examples on this page use `elasticsearch.NewTyped`; interceptors apply identically to the [low-level client](../low-level-api/index.md) built with `elasticsearch.New`.
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(
         elastictransport.WithInterceptors(
             myFirstInterceptor(),
@@ -59,7 +59,7 @@ sequenceDiagram
 
 ## Dynamic credential rotation [_interceptor_auth_provider]
 
-When credentials may change at runtime — for example, during token refresh or credential rotation — an interceptor can inject the latest credentials into each request dynamically.
+When credentials may change at runtime (for example, during token refresh or credential rotation), an interceptor can inject the latest credentials into each request dynamically.
 
 ```go
 func DynamicAuthInterceptor(provider *CredentialProvider) elastictransport.InterceptorFunc {
@@ -106,14 +106,14 @@ Usage:
 ```go
 authProvider := NewCredentialProvider("user1", "password1")
 
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses("https://localhost:9200"),
     elasticsearch.WithTransportOptions(
         elastictransport.WithInterceptors(DynamicAuthInterceptor(authProvider)),
     ),
 )
 
-// Later, rotate credentials — all future requests use the new credentials
+// Later, rotate credentials. All future requests use the new credentials.
 authProvider.Update("user2", "password2")
 ```
 
@@ -152,7 +152,7 @@ func ContextAuthInterceptor() elastictransport.InterceptorFunc {
 Usage:
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithBasicAuth("default_user", "default_password"),
     elasticsearch.WithTransportOptions(
         elastictransport.WithInterceptors(ContextAuthInterceptor()),
@@ -160,19 +160,17 @@ es, err := elasticsearch.New(
 )
 
 // Uses default credentials
-res, err := es.Info()
+res, err := es.Info().Do(context.Background())
 if err != nil {
     log.Fatal(err)
 }
-defer res.Body.Close()
 
 // Uses per-request credentials
 ctx := WithBasicAuth(context.Background(), "tenant_a", "tenant_a_secret")
-res, err = es.Info(es.Info.WithContext(ctx))
+res, err = es.Info().Do(ctx)
 if err != nil {
     log.Fatal(err)
 }
-defer res.Body.Close()
 ```
 
 :::{dropdown} Challenge-response authentication (Kerberos/SPNEGO)
@@ -261,7 +259,7 @@ func LoggingInterceptor() elastictransport.InterceptorFunc {
 You can compose multiple interceptors for logging, metrics, and tracing:
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(
         elastictransport.WithInterceptors(
             LoggingInterceptor(),
@@ -320,7 +318,7 @@ func CountRetriesInterceptor() elastictransport.InterceptorFunc {
 Usage:
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses("https://localhost:9200"),
     elasticsearch.WithTransportOptions(
         elastictransport.WithInterceptors(CountRetriesInterceptor()),
@@ -331,14 +329,14 @@ es, err := elasticsearch.New(
 ctx, counter := NewAttemptContext(context.Background())
 
 // Perform a request that might be retried
-res, err := es.Info(es.Info.WithContext(ctx))
+res, err := es.Info().Do(ctx)
 if err != nil {
     log.Fatal(err)
 }
-defer res.Body.Close()
+_ = res
 
 // Check how many attempts were made
-fmt.Printf("Request completed after %d attempts (%d retries)\n", 
+fmt.Printf("Request completed after %d attempts (%d retries)\n",
     counter.Attempts(), counter.Retries())
 ```
 

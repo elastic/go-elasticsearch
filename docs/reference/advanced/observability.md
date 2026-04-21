@@ -8,6 +8,8 @@ applies_to:
 
 The Go client for {{es}} provides built-in support for distributed tracing via OpenTelemetry and transport-level metrics. These features help you monitor client behavior, diagnose performance issues, and correlate {{es}} requests with the rest of your application.
 
+The examples on this page use `elasticsearch.NewTyped`; instrumentation applies identically to the [low-level client](../low-level-api/index.md) built with `elasticsearch.New`.
+
 ## OpenTelemetry instrumentation [_otel_instrumentation]
 
 The client includes a built-in OpenTelemetry integration that creates spans for every {{es}} API call. This is the recommended approach for distributed tracing.
@@ -23,7 +25,7 @@ import (
 )
 
 // Use the global TracerProvider (set up elsewhere in your application)
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithInstrumentation(elasticsearch.NewOpenTelemetryInstrumentation(nil, false)),  // <1>
 )
 ```
@@ -99,7 +101,7 @@ func main() {
     otel.SetTracerProvider(tp)
 
     // Create the Elasticsearch client with instrumentation
-    es, err := elasticsearch.New(
+    es, err := elasticsearch.NewTyped(
         elasticsearch.WithAddresses("https://localhost:9200"),
         elasticsearch.WithInstrumentation(elasticsearch.NewOpenTelemetryInstrumentation(tp, true)),
     )
@@ -109,11 +111,9 @@ func main() {
     defer es.Close(context.Background())
 
     // Every API call now creates an OpenTelemetry span
-    res, err := es.Info()
-    if err != nil {
+    if _, err := es.Info().Do(context.Background()); err != nil {
         log.Fatal(err)
     }
-    defer res.Body.Close()
 }
 ```
 
@@ -122,7 +122,7 @@ func main() {
 The client can collect transport-level metrics including request counts, failures, and response status code distributions. Enable metrics using `WithTransportOptions`:
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(elastictransport.WithMetrics()),
 )
 ```
@@ -132,7 +132,7 @@ Once enabled, metrics are available through the transport's `Metrics()` method. 
 ```go
 import "expvar"
 
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(elastictransport.WithMetrics()),
 )
 
@@ -145,17 +145,17 @@ expvar.Publish("go-elasticsearch", expvar.Func(func() any {
 
 The metrics include:
 
-- **Requests** — Total number of requests sent
-- **Failures** — Total number of failed requests
-- **Responses** — Count of responses grouped by HTTP status code
-- **Connections** — Information about live and dead connection pool members
+- **Requests**: total number of requests sent
+- **Failures**: total number of failed requests
+- **Responses**: count of responses grouped by HTTP status code
+- **Connections**: information about live and dead connection pool members
 
 ## Debug logging [_debug_logging]
 
 Enable debug logging to see detailed request and response information:
 
 ```go
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(elastictransport.WithDebugLogger()),
 )
 ```
@@ -172,7 +172,7 @@ For more control over log output, use `WithLogger` with one of the built-in logg
 ```go
 import "github.com/elastic/elastic-transport-go/v8/elastictransport"
 
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithLogger(&elastictransport.ColorLogger{
         Output:             os.Stdout,
         EnableRequestBody:  true,
@@ -196,7 +196,7 @@ import (
     "go.elastic.co/apm/module/apmelasticsearch/v2"
 )
 
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(
         elastictransport.WithTransport(apmelasticsearch.WrapRoundTripper(http.DefaultTransport)),
     ),
@@ -215,7 +215,7 @@ import (
     "go.opencensus.io/plugin/ochttp"
 )
 
-es, err := elasticsearch.New(
+es, err := elasticsearch.NewTyped(
     elasticsearch.WithTransportOptions(
         elastictransport.WithTransport(&ochttp.Transport{}),
     ),
