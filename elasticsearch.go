@@ -58,9 +58,6 @@ const (
 
 	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
 
-	// typedClientMetaFlag is the client-meta fragment appended to requests
-	// that go through the TypedClient, marking high-level API usage for
-	// telemetry attribution.
 	typedClientMetaFlag = "hl=1"
 )
 
@@ -396,15 +393,11 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 }
 
 // ToTyped returns a [TypedClient] that shares the underlying transport,
-// connection pool, and configuration of this [Client]. The returned client
-// records typed-API usage in its client-meta telemetry header ("hl=1"),
-// so requests issued through it are attributed correctly.
+// connection pool, and configuration of this [Client].
 //
-// ToTyped is intended to be called once per [Client] and the result reused.
-// Calling it in a hot path (for example, on every request) allocates a new
-// [typedapi.MethodAPI] tree and re-runs the product check on first use,
-// neither of which is free. Cache the returned *TypedClient alongside the
-// original *Client.
+// ToTyped is intended to be called once per [Client] and the result
+// reused. Each call allocates a new [typedapi.MethodAPI] tree, and the
+// returned client will re-run the product check on its first request.
 //
 // Because the transport is shared, closing either client closes the
 // connection pool used by both.
