@@ -57,6 +57,8 @@ const (
 	HeaderClientMeta = "x-elastic-client-meta"
 
 	compatibilityHeader = "application/vnd.elasticsearch+json;compatible-with=9"
+
+	typedClientMetaFlag = "hl=1"
 )
 
 var (
@@ -281,7 +283,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 	compatHeaderEnv := os.Getenv(esCompatHeader)
 	compatibilityHeader, _ := strconv.ParseBool(compatHeaderEnv)
 
-	metaHeader := strings.Join([]string{initMetaHeader(tp), "hl=1"}, ",")
+	metaHeader := strings.Join([]string{initMetaHeader(tp), typedClientMetaFlag}, ",")
 
 	client := &TypedClient{
 		BaseClient: BaseClient{
@@ -370,7 +372,7 @@ func NewBase(opts ...Option) (*BaseClient, error) {
 //	    elasticsearch.WithAPIKey("base64-encoded-key"),
 //	)
 func NewTyped(opts ...Option) (*TypedClient, error) {
-	ro, err := resolveOptions(opts, "hl=1")
+	ro, err := resolveOptions(opts, typedClientMetaFlag)
 	if err != nil {
 		return nil, err
 	}
@@ -388,6 +390,34 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 		go func() { _ = client.DiscoverNodes() }()
 	}
 	return client, nil
+}
+
+// ToTyped returns a [TypedClient] that shares the underlying transport,
+// connection pool, and configuration of this [Client].
+//
+// ToTyped is intended to be called once per [Client] and the result
+// reused. Each call allocates a new [typedapi.MethodAPI] tree, and the
+// returned client will re-run the product check on its first request.
+//
+// Because the transport is shared, closing either client closes the
+// connection pool used by both.
+func (c *Client) ToTyped() *TypedClient {
+	metaHeader := c.metaHeader
+	if !strings.Contains(metaHeader, typedClientMetaFlag) {
+		metaHeader = strings.Join([]string{metaHeader, typedClientMetaFlag}, ",")
+	}
+
+	tc := &TypedClient{
+		BaseClient: BaseClient{
+			Transport:           c.Transport,
+			disableMetaHeader:   c.disableMetaHeader,
+			metaHeader:          metaHeader,
+			compatibilityHeader: c.compatibilityHeader,
+			autoDrainBody:       c.autoDrainBody,
+		},
+	}
+	tc.MethodAPI = typedapi.NewMethodAPI(tc)
+	return tc
 }
 
 func newTransport(cfg Config) (*elastictransport.Client, error) {
