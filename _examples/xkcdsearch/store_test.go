@@ -87,7 +87,7 @@ func TestStore(t *testing.T) {
 	}
 	mocktrans.RoundTripFn = func(req *http.Request) (*http.Response, error) { return mocktrans.Response, nil }
 
-	client, err := elasticsearch.New(
+	client, err := elasticsearch.NewTyped(
 		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mocktrans)),
 	)
 	if err != nil {
@@ -138,7 +138,11 @@ func TestStore(t *testing.T) {
 				t.Fatalf("Unexpected query: %s", req.Body)
 			}
 
-			return &http.Response{StatusCode: http.StatusOK, Body: fixture("match_all.json")}, nil
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Body:       fixture("match_all.json"),
+				Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+			}, nil
 		}
 
 		results, err := store.Search("", "1,2")
@@ -159,11 +163,18 @@ func TestStore(t *testing.T) {
 			if err := json.NewDecoder(req.Body).Decode(&b); err != nil {
 				t.Fatalf("Error parsing search definition: %s", err)
 			}
-			if b["sort"].([]interface{})[0].(map[string]interface{})["_score"] != "desc" {
+			// The typed Sort builder emits the long form:
+			//   "sort": [{"_score": {"order": "desc"}}, ...]
+			scoreSort := b["sort"].([]interface{})[0].(map[string]interface{})["_score"].(map[string]interface{})
+			if scoreSort["order"] != "desc" {
 				t.Fatalf("Unexpected query: %s", req.Body)
 			}
 
-			return &http.Response{StatusCode: http.StatusOK, Body: fixture("match_query.json")}, nil
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Body:       fixture("match_query.json"),
+				Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+			}, nil
 		}
 
 		results, err := store.Search("numbers")

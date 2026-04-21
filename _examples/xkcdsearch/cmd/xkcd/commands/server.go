@@ -60,7 +60,7 @@ var serverCmd = &cobra.Command{
 			Timestamp().
 			Logger()
 
-		es, err := elasticsearch.New()
+		es, err := elasticsearch.NewTyped()
 		if err != nil {
 			log.Fatal().Err(err).Msg("Error creating Elasticsearch client")
 		}
