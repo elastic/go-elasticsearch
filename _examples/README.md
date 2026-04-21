@@ -6,6 +6,10 @@ This directory contains examples and recipes for the Elasticsearch Go client.
 
 The [**`configuration.go`**](./configuration.go) and [**`customization.go`**](./customization.go) files contain information for configuring and customizing the client transport.
 
+## Migrating to the Typed API
+
+The [**`totyped.go`**](./totyped.go) file demonstrates incremental migration from the functional (low-level) API to the typed API using `(*Client).ToTyped()`. The returned `*TypedClient` shares the source client's transport and configuration, so existing call sites keep working while new code can use the typed builder API.
+
 ## Logging
 
 The [**`logging`**](./logging) directory contains examples for using the default loggers and implementing a custom logger.
@@ -35,7 +39,7 @@ The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing
 
 ## Instrumentation
 
-The [**`instrumentation`**](./instrumentation) directory contains a recipe for exposing client metrics via `expvar`. For OpenTelemetry-based instrumentation via interceptors, see [**`interceptor/cmd/custom_observability`**](./interceptor/cmd/custom_observability).
+The [**`instrumentation`**](./instrumentation) directory contains recipes for instrumenting the client: exposing client metrics via `expvar`, and enabling the built-in OpenTelemetry integration via `elasticsearch.NewOpenTelemetryInstrumentation`. For an interceptor-based OpenTelemetry alternative see [**`interceptor/cmd/custom_observability`**](./interceptor/cmd/custom_observability).
 
 ## Interceptors
 
