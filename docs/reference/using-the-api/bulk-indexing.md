@@ -144,6 +144,7 @@ The `esutil.BulkIndexerConfig` struct supports the following fields:
 | `NumWorkers`    | `int`                                   | Number of concurrent worker goroutines (default: number of CPUs).    |
 | `FlushBytes`    | `int`                                   | Flush threshold in bytes.                                            |
 | `FlushInterval` | `time.Duration`                         | Periodic flush interval.                                             |
+| `FlushJitter`   | `time.Duration`                         | Max random jitter added to `FlushInterval` per worker to avoid lockstep flushes. Default: 0 (disabled). |
 | `Pipeline`      | `string`                                | Default ingest pipeline for all items.                               |
 | `Refresh`       | `string`                                | Refresh policy after each flush (`"true"`, `"false"`, `"wait_for"`). |
 | `Routing`       | `string`                                | Default routing value for all items.                                 |
