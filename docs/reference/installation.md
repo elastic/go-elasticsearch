@@ -43,10 +43,10 @@ cat > main.go <<-END
   )
 
   func main() {
-    es, _ := elasticsearch.New()
+    es, _ := elasticsearch.NewTyped()
     defer es.Close(context.Background())
     log.Println(elasticsearch.Version)
-    log.Println(es.Info())
+    log.Println(es.Info().Do(context.Background()))
   }
 END
 

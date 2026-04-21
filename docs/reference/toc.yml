@@ -16,6 +16,9 @@ toc:
     children:
       - file: typed-api/conventions.md
       - file: typed-api/esdsl.md
+  - file: low-level-api/index.md
+    children:
+      - file: low-level-api/migration.md
   - file: advanced/index.md
     children:
       - file: advanced/interceptors.md

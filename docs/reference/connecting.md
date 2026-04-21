@@ -7,26 +7,11 @@ mapped_pages:
 
 This page contains the information you need to connect and use the Client with {{es}}.
 
+The examples below use `elasticsearch.NewTyped` to build a [typed client](typed-api/index.md). Every option also applies to `elasticsearch.New` for the [low-level client](low-level-api/index.md); both constructors take the same [functional options](configuration.md) and share the same transport.
+
 ## Connecting to Elastic Cloud [connecting-to-elastic-cloud]
 
 If you are using [Elastic Cloud](https://www.elastic.co/cloud), the client offers an easy way to connect to it. You must pass the Cloud ID that you can find in the cloud console and the corresponding API key.
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithCloudID("CLOUD_ID"),
-    elasticsearch.WithAPIKey("API_KEY"),
-)
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
 
 ```go
 es, err := elasticsearch.NewTyped(
@@ -34,10 +19,6 @@ es, err := elasticsearch.NewTyped(
     elasticsearch.WithAPIKey("API_KEY"),
 )
 ```
-
-::::::
-
-:::::::
 
 ::::{important}
 You need to copy and store the `API key` in a secure place since you will not be able to view it again in Elastic Cloud.
@@ -73,29 +54,6 @@ The generated root CA certificate can be found in the `certs` directory in your 
 
 Once you have the `http_ca.crt` file somewhere accessible pass the content of the file to the client using `WithCACert`:
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
-
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses("https://localhost:9200"),
-    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
-    elasticsearch.WithCACert(cert), // <2>
-)
-```
-
-1. Read the PEM-encoded CA certificate from disk.
-2. Pass the certificate bytes to `WithCACert` to verify the server's TLS certificate.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
 ```go
 cert, _ := os.ReadFile("/path/to/http_ca.crt") // <1>
 
@@ -108,35 +66,11 @@ es, err := elasticsearch.NewTyped(
 
 1. Read the PEM-encoded CA certificate from disk.
 2. Pass the certificate bytes to `WithCACert` to verify the server's TLS certificate.
-
-::::::
-
-:::::::
 
 ## Verifying HTTPS with certificate fingerprint [verifying-with-fingerprint]
 
 This method of verifying the HTTPS connection takes advantage of the certificate fingerprint value noted down earlier. Take this SHA256 fingerprint value and pass it to the Go {{es}} client via `CertificateFingerprint`:
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses("https://localhost:9200"),
-    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
-    elasticsearch.WithCertificateFingerprint(CERT_FINGERPRINT), // <1>
-)
-```
-
-1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
 ```go
 es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses("https://localhost:9200"),
@@ -146,10 +80,6 @@ es, err := elasticsearch.NewTyped(
 ```
 
 1. The SHA-256 hex fingerprint of the CA certificate, useful when you don't have access to the CA file directly.
-
-::::::
-
-:::::::
 
 The certificate fingerprint can be calculated using OpenSSL x509 with the certificate file:
 
@@ -180,59 +110,16 @@ Running {{es}} without security enabled is not recommended.
 
 If your cluster is configured with [security explicitly disabled](elasticsearch://reference/elasticsearch/configuration-reference/security-settings.md) then you can connect via HTTP:
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses("http://localhost:9200"),
-)
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
 ```go
 es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses("http://localhost:9200"),
 )
 ```
-
-::::::
-
-:::::::
 
 ## Connecting to multiple nodes [connecting-multiple-nodes]
 
 The Go {{es}} client supports sending API requests to multiple nodes in the cluster. This means that work will be more evenly spread across the cluster instead of hammering the same node over and over with requests. To configure the client with multiple nodes you can pass a list of URLs, each URL will be used as a separate node in the pool.
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses( // <1>
-        "https://localhost:9200",
-        "https://localhost:9201",
-    ),
-    elasticsearch.WithCACert(caCert),
-    elasticsearch.WithBasicAuth("elastic", ELASTIC_PASSWORD),
-)
-```
-
-1. Each URL is used as a separate node in the connection pool.
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
 ```go
 es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses( // <1>
@@ -245,10 +132,6 @@ es, err := elasticsearch.NewTyped(
 ```
 
 1. Each URL is used as a separate node in the connection pool.
-
-::::::
-
-:::::::
 
 By default nodes are selected using round-robin, but alternate node selection strategies can be implemented via the `elastictransport.Selector` interface and provided to the client configuration.
 
@@ -262,27 +145,7 @@ This section contains code snippets to show you how to authenticate with {{es}}.
 
 ### Basic authentication [auth-basic]
 
-To set the cluster endpoints, the username, and the password programmatically, pass options to the `elasticsearch.New()` or `elasticsearch.NewTyped()` function.
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses(
-        "https://localhost:9200",
-        "https://localhost:9201",
-    ),
-    elasticsearch.WithBasicAuth("foo", "bar"),
-)
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
+To set the cluster endpoints, the username, and the password programmatically, pass options to the `elasticsearch.NewTyped()` (or `elasticsearch.New()`) function.
 
 ```go
 es, err := elasticsearch.NewTyped(
@@ -293,10 +156,6 @@ es, err := elasticsearch.NewTyped(
     elasticsearch.WithBasicAuth("foo", "bar"),
 )
 ```
-
-::::::
-
-:::::::
 
 You can also include the username and password in the endpoint URL:
 
@@ -308,33 +167,12 @@ You can also include the username and password in the endpoint URL:
 
 HTTP Bearer authentication uses the `ServiceToken` parameter by passing the token as a string. This authentication method is used by [Service Account Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token) and [Bearer Tokens](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token).
 
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New(
-    elasticsearch.WithAddresses("https://localhost:9200"),
-    elasticsearch.WithServiceToken("token-value"),
-)
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
-
 ```go
 es, err := elasticsearch.NewTyped(
     elasticsearch.WithAddresses("https://localhost:9200"),
     elasticsearch.WithServiceToken("token-value"),
 )
 ```
-
-::::::
-
-:::::::
 
 ## Compatibility mode [compatibility-mode]
 
@@ -347,41 +185,7 @@ For every 8.0 and beyond `go-elasticsearch` client, you're all set! The compatib
 
 ## Using the client [client-usage]
 
-The {{es}} package ties together two separate packages for calling the Elasticsearch APIs and transferring data over HTTP: `esapi` and `estransport`, respectively.
-
-Use the `elasticsearch.New()` or `elasticsearch.NewTyped()` function to create the client with the default settings.
-
-:::::::{tab-set}
-:group: APIs
-::::::{tab-item} Low-level API
-:sync: lowLevel
-
-```go
-es, err := elasticsearch.New()
-if err != nil {
-  log.Fatalf("Error creating the client: %s", err)
-}
-defer func() {
-    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-    defer cancel()
-    if err := es.Close(ctx); err != nil {
-        log.Fatalf("Error closing the client: %s", err)
-    }
-} ()
-
-res, err := es.Info()
-if err != nil {
-  log.Fatalf("Error getting response: %s", err)
-}
-
-defer res.Body.Close()
-log.Println(res)
-```
-
-::::::
-
-::::::{tab-item} Fully-typed API
-:sync: typed
+Use `elasticsearch.NewTyped()` to create the typed client with the default settings. The [low-level client](low-level-api/index.md) uses `elasticsearch.New()` with the same options.
 
 ```go
 es, err := elasticsearch.NewTyped()
@@ -394,7 +198,7 @@ defer func() {
     if err := es.Close(ctx); err != nil {
         log.Fatalf("Error closing the client: %s", err)
     }
-} ()
+}()
 
 res, err := es.Info().Do(context.Background())
 if err != nil {
@@ -404,16 +208,12 @@ if err != nil {
 log.Println(res)
 ```
 
-::::::
-
-:::::::
-
 ## Using the client in a function-as-a-service environment [connecting-faas]
 
 :::{dropdown} Function-as-a-Service (FaaS) patterns
 This section illustrates the best practices for leveraging the {{es}} client in a Function-as-a-Service (FaaS) environment.
 The most influential optimization is to initialize the client outside of the function, the global scope.
-This practice does not only improve performance but also enables background functionality as — for example — [sniffing](https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how).
+This practice does not only improve performance but also enables background functionality such as [sniffing](https://www.elastic.co/blog/elasticsearch-sniffing-best-practices-what-when-why-how).
 The following examples provide a skeleton for the best practices.
 
 ### GCP Cloud Functions
@@ -430,15 +230,15 @@ import (
     "github.com/elastic/go-elasticsearch/v9"
 )
 
-var client *elasticsearch.Client
+var client *elasticsearch.TypedClient
 
 func init() {
     var err error
 
     ... // Client configuration
-    client, err = elasticsearch.New(opts...)
+    client, err = elasticsearch.NewTyped(opts...)
     if err != nil {
-        log.Fatalf("elasticsearch.New: %v", err)
+        log.Fatalf("elasticsearch.NewTyped: %v", err)
     }
 }
 
@@ -459,15 +259,15 @@ import (
     "github.com/elastic/go-elasticsearch/v9"
 )
 
-var client *elasticsearch.Client
+var client *elasticsearch.TypedClient
 
 func init() {
     var err error
 
     ... // Client configuration
-    client, err = elasticsearch.New(opts...)
+    client, err = elasticsearch.NewTyped(opts...)
     if err != nil {
-        log.Fatalf("elasticsearch.New: %v", err)
+        log.Fatalf("elasticsearch.NewTyped: %v", err)
     }
 }
 
