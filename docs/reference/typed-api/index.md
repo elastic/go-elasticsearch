@@ -52,7 +52,7 @@ graph TB
     OPTS --> TP
 ```
 
-Because both clients implement the same transport interface, individual typed endpoint packages (`typedapi/core/search`, `typedapi/indices/create`, ...) accept either client type. That means you can mix the two styles in a single application, and you can migrate existing low-level code to the typed API one endpoint at a time. See the [migration guide](../low-level-api/migration.md).
+Because both clients implement the same transport interface, individual typed endpoint packages (`typedapi/core/search`, `typedapi/indices/create`, ...) accept either client type. That means you can mix the two styles in a single application, and you can migrate existing low-level code to the typed API one endpoint at a time. If you already hold a `*elasticsearch.Client` and want the full typed surface without rebuilding the transport, call `client.ToTyped()`. See the [migration guide](../low-level-api/migration.md) for details on both approaches.
 
 ## API namespaces [_typed_api_namespaces]
 

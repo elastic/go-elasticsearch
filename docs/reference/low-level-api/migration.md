@@ -252,6 +252,43 @@ func main() {
 
 The same pattern applies to every typed endpoint package: `typedapi/indices/create`, `typedapi/core/bulk`, `typedapi/cluster/health`, and so on. Import the package for the endpoint you want to migrate, call `New(client)`, and use the builder.
 
+### Get a full typed client from an existing low-level client [_to_typed]
+
+If you want the full typed API surface (not just one endpoint package at a time) but the existing `*elasticsearch.Client` must keep working for other call sites, use `ToTyped`. It returns a `*elasticsearch.TypedClient` that reuses the source client's transport, connection pool, and configuration, without building a second transport:
+
+```go
+client, err := elasticsearch.New(
+    elasticsearch.WithAddresses("https://localhost:9200"),
+    elasticsearch.WithAPIKey("API_KEY"),
+)
+if err != nil {
+    log.Fatal(err)
+}
+defer client.Close(context.Background())
+
+typed := client.ToTyped() // <1>
+
+// Low-level call sites keep working.
+res, err := client.Indices.Exists([]string{"my-index"})
+// ...
+
+// Typed call sites go through `typed`.
+info, err := typed.Info().Do(context.Background())
+// ...
+```
+
+1. `ToTyped` copies the source client's compatibility mode, auto-drain-body, and disable-meta-header settings into the new `*TypedClient`, and shares the underlying transport (and its connection pool).
+
+This is the most common choice when the `*Client` is constructed in a shared infrastructure package you don't own, and you can't swap the constructor for `elasticsearch.NewTyped` without coordinating with other teams.
+
+#### Call `ToTyped` once and reuse it [_to_typed_reuse]
+
+`ToTyped` allocates a new typed API tree, and the returned client re-runs the product check on its first request. Call it once at setup and cache the result; do not call it per request or per handler invocation.
+
+#### Shared lifecycle [_to_typed_close]
+
+Because the `*TypedClient` returned by `ToTyped` shares the transport with the source `*Client`, **closing either one closes the connection pool used by both**. After `typed.Close(ctx)` returns, subsequent requests on the original `*Client` will fail with a closed-connection error, and vice versa. In a partial-migration setup, treat the source `*Client` as the lifecycle owner: let whichever code owns the `*Client` call `Close`, and do not call `Close` on the `*TypedClient` returned by `ToTyped`.
+
 ### Strategy [_partial_migration_strategy]
 
 A typical gradual migration looks like:
