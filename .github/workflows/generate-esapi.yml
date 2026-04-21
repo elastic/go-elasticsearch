@@ -41,7 +41,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          input="${{ github.event_name == 'schedule' && 'main,9.3,9.2,8.19' || inputs.branches }}"
+          input="${{ github.event_name == 'schedule' && 'main,9.4,9.3,9.2,8.19' || inputs.branches }}"
 
           # Remove spaces around commas and split into array
           IFS=',' read -ra entries <<< "${input//[[:space:]]/}"

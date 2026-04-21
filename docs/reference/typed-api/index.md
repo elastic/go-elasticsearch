@@ -12,13 +12,13 @@ The code is generated from the [elasticsearch-specification](https://github.com/
 
 ## Getting started [_getting_started_with_the_api]
 
-Create a typed client using the `NewTypedClient` function. It accepts the same `elasticsearch.Config` as the low-level client:
+Create a typed client using the `NewTyped` function with option values:
 
 ```go
-client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    Addresses: []string{"https://localhost:9200"}, // <1>
-    APIKey:    "your-api-key", // <2>
-})
+client, err := elasticsearch.NewTyped(
+    elasticsearch.WithAddresses("https://localhost:9200"), // <1>
+    elasticsearch.WithAPIKey("your-api-key"), // <2>
+)
 if err != nil {
     log.Fatal(err)
 }
@@ -38,18 +38,18 @@ The typed client and the low-level client share the same underlying transport, c
 ```mermaid
 graph TB
     subgraph clients [Client Layer]
-        LC["NewClient - Low-level API"]
-        TC["NewTypedClient - Typed API"]
+        LC["New - Low-level API"]
+        TC["NewTyped - Typed API"]
     end
 
     subgraph shared [Shared Infrastructure]
-        CFG["elasticsearch.Config"]
+        OPTS["Options - WithAddresses, WithAPIKey, ..."]
         TP["Transport - retry, compression, node selection"]
     end
 
-    LC --> CFG
-    TC --> CFG
-    CFG --> TP
+    LC --> OPTS
+    TC --> OPTS
+    OPTS --> TP
 ```
 
 You can use both clients in the same application since they share the same transport. Choose the typed API for compile-time safety, or fall back to the low-level API for maximum flexibility.
@@ -132,9 +132,9 @@ The typed API includes endpoints that use NDJSON bodies such as `bulk` and `msea
 For example, you can build a bulk request by appending operations and then executing it:
 
 ```go
-client, err := elasticsearch.NewTypedClient(elasticsearch.Config{
+client, err := elasticsearch.NewTyped(
     // Proper configuration for your Elasticsearch cluster.
-})
+)
 if err != nil {
     // Handle error.
 }

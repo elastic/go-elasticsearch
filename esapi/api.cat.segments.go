@@ -263,7 +263,7 @@ func (f CatSegments) WithAllowClosed(v bool) func(*CatSegmentsRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified). only allowed when providing an index expression..
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty. only allowed when providing an index expression..
 func (f CatSegments) WithAllowNoIndices(v bool) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.AllowNoIndices = &v

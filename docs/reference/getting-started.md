@@ -30,10 +30,10 @@ Refer to the [_Installation_](/reference/installation.md) page to learn more.
 You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the low level API:
 
 ```go
-client, err := elasticsearch.NewClient(elasticsearch.Config{
-    CloudID: "<CloudID>", // <1>
-    APIKey: "<ApiKey>",   // <2>
-})
+client, err := elasticsearch.New(
+    elasticsearch.WithCloudID("<CloudID>"), // <1>
+    elasticsearch.WithAPIKey("<ApiKey>"),   // <2>
+)
 ```
 
 1. Your deployment's Cloud ID, found on the **My deployment** page.
@@ -46,10 +46,10 @@ client, err := elasticsearch.NewClient(elasticsearch.Config{
 You can connect to the Elastic Cloud using an API key and the Elasticsearch endpoint for the fully-typed API:
 
 ```go
-typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    CloudID: "<CloudID>", // <1>
-    APIKey:  "<ApiKey>",  // <2>
-})
+typedClient, err := elasticsearch.NewTyped(
+    elasticsearch.WithCloudID("<CloudID>"), // <1>
+    elasticsearch.WithAPIKey("<ApiKey>"),   // <2>
+)
 ```
 
 1. Your deployment's Cloud ID, found on the **My deployment** page.

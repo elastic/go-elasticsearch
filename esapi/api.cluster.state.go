@@ -61,7 +61,7 @@ type ClusterStateRequest struct {
 	IgnoreUnavailable      *bool
 	Local                  *bool
 	MasterTimeout          time.Duration
-	WaitForMetadataVersion *int
+	WaitForMetadataVersion *int64
 	WaitForTimeout         time.Duration
 
 	Pretty     bool
@@ -143,7 +143,7 @@ func (r ClusterStateRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	if r.WaitForMetadataVersion != nil {
-		params["wait_for_metadata_version"] = strconv.FormatInt(int64(*r.WaitForMetadataVersion), 10)
+		params["wait_for_metadata_version"] = strconv.FormatInt(*r.WaitForMetadataVersion, 10)
 	}
 
 	if r.WaitForTimeout != 0 {
@@ -242,7 +242,7 @@ func (f ClusterState) WithMetric(v ...string) func(*ClusterStateRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f ClusterState) WithAllowNoIndices(v bool) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.AllowNoIndices = &v
@@ -285,7 +285,7 @@ func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateReque
 }
 
 // WithWaitForMetadataVersion - wait for the metadata version to be equal or greater than the specified metadata version.
-func (f ClusterState) WithWaitForMetadataVersion(v int) func(*ClusterStateRequest) {
+func (f ClusterState) WithWaitForMetadataVersion(v int64) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.WaitForMetadataVersion = &v
 	}

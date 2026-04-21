@@ -60,7 +60,7 @@ import (
 )
 
 func main() {
-    es, _ := elasticsearch.NewDefaultClient()
+    es, _ := elasticsearch.New()
     defer es.Close(context.Background())
 
     res, err := es.Info()
@@ -89,9 +89,9 @@ import (
 )
 
 func main() {
-    es, _ := elasticsearch.NewTypedClient(elasticsearch.Config{
-        Addresses: []string{"http://localhost:9200"},
-    })
+    es, _ := elasticsearch.NewTyped(
+        elasticsearch.WithAddresses("http://localhost:9200"),
+    )
     defer es.Close(context.Background())
     log.Println(es.Info().Do(context.Background()))
 }

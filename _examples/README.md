@@ -14,6 +14,11 @@ The [**`logging`**](./logging) directory contains examples for using the default
 
 The [**`bulk`**](./bulk) directory contains a comprehensive example of using the _Bulk_ API.
 
+## Search
+
+The [**`search`**](./search) directory contains examples for using the _Search_ API
+with the typed client, showing both the `esdsl` query builders and raw `types.*` structs.
+
 ## Multi Search Template
 
 The [**`msearchtemplate`**](./msearchtemplate) directory contains examples for using the _MSearchTemplate_ API

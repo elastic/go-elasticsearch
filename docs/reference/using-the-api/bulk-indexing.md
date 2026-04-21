@@ -17,7 +17,7 @@ When ingesting many documents, use the Bulk API to send multiple operations in a
 With the low-level client, build the NDJSON payload yourself and submit it with `Bulk()`:
 
 ```go
-client, err := elasticsearch.NewDefaultClient()
+client, err := elasticsearch.New()
 if err != nil {
     // Handle error.
 }
@@ -95,7 +95,7 @@ For a higher-level API that takes care of batching, flushing, and concurrency, u
 The BulkIndexer is designed to be **long-lived**: create it once, keep adding items over time (potentially from multiple goroutines), and call `Close()` once when you are done (for example with `defer`).
 
 ```go
-client, err := elasticsearch.NewDefaultClient()
+client, err := elasticsearch.New()
 if err != nil {
     // Handle error.
 }
@@ -134,6 +134,29 @@ _ = indexer.Add(ctx, esutil.BulkIndexerItem{
 3. Number of concurrent worker goroutines.
 4. Flush threshold in bytes (flush when the buffer reaches this size).
 
+:::{dropdown} BulkIndexerConfig full reference
+The `esutil.BulkIndexerConfig` struct supports the following fields:
+
+| Field           | Type                                    | Description                                                          |
+| --------------- | --------------------------------------- | -------------------------------------------------------------------- |
+| `Client`        | `*elasticsearch.Client`                 | The Elasticsearch client (required).                                 |
+| `Index`         | `string`                                | Default index name for items that don't specify one.                 |
+| `NumWorkers`    | `int`                                   | Number of concurrent worker goroutines (default: number of CPUs).    |
+| `FlushBytes`    | `int`                                   | Flush threshold in bytes.                                            |
+| `FlushInterval` | `time.Duration`                         | Periodic flush interval.                                             |
+| `FlushJitter`   | `time.Duration`                         | Max random jitter added to `FlushInterval` per worker to avoid lockstep flushes. Default: 0 (disabled). |
+| `Pipeline`      | `string`                                | Default ingest pipeline for all items.                               |
+| `Refresh`       | `string`                                | Refresh policy after each flush (`"true"`, `"false"`, `"wait_for"`). |
+| `Routing`       | `string`                                | Default routing value for all items.                                 |
+| `Timeout`       | `time.Duration`                         | Timeout for each bulk request.                                       |
+| `OnError`       | `func(context.Context, error)`          | Callback invoked when a bulk request fails.                          |
+| `OnFlushStart`  | `func(context.Context) context.Context` | Callback invoked before each flush.                                  |
+| `OnFlushEnd`    | `func(context.Context)`                 | Callback invoked after each flush.                                   |
+| `Decoder`       | `BulkResponseJSONDecoder`               | Custom JSON decoder for bulk responses.                              |
+| `DebugLogger`   | `BulkIndexerDebugLogger`                | Logger for debug output.                                             |
+
+:::
+
 ### Explicit flushing [_explicit_flushing]
 
 In addition to automatic flushing (based on `FlushBytes` and `FlushInterval`), you can explicitly flush the indexer at any time using `Flush()`. This drains all currently queued items, flushes all worker buffers to Elasticsearch, and waits for completion. The indexer remains usable after `Flush()` — you can continue adding items.
@@ -167,26 +190,3 @@ if err := indexer.Flush(ctx); err != nil {
 
 > **Note:** Do not call `Close()` and recreate the indexer to achieve a synchronous flush.
 > The `BulkIndexer` is designed to be long-lived. Use `Flush()` instead, and only call `Close()` once when you are done with the indexer entirely.
-
-:::{dropdown} BulkIndexerConfig full reference
-The `esutil.BulkIndexerConfig` struct supports the following fields:
-
-| Field           | Type                                    | Description                                                          |
-| --------------- | --------------------------------------- | -------------------------------------------------------------------- |
-| `Client`        | `*elasticsearch.Client`                 | The Elasticsearch client (required).                                 |
-| `Index`         | `string`                                | Default index name for items that don't specify one.                 |
-| `NumWorkers`    | `int`                                   | Number of concurrent worker goroutines (default: number of CPUs).    |
-| `FlushBytes`    | `int`                                   | Flush threshold in bytes.                                            |
-| `FlushInterval` | `time.Duration`                         | Periodic flush interval.                                             |
-| `FlushJitter`   | `time.Duration`                         | Max random jitter added to `FlushInterval` per worker to avoid lockstep flushes. Default: 0 (disabled). |
-| `Pipeline`      | `string`                                | Default ingest pipeline for all items.                               |
-| `Refresh`       | `string`                                | Refresh policy after each flush (`"true"`, `"false"`, `"wait_for"`). |
-| `Routing`       | `string`                                | Default routing value for all items.                                 |
-| `Timeout`       | `time.Duration`                         | Timeout for each bulk request.                                       |
-| `OnError`       | `func(context.Context, error)`          | Callback invoked when a bulk request fails.                          |
-| `OnFlushStart`  | `func(context.Context) context.Context` | Callback invoked before each flush.                                  |
-| `OnFlushEnd`    | `func(context.Context)`                 | Callback invoked after each flush.                                   |
-| `Decoder`       | `BulkResponseJSONDecoder`               | Custom JSON decoder for bulk responses.                              |
-| `DebugLogger`   | `BulkIndexerDebugLogger`                | Logger for debug output.                                             |
-
-:::

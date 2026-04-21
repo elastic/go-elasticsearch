@@ -213,7 +213,7 @@ func (f RankEval) WithIndex(v ...string) func(*RankEvalRequest) {
 	}
 }
 
-// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
 func (f RankEval) WithAllowNoIndices(v bool) func(*RankEvalRequest) {
 	return func(r *RankEvalRequest) {
 		r.AllowNoIndices = &v

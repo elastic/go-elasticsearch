@@ -23,13 +23,12 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
-	return func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error) {
-		var r = MLPutDatafeedRequest{Body: body, DatafeedID: datafeed_id}
+func newSecurityCloneAPIKeyFunc(t Transport) SecurityCloneAPIKey {
+	return func(body io.Reader, o ...func(*SecurityCloneAPIKeyRequest)) (*Response, error) {
+		var r = SecurityCloneAPIKeyRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,21 +43,16 @@ func newMLPutDatafeedFunc(t Transport) MLPutDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLPutDatafeed - Create a datafeed
+// SecurityCloneAPIKey - Clone an API key. Creates a new API key with the same role descriptors as an existing key, with a new name, id, and optional expiration and metadata.
 //
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-datafeed.
-type MLPutDatafeed func(body io.Reader, datafeed_id string, o ...func(*MLPutDatafeedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clone-api-key.
+type SecurityCloneAPIKey func(body io.Reader, o ...func(*SecurityCloneAPIKeyRequest)) (*Response, error)
 
-// MLPutDatafeedRequest configures the ML Put Datafeed API request.
-type MLPutDatafeedRequest struct {
+// SecurityCloneAPIKeyRequest configures the Security CloneAPI Key API request.
+type SecurityCloneAPIKeyRequest struct {
 	Body io.Reader
 
-	DatafeedID string
-
-	AllowNoIndices    *bool
-	ExpandWildcards   []string
-	IgnoreThrottled   *bool
-	IgnoreUnavailable *bool
+	Refresh string
 
 	Pretty     bool
 	Human      bool
@@ -73,7 +67,7 @@ type MLPutDatafeedRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r MLPutDatafeedRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r SecurityCloneAPIKeyRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -82,43 +76,23 @@ func (r MLPutDatafeedRequest) Do(providedCtx context.Context, transport Transpor
 	)
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ml.put_datafeed")
+		ctx = instrument.Start(providedCtx, "security.clone_api_key")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + len("/_security/api_key/clone"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("datafeeds")
-	path.WriteString("/")
-	path.WriteString(r.DatafeedID)
-	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
-	}
+	path.WriteString("/_security/api_key/clone")
 
 	params = make(map[string]string)
 
-	if r.AllowNoIndices != nil {
-		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
-	}
-
-	if len(r.ExpandWildcards) > 0 {
-		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
-	}
-
-	if r.IgnoreThrottled != nil {
-		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
-	}
-
-	if r.IgnoreUnavailable != nil {
-		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	if r.Refresh != "" {
+		params["refresh"] = r.Refresh
 	}
 
 	if r.Pretty {
@@ -174,14 +148,14 @@ func (r MLPutDatafeedRequest) Do(providedCtx context.Context, transport Transpor
 	}
 
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ml.put_datafeed")
-		if reader := instrument.RecordRequestBody(ctx, "ml.put_datafeed", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "security.clone_api_key")
+		if reader := instrument.RecordRequestBody(ctx, "security.clone_api_key", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ml.put_datafeed")
+		instrument.AfterRequest(req, "elasticsearch", "security.clone_api_key")
 	}
 	if err != nil {
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
@@ -200,71 +174,50 @@ func (r MLPutDatafeedRequest) Do(providedCtx context.Context, transport Transpor
 }
 
 // WithContext sets the request context.
-func (f MLPutDatafeed) WithContext(v context.Context) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithContext(v context.Context) func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		r.ctx = v
 	}
 }
 
-// WithAllowNoIndices - whether to allow (1) wildcard index expressions that match no indices and (2) requests where the final resolved set is empty..
-func (f MLPutDatafeed) WithAllowNoIndices(v bool) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
-		r.AllowNoIndices = &v
-	}
-}
-
-// WithExpandWildcards - whether source index expressions should get expanded to open or closed indices (default: open).
-func (f MLPutDatafeed) WithExpandWildcards(v ...string) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
-		r.ExpandWildcards = v
-	}
-}
-
-// WithIgnoreThrottled - ignore indices that are marked as throttled (default: true).
-func (f MLPutDatafeed) WithIgnoreThrottled(v bool) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
-		r.IgnoreThrottled = &v
-	}
-}
-
-// WithIgnoreUnavailable - ignore unavailable indexes (default: false).
-func (f MLPutDatafeed) WithIgnoreUnavailable(v bool) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
-		r.IgnoreUnavailable = &v
+// WithRefresh - if `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. default is `wait_for` in stateful and `true` in serverless..
+func (f SecurityCloneAPIKey) WithRefresh(v string) func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
+		r.Refresh = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f MLPutDatafeed) WithPretty() func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithPretty() func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f MLPutDatafeed) WithHuman() func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithHuman() func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f MLPutDatafeed) WithErrorTrace() func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithErrorTrace() func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f MLPutDatafeed) WithFilterPath(v ...string) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithFilterPath(v ...string) func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f MLPutDatafeed) WithHeader(h map[string]string) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithHeader(h map[string]string) func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -275,8 +228,8 @@ func (f MLPutDatafeed) WithHeader(h map[string]string) func(*MLPutDatafeedReques
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f MLPutDatafeed) WithOpaqueID(s string) func(*MLPutDatafeedRequest) {
-	return func(r *MLPutDatafeedRequest) {
+func (f SecurityCloneAPIKey) WithOpaqueID(s string) func(*SecurityCloneAPIKeyRequest) {
+	return func(r *SecurityCloneAPIKeyRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

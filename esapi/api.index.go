@@ -57,8 +57,8 @@ type IndexRequest struct {
 
 	Body io.Reader
 
-	IfPrimaryTerm        *int
-	IfSeqNo              *int
+	IfPrimaryTerm        *int64
+	IfSeqNo              *int64
 	IncludeSourceOnError *bool
 	OpType               string
 	Pipeline             string
@@ -67,7 +67,7 @@ type IndexRequest struct {
 	RequireDataStream    *bool
 	Routing              []string
 	Timeout              time.Duration
-	Version              *int
+	Version              *int64
 	VersionType          string
 	WaitForActiveShards  string
 
@@ -126,11 +126,11 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	params = make(map[string]string)
 
 	if r.IfPrimaryTerm != nil {
-		params["if_primary_term"] = strconv.FormatInt(int64(*r.IfPrimaryTerm), 10)
+		params["if_primary_term"] = strconv.FormatInt(*r.IfPrimaryTerm, 10)
 	}
 
 	if r.IfSeqNo != nil {
-		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+		params["if_seq_no"] = strconv.FormatInt(*r.IfSeqNo, 10)
 	}
 
 	if r.IncludeSourceOnError != nil {
@@ -166,7 +166,7 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -270,14 +270,14 @@ func (f Index) WithDocumentID(v string) func(*IndexRequest) {
 }
 
 // WithIfPrimaryTerm - only perform the index operation if the last operation that has changed the document has the specified primary term.
-func (f Index) WithIfPrimaryTerm(v int) func(*IndexRequest) {
+func (f Index) WithIfPrimaryTerm(v int64) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.IfPrimaryTerm = &v
 	}
 }
 
 // WithIfSeqNo - only perform the index operation if the last operation that has changed the document has the specified sequence number.
-func (f Index) WithIfSeqNo(v int) func(*IndexRequest) {
+func (f Index) WithIfSeqNo(v int64) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.IfSeqNo = &v
 	}
@@ -340,7 +340,7 @@ func (f Index) WithTimeout(v time.Duration) func(*IndexRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f Index) WithVersion(v int) func(*IndexRequest) {
+func (f Index) WithVersion(v int64) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Version = &v
 	}
