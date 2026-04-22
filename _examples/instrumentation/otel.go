@@ -56,12 +56,13 @@ func main() {
 	defer srv.Close()
 
 	// 3. Create the client with the built-in OTel instrumentation.
-	//    captureSearchBody = true includes the search query in the span
+	//    captureSearchBody includes the search query in the span
 	//    attributes for the search-family endpoints.
+	captureSearchBody := true
 	es, err := elasticsearch.NewTyped(
 		elasticsearch.WithAddresses(srv.URL),
 		elasticsearch.WithInstrumentation(
-			elasticsearch.NewOpenTelemetryInstrumentation(tp, true),
+			elasticsearch.NewOpenTelemetryInstrumentation(tp, captureSearchBody),
 		),
 	)
 	if err != nil {
