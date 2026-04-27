@@ -1,5 +1,27 @@
 # Changelog
 
+## [9.2.5](https://github.com/elastic/go-elasticsearch/compare/v9.2.4...v9.2.5) (2026-04-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esapi:** params previously typed *int on ~20 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* **client:** Add (*Client).ToTyped() conversion method ([#1447](https://github.com/elastic/go-elasticsearch/issues/1447)) ([78ce95c](https://github.com/elastic/go-elasticsearch/commit/78ce95cfe80611b3359131eabc2094fb54577ec3))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1440](https://github.com/elastic/go-elasticsearch/issues/1440)) ([9f768d2](https://github.com/elastic/go-elasticsearch/commit/9f768d2a89735b0577f7abe421f5c7de6885dfa9))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1421](https://github.com/elastic/go-elasticsearch/issues/1421)) ([e30cdb6](https://github.com/elastic/go-elasticsearch/commit/e30cdb6f2a67ee202eb323d96f12c8d6ce6fc23c))
+* **gen:** Map spec long to *int64 for esapi params ([#1392](https://github.com/elastic/go-elasticsearch/issues/1392)) ([ef6e458](https://github.com/elastic/go-elasticsearch/commit/ef6e458627eaa2347cec196d85f5c7f5020992c2))
+* **gen:** Normalize date URL part and param types to string ([#1415](https://github.com/elastic/go-elasticsearch/issues/1415)) ([a029ed0](https://github.com/elastic/go-elasticsearch/commit/a029ed077f658502f87b06aa0cd42a653b7ad5fb))
+* **gen:** Pass []string to DeleteIndexTemplate in test boilerplate ([#1423](https://github.com/elastic/go-elasticsearch/issues/1423)) ([af25eed](https://github.com/elastic/go-elasticsearch/commit/af25eeddc9bf7ac4a73d5ddd0a282e1e48e46573))
+* **gen:** Pass []string to DeletePrivileges in xpack test boilerplate ([#1424](https://github.com/elastic/go-elasticsearch/issues/1424)) ([d603097](https://github.com/elastic/go-elasticsearch/commit/d603097baed037dc16b828e82ac786cfb30e5c0b))
+* **gen:** Support *int64 fields in gen-tests output ([#1418](https://github.com/elastic/go-elasticsearch/issues/1418)) ([3a61210](https://github.com/elastic/go-elasticsearch/commit/3a612105122ffd79ad6a7e20801ea4b5935f984e))
+
 ## [8.19.5](https://github.com/elastic/go-elasticsearch/compare/v8.19.4...v8.19.5) (2026-04-21)
 
 
