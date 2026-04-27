@@ -1,5 +1,25 @@
 # Changelog
 
+## [8.19.5](https://github.com/elastic/go-elasticsearch/compare/v8.19.4...v8.19.5) (2026-04-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esapi:** params previously typed *int on ~20 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* **client:** Add (*Client).ToTyped() conversion method ([#1450](https://github.com/elastic/go-elasticsearch/issues/1450)) ([5615aed](https://github.com/elastic/go-elasticsearch/commit/5615aed0f4d300552262af28932ba8c067b032e7))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1439](https://github.com/elastic/go-elasticsearch/issues/1439)) ([f0ad701](https://github.com/elastic/go-elasticsearch/commit/f0ad701d50fcc751d93283e5e8e9a6fb4826500c))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1414](https://github.com/elastic/go-elasticsearch/issues/1414)) ([13e5d5e](https://github.com/elastic/go-elasticsearch/commit/13e5d5e2688f61c21cfaf663c165f4f9d8301d50))
+* **gen:** Accept bool form for deprecated in URL parts and paths ([#1413](https://github.com/elastic/go-elasticsearch/issues/1413)) ([9874577](https://github.com/elastic/go-elasticsearch/commit/98745779b3636d84944d26ead07d7f81356d1961))
+* **gen:** Map spec long to *int64 for esapi params ([#1391](https://github.com/elastic/go-elasticsearch/issues/1391)) ([9a2424c](https://github.com/elastic/go-elasticsearch/commit/9a2424c77d0125cc4a915eacd5b6c293fcbe280c))
+* **gen:** Support *int64 fields in gen-tests output ([#1417](https://github.com/elastic/go-elasticsearch/issues/1417)) ([fa81ccf](https://github.com/elastic/go-elasticsearch/commit/fa81ccfdd75b0471dc2a4ac2e801d93203421f99))
+
 ## [8.19.4](https://github.com/elastic/go-elasticsearch/compare/v8.19.3...v8.19.4) (2026-04-16)
 
 
