@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create a Mistral inference endpoint.
 //
@@ -95,7 +95,7 @@ func NewPutMistralFunc(tp elastictransport.Interface) NewPutMistral {
 // Create an inference endpoint to perform an inference task with the `mistral`
 // service.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-mistral
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-inference-put-mistral
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-mistral
 func New(tp elastictransport.Interface) *PutMistral {

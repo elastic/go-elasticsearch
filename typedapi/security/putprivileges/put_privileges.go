@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create or update application privileges.
 //
@@ -124,7 +124,7 @@ func NewPutPrivilegesFunc(tp elastictransport.Interface) NewPutPrivileges {
 // Action names can contain any number of printable ASCII characters and must
 // contain at least one of the following characters: `/`, `*`, `:`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-privileges
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-put-privileges
 func New(tp elastictransport.Interface) *PutPrivileges {
 	r := &PutPrivileges{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Bulk delete roles.
 //
@@ -84,7 +84,7 @@ func NewBulkDeleteRoleFunc(tp elastictransport.Interface) NewBulkDeleteRole {
 // rather than using file-based role management. The bulk delete roles API
 // cannot delete roles that are defined in roles files.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-bulk-delete-role
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-bulk-delete-role
 func New(tp elastictransport.Interface) *BulkDeleteRole {
 	r := &BulkDeleteRole{
 		transport: tp,

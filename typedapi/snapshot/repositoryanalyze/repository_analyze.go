@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Analyze a snapshot repository.
 //
@@ -71,6 +71,17 @@
 // implementation of the same storage protocol. You will need to work with the
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
+//
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
 //
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this
@@ -303,6 +314,17 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
 //
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
+//
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this
 // information to determine the performance of your storage system. If any
@@ -424,7 +446,7 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // increment a counter which is represented as an 8-byte blob. Some operations
 // also verify the behavior on small blobs with sizes other than 8 bytes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-analyze
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-snapshot-repository-analyze
 func New(tp elastictransport.Interface) *RepositoryAnalyze {
 	r := &RepositoryAnalyze{
 		transport: tp,

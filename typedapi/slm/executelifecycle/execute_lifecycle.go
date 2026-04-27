@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Run a policy.
 //
@@ -88,7 +88,7 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 // applied according to its schedule, but you might want to manually run a
 // policy before performing an upgrade or other maintenance.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-slm-execute-lifecycle
 func New(tp elastictransport.Interface) *ExecuteLifecycle {
 	r := &ExecuteLifecycle{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Activate a user profile.
 //
@@ -118,7 +118,7 @@ func NewActivateUserProfileFunc(tp elastictransport.Interface) NewActivateUserPr
 // disabled. Any updates do not change existing content for either the `labels`
 // or `data` fields.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-activate-user-profile
 func New(tp elastictransport.Interface) *ActivateUserProfile {
 	r := &ActivateUserProfile{
 		transport: tp,

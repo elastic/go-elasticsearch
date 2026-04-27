@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get terms in an index.
 //
@@ -99,7 +99,7 @@ func NewTermsEnumFunc(tp elastictransport.Interface) NewTermsEnum {
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-terms-enum
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-terms-enum
 func New(tp elastictransport.Interface) *TermsEnum {

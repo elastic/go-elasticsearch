@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get node statistics.
 //
@@ -89,7 +89,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 // Get statistics for nodes in a cluster. By default, all stats are returned.
 // You can limit the returned information by using metrics.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-nodes-stats
 func New(tp elastictransport.Interface) *Stats {
 	r := &Stats{
 		transport: tp,

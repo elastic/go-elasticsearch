@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 package updatebyquery
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/update_by_query/UpdateByQueryResponse.ts#L27-L76
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_global/update_by_query/UpdateByQueryResponse.ts#L27-L76
 type Response struct {
 	// Batches The number of scroll responses pulled back by the update by query.
 	Batches *int64 `json:"batches,omitempty"`

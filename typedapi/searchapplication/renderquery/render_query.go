@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Render a search application query.
 //
@@ -103,7 +103,7 @@ func NewRenderQueryFunc(tp elastictransport.Interface) NewRenderQuery {
 // You must have `read` privileges on the backing alias of the search
 // application.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-render-query
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-search-application-render-query
 func New(tp elastictransport.Interface) *RenderQuery {
 	r := &RenderQuery{
 		transport: tp,

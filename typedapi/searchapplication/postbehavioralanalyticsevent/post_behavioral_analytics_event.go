@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create a behavioral analytics collection event.
 //
@@ -91,7 +91,7 @@ func NewPostBehavioralAnalyticsEventFunc(tp elastictransport.Interface) NewPostB
 
 // Create a behavioral analytics collection event.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-search-application-post-behavioral-analytics-event
 //
 // Deprecated: Since 9.0.0.
 func New(tp elastictransport.Interface) *PostBehavioralAnalyticsEvent {

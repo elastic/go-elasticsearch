@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Preview a transform.
 //
@@ -97,7 +97,7 @@ func NewPreviewTransformFunc(tp elastictransport.Interface) NewPreviewTransform 
 // settings for the destination index. These values are determined based on the
 // field types of the source index and the transform aggregations.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-preview-transform
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-transform-preview-transform
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-preview-transform
 func New(tp elastictransport.Interface) *PreviewTransform {

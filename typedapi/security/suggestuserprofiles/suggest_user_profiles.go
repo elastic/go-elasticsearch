@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Suggest a user profile.
 //
@@ -91,7 +91,7 @@ func NewSuggestUserProfilesFunc(tp elastictransport.Interface) NewSuggestUserPro
 // Elastic reserves the right to change or remove this feature in future
 // releases without prior notice.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-suggest-user-profiles
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-suggest-user-profiles
 func New(tp elastictransport.Interface) *SuggestUserProfiles {
 	r := &SuggestUserProfiles{
 		transport: tp,

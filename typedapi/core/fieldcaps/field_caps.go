@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get the field capabilities.
 //
@@ -96,7 +96,7 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 // a runtime field with a type of keyword is returned the same as any other
 // field that belongs to the `keyword` family.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-field-caps
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-field-caps
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-field-caps
 func New(tp elastictransport.Interface) *FieldCaps {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Find users with a query.
 //
@@ -87,7 +87,7 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 // NOTE: As opposed to the get user API, built-in users are excluded from the
 // result. This API is only for native users.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-query-user
 func New(tp elastictransport.Interface) *QueryUser {
 	r := &QueryUser{
 		transport: tp,

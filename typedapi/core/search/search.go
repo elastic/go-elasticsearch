@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Run a search.
 //
@@ -137,7 +137,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // situation can occur because, by default, the splitting criterion is based on
 // Lucene document IDs, which are not stable across changes to the index.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-search
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search
 func New(tp elastictransport.Interface) *Search {

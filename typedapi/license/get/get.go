@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get license information.
 //
@@ -84,7 +84,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // API may return a `404 Not Found` response. > If you receive an unexpected 404
 // response after cluster startup, wait a short period and retry the request.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-license-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-license-get
 func New(tp elastictransport.Interface) *Get {

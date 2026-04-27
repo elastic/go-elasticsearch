@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Clone a snapshot.
 //
@@ -97,7 +97,7 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 //
 // Clone part of all of a snapshot into another snapshot in the same repository.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-snapshot-clone
 func New(tp elastictransport.Interface) *Clone {
 	r := &Clone{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create or update a legacy index template.
 //
@@ -145,7 +145,7 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 // NOTE: Multiple matching templates with the same order value will result in a
 // non-deterministic merging order.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-put-template
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-put-template
 //
 // Deprecated: Since 7.8.0.
 func New(tp elastictransport.Interface) *PutTemplate {

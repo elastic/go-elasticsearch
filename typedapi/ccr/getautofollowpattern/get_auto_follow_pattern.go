@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get auto-follow patterns.
 //
@@ -80,7 +80,7 @@ func NewGetAutoFollowPatternFunc(tp elastictransport.Interface) NewGetAutoFollow
 //
 // Get cross-cluster replication auto-follow patterns.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-get-auto-follow-pattern-1
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ccr-get-auto-follow-pattern-1
 func New(tp elastictransport.Interface) *GetAutoFollowPattern {
 	r := &GetAutoFollowPattern{
 		transport: tp,

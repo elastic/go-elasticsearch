@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Downsample an index.
 //
@@ -125,7 +125,7 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 // nor document level security can be defined on the source index. The source
 // index must be read-only (`index.blocks.write: true`).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-downsample
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-downsample
 func New(tp elastictransport.Interface) *Downsample {
 	r := &Downsample{
 		transport: tp,

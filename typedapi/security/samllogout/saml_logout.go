@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Logout of SAML.
 //
@@ -99,7 +99,7 @@ func NewSamlLogoutFunc(tp elastictransport.Interface) NewSamlLogout {
 // contains a URL to redirect the user to the IdP that contains a SAML logout
 // request (starting an SP-initiated SAML Single Logout).
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-logout
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-saml-logout
 func New(tp elastictransport.Interface) *SamlLogout {
 	r := &SamlLogout{
 		transport: tp,

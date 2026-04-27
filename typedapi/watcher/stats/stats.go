@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get Watcher statistics.
 //
@@ -82,7 +82,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 // This API always returns basic metrics. You retrieve more metrics by using the
 // metric parameter.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-watcher-stats
 func New(tp elastictransport.Interface) *Stats {
 	r := &Stats{
 		transport: tp,

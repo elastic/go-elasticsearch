@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Delete a rollup job.
 //
@@ -130,7 +130,7 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 //	  }
 //	}
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-delete-job
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-rollup-delete-job
 //
 // Deprecated: Since 8.11.0.
 func New(tp elastictransport.Interface) *DeleteJob {

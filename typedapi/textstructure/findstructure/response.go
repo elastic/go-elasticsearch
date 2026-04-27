@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 package findstructure
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package findstructure
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/text_structure/find_structure/FindStructureResponse.ts#L27-L97
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/text_structure/find_structure/FindStructureResponse.ts#L27-L97
 type Response struct {
 	// Charset The character encoding used to parse the text.
 	Charset string `json:"charset"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Reset the features.
 //
@@ -116,7 +116,7 @@ func NewResetFeaturesFunc(tp elastictransport.Interface) NewResetFeatures {
 // the features that will be reset. Run on the master node if you have any
 // doubts about which plugins are installed on individual nodes.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-reset-features
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-features-reset-features
 func New(tp elastictransport.Interface) *ResetFeatures {
 	r := &ResetFeatures{
 		transport: tp,

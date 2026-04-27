@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get snapshot lifecycle management statistics.
 //
@@ -76,7 +76,7 @@ func NewGetStatsFunc(tp elastictransport.Interface) NewGetStats {
 // Get global and policy-level statistics about actions taken by snapshot
 // lifecycle management.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-get-stats
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-slm-get-stats
 func New(tp elastictransport.Interface) *GetStats {
 	r := &GetStats{
 		transport: tp,

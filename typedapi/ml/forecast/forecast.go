@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Predict future behavior of a time series.
 //
@@ -93,7 +93,7 @@ func NewForecastFunc(tp elastictransport.Interface) NewForecast {
 // `over_field_name` in its configuration. Forcasts predict future behavior
 // based on historical data.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ml-forecast
 func New(tp elastictransport.Interface) *Forecast {
 	r := &Forecast{
 		transport: tp,

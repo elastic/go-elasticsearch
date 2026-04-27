@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get search applications.
 //
@@ -74,7 +74,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //
 // Get information about search applications.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-get-behavioral-analytics
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-search-application-get-behavioral-analytics
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-search-application-get-behavioral-analytics
 func New(tp elastictransport.Interface) *List {
