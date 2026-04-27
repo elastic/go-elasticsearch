@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RankEvalHitItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/rank_eval/types.ts#L139-L142
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/rank_eval/types.ts#L139-L142
 type RankEvalHitItem struct {
 	Hit    RankEvalHit `json:"hit"`
 	Rating *Float64    `json:"rating,omitempty"`

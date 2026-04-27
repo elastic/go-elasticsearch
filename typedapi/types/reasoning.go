@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // The reasoning configuration to use for the completion request. Currently
 // supported only for `elastic` provider.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L216-L246
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L216-L246
 type Reasoning struct {
 	// Effort The level of effort the model should put into reasoning. This is a hint that
 	// guides the model in how much effort to put into reasoning, with `xhigh` being

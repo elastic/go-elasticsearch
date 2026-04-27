@@ -16,13 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakerapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakerelementtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakersimilarity"
 )
 
 type _amazonSageMakerServiceSettings struct {
@@ -74,6 +76,12 @@ func (s *_amazonSageMakerServiceSettings) Dimensions(dimensions int) *_amazonSag
 	return s
 }
 
+func (s *_amazonSageMakerServiceSettings) ElementType(elementtype amazonsagemakerelementtype.AmazonSageMakerElementType) *_amazonSageMakerServiceSettings {
+
+	s.v.ElementType = &elementtype
+	return s
+}
+
 func (s *_amazonSageMakerServiceSettings) EndpointName(endpointname string) *_amazonSageMakerServiceSettings {
 
 	s.v.EndpointName = endpointname
@@ -99,6 +107,12 @@ func (s *_amazonSageMakerServiceSettings) SecretKey(secretkey string) *_amazonSa
 
 	s.v.SecretKey = secretkey
 
+	return s
+}
+
+func (s *_amazonSageMakerServiceSettings) Similarity(similarity amazonsagemakersimilarity.AmazonSageMakerSimilarity) *_amazonSageMakerServiceSettings {
+
+	s.v.Similarity = &similarity
 	return s
 }
 

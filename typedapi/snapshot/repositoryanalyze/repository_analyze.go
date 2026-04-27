@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 // Analyze a snapshot repository.
 //
@@ -71,6 +71,17 @@
 // implementation of the same storage protocol. You will need to work with the
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
+//
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
 //
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this
@@ -302,6 +313,17 @@ func NewRepositoryAnalyzeFunc(tp elastictransport.Interface) NewRepositoryAnalyz
 // implementation of the same storage protocol. You will need to work with the
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
+//
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
 //
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this
@@ -650,6 +672,15 @@ func (r *RepositoryAnalyze) _repository(repository string) *RepositoryAnalyze {
 // API name: blob_count
 func (r *RepositoryAnalyze) BlobCount(blobcount int) *RepositoryAnalyze {
 	r.values.Set("blob_count", strconv.Itoa(blobcount))
+
+	return r
+}
+
+// CheckOverwriteProtection Whether to run the overwrite protection check. For realistic experiments,
+// leave this parameter unset.
+// API name: check_overwrite_protection
+func (r *RepositoryAnalyze) CheckOverwriteProtection(checkoverwriteprotection bool) *RepositoryAnalyze {
+	r.values.Set("check_overwrite_protection", strconv.FormatBool(checkoverwriteprotection))
 
 	return r
 }

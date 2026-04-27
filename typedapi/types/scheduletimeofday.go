@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -28,7 +28,7 @@ package types
 // A time of day, expressed either as `hh:mm`, `noon`, `midnight`, or an
 // hour/minutes structure.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/watcher/_types/Schedule.ts#L99-L104
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/watcher/_types/Schedule.ts#L99-L104
 type ScheduleTimeOfDay any
 
 type ScheduleTimeOfDayVariant interface {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -28,17 +28,17 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/apikeymanagedby"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/credentialmanagedby"
 )
 
 // AuthenticateApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/authenticate/SecurityAuthenticateResponse.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/authenticate/SecurityAuthenticateResponse.ts#L45-L50
 type AuthenticateApiKey struct {
-	Id        string                          `json:"id"`
-	Internal  *bool                           `json:"internal,omitempty"`
-	ManagedBy apikeymanagedby.ApiKeyManagedBy `json:"managed_by"`
-	Name      *string                         `json:"name,omitempty"`
+	Id        string                                  `json:"id"`
+	Internal  *bool                                   `json:"internal,omitempty"`
+	ManagedBy credentialmanagedby.CredentialManagedBy `json:"managed_by"`
+	Name      *string                                 `json:"name,omitempty"`
 }
 
 func (s *AuthenticateApiKey) UnmarshalJSON(data []byte) error {

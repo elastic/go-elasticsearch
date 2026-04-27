@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package secretpost
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package secretpost
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/connector/secret_post/ConnectorSecretPostRequest.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/connector/secret_post/ConnectorSecretPostRequest.ts#L23-L40
 type Request struct {
 	Value *string `json:"value,omitempty"`
 }

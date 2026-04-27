@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package typedapi
 
@@ -121,6 +121,7 @@ import (
 	connector_update_service_type "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updateservicetype"
 	connector_update_status "github.com/elastic/go-elasticsearch/v9/typedapi/connector/updatestatus"
 	core_bulk "github.com/elastic/go-elasticsearch/v9/typedapi/core/bulk"
+	core_cancel_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/core/cancelreindex"
 	core_capabilities "github.com/elastic/go-elasticsearch/v9/typedapi/core/capabilities"
 	core_clear_scroll "github.com/elastic/go-elasticsearch/v9/typedapi/core/clearscroll"
 	core_close_point_in_time "github.com/elastic/go-elasticsearch/v9/typedapi/core/closepointintime"
@@ -135,6 +136,7 @@ import (
 	core_explain "github.com/elastic/go-elasticsearch/v9/typedapi/core/explain"
 	core_field_caps "github.com/elastic/go-elasticsearch/v9/typedapi/core/fieldcaps"
 	core_get "github.com/elastic/go-elasticsearch/v9/typedapi/core/get"
+	core_get_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/core/getreindex"
 	core_get_script "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscript"
 	core_get_script_context "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscriptcontext"
 	core_get_script_languages "github.com/elastic/go-elasticsearch/v9/typedapi/core/getscriptlanguages"
@@ -143,6 +145,7 @@ import (
 	core_index "github.com/elastic/go-elasticsearch/v9/typedapi/core/index"
 	core_info "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
 	core_knn_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/knnsearch"
+	core_list_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/core/listreindex"
 	core_mget "github.com/elastic/go-elasticsearch/v9/typedapi/core/mget"
 	core_msearch "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearch"
 	core_msearch_template "github.com/elastic/go-elasticsearch/v9/typedapi/core/msearchtemplate"
@@ -473,6 +476,7 @@ import (
 	security_clear_cached_realms "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedrealms"
 	security_clear_cached_roles "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedroles"
 	security_clear_cached_service_tokens "github.com/elastic/go-elasticsearch/v9/typedapi/security/clearcachedservicetokens"
+	security_clone_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/cloneapikey"
 	security_create_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/createapikey"
 	security_create_cross_cluster_api_key "github.com/elastic/go-elasticsearch/v9/typedapi/security/createcrossclusterapikey"
 	security_create_service_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/createservicetoken"
@@ -1652,6 +1656,13 @@ type Core struct {
 	// indexing throughput for large bulk requests. Refer to the linked
 	// documentation for step-by-step instructions using the index settings API.
 	Bulk core_bulk.NewBulk
+	// Cancel a reindex task.
+	//
+	// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
+	// default), the response contains the final task state after cancellation. If
+	// `wait_for_completion` is `false`, the response contains only `acknowledged:
+	// true`.
+	CancelReindex core_cancel_reindex.NewCancelReindex
 	// Checks if the specified combination of method, API, parameters, and arbitrary
 	// capabilities are supported.
 	Capabilities core_capabilities.NewCapabilities
@@ -2076,6 +2087,10 @@ type Core struct {
 	// immediately, although you won't be able to access it. Elasticsearch cleans up
 	// deleted documents in the background as you continue to index more data.
 	Get core_get.NewGet
+	// Get a reindex task.
+	//
+	// Get the status and progress of a specific reindex task.
+	GetReindex core_get_reindex.NewGetReindex
 	// Get a script or search template.
 	//
 	// Retrieves a stored script or search template.
@@ -2315,9 +2330,13 @@ type Core struct {
 	Index core_index.NewIndex
 	// Get cluster info.
 	//
-	// Get basic build, version, and cluster information. ::: In Serverless, this
-	// API is retained for backward compatibility only. Some response fields, such
-	// as the version number, should be ignored.
+	// Get basic build, version, and cluster information. ::: In Serverless,
+	// `version.number` always reports the next target Elasticsearch release version
+	// at the time of the request. Serverless does not track to a traditional
+	// release versioning model; it is continuously updated. The version number is
+	// provided to maintain compatibility with existing clients, but it is not
+	// meaningful for assessing feature availability. Clients should detect a
+	// Serverless environment by checking for `build_flavor: serverless`.
 	Info core_info.NewInfo
 	// Run a knn search.
 	//
@@ -2327,6 +2346,10 @@ type Core struct {
 	// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 	// option in the search API.
 	KnnSearch core_knn_search.NewKnnSearch
+	// List active reindex tasks.
+	//
+	// Get information about all currently running reindex tasks.
+	ListReindex core_list_reindex.NewListReindex
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices. If you specify an
@@ -2494,9 +2517,11 @@ type Core struct {
 	// If reindexing from a remote cluster into a cluster using Elastic Stack, you
 	// must explicitly allow the remote host using the `reindex.remote.whitelist`
 	// node setting on the destination cluster. If reindexing from a remote cluster
-	// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-	// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-	// index template with data stream enabled.
+	// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+	// Cloud Hosted and Elastic Cloud
+	// Serverless](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+	// are allowed. Automatic data stream creation requires a matching index
+	// template with data stream enabled.
 	//
 	// The `dest` element can be configured like the index API to control optimistic
 	// concurrency control. Omitting `version_type` or setting it to `internal`
@@ -5962,6 +5987,14 @@ type Security struct {
 	// tokens backed by the `service_tokens` file is cleared automatically on file
 	// changes.
 	ClearCachedServiceTokens security_clear_cached_service_tokens.NewClearCachedServiceTokens
+	// Clone an API key.
+	//
+	// Create a copy of an existing API key with a new ID. The cloned key inherits
+	// the role descriptors of the source key. This is intended for applications
+	// (such as Kibana) that need to create API keys on behalf of a user using an
+	// existing API key credential, since derived API keys (API keys created by API
+	// keys) are not otherwise supported.
+	CloneApiKey security_clone_api_key.NewCloneApiKey
 	// Create an API key.
 	//
 	// Create an API key for access without requiring basic authentication.
@@ -6922,6 +6955,17 @@ type Snapshot struct {
 	// implementation of the same storage protocol. You will need to work with the
 	// supplier of your storage system to address the incompatibilities that
 	// Elasticsearch detects.
+	//
+	// The analysis may also report a failure if your repository experienced a
+	// service disruption while the analysis was running. In practice, occasional
+	// service disruptions are inevitable, but the analysis cannot itself
+	// distinguish such disruptions from incorrect behavior so must report all
+	// deviations from the expected behavior as failures. If you are certain that
+	// you can ascribe an analysis failure to such a service disruption, wait for
+	// your service provider to resolve the disruption and then re-run the analysis.
+	// Elasticsearch will be unable to create or restore snapshots during repository
+	// service disruptions, so you must ensure that these events occur only very
+	// rarely.
 	//
 	// If the analysis is successful, the API returns details of the testing
 	// process, optionally including how long each operation took. You can use this
@@ -8002,6 +8046,13 @@ type API struct {
 	// indexing throughput for large bulk requests. Refer to the linked
 	// documentation for step-by-step instructions using the index settings API.
 	Bulk core_bulk.NewBulk
+	// Cancel a reindex task.
+	//
+	// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
+	// default), the response contains the final task state after cancellation. If
+	// `wait_for_completion` is `false`, the response contains only `acknowledged:
+	// true`.
+	CancelReindex core_cancel_reindex.NewCancelReindex
 	// Checks if the specified combination of method, API, parameters, and arbitrary
 	// capabilities are supported.
 	Capabilities core_capabilities.NewCapabilities
@@ -8426,6 +8477,10 @@ type API struct {
 	// immediately, although you won't be able to access it. Elasticsearch cleans up
 	// deleted documents in the background as you continue to index more data.
 	Get core_get.NewGet
+	// Get a reindex task.
+	//
+	// Get the status and progress of a specific reindex task.
+	GetReindex core_get_reindex.NewGetReindex
 	// Get a script or search template.
 	//
 	// Retrieves a stored script or search template.
@@ -8665,9 +8720,13 @@ type API struct {
 	Index core_index.NewIndex
 	// Get cluster info.
 	//
-	// Get basic build, version, and cluster information. ::: In Serverless, this
-	// API is retained for backward compatibility only. Some response fields, such
-	// as the version number, should be ignored.
+	// Get basic build, version, and cluster information. ::: In Serverless,
+	// `version.number` always reports the next target Elasticsearch release version
+	// at the time of the request. Serverless does not track to a traditional
+	// release versioning model; it is continuously updated. The version number is
+	// provided to maintain compatibility with existing clients, but it is not
+	// meaningful for assessing feature availability. Clients should detect a
+	// Serverless environment by checking for `build_flavor: serverless`.
 	Info core_info.NewInfo
 	// Run a knn search.
 	//
@@ -8677,6 +8736,10 @@ type API struct {
 	// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 	// option in the search API.
 	KnnSearch core_knn_search.NewKnnSearch
+	// List active reindex tasks.
+	//
+	// Get information about all currently running reindex tasks.
+	ListReindex core_list_reindex.NewListReindex
 	// Get multiple documents.
 	//
 	// Get multiple JSON documents by ID from one or more indices. If you specify an
@@ -8844,9 +8907,11 @@ type API struct {
 	// If reindexing from a remote cluster into a cluster using Elastic Stack, you
 	// must explicitly allow the remote host using the `reindex.remote.whitelist`
 	// node setting on the destination cluster. If reindexing from a remote cluster
-	// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-	// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-	// index template with data stream enabled.
+	// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+	// Cloud Hosted and Elastic Cloud
+	// Serverless](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+	// are allowed. Automatic data stream creation requires a matching index
+	// template with data stream enabled.
 	//
 	// The `dest` element can be configured like the index API to control optimistic
 	// concurrency control. Omitting `version_type` or setting it to `internal`
@@ -9442,6 +9507,7 @@ func New(tp elastictransport.Interface) *API {
 
 		Core: Core{
 			Bulk:                    core_bulk.NewBulkFunc(tp),
+			CancelReindex:           core_cancel_reindex.NewCancelReindexFunc(tp),
 			Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 			ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 			ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
@@ -9456,6 +9522,7 @@ func New(tp elastictransport.Interface) *API {
 			Explain:                 core_explain.NewExplainFunc(tp),
 			FieldCaps:               core_field_caps.NewFieldCapsFunc(tp),
 			Get:                     core_get.NewGetFunc(tp),
+			GetReindex:              core_get_reindex.NewGetReindexFunc(tp),
 			GetScript:               core_get_script.NewGetScriptFunc(tp),
 			GetScriptContext:        core_get_script_context.NewGetScriptContextFunc(tp),
 			GetScriptLanguages:      core_get_script_languages.NewGetScriptLanguagesFunc(tp),
@@ -9464,6 +9531,7 @@ func New(tp elastictransport.Interface) *API {
 			Index:                   core_index.NewIndexFunc(tp),
 			Info:                    core_info.NewInfoFunc(tp),
 			KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
+			ListReindex:             core_list_reindex.NewListReindexFunc(tp),
 			Mget:                    core_mget.NewMgetFunc(tp),
 			Msearch:                 core_msearch.NewMsearchFunc(tp),
 			MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),
@@ -9866,6 +9934,7 @@ func New(tp elastictransport.Interface) *API {
 			ClearCachedRealms:           security_clear_cached_realms.NewClearCachedRealmsFunc(tp),
 			ClearCachedRoles:            security_clear_cached_roles.NewClearCachedRolesFunc(tp),
 			ClearCachedServiceTokens:    security_clear_cached_service_tokens.NewClearCachedServiceTokensFunc(tp),
+			CloneApiKey:                 security_clone_api_key.NewCloneApiKeyFunc(tp),
 			CreateApiKey:                security_create_api_key.NewCreateApiKeyFunc(tp),
 			CreateCrossClusterApiKey:    security_create_cross_cluster_api_key.NewCreateCrossClusterApiKeyFunc(tp),
 			CreateServiceToken:          security_create_service_token.NewCreateServiceTokenFunc(tp),
@@ -10040,6 +10109,7 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Bulk:                    core_bulk.NewBulkFunc(tp),
+		CancelReindex:           core_cancel_reindex.NewCancelReindexFunc(tp),
 		Capabilities:            core_capabilities.NewCapabilitiesFunc(tp),
 		ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 		ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
@@ -10054,6 +10124,7 @@ func New(tp elastictransport.Interface) *API {
 		Explain:                 core_explain.NewExplainFunc(tp),
 		FieldCaps:               core_field_caps.NewFieldCapsFunc(tp),
 		Get:                     core_get.NewGetFunc(tp),
+		GetReindex:              core_get_reindex.NewGetReindexFunc(tp),
 		GetScript:               core_get_script.NewGetScriptFunc(tp),
 		GetScriptContext:        core_get_script_context.NewGetScriptContextFunc(tp),
 		GetScriptLanguages:      core_get_script_languages.NewGetScriptLanguagesFunc(tp),
@@ -10062,6 +10133,7 @@ func New(tp elastictransport.Interface) *API {
 		Index:                   core_index.NewIndexFunc(tp),
 		Info:                    core_info.NewInfoFunc(tp),
 		KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
+		ListReindex:             core_list_reindex.NewListReindexFunc(tp),
 		Mget:                    core_mget.NewMgetFunc(tp),
 		Msearch:                 core_msearch.NewMsearchFunc(tp),
 		MsearchTemplate:         core_msearch_template.NewMsearchTemplateFunc(tp),
@@ -10470,6 +10542,18 @@ type MethodAPI struct {
 func (p *MethodAPI) Bulk() *core_bulk.Bulk {
 	_bulk := core_bulk.NewBulkFunc(p.tp)
 	return _bulk()
+}
+
+// Cancel a reindex task.
+//
+// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
+// default), the response contains the final task state after cancellation. If
+// `wait_for_completion` is `false`, the response contains only `acknowledged:
+// true`.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodAPI) CancelReindex(taskid string) *core_cancel_reindex.CancelReindex {
+	_cancelreindex := core_cancel_reindex.NewCancelReindexFunc(p.tp)
+	return _cancelreindex(taskid)
 }
 
 // Checks if the specified combination of method, API, parameters, and arbitrary
@@ -10990,6 +11074,15 @@ func (p *MethodAPI) Get(index, id string) *core_get.Get {
 	return _get(index, id)
 }
 
+// Get a reindex task.
+//
+// Get the status and progress of a specific reindex task.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodAPI) GetReindex(taskid string) *core_get_reindex.GetReindex {
+	_getreindex := core_get_reindex.NewGetReindexFunc(p.tp)
+	return _getreindex(taskid)
+}
+
 // Get a script or search template.
 //
 // Retrieves a stored script or search template.
@@ -11266,9 +11359,13 @@ func (p *MethodAPI) Index(index string) *core_index.Index {
 
 // Get cluster info.
 //
-// Get basic build, version, and cluster information. ::: In Serverless, this
-// API is retained for backward compatibility only. Some response fields, such
-// as the version number, should be ignored.
+// Get basic build, version, and cluster information. ::: In Serverless,
+// `version.number` always reports the next target Elasticsearch release version
+// at the time of the request. Serverless does not track to a traditional
+// release versioning model; it is continuously updated. The version number is
+// provided to maintain compatibility with existing clients, but it is not
+// meaningful for assessing feature availability. Clients should detect a
+// Serverless environment by checking for `build_flavor: serverless`.
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 func (p *MethodAPI) Info() *core_info.Info {
 	_info := core_info.NewInfoFunc(p.tp)
@@ -11285,6 +11382,15 @@ func (p *MethodAPI) Info() *core_info.Info {
 func (p *MethodAPI) KnnSearch(index string) *core_knn_search.KnnSearch {
 	_knnsearch := core_knn_search.NewKnnSearchFunc(p.tp)
 	return _knnsearch(index)
+}
+
+// List active reindex tasks.
+//
+// Get information about all currently running reindex tasks.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodAPI) ListReindex() *core_list_reindex.ListReindex {
+	_listreindex := core_list_reindex.NewListReindexFunc(p.tp)
+	return _listreindex()
 }
 
 // Get multiple documents.
@@ -11509,9 +11615,11 @@ func (p *MethodAPI) RankEval() *core_rank_eval.RankEval {
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud Hosted and Elastic Cloud
+// Serverless](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`
@@ -13681,6 +13789,18 @@ func (p *MethodCore) Bulk() *core_bulk.Bulk {
 	return _bulk()
 }
 
+// Cancel a reindex task.
+//
+// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
+// default), the response contains the final task state after cancellation. If
+// `wait_for_completion` is `false`, the response contains only `acknowledged:
+// true`.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodCore) CancelReindex(taskid string) *core_cancel_reindex.CancelReindex {
+	_cancelreindex := core_cancel_reindex.NewCancelReindexFunc(p.tp)
+	return _cancelreindex(taskid)
+}
+
 // Checks if the specified combination of method, API, parameters, and arbitrary
 // capabilities are supported.
 // https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/README.asciidoc#require-or-skip-api-capabilities
@@ -14199,6 +14319,15 @@ func (p *MethodCore) Get(index, id string) *core_get.Get {
 	return _get(index, id)
 }
 
+// Get a reindex task.
+//
+// Get the status and progress of a specific reindex task.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodCore) GetReindex(taskid string) *core_get_reindex.GetReindex {
+	_getreindex := core_get_reindex.NewGetReindexFunc(p.tp)
+	return _getreindex(taskid)
+}
+
 // Get a script or search template.
 //
 // Retrieves a stored script or search template.
@@ -14475,9 +14604,13 @@ func (p *MethodCore) Index(index string) *core_index.Index {
 
 // Get cluster info.
 //
-// Get basic build, version, and cluster information. ::: In Serverless, this
-// API is retained for backward compatibility only. Some response fields, such
-// as the version number, should be ignored.
+// Get basic build, version, and cluster information. ::: In Serverless,
+// `version.number` always reports the next target Elasticsearch release version
+// at the time of the request. Serverless does not track to a traditional
+// release versioning model; it is continuously updated. The version number is
+// provided to maintain compatibility with existing clients, but it is not
+// meaningful for assessing feature availability. Clients should detect a
+// Serverless environment by checking for `build_flavor: serverless`.
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 func (p *MethodCore) Info() *core_info.Info {
 	_info := core_info.NewInfoFunc(p.tp)
@@ -14494,6 +14627,15 @@ func (p *MethodCore) Info() *core_info.Info {
 func (p *MethodCore) KnnSearch(index string) *core_knn_search.KnnSearch {
 	_knnsearch := core_knn_search.NewKnnSearchFunc(p.tp)
 	return _knnsearch(index)
+}
+
+// List active reindex tasks.
+//
+// Get information about all currently running reindex tasks.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodCore) ListReindex() *core_list_reindex.ListReindex {
+	_listreindex := core_list_reindex.NewListReindexFunc(p.tp)
+	return _listreindex()
 }
 
 // Get multiple documents.
@@ -14718,9 +14860,11 @@ func (p *MethodCore) RankEval() *core_rank_eval.RankEval {
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud Hosted and Elastic Cloud
+// Serverless](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`
@@ -20090,6 +20234,19 @@ func (p *MethodSecurity) ClearCachedServiceTokens(namespace, service, name strin
 	return _clearcachedservicetokens(namespace, service, name)
 }
 
+// Clone an API key.
+//
+// Create a copy of an existing API key with a new ID. The cloned key inherits
+// the role descriptors of the source key. This is intended for applications
+// (such as Kibana) that need to create API keys on behalf of a user using an
+// existing API key credential, since derived API keys (API keys created by API
+// keys) are not otherwise supported.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodSecurity) CloneApiKey() *security_clone_api_key.CloneApiKey {
+	_cloneapikey := security_clone_api_key.NewCloneApiKeyFunc(p.tp)
+	return _cloneapikey()
+}
+
 // Create an API key.
 //
 // Create an API key for access without requiring basic authentication.
@@ -21439,6 +21596,17 @@ func (p *MethodSnapshot) GetRepository() *snapshot_get_repository.GetRepository 
 // implementation of the same storage protocol. You will need to work with the
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
+//
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
 //
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this

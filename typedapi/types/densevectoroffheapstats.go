@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DenseVectorOffHeapStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/cluster/stats/types.ts#L193-L209
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/cluster/stats/types.ts#L193-L209
 type DenseVectorOffHeapStats struct {
 	Fielddata           map[string]map[string]int64 `json:"fielddata,omitempty"`
 	TotalCenifSize      ByteSize                    `json:"total_cenif_size,omitempty"`

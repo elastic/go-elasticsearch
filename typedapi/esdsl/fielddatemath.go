@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package esdsl
 
@@ -38,9 +38,9 @@ func (u *_fieldDateMath) DateMath(datemath string) *_fieldDateMath {
 	return u
 }
 
-func (u *_fieldDateMath) Float64(float64 types.Float64) *_fieldDateMath {
+func (u *_fieldDateMath) Int64(int64 int64) *_fieldDateMath {
 
-	u.v = &float64
+	u.v = &int64
 
 	return u
 }

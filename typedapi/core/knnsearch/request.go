@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package knnsearch
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package knnsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/knn_search/KnnSearchRequest.ts#L26-L100
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/knn_search/KnnSearchRequest.ts#L26-L100
 type Request struct {
 	// DocvalueFields The request returns doc values for field names matching these patterns in the
 	// `hits.fields` property of the response. It accepts wildcard (`*`) patterns.

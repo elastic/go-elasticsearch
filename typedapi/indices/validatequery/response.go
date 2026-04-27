@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package validatequery
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package validatequery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/indices/validate_query/IndicesValidateQueryResponse.ts#L24-L31
 type Response struct {
 	Error        *string                              `json:"error,omitempty"`
 	Explanations []types.IndicesValidationExplanation `json:"explanations,omitempty"`

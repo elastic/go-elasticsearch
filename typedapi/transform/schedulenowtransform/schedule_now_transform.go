@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 // Schedule a transform to start now.
 //
@@ -321,6 +321,16 @@ func (r *ScheduleNowTransform) _transformid(transformid string) *ScheduleNowTran
 // API name: timeout
 func (r *ScheduleNowTransform) Timeout(duration string) *ScheduleNowTransform {
 	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Defer When true, defers the scheduling by the transform's configured sync delay
+// instead of triggering immediately. The transform will process new data after
+// the delay elapses rather than right away.
+// API name: defer
+func (r *ScheduleNowTransform) Defer(defer_ bool) *ScheduleNowTransform {
+	r.values.Set("defer", strconv.FormatBool(defer_))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package esdsl
 
@@ -66,6 +66,19 @@ func (u *_rangeQuery) NumberRangeQuery(numberrangequery types.NumberRangeQueryVa
 
 // Interface implementation for NumberRangeQuery in RangeQuery union
 func (u *_numberRangeQuery) RangeQueryCaster() *types.RangeQuery {
+	t := types.RangeQuery(u.v)
+	return &t
+}
+
+func (u *_rangeQuery) LongNumberRangeQuery(longnumberrangequery types.LongNumberRangeQueryVariant) *_rangeQuery {
+
+	u.v = longnumberrangequery.LongNumberRangeQueryCaster()
+
+	return u
+}
+
+// Interface implementation for LongNumberRangeQuery in RangeQuery union
+func (u *_longNumberRangeQuery) RangeQueryCaster() *types.RangeQuery {
 	t := types.RangeQuery(u.v)
 	return &t
 }

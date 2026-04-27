@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package types
 
@@ -29,11 +29,13 @@ import (
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakerapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakerelementtype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/amazonsagemakersimilarity"
 )
 
 // AmazonSageMakerServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/inference/_types/CommonTypes.ts#L656-L710
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L656-L722
 type AmazonSageMakerServiceSettings struct {
 	// AccessKey A valid AWS access key that has permissions to use Amazon SageMaker and
 	// access to models for invoking requests.
@@ -50,6 +52,10 @@ type AmazonSageMakerServiceSettings struct {
 	// is not provided, then it is guessed by making invoking the endpoint for the
 	// `text_embedding` task.
 	Dimensions *int `json:"dimensions,omitempty"`
+	// ElementType Required when `api` is `elastic` and task type is `text_embedding`. The data
+	// type returned by the text embedding model. This value is used when parsing
+	// the response back to Elasticsearch data structures.
+	ElementType *amazonsagemakerelementtype.AmazonSageMakerElementType `json:"element_type,omitempty"`
 	// EndpointName The name of the SageMaker endpoint.
 	EndpointName string `json:"endpoint_name"`
 	// InferenceComponentName The inference component to directly invoke when calling a multi-component
@@ -63,6 +69,9 @@ type AmazonSageMakerServiceSettings struct {
 	// about creating and managing access and secret keys, refer to the AWS
 	// documentation.
 	SecretKey string `json:"secret_key"`
+	// Similarity Required when `api` is `elastic` and task type is `text_embedding`. The
+	// similarity measure used when invoking the `text_embedding` task type.
+	Similarity *amazonsagemakersimilarity.AmazonSageMakerSimilarity `json:"similarity,omitempty"`
 	// TargetContainerHostname The container to directly invoke when calling a multi-container endpoint.
 	TargetContainerHostname *string `json:"target_container_hostname,omitempty"`
 	// TargetModel The model ID when calling a multi-model endpoint.
@@ -133,6 +142,11 @@ func (s *AmazonSageMakerServiceSettings) UnmarshalJSON(data []byte) error {
 				s.Dimensions = &f
 			}
 
+		case "element_type":
+			if err := dec.Decode(&s.ElementType); err != nil {
+				return fmt.Errorf("%s | %w", "ElementType", err)
+			}
+
 		case "endpoint_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -180,6 +194,11 @@ func (s *AmazonSageMakerServiceSettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.SecretKey = o
+
+		case "similarity":
+			if err := dec.Decode(&s.Similarity); err != nil {
+				return fmt.Errorf("%s | %w", "Similarity", err)
+			}
 
 		case "target_container_hostname":
 			var tmp json.RawMessage

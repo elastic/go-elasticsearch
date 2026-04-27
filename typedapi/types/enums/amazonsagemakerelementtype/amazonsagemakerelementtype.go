@@ -16,42 +16,46 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
-// Package apikeymanagedby
-package apikeymanagedby
+// Package amazonsagemakerelementtype
+package amazonsagemakerelementtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/ApiKey.ts#L127-L130
-type ApiKeyManagedBy struct {
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L735-L739
+type AmazonSageMakerElementType struct {
 	Name string
 }
 
 var (
-	Cloud = ApiKeyManagedBy{"cloud"}
+	Byte = AmazonSageMakerElementType{"byte"}
 
-	Elasticsearch = ApiKeyManagedBy{"elasticsearch"}
+	Float = AmazonSageMakerElementType{"float"}
+
+	Bit = AmazonSageMakerElementType{"bit"}
 )
 
-func (a ApiKeyManagedBy) MarshalText() (text []byte, err error) {
+func (a AmazonSageMakerElementType) MarshalText() (text []byte, err error) {
 	return []byte(a.String()), nil
 }
 
-func (a *ApiKeyManagedBy) UnmarshalText(text []byte) error {
+func (a *AmazonSageMakerElementType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "cloud":
-		*a = Cloud
-	case "elasticsearch":
-		*a = Elasticsearch
+	case "byte":
+		*a = Byte
+	case "float":
+		*a = Float
+	case "bit":
+		*a = Bit
 	default:
-		*a = ApiKeyManagedBy{string(text)}
+		*a = AmazonSageMakerElementType{string(text)}
 	}
 
 	return nil
 }
 
-func (a ApiKeyManagedBy) String() string {
+func (a AmazonSageMakerElementType) String() string {
 	return a.Name
 }

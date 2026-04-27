@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package reindexrethrottle
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package reindexrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L31
 type Response struct {
 	NodeFailures []types.ErrorCause           `json:"node_failures,omitempty"`
 	Nodes        map[string]types.ReindexNode `json:"nodes,omitempty"`

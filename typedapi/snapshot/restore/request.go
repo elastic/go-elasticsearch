@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 package restore
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L178
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L178
 type Request struct {
 	// FeatureStates The feature states to restore. If `include_global_state` is `true`, the
 	// request restores all feature states in the snapshot by default. If

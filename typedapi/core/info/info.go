@@ -16,13 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
 
 // Get cluster info.
 //
-// Get basic build, version, and cluster information. ::: In Serverless, this
-// API is retained for backward compatibility only. Some response fields, such
-// as the version number, should be ignored.
+// Get basic build, version, and cluster information. ::: In Serverless,
+// `version.number` always reports the next target Elasticsearch release version
+// at the time of the request. Serverless does not track to a traditional
+// release versioning model; it is continuously updated. The version number is
+// provided to maintain compatibility with existing clients, but it is not
+// meaningful for assessing feature availability. Clients should detect a
+// Serverless environment by checking for `build_flavor: serverless`.
 package info
 
 import (
@@ -74,9 +78,13 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 
 // Get cluster info.
 //
-// Get basic build, version, and cluster information. ::: In Serverless, this
-// API is retained for backward compatibility only. Some response fields, such
-// as the version number, should be ignored.
+// Get basic build, version, and cluster information. ::: In Serverless,
+// `version.number` always reports the next target Elasticsearch release version
+// at the time of the request. Serverless does not track to a traditional
+// release versioning model; it is continuously updated. The version number is
+// provided to maintain compatibility with existing clients, but it is not
+// meaningful for assessing feature availability. Clients should detect a
+// Serverless environment by checking for `build_flavor: serverless`.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-info
 func New(tp elastictransport.Interface) *Info {
