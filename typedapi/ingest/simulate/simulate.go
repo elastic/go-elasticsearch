@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Simulate a pipeline.
 //
@@ -89,7 +89,7 @@ func NewSimulateFunc(tp elastictransport.Interface) NewSimulate {
 // specify an existing pipeline to use with the provided documents or supply a
 // pipeline definition in the body of the request.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-simulate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ingest-simulate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ingest-simulate
 func New(tp elastictransport.Interface) *Simulate {

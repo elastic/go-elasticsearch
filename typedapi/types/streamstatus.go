@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StreamStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/streams/status/StreamsStatusResponse.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/streams/status/StreamsStatusResponse.ts#L28-L33
 type StreamStatus struct {
 	// Enabled If true, the stream feature is enabled.
 	Enabled bool `json:"enabled"`

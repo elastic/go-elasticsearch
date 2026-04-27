@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get anomaly records for an anomaly detection job.
 //
@@ -103,7 +103,7 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 // found in each bucket, which relates to the number of time series being
 // modeled and the number of detectors.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-records
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ml-get-records
 func New(tp elastictransport.Interface) *GetRecords {
 	r := &GetRecords{
 		transport: tp,

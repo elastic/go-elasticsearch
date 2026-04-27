@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Forget a follower.
 //
@@ -127,7 +127,7 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 // purpose of this API is to handle the case of failure to remove the following
 // retention leases after the unfollow API is invoked.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-forget-follower
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ccr-forget-follower
 func New(tp elastictransport.Interface) *ForgetFollower {
 	r := &ForgetFollower{
 		transport: tp,

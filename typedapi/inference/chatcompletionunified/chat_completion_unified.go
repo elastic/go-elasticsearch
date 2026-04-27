@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Perform chat completion inference on the service.
 //
@@ -107,7 +107,7 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 // whether a given inference service supports this task type, please see the
 // page for that service.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-inference-unified-inference
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
 	r := &ChatCompletionUnified{
 		transport: tp,

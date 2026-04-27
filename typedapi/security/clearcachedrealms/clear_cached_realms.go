@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Clear the user cache.
 //
@@ -96,7 +96,7 @@ func NewClearCachedRealmsFunc(tp elastictransport.Interface) NewClearCachedRealm
 // more information, refer to the documentation about controlling the user
 // cache.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-realms
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-clear-cached-realms
 func New(tp elastictransport.Interface) *ClearCachedRealms {
 	r := &ClearCachedRealms{
 		transport: tp,

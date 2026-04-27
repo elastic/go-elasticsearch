@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get the search shards.
 //
@@ -95,7 +95,7 @@ func NewSearchShardsFunc(tp elastictransport.Interface) NewSearchShards {
 // `view_index_metadata` or `manage` index privilege for the target data stream,
 // index, or alias.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-shards
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-search-shards
 func New(tp elastictransport.Interface) *SearchShards {
 	r := &SearchShards{
 		transport: tp,

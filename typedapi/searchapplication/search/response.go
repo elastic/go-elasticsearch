@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/search_application/search/SearchApplicationsSearchResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/search_application/search/SearchApplicationsSearchResponse.ts#L22-L25
 type Response struct {
 	Aggregations map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_    *types.ClusterStatistics   `json:"_clusters,omitempty"`

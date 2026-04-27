@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Stop snapshot lifecycle management.
 //
@@ -94,7 +94,7 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 // be safely stopped. Use the get snapshot lifecycle management status API to
 // see if SLM is running.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-slm-stop
 func New(tp elastictransport.Interface) *Stop {
 	r := &Stop{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Retry a policy.
 //
@@ -88,7 +88,7 @@ func NewRetryFunc(tp elastictransport.Interface) NewRetry {
 // the step. Use the explain lifecycle state API to determine whether an index
 // is in the ERROR step.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-retry
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ilm-retry
 func New(tp elastictransport.Interface) *Retry {
 	r := &Retry{
 		transport: tp,

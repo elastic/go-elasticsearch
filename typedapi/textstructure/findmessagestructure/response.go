@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 package findmessagestructure
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package findmessagestructure
 //
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/text_structure/find_message_structure/FindMessageStructureResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/text_structure/find_message_structure/FindMessageStructureResponse.ts#L31-L49
 type Response struct {
 	Charset               string                                     `json:"charset"`
 	EcsCompatibility      *ecscompatibilitytype.EcsCompatibilityType `json:"ecs_compatibility,omitempty"`

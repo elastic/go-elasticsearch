@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get the pending cluster tasks.
 //
@@ -90,7 +90,7 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 // such as a create index command causes a cluster state update, the activity of
 // this task might be reported by both task api and pending cluster tasks API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-pending-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-cluster-pending-tasks
 func New(tp elastictransport.Interface) *PendingTasks {
 	r := &PendingTasks{
 		transport: tp,

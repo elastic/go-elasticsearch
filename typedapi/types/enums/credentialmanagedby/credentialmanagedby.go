@@ -16,42 +16,42 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
-// Package apikeymanagedby
-package apikeymanagedby
+// Package credentialmanagedby
+package credentialmanagedby
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/836fca874204ca4173ae5c36fb6b5107d28d2fc0/specification/security/_types/ApiKey.ts#L127-L130
-type ApiKeyManagedBy struct {
+// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/security/_types/CredentialManagedBy.ts#L20-L23
+type CredentialManagedBy struct {
 	Name string
 }
 
 var (
-	Cloud = ApiKeyManagedBy{"cloud"}
+	Cloud = CredentialManagedBy{"cloud"}
 
-	Elasticsearch = ApiKeyManagedBy{"elasticsearch"}
+	Elasticsearch = CredentialManagedBy{"elasticsearch"}
 )
 
-func (a ApiKeyManagedBy) MarshalText() (text []byte, err error) {
-	return []byte(a.String()), nil
+func (c CredentialManagedBy) MarshalText() (text []byte, err error) {
+	return []byte(c.String()), nil
 }
 
-func (a *ApiKeyManagedBy) UnmarshalText(text []byte) error {
+func (c *CredentialManagedBy) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "cloud":
-		*a = Cloud
+		*c = Cloud
 	case "elasticsearch":
-		*a = Elasticsearch
+		*c = Elasticsearch
 	default:
-		*a = ApiKeyManagedBy{string(text)}
+		*c = CredentialManagedBy{string(text)}
 	}
 
 	return nil
 }
 
-func (a ApiKeyManagedBy) String() string {
-	return a.Name
+func (c CredentialManagedBy) String() string {
+	return c.Name
 }

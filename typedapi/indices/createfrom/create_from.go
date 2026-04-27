@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create an index from a source index.
 //
@@ -94,7 +94,7 @@ func NewCreateFromFunc(tp elastictransport.Interface) NewCreateFrom {
 // Copy the mappings and settings from the source index to a destination index
 // while allowing request settings and mappings to override the source values.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create-from
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-create-from
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-create-from
 func New(tp elastictransport.Interface) *CreateFrom {

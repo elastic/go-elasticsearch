@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Update security index settings.
 //
@@ -99,7 +99,7 @@ func NewUpdateSettingsFunc(tp elastictransport.Interface) NewUpdateSettings {
 // it, the request will be rejected. This API does not yet support configuring
 // the settings for indices before they are in use.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-settings
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-update-settings
 func New(tp elastictransport.Interface) *UpdateSettings {
 	r := &UpdateSettings{
 		transport: tp,

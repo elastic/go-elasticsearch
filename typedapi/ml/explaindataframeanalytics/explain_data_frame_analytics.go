@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Explain data frame analytics config.
 //
@@ -101,7 +101,7 @@ func NewExplainDataFrameAnalyticsFunc(tp elastictransport.Interface) NewExplainD
 //     on. If you have object fields or fields that are excluded via source
 //     filtering, they are not included in the explanation.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-explain-data-frame-analytics
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ml-explain-data-frame-analytics
 func New(tp elastictransport.Interface) *ExplainDataFrameAnalytics {
 	r := &ExplainDataFrameAnalytics{
 		transport: tp,

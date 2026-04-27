@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get snapshot repository information.
 //
@@ -82,7 +82,7 @@ func NewRepositoriesFunc(tp elastictransport.Interface) NewRepositories {
 // They are not intended for use by applications. For application consumption,
 // use the get snapshot repository API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-cat-repositories
 func New(tp elastictransport.Interface) *Repositories {
 	r := &Repositories{
 		transport: tp,

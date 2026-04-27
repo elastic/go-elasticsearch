@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Force a merge.
 //
@@ -215,7 +215,7 @@ func NewForcemergeFunc(tp elastictransport.Interface) NewForcemerge {
 //
 //	POST /.ds-my-data-stream-2099.03.07-000001/_forcemerge?max_num_segments=1
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-forcemerge
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-forcemerge
 func New(tp elastictransport.Interface) *Forcemerge {
 	r := &Forcemerge{
 		transport: tp,

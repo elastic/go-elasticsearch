@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Delete an async ES|QL query.
 //
@@ -96,7 +96,7 @@ func NewAsyncQueryDeleteFunc(tp elastictransport.Interface) NewAsyncQueryDelete 
 //   - The authenticated user that submitted the original query request
 //   - Users with the `cancel_task` cluster privilege
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-delete
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-esql-async-query-delete
 func New(tp elastictransport.Interface) *AsyncQueryDelete {
 	r := &AsyncQueryDelete{
 		transport: tp,

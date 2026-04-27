@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Create or update a snapshot repository.
 //
@@ -103,7 +103,7 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 // request body parameter. If both parameters are specified, only the query
 // parameter is used.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-create-repository
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-snapshot-create-repository
 func New(tp elastictransport.Interface) *CreateRepository {
 	r := &CreateRepository{
 		transport: tp,

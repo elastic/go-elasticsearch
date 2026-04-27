@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Authenticate a user.
 //
@@ -88,7 +88,7 @@ func NewAuthenticateFunc(tp elastictransport.Interface) NewAuthenticate {
 // the user. If the user cannot be authenticated, this API returns a 401 status
 // code.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-authenticate
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-security-authenticate
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-security-authenticate
 func New(tp elastictransport.Interface) *Authenticate {

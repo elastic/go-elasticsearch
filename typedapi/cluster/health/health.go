@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get the cluster health status.
 //
@@ -109,7 +109,7 @@ func NewHealthFunc(tp elastictransport.Interface) NewHealth {
 // reaches a certain high watermark health level. The cluster status is
 // controlled by the worst index status.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-cluster-health
 func New(tp elastictransport.Interface) *Health {
 	r := &Health{
 		transport: tp,

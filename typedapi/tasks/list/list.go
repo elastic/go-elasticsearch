@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get all tasks.
 //
@@ -191,7 +191,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 // `headers` is the child task of the task that was initiated by the REST
 // request.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/group/endpoint-tasks
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,

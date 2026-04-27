@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get node attribute information.
 //
@@ -83,7 +83,7 @@ func NewNodeattrsFunc(tp elastictransport.Interface) NewNodeattrs {
 // are not intended for use by applications. For application consumption, use
 // the nodes info API.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-cat-nodeattrs
 func New(tp elastictransport.Interface) *Nodeattrs {
 	r := &Nodeattrs{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Run an enrich policy.
 //
@@ -82,7 +82,7 @@ func NewExecutePolicyFunc(tp elastictransport.Interface) NewExecutePolicy {
 //
 // Create the enrich index for an existing enrich policy.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-enrich-execute-policy
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-enrich-execute-policy
 func New(tp elastictransport.Interface) *ExecutePolicy {

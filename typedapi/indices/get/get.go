@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get index information.
 //
@@ -86,7 +86,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Get information about one or more indices. For data streams, the API returns
 // information about the stream’s backing indices.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-get
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-get
 func New(tp elastictransport.Interface) *Get {

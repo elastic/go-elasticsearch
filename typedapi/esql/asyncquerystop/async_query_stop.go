@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Stop async ES|QL query.
 //
@@ -86,7 +86,7 @@ func NewAsyncQueryStopFunc(tp elastictransport.Interface) NewAsyncQueryStop {
 // the Elasticsearch security features are enabled, only the user who first
 // submitted the ES|QL query can stop it.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-async-query-stop
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-esql-async-query-stop
 func New(tp elastictransport.Interface) *AsyncQueryStop {
 	r := &AsyncQueryStop{
 		transport: tp,

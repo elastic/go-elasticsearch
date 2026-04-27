@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Check in a connector.
 //
@@ -84,7 +84,7 @@ func NewCheckInFunc(tp elastictransport.Interface) NewCheckIn {
 // Update the `last_seen` field in the connector and set it to the current
 // timestamp.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-check-in
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-connector-check-in
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-connector-check-in
 func New(tp elastictransport.Interface) *CheckIn {

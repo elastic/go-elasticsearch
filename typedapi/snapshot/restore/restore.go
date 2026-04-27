@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Restore a snapshot.
 //
@@ -134,7 +134,7 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 // If your snapshot contains data from App Search or Workplace Search, you must
 // restore the Enterprise Search encryption key before you restore the snapshot.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-restore
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-snapshot-restore
 func New(tp elastictransport.Interface) *Restore {
 	r := &Restore{
 		transport: tp,

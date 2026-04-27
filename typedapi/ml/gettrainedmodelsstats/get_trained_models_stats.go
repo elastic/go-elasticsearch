@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Get trained models usage info.
 //
@@ -84,7 +84,7 @@ func NewGetTrainedModelsStatsFunc(tp elastictransport.Interface) NewGetTrainedMo
 // request by using a comma-separated list of model IDs or a wildcard
 // expression.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-trained-models-stats
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-ml-get-trained-models-stats
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-ml-get-trained-models-stats
 func New(tp elastictransport.Interface) *GetTrainedModelsStats {

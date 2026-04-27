@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Update documents.
 //
@@ -361,7 +361,7 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // documentation for examples of how to update documents using the
 // `_update_by_query` API:
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-update-by-query
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-update-by-query
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-update-by-query
 func New(tp elastictransport.Interface) *UpdateByQuery {

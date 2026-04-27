@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Split an index.
 //
@@ -178,7 +178,7 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-split
+// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-split
 func New(tp elastictransport.Interface) *Split {
 	r := &Split{
 		transport: tp,

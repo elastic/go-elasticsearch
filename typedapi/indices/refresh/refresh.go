@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/836fca874204ca4173ae5c36fb6b5107d28d2fc0
+// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
 
 // Refresh an index.
 //
@@ -125,7 +125,7 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // `refresh=wait_for` query parameter option. This option ensures the indexing
 // operation waits for a periodic refresh before running the search.
 //
-// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-indices-refresh
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-refresh
 func New(tp elastictransport.Interface) *Refresh {
