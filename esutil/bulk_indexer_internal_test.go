@@ -227,9 +227,9 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("ClientProvidedNotClosed", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{})))
 		if err != nil {
-			t.Fatalf("NewClient: %s", err)
+			t.Fatalf("New: %s", err)
 		}
 		bi, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
 		if err != nil {
