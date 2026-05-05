@@ -197,13 +197,54 @@ func TestBulkIndexer(t *testing.T) {
 		}
 	})
 
-	t.Run("ClientRequired", func(t *testing.T) {
-		_, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1})
-		if err == nil {
-			t.Fatalf("Expected error when client is not provided")
+	t.Run("ClientDefaulted", func(t *testing.T) {
+		bi, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
 		}
-		if err.Error() != "BulkIndexerConfig.Client is required" {
-			t.Fatalf("Unexpected error message: %s", err.Error())
+		if bi == nil {
+			t.Fatal("Expected a non-nil indexer when Client is not provided")
+		}
+
+		impl, ok := bi.(*bulkIndexer)
+		if !ok {
+			t.Fatalf("Expected *bulkIndexer, got %T", bi)
+		}
+		if impl.ownedClient == nil {
+			t.Fatal("Expected ownedClient to be set when Client is not provided")
+		}
+		owned := impl.ownedClient
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Fatalf("Close: %s", err)
+		}
+
+		// bi.Close should have closed the auto-created client; closing it
+		// again must report it as already closed.
+		if err := owned.Close(context.Background()); !errors.Is(err, elasticsearch.ErrAlreadyClosed) {
+			t.Fatalf("Expected ErrAlreadyClosed from owned client, got %v", err)
+		}
+	})
+
+	t.Run("ClientProvidedNotClosed", func(t *testing.T) {
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{})))
+		if err != nil {
+			t.Fatalf("New: %s", err)
+		}
+		bi, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
+		if err != nil {
+			t.Fatalf("NewBulkIndexer: %s", err)
+		}
+		if err := bi.Close(context.Background()); err != nil {
+			t.Fatalf("Close: %s", err)
+		}
+
+		// A user-supplied client must not be closed by bi.Close: closing it
+		// here should succeed (and a second call would report
+		// ErrAlreadyClosed). This preserves the long-standing contract that
+		// callers own the lifecycle of clients they pass in.
+		if err := es.Close(context.Background()); err != nil {
+			t.Fatalf("Expected nil from first close of user-supplied client, got %v", err)
 		}
 	})
 
