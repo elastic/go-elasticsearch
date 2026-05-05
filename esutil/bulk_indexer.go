@@ -295,10 +295,11 @@ type bulkIndexer struct {
 	workers []*worker
 	stats   *bulkIndexerStats
 
-	config     BulkIndexerConfig
-	addCounter atomic.Uint64 // round-robin dispatch counter for Add()
-	flushMu    sync.Mutex    // serialises Flush() and Close()
-	closed     atomic.Bool   // set by Close()
+	config      BulkIndexerConfig
+	ownedClient *elasticsearch.BaseClient // non-nil when NewBulkIndexer auto-created the client; closed by Close
+	addCounter  atomic.Uint64             // round-robin dispatch counter for Add()
+	flushMu     sync.Mutex                // serialises Flush() and Close()
+	closed      atomic.Bool               // set by Close()
 }
 
 type bulkIndexerStats struct {
@@ -316,10 +317,19 @@ type bulkIndexerStats struct {
 
 // NewBulkIndexer creates a new bulk indexer.
 //
-// Returns an error when cfg.Client is nil.
+// If cfg.Client is nil, a default client is created via [elasticsearch.NewBase];
+// see its documentation for address resolution. The auto-created client is
+// closed by [BulkIndexer.Close]. Any error from the underlying client
+// construction is returned.
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
+	var ownedClient *elasticsearch.BaseClient
 	if cfg.Client == nil {
-		return nil, fmt.Errorf("BulkIndexerConfig.Client is required")
+		client, err := elasticsearch.NewBase()
+		if err != nil {
+			return nil, err
+		}
+		cfg.Client = client
+		ownedClient = client
 	}
 
 	if cfg.Decoder == nil {
@@ -343,8 +353,9 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	}
 
 	bi := bulkIndexer{
-		config: cfg,
-		stats:  &bulkIndexerStats{},
+		config:      cfg,
+		stats:       &bulkIndexerStats{},
+		ownedClient: ownedClient,
 	}
 
 	bi.init()
@@ -408,7 +419,10 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 
 // Close stops the periodic flush, closes the indexer queue channel,
 // which triggers the workers to flush and stop.
-// Note: it is the user's responsibility to call Close on the elasticsearch Client passed in to the BulkIndexerConfig.
+//
+// If the indexer auto-created its client (because BulkIndexerConfig.Client was
+// nil), Close also closes that client. It remains the caller's responsibility
+// to close any client they passed in via BulkIndexerConfig.Client.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	bi.flushMu.Lock()
 	bi.closed.Store(true)
@@ -417,28 +431,37 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 	}
 	bi.flushMu.Unlock()
 
+	var firstErr error
+
 	if err := ctx.Err(); err != nil {
 		if bi.config.OnError != nil {
 			bi.config.OnError(ctx, err)
 		}
-		return err
-	}
+		firstErr = err
+	} else {
+		done := make(chan struct{})
+		go func() {
+			bi.wg.Wait()
+			close(done)
+		}()
 
-	done := make(chan struct{})
-	go func() {
-		bi.wg.Wait()
-		close(done)
-	}()
-
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		if bi.config.OnError != nil {
-			bi.config.OnError(ctx, ctx.Err())
+		select {
+		case <-done:
+		case <-ctx.Done():
+			if bi.config.OnError != nil {
+				bi.config.OnError(ctx, ctx.Err())
+			}
+			firstErr = ctx.Err()
 		}
-		return ctx.Err()
 	}
+
+	if bi.ownedClient != nil {
+		if err := bi.ownedClient.Close(ctx); err != nil && firstErr == nil {
+			firstErr = err
+		}
+	}
+
+	return firstErr
 }
 
 // Flush drains all currently queued items, flushes all worker buffers to
