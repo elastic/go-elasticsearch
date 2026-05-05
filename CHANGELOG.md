@@ -1,5 +1,31 @@
 # Changelog
 
+## [9.4.0](https://github.com/elastic/go-elasticsearch/compare/v9.3.3...v9.4.0) (2026-05-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esutil:** default Client to elasticsearch.NewBase in NewBulkIndexer
+* **esapi:** params previously typed *int on ~25 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1373](https://github.com/elastic/go-elasticsearch/issues/1373)) ([4a7dfdf](https://github.com/elastic/go-elasticsearch/commit/4a7dfdff074984dc8ee64e9b01c808ff60b5bc88))
+* **client:** Add (*Client).ToTyped() conversion method ([#1449](https://github.com/elastic/go-elasticsearch/issues/1449)) ([6d5f630](https://github.com/elastic/go-elasticsearch/commit/6d5f630c037a1cc48a0206737472146cc940576a))
+* Deprecate legacy Config-based constructors ([#1378](https://github.com/elastic/go-elasticsearch/issues/1378)) ([30dad2d](https://github.com/elastic/go-elasticsearch/commit/30dad2d4469c9b6eeee9789941046f9466f723d9))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1360](https://github.com/elastic/go-elasticsearch/issues/1360)) ([e61767b](https://github.com/elastic/go-elasticsearch/commit/e61767b69dbdfc4a340928c31a8cf96a8afd29c7))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1442](https://github.com/elastic/go-elasticsearch/issues/1442)) ([5e9828b](https://github.com/elastic/go-elasticsearch/commit/5e9828beb0c49294a46ff6a8dc35480656c5c901))
+* **esutil:** Default Client to elasticsearch.NewBase in NewBulkIndexer ([60905b7](https://github.com/elastic/go-elasticsearch/commit/60905b7c1d6349719cf44d489561b62342b5e134))
+* **Typed API:** Update 9.4 client to spec fcf537e ([#1455](https://github.com/elastic/go-elasticsearch/issues/1455)) ([4aa8c6e](https://github.com/elastic/go-elasticsearch/commit/4aa8c6edff8a4cd2edce4e8a9455dc91101e6938))
+* **Typed API:** Update client from spec 836fca8 ([27b32e4](https://github.com/elastic/go-elasticsearch/commit/27b32e40d9b1c3be12665db5d6431a62c58f80aa))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1402](https://github.com/elastic/go-elasticsearch/issues/1402)) ([84b4bf8](https://github.com/elastic/go-elasticsearch/commit/84b4bf81833352428f159fb899204784ee0e28ec))
+* **gen:** Map spec long to *int64 for esapi params ([#1394](https://github.com/elastic/go-elasticsearch/issues/1394)) ([34db2b1](https://github.com/elastic/go-elasticsearch/commit/34db2b1fe70b409a7419e29f50c35a1966528c0c))
+* **gen:** Support *int64 fields in gen-tests output ([#1420](https://github.com/elastic/go-elasticsearch/issues/1420)) ([b8e1973](https://github.com/elastic/go-elasticsearch/commit/b8e19736e529235c2a33cc97b97c791c5abb8304))
+
 ## [9.3.3](https://github.com/elastic/go-elasticsearch/compare/v9.3.2...v9.3.3) (2026-04-27)
 
 
