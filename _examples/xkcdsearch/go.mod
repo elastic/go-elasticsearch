@@ -2,7 +2,7 @@ module github.com/elastic/go-elasticsearch/v9/_examples/xkcdsearch
 
 go 1.25.0
 
-toolchain go1.25.9
+toolchain go1.25.10
 
 replace github.com/elastic/go-elasticsearch/v9 => ../..
 
