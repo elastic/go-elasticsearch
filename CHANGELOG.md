@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.2.6](https://github.com/elastic/go-elasticsearch/compare/v9.2.5...v9.2.6) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** (*elasticsearch.Client).ToTyped() is removed. Use elasticsearch.NewTypedFrom(c) instead.
+
+### Bug Fixes
+
+* **client:** Remove (*Client).ToTyped() to fix binary-size regression ([#1478](https://github.com/elastic/go-elasticsearch/issues/1478)) ([e328483](https://github.com/elastic/go-elasticsearch/commit/e328483f0a8b3c297cde86b1069dabadedf38266))
+
 ## [8.19.6](https://github.com/elastic/go-elasticsearch/compare/v8.19.5...v8.19.6) (2026-05-11)
 
 
