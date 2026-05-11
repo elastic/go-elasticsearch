@@ -8,9 +8,9 @@ The [**`configuration.go`**](./configuration.go) and [**`customization.go`**](./
 
 ## Migrating to the Typed API
 
-The [**`totyped.go`**](./totyped.go) file demonstrates incremental migration from the functional (low-level) API to the typed API using `(*Client).ToTyped()`. The returned `*TypedClient` shares the source client's transport and configuration, so existing call sites keep working while new code can use the typed builder API.
+The [**`totyped.go`**](./totyped.go) file demonstrates incremental migration from the functional (low-level) API to the typed API using `elasticsearch.NewTypedFrom(c)`. The returned `*TypedClient` shares the source client's transport and configuration, so existing call sites keep working while new code can use the typed builder API.
 
-The [**`typed_endpoint.go`**](./typed_endpoint.go) file shows the lightest-weight migration step: using a single typed endpoint (for example `typedapi/core/search`) directly against the existing functional `*elasticsearch.Client`, without constructing a full `*TypedClient` or calling `ToTyped()`. Every typed endpoint package exports a `New(elastictransport.Interface)` constructor, and the functional client satisfies that interface via its embedded `BaseClient.Perform`. The same file also shows `elasticsearch.NewBase(...)`, which returns a raw `*BaseClient` for fresh code that only ever needs a handful of typed endpoints, skipping both the `esapi` tree and the typedapi `MethodAPI` tree.
+The [**`typed_endpoint.go`**](./typed_endpoint.go) file shows the lightest-weight migration step: using a single typed endpoint (for example `typedapi/core/search`) directly against the existing functional `*elasticsearch.Client`, without constructing a full `*TypedClient` or calling `NewTypedFrom`. Every typed endpoint package exports a `New(elastictransport.Interface)` constructor, and the functional client satisfies that interface via its embedded `BaseClient.Perform`. The same file also shows `elasticsearch.NewBase(...)`, which returns a raw `*BaseClient` for fresh code that only ever needs a handful of typed endpoints, skipping both the `esapi` tree and the typedapi `MethodAPI` tree.
 
 ## Logging
 

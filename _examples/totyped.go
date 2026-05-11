@@ -21,8 +21,8 @@
 // This example demonstrates incremental migration from the functional
 // (low-level) API to the typed API.
 //
-// (*Client).ToTyped() returns a *TypedClient that shares the source
-// client's transport, connection pool, compatibility header, and
+// elasticsearch.NewTypedFrom(c) returns a *TypedClient that shares the
+// source client's transport, connection pool, compatibility header, and
 // instrumentation. There is no second transport and no second product
 // check once both clients have exchanged a first request: the existing
 // *Client keeps working for code that has not been migrated, while new
@@ -53,8 +53,8 @@ func main() {
 		log.Fatalf("error creating the client: %s", err)
 	}
 	// The functional and typed clients share the same transport (see
-	// ToTyped below), so closing es also closes the pool used by the
-	// typed client.
+	// NewTypedFrom below), so closing es also closes the pool used by
+	// the typed client.
 	defer func() {
 		closeCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -83,10 +83,10 @@ func main() {
 	}
 	log.Printf("[functional] server version: %s", info.Version.Number)
 
-	// Migrate one call at a time. ToTyped reuses the same transport,
-	// connection pool, and configuration, so no second client setup is
-	// required. Call it once and reuse the result.
-	typed := es.ToTyped()
+	// Migrate one call at a time. NewTypedFrom reuses the same
+	// transport, connection pool, and configuration, so no second
+	// client setup is required. Call it once and reuse the result.
+	typed := elasticsearch.NewTypedFrom(es)
 
 	// Migrated call site using the typed builder API. The response is
 	// a decoded Go struct; no body.Close, no manual JSON parsing.
