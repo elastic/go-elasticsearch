@@ -380,16 +380,21 @@ func NewTyped(opts ...Option) (*TypedClient, error) {
 	return client, nil
 }
 
-// ToTyped returns a [TypedClient] that shares the underlying transport,
-// connection pool, and configuration of this [Client].
+// NewTypedFrom returns a [TypedClient] that shares c's transport,
+// connection pool, and configuration.
 //
-// ToTyped is intended to be called once per [Client] and the result
-// reused. Each call allocates a new [typedapi.API] tree, and the
-// returned client will re-run the product check on its first request.
+// NewTypedFrom is intended to be called once per [Client] and the
+// result reused. Each call allocates a new [typedapi.API] tree, and
+// the returned client will re-run the product check on its first
+// request.
+//
+// NewTypedFrom is a free function rather than a method on [Client] so
+// that the Go linker can dead-code-eliminate the typedapi tree for
+// callers that never construct a typed client.
 //
 // Because the transport is shared, closing either client closes the
 // connection pool used by both.
-func (c *Client) ToTyped() *TypedClient {
+func NewTypedFrom(c *Client) *TypedClient {
 	metaHeader := c.metaHeader
 	if !strings.Contains(metaHeader, typedClientMetaFlag) {
 		metaHeader = strings.Join([]string{metaHeader, typedClientMetaFlag}, ",")
