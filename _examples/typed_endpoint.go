@@ -34,7 +34,7 @@
 // BaseClient, which implements Perform. That means the existing
 // low-level client can be passed straight into any typed endpoint
 // constructor, sharing its transport, connection pool, retry policy,
-// and instrumentation. No second client, no ToTyped() call, no
+// and instrumentation. No second client, no NewTypedFrom call, no
 // MethodAPI tree: just the one endpoint you want to migrate.
 //
 // Use this when you want to try out the typed API for a single call
