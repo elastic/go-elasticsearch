@@ -891,7 +891,7 @@ func toTypedMockTransport(t *testing.T, capture *http.Header) elastictransport.I
 	return tp
 }
 
-func TestToTyped_AddsTypedFlag(t *testing.T) {
+func TestNewTypedFrom_AddsTypedFlag(t *testing.T) {
 	var captured http.Header
 	c, err := New()
 	if err != nil {
@@ -899,7 +899,7 @@ func TestToTyped_AddsTypedFlag(t *testing.T) {
 	}
 	c.Transport = toTypedMockTransport(t, &captured)
 
-	tc := c.ToTyped()
+	tc := NewTypedFrom(c)
 	if _, err := tc.Info().Do(context.Background()); err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
@@ -913,23 +913,23 @@ func TestToTyped_AddsTypedFlag(t *testing.T) {
 	}
 }
 
-func TestToTyped_SharesTransport(t *testing.T) {
+func TestNewTypedFrom_SharesTransport(t *testing.T) {
 	c, err := New()
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
-	tc := c.ToTyped()
+	tc := NewTypedFrom(c)
 	if tc.Transport != c.Transport {
 		t.Errorf("expected converted client to share the source transport")
 	}
 }
 
-func TestToTyped_PreservesConfigFlags(t *testing.T) {
+func TestNewTypedFrom_PreservesConfigFlags(t *testing.T) {
 	c, err := New(WithCompatibilityMode(), WithAutoDrainBody())
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
-	tc := c.ToTyped()
+	tc := NewTypedFrom(c)
 	if !tc.compatibilityHeader {
 		t.Errorf("expected compatibilityHeader to be carried over")
 	}
@@ -941,7 +941,7 @@ func TestToTyped_PreservesConfigFlags(t *testing.T) {
 	}
 }
 
-func TestToTyped_PreservesDisableMetaHeader(t *testing.T) {
+func TestNewTypedFrom_PreservesDisableMetaHeader(t *testing.T) {
 	var captured http.Header
 	c, err := New(WithDisableMetaHeader())
 	if err != nil {
@@ -949,7 +949,7 @@ func TestToTyped_PreservesDisableMetaHeader(t *testing.T) {
 	}
 	c.Transport = toTypedMockTransport(t, &captured)
 
-	tc := c.ToTyped()
+	tc := NewTypedFrom(c)
 	if !tc.disableMetaHeader {
 		t.Errorf("expected disableMetaHeader to be carried over")
 	}
@@ -962,12 +962,12 @@ func TestToTyped_PreservesDisableMetaHeader(t *testing.T) {
 	}
 }
 
-func TestToTyped_IdempotentFlag(t *testing.T) {
+func TestNewTypedFrom_IdempotentFlag(t *testing.T) {
 	c, err := New()
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
-	first := c.ToTyped()
+	first := NewTypedFrom(c)
 	if strings.Count(first.metaHeader, "hl=1") != 1 {
 		t.Errorf("expected exactly one hl=1, got: %s", first.metaHeader)
 	}
@@ -975,19 +975,19 @@ func TestToTyped_IdempotentFlag(t *testing.T) {
 	// Simulate a Client whose metaHeader already contains hl=1: the
 	// conversion must not append a second occurrence.
 	c.metaHeader = first.metaHeader
-	second := c.ToTyped()
+	second := NewTypedFrom(c)
 	if strings.Count(second.metaHeader, "hl=1") != 1 {
 		t.Errorf("expected exactly one hl=1, got: %s", second.metaHeader)
 	}
 }
 
-func TestToTyped_SourceNotMutated(t *testing.T) {
+func TestNewTypedFrom_SourceNotMutated(t *testing.T) {
 	c, err := New()
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
 	before := c.metaHeader
-	_ = c.ToTyped()
+	_ = NewTypedFrom(c)
 	if c.metaHeader != before {
 		t.Errorf("source metaHeader mutated: before=%q after=%q", before, c.metaHeader)
 	}
