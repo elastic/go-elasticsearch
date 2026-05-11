@@ -17,14 +17,27 @@
 
 // Binary-size fixture for [elasticsearch.Client]. Built by CI and
 // compared against the PR's base branch to detect unintended growth.
-// Must not import typedapi: instantiating *Client makes every exported
-// method (including any path into typedapi) linker-reachable, so a
-// regression like elastic/go-elasticsearch#1472 shows up as a delta here.
+// Must not import typedapi: a regression like elastic/go-elasticsearch#1472
+// (a method on *Client transitively pulling in the typedapi tree) shows
+// up as a delta here.
+//
+// The reflect.ValueOf(c).NumMethod() loop below is deliberate. Go's
+// linker performs per-method dead-code elimination on concrete types
+// when it can prove no reachable code path uses a given method. A
+// minimal program that calls only c.Info() lets the linker eliminate
+// every other *Client method (including any that accidentally reach
+// into typedapi), which hides exactly the regression class this
+// fixture exists to detect. Real-world apps that hit #1472 use
+// reflection-based libraries (DI containers, observability SDKs,
+// generic serialization) which keep the full *Client method set live;
+// the reflect walk simulates that and forces the linker to retain
+// every method body so a transitive heavy-package edge is visible.
 package main
 
 import (
 	"fmt"
 	"os"
+	"reflect"
 
 	"github.com/elastic/go-elasticsearch/v9"
 )
@@ -34,6 +47,10 @@ func main() {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
+	}
+	v := reflect.ValueOf(c)
+	for i := 0; i < v.NumMethod(); i++ {
+		_ = v.Type().Method(i).Name
 	}
 	res, err := c.Info()
 	if err != nil {
