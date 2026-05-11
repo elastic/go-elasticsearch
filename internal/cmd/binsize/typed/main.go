@@ -17,12 +17,23 @@
 
 // Binary-size fixture for [elasticsearch.TypedClient]. Built by CI and
 // compared against the PR's base branch to detect unintended growth.
+//
+// The reflect.ValueOf(c).NumMethod() loop below is deliberate. Go's
+// linker performs per-method dead-code elimination on concrete types
+// when it can prove no reachable code path uses a given method. A
+// fixture that calls only c.Info().Do(ctx) lets the linker eliminate
+// every other typed namespace method, which keeps the binary at ~9 MB
+// with ~38 typedapi symbols out of ~31,000: a regression in any typed
+// endpoint other than Info would be invisible. The reflect walk forces
+// the linker to retain the full typed surface (~55 MB / ~31,155
+// symbols) so that growth in any typed namespace is tracked here.
 package main
 
 import (
 	"context"
 	"fmt"
 	"os"
+	"reflect"
 
 	"github.com/elastic/go-elasticsearch/v9"
 )
@@ -32,6 +43,10 @@ func main() {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
+	}
+	v := reflect.ValueOf(c)
+	for i := 0; i < v.NumMethod(); i++ {
+		_ = v.Type().Method(i).Name
 	}
 	if _, err := c.Info().Do(context.Background()); err != nil {
 		fmt.Fprintln(os.Stderr, err)
