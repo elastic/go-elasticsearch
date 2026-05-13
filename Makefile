@@ -166,7 +166,7 @@ go-mod-tidy-all: ## Run go mod tidy in all modules
 
 lint:  ## Run lint on the package
 	@printf "\033[2m→ Running lint...\033[0m\n"
-	go vet github.com/elastic/go-elasticsearch/...
+	go vet ./...
 	@{ \
 		set -e ; \
 		trap "test -d ../../../.git && git checkout --quiet go.mod" INT TERM EXIT; \

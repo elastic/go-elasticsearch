@@ -1,0 +1,24 @@
+go 1.25.0
+
+toolchain go1.25.9
+
+use (
+	.
+	./_benchmarks/benchmarks
+	./_examples
+	./_examples/bulk
+	./_examples/bulk/benchmarks
+	./_examples/bulk/kafka
+	./_examples/cloudfunction
+	./_examples/encoding
+	./_examples/extension
+	./_examples/fasthttp
+	./_examples/instrumentation
+	./_examples/interceptor
+	./_examples/logging
+	./_examples/security
+	./_examples/xkcdsearch
+	./esapi/test
+	./internal/build
+	./internal/testing
+)
