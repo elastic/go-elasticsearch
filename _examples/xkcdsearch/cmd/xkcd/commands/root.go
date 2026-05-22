@@ -35,7 +35,7 @@ var (
 var rootCmd = &cobra.Command{
 	Use:   "xkcd",
 	Short: "xkcd allows you to index and search xkcd.com",
-	// Long:  "TODO",
+	Long:  "xkcd indexes comic metadata from xkcd.com into Elasticsearch and searches it from the command line or a local web interface.",
 }
 
 func init() {
