@@ -43,21 +43,11 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
 	return &http.Response{Body: io.NopCloser(strings.NewReader(`{}`))}, nil
-}
-
-type mockTransport struct {
-	RoundTripFunc func(*http.Request) (*http.Response, error)
-}
-
-func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	if t.RoundTripFunc == nil {
-		return defaultRoundTripFunc(req)
-	}
-	return t.RoundTripFunc(req)
 }
 
 //nolint:gocyclo
@@ -92,8 +82,8 @@ func TestBulkIndexer(t *testing.T) {
 					numItems  = 6
 				)
 
-				es, err := tt.makeClient(elasticsearch.Config{Transport: &mockTransport{
-					RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				es, err := tt.makeClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+					RoundTripFn: func(*http.Request) (*http.Response, error) {
 						countReqs++
 						switch countReqs {
 						case 1:
@@ -227,7 +217,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("ClientProvidedNotClosed", func(t *testing.T) {
-		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{})))
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc})))
 		if err != nil {
 			t.Fatalf("New: %s", err)
 		}
@@ -314,7 +304,7 @@ func TestBulkIndexer(t *testing.T) {
 		for _, tt := range tests {
 			tt := tt
 			t.Run(tt.name, func(t *testing.T) {
-				es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+				es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
@@ -350,7 +340,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -382,7 +372,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Close() Cancel", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -407,7 +397,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Close() Already Cancelled Context", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -432,8 +422,8 @@ func TestBulkIndexer(t *testing.T) {
 		release := make(chan struct{})
 		defer close(release)
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(*http.Request) (*http.Response, error) {
 				close(started)
 				<-release
 				return &http.Response{
@@ -495,8 +485,8 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Indexer Callback", func(t *testing.T) {
 		esCfg := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					return nil, fmt.Errorf("Mock transport error")
 				},
 			},
@@ -544,8 +534,8 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Indexer Callback invoked once on flush response error", func(t *testing.T) {
 		es, err := elasticsearch.NewClient(elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusInternalServerError,
 						Status:     "500 Internal Server Error",
@@ -610,8 +600,8 @@ func TestBulkIndexer(t *testing.T) {
 			bodyContent, _ = os.ReadFile("testdata/bulk_response_2.json")
 		)
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
 					Body:   io.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
@@ -746,7 +736,7 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("OnFlush callbacks", func(t *testing.T) {
 		type contextKey string
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -788,8 +778,8 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Automatic flush", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: http.StatusOK,
 					Status:     "200 OK",
@@ -858,8 +848,8 @@ func TestBulkIndexer(t *testing.T) {
 		)
 
 		esCfg := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					countReqs++
 					if countReqs <= 4 {
 						return &http.Response{
@@ -955,8 +945,8 @@ func TestBulkIndexer(t *testing.T) {
 		)
 
 		esCfg := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusTooManyRequests,
 						Status:     "429 TooManyRequests",
@@ -1030,7 +1020,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("JSON Decoder Failure", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 
 		biFailureCallbacksCalled := atomic.Uint32{}
 		bi, _ := NewBulkIndexer(BulkIndexerConfig{
@@ -1076,7 +1066,7 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Custom JSON Decoder", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -1298,8 +1288,8 @@ func TestBulkIndexer(t *testing.T) {
 				esConfig := elasticsearch.Config{
 					DisableMetaHeader: tt.args.disableMetaHeader,
 					Header:            tt.args.header,
-					Transport: &mockTransport{
-						RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					Transport: &mocktransport.Transport{
+						RoundTripFn: func(request *http.Request) (*http.Response, error) {
 							headerMeta := request.Header.Get(elasticsearch.HeaderClientMeta)
 
 							if !reValidation.MatchString(headerMeta) {
@@ -1354,8 +1344,8 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Concurrent Flushing", func(_ *testing.T) {
 		esConfig := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
@@ -1396,8 +1386,8 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Oversized Payload", func(t *testing.T) {
 		esConfig := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
@@ -1438,8 +1428,8 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("FlushedBytes and FlushedMs", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(*http.Request) (*http.Response, error) {
 				time.Sleep(10 * time.Millisecond) // Simulate some latency
 				return &http.Response{
 					StatusCode: http.StatusOK,
@@ -1485,8 +1475,8 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("FlushedBytes and FlushedMs not recorded on error response", func(t *testing.T) {
-		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: http.StatusInternalServerError,
 					Status:     "500 Internal Server Error",
@@ -1533,8 +1523,8 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Item not lost after full buffer flush failure", func(t *testing.T) {
 		es, err := elasticsearch.NewClient(elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusInternalServerError,
 						Status:     "500 Internal Server Error",
@@ -1691,8 +1681,8 @@ func TestBulkIndexerUsesClientInstrumentation(t *testing.T) {
 
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
 		Instrumentation: elastictransport.Instrumentation(instr),
-		Transport: &mockTransport{
-			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+		Transport: &mocktransport.Transport{
+			RoundTripFn: func(req *http.Request) (*http.Response, error) {
 				// If BulkIndexer correctly propagates instrumentation into esapi.BulkRequest,
 				// the request context will carry the value set by Instrumentation.Start().
 				if got := req.Context().Value(bulkIndexerInstrCtxKey); got != "bulk" {
@@ -1762,8 +1752,8 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 	t.Run("OnSuccess receives Add context", func(t *testing.T) {
 		responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: 200,
 					Body:       io.NopCloser(strings.NewReader(responseBody)),
@@ -1811,8 +1801,8 @@ func TestBulkIndexerContextPropagation(t *testing.T) {
 	t.Run("OnFailure receives Add context", func(t *testing.T) {
 		responseBody := `{"took":1,"errors":true,"items":[{"index":{"_index":"test","_id":"1","status":400,"error":{"type":"mapper_parsing_exception","reason":"failed to parse"}}}]}`
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: 200,
 					Body:       io.NopCloser(strings.NewReader(responseBody)),
@@ -1863,8 +1853,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
 		responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: 200,
 					Body:       io.NopCloser(strings.NewReader(responseBody)),
@@ -1922,7 +1912,7 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("Empty", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -1946,7 +1936,7 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("AfterClose", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -1972,8 +1962,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	t.Run("ContextCancelled", func(t *testing.T) {
 		release := make(chan struct{})
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				<-release
 				body := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 				return &http.Response{
@@ -2018,8 +2008,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("ConcurrentWithAdd", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				body := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 				return &http.Response{
 					StatusCode: 200,
@@ -2075,8 +2065,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("ConcurrentFlushes", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				body := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 				return &http.Response{
 					StatusCode: 200,
@@ -2114,8 +2104,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("MultipleSequential", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				body := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 				return &http.Response{
 					StatusCode: 200,
@@ -2169,8 +2159,8 @@ func TestBulkIndexerFlush(t *testing.T) {
 	t.Run("MultiWorker", func(t *testing.T) {
 		responseBody := `{"took":1,"errors":false,"items":[{"index":{"_index":"test","_id":"1","_version":1,"result":"created","status":201}}]}`
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
-			RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 				return &http.Response{
 					StatusCode: 200,
 					Body:       io.NopCloser(strings.NewReader(responseBody)),
@@ -2266,8 +2256,8 @@ func TestBulkIndexerNextFlushInterval(t *testing.T) {
 func TestBulkIndexerFlushJitter(t *testing.T) {
 	t.Run("auto-flush fires with jitter configured", func(t *testing.T) {
 		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
-			elastictransport.WithTransport(&mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
@@ -2311,8 +2301,8 @@ func TestBulkIndexerFlushJitter(t *testing.T) {
 
 	t.Run("default FlushJitter is zero", func(t *testing.T) {
 		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(
-			elastictransport.WithTransport(&mockTransport{
-				RoundTripFunc: func(*http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{
+				RoundTripFn: func(*http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",

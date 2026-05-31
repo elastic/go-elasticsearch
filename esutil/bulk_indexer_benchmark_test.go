@@ -30,6 +30,7 @@ import (
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 	"github.com/elastic/go-elasticsearch/v9/esutil"
 )
 
@@ -52,19 +53,17 @@ var mockResponseBody = `{
   ]
 }`
 
-type mockTransp struct{}
-
-func (t *mockTransp) RoundTrip(_ *http.Request) (*http.Response, error) {
-	return &http.Response{Body: io.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
-}
-
 func BenchmarkBulkIndexer(b *testing.B) {
 	b.ReportAllocs()
 
 	b.Run("Basic", func(b *testing.B) {
 		b.ResetTimer()
 
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransp{}})
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mocktransport.Transport{
+			RoundTripFn: func(_ *http.Request) (*http.Response, error) {
+				return &http.Response{Body: io.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
+			},
+		}})
 		if err != nil {
 			b.Fatalf("Unexpected error: %s", err)
 		}
