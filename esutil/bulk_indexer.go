@@ -280,6 +280,27 @@ type BulkIndexerResponseItem struct {
 	} `json:"error,omitempty"`
 }
 
+// BulkIndexerItemError wraps an item-level bulk failure and provides
+// access to the corresponding Elasticsearch response item.
+type BulkIndexerItemError struct {
+	Item BulkIndexerResponseItem
+	Err  error
+}
+
+func (e BulkIndexerItemError) Error() string {
+	if e.Err != nil {
+		return e.Err.Error()
+	}
+	if e.Item.Error.Type != "" || e.Item.Error.Reason != "" {
+		return fmt.Sprintf("status=%d type=%s reason=%s", e.Item.Status, e.Item.Error.Type, e.Item.Error.Reason)
+	}
+	return fmt.Sprintf("status=%d", e.Item.Status)
+}
+
+func (e BulkIndexerItemError) Unwrap() error {
+	return e.Err
+}
+
 // BulkResponseJSONDecoder defines the interface for custom JSON decoders.
 type BulkResponseJSONDecoder interface {
 	UnmarshalFromReader(io.Reader, *BulkIndexerResponse) error
@@ -287,7 +308,7 @@ type BulkResponseJSONDecoder interface {
 
 // BulkIndexerDebugLogger defines the interface for a debugging logger.
 type BulkIndexerDebugLogger interface {
-	Printf(string, ...interface{})
+	Printf(string, ...any)
 }
 
 type bulkIndexer struct {
@@ -793,7 +814,13 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		if info.Error.Type != "" || info.Status > 201 {
 			atomic.AddUint64(&w.bi.stats.numFailed, 1)
 			if item.OnFailure != nil {
-				item.OnFailure(item.ctx, item, info, nil)
+				itemErr := BulkIndexerItemError{Item: info}
+				if info.Error.Type != "" || info.Error.Reason != "" {
+					itemErr.Err = fmt.Errorf("%s: %s", info.Error.Type, info.Error.Reason)
+				} else {
+					itemErr.Err = fmt.Errorf("status: %d", info.Status)
+				}
+				item.OnFailure(item.ctx, item, info, itemErr)
 			}
 		} else {
 			atomic.AddUint64(&w.bi.stats.numFlushed, 1)

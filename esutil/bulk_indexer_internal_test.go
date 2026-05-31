@@ -604,6 +604,7 @@ func TestBulkIndexer(t *testing.T) {
 			failedIDs            []string
 			successfulItemBodies []string
 			failedItemBodies     []string
+			failureErrs          []error
 
 			numItems       = 4
 			numFailed      = 2
@@ -641,9 +642,10 @@ func TestBulkIndexer(t *testing.T) {
 			}
 			successfulItemBodies = append(successfulItemBodies, string(buf))
 		}
-		failureFunc := func(_ context.Context, item BulkIndexerItem, _ BulkIndexerResponseItem, _ error) {
+		failureFunc := func(_ context.Context, item BulkIndexerItem, _ BulkIndexerResponseItem, err error) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
+			failureErrs = append(failureErrs, err)
 
 			buf, rerr := io.ReadAll(item.Body)
 			if rerr != nil {
@@ -741,6 +743,39 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !reflect.DeepEqual(failedItemBodies, []string{`{"title":"bar"}`, `{"title":"baz"}`}) {
 			t.Errorf("Unexpected failedItemBodies: %#v", failedItemBodies)
+		}
+
+		if len(failureErrs) != numFailed {
+			t.Fatalf("Unexpected failure errors: want=%d, got=%d", numFailed, len(failureErrs))
+		}
+
+		for i, failureErr := range failureErrs {
+			var itemErr BulkIndexerItemError
+			if !errors.As(failureErr, &itemErr) {
+				t.Fatalf("Unexpected failure error type for failed item %d: %T", i, failureErr)
+			}
+			if itemErr.Item.DocumentID != failedIDs[i] {
+				t.Errorf("Unexpected failed item id at %d: want=%s, got=%s", i, failedIDs[i], itemErr.Item.DocumentID)
+			}
+		}
+
+		var firstErr BulkIndexerItemError
+		if !errors.As(failureErrs[0], &firstErr) {
+			t.Fatalf("Unexpected first failure error type: %T", failureErrs[0])
+		}
+		if firstErr.Item.Status != http.StatusConflict {
+			t.Errorf("Unexpected first failure status: want=%d, got=%d", http.StatusConflict, firstErr.Item.Status)
+		}
+		if firstErr.Item.Error.Type == "" {
+			t.Errorf("Expected first failure error type to be populated")
+		}
+
+		var secondErr BulkIndexerItemError
+		if !errors.As(failureErrs[1], &secondErr) {
+			t.Fatalf("Unexpected second failure error type: %T", failureErrs[1])
+		}
+		if secondErr.Item.Status != http.StatusNotFound {
+			t.Errorf("Unexpected second failure status: want=%d, got=%d", http.StatusNotFound, secondErr.Item.Status)
 		}
 	})
 
