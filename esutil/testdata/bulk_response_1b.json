@@ -1,0 +1,38 @@
+{
+  "took": 30,
+  "errors": false,
+  "items": [
+    {
+      "create": {
+        "_index": "test",
+        "_id": "3",
+        "_version": 1,
+        "result": "created",
+        "status": 201,
+        "_shards": {
+          "total": 1,
+          "successful": 1,
+          "failed": 0
+        },
+        "_seq_no": 1,
+        "_primary_term": 2
+      }
+    },
+    {
+      "delete": {
+        "_index": "test",
+        "_id": "4",
+        "_version": 1,
+        "result": "not_found",
+        "_shards": {
+          "total": 1,
+          "successful": 1,
+          "failed": 0
+        },
+        "_seq_no": 0,
+        "_primary_term": 1,
+        "status": 404
+      }
+    }
+  ]
+}

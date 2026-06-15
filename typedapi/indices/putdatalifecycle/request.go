@@ -1,0 +1,122 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+package putdatalifecycle
+
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
+)
+
+// Request holds the request body struct for the package putdatalifecycle
+//
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L26-L102
+type Request struct {
+	// DataRetention If defined, every document added to this data stream will be stored at least
+	// for this time frame. Any time after this duration the document could be
+	// deleted. When empty, every document in this data stream will be stored
+	// indefinitely.
+	DataRetention types.Duration `json:"data_retention,omitempty"`
+	// Downsampling The downsampling configuration to execute for the managed backing index after
+	// rollover.
+	Downsampling []types.DownsamplingRound `json:"downsampling,omitempty"`
+	// DownsamplingMethod The method used to downsample the data. There are two options `aggregate` and
+	// `last_value`. It requires `downsampling` to be defined. Defaults to
+	// `aggregate`.
+	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
+	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
+	// have no effect on the data stream.
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+
+	return r
+}
+
+// FromJSON allows to load an arbitrary json into the request structure
+func (r *Request) FromJSON(data string) (*Request, error) {
+	var req Request
+	err := json.Unmarshal([]byte(data), &req)
+
+	if err != nil {
+		return nil, fmt.Errorf("could not deserialise json into Putdatalifecycle request: %w", err)
+	}
+
+	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "data_retention":
+			if err := dec.Decode(&s.DataRetention); err != nil {
+				return fmt.Errorf("%s | %w", "DataRetention", err)
+			}
+
+		case "downsampling":
+			if err := dec.Decode(&s.Downsampling); err != nil {
+				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "downsampling_method":
+			if err := dec.Decode(&s.DownsamplingMethod); err != nil {
+				return fmt.Errorf("%s | %w", "DownsamplingMethod", err)
+			}
+
+		case "enabled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Enabled", err)
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
+			}
+
+		}
+	}
+	return nil
+}

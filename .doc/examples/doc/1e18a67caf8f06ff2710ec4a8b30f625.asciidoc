@@ -1,0 +1,9 @@
+// Generated from api-conventions_1e18a67caf8f06ff2710ec4a8b30f625_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.State(
+	es.Cluster.State.WithFilterPath("metadata.indices.*.state,-metadata.indices.logstash-*"),
+)
+fmt.Println(res, err)
+----

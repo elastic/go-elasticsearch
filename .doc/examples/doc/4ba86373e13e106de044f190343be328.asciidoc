@@ -1,0 +1,42 @@
+// Generated from aggregations-bucket-terms-aggregation_4ba86373e13e106de044f190343be328_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "countries": {
+	      "terms": {
+	        "field": "artist.country",
+	        "order": [
+	          {
+	            "rock>playback_stats.avg": "desc"
+	          },
+	          {
+	            "_count": "desc"
+	          }
+	        ]
+	      },
+	      "aggs": {
+	        "rock": {
+	          "filter": {
+	            "term": {
+	              "genre": "rock"
+	            }
+	          },
+	          "aggs": {
+	            "playback_stats": {
+	              "stats": {
+	                "field": "play_count"
+	              }
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

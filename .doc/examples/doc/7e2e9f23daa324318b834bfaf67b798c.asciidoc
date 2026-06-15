@@ -1,0 +1,17 @@
+// Generated from docs-index__7e2e9f23daa324318b834bfaf67b798c_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"twitter",
+	strings.NewReader(`{
+	  "user": "kimchy",
+	  "post_date": "2009-11-15T14:12:12",
+	  "message": "trying out Elasticsearch"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithOpType("create"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

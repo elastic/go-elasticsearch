@@ -1,0 +1,14 @@
+// Generated from query-dsl-term-query_111c69ca94162c1523b799a5c14723dd_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"my-index-000001",
+	strings.NewReader(`{
+	  "full_text": "Quick Brown Foxes!"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

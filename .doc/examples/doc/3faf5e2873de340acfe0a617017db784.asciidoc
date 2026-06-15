@@ -1,0 +1,16 @@
+// Generated from query-dsl-query-string-query_3faf5e2873de340acfe0a617017db784_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "query": "(content:this OR name:this) AND (content:that OR name:that)"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

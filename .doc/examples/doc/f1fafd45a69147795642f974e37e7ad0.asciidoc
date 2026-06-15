@@ -1,0 +1,14 @@
+// Generated from indices-update-settings_f1fafd45a69147795642f974e37e7ad0_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutSettings(strings.NewReader(`{
+	  "index": {
+	    "refresh_interval": "-1"
+	  }
+	}`),
+
+	es.Indices.PutSettings.WithIndex([]string{"twitter"}...),
+)
+fmt.Println(res, err)
+----

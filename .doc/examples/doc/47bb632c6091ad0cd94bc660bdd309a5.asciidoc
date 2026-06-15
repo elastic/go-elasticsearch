@@ -1,0 +1,30 @@
+// Generated from getting-started_47bb632c6091ad0cd94bc660bdd309a5_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("bank"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": [
+	        {
+	          "match": {
+	            "age": "40"
+	          }
+	        }
+	      ],
+	      "must_not": [
+	        {
+	          "match": {
+	            "state": "ID"
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

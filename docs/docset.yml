@@ -1,0 +1,13 @@
+project: "Go client"
+products:
+  - id: elasticsearch-client
+cross_links:
+  - docs-content
+  - elasticsearch
+toc:
+  - toc: reference
+subs:
+  serverless-full: "Elastic Cloud Serverless"
+  serverless-short: "Serverless"
+  es-serverless: "Elasticsearch Serverless"
+  es: "Elasticsearch"

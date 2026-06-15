@@ -1,0 +1,125 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+package esdsl
+
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+
+type _standardRetriever struct {
+	v *types.StandardRetriever
+}
+
+// A retriever that replaces the functionality of a traditional query.
+func NewStandardRetriever() *_standardRetriever {
+
+	return &_standardRetriever{v: types.NewStandardRetriever()}
+
+}
+
+func (s *_standardRetriever) Collapse(collapse types.FieldCollapseVariant) *_standardRetriever {
+
+	s.v.Collapse = collapse.FieldCollapseCaster()
+
+	return s
+}
+
+func (s *_standardRetriever) Query(query types.QueryVariant) *_standardRetriever {
+
+	s.v.Query = query.QueryCaster()
+
+	return s
+}
+
+func (s *_standardRetriever) SearchAfter(sortresults ...types.FieldValueVariant) *_standardRetriever {
+
+	convertedItems := make([]types.FieldValue, 0, len(sortresults))
+	for _, v := range sortresults {
+		convertedItems = append(convertedItems, *v.FieldValueCaster())
+	}
+	s.v.SearchAfter = convertedItems
+
+	return s
+}
+
+func (s *_standardRetriever) SearchAfterValues(sortresultsvalues []types.FieldValue) *_standardRetriever {
+
+	s.v.SearchAfter = sortresultsvalues
+	return s
+}
+
+func (s *_standardRetriever) Sort(sorts ...types.SortCombinationsVariant) *_standardRetriever {
+
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
+	for _, v := range sorts {
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
+	}
+	s.v.Sort = convertedItems
+
+	return s
+}
+
+func (s *_standardRetriever) SortValues(sortvalues []types.SortCombinations) *_standardRetriever {
+
+	s.v.Sort = sortvalues
+	return s
+}
+
+func (s *_standardRetriever) TerminateAfter(terminateafter int) *_standardRetriever {
+
+	s.v.TerminateAfter = &terminateafter
+
+	return s
+}
+
+func (s *_standardRetriever) Filter(filters ...types.QueryVariant) *_standardRetriever {
+
+	s.v.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		s.v.Filter[i] = *v.QueryCaster()
+	}
+
+	return s
+}
+
+func (s *_standardRetriever) MinScore(minscore float32) *_standardRetriever {
+
+	s.v.MinScore = &minscore
+
+	return s
+}
+
+func (s *_standardRetriever) Name_(name_ string) *_standardRetriever {
+
+	s.v.Name_ = &name_
+
+	return s
+}
+
+func (s *_standardRetriever) RetrieverContainerCaster() *types.RetrieverContainer {
+	container := types.NewRetrieverContainer()
+
+	container.Standard = s.v
+
+	return container
+}
+
+func (s *_standardRetriever) StandardRetrieverCaster() *types.StandardRetriever {
+	return s.v
+}

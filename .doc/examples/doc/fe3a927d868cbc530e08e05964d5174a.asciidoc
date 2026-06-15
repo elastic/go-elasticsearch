@@ -1,0 +1,43 @@
+// Generated from search-request-sort_fe3a927d868cbc530e08e05964d5174a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "product": "chocolate",
+	  "price": [
+	    20,
+	    4
+	  ]
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "product": "chocolate"
+	    }
+	  },
+	  "sort": [
+	    {
+	      "price": {
+	        "order": "asc",
+	        "mode": "avg"
+	      }
+	    }
+	  ]
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

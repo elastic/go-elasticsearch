@@ -1,0 +1,20 @@
+// Generated from getting-started_506844befdc5691d835771bcbb1c1a60_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("bank"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match_all": {}
+	  },
+	  "sort": [
+	    {
+	      "account_number": "asc"
+	    }
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,7 @@
+// Generated from getting-started_f8cc4b331a19ff4df8e4a490f906ee69_test.go
+//
+[source, go]
+----
+res, err := es.Cat.Health(es.Cat.Health.WithV(true))
+fmt.Println(res, err)
+----

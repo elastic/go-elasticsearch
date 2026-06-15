@@ -1,0 +1,47 @@
+// Generated from query-dsl-bool-query_06afce2955f9094d96d27067ebca32e8_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": {
+	        "term": {
+	          "user": "kimchy"
+	        }
+	      },
+	      "filter": {
+	        "term": {
+	          "tag": "tech"
+	        }
+	      },
+	      "must_not": {
+	        "range": {
+	          "age": {
+	            "gte": 10,
+	            "lte": 20
+	          }
+	        }
+	      },
+	      "should": [
+	        {
+	          "term": {
+	            "tag": "wow"
+	          }
+	        },
+	        {
+	          "term": {
+	            "tag": "elasticsearch"
+	          }
+	        }
+	      ],
+	      "minimum_should_match": 1,
+	      "boost": 1.0
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

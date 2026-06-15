@@ -1,0 +1,30 @@
+// Generated from docs-update-by-query_c4b278ba293abd0d02a0b5ad1a99f84a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Ingest.PutPipeline(
+		"set-foo",
+		strings.NewReader(`{
+	  "description": "sets foo",
+	  "processors": [
+	    {
+	      "set": {
+	        "field": "foo",
+	        "value": "bar"
+	      }
+	    }
+	  ]
+	}`),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.UpdateByQuery(
+		[]string{"twitter"},
+		es.UpdateByQuery.WithPipeline("set-foo"),
+	)
+	fmt.Println(res, err)
+}
+----

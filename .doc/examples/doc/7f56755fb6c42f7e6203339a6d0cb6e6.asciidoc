@@ -1,0 +1,19 @@
+// Generated from query-dsl-match-query_7f56755fb6c42f7e6203339a6d0cb6e6_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "message": {
+	        "query": "ny city",
+	        "auto_generate_synonyms_phrase_query": false
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,16 @@
+// Generated from docs-reindex_1577e6e806b3283c9e99f1596d310754_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"test",
+	strings.NewReader(`{
+	  "text": "words words",
+	  "flag": "foo"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithRefresh("true"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

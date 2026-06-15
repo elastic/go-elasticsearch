@@ -1,0 +1,27 @@
+// Generated from getting-started_cfbaea6f0df045c5d940bbb6a9c69cd8_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("bank"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "size": 0,
+	  "aggs": {
+	    "group_by_state": {
+	      "terms": {
+	        "field": "state.keyword"
+	      },
+	      "aggs": {
+	        "average_balance": {
+	          "avg": {
+	            "field": "balance"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

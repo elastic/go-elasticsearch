@@ -1,0 +1,52 @@
+---
+# Ref https://github.com/golangci/golangci-lint/blob/master/.golangci.reference.yml
+version: "2"
+linters:
+  enable:
+    - goconst
+    - gocritic
+    - gocyclo
+    - gosec
+    - govet
+    - revive
+    - unconvert
+  settings:
+    errcheck:
+      check-blank: false
+    gocyclo:
+      min-complexity: 20
+    govet:
+      enable:
+        - shadow
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - dupl
+          - goconst
+          - gosec
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+      - esapi/api\..*\.go$
+      - esapi/test/.*
+      - typedapi/.*
+formatters:
+  enable:
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+      - esapi/api\..*\.go$
+      - esapi/test/.*
+      - typedapi/.*

@@ -1,0 +1,17 @@
+// Generated from docs-update-by-query_52a87b81e4e0b6b11e23e85db1602a63_test.go
+//
+[source, go]
+----
+res, err := es.UpdateByQuery(
+	[]string{"twitter"},
+	es.UpdateByQuery.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.UpdateByQuery.WithConflicts("proceed"),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,24 @@
+---
+name: Update Changelog
+on:
+  workflow_dispatch:
+
+jobs:
+  update-changelog:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Generate and Commit Changelog
+        id: generate-changelog
+        uses: elastic/clients-team-automations/update_changelog@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Changelog"
+          min_version: "8.0.0"
+          releases_per_page: "100"
+          changelog_path: "CHANGELOG.md"

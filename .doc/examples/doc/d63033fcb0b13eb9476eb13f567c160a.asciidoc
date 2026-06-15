@@ -1,0 +1,14 @@
+// Generated from indices-update-settings_d63033fcb0b13eb9476eb13f567c160a_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutSettings(strings.NewReader(`{
+	  "index": {
+	    "number_of_replicas": 2
+	  }
+	}`),
+
+	es.Indices.PutSettings.WithIndex([]string{"twitter"}...),
+)
+fmt.Println(res, err)
+----

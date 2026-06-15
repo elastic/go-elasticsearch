@@ -1,0 +1,29 @@
+// Generated from docs-update-by-query_97babc8d19ef0866774576716eb6d19e_test.go
+//
+[source, go]
+----
+{
+	res, err := es.UpdateByQuery(
+		[]string{"test"},
+		es.UpdateByQuery.WithConflicts("proceed"),
+		es.UpdateByQuery.WithRefresh(true),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("test"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "flag": "foo"
+	    }
+	  }
+	}`)),
+		es.Search.WithFilterPath("hits.total"),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

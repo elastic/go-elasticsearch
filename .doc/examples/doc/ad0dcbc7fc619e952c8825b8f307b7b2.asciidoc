@@ -1,0 +1,23 @@
+// Generated from query-dsl-multi-match-query_ad0dcbc7fc619e952c8825b8f307b7b2_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "Jon",
+	      "type": "cross_fields",
+	      "fields": [
+	        "first",
+	        "first.edge",
+	        "last",
+	        "last.edge"
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

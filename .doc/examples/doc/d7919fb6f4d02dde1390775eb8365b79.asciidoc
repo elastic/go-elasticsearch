@@ -1,0 +1,17 @@
+// Generated from mapping-params-fielddata_d7919fb6f4d02dde1390775eb8365b79_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my-index-000001"},
+	strings.NewReader(`{
+	  "properties": {
+	    "my_field": {
+	      "type": "text",
+	      "fielddata": true
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,10 @@
+// Generated from docs-update-by-query_54a770f053f3225ea0d1e34334232411_test.go
+//
+[source, go]
+----
+res, err := es.UpdateByQuery(
+	[]string{"twitter"},
+	es.UpdateByQuery.WithScrollSize(100),
+)
+fmt.Println(res, err)
+----

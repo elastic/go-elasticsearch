@@ -1,0 +1,21 @@
+// Generated from indices-put-mapping_e821d27a8b810821707ba860e31f8b78_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my-index-000001"},
+	strings.NewReader(`{
+	  "properties": {
+	    "city": {
+	      "type": "text",
+	      "fields": {
+	        "raw": {
+	          "type": "keyword"
+	        }
+	      }
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

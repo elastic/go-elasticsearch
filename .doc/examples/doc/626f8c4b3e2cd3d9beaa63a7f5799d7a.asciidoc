@@ -1,0 +1,25 @@
+// Generated from search-suggesters_626f8c4b3e2cd3d9beaa63a7f5799d7a_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "message": "tring out Elasticsearch"
+	    }
+	  },
+	  "suggest": {
+	    "my-suggestion": {
+	      "text": "tring out Elasticsearch",
+	      "term": {
+	        "field": "message"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

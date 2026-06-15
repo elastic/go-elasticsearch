@@ -1,0 +1,7 @@
+// Generated from indices-get-mapping_cf02e3d8b371bd59f0224967c36330da_test.go
+//
+[source, go]
+----
+res, err := es.Indices.GetMapping(es.Indices.GetMapping.WithIndex("twitter,kimchy"))
+fmt.Println(res, err)
+----

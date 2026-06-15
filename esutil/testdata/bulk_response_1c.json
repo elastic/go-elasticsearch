@@ -1,0 +1,38 @@
+{
+  "took": 30,
+  "errors": false,
+  "items": [
+    {
+      "delete": {
+        "_index": "test",
+        "_id": "5",
+        "_version": 2,
+        "result": "deleted",
+        "status": 200,
+        "_shards": {
+          "total": 1,
+          "successful": 1,
+          "failed": 0
+        },
+        "_seq_no": 0,
+        "_primary_term": 1
+      }
+    },
+    {
+      "update": {
+        "_index": "test",
+        "_id": "6",
+        "_version": 2,
+        "result": "updated",
+        "_shards": {
+          "total": 1,
+          "successful": 1,
+          "failed": 0
+        },
+        "_seq_no": 0,
+        "_primary_term": 1,
+        "status": 200
+      }
+    }
+  ]
+}

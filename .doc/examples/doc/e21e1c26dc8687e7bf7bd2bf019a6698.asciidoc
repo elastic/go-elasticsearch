@@ -1,0 +1,15 @@
+// Generated from docs-delete-by-query_e21e1c26dc8687e7bf7bd2bf019a6698_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQuery(
+	[]string{"twitter"},
+	strings.NewReader(`{
+	  "query": {
+	    "match_all": {}
+	  }
+	}`),
+	es.DeleteByQuery.WithConflicts("proceed"),
+)
+fmt.Println(res, err)
+----

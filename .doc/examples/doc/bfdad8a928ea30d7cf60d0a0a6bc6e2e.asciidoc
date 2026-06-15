@@ -1,0 +1,17 @@
+// Generated from docs-bulk_bfdad8a928ea30d7cf60d0a0a6bc6e2e_test.go
+//
+[source, go]
+----
+res, err := es.Bulk(
+	strings.NewReader(`
+{ "update": {"_id": "5", "_index": "index1"} }
+{ "doc": {"my_field": "baz"} }
+{ "update": {"_id": "6", "_index": "index1"} }
+{ "doc": {"my_field": "baz"} }
+{ "update": {"_id": "7", "_index": "index1"} }
+{ "doc": {"my_field": "baz"} }
+`),
+	es.Bulk.WithFilterPath("items.*.error"),
+)
+fmt.Println(res, err)
+----

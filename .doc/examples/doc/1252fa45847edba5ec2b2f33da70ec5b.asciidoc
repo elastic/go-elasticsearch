@@ -1,0 +1,9 @@
+// Generated from api-conventions_1252fa45847edba5ec2b2f33da70ec5b_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.State(
+	es.Cluster.State.WithFilterPath("routing_table.indices.**.state"),
+)
+fmt.Println(res, err)
+----

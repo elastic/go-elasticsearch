@@ -1,0 +1,21 @@
+// Generated from query-dsl-terms-query_4955bae30f265b9e436f82b015de6d7e_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "terms": {
+	      "color": {
+	        "index": "my-index-000001",
+	        "id": "2",
+	        "path": "color"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

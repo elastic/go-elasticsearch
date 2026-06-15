@@ -1,0 +1,174 @@
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .card {
+      cursor: pointer;
+      padding: 16px;
+      text-align: left;
+      color: #000;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      padding: 16px;
+      text-align: left;
+    }
+
+    #guide a.no-text-decoration:hover {
+      text-decoration: none!important;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-position: bottom;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .ul-col-1 {
+      columns: 1;
+      -webkit-columns: 1;
+      -moz-columns: 1;
+    }
+
+    @media (min-width:769px) {
+      .ul-col-md-2 {
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+      }
+    }
+
+    #guide h3.gtk {
+    margin-top: 16px;
+  }
+
+  .mb-4, .my-4 {
+    margin-bottom: 0!important;
+  }
+  </style>
+
+  <div class="legalnotice"></div>
+
+  <div class="row my-4">
+    <div class="col-md-6 col-12">
+      <p></p>
+      <p>
+        <h2>Documentation</h2>
+      </p>
+      <p>
+        The official Go client provides one-to-one mapping with Elasticsearch REST APIs.
+      </p>
+      <p>
+        <a href="https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html">
+          <button class="btn btn-primary">Get started</button>
+        </a>
+      </p>
+    </div>
+    <div class="col-md-6 col-12">
+      <img class="w-100" src="https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt309b983fa254e216/642563bba793f910de28b9d1/ES_Go_landing_page.png" />
+    </div>
+  </div>
+
+  <h3 class="gtk">Get to know the Go client</h3>
+
+  <div class="my-5">
+    <div class="d-flex align-items-center mb-3">
+      <h4 class="mt-3">
+        <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/bltfd59779217093221/641ae0c8db18f61d68e9c377/64x64_Color_icon-connected-circles64-color.png');"></span>
+        Connecting
+      </h4>
+    </div>
+    <ul class="ul-col-md-2 ul-col-1">
+      <li>
+        <a href="installation.html">Installing the client</a>
+      </li>
+      <li>
+        <a href="connecting.html">Connecting to Elasticsearch</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="my-5">
+    <div class="d-flex align-items-center mb-3">
+      <h4 class="mt-3">
+        <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/bltca09fd8c807816ce/641ae17733e7f95594918557/icon-monitor-cog-64-color.png');"></span>
+        Using the Go client
+      </h4>
+    </div>
+    <ul class="ul-col-md-2 ul-col-1">
+      <li>
+        <a href="examples.html#indexing">Indexing a document</a>
+      </li>
+      <li>
+        <a href="examples.html#retrieving_document">Retrieving a document</a>
+      </li>
+      <li>
+        <a href="examples.html#search">Searching documents</a>
+      </li>
+      <li>
+        <a href="examples.html">More examples</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="my-5">
+    <div class="d-flex align-items-center mb-3">
+      <h4 class="mt-3">
+        <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blteacd058910f155d8/636925a6e0ff7c532db636d7/64x64_Color_icon-dev-tools-64-color.png');"></span>
+        Developer docs
+      </h4>
+    </div>
+    <ul class="ul-col-md-2 ul-col-1">
+      <li>
+        <a href="typedapi.html">Typed API</a>
+      </li>
+      <li>
+        <a href="overview.html#_resources">Resources</a>
+      </li>
+    </ul>
+  </div>
+
+  <h3 class="explore">Explore by use case</h3>
+
+  <div class="row my-4">
+    <div class="col-md-4 col-12 mb-2">
+      <a class="no-text-decoration" href="https://www.elastic.co/guide/en/enterprise-search/current/start.html">
+        <div class="card h-100">
+          <h4 class="mt-3">
+            <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt11200907c1c033aa/634d9da119d8652169cf9b2b/enterprise-search-logo-color-32px.png');"></span>
+            Search my data
+          </h4>
+          <p>Create search experiences for your content, wherever it lives.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 col-12 mb-2">
+      <a class="no-text-decoration" href="https://www.elastic.co/guide/en/starting-with-the-elasticsearch-platform-and-its-solutions/current/getting-started-observability.html">
+        <div class="card h-100">
+          <h4 class="mt-3">
+            <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/bltaa08b370a00bbecc/634d9da14e565f1cdce27f7c/observability-logo-color-32px.png');"></span>
+            Observe my data
+          </h4>
+          <p>Follow our guides to monitor logs, metrics, and traces.</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4 col-12 mb-2">
+      <a class="no-text-decoration" href="https://www.elastic.co/guide/en/security/current/es-overview.html">
+        <div class="card h-100">
+          <h4 class="mt-3">
+            <span class="inline-block float-left icon mr-2" style="background-image: url('https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt5e0e0ad9a13e6b8c/634d9da18473831f96bbdf1e/security-logo-color-32px.png');"></span>
+            Protect my environment
+          </h4>
+          <p>Learn how to defend against threats across your environment.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <p class="my-4"><a href="https://www.elastic.co/guide/index.html">View all Elastic docs</a></p>
+  <p class="my-4"><small>The Go gopher available <a href="https://go.dev/blog/gopher">here</a> is created by Renee French and released under the Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"> Attribution-Share Alike 4.0 International license</a>.</small></p>

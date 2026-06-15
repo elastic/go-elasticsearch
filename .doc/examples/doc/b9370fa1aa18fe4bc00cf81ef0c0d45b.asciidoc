@@ -1,0 +1,19 @@
+// Generated from query-dsl-query-string-query_b9370fa1aa18fe4bc00cf81ef0c0d45b_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "query_string": {
+	      "fields": [
+	        "city.*"
+	      ],
+	      "query": "this AND that OR thus"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,21 @@
+// Generated from indices-create-index_934aa38c3adcc4cf74ea40cd8736876c_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"test",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "settings": {
+	    "number_of_shards": 1
+	  },
+	  "mappings": {
+	    "properties": {
+	      "field1": {
+	        "type": "text"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

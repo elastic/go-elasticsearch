@@ -1,0 +1,20 @@
+// Generated from docs-update_cdf400299acd1c7b1b7bb42e284e3d08_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "script": {
+	    "source": "ctx._source.tags.add(params.tag)",
+	    "lang": "painless",
+	    "params": {
+	      "tag": "blue"
+	    }
+	  }
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

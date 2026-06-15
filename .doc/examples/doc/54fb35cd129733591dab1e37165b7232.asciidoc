@@ -1,0 +1,16 @@
+// Generated from docs-index__54fb35cd129733591dab1e37165b7232_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"twitter",
+	strings.NewReader(`{
+	  "message": "elasticsearch now has versioning support, double cool!"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithVersion(2),
+	es.Index.WithVersionType("external"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

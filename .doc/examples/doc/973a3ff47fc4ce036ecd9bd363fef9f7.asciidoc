@@ -1,0 +1,19 @@
+// Generated from docs-reindex_973a3ff47fc4ce036ecd9bd363fef9f7_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "metricbeat-*"
+	  },
+	  "dest": {
+	    "index": "metricbeat"
+	  },
+	  "script": {
+	    "lang": "painless",
+	    "source": "ctx._index = 'metricbeat-' + (ctx._index.substring('metricbeat-'.length(), ctx._index.length())) + '-1'"
+	  }
+	}`))
+fmt.Println(res, err)
+----

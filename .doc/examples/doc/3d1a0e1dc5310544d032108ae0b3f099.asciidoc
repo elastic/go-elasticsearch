@@ -1,0 +1,16 @@
+// Generated from query-dsl-match-all-query_3d1a0e1dc5310544d032108ae0b3f099_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match_all": {
+	      "boost": 1.2
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

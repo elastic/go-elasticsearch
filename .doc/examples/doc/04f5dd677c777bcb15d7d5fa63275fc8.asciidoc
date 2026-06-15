@@ -1,0 +1,10 @@
+// Generated from cluster-health_04f5dd677c777bcb15d7d5fa63275fc8_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.Health(
+	es.Cluster.Health.WithTimeout(time.Duration(50000000000)),
+	es.Cluster.Health.WithWaitForStatus("yellow"),
+)
+fmt.Println(res, err)
+----

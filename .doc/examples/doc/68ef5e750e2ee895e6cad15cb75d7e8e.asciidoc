@@ -1,0 +1,16 @@
+// Generated from docs-index__68ef5e750e2ee895e6cad15cb75d7e8e_test.go
+//
+[source, go]
+----
+res, err := es.Create(
+	"twitter",
+	"1",
+	strings.NewReader(`{
+	  "user": "kimchy",
+	  "post_date": "2009-11-15T14:12:12",
+	  "message": "trying out Elasticsearch"
+	}`),
+	es.Create.WithPretty(),
+)
+fmt.Println(res, err)
+----

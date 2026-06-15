@@ -1,0 +1,13 @@
+tmp/
+*.test
+
+# Generated TLS certificates for CI
+.buildkite/certs/
+
+#jetBrains editors
+.idea
+
+elastic-start-local
+
+# AI agent instructions
+!AGENTS.md

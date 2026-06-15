@@ -1,0 +1,38 @@
+// Generated from docs-reindex_1b8655e6ba99fe39933c6eafe78728b7_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Reindex(
+		strings.NewReader(`{
+	  "source": {
+	    "index": "twitter",
+	    "slice": {
+	      "id": 0,
+	      "max": 2
+	    }
+	  },
+	  "dest": {
+	    "index": "new_twitter"
+	  }
+	}`))
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Reindex(
+		strings.NewReader(`{
+	  "source": {
+	    "index": "twitter",
+	    "slice": {
+	      "id": 1,
+	      "max": 2
+	    }
+	  },
+	  "dest": {
+	    "index": "new_twitter"
+	  }
+	}`))
+	fmt.Println(res, err)
+}
+----

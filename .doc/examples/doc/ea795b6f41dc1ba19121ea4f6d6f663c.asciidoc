@@ -1,0 +1,29 @@
+// Generated from query-dsl-function-score-query_ea795b6f41dc1ba19121ea4f6d6f663c_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "query": {
+	        "match": {
+	          "message": "elasticsearch"
+	        }
+	      },
+	      "script_score": {
+	        "script": {
+	          "params": {
+	            "a": 5,
+	            "b": 1.2
+	          },
+	          "source": "params.a / Math.pow(params.b, doc['likes'].value)"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

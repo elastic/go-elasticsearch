@@ -1,0 +1,17 @@
+// Generated from api-conventions_978088f989d45dd09339582e9cbc60e0_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("%3Clogstash-%7Bnow%2Fd%7D%3E"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "test": "data"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

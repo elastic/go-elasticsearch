@@ -1,0 +1,22 @@
+// Generated from aggregations-bucket-datehistogram-aggregation_316cd43feb3b86396483903af1a048b1_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("sales"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "sale_date": {
+	      "date_histogram": {
+	        "field": "date",
+	        "calendar_interval": "year",
+	        "missing": "2000/01/01"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

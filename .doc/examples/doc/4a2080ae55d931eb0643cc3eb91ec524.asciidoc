@@ -1,0 +1,70 @@
+// Generated from mapping-params-multi-fields_4a2080ae55d931eb0643cc3eb91ec524_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create(
+		"my-index-000001",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "text": {
+	        "type": "text",
+	        "fields": {
+	          "english": {
+	            "type": "text",
+	            "analyzer": "english"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "text": "quick brown fox"
+	} `),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"my-index-000001",
+		strings.NewReader(`{
+	  "text": "quick brown foxes"
+	} `),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("my-index-000001"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "multi_match": {
+	      "query": "quick brown foxes",
+	      "fields": [
+	        "text",
+	        "text.english"
+	      ],
+	      "type": "most_fields"
+	    }
+	  }
+	}`)),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

@@ -1,0 +1,70 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+// Package multivaluemode
+package multivaluemode
+
+import "strings"
+
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/query_dsl/compound.ts#L376-L393
+type MultiValueMode struct {
+	Name string
+}
+
+var (
+
+	// Min Distance is the minimum distance.
+	Min = MultiValueMode{"min"}
+
+	// Max Distance is the maximum distance.
+	Max = MultiValueMode{"max"}
+
+	// Avg Distance is the average distance.
+	Avg = MultiValueMode{"avg"}
+
+	// Sum Distance is the sum of all distances.
+	Sum = MultiValueMode{"sum"}
+)
+
+func (m MultiValueMode) MarshalText() (text []byte, err error) {
+	return []byte(m.String()), nil
+}
+
+func (m *MultiValueMode) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "min":
+		*m = Min
+	case "max":
+		*m = Max
+	case "avg":
+		*m = Avg
+	case "sum":
+		*m = Sum
+	default:
+		*m = MultiValueMode{string(text)}
+	}
+
+	return nil
+}
+
+func (m MultiValueMode) String() string {
+	return m.Name
+}

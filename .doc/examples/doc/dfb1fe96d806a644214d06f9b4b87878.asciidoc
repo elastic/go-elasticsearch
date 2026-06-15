@@ -1,0 +1,17 @@
+// Generated from docs-delete-by-query_dfb1fe96d806a644214d06f9b4b87878_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQuery(
+	[]string{"twitter"},
+	strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`),
+	es.DeleteByQuery.WithScrollSize(5000),
+)
+fmt.Println(res, err)
+----

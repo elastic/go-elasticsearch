@@ -1,0 +1,17 @@
+// Generated from indices-create-index_1f2beb4f3177469243be16dff29d29ee_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"twitter",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "settings": {
+	    "index": {
+	      "number_of_shards": 3,
+	      "number_of_replicas": 2
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

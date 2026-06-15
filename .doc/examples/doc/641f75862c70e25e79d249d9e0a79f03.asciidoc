@@ -1,0 +1,36 @@
+// Generated from query-dsl-nested-query_641f75862c70e25e79d249d9e0a79f03_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "nested": {
+	      "path": "obj1",
+	      "query": {
+	        "bool": {
+	          "must": [
+	            {
+	              "match": {
+	                "obj1.name": "blue"
+	              }
+	            },
+	            {
+	              "range": {
+	                "obj1.count": {
+	                  "gt": 5
+	                }
+	              }
+	            }
+	          ]
+	        }
+	      },
+	      "score_mode": "avg"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

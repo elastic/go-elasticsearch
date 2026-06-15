@@ -1,0 +1,18 @@
+// Generated from query-dsl-term-query_803bbc14fbec0e49dfed9fab49c8a7f8_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index-000001",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "full_text": {
+	        "type": "text"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

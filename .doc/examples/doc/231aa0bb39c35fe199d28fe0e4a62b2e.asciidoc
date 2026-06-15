@@ -1,0 +1,17 @@
+// Generated from getting-started_231aa0bb39c35fe199d28fe0e4a62b2e_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("bank"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match_phrase": {
+	      "address": "mill lane"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

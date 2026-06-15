@@ -1,0 +1,17 @@
+// Generated from docs-update_7b5c231526846f2f7b98d78f3656ae6a_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "doc": {
+	    "name": "new_name"
+	  },
+	  "doc_as_upsert": true
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

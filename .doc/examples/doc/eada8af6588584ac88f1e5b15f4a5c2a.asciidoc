@@ -1,0 +1,78 @@
+// Generated from aggregations-metrics-valuecount-aggregation_eada8af6588584ac88f1e5b15f4a5c2a_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"metrics_index",
+		strings.NewReader(`{
+	  "network.name": "net-1",
+	  "latency_histo": {
+	    "values": [
+	      0.1,
+	      0.2,
+	      0.3,
+	      0.4,
+	      0.5
+	    ],
+	    "counts": [
+	      3,
+	      7,
+	      23,
+	      12,
+	      6
+	    ]
+	  }
+	}`),
+		es.Index.WithDocumentID("1"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"metrics_index",
+		strings.NewReader(`{
+	  "network.name": "net-2",
+	  "latency_histo": {
+	    "values": [
+	      0.1,
+	      0.2,
+	      0.3,
+	      0.4,
+	      0.5
+	    ],
+	    "counts": [
+	      8,
+	      17,
+	      8,
+	      7,
+	      6
+	    ]
+	  }
+	}`),
+		es.Index.WithDocumentID("2"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Search(
+		es.Search.WithIndex("metrics_index"),
+		es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "total_requests": {
+	      "value_count": {
+	        "field": "latency_histo"
+	      }
+	    }
+	  }
+	}`)),
+		es.Search.WithSize(0),
+		es.Search.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

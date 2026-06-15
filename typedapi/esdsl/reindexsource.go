@@ -1,0 +1,110 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+package esdsl
+
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+
+type _reindexSource struct {
+	v *types.ReindexSource
+}
+
+func NewReindexSource() *_reindexSource {
+
+	return &_reindexSource{v: types.NewReindexSource()}
+
+}
+
+func (s *_reindexSource) Index(indices ...string) *_reindexSource {
+
+	s.v.Index = indices
+
+	return s
+}
+
+func (s *_reindexSource) ProjectRouting(projectrouting string) *_reindexSource {
+
+	s.v.ProjectRouting = &projectrouting
+
+	return s
+}
+
+func (s *_reindexSource) Query(query types.QueryVariant) *_reindexSource {
+
+	s.v.Query = query.QueryCaster()
+
+	return s
+}
+
+func (s *_reindexSource) Remote(remote types.RemoteSourceVariant) *_reindexSource {
+
+	s.v.Remote = remote.RemoteSourceCaster()
+
+	return s
+}
+
+func (s *_reindexSource) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *_reindexSource {
+
+	s.v.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
+
+	return s
+}
+
+func (s *_reindexSource) Size(size int) *_reindexSource {
+
+	s.v.Size = &size
+
+	return s
+}
+
+func (s *_reindexSource) Slice(slice types.SlicedScrollVariant) *_reindexSource {
+
+	s.v.Slice = slice.SlicedScrollCaster()
+
+	return s
+}
+
+func (s *_reindexSource) Sort(sorts ...types.SortCombinationsVariant) *_reindexSource {
+
+	convertedItems := make([]types.SortCombinations, 0, len(sorts))
+	for _, v := range sorts {
+		convertedItems = append(convertedItems, *v.SortCombinationsCaster())
+	}
+	s.v.Sort = convertedItems
+
+	return s
+}
+
+func (s *_reindexSource) SortValues(sortvalues []types.SortCombinations) *_reindexSource {
+
+	s.v.Sort = sortvalues
+	return s
+}
+
+func (s *_reindexSource) SourceFields_(sourceconfig types.SourceConfigVariant) *_reindexSource {
+
+	s.v.SourceFields_ = *sourceconfig.SourceConfigCaster()
+
+	return s
+}
+
+func (s *_reindexSource) ReindexSourceCaster() *types.ReindexSource {
+	return s.v
+}

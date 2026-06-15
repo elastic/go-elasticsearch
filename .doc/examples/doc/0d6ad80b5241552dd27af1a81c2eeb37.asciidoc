@@ -1,0 +1,20 @@
+// Generated from docs-update_0d6ad80b5241552dd27af1a81c2eeb37_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "script": {
+	    "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = 'delete' } else { ctx.op = 'none' }",
+	    "lang": "painless",
+	    "params": {
+	      "tag": "green"
+	    }
+	  }
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

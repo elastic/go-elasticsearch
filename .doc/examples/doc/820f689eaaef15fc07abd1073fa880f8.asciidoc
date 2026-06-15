@@ -1,0 +1,18 @@
+// Generated from search-request-from-size_820f689eaaef15fc07abd1073fa880f8_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "from": 5,
+	  "size": 20,
+	  "query": {
+	    "match": {
+	      "user.id": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

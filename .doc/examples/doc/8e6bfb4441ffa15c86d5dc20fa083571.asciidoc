@@ -1,0 +1,12 @@
+// Generated from setup-logging-config_8e6bfb4441ffa15c86d5dc20fa083571_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.PutSettings(
+	strings.NewReader(`{
+	  "transient": {
+	    "logger.org.elasticsearch.transport": "trace"
+	  }
+	}`))
+fmt.Println(res, err)
+----

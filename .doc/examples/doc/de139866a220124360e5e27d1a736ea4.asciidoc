@@ -1,0 +1,32 @@
+// Generated from search-request-sort_de139866a220124360e5e27d1a736ea4_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "term": {
+	      "product": "chocolate"
+	    }
+	  },
+	  "sort": [
+	    {
+	      "offer.price": {
+	        "mode": "avg",
+	        "order": "asc",
+	        "nested": {
+	          "path": "offer",
+	          "filter": {
+	            "term": {
+	              "offer.color": "blue"
+	            }
+	          }
+	        }
+	      }
+	    }
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

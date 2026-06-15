@@ -1,0 +1,14 @@
+// Generated from getting-started_311c4b632a29b9ead63b02d01f10096b_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"customer",
+	strings.NewReader(`{
+	  "name": "John Doe"
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,9 @@
+// Generated from indices-update-settings_fe5763d32955e8b65eb3048e97b1580c_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Forcemerge(es.Indices.Forcemerge.WithIndex([]string{"twitter"}...),
+	es.Indices.Forcemerge.WithMaxNumSegments(5),
+)
+fmt.Println(res, err)
+----

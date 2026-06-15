@@ -1,0 +1,21 @@
+// Generated from query-dsl-regexp-query_ff1c66932f244050213f0c3cbcc214f9_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "regexp": {
+	      "user": {
+	        "value": "k.*y",
+	        "flags": "ALL",
+	        "max_determinized_states": 10000,
+	        "rewrite": "constant_score"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

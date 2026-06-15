@@ -1,0 +1,10 @@
+// Generated from docs-update-by-query_7df191cc7f814e410a4ac7261065e6ef_test.go
+//
+[source, go]
+----
+res, err := es.Tasks.List(
+	es.Tasks.List.WithActions("*byquery"),
+	es.Tasks.List.WithDetailed(true),
+)
+fmt.Println(res, err)
+----

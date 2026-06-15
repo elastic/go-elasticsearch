@@ -1,0 +1,10 @@
+// Generated from api-conventions_621665fdbd7fc103c09bfeed28b67b1a_test.go
+//
+[source, go]
+----
+res, err := es.Count(
+	es.Count.WithFilterPath("-_shards"),
+	es.Count.WithPretty(),
+)
+fmt.Println(res, err)
+----

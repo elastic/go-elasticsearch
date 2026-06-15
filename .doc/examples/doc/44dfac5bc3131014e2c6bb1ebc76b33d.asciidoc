@@ -1,0 +1,18 @@
+// Generated from search-request-sort_44dfac5bc3131014e2c6bb1ebc76b33d_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"index_double",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "field": {
+	        "type": "double"
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

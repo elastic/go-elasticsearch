@@ -1,0 +1,34 @@
+// Generated from aggregations-bucket-terms-aggregation_5d9d7b84e2fec7ecd832145cbb951cf1_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "size": 0,
+	  "aggs": {
+	    "expired_sessions": {
+	      "terms": {
+	        "field": "account_id",
+	        "include": {
+	          "partition": 0,
+	          "num_partitions": 20
+	        },
+	        "size": 10000,
+	        "order": {
+	          "last_access": "asc"
+	        }
+	      },
+	      "aggs": {
+	        "last_access": {
+	          "max": {
+	            "field": "access_date"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

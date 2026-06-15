@@ -1,0 +1,24 @@
+// Generated from mapping-types-nested_7fef68840761c6982c14ad7af96caf37_test.go
+//
+[source, go]
+----
+res, err := es.Index(
+	"my-index-000001",
+	strings.NewReader(`{
+	  "group": "fans",
+	  "user": [
+	    {
+	      "first": "John",
+	      "last": "Smith"
+	    },
+	    {
+	      "first": "Alice",
+	      "last": "White"
+	    }
+	  ]
+	}`),
+	es.Index.WithDocumentID("1"),
+	es.Index.WithPretty(),
+)
+fmt.Println(res, err)
+----

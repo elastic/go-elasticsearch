@@ -1,0 +1,34 @@
+// Generated from query-dsl-nested-query_6c3f7c8601e8cc13d36eef98a5e2cb34_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"drivers",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "driver": {
+	        "type": "nested",
+	        "properties": {
+	          "last_name": {
+	            "type": "text"
+	          },
+	          "vehicle": {
+	            "type": "nested",
+	            "properties": {
+	              "make": {
+	                "type": "text"
+	              },
+	              "model": {
+	                "type": "text"
+	              }
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

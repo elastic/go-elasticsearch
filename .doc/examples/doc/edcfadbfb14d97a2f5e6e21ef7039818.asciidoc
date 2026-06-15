@@ -1,0 +1,42 @@
+// Generated from query-dsl-function-score-query_edcfadbfb14d97a2f5e6e21ef7039818_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "function_score": {
+	      "query": {
+	        "match_all": {}
+	      },
+	      "boost": "5",
+	      "functions": [
+	        {
+	          "filter": {
+	            "match": {
+	              "test": "bar"
+	            }
+	          },
+	          "random_score": {},
+	          "weight": 23
+	        },
+	        {
+	          "filter": {
+	            "match": {
+	              "test": "cat"
+	            }
+	          },
+	          "weight": 42
+	        }
+	      ],
+	      "max_boost": 42,
+	      "score_mode": "max",
+	      "boost_mode": "multiply",
+	      "min_score": 42
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

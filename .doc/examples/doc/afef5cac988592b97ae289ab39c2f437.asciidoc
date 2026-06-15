@@ -1,0 +1,23 @@
+// Generated from mapping-params-fielddata_afef5cac988592b97ae289ab39c2f437_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"my-index-000001",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "properties": {
+	      "my_field": {
+	        "type": "text",
+	        "fields": {
+	          "keyword": {
+	            "type": "keyword"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

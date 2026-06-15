@@ -1,0 +1,27 @@
+// Generated from search_d2d30b766e42c74a38f73252a5edc36d_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("twitter"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "must": {
+	        "query_string": {
+	          "query": "some query string here"
+	        }
+	      },
+	      "filter": {
+	        "term": {
+	          "user": "kimchy"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithRouting("kimchy"),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

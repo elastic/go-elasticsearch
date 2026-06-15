@@ -1,0 +1,12 @@
+// Generated from docs-get_1d65cb6d055c46a1bde809687d835b71_test.go
+//
+[source, go]
+----
+res, err := es.Get(
+	"twitter",
+	"2",
+	es.Get.WithRouting("user1"),
+	es.Get.WithPretty(),
+)
+fmt.Println(res, err)
+----

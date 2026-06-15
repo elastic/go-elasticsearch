@@ -1,0 +1,14 @@
+// Generated from docs-delete-by-query_c22b72c4a52ee098331b3f252c22860d_test.go
+//
+[source, go]
+----
+res, err := es.DeleteByQuery(
+	[]string{"twitter,blog"},
+	strings.NewReader(`{
+	  "query": {
+	    "match_all": {}
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

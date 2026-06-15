@@ -1,0 +1,28 @@
+// Generated from indices-put-mapping_6ce0585ab13a480796add86de6b2037c_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Index(
+		"users",
+		strings.NewReader(`{
+	  "user_id": 12345
+	}`),
+		es.Index.WithRefresh("wait_for"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"users",
+		strings.NewReader(`{
+	  "user_id": 12346
+	}`),
+		es.Index.WithRefresh("wait_for"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+----

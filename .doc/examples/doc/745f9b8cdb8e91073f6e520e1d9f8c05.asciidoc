@@ -1,0 +1,12 @@
+// Generated from docs-get_745f9b8cdb8e91073f6e520e1d9f8c05_test.go
+//
+[source, go]
+----
+res, err := es.Get(
+	"twitter",
+	"0",
+	es.Get.WithSource("*.id,retweeted"),
+	es.Get.WithPretty(),
+)
+fmt.Println(res, err)
+----

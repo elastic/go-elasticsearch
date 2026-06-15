@@ -1,0 +1,19 @@
+// Generated from search-request-sort_5f3549ac7fee94682ca0d7439eebdd2a_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("index_long,index_double"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "field": {
+	        "numeric_type": "date_nanos"
+	      }
+	    }
+	  ]
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,242 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+//
+// Code generated from specification version 9.4.0: DO NOT EDIT
+
+package esapi
+
+import (
+	"context"
+	"errors"
+	"net/http"
+	"strconv"
+	"strings"
+)
+
+func newNodesClearRepositoriesMeteringArchiveFunc(t Transport) NodesClearRepositoriesMeteringArchive {
+	return func(max_archive_version *int64, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error) {
+		var r = NodesClearRepositoriesMeteringArchiveRequest{MaxArchiveVersion: max_archive_version, NodeID: node_id}
+		for _, f := range o {
+			f(&r)
+		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.Instrument = transport.InstrumentationEnabled()
+		}
+
+		return r.Do(r.ctx, t)
+	}
+}
+
+// ----- API Definition -------------------------------------------------------
+
+// NodesClearRepositoriesMeteringArchive clear the archived repositories metering
+//
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-clear-repositories-metering-archive.
+type NodesClearRepositoriesMeteringArchive func(max_archive_version *int64, node_id []string, o ...func(*NodesClearRepositoriesMeteringArchiveRequest)) (*Response, error)
+
+// NodesClearRepositoriesMeteringArchiveRequest configures the Nodes Clear Repositories Metering Archive API request.
+type NodesClearRepositoriesMeteringArchiveRequest struct {
+	MaxArchiveVersion *int64
+	NodeID            []string
+
+	Pretty     bool
+	Human      bool
+	ErrorTrace bool
+	FilterPath []string
+
+	Header http.Header
+
+	ctx context.Context
+
+	Instrument Instrumentation
+}
+
+// Do executes the request and returns response or error.
+func (r NodesClearRepositoriesMeteringArchiveRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+	var (
+		method string
+		path   strings.Builder
+		params map[string]string
+		ctx    context.Context
+	)
+
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "nodes.clear_repositories_metering_archive")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	method = "DELETE"
+
+	if len(r.NodeID) == 0 {
+		return nil, errors.New("node_id is required and cannot be nil or empty")
+	}
+	if r.MaxArchiveVersion == nil {
+		return nil, errors.New("max_archive_version is required and cannot be nil")
+	}
+
+	path.Grow(7 + 1 + len("_nodes") + 1 + len(strings.Join(r.NodeID, ",")) + 1 + len("_repositories_metering") + 1 + len(strconv.FormatInt(*r.MaxArchiveVersion, 10)))
+	path.WriteString("http://")
+	path.WriteString("/")
+	path.WriteString("_nodes")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.NodeID, ","))
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "node_id", strings.Join(r.NodeID, ","))
+	}
+	path.WriteString("/")
+	path.WriteString("_repositories_metering")
+	path.WriteString("/")
+	path.WriteString(strconv.FormatInt(*r.MaxArchiveVersion, 10))
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "max_archive_version", strconv.FormatInt(*r.MaxArchiveVersion, 10))
+	}
+
+	params = make(map[string]string)
+
+	if r.Pretty {
+		params["pretty"] = "true"
+	}
+
+	if r.Human {
+		params["human"] = "true"
+	}
+
+	if r.ErrorTrace {
+		params["error_trace"] = "true"
+	}
+
+	if len(r.FilterPath) > 0 {
+		params["filter_path"] = strings.Join(r.FilterPath, ",")
+	}
+
+	req, err := newRequest(method, path.String(), nil)
+	if err != nil {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if len(params) > 0 {
+		q := req.URL.Query()
+		for k, v := range params {
+			q.Set(k, v)
+		}
+		req.URL.RawQuery = q.Encode()
+	}
+
+	if len(r.Header) > 0 {
+		if len(req.Header) == 0 {
+			req.Header = r.Header
+		} else {
+			for k, vv := range r.Header {
+				for _, v := range vv {
+					req.Header.Add(k, v)
+				}
+			}
+		}
+	}
+
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "nodes.clear_repositories_metering_archive")
+	}
+	res, err := transport.Perform(req)
+	if instrument, ok := r.Instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "nodes.clear_repositories_metering_archive")
+	}
+	if err != nil {
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	response := Response{
+		StatusCode: res.StatusCode,
+		Body:       res.Body,
+		Header:     res.Header,
+	}
+
+	return &response, nil
+}
+
+// WithContext sets the request context.
+func (f NodesClearRepositoriesMeteringArchive) WithContext(v context.Context) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		r.ctx = v
+	}
+}
+
+// WithPretty makes the response body pretty-printed.
+func (f NodesClearRepositoriesMeteringArchive) WithPretty() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		r.Pretty = true
+	}
+}
+
+// WithHuman makes statistical values human-readable.
+func (f NodesClearRepositoriesMeteringArchive) WithHuman() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		r.Human = true
+	}
+}
+
+// WithErrorTrace includes the stack trace for errors in the response body.
+func (f NodesClearRepositoriesMeteringArchive) WithErrorTrace() func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		r.ErrorTrace = true
+	}
+}
+
+// WithFilterPath filters the properties of the response body.
+func (f NodesClearRepositoriesMeteringArchive) WithFilterPath(v ...string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		r.FilterPath = v
+	}
+}
+
+// WithHeader adds the headers to the HTTP request.
+func (f NodesClearRepositoriesMeteringArchive) WithHeader(h map[string]string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		for k, v := range h {
+			r.Header.Add(k, v)
+		}
+	}
+}
+
+// WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
+func (f NodesClearRepositoriesMeteringArchive) WithOpaqueID(s string) func(*NodesClearRepositoriesMeteringArchiveRequest) {
+	return func(r *NodesClearRepositoriesMeteringArchiveRequest) {
+		if r.Header == nil {
+			r.Header = make(http.Header)
+		}
+		r.Header.Set("X-Opaque-Id", s)
+	}
+}

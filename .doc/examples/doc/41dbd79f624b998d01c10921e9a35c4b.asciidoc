@@ -1,0 +1,17 @@
+// Generated from docs-update_41dbd79f624b998d01c10921e9a35c4b_test.go
+//
+[source, go]
+----
+res, err := es.Update(
+	"test",
+	"1",
+	strings.NewReader(`{
+	  "doc": {
+	    "name": "new_name"
+	  },
+	  "detect_noop": false
+	}`),
+	es.Update.WithPretty(),
+)
+fmt.Println(res, err)
+----

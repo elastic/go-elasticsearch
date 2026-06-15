@@ -1,0 +1,73 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+// Package syntheticsourcekeepenum
+package syntheticsourcekeepenum
+
+import "strings"
+
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/mapping/Property.ts#L101-L119
+type SyntheticSourceKeepEnum struct {
+	Name string
+}
+
+var (
+
+	// None Synthetic source diverges from the original source (default)
+	None = SyntheticSourceKeepEnum{"none"}
+
+	// Arrays Arrays of the corresponding field or object preserve the original element
+	// ordering and duplicate elements. The synthetic source fragment for such
+	// arrays is not guaranteed to match the original source exactly, e.g. array [1,
+	// 2, [5], [[4, [3]]], 5] may appear as-is or in an equivalent format like [1,
+	// 2, 5, 4, 3, 5]. The exact format may change in the future, in an effort to
+	// reduce the storage overhead of this option.
+	Arrays = SyntheticSourceKeepEnum{"arrays"}
+
+	// All The source for both singleton instances and arrays of the corresponding field
+	// or object gets recorded. When applied to objects, the source of all
+	// sub-objects and sub-fields gets captured. Furthermore, the original source of
+	// arrays gets captured and appears in synthetic source with no modifications.
+	All = SyntheticSourceKeepEnum{"all"}
+)
+
+func (s SyntheticSourceKeepEnum) MarshalText() (text []byte, err error) {
+	return []byte(s.String()), nil
+}
+
+func (s *SyntheticSourceKeepEnum) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "none":
+		*s = None
+	case "arrays":
+		*s = Arrays
+	case "all":
+		*s = All
+	default:
+		*s = SyntheticSourceKeepEnum{string(text)}
+	}
+
+	return nil
+}
+
+func (s SyntheticSourceKeepEnum) String() string {
+	return s.Name
+}

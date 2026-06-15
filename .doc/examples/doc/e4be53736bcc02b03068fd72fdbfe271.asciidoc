@@ -1,0 +1,16 @@
+// Generated from indices-put-mapping_e4be53736bcc02b03068fd72fdbfe271_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"publications"},
+	strings.NewReader(`{
+	  "properties": {
+	    "title": {
+	      "type": "text"
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

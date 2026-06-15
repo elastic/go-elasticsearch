@@ -1,0 +1,44 @@
+// Generated from docs-delete-by-query_1e49eba5b9042c1900a608fe5105ba43_test.go
+//
+[source, go]
+----
+{
+	res, err := es.DeleteByQuery(
+		[]string{"twitter"},
+		strings.NewReader(`{
+	  "slice": {
+	    "id": 0,
+	    "max": 2
+	  },
+	  "query": {
+	    "range": {
+	      "likes": {
+	        "lt": 10
+	      }
+	    }
+	  }
+	}`),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.DeleteByQuery(
+		[]string{"twitter"},
+		strings.NewReader(`{
+	  "slice": {
+	    "id": 1,
+	    "max": 2
+	  },
+	  "query": {
+	    "range": {
+	      "likes": {
+	        "lt": 10
+	      }
+	    }
+	  }
+	}`),
+	)
+	fmt.Println(res, err)
+}
+----

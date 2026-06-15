@@ -1,0 +1,65 @@
+// Generated from docs-update-by-query_2fe28d9a91b3081a9ec4601af8fb7b1c_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.Create(
+		"test",
+		es.Indices.Create.WithBody(strings.NewReader(`{
+	  "mappings": {
+	    "dynamic": false,
+	    "properties": {
+	      "text": {
+	        "type": "text"
+	      }
+	    }
+	  }
+	}`)),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"test",
+		strings.NewReader(`{
+	  "text": "words words",
+	  "flag": "bar"
+	}`),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Index(
+		"test",
+		strings.NewReader(`{
+	  "text": "words words",
+	  "flag": "foo"
+	}`),
+		es.Index.WithRefresh("true"),
+		es.Index.WithPretty(),
+	)
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.PutMapping(
+		[]string{"test"},
+		strings.NewReader(`{
+	  "properties": {
+	    "text": {
+	      "type": "text"
+	    },
+	    "flag": {
+	      "type": "text",
+	      "analyzer": "keyword"
+	    }
+	  }
+	}`),
+	)
+	fmt.Println(res, err)
+}
+----

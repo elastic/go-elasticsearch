@@ -1,0 +1,32 @@
+// Generated from query-dsl-multi-match-query_6bbc613bd4f9aec1bbdbabf5db021d28_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "bool": {
+	      "should": [
+	        {
+	          "match": {
+	            "title": "quick brown fox"
+	          }
+	        },
+	        {
+	          "match": {
+	            "title.original": "quick brown fox"
+	          }
+	        },
+	        {
+	          "match": {
+	            "title.shingles": "quick brown fox"
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

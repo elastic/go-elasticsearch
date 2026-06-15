@@ -1,0 +1,74 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+// Package boundaryscanner
+package boundaryscanner
+
+import "strings"
+
+// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/search/_types/highlighting.ts#L26-L45
+type BoundaryScanner struct {
+	Name string
+}
+
+var (
+
+	// Chars Use the characters specified by `boundary_chars` as highlighting boundaries.
+	// The `boundary_max_scan` setting controls how far to scan for boundary
+	// characters. Only valid for the `fvh` highlighter.
+	Chars = BoundaryScanner{"chars"}
+
+	// Sentence Break highlighted fragments at the next sentence boundary, as determined by
+	// Java’s `BreakIterator`. You can specify the locale to use with
+	// `boundary_scanner_locale`. When used with the `unified` highlighter, the
+	// `sentence` scanner splits sentences bigger than `fragment_size` at the first
+	// word boundary next to fragment_size. You can set `fragment_size` to `0` to
+	// never split any sentence.
+	Sentence = BoundaryScanner{"sentence"}
+
+	// Word Break highlighted fragments at the next word boundary, as determined by
+	// Java’s `BreakIterator`. You can specify the locale to use with
+	// `boundary_scanner_locale`.
+	Word = BoundaryScanner{"word"}
+)
+
+func (b BoundaryScanner) MarshalText() (text []byte, err error) {
+	return []byte(b.String()), nil
+}
+
+func (b *BoundaryScanner) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "chars":
+		*b = Chars
+	case "sentence":
+		*b = Sentence
+	case "word":
+		*b = Word
+	default:
+		*b = BoundaryScanner{string(text)}
+	}
+
+	return nil
+}
+
+func (b BoundaryScanner) String() string {
+	return b.Name
+}

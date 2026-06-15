@@ -1,0 +1,7 @@
+// Generated from indices-create-index_1c23507edd7a3c18538b68223378e4ab_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create("twitter")
+fmt.Println(res, err)
+----

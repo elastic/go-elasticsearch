@@ -1,0 +1,29 @@
+// Generated from aggregations-bucket-filter-aggregation_5e0a6e903dcbef11da316fe89cf05792_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("sales"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "t_shirts": {
+	      "filter": {
+	        "term": {
+	          "type": "t-shirt"
+	        }
+	      },
+	      "aggs": {
+	        "avg_price": {
+	          "avg": {
+	            "field": "price"
+	          }
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

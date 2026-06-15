@@ -1,0 +1,9 @@
+// Generated from search-request-scroll_c2c21e2824fbf6b7198ede30419da82b_test.go
+//
+[source, go]
+----
+res, err := es.ClearScroll(
+	es.ClearScroll.WithScrollID("_all"),
+)
+fmt.Println(res, err)
+----

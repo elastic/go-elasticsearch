@@ -1,0 +1,7 @@
+// Generated from indices-aliases_67bba546d835bca8f31df13e3587c348_test.go
+//
+[source, go]
+----
+res, err := es.Get("test", "1", es.Get.WithPretty())
+fmt.Println(res, err)
+----

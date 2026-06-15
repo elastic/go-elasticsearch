@@ -1,0 +1,378 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+// Schedule a transform to start now.
+//
+// Instantly run a transform to process data. If you run this API, the transform
+// will process the new data instantly, without waiting for the configured
+// frequency interval. After the API is called, the transform will be processed
+// again at `now + frequency` unless the API is called again in the meantime.
+package schedulenowtransform
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
+
+const (
+	transformidMask = iota + 1
+)
+
+// ErrBuildPath is returned in case of missing parameters within the build of the request.
+var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
+
+type ScheduleNowTransform struct {
+	transport elastictransport.Interface
+
+	headers http.Header
+	values  url.Values
+	path    url.URL
+
+	raw io.Reader
+
+	paramSet int
+
+	transformid string
+
+	spanStarted bool
+
+	instrument elastictransport.Instrumentation
+}
+
+// NewScheduleNowTransform type alias for index.
+type NewScheduleNowTransform func(transformid string) *ScheduleNowTransform
+
+// NewScheduleNowTransformFunc returns a new instance of ScheduleNowTransform with the provided transport.
+// Used in the index of the library this allows to retrieve every apis in once place.
+func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTransform {
+	return func(transformid string) *ScheduleNowTransform {
+		n := New(tp)
+
+		n._transformid(transformid)
+
+		return n
+	}
+}
+
+// Schedule a transform to start now.
+//
+// Instantly run a transform to process data. If you run this API, the transform
+// will process the new data instantly, without waiting for the configured
+// frequency interval. After the API is called, the transform will be processed
+// again at `now + frequency` unless the API is called again in the meantime.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-transform-schedule-now-transform
+func New(tp elastictransport.Interface) *ScheduleNowTransform {
+	r := &ScheduleNowTransform{
+		transport: tp,
+		values:    make(url.Values),
+		headers:   make(http.Header),
+	}
+
+	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
+		if instrument := instrumented.InstrumentationEnabled(); instrument != nil {
+			r.instrument = instrument
+		}
+	}
+
+	return r
+}
+
+// HttpRequest returns the http.Request object built from the
+// given parameters.
+func (r *ScheduleNowTransform) HttpRequest(ctx context.Context) (*http.Request, error) {
+	var path strings.Builder
+	var method string
+	var req *http.Request
+
+	var err error
+
+	r.path.Scheme = "http"
+
+	switch {
+	case r.paramSet == transformidMask:
+		path.WriteString("/")
+		path.WriteString("_transform")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "transformid", r.transformid)
+		}
+		path.WriteString(r.transformid)
+		path.WriteString("/")
+		path.WriteString("_schedule_now")
+
+		method = http.MethodPost
+	}
+
+	r.path.Path = path.String()
+	r.path.RawQuery = r.values.Encode()
+
+	if r.path.Path == "" {
+		return nil, ErrBuildPath
+	}
+
+	if ctx != nil {
+		req, err = http.NewRequestWithContext(ctx, method, r.path.String(), r.raw)
+	} else {
+		req, err = http.NewRequest(method, r.path.String(), r.raw)
+	}
+
+	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Content-Type") == "" {
+		if r.raw != nil {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=9")
+		}
+	}
+
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
+	}
+
+	if err != nil {
+		return req, fmt.Errorf("could not build http.Request: %w", err)
+	}
+
+	return req, nil
+}
+
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r ScheduleNowTransform) Perform(providedCtx context.Context) (*http.Response, error) {
+	var ctx context.Context
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		if r.spanStarted == false {
+			ctx = instrument.Start(providedCtx, "transform.schedule_now_transform")
+			defer instrument.Close(ctx)
+		}
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	req, err := r.HttpRequest(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.BeforeRequest(req, "transform.schedule_now_transform")
+		if reader := instrument.RecordRequestBody(ctx, "transform.schedule_now_transform", r.raw); reader != nil {
+			req.Body = reader
+		}
+	}
+	res, err := r.transport.Perform(req)
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "transform.schedule_now_transform")
+	}
+	if err != nil {
+		localErr := fmt.Errorf("an error happened during the ScheduleNowTransform query execution: %w", err)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, localErr)
+		}
+		return nil, localErr
+	}
+
+	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a schedulenowtransform.Response
+func (r ScheduleNowTransform) Do(providedCtx context.Context) (*Response, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "transform.schedule_now_transform")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
+}
+
+// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
+// This only exists for endpoints without a request payload and allows for quick control flow.
+func (r ScheduleNowTransform) IsSuccess(providedCtx context.Context) (bool, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "transform.schedule_now_transform")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	res, err := r.Perform(ctx)
+
+	if err != nil {
+		return false, err
+	}
+	io.Copy(io.Discard, res.Body)
+	err = res.Body.Close()
+	if err != nil {
+		return false, err
+	}
+
+	if res.StatusCode >= 200 && res.StatusCode < 300 {
+		return true, nil
+	}
+
+	if res.StatusCode != 404 {
+		err := fmt.Errorf("an error happened during the ScheduleNowTransform query execution, status code: %d", res.StatusCode)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return false, err
+	}
+
+	return false, nil
+}
+
+// Header set a key, value pair in the ScheduleNowTransform headers map.
+func (r *ScheduleNowTransform) Header(key, value string) *ScheduleNowTransform {
+	r.headers.Set(key, value)
+
+	return r
+}
+
+// TransformId Identifier for the transform.
+// API Name: transformid
+func (r *ScheduleNowTransform) _transformid(transformid string) *ScheduleNowTransform {
+	r.paramSet |= transformidMask
+	r.transformid = transformid
+
+	return r
+}
+
+// Timeout Controls the time to wait for the scheduling to take place
+// API name: timeout
+func (r *ScheduleNowTransform) Timeout(duration string) *ScheduleNowTransform {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Defer When true, defers the scheduling by the transform's configured sync delay
+// instead of triggering immediately. The transform will process new data after
+// the delay elapses rather than right away.
+// API name: defer
+func (r *ScheduleNowTransform) Defer(defer_ bool) *ScheduleNowTransform {
+	r.values.Set("defer", strconv.FormatBool(defer_))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *ScheduleNowTransform) ErrorTrace(errortrace bool) *ScheduleNowTransform {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *ScheduleNowTransform) FilterPath(filterpaths ...string) *ScheduleNowTransform {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
+// API name: human
+func (r *ScheduleNowTransform) Human(human bool) *ScheduleNowTransform {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
+// API name: pretty
+func (r *ScheduleNowTransform) Pretty(pretty bool) *ScheduleNowTransform {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}

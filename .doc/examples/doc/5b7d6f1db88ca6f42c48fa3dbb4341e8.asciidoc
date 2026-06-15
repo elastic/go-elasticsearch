@@ -1,0 +1,19 @@
+// Generated from indices-get-mapping_5b7d6f1db88ca6f42c48fa3dbb4341e8_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Indices.GetMapping(es.Indices.GetMapping.WithIndex("*"))
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.GetMapping(es.Indices.GetMapping.WithIndex("_all"))
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Indices.GetMapping()
+	fmt.Println(res, err)
+}
+----

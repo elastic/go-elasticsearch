@@ -1,0 +1,14 @@
+// Generated from indices-create-index_de876505acc75d371d1f6f484c449197_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create(
+	"test",
+	es.Indices.Create.WithBody(strings.NewReader(`{
+	  "settings": {
+	    "index.write.wait_for_active_shards": "2"
+	  }
+	}`)),
+)
+fmt.Println(res, err)
+----

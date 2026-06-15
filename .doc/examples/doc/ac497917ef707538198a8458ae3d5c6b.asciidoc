@@ -1,0 +1,16 @@
+// Generated from query-dsl-match-query_ac497917ef707538198a8458ae3d5c6b_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "message": "this is a test"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

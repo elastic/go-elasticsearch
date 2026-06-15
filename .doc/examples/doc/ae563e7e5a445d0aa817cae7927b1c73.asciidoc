@@ -1,0 +1,20 @@
+// Generated from query-dsl-terms-query_ae563e7e5a445d0aa817cae7927b1c73_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "terms": {
+	      "user": [
+	        "kimchy",
+	        "elasticsearch"
+	      ],
+	      "boost": 1.0
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

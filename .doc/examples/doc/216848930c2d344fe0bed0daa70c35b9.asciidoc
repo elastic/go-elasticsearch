@@ -1,0 +1,10 @@
+// Generated from docs-delete-by-query_216848930c2d344fe0bed0daa70c35b9_test.go
+//
+[source, go]
+----
+res, err := es.Tasks.List(
+	es.Tasks.List.WithActions("*/delete/byquery"),
+	es.Tasks.List.WithDetailed(true),
+)
+fmt.Println(res, err)
+----

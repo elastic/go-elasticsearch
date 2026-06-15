@@ -1,0 +1,14 @@
+// Generated from docs-reindex_3b04cc894e6a47d57983484010feac0c_test.go
+//
+[source, go]
+----
+{
+	res, err := es.Get("metricbeat-2016.05.30-1", "1", es.Get.WithPretty())
+	fmt.Println(res, err)
+}
+
+{
+	res, err := es.Get("metricbeat-2016.05.31-1", "1", es.Get.WithPretty())
+	fmt.Println(res, err)
+}
+----

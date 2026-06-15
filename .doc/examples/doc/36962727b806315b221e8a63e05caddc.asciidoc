@@ -1,0 +1,17 @@
+// Generated from mapping_36962727b806315b221e8a63e05caddc_test.go
+//
+[source, go]
+----
+res, err := es.Indices.PutMapping(
+	[]string{"my-index-000001"},
+	strings.NewReader(`{
+	  "properties": {
+	    "employee-id": {
+	      "type": "keyword",
+	      "index": false
+	    }
+	  }
+	}`),
+)
+fmt.Println(res, err)
+----

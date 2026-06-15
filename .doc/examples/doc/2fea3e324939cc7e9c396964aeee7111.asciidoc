@@ -1,0 +1,20 @@
+// Generated from query-dsl-match-query_2fea3e324939cc7e9c396964aeee7111_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "match": {
+	      "message": {
+	        "query": "to be or not to be",
+	        "operator": "and",
+	        "zero_terms_query": "all"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

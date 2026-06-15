@@ -1,0 +1,15 @@
+// Generated from search-request-scroll_d5dcddc6398b473b6ad9bce5c6adf986_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    "_doc"
+	  ]
+	}`)),
+	es.Search.WithScroll(time.Duration(60000000000)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

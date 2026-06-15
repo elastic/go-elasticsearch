@@ -1,0 +1,28 @@
+// Generated from query-dsl-multi-match-query_b0eaf67e5cce24ef8889bf20951ccec1_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "query": {
+	    "dis_max": {
+	      "queries": [
+	        {
+	          "match": {
+	            "subject": "brown fox"
+	          }
+	        },
+	        {
+	          "match": {
+	            "message": "brown fox"
+	          }
+	        }
+	      ],
+	      "tie_breaker": 0.3
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

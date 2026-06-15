@@ -1,0 +1,16 @@
+// Generated from docs-reindex_52b2bfbdd78f8283b6f4891c48013237_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "max_docs": 1,
+	  "source": {
+	    "index": "twitter"
+	  },
+	  "dest": {
+	    "index": "new_twitter"
+	  }
+	}`))
+fmt.Println(res, err)
+----

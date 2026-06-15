@@ -1,0 +1,134 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+
+package esdsl
+
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/fieldaccesspattern"
+)
+
+type _ingestPipeline struct {
+	v *types.IngestPipeline
+}
+
+func NewIngestPipeline() *_ingestPipeline {
+
+	return &_ingestPipeline{v: types.NewIngestPipeline()}
+
+}
+
+func (s *_ingestPipeline) CreatedDate(datetime types.DateTimeVariant) *_ingestPipeline {
+
+	s.v.CreatedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) CreatedDateMillis(epochtimeunitmillis int64) *_ingestPipeline {
+
+	s.v.CreatedDateMillis = &epochtimeunitmillis
+
+	return s
+}
+
+func (s *_ingestPipeline) Deprecated(deprecated bool) *_ingestPipeline {
+
+	s.v.Deprecated = &deprecated
+
+	return s
+}
+
+func (s *_ingestPipeline) Description(description string) *_ingestPipeline {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_ingestPipeline) FieldAccessPattern(fieldaccesspattern fieldaccesspattern.FieldAccessPattern) *_ingestPipeline {
+
+	s.v.FieldAccessPattern = &fieldaccesspattern
+	return s
+}
+
+func (s *_ingestPipeline) Meta_(metadata types.MetadataVariant) *_ingestPipeline {
+
+	s.v.Meta_ = *metadata.MetadataCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) ModifiedDate(datetime types.DateTimeVariant) *_ingestPipeline {
+
+	s.v.ModifiedDate = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_ingestPipeline) ModifiedDateMillis(epochtimeunitmillis int64) *_ingestPipeline {
+
+	s.v.ModifiedDateMillis = &epochtimeunitmillis
+
+	return s
+}
+
+func (s *_ingestPipeline) OnFailure(onfailures ...types.ProcessorContainerVariant) *_ingestPipeline {
+
+	for _, v := range onfailures {
+
+		s.v.OnFailure = append(s.v.OnFailure, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_ingestPipeline) OnFailureValues(onfailurevalues []types.ProcessorContainer) *_ingestPipeline {
+
+	s.v.OnFailure = onfailurevalues
+	return s
+}
+
+func (s *_ingestPipeline) Processors(processors ...types.ProcessorContainerVariant) *_ingestPipeline {
+
+	for _, v := range processors {
+
+		s.v.Processors = append(s.v.Processors, *v.ProcessorContainerCaster())
+
+	}
+	return s
+}
+
+func (s *_ingestPipeline) ProcessorsValues(processorsvalues []types.ProcessorContainer) *_ingestPipeline {
+
+	s.v.Processors = processorsvalues
+	return s
+}
+
+func (s *_ingestPipeline) Version(versionnumber int64) *_ingestPipeline {
+
+	s.v.Version = &versionnumber
+
+	return s
+}
+
+func (s *_ingestPipeline) IngestPipelineCaster() *types.IngestPipeline {
+	return s.v
+}

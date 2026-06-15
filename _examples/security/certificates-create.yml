@@ -1,0 +1,35 @@
+# Create the certificates for the stack:
+#
+#     docker-compose --file certificates-create.yml run --rm create_certificates
+#
+# See: https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls-docker.html
+
+version: "3.7"
+
+services:
+  create_certificates:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: certificates_generator
+    user: root
+    working_dir: /usr/share/elasticsearch
+    command: >
+      bash -c '
+        OUTPUT="/certificates/bundle.zip"
+        if [[ -f $$OUTPUT ]]; then
+          echo "Certificates already present in [.$$OUTPUT]"; exit 1;
+        else
+          yum install -y -q -e 0 unzip tree;
+          bin/elasticsearch-certutil cert \
+            --pem \
+            --days 365 \
+            --keep-ca-key \
+            --in config/certificates/certificates-config.yml \
+            --out $$OUTPUT;
+          unzip -q $$OUTPUT -d /certificates;
+          chown -R 1000:0 /certificates; echo;
+          tree /certificates;
+        fi;
+      '
+    volumes:
+      - ./certificates:/certificates
+      - ./certificates-config.yml:/usr/share/elasticsearch/config/certificates/certificates-config.yml

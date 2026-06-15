@@ -1,0 +1,7 @@
+// Generated from indices-put-mapping_12433d2b637d002e8d5c9a1adce69d3b_test.go
+//
+[source, go]
+----
+res, err := es.Indices.Create("publications")
+fmt.Println(res, err)
+----

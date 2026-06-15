@@ -1,0 +1,9 @@
+// Generated from docs-delete-by-query_be3a6431d01846950dc1a39a7a6a1faa_test.go
+//
+[source, go]
+----
+res, err := es.Tasks.Get(
+	"r1A2WoRbTwKZ516z6NEs5A:36619",
+)
+fmt.Println(res, err)
+----

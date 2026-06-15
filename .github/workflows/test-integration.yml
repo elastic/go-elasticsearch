@@ -1,0 +1,73 @@
+---
+name: Integration
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  push:
+    branches:
+      - github-actions
+      - main
+      - "8.*"
+      - "9.*"
+  pull_request:
+    branches:
+      - main
+      - "8.*"
+      - "9.*"
+
+env:
+  GITHUB_ACTIONS: true
+  ELASTICSEARCH_VERSION: elasticsearch:9.4.0-SNAPSHOT
+
+jobs:
+  test-integration:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-go@v6
+        with: { go-version-file: go.mod }
+      - run: go version
+      - run: make test-integ race=true
+        env:
+          GOFLAGS: "-short"
+      # TODO: Add PR-level coverage threshold enforcement (elastic/elastic-client-generator-go#111)
+      - name: Coverage summary
+        run: |
+          head -1 tmp/integration-client.cov > tmp/integration-filtered.cov
+          grep -v -E '^mode:|esapi/api\.|typedapi/|internal/|_examples/|_benchmarks/' tmp/integration-client.cov >> tmp/integration-filtered.cov
+          {
+            echo '## Integration Test Coverage'
+            echo '```'
+            go tool cover -func=tmp/integration-filtered.cov | sed 's|github.com/elastic/go-elasticsearch/v9/||g' | tail -1
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  examples:
+    name: Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-go@v6
+        with: { go-version-file: go.mod }
+      - run: go version
+      - name: Increase system limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+      - name: Launch Elasticsearch
+        run: |
+          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
+          docker pull --quiet appropriate/curl
+          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
+      - name: Run setup
+        run: |
+          cd _examples/encoding && make setup
+        env:
+          GOBIN: ${{ env.GOROOT }}/bin
+      - run: make test-examples

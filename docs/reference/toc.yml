@@ -1,0 +1,25 @@
+toc:
+  - file: index.md
+  - file: getting-started.md
+  - file: installation.md
+  - file: connecting.md
+  - file: configuration.md
+  - file: using-the-api/index.md
+    children:
+      - file: using-the-api/crud-operations.md
+      - file: using-the-api/searching.md
+      - file: using-the-api/aggregations.md
+      - file: using-the-api/bulk-indexing.md
+      - file: using-the-api/esql.md
+      - file: using-the-api/dense-vectors.md
+  - file: typed-api/index.md
+    children:
+      - file: typed-api/conventions.md
+      - file: typed-api/esdsl.md
+  - file: low-level-api/index.md
+    children:
+      - file: low-level-api/migration.md
+  - file: advanced/index.md
+    children:
+      - file: advanced/interceptors.md
+      - file: advanced/observability.md

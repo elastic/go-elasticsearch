@@ -1,0 +1,32 @@
+// Generated from search-request-sort_cd3986003382259348b84859f8ac2466_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("my-index-000001"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "sort": [
+	    {
+	      "post_date": {
+	        "order": "asc"
+	      }
+	    },
+	    "user",
+	    {
+	      "name": "desc"
+	    },
+	    {
+	      "age": "desc"
+	    },
+	    "_score"
+	  ],
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

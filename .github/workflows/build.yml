@@ -1,0 +1,34 @@
+---
+name: Build
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  push:
+    branches:
+      - github-actions
+      - main
+      - "8.*"
+      - "9.*"
+  pull_request:
+    branches:
+      - main
+      - "8.*"
+      - "9.*"
+
+env:
+  GITHUB_ACTIONS: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.x"
+      - run: go version
+      - run: make lint

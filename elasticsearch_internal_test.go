@@ -1,0 +1,1930 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+//go:build !integration
+// +build !integration
+
+package elasticsearch
+
+import (
+	"bytes"
+	"context"
+	"crypto/ecdsa"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/sha256"
+	"crypto/tls"
+	"crypto/x509"
+	"crypto/x509/pkix"
+	"encoding/base64"
+	"encoding/hex"
+	"errors"
+	"io"
+	"math/big"
+	"net"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"os"
+	"reflect"
+	"regexp"
+	"strconv"
+	"strings"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
+
+var metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
+var called bool
+
+type mockTransp struct {
+	RoundTripFunc func(*http.Request) (*http.Response, error)
+}
+
+var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
+	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}}}
+
+	if req.URL.Path == "/" {
+		response.Body = io.NopCloser(strings.NewReader(`{
+		  "version" : {
+			"number" : "8.0.0-SNAPSHOT",
+			"build_flavor" : "default"
+		  },
+		  "tagline" : "You Know, for Search"
+		}`))
+		response.Header.Add("Content-Type", "application/json")
+	} else {
+		called = true
+	}
+
+	return response, nil
+}
+
+func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
+	if t.RoundTripFunc == nil {
+		return defaultRoundTripFunc(req)
+	}
+	return t.RoundTripFunc(req)
+}
+
+//nolint:gocyclo
+func TestClientConfiguration(t *testing.T) {
+	t.Parallel()
+
+	t.Run("With empty", func(t *testing.T) {
+		c, err := New()
+
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != defaultURL {
+			t.Errorf("Unexpected URL, want=%s, got=%s", defaultURL, u)
+		}
+	})
+
+	t.Run("With URL from Addresses", func(t *testing.T) {
+		c, err := New(WithAddresses("http://localhost:8080//"))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != "http://localhost:8080" {
+			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
+		}
+	})
+
+	t.Run("With URL from environment", func(t *testing.T) {
+		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
+		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
+
+		c, err := New()
+		if err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != "http://example.com" {
+			t.Errorf("Unexpected URL, want=http://example.com, got=%s", u)
+		}
+	})
+
+	t.Run("With URL from environment and cfg.Addresses", func(t *testing.T) {
+		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
+		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
+
+		c, err := New(WithAddresses("http://localhost:8080//"))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != "http://localhost:8080" {
+			t.Errorf("Unexpected URL, want=http://localhost:8080, got=%s", u)
+		}
+	})
+
+	t.Run("With URL from environment and cfg.CloudID", func(t *testing.T) {
+		os.Setenv("ELASTICSEARCH_URL", "http://example.com")
+		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
+
+		c, err := New(WithCloudID("foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != "https://abc123.bar.cloud.es.io" {
+			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
+		}
+	})
+
+	t.Run("With cfg.Addresses and cfg.CloudID", func(t *testing.T) {
+		_, err := New(WithAddresses("http://localhost:8080//"), WithCloudID("foo:ABC="))
+		if err == nil {
+			t.Fatalf("Expected error, got: %v", err)
+		}
+		match, err := regexp.MatchString("both .* are set", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if !match {
+			t.Errorf("Expected error when addresses from environment and configuration are used together, got: %v", err)
+		}
+	})
+
+	t.Run("With CloudID", func(t *testing.T) {
+		// bar.cloud.es.io$abc123$def456
+		c, err := New(WithCloudID("foo:YmFyLmNsb3VkLmVzLmlvJGFiYzEyMyRkZWY0NTY="))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		u := c.Transport.(*elastictransport.Client).URLs()[0].String()
+
+		if u != "https://abc123.bar.cloud.es.io" {
+			t.Errorf("Unexpected URL, want=https://abc123.bar.cloud.es.io, got=%s", u)
+		}
+	})
+
+	t.Run("With invalid CloudID", func(t *testing.T) {
+		var err error
+
+		_, err = New(WithCloudID("foo:ZZZ==="))
+		if err == nil {
+			t.Errorf("Expected error for CloudID, got: %v", err)
+		}
+
+		_, err = New(WithCloudID("foo:Zm9v"))
+		if err == nil {
+			t.Errorf("Expected error for CloudID, got: %v", err)
+		}
+
+		_, err = New(WithCloudID("foo:"))
+		if err == nil {
+			t.Errorf("Expected error for CloudID, got: %v", err)
+		}
+	})
+
+	t.Run("With invalid URL", func(t *testing.T) {
+		u := ":foo"
+		_, err := New(WithAddresses(u))
+
+		if err == nil {
+			t.Errorf("Expected error for URL %q, got %v", u, err)
+		}
+	})
+
+	t.Run("With invalid URL from environment", func(t *testing.T) {
+		os.Setenv("ELASTICSEARCH_URL", ":foobar")
+		defer func() { os.Setenv("ELASTICSEARCH_URL", "") }()
+
+		c, err := New()
+		if err == nil {
+			t.Errorf("Expected error, got: %+v", c)
+		}
+	})
+}
+
+func TestClientInterface(t *testing.T) {
+	t.Run("Transport", func(t *testing.T) {
+		c, err := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if called != false { // megacheck ignore
+			t.Errorf("Unexpected call to transport by client")
+		}
+
+		_, err = c.Perform(&http.Request{URL: &url.URL{}, Header: make(http.Header)})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if called != true { // megacheck ignore
+			t.Errorf("Expected client to call transport")
+		}
+	})
+}
+
+func TestAddrsToURLs(t *testing.T) {
+	tt := []struct {
+		name  string
+		addrs []string
+		urls  []*url.URL
+		err   error
+	}{
+		{
+			name: "valid",
+			addrs: []string{
+				"http://example.com",
+				"https://example.com",
+				"http://192.168.255.255",
+				"http://example.com:8080",
+			},
+			urls: []*url.URL{
+				{Scheme: "http", Host: "example.com"},
+				{Scheme: "https", Host: "example.com"},
+				{Scheme: "http", Host: "192.168.255.255"},
+				{Scheme: "http", Host: "example.com:8080"},
+			},
+			err: nil,
+		},
+		{
+			name:  "trim trailing slash",
+			addrs: []string{"http://example.com/", "http://example.com//"},
+			urls: []*url.URL{
+				{Scheme: "http", Host: "example.com", Path: ""},
+				{Scheme: "http", Host: "example.com", Path: ""},
+			},
+		},
+		{
+			name:  "keep suffix",
+			addrs: []string{"http://example.com/foo"},
+			urls:  []*url.URL{{Scheme: "http", Host: "example.com", Path: "/foo"}},
+		},
+		{
+			name:  "invalid url",
+			addrs: []string{"://invalid.com"},
+			urls:  nil,
+			err:   errors.New("missing protocol scheme"),
+		},
+	}
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			res, err := addrsToURLs(tc.addrs)
+
+			if tc.err != nil {
+				if err == nil {
+					t.Errorf("Expected error, got: %v", err)
+				}
+				match, matchErr := regexp.MatchString(tc.err.Error(), err.Error())
+				if matchErr != nil {
+					t.Fatalf("Unexpected error: %s", matchErr)
+				}
+				if !match {
+					t.Errorf("Expected err [%s] to match: %s", matchErr.Error(), tc.err.Error())
+				}
+			}
+
+			for i := range tc.urls {
+				if res[i].Scheme != tc.urls[i].Scheme {
+					t.Errorf("%s: Unexpected scheme, want=%s, got=%s", tc.name, tc.urls[i].Scheme, res[i].Scheme)
+				}
+			}
+			for i := range tc.urls {
+				if res[i].Host != tc.urls[i].Host {
+					t.Errorf("%s: Unexpected host, want=%s, got=%s", tc.name, tc.urls[i].Host, res[i].Host)
+				}
+			}
+			for i := range tc.urls {
+				if res[i].Path != tc.urls[i].Path {
+					t.Errorf("%s: Unexpected path, want=%s, got=%s", tc.name, tc.urls[i].Path, res[i].Path)
+				}
+			}
+		})
+	}
+}
+
+func TestCloudID(t *testing.T) {
+	t.Run("Parse", func(t *testing.T) {
+		var testdata = []struct {
+			in  string
+			out string
+		}{
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid$kibana_uuid")),
+				out: "https://es_uuid.host",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host:9243$es_uuid$kibana_uuid")),
+				out: "https://es_uuid.host:9243",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid$")),
+				out: "https://es_uuid.host",
+			},
+			{
+				in:  "name:" + base64.StdEncoding.EncodeToString([]byte("host$es_uuid")),
+				out: "https://es_uuid.host",
+			},
+		}
+
+		for _, tt := range testdata {
+			actual, err := addrFromCloudID(tt.in)
+			if err != nil {
+				t.Errorf("Unexpected error: %s", err)
+			}
+			if actual != tt.out {
+				t.Errorf("Unexpected output, want=%q, got=%q", tt.out, actual)
+			}
+		}
+
+	})
+
+	t.Run("Invalid format", func(t *testing.T) {
+		input := "foobar"
+		_, err := addrFromCloudID(input)
+		if err == nil {
+			t.Errorf("Expected error for input %q, got %v", input, err)
+		}
+		match, err := regexp.MatchString("unexpected format", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if !match {
+			t.Errorf("Unexpected error string: %s", err)
+		}
+	})
+
+	t.Run("Invalid base64 value", func(t *testing.T) {
+		input := "foobar:xxxxx"
+		_, err := addrFromCloudID(input)
+		if err == nil {
+			t.Errorf("Expected error for input %q, got %v", input, err)
+		}
+		match, err := regexp.MatchString("illegal base64 data", err.Error())
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		if !match {
+			t.Errorf("Unexpected error string: %s", err)
+		}
+	})
+}
+
+func TestVersion(t *testing.T) {
+	if Version == "" {
+		t.Error("Version is empty")
+	}
+}
+
+func TestClientMetrics(t *testing.T) {
+	c, err := New(WithTransportOptions(elastictransport.WithMetrics()))
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	m, err := c.Metrics()
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+
+	if m.Requests != 0 {
+		t.Errorf("Unexpected output: %s", m)
+	}
+}
+
+func TestResponseCheckOnly(t *testing.T) {
+	tests := []struct {
+		name       string
+		response   *http.Response
+		requestErr error
+		wantErr    bool
+	}{
+		{
+			name: "Valid answer with header",
+			response: &http.Response{
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body:   io.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Valid answer without header",
+			response: &http.Response{
+				StatusCode: http.StatusOK,
+				Body:       io.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: true,
+		},
+		{
+			name: "Valid answer with header and response check",
+			response: &http.Response{
+				Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				Body:   io.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: false,
+		},
+		{
+			name: "Valid answer without header and response check",
+			response: &http.Response{
+				StatusCode: http.StatusOK,
+				Body:       io.NopCloser(strings.NewReader("{}")),
+			},
+			wantErr: true,
+		},
+		{
+			name:       "Request failed",
+			response:   nil,
+			requestErr: errors.New("request failed"),
+			wantErr:    true,
+		},
+		{
+			name: "Valid request, 500 response",
+			response: &http.Response{
+				StatusCode: http.StatusInternalServerError,
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
+		},
+		{
+			name: "Valid request, 404 response",
+			response: &http.Response{
+				StatusCode: http.StatusNotFound,
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
+		},
+		{
+			name: "Valid request, 403 response",
+			response: &http.Response{
+				StatusCode: http.StatusForbidden,
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
+		},
+		{
+			name: "Valid request, 401 response",
+			response: &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			requestErr: nil,
+			wantErr:    false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c, err := New(WithTransportOptions(
+				elastictransport.WithTransport(&mockTransp{RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+					return tt.response, tt.requestErr
+				}}),
+			))
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+			_, err = c.Cat.Indices()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Unexpected error, got %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestProductCheckError(t *testing.T) {
+	var requestPaths []string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestPaths = append(requestPaths, r.URL.Path)
+		if len(requestPaths) == 1 {
+			// Simulate transient error from a proxy on the first request.
+			// This must not be cached by the client.
+			w.WriteHeader(http.StatusBadGateway)
+			return
+		}
+
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		_, _ = w.Write([]byte("{}"))
+	}))
+	defer server.Close()
+
+	c, err := New(WithAddresses(server.URL), WithTransportOptions(elastictransport.WithDisableRetry()))
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	if _, err := c.Cat.Indices(); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if c.productCheckSuccess {
+		t.Fatalf("product check should be invalid, got %v", c.productCheckSuccess)
+	}
+	if _, err := c.Cat.Indices(); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if n := len(requestPaths); n != 2 {
+		t.Fatalf("expected 2 requests, got %d", n)
+	}
+	if !reflect.DeepEqual(requestPaths, []string{"/_cat/indices", "/_cat/indices"}) {
+		t.Fatalf("unexpected request paths: %s", requestPaths)
+	}
+	if !c.productCheckSuccess {
+		t.Fatalf("product check should be valid, got : %v", c.productCheckSuccess)
+	}
+}
+
+func TestFingerprint(t *testing.T) {
+	body := []byte(`{"body": true"}"`)
+
+	// Generate a self-signed certificate at test time to avoid expiry issues.
+	key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	if err != nil {
+		t.Fatal(err)
+	}
+	template := &x509.Certificate{
+		SerialNumber: big.NewInt(1),
+		Subject:      pkix.Name{CommonName: "instance"},
+		NotBefore:    time.Now().Add(-1 * time.Hour),
+		NotAfter:     time.Now().Add(1 * time.Hour),
+		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
+		KeyUsage:     x509.KeyUsageDigitalSignature,
+		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+	}
+	certDER, err := x509.CreateCertificate(rand.Reader, template, template, &key.PublicKey, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cert := tls.Certificate{
+		Certificate: [][]byte{certDER},
+		PrivateKey:  key,
+	}
+
+	// Compute the SHA-256 fingerprint of the leaf certificate.
+	fingerprint := sha256.Sum256(certDER)
+	fingerprintHex := strings.ToUpper(hex.EncodeToString(fingerprint[:]))
+
+	server := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		_, _ = w.Write(body)
+	}))
+	server.TLS = new(tls.Config)
+	server.TLS.Certificates = []tls.Certificate{cert}
+	server.StartTLS()
+
+	defer server.Close()
+
+	baseOpts := []Option{
+		WithAddresses(server.URL),
+		WithTransportOptions(elastictransport.WithDisableRetry()),
+	}
+
+	// Without certificate and authority, client should fail on TLS
+	client, _ := New(baseOpts...)
+	_, err = client.Info()
+
+	if ok := errors.As(err, &x509.UnknownAuthorityError{}); !ok {
+		t.Fatalf("expected UnknownAuthorityError, got: %s", err)
+	}
+
+	// We add the fingerprint of the generated certificate
+	client, _ = New(append(baseOpts, WithCertificateFingerprint(fingerprintHex))...)
+	res, err := client.Info()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	if !bytes.Equal(data, body) {
+		t.Fatalf("unexpected payload returned: expected: %s, got: %s", body, data)
+	}
+}
+
+func TestCompatibilityHeader(t *testing.T) {
+	tests := []struct {
+		name                string
+		envVar              bool
+		configVar           bool
+		compatibilityHeader bool
+		bodyPresent         bool
+		expectsHeader       []string
+	}{
+		{
+			name:                "Compatibility header disabled",
+			compatibilityHeader: false,
+			bodyPresent:         false,
+			envVar:              false,
+			configVar:           false,
+			expectsHeader:       []string{"application/json"},
+		},
+		{
+			name:                "Compatibility header enabled with env var",
+			compatibilityHeader: true,
+			bodyPresent:         false,
+			envVar:              true,
+			configVar:           false,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
+		},
+		{
+			name:                "Compatibility header enabled with body with env var",
+			compatibilityHeader: true,
+			bodyPresent:         true,
+			envVar:              true,
+			configVar:           false,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
+		},
+		{
+			name:                "Compatibility header enabled in conf",
+			compatibilityHeader: true,
+			bodyPresent:         false,
+			envVar:              false,
+			configVar:           true,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
+		},
+		{
+			name:                "Compatibility header enabled with body in conf",
+			compatibilityHeader: true,
+			bodyPresent:         true,
+			envVar:              false,
+			configVar:           true,
+			expectsHeader:       []string{"application/vnd.elasticsearch+json;compatible-with=9"},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Setenv(esCompatHeader, strconv.FormatBool(test.compatibilityHeader))
+
+			opts := []Option{
+				WithTransportOptions(elastictransport.WithTransport(&mockTransp{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						if test.compatibilityHeader {
+							if !reflect.DeepEqual(req.Header["Accept"], test.expectsHeader) {
+								t.Errorf("Compatibility header enabled but header is, not in request headers, got: %s, want: %s", req.Header["Accept"], test.expectsHeader)
+							}
+
+							if test.bodyPresent {
+								if !reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
+									t.Errorf("Compatibility header with Body enabled, not in request headers, got: %s, want: %s", req.Header["Content-Type"], test.expectsHeader)
+								}
+							} else {
+								if reflect.DeepEqual(req.Header["Content-Type"], test.expectsHeader) {
+									t.Errorf("Compatibility header if Content-Type shouldn't be set with an empty body")
+								}
+							}
+						}
+
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Status:     "MOCK",
+							Body:       io.NopCloser(strings.NewReader("{}")),
+						}, nil
+					},
+				})),
+			}
+			if test.configVar {
+				opts = append(opts, WithCompatibilityMode())
+			}
+
+			c, err := New(opts...)
+			if err != nil {
+				t.Fatalf("Unexpected error: %s", err)
+			}
+
+			req := &http.Request{URL: &url.URL{}, Header: make(http.Header)}
+			if test.bodyPresent {
+				req.Body = io.NopCloser(strings.NewReader("{}"))
+			}
+
+			_, _ = c.Perform(req)
+		})
+	}
+}
+
+func TestBuildStrippedVersion(t *testing.T) {
+	type args struct {
+		version string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Standard Go version",
+			args: args{version: "go1.16"},
+			want: "1.16",
+		},
+		{
+			name: "Rc Go version",
+			args: args{
+				version: "go1.16rc1",
+			},
+			want: "1.16p",
+		},
+		{
+			name: "Beta Go version (go1.16beta1 example)",
+			args: args{
+				version: "devel +2ff33f5e44 Thu Dec 17 16:03:19 2020 +0000",
+			},
+			want: "0.0p",
+		},
+		{
+			name: "Random mostly good Go version",
+			args: args{
+				version: "1.16",
+			},
+			want: "1.16",
+		},
+		{
+			name: "Client package version",
+			args: args{
+				version: "8.0.0",
+			},
+			want: "8.0.0",
+		},
+		{
+			name: "Client pre release version",
+			args: args{
+				version: "8.0.0-SNAPSHOT",
+			},
+			want: "8.0.0p",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := buildStrippedVersion(tt.args.version); got != tt.want {
+				t.Errorf("buildStrippedVersion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMetaHeader(t *testing.T) {
+	t.Run("MetaHeader with elastictransport", func(t *testing.T) {
+		tp, err := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get(HeaderClientMeta)
+					if !metaHeaderReValidation.MatchString(h) {
+						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       io.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		c, err := New()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		c.Transport = tp
+
+		_, err = c.Info()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+	})
+
+	t.Run("Metaheader with typedclient", func(t *testing.T) {
+		tp, err := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get(HeaderClientMeta)
+					if !metaHeaderReValidation.MatchString(h) {
+						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+					}
+					if !strings.Contains(h, "hl=1") {
+						t.Errorf("invalid metaheader, should contain hl=1, got: %s", h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       io.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		c, err := NewTyped()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		c.Transport = tp
+
+		_, _ = c.Info().Do(nil) //nolint:staticcheck
+	})
+}
+
+func TestNewTypedClient(t *testing.T) {
+	tp, err := elastictransport.New(elastictransport.Config{
+		URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+		Transport: &mockTransp{
+			RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+				h := request.Header.Get(HeaderClientMeta)
+				if !metaHeaderReValidation.MatchString(h) {
+					t.Errorf("expected client metaheader to validate regexp, got: %s", h)
+				}
+
+				return &http.Response{
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					StatusCode: http.StatusOK,
+					Status:     "OK",
+					Body: io.NopCloser(strings.NewReader(`{
+					  "version" : {
+						"number" : "8.0.0-SNAPSHOT",
+						"build_flavor" : "default"
+					  },
+					  "tagline" : "You Know, for Search"
+					}`)),
+				}, nil
+			},
+		},
+	})
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+
+	c, err := NewTyped()
+	if err != nil {
+		t.Fatalf("Unexpected error: %s", err)
+	}
+	c.Transport = tp
+
+	res, err := c.Info().Do(context.Background())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+
+	if res.Tagline != "You Know, for Search" {
+		t.Fatal("unexpected tagline")
+	}
+
+	_, err = New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+}
+
+func toTypedMockTransport(t *testing.T, capture *http.Header) elastictransport.Interface {
+	t.Helper()
+	tp, err := elastictransport.NewClient(
+		elastictransport.WithURLs(&url.URL{Scheme: "http", Host: "foo"}),
+		elastictransport.WithTransport(&mockTransp{
+			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+				if capture != nil {
+					*capture = req.Header.Clone()
+				}
+				return &http.Response{
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+					StatusCode: http.StatusOK,
+					Status:     "OK",
+					Body: io.NopCloser(strings.NewReader(`{
+						"version":{"number":"8.0.0-SNAPSHOT","build_flavor":"default"},
+						"tagline":"You Know, for Search"
+					}`)),
+				}, nil
+			},
+		}),
+	)
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	return tp
+}
+
+func TestNewTypedFrom_AddsTypedFlag(t *testing.T) {
+	var captured http.Header
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	c.Transport = toTypedMockTransport(t, &captured)
+
+	tc := NewTypedFrom(c)
+	if _, err := tc.Info().Do(context.Background()); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+
+	h := captured.Get(HeaderClientMeta)
+	if !metaHeaderReValidation.MatchString(h) {
+		t.Errorf("expected meta header to match regexp, got: %s", h)
+	}
+	if !strings.Contains(h, "hl=1") {
+		t.Errorf("expected meta header to contain hl=1, got: %s", h)
+	}
+}
+
+func TestNewTypedFrom_SharesTransport(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	tc := NewTypedFrom(c)
+	if tc.Transport != c.Transport {
+		t.Errorf("expected converted client to share the source transport")
+	}
+}
+
+func TestNewTypedFrom_PreservesConfigFlags(t *testing.T) {
+	c, err := New(WithCompatibilityMode(), WithAutoDrainBody())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	tc := NewTypedFrom(c)
+	if !tc.compatibilityHeader {
+		t.Errorf("expected compatibilityHeader to be carried over")
+	}
+	if !tc.autoDrainBody {
+		t.Errorf("expected autoDrainBody to be carried over")
+	}
+	if tc.disableMetaHeader {
+		t.Errorf("expected disableMetaHeader to remain false")
+	}
+}
+
+func TestNewTypedFrom_PreservesDisableMetaHeader(t *testing.T) {
+	var captured http.Header
+	c, err := New(WithDisableMetaHeader())
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	c.Transport = toTypedMockTransport(t, &captured)
+
+	tc := NewTypedFrom(c)
+	if !tc.disableMetaHeader {
+		t.Errorf("expected disableMetaHeader to be carried over")
+	}
+
+	if _, err := tc.Info().Do(context.Background()); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if h := captured.Get(HeaderClientMeta); h != "" {
+		t.Errorf("expected no meta header when disabled, got: %s", h)
+	}
+}
+
+func TestNewTypedFrom_IdempotentFlag(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	first := NewTypedFrom(c)
+	if strings.Count(first.metaHeader, "hl=1") != 1 {
+		t.Errorf("expected exactly one hl=1, got: %s", first.metaHeader)
+	}
+
+	// Simulate a Client whose metaHeader already contains hl=1: the
+	// conversion must not append a second occurrence.
+	c.metaHeader = first.metaHeader
+	second := NewTypedFrom(c)
+	if strings.Count(second.metaHeader, "hl=1") != 1 {
+		t.Errorf("expected exactly one hl=1, got: %s", second.metaHeader)
+	}
+}
+
+func TestNewTypedFrom_SourceNotMutated(t *testing.T) {
+	c, err := New()
+	if err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	before := c.metaHeader
+	_ = NewTypedFrom(c)
+	if c.metaHeader != before {
+		t.Errorf("source metaHeader mutated: before=%q after=%q", before, c.metaHeader)
+	}
+	if strings.Contains(c.metaHeader, "hl=1") {
+		t.Errorf("source Client metaHeader should not contain hl=1, got: %s", c.metaHeader)
+	}
+}
+
+func TestContentTypeOverride(t *testing.T) {
+	t.Run("default JSON Content-Type", func(t *testing.T) {
+		contentType := "application/json"
+
+		tp, err := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       io.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		c, err := New()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		c.Transport = tp
+
+		_, err = c.Search(c.Search.WithBody(strings.NewReader("")))
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+	})
+	t.Run("overridden CBOR Content-Type functional options style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, err := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       io.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		c, err := New()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		c.Transport = tp
+
+		_, _ = c.Search(
+			c.Search.WithHeader(map[string]string{
+				"Content-Type": contentType,
+			}),
+			c.Search.WithBody(strings.NewReader("")),
+		)
+	})
+	t.Run("overridden CBOR Content-Type direct call style", func(t *testing.T) {
+		contentType := "application/cbor"
+
+		tp, err := elastictransport.New(elastictransport.Config{
+			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
+			Transport: &mockTransp{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					h := request.Header.Get("Content-Type")
+					if h != contentType {
+						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
+					}
+
+					return &http.Response{
+						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						StatusCode: http.StatusOK,
+						Status:     "OK",
+						Body:       io.NopCloser(strings.NewReader("")),
+					}, nil
+				},
+			},
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		c, err := New()
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+		c.Transport = tp
+
+		search := esapi.SearchRequest{}
+		search.Body = strings.NewReader("")
+		search.Header = make(map[string][]string)
+		search.Header.Set("Content-Type", contentType)
+		_, _ = search.Do(context.Background(), tp)
+	})
+}
+
+type FakeInstrumentation struct {
+	Error error
+
+	Name                string
+	Closed              bool
+	ClusterID           string
+	NodeName            string
+	PathParts           map[string]string
+	PersistQuery        bool
+	QueryEndpoint       string
+	Query               string
+	BeforeRequestFunc   func(r *http.Request, endpoint string) bool
+	BeforeRequestResult bool
+	AfterRequestFunc    func(r *http.Request, system, endpoint string) bool
+	AfterRequestResult  bool
+}
+
+func NewFakeInstrumentation(recordQuery bool) *FakeInstrumentation {
+	return &FakeInstrumentation{
+		PersistQuery: recordQuery,
+		PathParts:    make(map[string]string),
+	}
+}
+
+func (c *FakeInstrumentation) Start(ctx context.Context, name string) context.Context {
+	c.Name = name
+	return ctx
+}
+
+func (c *FakeInstrumentation) Close(_ context.Context) {
+	c.Closed = true
+}
+
+func (c *FakeInstrumentation) RecordError(_ context.Context, err error) {
+	c.Error = err
+}
+
+func (c *FakeInstrumentation) AfterResponse(_ context.Context, res *http.Response) {
+	if id := res.Header.Get("X-Found-Handling-Cluster"); id != "" {
+		c.ClusterID = id
+	}
+	if name := res.Header.Get("X-Found-Handling-Instance"); name != "" {
+		c.NodeName = name
+	}
+}
+
+func (c *FakeInstrumentation) RecordPathPart(_ context.Context, pathPart, value string) {
+	c.PathParts[pathPart] = value
+}
+
+func (c *FakeInstrumentation) RecordRequestBody(_ context.Context, endpoint string, query io.Reader) io.ReadCloser {
+	c.QueryEndpoint = endpoint
+	if !c.PersistQuery {
+		return nil
+	}
+
+	buf := bytes.Buffer{}
+	_, _ = buf.ReadFrom(query)
+	c.Query = buf.String()
+	return io.NopCloser(&buf)
+}
+
+func (c *FakeInstrumentation) BeforeRequest(req *http.Request, endpoint string) {
+	if c.BeforeRequestFunc != nil {
+		c.BeforeRequestResult = c.BeforeRequestFunc(req, endpoint)
+	}
+}
+
+func (c *FakeInstrumentation) AfterRequest(req *http.Request, system, endpoint string) {
+	if c.AfterRequestFunc != nil {
+		c.AfterRequestResult = c.AfterRequestFunc(req, system, endpoint)
+	}
+}
+
+//nolint:gocyclo
+func TestInstrumentation(t *testing.T) {
+	successTp := func(_ *http.Request) (*http.Response, error) {
+		h := http.Header{}
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusOK,
+			Header:     h,
+			Body:       io.NopCloser(strings.NewReader(`{}`)),
+		}, nil
+	}
+
+	errorTp := func(_ *http.Request) (*http.Response, error) {
+		h := http.Header{}
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusNotFound,
+			Header:     h,
+			Body: io.NopCloser(strings.NewReader(`{
+  "error": {
+    "root_cause": [
+      {
+        "type": "index_not_found_exception",
+        "reason": "no such index [foo]",
+        "resource.type": "index_or_alias",
+        "resource.id": "foo",
+        "index_uuid": "_na_",
+        "index": "foo"
+      }
+    ],
+    "type": "index_not_found_exception",
+    "reason": "no such index [foo]",
+    "resource.type": "index_or_alias",
+    "resource.id": "foo",
+    "index_uuid": "_na_",
+    "index": "foo"
+  },
+  "status": 404
+}`)),
+		}, nil
+	}
+
+	reason := "index_not_found_exception"
+
+	type args struct {
+		roundTripFunc   func(request *http.Request) (*http.Response, error)
+		instrumentation *FakeInstrumentation
+	}
+	tests := []struct {
+		name string
+		args args
+		want *FakeInstrumentation
+	}{
+		{
+			name: "with query",
+			args: args{
+				successTp,
+				NewFakeInstrumentation(true),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "{\"query\":{\"match_all\":{}}}",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc: func(r *http.Request, _ string) bool {
+					if r != nil {
+						if r.URL.Path != "/foo/_search" {
+							return false
+						}
+						if r.Method != http.MethodPost {
+							return false
+						}
+					}
+
+					return true
+				},
+				AfterRequestFunc: func(r *http.Request, _, _ string) bool {
+					if r != nil {
+						if r.URL.Path != "/foo/_search" {
+							return false
+						}
+						if r.Method != http.MethodPost {
+							return false
+						}
+					}
+					return true
+				},
+			},
+		},
+		{
+			name: "without query",
+			args: args{
+				successTp,
+				NewFakeInstrumentation(false),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc:   func(_ *http.Request, _ string) bool { return true },
+				AfterRequestFunc:    func(_ *http.Request, _, _ string) bool { return true },
+			},
+		},
+		{
+			name: "with error",
+			args: args{
+				errorTp,
+				NewFakeInstrumentation(false),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc:   func(_ *http.Request, _ string) bool { return true },
+				AfterRequestFunc:    func(_ *http.Request, _, _ string) bool { return true },
+				Error:               &types.ElasticsearchError{Status: http.StatusNotFound, ErrorCause: types.ErrorCause{Type: reason}},
+			},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Run("typed client", func(t *testing.T) {
+				instrument := test.args.instrumentation
+				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
+				instrument.AfterRequestFunc = test.want.AfterRequestFunc
+
+				es, err := NewTyped(
+					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithInstrumentation(instrument),
+				)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+				_, err = es.Search().
+					Index("foo").
+					Query(&types.Query{
+						MatchAll: types.NewMatchAllQuery(),
+					}).
+					Do(context.Background())
+
+				if test.want.Error != nil {
+					if err == nil {
+						t.Fatalf("Expected an error: %s", err)
+					}
+					if !errors.Is(instrument.Error, test.want.Error) {
+						t.Error("ploup")
+					}
+				} else if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				if instrument.BeforeRequestResult != test.want.BeforeRequestResult ||
+					instrument.AfterRequestResult != test.want.AfterRequestResult ||
+					instrument.Name != test.want.Name ||
+					instrument.Query != test.want.Query ||
+					instrument.QueryEndpoint != test.want.QueryEndpoint ||
+					instrument.NodeName != test.want.NodeName ||
+					instrument.ClusterID != test.want.ClusterID ||
+					instrument.Closed == false {
+					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
+				}
+
+				if !reflect.DeepEqual(instrument.PathParts, test.want.PathParts) {
+					t.Errorf("path parts not within expected values, got: %#v, want: %#v", instrument.PathParts, test.want.PathParts)
+				}
+			})
+			t.Run("low-level client", func(t *testing.T) {
+				instrument := test.args.instrumentation
+				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
+				instrument.AfterRequestFunc = test.want.AfterRequestFunc
+
+				es, err := New(
+					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithInstrumentation(instrument),
+				)
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+				_, _ = es.Search(
+					es.Search.WithIndex("foo"),
+					es.Search.WithBody(strings.NewReader("{\"query\":{\"match_all\":{}}}")),
+					es.Search.WithContext(context.Background()),
+				)
+
+				if test.want.Error != nil {
+					if !errors.Is(instrument.Error, test.want.Error) {
+						t.Error("ploup")
+					}
+				}
+
+				if instrument.BeforeRequestResult != test.want.BeforeRequestResult ||
+					instrument.AfterRequestResult != test.want.AfterRequestResult ||
+					instrument.Name != test.want.Name ||
+					instrument.Query != test.want.Query ||
+					instrument.QueryEndpoint != test.want.QueryEndpoint ||
+					instrument.NodeName != test.want.NodeName ||
+					instrument.ClusterID != test.want.ClusterID ||
+					instrument.Closed == false {
+					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
+				}
+
+				if !reflect.DeepEqual(instrument.PathParts, test.want.PathParts) {
+					t.Errorf("path parts not within expected values, got: %#v, want: %#v", instrument.PathParts, test.want.PathParts)
+				}
+			})
+		})
+	}
+}
+
+//nolint:gocyclo
+func TestClose(t *testing.T) {
+	type closeable interface {
+		esapi.Transport
+		elastictransport.Closeable
+	}
+
+	tests := []struct {
+		name string
+		c    func() closeable
+	}{
+		{name: "BaseClient", c: func() closeable {
+			c, _ := NewBase(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			return c
+		}},
+		{name: "Client", c: func() closeable {
+			c, _ := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			return c
+		}},
+		{name: "TypedClient", c: func() closeable {
+			c, _ := NewTyped(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			return c
+		}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Run("close", func(t *testing.T) {
+				c := tt.c()
+				err := c.Close(context.Background())
+				if err != nil {
+					t.Errorf("unexpected error: %v", err)
+				}
+			})
+
+			t.Run("closed twice", func(t *testing.T) {
+				c := tt.c()
+				_ = c.Close(context.Background())
+				err := c.Close(context.Background())
+				if err != nil {
+					if !errors.Is(err, ErrAlreadyClosed) {
+						t.Errorf("unexpected error: %v", err)
+					}
+				}
+			})
+
+			t.Run("performing a request after close", func(t *testing.T) {
+				c := tt.c()
+				if err := c.Close(context.Background()); err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+				req, err := http.NewRequest(http.MethodGet, "http://localhost:9200", nil)
+				if err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+				if _, err := c.Perform(req); err != nil {
+					if !errors.Is(err, ErrClosed) {
+						t.Fatalf("unexpected error: %v", err)
+					}
+				} else {
+					t.Fatal("expected error")
+				}
+			})
+
+			t.Run("transport close called", func(t *testing.T) {
+				c := tt.c()
+				transportCloseCalled := false
+				mockTransport := &mockESTransport{CloseFunc: func(_ context.Context) error {
+					transportCloseCalled = true
+					return nil
+				}}
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+
+				err := c.Close(context.Background())
+				if err != nil {
+					t.Errorf("unexpected error: %v", err)
+				}
+				if !transportCloseCalled {
+					t.Fatal("transport close not called")
+				}
+			})
+
+			t.Run("close timed out, transport close unresponsive", func(t *testing.T) {
+				done := make(chan struct{})
+				t.Cleanup(func() { close(done) })
+				mockTransport := &mockESTransport{CloseFunc: func(_ context.Context) error {
+					<-done
+					return nil
+				}}
+				c := tt.c()
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
+				defer cancel()
+				if err := c.Close(ctx); !errors.Is(err, context.DeadlineExceeded) {
+					t.Fatalf("unexpected error: %v", err)
+				}
+			})
+
+			t.Run("close timed out, transport close responsive", func(t *testing.T) {
+				mockTransport := &mockESTransport{CloseFunc: func(ctx context.Context) error {
+					<-ctx.Done()
+					return ctx.Err()
+				}}
+				c := tt.c()
+				switch c := c.(type) {
+				case *BaseClient:
+					c.Transport = mockTransport
+				case *Client:
+					c.Transport = mockTransport
+				case *TypedClient:
+					c.Transport = mockTransport
+				}
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
+				defer cancel()
+				if err := c.Close(ctx); !errors.Is(err, context.DeadlineExceeded) {
+					t.Fatalf("unexpected error: %v", err)
+				}
+			})
+
+		})
+	}
+}
+
+func TestIntercepts(t *testing.T) {
+	successTp := func(request *http.Request) (*http.Response, error) {
+		h := request.Header.Clone()
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusOK,
+			Header:     h,
+			Body:       io.NopCloser(strings.NewReader(`{}`)),
+		}, nil
+	}
+
+	const (
+		testInterceptReqHeader  = "X-TEST-INTERCEPT-REQ"
+		testInterceptRespHeader = "X-TEST-INTERCEPT-RESP"
+	)
+
+	dummyInterceptorFactory := func(num int) elastictransport.InterceptorFunc {
+		return func(next elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+			return func(r *http.Request) (*http.Response, error) {
+				r.Header.Add(testInterceptReqHeader, strconv.Itoa(num))
+				resp, err := next(r)
+				resp.Header.Add(testInterceptRespHeader, strconv.Itoa(num))
+				return resp, err
+			}
+		}
+	}
+
+	validateReqRespH := func(expectReq, expectResp string) func(t *testing.T, resp *esapi.Response) {
+		return func(t *testing.T, resp *esapi.Response) {
+			if strings.Join(resp.Header.Values(testInterceptReqHeader), ",") != expectReq {
+				t.Error("expected header value", resp.Header.Values(testInterceptReqHeader))
+			}
+			if strings.Join(resp.Header.Values(testInterceptRespHeader), ",") != expectResp {
+				t.Error("expected header value", resp.Header.Values(testInterceptRespHeader))
+			}
+		}
+	}
+
+	type args struct {
+		interceptors []elastictransport.InterceptorFunc
+	}
+	tests := []struct {
+		name             string
+		args             args
+		wantErr          bool
+		validateResponse func(t *testing.T, resp *esapi.Response)
+	}{
+		{
+			name:    "interceptor array nil",
+			args:    args{interceptors: nil},
+			wantErr: false,
+		},
+		{
+			name:    "interceptor array empty",
+			args:    args{interceptors: []elastictransport.InterceptorFunc{}},
+			wantErr: false,
+		},
+		{
+			name:             "interceptor array nil interceptor",
+			args:             args{interceptors: []elastictransport.InterceptorFunc{nil, dummyInterceptorFactory(1)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1", "1"),
+		},
+		{
+			name:             "interceptor array 1 interceptor",
+			args:             args{interceptors: []elastictransport.InterceptorFunc{dummyInterceptorFactory(1)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1", "1"),
+		},
+		{
+			name: "interceptor array many interceptors",
+			args: args{interceptors: []elastictransport.InterceptorFunc{
+				dummyInterceptorFactory(1), dummyInterceptorFactory(2), dummyInterceptorFactory(3)}},
+			wantErr:          false,
+			validateResponse: validateReqRespH("1,2,3", "3,2,1"),
+		},
+		{
+			name: "interceptor returns error",
+			args: args{interceptors: []elastictransport.InterceptorFunc{
+				func(_ elastictransport.RoundTripFunc) elastictransport.RoundTripFunc {
+					return func(_ *http.Request) (*http.Response, error) {
+						return nil, errors.New("test error")
+					}
+				},
+			}},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Run("typed client", func(t *testing.T) {
+				es, _ := NewTyped(
+					WithTransportOptions(
+						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithInterceptors(tt.args.interceptors...),
+					),
+				)
+				_, err := es.Info().Do(context.Background())
+				if (err != nil) != tt.wantErr {
+					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
+				}
+			})
+			t.Run("low-level client", func(t *testing.T) {
+				es, _ := New(
+					WithTransportOptions(
+						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithInterceptors(tt.args.interceptors...),
+					),
+				)
+				resp, err := es.Info()
+				if (err != nil) != tt.wantErr {
+					t.Errorf("Info() error = %v, wantErr %v", err, tt.wantErr)
+				}
+				if tt.validateResponse != nil {
+					tt.validateResponse(t, resp)
+				}
+			})
+		})
+	}
+}
+
+type mockESTransport struct {
+	PerformFunc func(*http.Request) (*http.Response, error)
+	CloseFunc   func(context.Context) error
+}
+
+func (m mockESTransport) Perform(req *http.Request) (*http.Response, error) {
+	if m.PerformFunc != nil {
+		return m.PerformFunc(req)
+	}
+	t := &mockTransp{}
+	return t.RoundTrip(req)
+}
+
+func (m mockESTransport) Close(ctx context.Context) error {
+	if m.CloseFunc != nil {
+		return m.CloseFunc(ctx)
+	}
+	return nil
+}
+
+// ------------- auto draining response body related tests -------------
+
+type readCloser struct {
+	io.Reader
+	closed bool
+}
+
+func (rc *readCloser) Close() error {
+	rc.closed = true
+	return nil
+}
+
+func TestAutoDrainingReader(t *testing.T) {
+	content := strings.NewReader("hello elasticsearch")
+	wrapped := &autoDrainingReader{ReadCloser: &readCloser{Reader: content}}
+	buf := make([]byte, 5)
+	n, err := wrapped.Read(buf)
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 5 {
+		t.Errorf("expected 5 bytes, got %d", n)
+	}
+	if string(buf[:n]) != "hello" {
+		t.Errorf("expected 'hello', got '%s'", string(buf[:n]))
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+}
+
+func TestAutoDrainingReaderDrainsOnClose(t *testing.T) {
+	content := bytes.Buffer{}
+	content.Grow(100)
+	content.Write(make([]byte, 100))
+	wrapped := &autoDrainingReader{
+		ReadCloser: &readCloser{Reader: &content},
+	}
+	n, err := wrapped.Read(make([]byte, 10))
+	if err != nil {
+		t.Fatalf("Read error: %v", err)
+	}
+	if n != 10 {
+		t.Errorf("expected 10 bytes, got %d", n)
+	}
+	if err := wrapped.Close(); err != nil {
+		t.Fatalf("Close error: %v", err)
+	}
+	if content.Len() != 0 {
+		t.Errorf("expected content to be drained, remaining: %d bytes", content.Len())
+	}
+}
+
+func TestAutoDrainBodyEnablesConnectionReuse(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse (1 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyDisabledConnectionNotReused(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"status":"ok","padding":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: false,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 5 {
+		func() {
+			res, err := es.Info()
+			if err != nil {
+				t.Fatalf("Request failed: %v", err)
+			}
+			defer res.Body.Close()
+			if res.IsError() {
+				t.Errorf("Request returned error: %s", res.String())
+			}
+		}()
+	}
+	if atomic.LoadInt32(&actualConnections) != 5 {
+		t.Errorf("Expected connection to not be reused (5 connection), but saw %d", actualConnections)
+	}
+}
+
+func TestAutoDrainBodyWithPartialRead(t *testing.T) {
+	var actualConnections int32
+	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("X-Elastic-Product", "Elasticsearch")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write([]byte(`{"cluster_name":"test","test_data":"` + strings.Repeat("x", 3000) + `"}`)); err != nil {
+			t.Errorf("failed to write response: %v", err)
+		}
+	}))
+	ts.Config.ConnState = func(_ net.Conn, state http.ConnState) {
+		if state == http.StateNew {
+			atomic.AddInt32(&actualConnections, 1)
+		}
+	}
+	ts.Start()
+	defer ts.Close()
+	es, err := NewClient(Config{
+		Addresses:     []string{ts.URL},
+		AutoDrainBody: true,
+	})
+	if err != nil {
+		t.Fatalf("Failed to create client: %v", err)
+	}
+	for range 3 {
+		res, err := es.Info()
+		if err != nil {
+			t.Fatalf("Request failed: %v", err)
+		}
+		buf := make([]byte, 10)
+		n, err := res.Body.Read(buf)
+		if err != nil && err != io.EOF {
+			t.Fatalf("Read error: %v", err)
+		}
+		if n == 0 {
+			t.Error("Expected to read some data")
+		}
+		if err := res.Body.Close(); err != nil {
+			t.Fatalf("Close error: %v", err)
+		}
+	}
+	if atomic.LoadInt32(&actualConnections) > 1 {
+		t.Errorf("Expected connection reuse after partial read (1 connection), but saw %d", actualConnections)
+	}
+}

@@ -1,0 +1,10 @@
+// Generated from cluster-health_c48264ec5d9b9679fddd72e5c44425b9_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.Health(
+	es.Cluster.Health.WithIndex([]string{"twitter"}...),
+	es.Cluster.Health.WithLevel("shards"),
+)
+fmt.Println(res, err)
+----

@@ -1,0 +1,21 @@
+// Generated from aggregations-bucket-terms-aggregation_54a215d242ab65123b09e9dfb71bcbbf_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "genres": {
+	      "terms": {
+	        "field": "genre",
+	        "order": {
+	          "_key": "asc"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

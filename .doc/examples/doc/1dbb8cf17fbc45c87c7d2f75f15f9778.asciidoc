@@ -1,0 +1,9 @@
+// Generated from api-conventions_1dbb8cf17fbc45c87c7d2f75f15f9778_test.go
+//
+[source, go]
+----
+res, err := es.Cluster.State(
+	es.Cluster.State.WithFilterPath("metadata.indices.*.stat*"),
+)
+fmt.Println(res, err)
+----

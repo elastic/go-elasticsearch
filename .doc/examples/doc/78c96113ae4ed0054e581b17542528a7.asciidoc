@@ -1,0 +1,21 @@
+// Generated from docs-reindex_78c96113ae4ed0054e581b17542528a7_test.go
+//
+[source, go]
+----
+res, err := es.Reindex(
+	strings.NewReader(`{
+	  "source": {
+	    "index": "source",
+	    "query": {
+	      "match": {
+	        "company": "cat"
+	      }
+	    }
+	  },
+	  "dest": {
+	    "index": "dest",
+	    "routing": "=cat"
+	  }
+	}`))
+fmt.Println(res, err)
+----

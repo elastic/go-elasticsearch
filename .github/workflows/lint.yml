@@ -1,0 +1,63 @@
+---
+name: Lint
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  pull_request: null
+
+permissions: {}
+
+jobs:
+  megalinter:
+    name: Lint (MegaLinter)
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+      statuses: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: MegaLinter
+        id: ml
+        uses: oxsecurity/megalinter@55a59b24a441e0e1943080d4a512d827710d4a9d # v9.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive MegaLinter reports
+        if: success() || failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: MegaLinter reports
+          path: |
+            megalinter-reports
+            mega-linter.log
+
+  golangci:
+    name: Lint (golangci-lint)
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version-file: go.mod
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9
+        with:
+          version: v2.8
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          only-new-issues: true

@@ -1,0 +1,146 @@
+---
+name: Apidiff PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled]
+
+concurrency:
+  group: apidiff-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  APIDIFF_FALLBACK_TAG: v9.2.1
+
+jobs:
+  apidiff:
+    if: "contains(github.event.pull_request.labels.*.name, 'apidiff: release') || contains(github.event.pull_request.labels.*.name, 'apidiff: pr')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Install apidiff
+        run: go install golang.org/x/exp/cmd/apidiff@latest
+
+      - name: Run apidiff
+        id: apidiff
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          COMPARE_RELEASE: "${{ contains(github.event.pull_request.labels.*.name, 'apidiff: release') }}"
+        run: |
+          set -euo pipefail
+
+          git fetch --tags --force
+          git fetch origin "${BASE_REF}"
+
+          work_dir="$PWD"
+          old_dir="${work_dir}/tmp/apidiff-old"
+          comments_dir="${work_dir}/tmp/apidiff-comments"
+          mkdir -p "${comments_dir}"
+
+          module_path=$(awk '/^module /{print $2}' go.mod)
+
+          if [ "${COMPARE_RELEASE}" = "true" ]; then
+            # Compare against the previous release tag
+            version=$(git show "origin/${BASE_REF}:.github/.release-please-manifest.json" | python3 -c "import json,sys; print(json.load(sys.stdin)['.'])")
+            target="v${version}"
+            echo "Mode: release comparison"
+            echo "Base branch: ${BASE_REF}"
+            echo "Parsed version from base: ${version}"
+            echo "Looking for tag: ${target}"
+            fallback="${APIDIFF_FALLBACK_TAG:-}"
+            if ! git rev-parse --verify --quiet "${target}" >/dev/null; then
+              if [ -z "${fallback}" ]; then
+                echo "Tag ${target} not found and no fallback provided." >&2
+                exit 1
+              fi
+              target="${fallback}"
+            fi
+            compare_label="${target}"
+          else
+            # Compare against the base branch of the PR
+            target="origin/${BASE_REF}"
+            compare_label="${BASE_REF}"
+            echo "Mode: base branch comparison"
+            echo "Comparing against: ${target}"
+          fi
+
+          echo "target=${target}" >> "${GITHUB_OUTPUT}"
+          echo "compare_label=${compare_label}" >> "${GITHUB_OUTPUT}"
+
+          git worktree add "${old_dir}" "${target}"
+
+          export_file="${work_dir}/tmp/apidiff-old-module.export"
+          marker="<!-- apidiff:module -->"
+          outfile="${comments_dir}/module.md"
+
+          (cd "${old_dir}" && apidiff -m -w "${export_file}" "${module_path}")
+
+          set +e
+          output=$(apidiff -m "${export_file}" "${module_path}" 2>&1)
+          status=$?
+          set -e
+
+          {
+            echo "${marker}"
+            echo "## apidiff: module (vs ${compare_label})"
+            echo
+            if [ -z "${output}" ]; then
+              if [ "${status}" -ne 0 ]; then
+                echo "apidiff failed (exit ${status}). Check workflow logs."
+              else
+                echo "No incompatible changes found."
+              fi
+            else
+              echo '```'
+              echo "${output}"
+              echo '```'
+            fi
+          } > "${outfile}"
+
+          git worktree remove "${old_dir}" --force
+
+      - name: Post apidiff comments
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              { owner, repo, issue_number, per_page: 100 }
+            );
+
+            const marker = '<!-- apidiff:module -->';
+            const body = fs.readFileSync('tmp/apidiff-comments/module.md', 'utf8');
+            const existing = comments.find((comment) => comment.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }

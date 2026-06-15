@@ -1,0 +1,182 @@
+---
+name: Binary size
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: binsize-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  # Per-binary increase that triggers a warning. Advisory only; the job
+  # never fails on a size regression.
+  BINSIZE_THRESHOLD_PERCENT: "10"
+
+jobs:
+  binsize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Build and compare
+        id: binsize
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+
+          variants=(base client typed)
+          threshold="${BINSIZE_THRESHOLD_PERCENT}"
+
+          work_dir="$PWD"
+          base_dir="${work_dir}/tmp/binsize-base"
+          out_dir="${work_dir}/tmp/binsize"
+          fixture_src="${work_dir}/internal/cmd/binsize"
+          mkdir -p "${out_dir}"
+
+          build_variant() {
+            # $1=workdir, $2=variant, $3=output path
+            (cd "$1" && go build -trimpath -o "$3" "./internal/cmd/binsize/$2")
+          }
+
+          file_size() { stat -c%s "$1"; }
+
+          fmt_size()  { awk -v n="$1" 'BEGIN{ printf "%.2f MB", n/1048576 }'; }
+          fmt_delta() { awk -v n="$1" 'BEGIN{ s=(n>=0)?"+":""; printf "%s%.2f MB", s, n/1048576 }'; }
+
+          echo "Building PR binaries (HEAD=${GITHUB_SHA})"
+          for v in "${variants[@]}"; do
+            build_variant "${work_dir}" "$v" "${out_dir}/pr-$v"
+            file_size "${out_dir}/pr-$v" > "${out_dir}/pr-$v.size"
+          done
+
+          echo "Checking out base ref ${BASE_REF} @ ${BASE_SHA}"
+          git fetch --no-tags --depth=1 origin "${BASE_SHA}" 2>/dev/null || true
+
+          base_available=1
+          if ! git rev-parse --verify --quiet "${BASE_SHA}^{commit}" >/dev/null; then
+            base_available=0
+          elif ! git worktree add --detach "${base_dir}" "${BASE_SHA}" 2>/dev/null; then
+            base_available=0
+          fi
+
+          if [ "$base_available" = "1" ]; then
+            # Copy PR fixtures into the base worktree so this check works on
+            # PRs landing before the base contains the fixtures themselves.
+            mkdir -p "${base_dir}/internal/cmd/binsize"
+            cp -R "${fixture_src}/." "${base_dir}/internal/cmd/binsize/"
+
+            echo "Building base binaries"
+            for v in "${variants[@]}"; do
+              build_variant "${base_dir}" "$v" "${out_dir}/base-$v"
+              file_size "${out_dir}/base-$v" > "${out_dir}/base-$v.size"
+            done
+
+            git worktree remove --force "${base_dir}"
+          else
+            echo "::warning::Base ref ${BASE_REF} @ ${BASE_SHA} is unreachable; skipping comparison."
+          fi
+
+          over_threshold=0
+          {
+            echo "<!-- binsize -->"
+            echo "## Binary size vs \`${BASE_REF}\` (threshold: +${threshold}%)"
+            echo
+            echo "Fixtures: [\`internal/cmd/binsize\`](internal/cmd/binsize), built with \`go build -trimpath\` on linux/amd64."
+            echo
+            if [ "$base_available" = "0" ]; then
+              echo "_Base ref \`${BASE_REF}\` @ \`${BASE_SHA}\` was unreachable (likely force-pushed). Skipping comparison; PR binary sizes only._"
+              echo
+              echo "| Variant | PR |"
+              echo "|---|---:|"
+              for v in "${variants[@]}"; do
+                ps=$(cat "${out_dir}/pr-$v.size")
+                echo "| ${v} | $(fmt_size "$ps") |"
+              done
+            else
+              echo "| Variant | Base | PR | Delta | % |"
+              echo "|---|---:|---:|---:|---:|"
+              for v in "${variants[@]}"; do
+                bs=$(cat "${out_dir}/base-$v.size")
+                ps=$(cat "${out_dir}/pr-$v.size")
+                delta=$((ps - bs))
+                pct=$(awk -v d="$delta" -v b="$bs" 'BEGIN{ if (b==0){print "0.00"} else { printf "%.2f", (d/b)*100 } }')
+                over=$(awk -v p="$pct" -v t="$threshold" 'BEGIN{ print (p > t) ? 1 : 0 }')
+                marker=""
+                if [ "$over" = "1" ]; then
+                  marker=" :warning:"
+                  over_threshold=1
+                fi
+                sign=""
+                if awk -v p="$pct" 'BEGIN{ exit (p > 0) ? 0 : 1 }'; then sign="+"; fi
+                echo "| ${v} | $(fmt_size "$bs") | $(fmt_size "$ps") | $(fmt_delta "$delta") | ${sign}${pct}%${marker} |"
+              done
+              echo
+              if [ "$over_threshold" = "1" ]; then
+                echo "_One or more binaries grew by more than +${threshold}%. This is advisory — review whether the increase is expected (e.g., new endpoints, new typedapi types) or an unintended regression like [#1472](https://github.com/elastic/go-elasticsearch/issues/1472)._"
+              else
+                echo "_All binaries within +${threshold}% of base._"
+              fi
+            fi
+          } > "${out_dir}/comment.md"
+
+          cat "${out_dir}/comment.md" >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "$over_threshold" = "1" ]; then
+            echo "::warning::Binary size grew by more than +${threshold}% for one or more variants. See PR comment for details."
+          fi
+
+      - name: Post binsize comment
+        # Forked-PR runs receive a read-only GITHUB_TOKEN and cannot post
+        # comments. Skip the post step for those rather than failing the job;
+        # the table is still in the workflow summary.
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+            const comments = await github.paginate(
+              github.rest.issues.listComments,
+              { owner, repo, issue_number, per_page: 100 }
+            );
+
+            const marker = '<!-- binsize -->';
+            const body = fs.readFileSync('tmp/binsize/comment.md', 'utf8');
+            const existing = comments.find((c) => c.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }

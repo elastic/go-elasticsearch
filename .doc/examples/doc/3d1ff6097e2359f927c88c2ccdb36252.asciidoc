@@ -1,0 +1,7 @@
+// Generated from setup-install-check-running_3d1ff6097e2359f927c88c2ccdb36252_test.go
+//
+[source, go]
+----
+res, err := es.Info()
+fmt.Println(res, err)
+----

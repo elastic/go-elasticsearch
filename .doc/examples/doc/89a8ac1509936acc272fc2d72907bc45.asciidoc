@@ -1,0 +1,7 @@
+// Generated from docs-get_89a8ac1509936acc272fc2d72907bc45_test.go
+//
+[source, go]
+----
+res, err := es.GetSource("twitter", "1", es.GetSource.WithPretty())
+fmt.Println(res, err)
+----

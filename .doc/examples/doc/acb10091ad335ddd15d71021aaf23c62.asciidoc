@@ -1,0 +1,30 @@
+// Generated from search-request-sort_acb10091ad335ddd15d71021aaf23c62_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "track_scores": true,
+	  "sort": [
+	    {
+	      "post_date": {
+	        "order": "desc"
+	      }
+	    },
+	    {
+	      "name": "desc"
+	    },
+	    {
+	      "age": "desc"
+	    }
+	  ],
+	  "query": {
+	    "term": {
+	      "user": "kimchy"
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

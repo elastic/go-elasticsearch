@@ -1,0 +1,11 @@
+// Generated from docs-delete_d90a84a24a407731dfc1929ac8327746_test.go
+//
+[source, go]
+----
+res, err := es.Delete("twitter",
+	"1",
+	es.Delete.WithTimeout(time.Duration(300000000000)),
+	es.Delete.WithPretty(),
+)
+fmt.Println(res, err)
+----

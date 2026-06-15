@@ -1,0 +1,23 @@
+// Generated from aggregations-bucket-datehistogram-aggregation_25429a303a53d06fd0151f3618013ee4_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithIndex("sales"),
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "dayOfWeek": {
+	      "terms": {
+	        "script": {
+	          "lang": "painless",
+	          "source": "doc['date'].value.dayOfWeekEnum.value"
+	        }
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithSize(0),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----

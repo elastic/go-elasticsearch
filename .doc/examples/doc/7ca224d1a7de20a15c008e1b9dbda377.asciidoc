@@ -1,0 +1,19 @@
+// Generated from aggregations-bucket-terms-aggregation_7ca224d1a7de20a15c008e1b9dbda377_test.go
+//
+[source, go]
+----
+res, err := es.Search(
+	es.Search.WithBody(strings.NewReader(`{
+	  "aggs": {
+	    "tags": {
+	      "terms": {
+	        "field": "tags",
+	        "missing": "N/A"
+	      }
+	    }
+	  }
+	}`)),
+	es.Search.WithPretty(),
+)
+fmt.Println(res, err)
+----
