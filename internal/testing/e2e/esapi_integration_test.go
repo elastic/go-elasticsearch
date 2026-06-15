@@ -69,7 +69,7 @@ func TestAPI(t *testing.T) {
 			t.Fatalf("Error response: %s", res.String())
 		}
 
-		var d map[string]interface{}
+		var d map[string]any
 		err = json.NewDecoder(res.Body).Decode(&d)
 		if err != nil {
 			t.Fatalf("Error parsing the response: %s\n", err)
@@ -189,7 +189,7 @@ func TestAPI(t *testing.T) {
 			Action      string
 			RunningTime time.Duration `json:"running_time_in_nanos"`
 			Cancellable bool
-			Headers     map[string]interface{}
+			Headers     map[string]any
 		}
 
 		type node struct {

@@ -102,7 +102,7 @@ func main() {
 		buf bytes.Buffer
 		res *esapi.Response
 		err error
-		raw map[string]interface{}
+		raw map[string]any
 		blk *bulkResponse
 
 		articles  []*Article
@@ -230,8 +230,8 @@ func main() {
 				} else {
 					log.Printf("  Error: [%d] %s: %s",
 						res.StatusCode,
-						raw["error"].(map[string]interface{})["type"],
-						raw["error"].(map[string]interface{})["reason"],
+						raw["error"].(map[string]any)["type"],
+						raw["error"].(map[string]any)["reason"],
 					)
 				}
 				// A successful response might still contain errors for particular documents...

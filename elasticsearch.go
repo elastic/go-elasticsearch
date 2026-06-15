@@ -772,7 +772,7 @@ func initUserAgent() string {
 	return b.String()
 }
 
-func initMetaHeader(transport interface{}) string {
+func initMetaHeader(transport any) string {
 	var b strings.Builder
 	var strippedGoVersion string
 	var strippedEsVersion string

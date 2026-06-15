@@ -24,17 +24,17 @@ import (
 	yaml "gopkg.in/yaml.v3"
 )
 
-// yamlNodeToInterface converts a yaml.v3 Node tree into the interface{} representation
+// yamlNodeToInterface converts a yaml.v3 Node tree into the any representation
 // used by the rest of gentests.
 //
 // Critical behavior: mapping keys are always returned as strings using the raw scalar
 // value, regardless of YAML 1.1 schema resolution. This avoids issues like unquoted
 // `y:` being interpreted as boolean true by YAML 1.1.
-func yamlNodeToInterface(n *yaml.Node) interface{} {
+func yamlNodeToInterface(n *yaml.Node) any {
 	return yamlNodeToInterfaceWithKeyMode(n, false)
 }
 
-func yamlNodeToInterfaceWithKeyMode(n *yaml.Node, isMapKey bool) interface{} {
+func yamlNodeToInterfaceWithKeyMode(n *yaml.Node, isMapKey bool) any {
 	if n == nil {
 		return nil
 	}
@@ -47,7 +47,7 @@ func yamlNodeToInterfaceWithKeyMode(n *yaml.Node, isMapKey bool) interface{} {
 		return yamlNodeToInterfaceWithKeyMode(n.Content[0], isMapKey)
 
 	case yaml.MappingNode:
-		m := make(map[interface{}]interface{}, len(n.Content)/2)
+		m := make(map[any]any, len(n.Content)/2)
 		for i := 0; i+1 < len(n.Content); i += 2 {
 			k := n.Content[i]
 			v := n.Content[i+1]
@@ -57,7 +57,7 @@ func yamlNodeToInterfaceWithKeyMode(n *yaml.Node, isMapKey bool) interface{} {
 		return m
 
 	case yaml.SequenceNode:
-		out := make([]interface{}, 0, len(n.Content))
+		out := make([]any, 0, len(n.Content))
 		for _, c := range n.Content {
 			out = append(out, yamlNodeToInterfaceWithKeyMode(c, false))
 		}

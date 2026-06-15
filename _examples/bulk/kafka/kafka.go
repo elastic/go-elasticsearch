@@ -135,7 +135,7 @@ func main() {
 		log.Fatalf("Error creating client: %s", err)
 	}
 	// Export client metrics to the "expvar" package
-	expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} { m, _ := es.Metrics(); return m }))
+	expvar.Publish("go-elasticsearch", expvar.Func(func() any { m, _ := es.Metrics(); return m }))
 
 	// Create the "stocks" index with correct mappings
 	//

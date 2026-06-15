@@ -68,7 +68,7 @@ type SearchMvtRequest struct {
 	GridPrecision  *int
 	GridType       string
 	Size           *int
-	TrackTotalHits interface{}
+	TrackTotalHits any
 	WithLabels     *bool
 
 	Pretty     bool
@@ -314,7 +314,7 @@ func (f SearchMvt) WithSize(v int) func(*SearchMvtRequest) {
 }
 
 // WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
-func (f SearchMvt) WithTrackTotalHits(v interface{}) func(*SearchMvtRequest) {
+func (f SearchMvt) WithTrackTotalHits(v any) func(*SearchMvtRequest) {
 	return func(r *SearchMvtRequest) {
 		r.TrackTotalHits = v
 	}

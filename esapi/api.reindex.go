@@ -60,7 +60,7 @@ type ReindexRequest struct {
 	RequestsPerSecond   *int
 	RequireAlias        *bool
 	Scroll              time.Duration
-	Slices              interface{}
+	Slices              any
 	Timeout             time.Duration
 	WaitForActiveShards string
 	WaitForCompletion   *bool
@@ -259,7 +259,7 @@ func (f Reindex) WithScroll(v time.Duration) func(*ReindexRequest) {
 }
 
 // WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
-func (f Reindex) WithSlices(v interface{}) func(*ReindexRequest) {
+func (f Reindex) WithSlices(v any) func(*ReindexRequest) {
 	return func(r *ReindexRequest) {
 		r.Slices = v
 	}

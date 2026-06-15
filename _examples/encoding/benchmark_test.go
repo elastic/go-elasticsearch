@@ -50,9 +50,9 @@ func BenchmarkEncode(b *testing.B) {
 			},
 		}
 
-		query = map[string]interface{}{
-			"query": map[string]interface{}{
-				"match": map[string]interface{}{
+		query = map[string]any{
+			"query": map[string]any{
+				"match": map[string]any{
 					"title": "test",
 				},
 			},
@@ -138,7 +138,7 @@ func BenchmarkDecode(b *testing.B) {
 
 	b.Run("Cluster - json - map", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			var out = make(map[string]interface{})
+			var out = make(map[string]any)
 			err := json.NewDecoder(bytes.NewReader(resClusterStats.Bytes())).Decode(&out)
 			if err != nil {
 				b.Error(err)

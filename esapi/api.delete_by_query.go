@@ -79,7 +79,7 @@ type DeleteByQueryRequest struct {
 	ScrollSize          *int64
 	SearchTimeout       time.Duration
 	SearchType          string
-	Slices              interface{}
+	Slices              any
 	Sort                []string
 	Stats               []string
 	TerminateAfter      *int64
@@ -484,7 +484,7 @@ func (f DeleteByQuery) WithSearchType(v string) func(*DeleteByQueryRequest) {
 }
 
 // WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
-func (f DeleteByQuery) WithSlices(v interface{}) func(*DeleteByQueryRequest) {
+func (f DeleteByQuery) WithSlices(v any) func(*DeleteByQueryRequest) {
 	return func(r *DeleteByQueryRequest) {
 		r.Slices = v
 	}

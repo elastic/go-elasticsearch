@@ -464,7 +464,7 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			var r map[string]interface{}
+			var r map[string]any
 			res, _ = es.Indices.GetTemplate()
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
@@ -495,19 +495,19 @@ func (g *Generator) genCommonSetup() {
 		}
 
 		{
-			var r map[string]interface{}
+			var r map[string]any
 			res, _ = es.Snapshot.GetRepository()
 			if res != nil && res.Body != nil {
 				defer res.Body.Close()
 				json.NewDecoder(res.Body).Decode(&r)
 				for repositoryID, _ := range r {
-					var r map[string]interface{}
+					var r map[string]any
 					res, _ = es.Snapshot.Get(repositoryID, []string{"_all"})
 					json.NewDecoder(res.Body).Decode(&r)
 					if r["responses"] != nil {
-						for _, vv := range r["responses"].([]interface{}) {
-							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
-								snapshotID, ok := v.(map[string]interface{})["snapshot"]
+						for _, vv := range r["responses"].([]any) {
+							for _, v := range vv.(map[string]any)["snapshots"].([]any) {
+								snapshotID, ok := v.(map[string]any)["snapshot"]
 								if !ok {
 									continue
 								}
@@ -628,7 +628,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Indices.GetTemplate()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
@@ -650,13 +650,13 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Security.GetRole()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
+						reserved, ok := v.(map[string]any)["metadata"].(map[string]any)["_reserved"].(bool)
 						if ok && reserved {
 							continue
 						}
@@ -666,13 +666,13 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Security.GetUser()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for k, v := range r {
-						reserved, ok := v.(map[string]interface{})["metadata"].(map[string]interface{})["_reserved"].(bool)
+						reserved, ok := v.(map[string]any)["metadata"].(map[string]any)["_reserved"].(bool)
 						if ok && reserved {
 							continue
 						}
@@ -715,7 +715,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
 				es.ML.StopDatafeed("_all", es.ML.StopDatafeed.WithContext(ctx))
@@ -723,8 +723,8 @@ func (g *Generator) genXPackSetup() {
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["datafeeds"].([]interface{}) {
-						datafeed, ok := v.(map[string]interface{})
+					for _, v := range r["datafeeds"].([]any) {
+						datafeed, ok := v.(map[string]any)
 						if ok {
 							datafeedID := datafeed["datafeed_id"].(string)
 							es.ML.DeleteDatafeed(datafeedID)
@@ -734,7 +734,7 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 				defer cancel()
 				es.ML.CloseJob("_all", es.ML.CloseJob.WithContext(ctx))
@@ -742,8 +742,8 @@ func (g *Generator) genXPackSetup() {
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["jobs"].([]interface{}) {
-						job, ok := v.(map[string]interface{})
+					for _, v := range r["jobs"].([]any) {
+						job, ok := v.(map[string]any)
 						if ok {
 							jobID := job["job_id"].(string)
 							es.ML.DeleteJob(jobID)
@@ -753,15 +753,15 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Rollup.GetJobs(es.Rollup.GetJobs.WithJobID("_all"))
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
-					for _, v := range r["jobs"].([]interface{}) {
-						job, ok := v.(map[string]interface{})["config"]
+					for _, v := range r["jobs"].([]any) {
+						job, ok := v.(map[string]any)["config"]
 						if ok {
-							jobID := job.(map[string]interface{})["id"].(string)
+							jobID := job.(map[string]any)["id"].(string)
 							es.Rollup.StopJob(jobID, es.Rollup.StopJob.WithWaitForCompletion(true))
 							es.Rollup.DeleteJob(jobID)
 						}
@@ -770,16 +770,16 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Tasks.List()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
-					for _, vv := range r["nodes"].(map[string]interface{}) {
-						for _, v := range vv.(map[string]interface{})["tasks"].(map[string]interface{}) {
-							cancellable, ok := v.(map[string]interface{})["cancellable"]
+					for _, vv := range r["nodes"].(map[string]any) {
+						for _, v := range vv.(map[string]any)["tasks"].(map[string]any) {
+							cancellable, ok := v.(map[string]any)["cancellable"]
 							if ok && cancellable.(bool) {
-								taskID := fmt.Sprintf("%v:%v", v.(map[string]interface{})["node"], v.(map[string]interface{})["id"])
+								taskID := fmt.Sprintf("%v:%v", v.(map[string]any)["node"], v.(map[string]any)["id"])
 								ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 								defer cancel()
 								es.Tasks.Cancel(es.Tasks.Cancel.WithTaskID(taskID), es.Tasks.Cancel.WithContext(ctx))
@@ -790,18 +790,18 @@ func (g *Generator) genXPackSetup() {
 			}
 
 			{
-				var r map[string]interface{}
+				var r map[string]any
 				res, _ = es.Snapshot.GetRepository()
 				if res != nil && res.Body != nil {
 					defer res.Body.Close()
 					json.NewDecoder(res.Body).Decode(&r)
 					for repositoryID, _ := range r {
-						var r map[string]interface{}
+						var r map[string]any
 						res, _ = es.Snapshot.Get(repositoryID, []string{"_all"})
 						json.NewDecoder(res.Body).Decode(&r)
-						for _, vv := range r["responses"].([]interface{}) {
-							for _, v := range vv.(map[string]interface{})["snapshots"].([]interface{}) {
-								snapshotID, ok := v.(map[string]interface{})["snapshot"]
+						for _, vv := range r["responses"].([]any) {
+							for _, v := range vv.(map[string]any)["snapshots"].([]any) {
+								snapshotID, ok := v.(map[string]any)["snapshot"]
 								if ok {
 									es.Snapshot.Delete(repositoryID, []string{fmt.Sprintf("%s", snapshotID)})
 								}
@@ -860,12 +860,12 @@ func (g *Generator) genXPackSetup() {
 				var i int
 				for {
 					i++
-					var r map[string]interface{}
+					var r map[string]any
 					res, _ = es.Cluster.PendingTasks()
 					if res != nil && res.Body != nil {
 						defer res.Body.Close()
 						json.NewDecoder(res.Body).Decode(&r)
-						if len(r["tasks"].([]interface{})) < 1 {
+						if len(r["tasks"].([]any)) < 1 {
 							break
 						}
 					}
@@ -1012,13 +1012,13 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 	g.w("\t\t\tres *esapi.Response\n")
 	g.w("\t\t\terr error\n\n")
 
-	g.w("\t\t\tstash = make(map[string]interface{}, 0)\n\n")
+	g.w("\t\t\tstash = make(map[string]any, 0)\n\n")
 
 	if (len(skipBody) < 1 || (len(skipBody) > 0 && skipBody[0] == false)) &&
 		(t.Steps.ContainsAssertion() || t.Steps.ContainsCatch() || true) {
 		g.w("\t\t\tbody []byte\n")
-		g.w("\t\t\tmapi map[string]interface{}\n")
-		g.w("\t\t\tslic []interface{}\n")
+		g.w("\t\t\tmapi map[string]any\n")
+		g.w("\t\t\tslic []any\n")
 	}
 
 	if t.Steps.ContainsAssertion("is_false", "is_true") {
@@ -1028,8 +1028,8 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 	g.w("\n")
 	g.w("\t\t\tassertion bool\n")
 
-	g.w("\t\t\tactual   interface{}\n")
-	g.w("\t\t\texpected interface{}\n")
+	g.w("\t\t\tactual   any\n")
+	g.w("\t\t\texpected any\n")
 	g.w("\n")
 
 	if t.Steps.ContainsAssertion("match", "match-regexp") {
@@ -1046,8 +1046,8 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 		g.w("\n")
 		g.w(`handleResponseBody := func(t *testing.T, res *esapi.Response) {
 			// Reset deserialized structures
-			mapi = make(map[string]interface{})
-			slic = make([]interface{}, 0)
+			mapi = make(map[string]any)
+			slic = make([]any, 0)
 
 			var err error
 			body, err = ioutil.ReadAll(res.Body)
@@ -1110,11 +1110,11 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 		}
 		_ = mustGetStashString
 
-		getKey := func(v interface{}, key string) interface{} {
+		getKey := func(v any, key string) any {
 			switch vv := v.(type) {
-			case map[string]interface{}:
+			case map[string]any:
 				return vv[key]
-			case map[interface{}]interface{}:
+			case map[any]any:
 				return vv[key]
 			default:
 				return nil
@@ -1122,16 +1122,16 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 		}
 		_ = getKey
 
-		getIndexOrKey := func(v interface{}, idx int) interface{} {
+		getIndexOrKey := func(v any, idx int) any {
 			switch vv := v.(type) {
-			case []interface{}:
+			case []any:
 				if idx < 0 || idx >= len(vv) {
 					return nil
 				}
 				return vv[idx]
-			case map[string]interface{}:
+			case map[string]any:
 				return vv[strconv.Itoa(idx)]
-			case map[interface{}]interface{}:
+			case map[any]any:
 				return vv[strconv.Itoa(idx)]
 			default:
 				return nil
@@ -1398,7 +1398,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			g.w(value)
 			g.w(",\n")
 
-		case []interface{}:
+		case []any:
 			g.w("\t\t\t" + k + ": ")
 
 			typ, ok := apiRegistry[a.Request()][k]
@@ -1411,9 +1411,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				switch v.(type) {
 				case string:
 					g.w("`" + v.(string) + "`")
-				case []interface{}:
+				case []any:
 					vvv := make([]string, 0)
-					for _, vv := range v.([]interface{}) {
+					for _, vv := range v.([]any) {
 						vvv = append(vvv, fmt.Sprintf("%s", vv))
 					}
 					g.w("`" + strings.Join(vvv, ",") + "`")
@@ -1422,7 +1422,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				}
 			case "[]string":
 				qv := make([]string, 0)
-				for _, vv := range v.([]interface{}) {
+				for _, vv := range v.([]any) {
 					// TODO: Check type
 					qv = append(qv, fmt.Sprintf("%q", vv.(string)))
 				}
@@ -1431,7 +1431,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				// Serialize Bulk payloads ...
 				if k == "Body" {
 					var b strings.Builder
-					for _, vv := range v.([]interface{}) {
+					for _, vv := range v.([]any) {
 						switch vv.(type) {
 						case string:
 							b.WriteString(vv.(string))
@@ -1456,9 +1456,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				}
 			case "*bool":
 				switch v.(type) {
-				case []interface{}:
+				case []any:
 					var vvv string
-					for _, vv := range v.([]interface{}) {
+					for _, vv := range v.([]any) {
 						vvv = fmt.Sprintf("%v", vv)
 					}
 					g.w(fmt.Sprintf("&[]bool{%s}[0]", vvv))
@@ -1468,14 +1468,14 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			}
 			g.w(",\n")
 
-		case map[interface{}]interface{}:
-			// vv := unstash(convert(v).(map[string]interface{}))
+		case map[any]any:
+			// vv := unstash(convert(v).(map[string]any))
 			// fmt.Println(vv)
 			converted := convert(v)
 			// Some REST tests rely on the runner omitting an empty body entirely.
 			// Example: security.query_user with `body: {}` expects the default behavior, which differs from `{}`.
 			if k == "Body" && a.Request() == "SecurityQueryUserRequest" {
-				if mm, ok := converted.(map[string]interface{}); ok && len(mm) == 0 {
+				if mm, ok := converted.(map[string]any); ok && len(mm) == 0 {
 					// Skip emitting Body altogether.
 					continue
 				}
@@ -1572,7 +1572,7 @@ func (g *Generator) genStashSet(s Stash) {
 	case strings.Contains(value, "_arbitrary_key_"):
 		key := strings.Trim(s.FirstValue(), "._arbitrary_key_")
 
-		stash = `for k, _ := range mapi["` + key + `"].(map[string]interface{}) {
+		stash = `for k, _ := range mapi["` + key + `"].(map[string]any) {
 				stash["` + s.Key() + `"] = k
 			}
 		`
@@ -1602,10 +1602,10 @@ func (g *Generator) genStashSet(s Stash) {
 	g.w(stash)
 }
 
-func convert(i interface{}) interface{} {
+func convert(i any) any {
 	switch x := i.(type) {
-	case map[interface{}]interface{}:
-		m2 := map[string]interface{}{}
+	case map[any]any:
+		m2 := map[string]any{}
 		for k, v := range x {
 			var ks string
 			switch k.(type) {
@@ -1619,7 +1619,7 @@ func convert(i interface{}) interface{} {
 			m2[ks] = convert(v)
 		}
 		return m2
-	case []interface{}:
+	case []any:
 		for i, v := range x {
 			x[i] = convert(v)
 		}

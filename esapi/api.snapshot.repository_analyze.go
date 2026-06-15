@@ -60,7 +60,7 @@ type SnapshotRepositoryAnalyzeRequest struct {
 	EarlyReadNodeCount     *int
 	MaxBlobSize            string
 	MaxTotalDataSize       string
-	RareActionProbability  interface{}
+	RareActionProbability  any
 	RarelyAbortWrites      *bool
 	ReadNodeCount          *int
 	RegisterOperationCount *int
@@ -281,7 +281,7 @@ func (f SnapshotRepositoryAnalyze) WithMaxTotalDataSize(v string) func(*Snapshot
 }
 
 // WithRareActionProbability - probability of taking a rare action such as an early read or an overwrite. defaults to 0.02..
-func (f SnapshotRepositoryAnalyze) WithRareActionProbability(v interface{}) func(*SnapshotRepositoryAnalyzeRequest) {
+func (f SnapshotRepositoryAnalyze) WithRareActionProbability(v any) func(*SnapshotRepositoryAnalyzeRequest) {
 	return func(r *SnapshotRepositoryAnalyzeRequest) {
 		r.RareActionProbability = v
 	}

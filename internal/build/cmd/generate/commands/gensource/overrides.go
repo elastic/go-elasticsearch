@@ -22,7 +22,7 @@ var (
 )
 
 // OverrideFunc defines a function to override generated code for endpoint.
-type OverrideFunc func(*Endpoint, ...interface{}) string
+type OverrideFunc func(*Endpoint, ...any) string
 
 // OverrideRule represents an override rule.
 type OverrideRule struct {
@@ -60,11 +60,11 @@ func init() {
 
 		"polymorphic-param": {{
 			Matching: []string{"search"},
-			Func: func(e *Endpoint, i ...interface{}) string {
+			Func: func(e *Endpoint, i ...any) string {
 				if len(i) > 0 {
 					switch i[0] {
 					case "track_total_hits":
-						return "interface{}"
+						return "any"
 					}
 				}
 				return ""
@@ -74,7 +74,7 @@ func init() {
 		"url": {
 			{
 				Matching: []string{"cluster.stats"},
-				Func: func(*Endpoint, ...interface{}) string {
+				Func: func(*Endpoint, ...any) string {
 					return `
 	path.Grow(len("/nodes/_cluster/stats/nodes/") + len(strings.Join(r.NodeID, ",")))
 	path.WriteString("/")
@@ -92,7 +92,7 @@ func init() {
 			},
 			{
 				Matching: []string{"indices.put_mapping"},
-				Func: func(*Endpoint, ...interface{}) string {
+				Func: func(*Endpoint, ...any) string {
 					return `
 	path.Grow(len(strings.Join(r.Index, ",")) + len("/_mapping") + 1)
 	if len(r.Index) > 0 {
@@ -106,7 +106,7 @@ func init() {
 			},
 			{
 				Matching: []string{"scroll"},
-				Func: func(*Endpoint, ...interface{}) string {
+				Func: func(*Endpoint, ...any) string {
 					return `
 	path.Grow(len("/_search/scroll"))
 	path.WriteString("/_search/scroll")

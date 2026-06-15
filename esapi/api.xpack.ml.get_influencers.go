@@ -60,7 +60,7 @@ type MLGetInfluencersRequest struct {
 	End             string
 	ExcludeInterim  *bool
 	From            *int
-	InfluencerScore interface{}
+	InfluencerScore any
 	Size            *int
 	Sort            string
 	Start           string
@@ -267,7 +267,7 @@ func (f MLGetInfluencers) WithFrom(v int) func(*MLGetInfluencersRequest) {
 }
 
 // WithInfluencerScore - influencer score threshold for the requested influencers.
-func (f MLGetInfluencers) WithInfluencerScore(v interface{}) func(*MLGetInfluencersRequest) {
+func (f MLGetInfluencers) WithInfluencerScore(v any) func(*MLGetInfluencersRequest) {
 	return func(r *MLGetInfluencersRequest) {
 		r.InfluencerScore = v
 	}

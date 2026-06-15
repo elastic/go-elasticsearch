@@ -40,7 +40,7 @@ type SearchResults struct {
 type Hit struct {
 	Document
 	URL        string        `json:"url"`
-	Sort       []interface{} `json:"sort"`
+	Sort       []any `json:"sort"`
 	Highlights *struct {
 		Title      []string `json:"title"`
 		Alt        []string `json:"alt"`
@@ -148,7 +148,7 @@ func (s *Store) Search(query string, after ...string) (*SearchResults, error) {
 		if hit.Id_ != nil {
 			h.ID = *hit.Id_
 		}
-		h.Sort = make([]interface{}, len(hit.Sort))
+		h.Sort = make([]any, len(hit.Sort))
 		for i, v := range hit.Sort {
 			h.Sort[i] = v
 		}

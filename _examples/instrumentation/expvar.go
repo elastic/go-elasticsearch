@@ -105,7 +105,7 @@ func main() {
 	}
 
 	// Publish client metrics to expvar >>>>>>>>>>>>>>>>>
-	expvar.Publish("go-elasticsearch", expvar.Func(func() interface{} { m, _ := es.Metrics(); return m }))
+	expvar.Publish("go-elasticsearch", expvar.Func(func() any { m, _ := es.Metrics(); return m }))
 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	ctx := context.Background()

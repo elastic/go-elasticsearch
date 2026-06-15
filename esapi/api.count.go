@@ -65,7 +65,7 @@ type CountRequest struct {
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
-	MinScore          interface{}
+	MinScore          any
 	Preference        string
 	Query             string
 	Routing           []string
@@ -335,7 +335,7 @@ func (f Count) WithLenient(v bool) func(*CountRequest) {
 }
 
 // WithMinScore - include only documents with a specific `_score` value in the result.
-func (f Count) WithMinScore(v interface{}) func(*CountRequest) {
+func (f Count) WithMinScore(v any) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.MinScore = v
 	}

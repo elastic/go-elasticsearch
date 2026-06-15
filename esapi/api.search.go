@@ -99,7 +99,7 @@ type SearchRequest struct {
 	TerminateAfter             *int64
 	Timeout                    time.Duration
 	TrackScores                *bool
-	TrackTotalHits             interface{}
+	TrackTotalHits             any
 	TypedKeys                  *bool
 	Version                    *bool
 
@@ -722,7 +722,7 @@ func (f Search) WithTrackScores(v bool) func(*SearchRequest) {
 }
 
 // WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
-func (f Search) WithTrackTotalHits(v interface{}) func(*SearchRequest) {
+func (f Search) WithTrackTotalHits(v any) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.TrackTotalHits = v
 	}

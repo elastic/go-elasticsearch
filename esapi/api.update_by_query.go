@@ -80,7 +80,7 @@ type UpdateByQueryRequest struct {
 	ScrollSize          *int64
 	SearchTimeout       time.Duration
 	SearchType          string
-	Slices              interface{}
+	Slices              any
 	Sort                []string
 	Stats               []string
 	TerminateAfter      *int64
@@ -508,7 +508,7 @@ func (f UpdateByQuery) WithSearchType(v string) func(*UpdateByQueryRequest) {
 }
 
 // WithSlices - the number of slices this task should be divided into. defaults to 1, meaning the task isn't sliced into subtasks. can be set to `auto`..
-func (f UpdateByQuery) WithSlices(v interface{}) func(*UpdateByQueryRequest) {
+func (f UpdateByQuery) WithSlices(v any) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.Slices = v
 	}
