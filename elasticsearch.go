@@ -466,17 +466,18 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		elastictransport.WithURLs(urls...),
 	}
 
-	// TODO(karmi): Refactor
+	username := cfg.Username
+	password := cfg.Password
 	if urls[0].User != nil {
-		cfg.Username = urls[0].User.Username()
+		username = urls[0].User.Username()
 		pw, _ := urls[0].User.Password()
-		cfg.Password = pw
+		password = pw
 	}
 
 	if cfg.APIKey != "" {
 		opts = append(opts, elastictransport.WithAPIKey(cfg.APIKey))
-	} else if cfg.Username != "" || cfg.Password != "" {
-		opts = append(opts, elastictransport.WithBasicAuth(cfg.Username, cfg.Password))
+	} else if username != "" || password != "" {
+		opts = append(opts, elastictransport.WithBasicAuth(username, password))
 	}
 	if cfg.ServiceToken != "" {
 		opts = append(opts, elastictransport.WithServiceToken(cfg.ServiceToken))
@@ -730,7 +731,7 @@ func addrsToURLs(addrs []string) ([]*url.URL, error) {
 // addrFromCloudID extracts the Elasticsearch URL from CloudID.
 // See: https://www.elastic.co/guide/en/cloud/current/ec-cloud-id.html
 func addrFromCloudID(input string) (string, error) {
-	var scheme = "https://"
+	scheme := "https://"
 
 	values := strings.Split(input, ":")
 	if len(values) != 2 {
@@ -787,7 +788,7 @@ func initMetaHeader(transport interface{}) string {
 		strippedTransportVersion = strippedEsVersion
 	}
 
-	var duos = [][]string{
+	duos := [][]string{
 		{
 			"es",
 			strippedEsVersion,
