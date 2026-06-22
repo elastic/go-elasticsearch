@@ -2,7 +2,7 @@ module github.com/elastic/go-elasticsearch/v9/benchmarks
 
 go 1.25
 
-toolchain go1.25.10
+toolchain go1.25.11
 
 replace github.com/elastic/go-elasticsearch/v9 => ../../
 
