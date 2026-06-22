@@ -47,4 +47,10 @@ eql/10_basic.yml:
   - "eql basic tests"
 security/140_user.yml:
   - "security.user"
+# TODO(https://github.com/elastic/go-elasticsearch/issues/1509): the final
+# assertion 'match: { invalidated_api_keys: [$id] }' fails against current
+# Elasticsearch builds (the invalidate-api-key response no longer matches the
+# stashed key id exactly). Unskip once the upstream test/format is reconciled.
+security/10_api_key_basic.yml:
+  - "API Key"
 `
