@@ -396,7 +396,7 @@ func TestBulkIndexer(t *testing.T) {
 			tt := tt
 			t.Run(tt.name, func(t *testing.T) {
 				var gotQuery url.Values
-				es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+				es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{
 					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
 						gotQuery = req.URL.Query()
 						return &http.Response{
@@ -405,7 +405,7 @@ func TestBulkIndexer(t *testing.T) {
 							Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						}, nil
 					},
-				}})
+				})))
 				if err != nil {
 					t.Fatalf("Unexpected error: %s", err)
 				}
