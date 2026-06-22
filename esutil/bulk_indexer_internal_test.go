@@ -29,6 +29,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"reflect"
 	"regexp"
@@ -378,6 +379,65 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		if !gotError {
 			t.Errorf("Expected timeout error, but none in: %q", errs)
+		}
+	})
+
+	t.Run("Routing query parameter", func(t *testing.T) {
+		tests := []struct {
+			name        string
+			routing     string
+			wantPresent bool
+			wantValue   string
+		}{
+			{name: "unset omits routing param", routing: "", wantPresent: false},
+			{name: "set sends routing param", routing: "abc", wantPresent: true, wantValue: "abc"},
+		}
+		for _, tt := range tests {
+			tt := tt
+			t.Run(tt.name, func(t *testing.T) {
+				var gotQuery url.Values
+				es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+						gotQuery = req.URL.Query()
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Body:       io.NopCloser(strings.NewReader("{}")),
+							Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+						}, nil
+					},
+				}})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				bi, err := NewBulkIndexer(BulkIndexerConfig{
+					NumWorkers: 1,
+					Index:      "test-index",
+					Routing:    tt.routing,
+					Client:     es,
+				})
+				if err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				if err := bi.Add(context.Background(), BulkIndexerItem{
+					Action: "index",
+					Body:   strings.NewReader(`{"x":1}`),
+				}); err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+				if err := bi.Close(context.Background()); err != nil {
+					t.Fatalf("Unexpected error: %s", err)
+				}
+
+				_, present := gotQuery["routing"]
+				if present != tt.wantPresent {
+					t.Errorf("routing param present = %v, want %v (query: %q)", present, tt.wantPresent, gotQuery.Encode())
+				}
+				if tt.wantPresent && gotQuery.Get("routing") != tt.wantValue {
+					t.Errorf("routing = %q, want %q", gotQuery.Get("routing"), tt.wantValue)
+				}
+			})
 		}
 	})
 
