@@ -31,6 +31,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
@@ -243,19 +244,10 @@ func BenchmarkClientAPI(b *testing.B) {
 	})
 }
 
-type mockTransp struct {
-	RoundTripFunc func(request *http.Request) (*http.Response, error)
-}
-
-func (m mockTransp) RoundTrip(request *http.Request) (*http.Response, error) {
-	return m.RoundTripFunc(request)
-}
-
 func BenchmarkAllocsSearch(t *testing.B) {
 	t.Run("struct search", func(b *testing.B) {
 		c, err := elasticsearch.NewTyped(elasticsearch.WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,
@@ -285,8 +277,7 @@ func BenchmarkAllocsSearch(t *testing.B) {
 
 	t.Run("esdsl search", func(b *testing.B) {
 		c, err := elasticsearch.NewTyped(elasticsearch.WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 						StatusCode: http.StatusOK,

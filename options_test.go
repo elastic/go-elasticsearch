@@ -30,6 +30,7 @@ import (
 	"testing"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 )
 
 func TestNew_DefaultClient(t *testing.T) {
@@ -170,8 +171,7 @@ func TestNew_WithBasicAuth(t *testing.T) {
 	c, err := New(
 		WithBasicAuth("testuser", "testpass"),
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					capturedReq = req
 					return &http.Response{
 						StatusCode: http.StatusOK,
@@ -210,8 +210,7 @@ func TestNew_WithAPIKey(t *testing.T) {
 	c, err := New(
 		WithAPIKey("dGVzdGtleQ=="),
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					capturedReq = req
 					return &http.Response{
 						StatusCode: http.StatusOK,
@@ -242,7 +241,7 @@ func TestNew_WithTransportOptions(t *testing.T) {
 
 	c, err := New(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{}),
+			elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}),
 			elastictransport.WithMaxRetries(5),
 		),
 	)
@@ -263,8 +262,7 @@ func TestNew_WithCompatibilityMode(t *testing.T) {
 	c, err := New(
 		WithCompatibilityMode(),
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					capturedReq = req
 					return &http.Response{
 						StatusCode: http.StatusOK,
@@ -302,8 +300,7 @@ func TestNew_WithCompatibilityModeEnv(t *testing.T) {
 
 	c, err := New(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
@@ -335,8 +332,7 @@ func TestNew_WithDisableMetaHeader(t *testing.T) {
 	c, err := New(
 		WithDisableMetaHeader(),
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					capturedReq = req
 					return &http.Response{
 						StatusCode: http.StatusOK,
@@ -366,8 +362,7 @@ func TestNew_MetaHeader(t *testing.T) {
 
 	c, err := New(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					h := req.Header.Get(HeaderClientMeta)
 					if !metaHeaderReValidation.MatchString(h) {
 						t.Errorf("expected meta header to match regexp, got: %s", h)
@@ -411,8 +406,7 @@ func TestNewTyped_MetaHeader(t *testing.T) {
 
 	c, err := NewTyped(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{
-				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+			elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(req *http.Request) (*http.Response, error) {
 					h := req.Header.Get(HeaderClientMeta)
 					if !metaHeaderReValidation.MatchString(h) {
 						t.Errorf("expected meta header to match regexp, got: %s", h)
@@ -452,7 +446,7 @@ func TestNew_Close(t *testing.T) {
 	t.Parallel()
 	c, err := New(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{}),
+			elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}),
 		),
 	)
 	if err != nil {
@@ -495,7 +489,7 @@ func TestNewBase_Close(t *testing.T) {
 	t.Parallel()
 	c, err := NewBase(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{}),
+			elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}),
 		),
 	)
 	if err != nil {
@@ -514,7 +508,7 @@ func TestNewTyped_Close(t *testing.T) {
 	t.Parallel()
 	c, err := NewTyped(
 		WithTransportOptions(
-			elastictransport.WithTransport(&mockTransp{}),
+			elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}),
 		),
 	)
 	if err != nil {
