@@ -61,9 +61,9 @@ func main() {
 
 	log.Println(res)
 
-	query := map[string]interface{}{
-		"query": map[string]interface{}{
-			"match": map[string]interface{}{
+	query := map[string]any{
+		"query": map[string]any{
+			"match": map[string]any{
 				"title": "test",
 			},
 		},

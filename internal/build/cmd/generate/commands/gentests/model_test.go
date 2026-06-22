@@ -23,8 +23,8 @@ func TestNewTestSuite_RequiresStackFalse_SkipsSuite(t *testing.T) {
 	payloads := []TestPayload{
 		{
 			Filepath: "tests/some/stack_false.yml",
-			Payload: map[interface{}]interface{}{
-				"requires": map[interface{}]interface{}{
+			Payload: map[any]any{
+				"requires": map[any]any{
 					"serverless": true,
 					"stack":      false,
 				},
@@ -32,11 +32,11 @@ func TestNewTestSuite_RequiresStackFalse_SkipsSuite(t *testing.T) {
 		},
 		{
 			Filepath: "tests/some/stack_false.yml",
-			Payload: map[interface{}]interface{}{
-				"some test": []interface{}{
-					map[interface{}]interface{}{
-						"do": map[interface{}]interface{}{
-							"cluster.health": map[interface{}]interface{}{},
+			Payload: map[any]any{
+				"some test": []any{
+					map[any]any{
+						"do": map[any]any{
+							"cluster.health": map[any]any{},
 						},
 					},
 				},

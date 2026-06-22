@@ -683,7 +683,7 @@ func TestElasticsearchInsecureIntegration(t *testing.T) {
 			}
 			defer res.Body.Close()
 
-			var d map[string]interface{}
+			var d map[string]any
 			err = json.NewDecoder(res.Body).Decode(&d)
 			if err != nil {
 				t.Fatalf("Error parsing the response: %s\n", err)

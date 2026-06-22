@@ -130,11 +130,11 @@ func TestStore(t *testing.T) {
 
 	t.Run("Match all with search_after", func(t *testing.T) {
 		mocktrans.RoundTripFn = func(req *http.Request) (*http.Response, error) {
-			var b map[string]interface{}
+			var b map[string]any
 			if err := json.NewDecoder(req.Body).Decode(&b); err != nil {
 				t.Fatalf("Error parsing search definition: %s", err)
 			}
-			if b["search_after"].([]interface{})[0].(float64) != 1 {
+			if b["search_after"].([]any)[0].(float64) != 1 {
 				t.Fatalf("Unexpected query: %s", req.Body)
 			}
 
@@ -159,13 +159,13 @@ func TestStore(t *testing.T) {
 
 	t.Run("Match query", func(t *testing.T) {
 		mocktrans.RoundTripFn = func(req *http.Request) (*http.Response, error) {
-			var b map[string]interface{}
+			var b map[string]any
 			if err := json.NewDecoder(req.Body).Decode(&b); err != nil {
 				t.Fatalf("Error parsing search definition: %s", err)
 			}
 			// The typed Sort builder emits the long form:
 			//   "sort": [{"_score": {"order": "desc"}}, ...]
-			scoreSort := b["sort"].([]interface{})[0].(map[string]interface{})["_score"].(map[string]interface{})
+			scoreSort := b["sort"].([]any)[0].(map[string]any)["_score"].(map[string]any)
 			if scoreSort["order"] != "desc" {
 				t.Fatalf("Unexpected query: %s", req.Body)
 			}

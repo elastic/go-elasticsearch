@@ -96,7 +96,7 @@ type AsyncSearchSubmitRequest struct {
 	TerminateAfter             *int64
 	Timeout                    time.Duration
 	TrackScores                *bool
-	TrackTotalHits             interface{}
+	TrackTotalHits             any
 	TypedKeys                  *bool
 	Version                    *bool
 	WaitForCompletionTimeout   time.Duration
@@ -691,7 +691,7 @@ func (f AsyncSearchSubmit) WithTrackScores(v bool) func(*AsyncSearchSubmitReques
 }
 
 // WithTrackTotalHits - indicate if the number of documents that match the query should be tracked. a number can also be specified, to accurately track the total hit count up to the number..
-func (f AsyncSearchSubmit) WithTrackTotalHits(v interface{}) func(*AsyncSearchSubmitRequest) {
+func (f AsyncSearchSubmit) WithTrackTotalHits(v any) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.TrackTotalHits = v
 	}

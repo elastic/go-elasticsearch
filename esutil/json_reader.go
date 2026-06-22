@@ -27,7 +27,7 @@ import (
 //
 // The returned value satisfies io.ReadSeeker, making it directly usable
 // as BulkIndexerItem.Body without additional buffering.
-func NewJSONReader(v interface{}) io.Reader {
+func NewJSONReader(v any) io.Reader {
 	return &JSONReader{val: v}
 }
 
@@ -42,7 +42,7 @@ type JSONEncoder interface {
 // It implements io.ReadSeeker so it can be used directly as
 // BulkIndexerItem.Body.
 type JSONReader struct {
-	val interface{}
+	val any
 	buf *bytes.Reader
 }
 

@@ -131,12 +131,12 @@ func TypeToGo(s string, comment ...bool) string {
 	// If the string contains a pipe character, it's a polymorphic parameter,
 	// ie. it takes heterogeous values, such as "boolean" and "number"
 	if strings.Contains(s, "|") {
-		return "interface{}"
+		return "any"
 	}
 
 	if v, ok := typesToGo[s]; ok {
 		return v
 	}
 
-	return "interface{}"
+	return "any"
 }

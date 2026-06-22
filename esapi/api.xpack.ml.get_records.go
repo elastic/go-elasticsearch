@@ -60,7 +60,7 @@ type MLGetRecordsRequest struct {
 	End            string
 	ExcludeInterim *bool
 	From           *int
-	RecordScore    interface{}
+	RecordScore    any
 	Size           *int
 	Sort           string
 	Start          string
@@ -267,7 +267,7 @@ func (f MLGetRecords) WithFrom(v int) func(*MLGetRecordsRequest) {
 }
 
 // WithRecordScore - returns records with anomaly scores greater or equal than this value.
-func (f MLGetRecords) WithRecordScore(v interface{}) func(*MLGetRecordsRequest) {
+func (f MLGetRecords) WithRecordScore(v any) func(*MLGetRecordsRequest) {
 	return func(r *MLGetRecordsRequest) {
 		r.RecordScore = v
 	}

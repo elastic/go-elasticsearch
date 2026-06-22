@@ -33,7 +33,7 @@ import (
 // It intentionally differs from encoding/json in two ways:
 // - map keys are sorted for stable output
 // - float64 values that are whole numbers are rendered with a trailing ".0"
-func marshalForYAMLTestJSON(v interface{}) ([]byte, error) {
+func marshalForYAMLTestJSON(v any) ([]byte, error) {
 	var b bytes.Buffer
 	if err := writeYAMLTestJSON(&b, v); err != nil {
 		return nil, err
@@ -41,7 +41,7 @@ func marshalForYAMLTestJSON(v interface{}) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-func writeYAMLTestJSON(b *bytes.Buffer, v interface{}) error {
+func writeYAMLTestJSON(b *bytes.Buffer, v any) error {
 	switch x := v.(type) {
 	case nil:
 		b.WriteString("null")
@@ -78,7 +78,7 @@ func writeYAMLTestJSON(b *bytes.Buffer, v interface{}) error {
 		}
 		b.WriteString(strconv.FormatFloat(x, 'f', -1, 64))
 		return nil
-	case []interface{}:
+	case []any:
 		b.WriteByte('[')
 		for i, vv := range x {
 			if i > 0 {
@@ -90,7 +90,7 @@ func writeYAMLTestJSON(b *bytes.Buffer, v interface{}) error {
 		}
 		b.WriteByte(']')
 		return nil
-	case map[string]interface{}:
+	case map[string]any:
 		keys := make([]string, 0, len(x))
 		for k := range x {
 			keys = append(keys, k)

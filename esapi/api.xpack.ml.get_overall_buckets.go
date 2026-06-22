@@ -61,7 +61,7 @@ type MLGetOverallBucketsRequest struct {
 	BucketSpan     time.Duration
 	End            string
 	ExcludeInterim *bool
-	OverallScore   interface{}
+	OverallScore   any
 	Start          string
 	TopN           *int
 
@@ -263,7 +263,7 @@ func (f MLGetOverallBuckets) WithExcludeInterim(v bool) func(*MLGetOverallBucket
 }
 
 // WithOverallScore - returns overall buckets with overall scores higher than this value.
-func (f MLGetOverallBuckets) WithOverallScore(v interface{}) func(*MLGetOverallBucketsRequest) {
+func (f MLGetOverallBuckets) WithOverallScore(v any) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.OverallScore = v
 	}

@@ -77,9 +77,9 @@ func TestJSONReaderIntegration(t *testing.T) {
 			t.Fatalf("Error response: %s", res.String())
 		}
 
-		query := map[string]interface{}{
-			"query": map[string]interface{}{
-				"match": map[string]interface{}{
+		query := map[string]any{
+			"query": map[string]any{
+				"match": map[string]any{
 					"title": "foo",
 				},
 			},

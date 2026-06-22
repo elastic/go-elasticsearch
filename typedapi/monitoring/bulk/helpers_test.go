@@ -31,7 +31,7 @@ func TestBulk_CreateOp(t *testing.T) {
 
 	type args struct {
 		op  types.CreateOperation
-		doc interface{}
+		doc any
 	}
 	tests := []struct {
 		name    string
@@ -167,7 +167,7 @@ func TestBulk_IndexOp(t *testing.T) {
 
 	type args struct {
 		op  types.IndexOperation
-		doc interface{}
+		doc any
 	}
 	tests := []struct {
 		name    string
@@ -254,7 +254,7 @@ func TestBulk_UpdateOp(t *testing.T) {
 
 	type args struct {
 		op     types.UpdateOperation
-		doc    interface{}
+		doc    any
 		update *types.UpdateAction
 	}
 	tests := []struct {

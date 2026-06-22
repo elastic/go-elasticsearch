@@ -32,7 +32,7 @@ import (
 )
 
 var (
-	apiDescriptions map[interface{}]interface{}
+	apiDescriptions map[any]any
 	paramOverrides  map[string]map[string]ParamOverride
 )
 
@@ -404,7 +404,7 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	endpoint.URL.ParamNamesSorted = paramNames
 
 	// if info, ok := apiDescriptions[endpoint.Name]; ok {
-	// 	if desc, ok := info.(map[interface{}]interface{})["description"].(string); ok {
+	// 	if desc, ok := info.(map[any]any)["description"].(string); ok {
 	// 		endpoint.Documentation.Description = desc
 	// 	}
 	// }
@@ -459,7 +459,7 @@ type Part struct {
 	Endpoint *Endpoint `json:"-"`
 
 	Name    string      `json:"-"`
-	Default interface{} `json:"-"`
+	Default any `json:"-"`
 
 	Type        string `json:"type"`
 	Description string `json:"description"`
@@ -498,7 +498,7 @@ type Param struct {
 	Type        string      `json:"type"`
 	Description string      `json:"description"`
 	Options     []string    `json:"options"`
-	Default     interface{} `json:"default"`
+	Default     any `json:"default"`
 	Required    bool        `json:"required"`
 }
 
@@ -519,7 +519,7 @@ type MethodArgument struct {
 	Type        string
 	Description string
 	Options     []string
-	Default     interface{}
+	Default     any
 	Required    bool
 }
 

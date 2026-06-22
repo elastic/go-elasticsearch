@@ -139,7 +139,7 @@ func (r *Runner) setup() error {
 		return fmt.Errorf("setup: reading mapping: %s", err)
 	}
 
-	var mappingEnvelope map[string]interface{}
+	var mappingEnvelope map[string]any
 	json.NewDecoder(fm).Decode(&mappingEnvelope)
 	mapping, err := json.Marshal(mappingEnvelope["mappings"])
 	if err != nil {
@@ -156,7 +156,7 @@ func (r *Runner) setup() error {
 	if err != nil {
 		return fmt.Errorf("setup: reading document: %s", err)
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	json.NewDecoder(f).Decode(&m)
 	doc, err := json.Marshal(m)
 	if err != nil {

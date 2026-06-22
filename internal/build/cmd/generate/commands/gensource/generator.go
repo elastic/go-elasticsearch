@@ -311,7 +311,7 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 		}
 	}
 
-	var methodBody = func(e *Endpoint, a interface{}) string {
+	var methodBody = func(e *Endpoint, a any) string {
 		var b strings.Builder
 
 		switch a.(type) {
@@ -817,7 +817,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 			case "time.Duration":
 				fieldCondition = `r.` + fieldName + ` != 0`
 				fieldValue = `formatDuration(r.` + fieldName + `)`
-			default: // interface{}
+			default: // any
 				fieldCondition = `r.` + fieldName + ` != nil`
 				// TODO: Use type switching instead?
 				fieldValue = `fmt.Sprintf("%v", r.` + fieldName + `)`

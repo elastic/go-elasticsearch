@@ -58,7 +58,7 @@ func init() {
 
 // Health returns the status of the cluster (red, yellow, green).
 func Health(w http.ResponseWriter, r *http.Request) {
-	var j map[string]interface{}
+	var j map[string]any
 
 	res, err := ES.Cluster.Health()
 	if err != nil {

@@ -287,7 +287,7 @@ type BulkResponseJSONDecoder interface {
 
 // BulkIndexerDebugLogger defines the interface for a debugging logger.
 type BulkIndexerDebugLogger interface {
-	Printf(string, ...interface{})
+	Printf(string, ...any)
 }
 
 type bulkIndexer struct {

@@ -26,7 +26,7 @@ import (
 
 // CreateOp is a helper function to add a CreateOperation to the current bulk request.
 // doc argument can be a []byte, json.RawMessage or a struct.
-func (r *Bulk) CreateOp(op types.CreateOperation, doc interface{}) error {
+func (r *Bulk) CreateOp(op types.CreateOperation, doc any) error {
 	operation := types.OperationContainer{Create: &op}
 	header, err := json.Marshal(operation)
 	if err != nil {
@@ -86,7 +86,7 @@ func (r *Bulk) CreateOp(op types.CreateOperation, doc interface{}) error {
 
 // IndexOp is a helper function to add an IndexOperation to the current bulk request.
 // doc argument can be a []byte, json.RawMessage or a struct.
-func (r *Bulk) IndexOp(op types.IndexOperation, doc interface{}) error {
+func (r *Bulk) IndexOp(op types.IndexOperation, doc any) error {
 	operation := types.OperationContainer{Index: &op}
 	header, err := json.Marshal(operation)
 	if err != nil {
@@ -146,7 +146,7 @@ func (r *Bulk) IndexOp(op types.IndexOperation, doc interface{}) error {
 
 // UpdateOp is a helper function to add an UpdateOperation with and UpdateAction to the current bulk request.
 // update is optional, if both doc and update.Doc are provided, update.Doc has precedence.
-func (r *Bulk) UpdateOp(op types.UpdateOperation, doc interface{}, update *types.UpdateAction) error {
+func (r *Bulk) UpdateOp(op types.UpdateOperation, doc any, update *types.UpdateAction) error {
 	operation := types.OperationContainer{Update: &op}
 	header, err := json.Marshal(operation)
 	if err != nil {

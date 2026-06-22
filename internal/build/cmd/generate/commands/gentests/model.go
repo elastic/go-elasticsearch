@@ -38,7 +38,7 @@ var reBaseFilename = regexp.MustCompile(`elasticsearch-clients-tests/tests/(.*$)
 // TestPayload represents a single raw section (`---`) from the YAML file.
 type TestPayload struct {
 	Filepath string
-	Payload  interface{}
+	Payload  any
 }
 
 // TestSuite represents a group of tests (a "section") in one file.
@@ -74,28 +74,28 @@ type Test struct {
 type Steps []Step
 
 // Step represents an Action or an Assertion.
-type Step interface{}
+type Step any
 
 // Action represents an API action (`do`).
 type Action struct {
-	payload interface{}
+	payload any
 
 	method  string
-	params  map[interface{}]interface{}
+	params  map[any]any
 	catch   string
 	headers map[string]string
 }
 
 // Assertion represents a test assertion (`is_true`, `match`, etc).
 type Assertion struct {
-	payload interface{}
+	payload any
 
 	operation string
 }
 
 // Stash represents the registry for `set` operations.
 type Stash struct {
-	payload interface{}
+	payload any
 }
 
 // NewTestSuite returns a test group from the payloads.
@@ -138,19 +138,19 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 		secKeys := utils.MapKeys(payload.Payload)
 		switch {
 		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown") || strings.Contains(strings.Join(secKeys, ","), "requires"):
-			for k, v := range payload.Payload.(map[interface{}]interface{}) {
+			for k, v := range payload.Payload.(map[any]any) {
 				switch k {
 				case "setup":
-					for _, vv := range v.([]interface{}) {
-						for k, vvv := range vv.(map[interface{}]interface{}) {
+					for _, vv := range v.([]any) {
+						for k, vvv := range vv.(map[any]any) {
 							if k == "do" {
 								ts.Setup = append(ts.Setup, NewAction(vvv))
 							}
 						}
 					}
 				case "teardown":
-					for _, vv := range v.([]interface{}) {
-						for k, vvv := range vv.(map[interface{}]interface{}) {
+					for _, vv := range v.([]any) {
+						for k, vvv := range vv.(map[any]any) {
 							if k == "do" {
 								ts.Teardown = append(ts.Teardown, NewAction(vvv))
 							}
@@ -165,13 +165,13 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 					//
 					// For this generator, we currently skip suites that explicitly require non-stack
 					// (ie. serverless-only) by marking them as skipped when `stack: false`.
-					req, ok := v.(map[interface{}]interface{})
+					req, ok := v.(map[any]any)
 					if !ok {
 						continue
 					}
 
 					// Parse stack/serverless booleans (accept bool or string).
-					parseBool := func(val interface{}) (bool, bool) {
+					parseBool := func(val any) (bool, bool) {
 						switch vv := val.(type) {
 						case bool:
 							return vv, true
@@ -209,11 +209,11 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 				}
 			}
 		default:
-			for k, v := range payload.Payload.(map[interface{}]interface{}) {
+			for k, v := range payload.Payload.(map[any]any) {
 				var t Test
 				var steps []Step
 
-				raw, ok := v.([]interface{})
+				raw, ok := v.([]any)
 				if !ok {
 					fmt.Printf("Error: %v\n", v)
 				}
@@ -227,10 +227,10 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							skipR string
 						)
 
-						skip := vv.(map[interface{}]interface{})["skip"]
+						skip := vv.(map[any]any)["skip"]
 
-						if skipV, ok = skip.(map[interface{}]interface{})["version"].(string); ok {
-							if skipRR, ok := skip.(map[interface{}]interface{})["reason"].(string); ok {
+						if skipV, ok = skip.(map[any]any)["version"].(string); ok {
+							if skipRR, ok := skip.(map[any]any)["reason"].(string); ok {
 								skipR = skipRR
 							}
 							if skipV == "all" {
@@ -245,33 +245,33 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							}
 						}
 					case "setup":
-						for _, vvv := range vv.(map[interface{}]interface{}) {
-							for _, vvvv := range vvv.([]interface{}) {
-								t.Setup = append(t.Setup, NewAction(vvvv.(map[interface{}]interface{})["do"]))
+						for _, vvv := range vv.(map[any]any) {
+							for _, vvvv := range vvv.([]any) {
+								t.Setup = append(t.Setup, NewAction(vvvv.(map[any]any)["do"]))
 							}
 						}
 					case "teardown":
-						for _, vvv := range vv.(map[interface{}]interface{}) {
-							for _, vvvv := range vvv.([]interface{}) {
-								t.Teardown = append(t.Teardown, NewAction(vvvv.(map[interface{}]interface{})["do"]))
+						for _, vvv := range vv.(map[any]any) {
+							for _, vvvv := range vvv.([]any) {
+								t.Teardown = append(t.Teardown, NewAction(vvvv.(map[any]any)["do"]))
 							}
 						}
 					case "set":
-						for _, vvv := range vv.(map[interface{}]interface{}) {
+						for _, vvv := range vv.(map[any]any) {
 							steps = append(steps, NewStash(vvv))
 						}
 					case "transform_and_set":
-						for _, vvv := range vv.(map[interface{}]interface{}) {
+						for _, vvv := range vv.(map[any]any) {
 							// NOTE: `set_and_transform` has flipped ordering of key and value, compared to `set`
 							key := utils.MapValues(vvv)[0]
 							val := utils.MapKeys(vvv)[0]
-							payload := make(map[interface{}]interface{})
+							payload := make(map[any]any)
 							payload[key] = val
 							// fmt.Println(payload)
 							steps = append(steps, NewStash(payload))
 						}
 					case "do":
-						for _, vvv := range vv.(map[interface{}]interface{}) {
+						for _, vvv := range vv.(map[any]any) {
 							key := utils.MapKeys(vvv)[0]
 							if strings.HasPrefix(key, "_internal") {
 								ts.Skip = true
@@ -279,7 +279,7 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 							steps = append(steps, NewAction(vvv))
 						}
 					case "is_true", "is_false", "match", "lt", "gt", "lte", "gte":
-						for kkk, vvv := range vv.(map[interface{}]interface{}) {
+						for kkk, vvv := range vv.(map[any]any) {
 							steps = append(steps, NewAssertion(kkk.(string), vvv))
 						}
 						// TODO: "length" operator
@@ -302,7 +302,7 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 }
 
 // NewAction returns a new action from the payload.
-func NewAction(payload interface{}) Action {
+func NewAction(payload any) Action {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", r)
@@ -314,19 +314,19 @@ func NewAction(payload interface{}) Action {
 	a.payload = payload
 	a.headers = make(map[string]string)
 
-	for k, v := range payload.(map[interface{}]interface{}) {
+	for k, v := range payload.(map[any]any) {
 		switch k {
 		case "catch":
 			a.catch = v.(string)
 		case "warnings", "allowed_warnings", "allowed_warnings_regex", "node_selector", "arbitrary_key":
 			continue
 		case "headers":
-			for kk, vv := range v.(map[interface{}]interface{}) {
+			for kk, vv := range v.(map[any]any) {
 				a.headers[kk.(string)] = vv.(string)
 			}
 		default:
 			a.method = k.(string)
-			a.params = v.(map[interface{}]interface{})
+			a.params = v.(map[any]any)
 		}
 	}
 
@@ -334,12 +334,12 @@ func NewAction(payload interface{}) Action {
 }
 
 // NewAssertion returns a new assertion from the payload.
-func NewAssertion(operation string, payload interface{}) Assertion {
+func NewAssertion(operation string, payload any) Assertion {
 	return Assertion{operation: operation, payload: payload}
 }
 
 // NewStash returns a new stash from the payload.
-func NewStash(payload interface{}) Stash {
+func NewStash(payload any) Stash {
 	return Stash{payload: payload}
 }
 
@@ -472,9 +472,9 @@ func (a Action) Request() string {
 }
 
 // Params returns a map of parameters for the action.
-func (a Action) Params() map[string]interface{} {
+func (a Action) Params() map[string]any {
 	var kk string
-	out := make(map[string]interface{})
+	out := make(map[string]any)
 	for k, v := range a.params {
 		switch k.(string) {
 		case "context":
@@ -556,9 +556,9 @@ default:
 			output += `if !assertion` + " {\n"
 		} else {
 			// if subject == "slic" {
-			// 	output = `if fmt.Sprintf("%v", ` + subject + `) == fmt.Sprintf("%v", []interface{}{}) {` + "\n"
+			// 	output = `if fmt.Sprintf("%v", ` + subject + `) == fmt.Sprintf("%v", []any{}) {` + "\n"
 			// } else {
-			// 	output = `if fmt.Sprintf("%v", ` + subject + `) == fmt.Sprintf("%v", map[string]interface{}{}) {` + "\n"
+			// 	output = `if fmt.Sprintf("%v", ` + subject + `) == fmt.Sprintf("%v", map[string]any{}) {` + "\n"
 			// }
 			output = `if ` + subject + ` == nil {` + "\n"
 		}
@@ -597,9 +597,9 @@ default:
 			output += `if !assertion` + " {\n"
 		} else {
 			if subject == "slic" {
-				output = `if fmt.Sprintf("%v", ` + subject + `) != fmt.Sprintf("%v", []interface{}{}) {` + "\n"
+				output = `if fmt.Sprintf("%v", ` + subject + `) != fmt.Sprintf("%v", []any{}) {` + "\n"
 			} else {
-				output = `if fmt.Sprintf("%v", ` + subject + `) != fmt.Sprintf("%v", map[string]interface{}{}) {` + "\n"
+				output = `if fmt.Sprintf("%v", ` + subject + `) != fmt.Sprintf("%v", map[string]any{}) {` + "\n"
 			}
 		}
 		return output
@@ -805,10 +805,10 @@ default:
 			output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
 						actual = ` + escape(subject) + `
 						expected = ` + expectedExpr + `
-						assertion = func(a interface{}, e interface{}) bool {
+						assertion = func(a any, e any) bool {
 							exp := strings.TrimSpace(fmt.Sprintf("%v", e))
 							switch vv := a.(type) {
-							case []interface{}:
+							case []any:
 								for _, it := range vv {
 									if strings.TrimSpace(fmt.Sprintf("%v", it)) == exp {
 										return true
@@ -822,9 +822,9 @@ default:
 						if !assertion {` + "\n"
 
 		// --------------------------------------------------------------------------------
-		case map[interface{}]interface{}, map[string]interface{}:
+		case map[any]any, map[string]any:
 			// We cannot reliably serialize to json and compare the json outputs: YAML responses are parsed as
-			// a map[interface{}]interface{} that encoding/json fails to marshall
+			// a map[any]any that encoding/json fails to marshall
 			// See https://play.golang.org/p/jhcXwg5dIrn
 			expectedOutput := flattenPayload(val)
 			expectedPayload := fmt.Sprintf("%#v", expectedOutput)
@@ -835,7 +835,7 @@ default:
 				if actual != expected {` + "\n"
 
 		// --------------------------------------------------------------------------------
-		case []interface{}:
+		case []any:
 			expectedPayload := fmt.Sprintf("%#v", val)
 			expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
 			output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
@@ -1014,7 +1014,7 @@ func catchnil(input string) string {
 }
 
 // escape replaces unsafe characters in strings
-func escape(s interface{}) string {
+func escape(s any) string {
 	if s, ok := s.(string); ok {
 		// s = strings.Replace(s, `"`, `'`, -1)
 		// s = strings.Replace(s, `\`, `\\`, -1)
@@ -1046,17 +1046,17 @@ func skipVersion(minmax string) bool {
 }
 
 // flattenPayload serializes the expected payload as a map tree to compare within tests.
-func flattenPayload(val interface{}) map[string]interface{} {
-	expectedOutput := make(map[string]interface{})
-	if cast, ok := val.(map[interface{}]interface{}); ok {
+func flattenPayload(val any) map[string]any {
+	expectedOutput := make(map[string]any)
+	if cast, ok := val.(map[any]any); ok {
 		for k, v := range cast {
-			if _, ok := v.(map[interface{}]interface{}); ok {
+			if _, ok := v.(map[any]any); ok {
 				v = flattenPayload(v)
 			}
 			expectedOutput[fmt.Sprintf("%v", k)] = v
 		}
 	} else {
-		expectedOutput = val.(map[string]interface{})
+		expectedOutput = val.(map[string]any)
 	}
 	return expectedOutput
 }

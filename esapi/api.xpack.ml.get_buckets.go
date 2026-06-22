@@ -57,7 +57,7 @@ type MLGetBucketsRequest struct {
 	JobID     string
 	Timestamp string
 
-	AnomalyScore   interface{}
+	AnomalyScore   any
 	Desc           *bool
 	End            string
 	ExcludeInterim *bool
@@ -259,7 +259,7 @@ func (f MLGetBuckets) WithTimestamp(v string) func(*MLGetBucketsRequest) {
 }
 
 // WithAnomalyScore - filter for the most anomalous buckets.
-func (f MLGetBuckets) WithAnomalyScore(v interface{}) func(*MLGetBucketsRequest) {
+func (f MLGetBuckets) WithAnomalyScore(v any) func(*MLGetBucketsRequest) {
 	return func(r *MLGetBucketsRequest) {
 		r.AnomalyScore = v
 	}
