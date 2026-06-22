@@ -696,7 +696,6 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
-		Routing:             strings.Split(w.bi.config.Routing, ","),
 		Source:              w.bi.config.Source,
 		SourceExcludes:      w.bi.config.SourceExcludes,
 		SourceIncludes:      w.bi.config.SourceIncludes,
@@ -708,6 +707,9 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		ErrorTrace: w.bi.config.ErrorTrace,
 		FilterPath: w.bi.config.FilterPath,
 		Header:     w.bi.config.Header.Clone(),
+	}
+	if w.bi.config.Routing != "" {
+		req.Routing = strings.Split(w.bi.config.Routing, ",")
 	}
 	if w.bi.config.RequireAlias {
 		req.RequireAlias = &w.bi.config.RequireAlias
