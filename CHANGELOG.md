@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.4.2](https://github.com/elastic/go-elasticsearch/compare/v9.4.1...v9.4.2) (2026-06-22)
+
+
+### Bug Fixes
+
+* **esutil:** Omit empty routing query param in BulkIndexer ([#1515](https://github.com/elastic/go-elasticsearch/issues/1515)) ([3845bb1](https://github.com/elastic/go-elasticsearch/commit/3845bb1fe082d2276c8de94e911569b4bec1576f))
+
 ## [9.3.5](https://github.com/elastic/go-elasticsearch/compare/v9.3.4...v9.3.5) (2026-06-22)
 
 
