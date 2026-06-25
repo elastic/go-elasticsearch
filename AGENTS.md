@@ -115,7 +115,9 @@ The repo contains multiple Go modules (each with its own `go.mod`):
 - `esapi/test/`: generated YAML-driven API tests
 - `_examples/*/`: each example is a standalone module
 
-When modifying dependencies, use `make go-mod-tidy-all` to tidy all modules.
+A root `go.work` wires these into a single workspace so `go build ./...` and `go test ./...` can operate across modules without per-directory `cd`. The root module remains the only published surface.
+
+When modifying dependencies, use `make go-mod-tidy-all` to tidy each module. Use `go work sync` to propagate aligned versions across workspace modules when deliberately unifying dependency versions.
 
 ### Instrumentation & Interceptors
 
