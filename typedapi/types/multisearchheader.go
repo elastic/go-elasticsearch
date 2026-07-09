@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // Contains parameters used to limit or change the subsequent search body
 // request.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/msearch/types.ts#L37-L77
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/msearch/types.ts#L37-L77
 type MultisearchHeader struct {
 	// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
 	// the request returns an error (1) if any wildcard expression (including `_all`

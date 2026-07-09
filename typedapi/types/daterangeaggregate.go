@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // aggregation: `from` and `to` in `buckets` are milliseconds since the Epoch,
 // represented as a floating point number.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/aggregations/Aggregate.ts#L681-L687
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/aggregations/Aggregate.ts#L681-L687
 type DateRangeAggregate struct {
 	Buckets BucketsRangeBucket `json:"buckets"`
 	Meta    Metadata           `json:"meta,omitempty"`
