@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package esdsl
 
@@ -26,28 +26,22 @@ type _textIndexPrefixes struct {
 	v *types.TextIndexPrefixes
 }
 
-func NewTextIndexPrefixes(maxchars int, minchars int) *_textIndexPrefixes {
+func NewTextIndexPrefixes() *_textIndexPrefixes {
 
-	tmp := &_textIndexPrefixes{v: types.NewTextIndexPrefixes()}
-
-	tmp.MaxChars(maxchars)
-
-	tmp.MinChars(minchars)
-
-	return tmp
+	return &_textIndexPrefixes{v: types.NewTextIndexPrefixes()}
 
 }
 
 func (s *_textIndexPrefixes) MaxChars(maxchars int) *_textIndexPrefixes {
 
-	s.v.MaxChars = maxchars
+	s.v.MaxChars = &maxchars
 
 	return s
 }
 
 func (s *_textIndexPrefixes) MinChars(minchars int) *_textIndexPrefixes {
 
-	s.v.MinChars = minchars
+	s.v.MinChars = &minchars
 
 	return s
 }

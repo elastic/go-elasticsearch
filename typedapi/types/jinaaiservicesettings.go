@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // JinaAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/inference/_types/CommonTypes.ts#L1889-L1937
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/CommonTypes.ts#L1889-L1937
 type JinaAIServiceSettings struct {
 	// ApiKey A valid API key of your JinaAI account.
 	//
@@ -47,12 +47,12 @@ type JinaAIServiceSettings struct {
 	// output dimension is used. Refer to the Jina documentation for more
 	// information.
 	Dimensions *int `json:"dimensions,omitempty"`
-	// ElementType For an `embedding` or `text_embedding` task, the data type returned by the
+	// EmbeddingType For an `embedding` or `text_embedding` task, the data type returned by the
 	// model. Use `bit` for binary embeddings, which are encoded as bytes with
 	// signed int8 precision. Use `binary` for binary embeddings, which are encoded
 	// as bytes with signed int8 precision (this is a synonym of `bit`). Use `float`
 	// for the default float embeddings.
-	ElementType *jinaaielementtype.JinaAIElementType `json:"element_type,omitempty"`
+	EmbeddingType *jinaaielementtype.JinaAIElementType `json:"embedding_type,omitempty"`
 	// ModelId The name of the model to use for the inference task.
 	ModelId string `json:"model_id"`
 	// MultimodalModel For the `embedding` task, whether the model supports multimodal inputs. If
@@ -116,9 +116,9 @@ func (s *JinaAIServiceSettings) UnmarshalJSON(data []byte) error {
 				s.Dimensions = &f
 			}
 
-		case "element_type":
-			if err := dec.Decode(&s.ElementType); err != nil {
-				return fmt.Errorf("%s | %w", "ElementType", err)
+		case "embedding_type":
+			if err := dec.Decode(&s.EmbeddingType); err != nil {
+				return fmt.Errorf("%s | %w", "EmbeddingType", err)
 			}
 
 		case "model_id":

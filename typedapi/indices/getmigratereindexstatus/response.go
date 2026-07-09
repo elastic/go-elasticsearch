@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package getmigratereindexstatus
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package getmigratereindexstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/indices/get_migrate_reindex_status/MigrateGetReindexStatusResponse.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/get_migrate_reindex_status/MigrateGetReindexStatusResponse.ts#L23-L36
 type Response struct {
 	Complete                     bool                     `json:"complete"`
 	Errors                       []types.StatusError      `json:"errors"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package create
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package create
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/snapshot/create/SnapshotCreateResponse.ts#L22-L35
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/snapshot/create/SnapshotCreateResponse.ts#L22-L35
 type Response struct {
 	// Accepted Equals `true` if the snapshot was accepted. Present when the request had
 	// `wait_for_completion` set to `false`

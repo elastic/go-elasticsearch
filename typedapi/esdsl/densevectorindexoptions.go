@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package esdsl
 
@@ -49,6 +49,13 @@ func (s *_denseVectorIndexOptions) ConfidenceInterval(confidenceinterval float32
 func (s *_denseVectorIndexOptions) EfConstruction(efconstruction int) *_denseVectorIndexOptions {
 
 	s.v.EfConstruction = &efconstruction
+
+	return s
+}
+
+func (s *_denseVectorIndexOptions) FlatIndexThreshold(flatindexthreshold int) *_denseVectorIndexOptions {
+
+	s.v.FlatIndexThreshold = &flatindexthreshold
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BucketCorrelationFunctionCountCorrelationIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_types/aggregations/pipeline.ts#L160-L178
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/aggregations/pipeline.ts#L160-L178
 type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	// DocCount The total number of documents that initially created the expectations. It’s
 	// required to be greater than or equal to the sum of all values in the

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package typedapi
 
@@ -4386,6 +4386,8 @@ type Indices struct {
 	//   - The source index must have fewer primary shards than the target index.
 	//   - The number of primary shards in the target index must be a multiple of
 	//     the number of primary shards in the source index.
+	//   - The number of primary shards in the target index must be a divisor of the
+	//     source index's `index.number_of_routing_shards`.
 	//   - The node handling the split process must have sufficient free disk space
 	//     to accommodate a second copy of the existing index.
 	Split indices_split.NewSplit
@@ -17423,6 +17425,8 @@ func (p *MethodIndices) SimulateTemplate() *indices_simulate_template.SimulateTe
 //   - The source index must have fewer primary shards than the target index.
 //   - The number of primary shards in the target index must be a multiple of
 //     the number of primary shards in the source index.
+//   - The number of primary shards in the target index must be a divisor of the
+//     source index's `index.number_of_routing_shards`.
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
@@ -18146,7 +18150,9 @@ func (p *MethodInference) SparseEmbedding(inferenceid string) *inference_sparse_
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege). You must
 // use a client that supports streaming.
-// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-inference-stream-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-stream-completion
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-stream-completion
 func (p *MethodInference) StreamCompletion(inferenceid string) *inference_stream_completion.StreamCompletion {
 	_streamcompletion := inference_stream_completion.NewStreamCompletionFunc(p.tp)
 	return _streamcompletion(inferenceid)

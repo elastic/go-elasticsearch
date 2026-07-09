@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package esdsl
 
@@ -62,13 +62,29 @@ func (s *_innerHits) Explain(explain bool) *_innerHits {
 	return s
 }
 
-func (s *_innerHits) Fields(fields ...string) *_innerHits {
+func (s *_innerHits) Field(fields ...string) *_innerHits {
 
 	for _, v := range fields {
 
-		s.v.Fields = append(s.v.Fields, v)
+		s.v.Field = append(s.v.Field, v)
 
 	}
+	return s
+}
+
+func (s *_innerHits) Fields(fields ...types.FieldAndFormatVariant) *_innerHits {
+
+	for _, v := range fields {
+
+		s.v.Fields = append(s.v.Fields, *v.FieldAndFormatCaster())
+
+	}
+	return s
+}
+
+func (s *_innerHits) FieldsValues(fieldsvalues []types.FieldAndFormat) *_innerHits {
+
+	s.v.Fields = fieldsvalues
 	return s
 }
 

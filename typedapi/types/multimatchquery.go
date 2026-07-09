@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // MultiMatchQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_types/query_dsl/fulltext.ts#L523-L609
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/query_dsl/fulltext.ts#L523-L609
 type MultiMatchQuery struct {
 	// Analyzer Analyzer used to convert the text in the query value into tokens.
 	Analyzer *string `json:"analyzer,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package putrule
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L83
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L83
 type Request struct {
 	// Actions The actions to take when the rule is matched. The format of this action
 	// depends on the rule type.

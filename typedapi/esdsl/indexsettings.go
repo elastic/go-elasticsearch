@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package esdsl
 
@@ -439,6 +439,13 @@ func (s *_indexSettings) TopMetricsMaxSize(topmetricsmaxsize int) *_indexSetting
 func (s *_indexSettings) Translog(translog types.TranslogVariant) *_indexSettings {
 
 	s.v.Translog = translog.TranslogCaster()
+
+	return s
+}
+
+func (s *_indexSettings) Unassigned(unassigned types.IndexSettingsUnassignedVariant) *_indexSettings {
+
+	s.v.Unassigned = unassigned.IndexSettingsUnassignedCaster()
 
 	return s
 }

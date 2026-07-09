@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package putsynonym
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package putsynonym
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L23-L36
 type Response struct {
 	// ReloadAnalyzersDetails Updating a synonyms set can reload the associated analyzers in case refresh
 	// is set to true. This information is the analyzers reloading result.

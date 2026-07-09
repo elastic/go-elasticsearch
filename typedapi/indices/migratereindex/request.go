@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package migratereindex
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package migratereindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L23-L46
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/migrate_reindex/MigrateReindexRequest.ts#L23-L46
 type Request = types.MigrateReindex
 
 // NewRequest returns a Request

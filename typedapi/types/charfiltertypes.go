@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
 // CharFilterTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/cluster/stats/types.ts#L346-L383
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/cluster/stats/types.ts#L346-L385
 type CharFilterTypes struct {
 	// AnalyzerTypes Contains statistics about analyzer types used in selected nodes.
 	AnalyzerTypes []FieldTypes `json:"analyzer_types"`
@@ -37,7 +37,8 @@ type CharFilterTypes struct {
 	// CharFilterTypes Contains statistics about character filter types used in selected nodes.
 	CharFilterTypes []FieldTypes `json:"char_filter_types"`
 	// FilterTypes Contains statistics about token filter types used in selected nodes.
-	FilterTypes []FieldTypes `json:"filter_types"`
+	FilterTypes                 []FieldTypes                `json:"filter_types"`
+	MultipleSynonymGraphFilters *MultipleSynonymGraphFilter `json:"multiple_synonym_graph_filters,omitempty"`
 	// Synonyms Contains statistics about synonyms types used in selected nodes.
 	Synonyms map[string]SynonymsStats `json:"synonyms"`
 	// TokenizerTypes Contains statistics about tokenizer types used in selected nodes.
