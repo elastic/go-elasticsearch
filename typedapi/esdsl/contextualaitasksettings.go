@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package esdsl
 
@@ -35,13 +35,6 @@ func NewContextualAITaskSettings() *_contextualAITaskSettings {
 func (s *_contextualAITaskSettings) Instruction(instruction string) *_contextualAITaskSettings {
 
 	s.v.Instruction = &instruction
-
-	return s
-}
-
-func (s *_contextualAITaskSettings) ReturnDocuments(returndocuments bool) *_contextualAITaskSettings {
-
-	s.v.ReturnDocuments = &returndocuments
 
 	return s
 }

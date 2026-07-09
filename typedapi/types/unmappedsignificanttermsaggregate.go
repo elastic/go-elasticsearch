@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Result of the `significant_terms` aggregation on an unmapped field. `buckets`
 // is always empty.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/aggregations/Aggregate.ts#L764-L770
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_types/aggregations/Aggregate.ts#L764-L770
 type UnmappedSignificantTermsAggregate struct {
 	BgCount  *int64      `json:"bg_count,omitempty"`
 	Buckets  BucketsVoid `json:"buckets"`

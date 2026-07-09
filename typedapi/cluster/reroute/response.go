@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package reroute
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package reroute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/cluster/reroute/ClusterRerouteResponse.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/cluster/reroute/ClusterRerouteResponse.ts#L23-L34
 type Response struct {
 	Acknowledged bool                       `json:"acknowledged"`
 	Explanations []types.RerouteExplanation `json:"explanations,omitempty"`

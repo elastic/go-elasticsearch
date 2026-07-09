@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 // Split an index.
 //
@@ -62,6 +62,8 @@
 //   - The source index must have fewer primary shards than the target index.
 //   - The number of primary shards in the target index must be a multiple of
 //     the number of primary shards in the source index.
+//   - The number of primary shards in the target index must be a divisor of the
+//     source index's `index.number_of_routing_shards`.
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 package split
@@ -175,6 +177,8 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 //   - The source index must have fewer primary shards than the target index.
 //   - The number of primary shards in the target index must be a multiple of
 //     the number of primary shards in the source index.
+//   - The number of primary shards in the target index must be a divisor of the
+//     source index's `index.number_of_routing_shards`.
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //

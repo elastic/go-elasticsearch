@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
 // SemanticTextIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/mapping/SemanticTextIndexOptions.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_types/mapping/SemanticTextIndexOptions.ts#L23-L26
 type SemanticTextIndexOptions struct {
 	DenseVector  *DenseVectorIndexOptions  `json:"dense_vector,omitempty"`
 	SparseVector *SparseVectorIndexOptions `json:"sparse_vector,omitempty"`

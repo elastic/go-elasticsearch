@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package putnode
 
@@ -29,14 +29,15 @@ import (
 
 // Request holds the request body struct for the package putnode
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L110
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L112
 type Request struct {
 	// AllocationDelay Only valid if type is restart. Controls how long Elasticsearch will wait for
 	// the node to restart and join the cluster before reassigning its shards to
 	// other nodes. This works the same as delaying allocation with the
-	// index.unassigned.node_left.delayed_timeout setting. If you specify both a
-	// restart allocation delay and an index-level allocation delay, the longer of
-	// the two is used.
+	// index.unassigned.node_left.delayed_timeout setting. If you don't specify a
+	// restart allocation delay, a default value of 5 minutes will be used. If both
+	// a restart allocation delay and an index-level allocation delay are
+	// configured, the longer of the two is used.
 	AllocationDelay *string `json:"allocation_delay,omitempty"`
 	// Reason A human-readable reason that the node is being shut down. This field provides
 	// information for other cluster operators; it does not affect the shut down

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // CohereServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/_types/CommonTypes.ts#L829-L868
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/inference/_types/CommonTypes.ts#L829-L868
 type CohereServiceSettings struct {
 	// ApiKey A valid API key for your Cohere account. You can find or create your Cohere
 	// API keys on the Cohere API key settings page.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package typedapi
 
@@ -2493,9 +2493,11 @@ type Core struct {
 	// If reindexing from a remote cluster into a cluster using Elastic Stack, you
 	// must explicitly allow the remote host using the `reindex.remote.whitelist`
 	// node setting on the destination cluster. If reindexing from a remote cluster
-	// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-	// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-	// index template with data stream enabled.
+	// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+	// Cloud
+	// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+	// are allowed. Automatic data stream creation requires a matching index
+	// template with data stream enabled.
 	//
 	// The `dest` element can be configured like the index API to control optimistic
 	// concurrency control. Omitting `version_type` or setting it to `internal`
@@ -4387,6 +4389,8 @@ type Indices struct {
 	//   - The source index must have fewer primary shards than the target index.
 	//   - The number of primary shards in the target index must be a multiple of
 	//     the number of primary shards in the source index.
+	//   - The number of primary shards in the target index must be a divisor of the
+	//     source index's `index.number_of_routing_shards`.
 	//   - The node handling the split process must have sufficient free disk space
 	//     to accommodate a second copy of the existing index.
 	Split indices_split.NewSplit
@@ -6925,6 +6929,17 @@ type Snapshot struct {
 	// supplier of your storage system to address the incompatibilities that
 	// Elasticsearch detects.
 	//
+	// The analysis may also report a failure if your repository experienced a
+	// service disruption while the analysis was running. In practice, occasional
+	// service disruptions are inevitable, but the analysis cannot itself
+	// distinguish such disruptions from incorrect behavior so must report all
+	// deviations from the expected behavior as failures. If you are certain that
+	// you can ascribe an analysis failure to such a service disruption, wait for
+	// your service provider to resolve the disruption and then re-run the analysis.
+	// Elasticsearch will be unable to create or restore snapshots during repository
+	// service disruptions, so you must ensure that these events occur only very
+	// rarely.
+	//
 	// If the analysis is successful, the API returns details of the testing
 	// process, optionally including how long each operation took. You can use this
 	// information to determine the performance of your storage system. If any
@@ -8846,9 +8861,11 @@ type API struct {
 	// If reindexing from a remote cluster into a cluster using Elastic Stack, you
 	// must explicitly allow the remote host using the `reindex.remote.whitelist`
 	// node setting on the destination cluster. If reindexing from a remote cluster
-	// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-	// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-	// index template with data stream enabled.
+	// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+	// Cloud
+	// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+	// are allowed. Automatic data stream creation requires a matching index
+	// template with data stream enabled.
 	//
 	// The `dest` element can be configured like the index API to control optimistic
 	// concurrency control. Omitting `version_type` or setting it to `internal`
@@ -11511,9 +11528,11 @@ func (p *MethodAPI) RankEval() *core_rank_eval.RankEval {
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud
+// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`
@@ -14721,9 +14740,11 @@ func (p *MethodCore) RankEval() *core_rank_eval.RankEval {
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud
+// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`
@@ -17357,6 +17378,8 @@ func (p *MethodIndices) SimulateTemplate() *indices_simulate_template.SimulateTe
 //   - The source index must have fewer primary shards than the target index.
 //   - The number of primary shards in the target index must be a multiple of
 //     the number of primary shards in the source index.
+//   - The number of primary shards in the target index must be a divisor of the
+//     source index's `index.number_of_routing_shards`.
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
@@ -21426,6 +21449,17 @@ func (p *MethodSnapshot) GetRepository() *snapshot_get_repository.GetRepository 
 // implementation of the same storage protocol. You will need to work with the
 // supplier of your storage system to address the incompatibilities that
 // Elasticsearch detects.
+//
+// The analysis may also report a failure if your repository experienced a
+// service disruption while the analysis was running. In practice, occasional
+// service disruptions are inevitable, but the analysis cannot itself
+// distinguish such disruptions from incorrect behavior so must report all
+// deviations from the expected behavior as failures. If you are certain that
+// you can ascribe an analysis failure to such a service disruption, wait for
+// your service provider to resolve the disruption and then re-run the analysis.
+// Elasticsearch will be unable to create or restore snapshots during repository
+// service disruptions, so you must ensure that these events occur only very
+// rarely.
 //
 // If the analysis is successful, the API returns details of the testing
 // process, optionally including how long each operation took. You can use this

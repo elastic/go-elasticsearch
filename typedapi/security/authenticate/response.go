@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package authenticate
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package authenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/security/authenticate/SecurityAuthenticateResponse.ts#L25-L43
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/security/authenticate/SecurityAuthenticateResponse.ts#L25-L43
 type Response struct {
 	ApiKey              *types.AuthenticateApiKey `json:"api_key,omitempty"`
 	AuthenticationRealm types.RealmInfo           `json:"authentication_realm"`

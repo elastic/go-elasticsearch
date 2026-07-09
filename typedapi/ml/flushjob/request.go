@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package flushjob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package flushjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L111
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L111
 type Request struct {
 	// AdvanceTime Refer to the description for the `advance_time` query parameter.
 	AdvanceTime types.DateTime `json:"advance_time,omitempty"`

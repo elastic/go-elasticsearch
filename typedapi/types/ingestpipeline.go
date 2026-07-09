@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IngestPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ingest/_types/Pipeline.ts#L24-L83
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/ingest/_types/Pipeline.ts#L24-L83
 type IngestPipeline struct {
 	// CreatedDate Date and time when the pipeline was created. Only returned if the `human`
 	// query parameter is `true`.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -28,13 +28,14 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/retentionsource"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
 // Data stream lifecycle with rollover can be used to display the configuration
 // including the default rollover conditions, if asked.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/indices/_types/DataStreamLifecycle.ts#L53-L64
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/indices/_types/DataStreamLifecycle.ts#L70-L81
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
@@ -48,10 +49,14 @@ type DataStreamLifecycleWithRollover struct {
 	// `last_value`. It requires `downsampling` to be defined. Defaults to
 	// `aggregate`.
 	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
+	// EffectiveRetention The least amount of time data should be kept by elasticsearch.
+	EffectiveRetention Duration `json:"effective_retention,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
 	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
+	// RetentionDeterminedBy Configuration source that can influence the retention of a data stream.
+	RetentionDeterminedBy *retentionsource.RetentionSource `json:"retention_determined_by,omitempty"`
 	// Rollover The conditions which will trigger the rollover of a backing index as
 	// configured by the cluster setting `cluster.lifecycle.default.rollover`. This
 	// property is an implementation detail and it will only be retrieved when the
@@ -90,6 +95,11 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "DownsamplingMethod", err)
 			}
 
+		case "effective_retention":
+			if err := dec.Decode(&s.EffectiveRetention); err != nil {
+				return fmt.Errorf("%s | %w", "EffectiveRetention", err)
+			}
+
 		case "enabled":
 			var tmp any
 			dec.Decode(&tmp)
@@ -102,6 +112,11 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 				s.Enabled = &value
 			case bool:
 				s.Enabled = &v
+			}
+
+		case "retention_determined_by":
+			if err := dec.Decode(&s.RetentionDeterminedBy); err != nil {
+				return fmt.Errorf("%s | %w", "RetentionDeterminedBy", err)
 			}
 
 		case "rollover":

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package deletesecret
 
 // Response holds the response body struct for the package deletesecret
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/fleet/delete_secret/FleetDeleteSecretResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/fleet/delete_secret/FleetDeleteSecretResponse.ts#L20-L24
 type Response struct {
 	Deleted bool `json:"deleted"`
 }

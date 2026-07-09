@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package scriptspainlessexecute
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package scriptspainlessexecute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_global/scripts_painless_execute/ExecutePainlessScriptResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_global/scripts_painless_execute/ExecutePainlessScriptResponse.ts#L20-L24
 type Response struct {
 	Result json.RawMessage `json:"result,omitempty"`
 }

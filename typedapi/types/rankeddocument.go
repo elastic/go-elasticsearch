@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // relevance_score of the document relative to the query text: Optional, the
 // text of the document, if requested
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/_types/Results.ts#L95-L105
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/inference/_types/Results.ts#L95-L105
 type RankedDocument struct {
 	Index          int     `json:"index"`
 	RelevanceScore float32 `json:"relevance_score"`

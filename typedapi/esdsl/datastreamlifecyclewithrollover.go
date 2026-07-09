@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/retentionsource"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
@@ -71,10 +72,23 @@ func (s *_dataStreamLifecycleWithRollover) DownsamplingMethod(downsamplingmethod
 	return s
 }
 
+func (s *_dataStreamLifecycleWithRollover) EffectiveRetention(duration types.DurationVariant) *_dataStreamLifecycleWithRollover {
+
+	s.v.EffectiveRetention = *duration.DurationCaster()
+
+	return s
+}
+
 func (s *_dataStreamLifecycleWithRollover) Enabled(enabled bool) *_dataStreamLifecycleWithRollover {
 
 	s.v.Enabled = &enabled
 
+	return s
+}
+
+func (s *_dataStreamLifecycleWithRollover) RetentionDeterminedBy(retentiondeterminedby retentionsource.RetentionSource) *_dataStreamLifecycleWithRollover {
+
+	s.v.RetentionDeterminedBy = &retentiondeterminedby
 	return s
 }
 

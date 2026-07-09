@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package getfilters
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getfilters
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ml/get_filters/MlGetFiltersResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/ml/get_filters/MlGetFiltersResponse.ts#L23-L28
 type Response struct {
 	Count   int64            `json:"count"`
 	Filters []types.MLFilter `json:"filters"`
