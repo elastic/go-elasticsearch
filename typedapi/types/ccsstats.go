@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
 // CCSStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/cluster/stats/types.ts#L769-L784
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/cluster/stats/types.ts#L769-L784
 type CCSStats struct {
 	// Clusters Contains remote cluster settings and metrics collected from them. The keys
 	// are cluster names, and the values are per-cluster data. Only present if

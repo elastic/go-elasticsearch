@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DfsStatisticsBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/_global/search/_types/profile.ts#L170-L179
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/search/_types/profile.ts#L170-L179
 type DfsStatisticsBreakdown struct {
 	CollectionStatistics      int64 `json:"collection_statistics"`
 	CollectionStatisticsCount int64 `json:"collection_statistics_count"`

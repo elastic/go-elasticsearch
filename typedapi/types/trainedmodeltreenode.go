@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelTreeNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/ml/put_trained_model/types.ts#L81-L91
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/put_trained_model/types.ts#L81-L91
 type TrainedModelTreeNode struct {
 	DecisionType *string  `json:"decision_type,omitempty"`
 	DefaultLeft  *bool    `json:"default_left,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package shrink
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package shrink
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L115
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L115
 type Request struct {
 	// Aliases The key is the alias name. Index alias names support date math.
 	Aliases map[string]types.Alias `json:"aliases,omitempty"`

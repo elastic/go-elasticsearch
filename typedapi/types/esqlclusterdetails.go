@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EsqlClusterDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/esql/_types/EsqlResult.ts#L75-L80
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/esql/_types/EsqlResult.ts#L75-L80
 type EsqlClusterDetails struct {
 	Indices string                              `json:"indices"`
 	Shards_ *EsqlShardInfo                      `json:"_shards,omitempty"`

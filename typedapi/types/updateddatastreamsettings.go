@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UpdatedDataStreamSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L30-L55
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L30-L55
 type UpdatedDataStreamSettings struct {
 	// AppliedToDataStream If the settings were successfully applied to the data stream (or would have
 	// been, if running in `dry_run` mode), it is `true`. If an error occurred, it

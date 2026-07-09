@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/indices/get_data_stream_settings/IndicesGetDataStreamSettingsResponse.ts#L29-L39
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/get_data_stream_settings/IndicesGetDataStreamSettingsResponse.ts#L29-L39
 type DataStreamSettings struct {
 	// EffectiveSettings The settings specific to this data stream merged with the settings from its
 	// template. These `effective_settings` are the settings that will be used when

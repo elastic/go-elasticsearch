@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package create
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package create
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/snapshot/create/SnapshotCreateRequest.ts#L30-L134
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/snapshot/create/SnapshotCreateRequest.ts#L30-L134
 type Request struct {
 	// ExpandWildcards Determines how wildcard patterns in the `indices` parameter match data
 	// streams and indices. It supports comma-separated values such as

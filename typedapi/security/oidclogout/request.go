@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package oidclogout
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package oidclogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/security/oidc_logout/Request.ts#L23-L55
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/oidc_logout/Request.ts#L23-L55
 type Request struct {
 	// RefreshToken The refresh token to be invalidated.
 	RefreshToken *string `json:"refresh_token,omitempty"`

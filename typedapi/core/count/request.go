@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package count
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package count
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/_global/count/CountRequest.ts#L26-L156
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/count/CountRequest.ts#L26-L156
 type Request struct {
 	// Query Defines the search query using Query DSL. A request body query cannot be used
 	// with the `q` query string parameter.
