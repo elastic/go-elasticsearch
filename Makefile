@@ -7,7 +7,7 @@ else
 SHELL := $(_BASH)
 endif
 
-ELASTICSEARCH_DEFAULT_BUILD_VERSION = "9.4.0-SNAPSHOT"
+ELASTICSEARCH_DEFAULT_BUILD_VERSION = "9.5.0-SNAPSHOT"
 
 # Elasticsearch common YAML test suites (new layout)
 ELASTICSEARCH_CLIENTS_TESTS_REPO ?= https://github.com/elastic/elasticsearch-clients-tests.git
