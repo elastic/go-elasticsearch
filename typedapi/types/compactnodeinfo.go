@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // CompactNodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L33-L40
 type CompactNodeInfo struct {
 	// Name A human-readable name for the node. You can set this name using the
 	// `node.name` property in `elasticsearch.yml`. The default value is the

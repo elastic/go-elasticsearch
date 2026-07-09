@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package putelser
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putelser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/inference/put_elser/PutElserRequest.ts#L30-L97
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/put_elser/PutElserRequest.ts#L30-L97
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Note that for ELSER endpoints, the
 	// max_chunk_size may not exceed `300`.

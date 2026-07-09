@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Cpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/nodes/_types/Stats.ts#L577-L586
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/nodes/_types/Stats.ts#L604-L613
 type Cpu struct {
 	LoadAverage   map[string]Float64 `json:"load_average,omitempty"`
 	Percent       *int               `json:"percent,omitempty"`

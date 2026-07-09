@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SemanticQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_types/query_dsl/SemanticQuery.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/query_dsl/SemanticQuery.ts#L22-L30
 type SemanticQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query. Boost values are relative to the default value of 1.0. A boost

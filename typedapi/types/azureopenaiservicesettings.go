@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureOpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/inference/_types/CommonTypes.ts#L943-L1030
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/CommonTypes.ts#L943-L1030
 type AzureOpenAIServiceSettings struct {
 	// ApiKey A valid API key for your Azure OpenAI account.
 	//
@@ -42,14 +42,14 @@ type AzureOpenAIServiceSettings struct {
 	// ApiVersion The Azure API version ID to use. It is recommended to use the latest
 	// supported non-preview version.
 	ApiVersion string `json:"api_version"`
-	// ClientId For OAuth 2.0 authentication using the client credentials grant flow. The
+	// ClientId For OAuth 2.0 authorization using the client credentials grant flow. The
 	// application ID that's assigned to your app.
 	//
 	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,
 	// tenant_id, and client_secret together. If one of the fields is missing, you
 	// will receive an error when you try to create your endpoint.
 	ClientId *string `json:"client_id,omitempty"`
-	// ClientSecret For OAuth 2.0 authentication using the client credentials grant flow. The
+	// ClientSecret For OAuth 2.0 authorization using the client credentials grant flow. The
 	// application secret that you created in the Microsoft app registration portal
 	// for your app.
 	//
@@ -79,7 +79,7 @@ type AzureOpenAIServiceSettings struct {
 	// ResourceName The name of your Azure OpenAI resource. You can find this from the list of
 	// resources in the Azure Portal for your subscription.
 	ResourceName string `json:"resource_name"`
-	// Scopes For OAuth 2.0 authentication using the client credentials grant flow. The
+	// Scopes For OAuth 2.0 authorization using the client credentials grant flow. The
 	// resource identifier (application ID URI) of the resource you want, suffixed
 	// with .default For example:
 	//
@@ -91,7 +91,7 @@ type AzureOpenAIServiceSettings struct {
 	// tenant_id, and client_secret together. If one of the fields is missing, you
 	// will receive an error when you try to create your endpoint.
 	Scopes []string `json:"scopes,omitempty"`
-	// TenantId For OAuth 2.0 authentication using the client credentials grant flow. The
+	// TenantId For OAuth 2.0 authorization using the client credentials grant flow. The
 	// directory tenant the application plans to operate against.
 	//
 	// IMPORTANT: To configure OAuth 2.0, you must specify client_id, scopes,

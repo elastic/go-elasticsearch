@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // WatchRecordQueuedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/watcher/stats/types.ts#L71-L77
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/watcher/stats/types.ts#L71-L77
 type WatchRecordQueuedStats struct {
 	// ExecutionTime The time the watch was run. This is just before the input is being run.
 	ExecutionTime DateTime `json:"execution_time"`

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
 // ShardStoreIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_global/search_shards/SearchShardsResponse.ts#L62-L65
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_global/search_shards/SearchShardsResponse.ts#L62-L65
 type ShardStoreIndex struct {
 	Aliases []string `json:"aliases,omitempty"`
 	Filter  *Query   `json:"filter,omitempty"`

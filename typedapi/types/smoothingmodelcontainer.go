@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
 // SmoothingModelContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/_global/search/_types/suggester.ts#L436-L452
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_global/search/_types/suggester.ts#L436-L452
 type SmoothingModelContainer struct {
 	// Laplace A smoothing model that uses an additive smoothing where a constant (typically
 	// `1.0` or smaller) is added to all counts to balance weights.

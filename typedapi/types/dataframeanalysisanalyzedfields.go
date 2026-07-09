@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeAnalysisAnalyzedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/ml/_types/DataframeAnalytics.ts#L238-L244
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ml/_types/DataframeAnalytics.ts#L238-L244
 type DataframeAnalysisAnalyzedFields struct {
 	// Excludes An array of strings that defines the fields that will be included in the
 	// analysis.

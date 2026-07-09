@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
 // Data stream options contain the configuration of data stream level features
 // for a given data stream, for example, the failure store configuration.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/indices/_types/DataStreamOptions.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/_types/DataStreamOptions.ts#L25-L34
 type DataStreamOptions struct {
 	// FailureStore If defined, it specifies configuration for the failure store of this data
 	// stream.

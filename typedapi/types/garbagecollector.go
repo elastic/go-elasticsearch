@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
 // GarbageCollector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/nodes/_types/Stats.ts#L1001-L1006
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/nodes/_types/Stats.ts#L1028-L1033
 type GarbageCollector struct {
 	// Collectors Contains statistics about JVM garbage collectors for the node.
 	Collectors map[string]GarbageCollectorTotal `json:"collectors,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CustomServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/inference/_types/CommonTypes.ts#L1182-L1257
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/CommonTypes.ts#L1182-L1257
 type CustomServiceSettings struct {
 	// BatchSize Specifies the batch size used for the semantic_text field. If the field is
 	// not provided, the default is 10. The batch size is the maximum number of
@@ -41,7 +41,7 @@ type CustomServiceSettings struct {
 	// batch are controlled by the selected chunking strategy for the semantic_text
 	// field.
 	BatchSize *int `json:"batch_size,omitempty"`
-	// Headers Specifies the HTTP header parameters – such as `Authentication` or
+	// Headers Specifies the HTTP header parameters – such as `Authorization` or
 	// `Content-Type` – that are required to access the custom service. For
 	// example:
 	//

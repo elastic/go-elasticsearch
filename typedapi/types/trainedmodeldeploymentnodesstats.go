@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -31,8 +31,9 @@ import (
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/ml/_types/TrainedModel.ts#L157-L202
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ml/_types/TrainedModel.ts#L157-L204
 type TrainedModelDeploymentNodesStats struct {
+	AverageInferenceProcessMemoryRssBytes ByteSize `json:"average_inference_process_memory_rss_bytes,omitempty"`
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
 	AverageInferenceTimeMs Float64 `json:"average_inference_time_ms,omitempty"`
 	// AverageInferenceTimeMsExcludingCacheHits The average time for each inference call to complete on this node, excluding
@@ -83,6 +84,11 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "average_inference_process_memory_rss_bytes":
+			if err := dec.Decode(&s.AverageInferenceProcessMemoryRssBytes); err != nil {
+				return fmt.Errorf("%s | %w", "AverageInferenceProcessMemoryRssBytes", err)
+			}
 
 		case "average_inference_time_ms":
 			if err := dec.Decode(&s.AverageInferenceTimeMs); err != nil {

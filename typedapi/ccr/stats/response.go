@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package stats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/ccr/stats/CcrStatsResponse.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ccr/stats/CcrStatsResponse.ts#L22-L29
 type Response struct {
 	// AutoFollowStats Statistics for the auto-follow coordinator.
 	AutoFollowStats types.AutoFollowStats `json:"auto_follow_stats"`

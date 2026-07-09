@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 // Perform streaming completion inference on the service.
 //
@@ -117,7 +117,9 @@ func NewStreamCompletionFunc(tp elastictransport.Interface) NewStreamCompletion 
 // `inference_admin` and `inference_user` roles grant this privilege). You must
 // use a client that supports streaming.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation-inference-stream-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/v9/operation/operation-inference-stream-completion
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-stream-completion
 func New(tp elastictransport.Interface) *StreamCompletion {
 	r := &StreamCompletion{
 		transport: tp,

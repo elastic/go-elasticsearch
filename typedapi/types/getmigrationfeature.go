@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GetMigrationFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
 type GetMigrationFeature struct {
 	FeatureName         string                          `json:"feature_name"`
 	Indices             []MigrationFeatureIndexInfo     `json:"indices"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package bulkupdateapikeys
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package bulkupdateapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/security/bulk_update_api_keys/SecurityBulkUpdateApiKeysRequest.ts#L26-L86
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/bulk_update_api_keys/SecurityBulkUpdateApiKeysRequest.ts#L26-L86
 type Request struct {
 	// Expiration Expiration time for the API keys. By default, API keys never expire. This
 	// property can be omitted to leave the value unchanged.

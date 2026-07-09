@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // An object containing the input data for the model to embed.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/inference/_types/CommonTypes.ts#L620-L637
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/CommonTypes.ts#L620-L637
 type EmbeddingContentObjectContents struct {
 	// Format The format of the input. For the `text` type this must be `text`. For the
 	// `image` type, this must be `base64`. If not specified, this will default to

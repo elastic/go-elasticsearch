@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1
+// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // The failure store lifecycle configures the data stream lifecycle
 // configuration for failure indices.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/fcf537e4be958d56e9c7cafe9076afdc8a91ffc1/specification/indices/_types/DataStreamFailureStore.ts#L56-L72
+// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/_types/DataStreamFailureStore.ts#L56-L72
 type FailureStoreLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
