@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
 // IndexSettingResults type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L57-L69
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/put_data_stream_settings/IndicesPutDataStreamSettingsResponse.ts#L57-L69
 type IndexSettingResults struct {
 	// AppliedToDataStreamAndBackingIndices The list of settings that were applied to the data stream and to all of its
 	// backing indices. These settings will also be applied to the write index the

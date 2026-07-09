@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 // Update index settings. Changes dynamic index settings in real time. For data
 // streams, index setting changes are applied to all backing indices by default.
@@ -1104,6 +1104,17 @@ func (r *PutSettings) Translog(translog *types.Translog) *PutSettings {
 	}
 
 	r.req.Translog = translog
+
+	return r
+}
+
+// API name: unassigned
+func (r *PutSettings) Unassigned(unassigned *types.IndexSettingsUnassigned) *PutSettings {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Unassigned = unassigned
 
 	return r
 }

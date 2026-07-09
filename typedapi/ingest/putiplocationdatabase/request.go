@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package putiplocationdatabase
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package putiplocationdatabase
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/ingest/put_ip_location_database/PutIpLocationDatabaseRequest.ts#L25-L64
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ingest/put_ip_location_database/PutIpLocationDatabaseRequest.ts#L25-L64
 type Request = types.DatabaseConfiguration
 
 // NewRequest returns a Request

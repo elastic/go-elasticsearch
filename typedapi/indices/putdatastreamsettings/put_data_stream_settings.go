@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 // Update data stream settings.
 //
@@ -965,6 +965,17 @@ func (r *PutDataStreamSettings) Translog(translog *types.Translog) *PutDataStrea
 	}
 
 	r.req.Translog = translog
+
+	return r
+}
+
+// API name: unassigned
+func (r *PutDataStreamSettings) Unassigned(unassigned *types.IndexSettingsUnassigned) *PutDataStreamSettings {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Unassigned = unassigned
 
 	return r
 }

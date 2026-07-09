@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package grantapikey
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L104
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L104
 type Request struct {
 	// AccessToken The user's access token. If you specify the `access_token` grant type, this
 	// parameter is required. It is not valid with other grant types.

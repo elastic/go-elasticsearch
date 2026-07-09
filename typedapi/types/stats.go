@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -33,10 +33,12 @@ import (
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/nodes/_types/Stats.ts#L30-L114
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/nodes/_types/Stats.ts#L30-L118
 type Stats struct {
 	// AdaptiveSelection Statistics about adaptive replica selection.
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`
+	// Allocations Statistics about shard allocations on the node.
+	Allocations *Allocations `json:"allocations,omitempty"`
 	// Attributes Contains a list of attributes for the node.
 	Attributes map[string]string `json:"attributes,omitempty"`
 	// Breakers Statistics about the field data circuit breaker.
@@ -104,6 +106,11 @@ func (s *Stats) UnmarshalJSON(data []byte) error {
 			}
 			if err := dec.Decode(&s.AdaptiveSelection); err != nil {
 				return fmt.Errorf("%s | %w", "AdaptiveSelection", err)
+			}
+
+		case "allocations":
+			if err := dec.Decode(&s.Allocations); err != nil {
+				return fmt.Errorf("%s | %w", "Allocations", err)
 			}
 
 		case "attributes":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package types
 
@@ -28,12 +28,13 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/runtimefieldtype"
 )
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/_types/mapping/RuntimeFields.ts#L26-L50
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/mapping/RuntimeFields.ts#L27-L52
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
@@ -42,7 +43,8 @@ type RuntimeField struct {
 	// Format A custom format for `date` type runtime fields.
 	Format *string `json:"format,omitempty"`
 	// InputField For type `lookup`
-	InputField *string `json:"input_field,omitempty"`
+	InputField    *string                      `json:"input_field,omitempty"`
+	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
 	// Script Painless script executed at query time.
 	Script *Script `json:"script,omitempty"`
 	// TargetField For type `lookup`
@@ -97,6 +99,11 @@ func (s *RuntimeField) UnmarshalJSON(data []byte) error {
 		case "input_field":
 			if err := dec.Decode(&s.InputField); err != nil {
 				return fmt.Errorf("%s | %w", "InputField", err)
+			}
+
+		case "on_script_error":
+			if err := dec.Decode(&s.OnScriptError); err != nil {
+				return fmt.Errorf("%s | %w", "OnScriptError", err)
 			}
 
 		case "script":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6ee016a765be615b0205fc209d3d3c515044689d
+// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
 
 package repositoryanalyze
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package repositoryanalyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6ee016a765be615b0205fc209d3d3c515044689d/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L24-L108
+// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/snapshot/repository_analyze/SnapshotAnalyzeRepositoryResponse.ts#L24-L108
 type Response struct {
 	// BlobCount The number of blobs written to the repository during the test.
 	BlobCount int `json:"blob_count"`
