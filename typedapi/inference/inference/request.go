@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package inference
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package inference
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/inference/InferenceRequest.ts#L26-L106
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/inference/InferenceRequest.ts#L26-L106
 type Request struct {
 	// Input The text on which you want to perform the inference task. It can be a single
 	// string or an array.

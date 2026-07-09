@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package stats
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/cluster/stats/ClusterStatsResponse.ts#L71-L74
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/cluster/stats/ClusterStatsResponse.ts#L71-L74
 type Response struct {
 	// Ccs Cross-cluster stats
 	Ccs types.CCSStats `json:"ccs"`

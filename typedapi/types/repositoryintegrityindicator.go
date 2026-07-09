@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // REPOSITORY_INTEGRITY
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/health_report/types.ts#L138-L142
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/health_report/types.ts#L139-L143
 type RepositoryIntegrityIndicator struct {
 	Details   *RepositoryIntegrityIndicatorDetails        `json:"details,omitempty"`
 	Diagnosis []Diagnosis                                 `json:"diagnosis,omitempty"`

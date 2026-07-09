@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package putdatastreammappings
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package putdatastreammappings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/indices/put_data_stream_mappings/IndicesPutDataStreamMappingsRequest.ts#L25-L78
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/indices/put_data_stream_mappings/IndicesPutDataStreamMappingsRequest.ts#L25-L78
 type Request = types.TypeMapping
 
 // NewRequest returns a Request

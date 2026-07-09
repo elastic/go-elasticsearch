@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 // Count search results.
 //
@@ -464,6 +464,18 @@ func (r *Count) Preference(preference string) *Count {
 // API name: routing
 func (r *Count) Routing(routings ...string) *Count {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Stats Specific `tag` of the request for logging and statistical purposes.
+// API name: stats
+func (r *Count) Stats(stats ...[]string) *Count {
+	tmp := []string{}
+	for _, item := range stats {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("stats", strings.Join(tmp, ","))
 
 	return r
 }

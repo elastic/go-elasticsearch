@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package getsynonym
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsynonym
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/synonyms/get_synonym/SynonymsGetResponse.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/synonyms/get_synonym/SynonymsGetResponse.ts#L23-L34
 type Response struct {
 	// Count The total number of synonyms rules that the synonyms set contains.
 	Count int `json:"count"`
