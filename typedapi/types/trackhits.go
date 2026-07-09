@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -30,7 +30,7 @@ package types
 // response does not include the total number of hits matching the query.
 // Defaults to 10,000 hits.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_global/search/_types/hits.ts#L151-L159
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_global/search/_types/hits.ts#L154-L162
 type TrackHits any
 
 type TrackHitsVariant interface {

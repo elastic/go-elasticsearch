@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DenseVectorIndexOptionsRescoreVector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/mapping/DenseVectorProperty.ts#L237-L245
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_types/mapping/DenseVectorProperty.ts#L237-L245
 type DenseVectorIndexOptionsRescoreVector struct {
 	// Oversample The oversampling factor to use when searching for the nearest neighbor. This
 	// is only applicable to the quantized formats: `bbq_*`, `int4_*`, and `int8_*`.

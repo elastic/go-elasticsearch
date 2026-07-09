@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CgroupCpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/nodes/_types/Stats.ts#L525-L542
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/nodes/_types/Stats.ts#L552-L569
 type CgroupCpu struct {
 	// CfsPeriodMicros The period of time, in microseconds, for how regularly all tasks in the same
 	// cgroup as the Elasticsearch process should have their access to CPU resources

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 // Reindex documents.
 //
@@ -47,9 +47,11 @@
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud
+// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`
@@ -177,9 +179,11 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 // If reindexing from a remote cluster into a cluster using Elastic Stack, you
 // must explicitly allow the remote host using the `reindex.remote.whitelist`
 // node setting on the destination cluster. If reindexing from a remote cluster
-// into an Elastic Cloud Serverless project, only remote hosts from Elastic
-// Cloud Hosted are allowed. Automatic data stream creation requires a matching
-// index template with data stream enabled.
+// into an Elastic Cloud Serverless project, only remote hosts from [Elastic
+// Cloud
+// Hosted](https://cloud.elastic.co/registration?page=docs&placement=docs-body)
+// are allowed. Automatic data stream creation requires a matching index
+// template with data stream enabled.
 //
 // The `dest` element can be configured like the index API to control optimistic
 // concurrency control. Omitting `version_type` or setting it to `internal`

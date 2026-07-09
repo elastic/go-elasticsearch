@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 // Package fieldtype
 package fieldtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/mapping/Property.ts#L195-L244
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_types/mapping/Property.ts#L195-L245
 type FieldType struct {
 	Name string
 }
@@ -44,6 +44,8 @@ var (
 	Text = FieldType{"text"}
 
 	Searchasyoutype = FieldType{"search_as_you_type"}
+
+	Wildcard = FieldType{"wildcard"}
 
 	Date = FieldType{"date"}
 
@@ -149,6 +151,8 @@ func (f *FieldType) UnmarshalText(text []byte) error {
 		*f = Text
 	case "search_as_you_type":
 		*f = Searchasyoutype
+	case "wildcard":
+		*f = Wildcard
 	case "date":
 		*f = Date
 	case "date_nanos":

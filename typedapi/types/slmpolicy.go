@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SLMPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/slm/_types/SnapshotLifecycle.ts#L86-L92
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/slm/_types/SnapshotLifecycle.ts#L86-L92
 type SLMPolicy struct {
 	Config     *Configuration `json:"config,omitempty"`
 	Name       string         `json:"name"`

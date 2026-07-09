@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package textembedding
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package textembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L79
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/inference/text_embedding/TextEmbeddingRequest.ts#L25-L79
 type Request struct {
 	// Input Inference input. Either a string or an array of strings.
 	Input []string `json:"input"`

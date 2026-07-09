@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package follow
 
 // Response holds the response body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ccr/follow/CreateFollowIndexResponse.ts#L20-L26
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/ccr/follow/CreateFollowIndexResponse.ts#L20-L26
 type Response struct {
 	FollowIndexCreated     bool `json:"follow_index_created"`
 	FollowIndexShardsAcked bool `json:"follow_index_shards_acked"`

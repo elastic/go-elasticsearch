@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -31,15 +31,12 @@ import (
 
 // ContextualAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/inference/_types/CommonTypes.ts#L1241-L1259
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/inference/_types/CommonTypes.ts#L1241-L1253
 type ContextualAITaskSettings struct {
 	// Instruction Instructions for the reranking model. Refer to
 	// <https://docs.contextual.ai/api-reference/rerank/rerank#body-instruction>
 	// Only for the `rerank` task type.
 	Instruction *string `json:"instruction,omitempty"`
-	// ReturnDocuments Whether to return the source documents in the response. Only for the `rerank`
-	// task type.
-	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// TopK The number of most relevant documents to return. If not specified, the
 	// reranking results of all documents will be returned. Only for the `rerank`
 	// task type.
@@ -72,20 +69,6 @@ func (s *ContextualAITaskSettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Instruction = &o
-
-		case "return_documents":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "ReturnDocuments", err)
-				}
-				s.ReturnDocuments = &value
-			case bool:
-				s.ReturnDocuments = &v
-			}
 
 		case "top_k":
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package status
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package status
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/streams/status/StreamsStatusResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/streams/status/StreamsStatusResponse.ts#L20-L24
 type Response struct {
 	Logs types.LogsStatus `json:"logs"`
 }

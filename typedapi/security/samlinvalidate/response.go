@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package samlinvalidate
 
 // Response holds the response body struct for the package samlinvalidate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/security/saml_invalidate/Response.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/security/saml_invalidate/Response.ts#L22-L37
 type Response struct {
 	// Invalidated The number of tokens that were invalidated as part of this logout.
 	Invalidated int `json:"invalidated"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // DenseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/_types/mapping/DenseVectorProperty.ts#L23-L62
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/_types/mapping/DenseVectorProperty.ts#L23-L62
 type DenseVectorProperty struct {
 	// Dims Number of vector dimensions. Can't exceed `4096`. If `dims` is not specified,
 	// it will be set to the length of the first vector added to the field.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package putwatch
 
 // Response holds the response body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/watcher/put_watch/WatcherPutWatchResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/watcher/put_watch/WatcherPutWatchResponse.ts#L23-L31
 type Response struct {
 	Created      bool   `json:"created"`
 	Id_          string `json:"_id"`

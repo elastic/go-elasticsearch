@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package forgetfollower
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package forgetfollower
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/ccr/forget_follower/ForgetFollowerIndexRequest.ts#L24-L69
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/ccr/forget_follower/ForgetFollowerIndexRequest.ts#L24-L69
 type Request struct {
 	FollowerCluster     *string `json:"follower_cluster,omitempty"`
 	FollowerIndex       *string `json:"follower_index,omitempty"`

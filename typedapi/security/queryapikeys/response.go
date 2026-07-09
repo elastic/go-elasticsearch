@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/df81426e814ecb513b012f2c0a706572964c606c
+// https://github.com/elastic/elasticsearch-specification/tree/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f
 
 package queryapikeys
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/df81426e814ecb513b012f2c0a706572964c606c/specification/security/query_api_keys/QueryApiKeysResponse.ts#L26-L45
+// https://github.com/elastic/elasticsearch-specification/blob/17fab0b2c19030e59a2eac3e1dab8fba7a8acb8f/specification/security/query_api_keys/QueryApiKeysResponse.ts#L26-L45
 type Response struct {
 	// Aggregations The aggregations result, if requested.
 	Aggregations map[string]types.ApiKeyAggregate `json:"aggregations,omitempty"`
