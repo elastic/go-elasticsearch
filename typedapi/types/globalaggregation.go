@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
 // GlobalAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/aggregations/bucket.ts#L509-L509
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/aggregations/bucket.ts#L509-L509
 type GlobalAggregation struct {
 }
 

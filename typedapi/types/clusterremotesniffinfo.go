@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L32-L56
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L32-L56
 type ClusterRemoteSniffInfo struct {
 	// Connected If it is `true`, there is at least one open connection to the remote cluster.
 	// If it is `false`, it means that the cluster no longer has an open connection

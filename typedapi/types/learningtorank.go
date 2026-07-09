@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LearningToRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/search/_types/rescoring.ts#L91-L100
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/search/_types/rescoring.ts#L91-L100
 type LearningToRank struct {
 	// ModelId The unique identifier of the trained model uploaded to Elasticsearch
 	ModelId string `json:"model_id"`

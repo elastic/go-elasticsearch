@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StopTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/analysis/token_filters.ts#L131-L144
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/analysis/token_filters.ts#L131-L144
 type StopTokenFilter struct {
 	// IgnoreCase If `true`, stop word matching is case insensitive. For example, if `true`, a
 	// stop word of the matches and removes `The`, `THE`, or `the`. Defaults to

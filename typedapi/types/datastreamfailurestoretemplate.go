@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Template equivalent of DataStreamFailureStore that allows nullable values.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/indices/_types/DataStreamFailureStore.ts#L39-L54
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/indices/_types/DataStreamFailureStore.ts#L39-L54
 type DataStreamFailureStoreTemplate struct {
 	// Enabled If defined, it turns the failure store on/off (`true`/`false`) for this data
 	// stream. A data stream failure store that's disabled (enabled: `false`) will

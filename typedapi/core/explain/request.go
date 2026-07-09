@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package explain
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package explain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/explain/ExplainRequest.ts#L26-L128
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/explain/ExplainRequest.ts#L26-L128
 type Request struct {
 	// Query Defines the search definition using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`

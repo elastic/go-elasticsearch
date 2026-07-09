@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package rankeval
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package rankeval
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/rank_eval/RankEvalResponse.ts#L26-L34
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/rank_eval/RankEvalResponse.ts#L26-L34
 type Response struct {
 	// Details The details section contains one entry for every query in the original
 	// requests section, keyed by the search request id

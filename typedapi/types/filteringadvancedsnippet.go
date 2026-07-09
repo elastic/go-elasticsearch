@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FilteringAdvancedSnippet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/connector/_types/Connector.ts#L192-L196
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/connector/_types/Connector.ts#L192-L196
 type FilteringAdvancedSnippet struct {
 	CreatedAt DateTime        `json:"created_at,omitempty"`
 	UpdatedAt DateTime        `json:"updated_at,omitempty"`

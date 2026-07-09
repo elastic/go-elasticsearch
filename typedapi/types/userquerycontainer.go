@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // UserQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/security/query_user/types.ts#L37-L101
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/query_user/types.ts#L37-L101
 type UserQueryContainer struct {
 	AdditionalUserQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches users matching boolean combinations of other queries.

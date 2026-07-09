@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // A sibling pipeline aggregation which executes a correlation function on the
 // configured sibling multi-bucket aggregation.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/aggregations/pipeline.ts#L139-L146
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/aggregations/pipeline.ts#L139-L146
 type BucketCorrelationAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`

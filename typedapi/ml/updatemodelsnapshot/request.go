@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package updatemodelsnapshot
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatemodelsnapshot
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/ml/update_model_snapshot/MlUpdateModelSnapshotRequest.ts#L23-L66
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/update_model_snapshot/MlUpdateModelSnapshotRequest.ts#L23-L66
 type Request struct {
 	// Description A description of the model snapshot.
 	Description *string `json:"description,omitempty"`
