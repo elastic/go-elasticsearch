@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Create a trained model.
 //
@@ -505,10 +505,9 @@ func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType)
 // only works on one platform, because it is heavily optimized for a particular
 // processor architecture and OS combination, then this field specifies which.
 // The format of the string must match the platform identifiers used by
-// Elasticsearch, so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
-// `darwin-aarch64`, or `windows-x86_64`. For portable models (those that work
-// independent of processor architecture or OS features), leave this field
-// unset.
+// Elasticsearch, so one of, `linux-x86_64`, `linux-aarch64`, `darwin-aarch64`,
+// or `windows-x86_64`. For portable models (those that work independent of
+// processor architecture or OS features), leave this field unset.
 // API name: platform_architecture
 func (r *PutTrainedModel) PlatformArchitecture(platformarchitecture string) *PutTrainedModel {
 	// Initialize the request if it is not already initialized

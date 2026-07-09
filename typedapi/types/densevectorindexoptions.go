@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/mapping/DenseVectorProperty.ts#L134-L179
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/mapping/DenseVectorProperty.ts#L134-L189
 type DenseVectorIndexOptions struct {
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and `1.0` or exactly `0`. When the value is `0`,
@@ -57,6 +57,15 @@ type DenseVectorIndexOptions struct {
 	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
 	// types.
 	EfConstruction *int `json:"ef_construction,omitempty"`
+	// FlatIndexThreshold The segment document count threshold below which HNSW graph construction is
+	// skipped in favor of brute-force flat search. `-1` (default) defers to format
+	// defaults: `300` for `bbq_hnsw`, `150` for `hnsw`, `int8_hnsw`, and
+	// `int4_hnsw`. `0` always builds the graph. A positive value overrides the
+	// format default.
+	//
+	// Only applicable to `hnsw`, `int8_hnsw`, `int4_hnsw`, and `bbq_hnsw` index
+	// types.
+	FlatIndexThreshold *int `json:"flat_index_threshold,omitempty"`
 	// M The number of neighbors each node will be connected to in the HNSW graph.
 	//
 	// Only applicable to `hnsw`, `int8_hnsw`, `bbq_hnsw`, and `int4_hnsw` index
@@ -119,6 +128,22 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.EfConstruction = &f
+			}
+
+		case "flat_index_threshold":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FlatIndexThreshold", err)
+				}
+				s.FlatIndexThreshold = &value
+			case float64:
+				f := int(v)
+				s.FlatIndexThreshold = &f
 			}
 
 		case "m":

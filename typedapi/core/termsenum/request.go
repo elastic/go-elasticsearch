@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package termsenum
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L95
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L107
 type Request struct {
 	// CaseInsensitive When `true`, the provided search string is matched against index terms
 	// without case sensitivity.
@@ -43,6 +43,11 @@ type Request struct {
 	Field string `json:"field"`
 	// IndexFilter Filter an index shard if the provided query rewrites to `match_none`.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
+	// ProjectRouting Specifies a subset of projects to target for the search using project
+	// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+	// _alias tag and a single value (possibly wildcarded). Examples:
+	// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// SearchAfter The string after which terms in the index should be returned. It allows for a
 	// form of pagination if the last result from one request is passed as the
 	// `search_after` parameter for a subsequent request.
@@ -116,6 +121,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "index_filter":
 			if err := dec.Decode(&s.IndexFilter); err != nil {
 				return fmt.Errorf("%s | %w", "IndexFilter", err)
+			}
+
+		case "project_routing":
+			if err := dec.Decode(&s.ProjectRouting); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
 			}
 
 		case "search_after":

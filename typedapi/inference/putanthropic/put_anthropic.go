@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Create an Anthropic inference endpoint.
 //
@@ -322,8 +322,9 @@ func (r *PutAnthropic) Header(key, value string) *PutAnthropic {
 	return r
 }
 
-// TaskType The task type. The only valid task type for the model to perform is
-// `completion`.
+// TaskType The task type. The valid task types for the model to perform are `completion`
+// and `chat_completion`. NOTE: The `chat_completion` task type only supports
+// streaming and only through the _stream API.
 // API Name: tasktype
 func (r *PutAnthropic) _tasktype(tasktype string) *PutAnthropic {
 	r.paramSet |= tasktypeMask

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/tasks/_types/TaskInfo.ts#L32-L58
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/tasks/_types/TaskInfo.ts#L32-L71
 type TaskInfo struct {
 	Action      string `json:"action"`
 	Cancellable bool   `json:"cancellable"`
@@ -44,14 +44,26 @@ type TaskInfo struct {
 	// have only an empty description because more detailed information about the
 	// request is not easily available or particularly helpful in identifying the
 	// request.
-	Description        *string           `json:"description,omitempty"`
-	Headers            map[string]string `json:"headers"`
-	Id                 int64             `json:"id"`
-	Node               string            `json:"node"`
-	ParentTaskId       *string           `json:"parent_task_id,omitempty"`
-	RunningTime        Duration          `json:"running_time,omitempty"`
-	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
-	StartTimeInMillis  int64             `json:"start_time_in_millis"`
+	Description *string           `json:"description,omitempty"`
+	Headers     map[string]string `json:"headers"`
+	Id          int64             `json:"id"`
+	Node        string            `json:"node"`
+	// OriginalStartTime The time at which the original task started, as an ISO 8601 formatted string.
+	// Only present together with `original_task_id` and when the request includes
+	// the `?human=true` query parameter.
+	OriginalStartTime *string `json:"original_start_time,omitempty"`
+	// OriginalStartTimeInMillis The time at which the original task started, in milliseconds since the Unix
+	// epoch. Only present together with `original_task_id`.
+	OriginalStartTimeInMillis *int64 `json:"original_start_time_in_millis,omitempty"`
+	// OriginalTaskId The task ID of the original task. Only present when the task is continuing
+	// the work of an earlier task that was running on a node which has since shut
+	// down (i.e. a relocatable task). For tasks that have not been relocated this
+	// is always equal to the task's own ID and is omitted from the response.
+	OriginalTaskId     *string  `json:"original_task_id,omitempty"`
+	ParentTaskId       *string  `json:"parent_task_id,omitempty"`
+	RunningTime        Duration `json:"running_time,omitempty"`
+	RunningTimeInNanos int64    `json:"running_time_in_nanos"`
+	StartTimeInMillis  int64    `json:"start_time_in_millis"`
 	// Status The internal status of the task, which varies from task to task. The format
 	// also varies. While the goal is to keep the status for a particular task
 	// consistent from version to version, this is not always possible because
@@ -155,6 +167,28 @@ func (s *TaskInfo) UnmarshalJSON(data []byte) error {
 		case "node":
 			if err := dec.Decode(&s.Node); err != nil {
 				return fmt.Errorf("%s | %w", "Node", err)
+			}
+
+		case "original_start_time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "OriginalStartTime", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.OriginalStartTime = &o
+
+		case "original_start_time_in_millis":
+			if err := dec.Decode(&s.OriginalStartTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "OriginalStartTimeInMillis", err)
+			}
+
+		case "original_task_id":
+			if err := dec.Decode(&s.OriginalTaskId); err != nil {
+				return fmt.Errorf("%s | %w", "OriginalTaskId", err)
 			}
 
 		case "parent_task_id":

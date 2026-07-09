@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Get terms in an index.
 //
@@ -410,6 +410,22 @@ func (r *TermsEnum) IndexFilter(indexfilter types.QueryVariant) *TermsEnum {
 	}
 
 	r.req.IndexFilter = indexfilter.QueryCaster()
+
+	return r
+}
+
+// Specifies a subset of projects to target for the search using project
+// metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the
+// _alias tag and a single value (possibly wildcarded). Examples:
+// _alias:my-project _alias:_origin _alias:*pr* Supported in serverless only.
+// API name: project_routing
+func (r *TermsEnum) ProjectRouting(projectrouting string) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

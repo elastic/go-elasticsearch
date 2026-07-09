@@ -16,11 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
-// List active reindex tasks.
-//
 // Get information about all currently running reindex tasks.
+//
+// Reindex tasks that are mid-relocation between nodes are reported once, under
+// their original task ID, so callers do not see duplicates across the
+// relocation chain.
+//
+// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+// `task_failures` are non-empty in the body, the listing is not a complete
+// authoritative listing and may be missing tasks.
 package listreindex
 
 import (
@@ -70,9 +76,15 @@ func NewListReindexFunc(tp elastictransport.Interface) NewListReindex {
 	}
 }
 
-// List active reindex tasks.
-//
 // Get information about all currently running reindex tasks.
+//
+// Reindex tasks that are mid-relocation between nodes are reported once, under
+// their original task ID, so callers do not see duplicates across the
+// relocation chain.
+//
+// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+// `task_failures` are non-empty in the body, the listing is not a complete
+// authoritative listing and may be missing tasks.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *ListReindex {

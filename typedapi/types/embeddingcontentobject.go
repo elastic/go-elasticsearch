@@ -16,17 +16,62 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
+
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+)
 
 // A wrapper object which contains the fields required to specify multimodal
 // inputs
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L610-L618
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/_types/CommonTypes.ts#L630-L638
 type EmbeddingContentObject struct {
-	// Content An object containing the input data for the model to embed
-	Content EmbeddingContentObjectContents `json:"content"`
+	// Content An object or an array of objects containing the input data for the model to
+	// embed
+	Content []EmbeddingContentObjectItem `json:"content"`
+}
+
+func (s *EmbeddingContentObject) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "content":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := NewEmbeddingContentObjectItem()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Content", err)
+				}
+
+				s.Content = append(s.Content, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Content); err != nil {
+					return fmt.Errorf("%s | %w", "Content", err)
+				}
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewEmbeddingContentObject returns a EmbeddingContentObject.

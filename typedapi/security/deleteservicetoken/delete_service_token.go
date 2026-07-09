@@ -16,11 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Delete service account tokens.
 //
 // Delete service account tokens for a service in a specified namespace.
+//
+// IMPORTANT: On Serverless, non-operator users can delete tokens for only
+// `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
+// any other service account requires operator privileges.
 package deleteservicetoken
 
 import (
@@ -92,6 +96,10 @@ func NewDeleteServiceTokenFunc(tp elastictransport.Interface) NewDeleteServiceTo
 // Delete service account tokens.
 //
 // Delete service account tokens for a service in a specified namespace.
+//
+// IMPORTANT: On Serverless, non-operator users can delete tokens for only
+// `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
+// any other service account requires operator privileges.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
 func New(tp elastictransport.Interface) *DeleteServiceToken {

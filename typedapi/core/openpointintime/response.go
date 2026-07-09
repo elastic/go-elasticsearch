@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package openpointintime
 
@@ -26,9 +26,12 @@ import (
 
 // Response holds the response body struct for the package openpointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/open_point_in_time/OpenPointInTimeResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/open_point_in_time/OpenPointInTimeResponse.ts#L23-L35
 type Response struct {
-	Id string `json:"id"`
+	// Clusters_ Metadata about the clusters involved in the request, returned when the
+	// request targets one or more remote clusters.
+	Clusters_ *types.ClusterStatistics `json:"_clusters,omitempty"`
+	Id        string                   `json:"id"`
 	// Shards_ Shards used to create the PIT
 	Shards_ types.ShardStatistics `json:"_shards"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Get roles.
 //
@@ -312,6 +312,17 @@ func (r *GetRole) Header(key, value string) *GetRole {
 func (r *GetRole) Name(name string) *GetRole {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// IncludeImplicit If `true`, include privileges that are implicitly granted by registered
+// `ImplicitPrivilegesProviders` alongside the explicitly configured privileges.
+// Each implicit entry in the response is annotated with `implicitly_granted:
+// true`.
+// API name: include_implicit
+func (r *GetRole) IncludeImplicit(includeimplicit bool) *GetRole {
+	r.values.Set("include_implicit", strconv.FormatBool(includeimplicit))
 
 	return r
 }

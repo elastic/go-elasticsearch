@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // This setting helps to minimize the number of rate limit errors returned from
 // the service.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/Services.ts#L440-L471
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/_types/Services.ts#L440-L471
 type RateLimitSetting struct {
 	// RequestsPerMinute The number of requests allowed per minute. By default, the number of requests
 	// allowed per minute is set by each service as follows:

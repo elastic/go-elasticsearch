@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package esdsl
 
@@ -29,11 +29,9 @@ type _openAIServiceSettings struct {
 	v *types.OpenAIServiceSettings
 }
 
-func NewOpenAIServiceSettings(apikey string, modelid string) *_openAIServiceSettings {
+func NewOpenAIServiceSettings(modelid string) *_openAIServiceSettings {
 
 	tmp := &_openAIServiceSettings{v: types.NewOpenAIServiceSettings()}
-
-	tmp.ApiKey(apikey)
 
 	tmp.ModelId(modelid)
 
@@ -43,7 +41,21 @@ func NewOpenAIServiceSettings(apikey string, modelid string) *_openAIServiceSett
 
 func (s *_openAIServiceSettings) ApiKey(apikey string) *_openAIServiceSettings {
 
-	s.v.ApiKey = apikey
+	s.v.ApiKey = &apikey
+
+	return s
+}
+
+func (s *_openAIServiceSettings) ClientId(clientid string) *_openAIServiceSettings {
+
+	s.v.ClientId = &clientid
+
+	return s
+}
+
+func (s *_openAIServiceSettings) ClientSecret(clientsecret string) *_openAIServiceSettings {
+
+	s.v.ClientSecret = &clientsecret
 
 	return s
 }
@@ -76,9 +88,26 @@ func (s *_openAIServiceSettings) RateLimit(ratelimit types.RateLimitSettingVaria
 	return s
 }
 
+func (s *_openAIServiceSettings) Scopes(scopes ...string) *_openAIServiceSettings {
+
+	for _, v := range scopes {
+
+		s.v.Scopes = append(s.v.Scopes, v)
+
+	}
+	return s
+}
+
 func (s *_openAIServiceSettings) Similarity(similarity openaisimilaritytype.OpenAISimilarityType) *_openAIServiceSettings {
 
 	s.v.Similarity = &similarity
+	return s
+}
+
+func (s *_openAIServiceSettings) TokenUrl(tokenurl string) *_openAIServiceSettings {
+
+	s.v.TokenUrl = &tokenurl
+
 	return s
 }
 

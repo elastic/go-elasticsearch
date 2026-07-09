@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // The final result of a completed reindex operation, as stored in the task
 // result. This is the serialized form of `BulkByScrollResponse`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/Reindex.ts#L90-L151
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/Reindex.ts#L90-L151
 type ReindexTaskResult struct {
 	// Batches The number of scroll responses pulled back by the reindex.
 	Batches *int64 `json:"batches,omitempty"`

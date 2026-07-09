@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package bulkputrole
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package bulkputrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/bulk_put_role/SecurityBulkPutRoleResponse.ts#L22-L41
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/security/bulk_put_role/SecurityBulkPutRoleResponse.ts#L22-L41
 type Response struct {
 	// Created Array of created roles
 	Created []string `json:"created,omitempty"`

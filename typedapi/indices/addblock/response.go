@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package addblock
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package addblock
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/indices/add_block/IndicesAddBlockResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/indices/add_block/IndicesAddBlockResponse.ts#L22-L28
 type Response struct {
 	Acknowledged       bool                          `json:"acknowledged"`
 	Indices            []types.AddIndicesBlockStatus `json:"indices"`

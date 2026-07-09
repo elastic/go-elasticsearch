@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Get all tasks.
 //
@@ -25,6 +25,12 @@
 //
 // WARNING: The task management API is new and should still be considered a beta
 // feature. The API may change in ways that are not backwards compatible.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 //
 // # Identifying running tasks
 //
@@ -136,6 +142,12 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //
 // WARNING: The task management API is new and should still be considered a beta
 // feature. The API may change in ways that are not backwards compatible.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 //
 // # Identifying running tasks
 //

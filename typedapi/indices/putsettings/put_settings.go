@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Update index settings.
 //
@@ -1243,6 +1243,18 @@ func (r *PutSettings) Translog(translog types.TranslogVariant) *PutSettings {
 	}
 
 	r.req.Translog = translog.TranslogCaster()
+
+	return r
+}
+
+// API name: unassigned
+func (r *PutSettings) Unassigned(unassigned types.IndexSettingsUnassignedVariant) *PutSettings {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Unassigned = unassigned.IndexSettingsUnassignedCaster()
 
 	return r
 }

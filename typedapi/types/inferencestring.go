@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -32,22 +32,21 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/embeddingcontenttype"
 )
 
-// An object containing the input data for the model to embed.
+// InferenceString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L620-L637
-type EmbeddingContentObjectContents struct {
-	// Format The format of the input. For the `text` type this must be `text`. For the
-	// `image` type, this must be `base64`. If not specified, this will default to
-	// `text` for the `text` type and `base64` for the `image` type.
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/Knn.ts#L139-L154
+type InferenceString struct {
+	// Format The format of the data. If null, the default data format for the given type
+	// is used.
 	Format *embeddingcontentformat.EmbeddingContentFormat `json:"format,omitempty"`
-	// Type The type of input to embed.
+	// Type The type of data that the value represents.
 	Type embeddingcontenttype.EmbeddingContentType `json:"type"`
-	// Value The value of the input to embed. For images, this must be a base64-encoded
-	// data URI, i.e. "data:content/type;base64,..."
+	// Value String which may be raw text, or the string representation of some other data
+	// such as an image in base64.
 	Value string `json:"value"`
 }
 
-func (s *EmbeddingContentObjectContents) UnmarshalJSON(data []byte) error {
+func (s *InferenceString) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -89,17 +88,25 @@ func (s *EmbeddingContentObjectContents) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewEmbeddingContentObjectContents returns a EmbeddingContentObjectContents.
-func NewEmbeddingContentObjectContents() *EmbeddingContentObjectContents {
-	r := &EmbeddingContentObjectContents{}
+// NewInferenceString returns a InferenceString.
+func NewInferenceString() *InferenceString {
+	r := &InferenceString{}
 
 	return r
 }
 
-type EmbeddingContentObjectContentsVariant interface {
-	EmbeddingContentObjectContentsCaster() *EmbeddingContentObjectContents
+type InferenceStringVariant interface {
+	InferenceStringCaster() *InferenceString
 }
 
-func (s *EmbeddingContentObjectContents) EmbeddingContentObjectContentsCaster() *EmbeddingContentObjectContents {
+func (s *InferenceString) InferenceStringCaster() *InferenceString {
 	return s
+}
+
+func (s *InferenceString) InferenceStringGroupCaster() *InferenceStringGroup {
+	if s == nil {
+		return nil
+	}
+	o := InferenceStringGroup{*s}
+	return &o
 }

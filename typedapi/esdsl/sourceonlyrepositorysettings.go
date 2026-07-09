@@ -16,71 +16,86 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package esdsl
 
 import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
+// This is provide all the types that are part of the union.
 type _sourceOnlyRepositorySettings struct {
-	v *types.SourceOnlyRepositorySettings
+	v types.SourceOnlyRepositorySettings
 }
 
 func NewSourceOnlyRepositorySettings() *_sourceOnlyRepositorySettings {
-
-	return &_sourceOnlyRepositorySettings{v: types.NewSourceOnlyRepositorySettings()}
-
+	return &_sourceOnlyRepositorySettings{v: nil}
 }
 
-func (s *_sourceOnlyRepositorySettings) DelegateType(delegatetype string) *_sourceOnlyRepositorySettings {
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsForSharedFileSystem(sourceonlyrepositorysettingsforsharedfilesystem types.SourceOnlyRepositorySettingsForSharedFileSystemVariant) *_sourceOnlyRepositorySettings {
 
-	s.v.DelegateType = &delegatetype
+	u.v = sourceonlyrepositorysettingsforsharedfilesystem.SourceOnlyRepositorySettingsForSharedFileSystemCaster()
 
-	return s
+	return u
 }
 
-func (s *_sourceOnlyRepositorySettings) MaxNumberOfSnapshots(maxnumberofsnapshots int) *_sourceOnlyRepositorySettings {
-
-	s.v.MaxNumberOfSnapshots = &maxnumberofsnapshots
-
-	return s
+// Interface implementation for SourceOnlyRepositorySettingsForSharedFileSystem in SourceOnlyRepositorySettings union
+func (u *_sourceOnlyRepositorySettingsForSharedFileSystem) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	t := types.SourceOnlyRepositorySettings(u.v)
+	return &t
 }
 
-func (s *_sourceOnlyRepositorySettings) ReadOnly(readonly bool) *_sourceOnlyRepositorySettings {
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsForReadOnlyUrl(sourceonlyrepositorysettingsforreadonlyurl types.SourceOnlyRepositorySettingsForReadOnlyUrlVariant) *_sourceOnlyRepositorySettings {
 
-	s.v.ReadOnly = &readonly
+	u.v = sourceonlyrepositorysettingsforreadonlyurl.SourceOnlyRepositorySettingsForReadOnlyUrlCaster()
 
-	return s
+	return u
 }
 
-func (s *_sourceOnlyRepositorySettings) ChunkSize(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
-
-	s.v.ChunkSize = *bytesize.ByteSizeCaster()
-
-	return s
+// Interface implementation for SourceOnlyRepositorySettingsForReadOnlyUrl in SourceOnlyRepositorySettings union
+func (u *_sourceOnlyRepositorySettingsForReadOnlyUrl) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	t := types.SourceOnlyRepositorySettings(u.v)
+	return &t
 }
 
-func (s *_sourceOnlyRepositorySettings) Compress(compress bool) *_sourceOnlyRepositorySettings {
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsForAzure(sourceonlyrepositorysettingsforazure types.SourceOnlyRepositorySettingsForAzureVariant) *_sourceOnlyRepositorySettings {
 
-	s.v.Compress = &compress
+	u.v = sourceonlyrepositorysettingsforazure.SourceOnlyRepositorySettingsForAzureCaster()
 
-	return s
+	return u
 }
 
-func (s *_sourceOnlyRepositorySettings) MaxRestoreBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
-
-	s.v.MaxRestoreBytesPerSec = *bytesize.ByteSizeCaster()
-
-	return s
+// Interface implementation for SourceOnlyRepositorySettingsForAzure in SourceOnlyRepositorySettings union
+func (u *_sourceOnlyRepositorySettingsForAzure) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	t := types.SourceOnlyRepositorySettings(u.v)
+	return &t
 }
 
-func (s *_sourceOnlyRepositorySettings) MaxSnapshotBytesPerSec(bytesize types.ByteSizeVariant) *_sourceOnlyRepositorySettings {
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsForGcs(sourceonlyrepositorysettingsforgcs types.SourceOnlyRepositorySettingsForGcsVariant) *_sourceOnlyRepositorySettings {
 
-	s.v.MaxSnapshotBytesPerSec = *bytesize.ByteSizeCaster()
+	u.v = sourceonlyrepositorysettingsforgcs.SourceOnlyRepositorySettingsForGcsCaster()
 
-	return s
+	return u
 }
 
-func (s *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
-	return s.v
+// Interface implementation for SourceOnlyRepositorySettingsForGcs in SourceOnlyRepositorySettings union
+func (u *_sourceOnlyRepositorySettingsForGcs) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	t := types.SourceOnlyRepositorySettings(u.v)
+	return &t
+}
+
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsForS3(sourceonlyrepositorysettingsfors3 types.SourceOnlyRepositorySettingsForS3Variant) *_sourceOnlyRepositorySettings {
+
+	u.v = sourceonlyrepositorysettingsfors3.SourceOnlyRepositorySettingsForS3Caster()
+
+	return u
+}
+
+// Interface implementation for SourceOnlyRepositorySettingsForS3 in SourceOnlyRepositorySettings union
+func (u *_sourceOnlyRepositorySettingsForS3) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	t := types.SourceOnlyRepositorySettings(u.v)
+	return &t
+}
+
+func (u *_sourceOnlyRepositorySettings) SourceOnlyRepositorySettingsCaster() *types.SourceOnlyRepositorySettings {
+	return &u.v
 }

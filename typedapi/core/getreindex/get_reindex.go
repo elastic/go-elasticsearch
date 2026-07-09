@@ -16,11 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
-// Get a reindex task.
-//
 // Get the status and progress of a specific reindex task.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be resolved, the API returns the response below with
+// a 404 status code. This response is used whether the ID is unknown, refers to
+// a non-reindex task, refers to a sliced child subtask, or refers to a task
+// whose node left the cluster with no stored result (e.g. a non-graceful
+// shutdown).
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+//	  },
+//	  "status": 404
+//	}
 package getreindex
 
 import (
@@ -78,9 +96,27 @@ func NewGetReindexFunc(tp elastictransport.Interface) NewGetReindex {
 	}
 }
 
-// Get a reindex task.
-//
 // Get the status and progress of a specific reindex task.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be resolved, the API returns the response below with
+// a 404 status code. This response is used whether the ID is unknown, refers to
+// a non-reindex task, refers to a sliced child subtask, or refers to a task
+// whose node left the cluster with no stored result (e.g. a non-graceful
+// shutdown).
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+//	  },
+//	  "status": 404
+//	}
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *GetReindex {

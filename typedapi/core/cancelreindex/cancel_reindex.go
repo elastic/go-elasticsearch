@@ -16,14 +16,43 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
-// Cancel a reindex task.
+// Cancel an ongoing reindex task.
 //
-// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-// default), the response contains the final task state after cancellation. If
-// `wait_for_completion` is `false`, the response contains only `acknowledged:
-// true`.
+// If `wait_for_completion` is `true` (the default), the response contains the
+// final task state after cancellation. If `wait_for_completion` is `false`, the
+// response contains only `acknowledged: true`.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+// child, finished task, or node left with no stored result), the API returns
+// the following response with a 404 status code:
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+//	  },
+//	  "status": 404
+//	}
+//
+// During a brief handoff window of a node-shutdown relocation, you may receive
+// the response below with a 503 status code. Retry with the same task ID; the
+// retry follows the relocated task transparently.
+//
+//	{
+//	  "error": {
+//	    "type": "status_exception",
+//	    "reason": "cannot cancel task [36619] because it is being relocated"
+//	  },
+//	  "status": 503
+//	}
 package cancelreindex
 
 import (
@@ -81,12 +110,41 @@ func NewCancelReindexFunc(tp elastictransport.Interface) NewCancelReindex {
 	}
 }
 
-// Cancel a reindex task.
+// Cancel an ongoing reindex task.
 //
-// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-// default), the response contains the final task state after cancellation. If
-// `wait_for_completion` is `false`, the response contains only `acknowledged:
-// true`.
+// If `wait_for_completion` is `true` (the default), the response contains the
+// final task state after cancellation. If `wait_for_completion` is `false`, the
+// response contains only `acknowledged: true`.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+// child, finished task, or node left with no stored result), the API returns
+// the following response with a 404 status code:
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+//	  },
+//	  "status": 404
+//	}
+//
+// During a brief handoff window of a node-shutdown relocation, you may receive
+// the response below with a 503 status code. Retry with the same task ID; the
+// retry follows the relocated task transparently.
+//
+//	{
+//	  "error": {
+//	    "type": "status_exception",
+//	    "reason": "cannot cancel task [36619] because it is being relocated"
+//	  },
+//	  "status": 503
+//	}
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func New(tp elastictransport.Interface) *CancelReindex {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package sparseembedding
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package sparseembedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/sparse_embedding/SparseEmbeddingRequest.ts#L25-L66
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/sparse_embedding/SparseEmbeddingRequest.ts#L25-L66
 type Request struct {
 	// Input Inference input. Either a string or an array of strings.
 	Input []string `json:"input"`

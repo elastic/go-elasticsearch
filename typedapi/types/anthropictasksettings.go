@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -31,25 +31,26 @@ import (
 
 // AnthropicTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L812-L837
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/_types/CommonTypes.ts#L842-L867
 type AnthropicTaskSettings struct {
-	// MaxTokens For a `completion` task, it is the maximum number of tokens to generate
-	// before stopping.
+	// MaxTokens For a `completion` or `chat_completion` task, it is the maximum number of
+	// tokens to generate before stopping.
 	MaxTokens int `json:"max_tokens"`
-	// Temperature For a `completion` task, it is the amount of randomness injected into the
-	// response. For more details about the supported range, refer to Anthropic
-	// documentation.
+	// Temperature For a `completion` or `chat_completion` task, it is the amount of randomness
+	// injected into the response. For more details about the supported range, refer
+	// to Anthropic documentation.
 	Temperature *float32 `json:"temperature,omitempty"`
-	// TopK For a `completion` task, it specifies to only sample from the top K options
-	// for each subsequent token. It is recommended for advanced use cases only. You
-	// usually only need to use `temperature`.
+	// TopK For a `completion` or `chat_completion` task, it specifies to only sample
+	// from the top K options for each subsequent token. It is recommended for
+	// advanced use cases only. You usually only need to use `temperature`.
 	TopK *int `json:"top_k,omitempty"`
-	// TopP For a `completion` task, it specifies to use Anthropic's nucleus sampling. In
-	// nucleus sampling, Anthropic computes the cumulative distribution over all the
-	// options for each subsequent token in decreasing probability order and cuts it
-	// off once it reaches the specified probability. You should either alter
-	// `temperature` or `top_p`, but not both. It is recommended for advanced use
-	// cases only. You usually only need to use `temperature`.
+	// TopP For a `completion` or `chat_completion` task, it specifies to use Anthropic's
+	// nucleus sampling. In nucleus sampling, Anthropic computes the cumulative
+	// distribution over all the options for each subsequent token in decreasing
+	// probability order and cuts it off once it reaches the specified probability.
+	// You should either alter `temperature` or `top_p`, but not both. It is
+	// recommended for advanced use cases only. You usually only need to use
+	// `temperature`.
 	TopP *float32 `json:"top_p,omitempty"`
 }
 

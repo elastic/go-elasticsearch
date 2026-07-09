@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package esdsl
 
@@ -26,13 +26,13 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/embeddingcontenttype"
 )
 
-type _embeddingContentObjectContents struct {
-	v *types.EmbeddingContentObjectContents
+type _embeddingContentObjectItem struct {
+	v *types.EmbeddingContentObjectItem
 }
 
-func NewEmbeddingContentObjectContents(type_ embeddingcontenttype.EmbeddingContentType, value string) *_embeddingContentObjectContents {
+func NewEmbeddingContentObjectItem(type_ embeddingcontenttype.EmbeddingContentType, value string) *_embeddingContentObjectItem {
 
-	tmp := &_embeddingContentObjectContents{v: types.NewEmbeddingContentObjectContents()}
+	tmp := &_embeddingContentObjectItem{v: types.NewEmbeddingContentObjectItem()}
 
 	tmp.Type(type_)
 
@@ -42,25 +42,25 @@ func NewEmbeddingContentObjectContents(type_ embeddingcontenttype.EmbeddingConte
 
 }
 
-func (s *_embeddingContentObjectContents) Format(format embeddingcontentformat.EmbeddingContentFormat) *_embeddingContentObjectContents {
+func (s *_embeddingContentObjectItem) Format(format embeddingcontentformat.EmbeddingContentFormat) *_embeddingContentObjectItem {
 
 	s.v.Format = &format
 	return s
 }
 
-func (s *_embeddingContentObjectContents) Type(type_ embeddingcontenttype.EmbeddingContentType) *_embeddingContentObjectContents {
+func (s *_embeddingContentObjectItem) Type(type_ embeddingcontenttype.EmbeddingContentType) *_embeddingContentObjectItem {
 
 	s.v.Type = type_
 	return s
 }
 
-func (s *_embeddingContentObjectContents) Value(value string) *_embeddingContentObjectContents {
+func (s *_embeddingContentObjectItem) Value(value string) *_embeddingContentObjectItem {
 
 	s.v.Value = value
 
 	return s
 }
 
-func (s *_embeddingContentObjectContents) EmbeddingContentObjectContentsCaster() *types.EmbeddingContentObjectContents {
+func (s *_embeddingContentObjectItem) EmbeddingContentObjectItemCaster() *types.EmbeddingContentObjectItem {
 	return s.v
 }

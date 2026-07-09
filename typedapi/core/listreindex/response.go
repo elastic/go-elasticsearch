@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package listreindex
 
@@ -26,13 +26,17 @@ import (
 
 // Response holds the response body struct for the package listreindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/list_reindex/ListReindexResponse.ts#L23-L38
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/list_reindex/ListReindexResponse.ts#L23-L40
 type Response struct {
-	// NodeFailures Node-level failures that occurred while listing reindex tasks.
+	// NodeFailures Node-level failures encountered while listing reindex tasks. Typically
+	// populated when a node disconnects or stops responding mid-request, reindex
+	// tasks running on such nodes will be missing from the `reindex` array for the
+	// duration of the disruption.
 	NodeFailures []types.ErrorCause `json:"node_failures,omitempty"`
 	// Reindex The list of currently running reindex tasks.
 	Reindex []types.ReindexTaskInfo `json:"reindex"`
-	// TaskFailures Task-level failures that occurred while listing reindex tasks.
+	// TaskFailures Per-task failures encountered while listing reindex tasks. Tasks that failed
+	// are not included in the `reindex` array.
 	TaskFailures []types.TaskFailure `json:"task_failures,omitempty"`
 }
 

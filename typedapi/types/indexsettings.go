@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/indices/_types/IndexSettings.ts#L70-L184
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/indices/_types/IndexSettings.ts#L70-L185
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -98,6 +98,7 @@ type IndexSettings struct {
 	TimeSeries          *IndexSettingsTimeSeries `json:"time_series,omitempty"`
 	TopMetricsMaxSize   *int                     `json:"top_metrics_max_size,omitempty"`
 	Translog            *Translog                `json:"translog,omitempty"`
+	Unassigned          *IndexSettingsUnassigned `json:"unassigned,omitempty"`
 	Uuid                *string                  `json:"uuid,omitempty"`
 	VerifiedBeforeClose *string                  `json:"verified_before_close,omitempty"`
 	Version             *IndexVersioning         `json:"version,omitempty"`
@@ -659,6 +660,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "translog":
 			if err := dec.Decode(&s.Translog); err != nil {
 				return fmt.Errorf("%s | %w", "Translog", err)
+			}
+
+		case "unassigned":
+			if err := dec.Decode(&s.Unassigned); err != nil {
+				return fmt.Errorf("%s | %w", "Unassigned", err)
 			}
 
 		case "uuid":

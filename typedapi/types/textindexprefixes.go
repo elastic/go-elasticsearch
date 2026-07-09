@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -31,10 +31,10 @@ import (
 
 // TextIndexPrefixes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/mapping/core.ts#L329-L332
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/mapping/core.ts#L329-L332
 type TextIndexPrefixes struct {
-	MaxChars int `json:"max_chars"`
-	MinChars int `json:"min_chars"`
+	MaxChars *int `json:"max_chars,omitempty"`
+	MinChars *int `json:"min_chars,omitempty"`
 }
 
 func (s *TextIndexPrefixes) UnmarshalJSON(data []byte) error {
@@ -62,10 +62,10 @@ func (s *TextIndexPrefixes) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "MaxChars", err)
 				}
-				s.MaxChars = value
+				s.MaxChars = &value
 			case float64:
 				f := int(v)
-				s.MaxChars = f
+				s.MaxChars = &f
 			}
 
 		case "min_chars":
@@ -78,10 +78,10 @@ func (s *TextIndexPrefixes) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "MinChars", err)
 				}
-				s.MinChars = value
+				s.MinChars = &value
 			case float64:
 				f := int(v)
-				s.MinChars = f
+				s.MinChars = &f
 			}
 
 		}

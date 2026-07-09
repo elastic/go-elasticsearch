@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package typedapi
 
@@ -1656,12 +1656,41 @@ type Core struct {
 	// indexing throughput for large bulk requests. Refer to the linked
 	// documentation for step-by-step instructions using the index settings API.
 	Bulk core_bulk.NewBulk
-	// Cancel a reindex task.
+	// Cancel an ongoing reindex task.
 	//
-	// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-	// default), the response contains the final task state after cancellation. If
-	// `wait_for_completion` is `false`, the response contains only `acknowledged:
-	// true`.
+	// If `wait_for_completion` is `true` (the default), the response contains the
+	// final task state after cancellation. If `wait_for_completion` is `false`, the
+	// response contains only `acknowledged: true`.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// Returned task IDs and timings reflect the original task, not its relocated
+	// successor. Relocated task IDs are also supported. They are followed
+	// transparently and return the task ID and timings of the original task.
+	//
+	// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+	// child, finished task, or node left with no stored result), the API returns
+	// the following response with a 404 status code:
+	//
+	//	{
+	//	  "error": {
+	//	    "type": "resource_not_found_exception",
+	//	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+	//	  },
+	//	  "status": 404
+	//	}
+	//
+	// During a brief handoff window of a node-shutdown relocation, you may receive
+	// the response below with a 503 status code. Retry with the same task ID; the
+	// retry follows the relocated task transparently.
+	//
+	//	{
+	//	  "error": {
+	//	    "type": "status_exception",
+	//	    "reason": "cannot cancel task [36619] because it is being relocated"
+	//	  },
+	//	  "status": 503
+	//	}
 	CancelReindex core_cancel_reindex.NewCancelReindex
 	// Checks if the specified combination of method, API, parameters, and arbitrary
 	// capabilities are supported.
@@ -2087,9 +2116,27 @@ type Core struct {
 	// immediately, although you won't be able to access it. Elasticsearch cleans up
 	// deleted documents in the background as you continue to index more data.
 	Get core_get.NewGet
-	// Get a reindex task.
-	//
 	// Get the status and progress of a specific reindex task.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// Returned task IDs and timings reflect the original task, not its relocated
+	// successor. Relocated task IDs are also supported. They are followed
+	// transparently and return the task ID and timings of the original task.
+	//
+	// When the task ID cannot be resolved, the API returns the response below with
+	// a 404 status code. This response is used whether the ID is unknown, refers to
+	// a non-reindex task, refers to a sliced child subtask, or refers to a task
+	// whose node left the cluster with no stored result (e.g. a non-graceful
+	// shutdown).
+	//
+	//	{
+	//	  "error": {
+	//	    "type": "resource_not_found_exception",
+	//	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+	//	  },
+	//	  "status": 404
+	//	}
 	GetReindex core_get_reindex.NewGetReindex
 	// Get a script or search template.
 	//
@@ -2346,9 +2393,15 @@ type Core struct {
 	// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 	// option in the search API.
 	KnnSearch core_knn_search.NewKnnSearch
-	// List active reindex tasks.
-	//
 	// Get information about all currently running reindex tasks.
+	//
+	// Reindex tasks that are mid-relocation between nodes are reported once, under
+	// their original task ID, so callers do not see duplicates across the
+	// relocation chain.
+	//
+	// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+	// `task_failures` are non-empty in the body, the listing is not a complete
+	// authoritative listing and may be missing tasks.
 	ListReindex core_list_reindex.NewListReindex
 	// Get multiple documents.
 	//
@@ -2568,14 +2621,28 @@ type Core struct {
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
 	//
-	// Change the number of requests per second for a particular reindex operation.
-	// For example:
+	// Change the maximum number of documents to index per second for a particular
+	// reindex operation. For example, to unthrottle to unlimited documents per
+	// second:
 	//
 	//	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 	//
 	// Rethrottling that speeds up the query takes effect immediately. Rethrottling
-	// that slows down the query will take effect after completing the current
-	// batch. This behavior prevents scroll timeouts.
+	// that slows down the query will take effect after completing the current batch
+	// of documents. This behavior prevents scroll timeouts.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// The relocated task ID is also accepted and is followed transparently. In
+	// either case, returned task IDs and timings reflect the original task, not its
+	// relocated successor.
+	//
+	// The rethrottle may not have been applied to any tasks if either
+	// `node_failures` or `task_failures` are non-empty, or if the response contains
+	// no successfully rethrottled tasks — that is, no entries under `nodes`
+	// (returned with the default `group_by=nodes` in stack) or under `tasks`
+	// (returned in serverless, or in stack with `group_by=none` or
+	// `group_by=parents`).
 	ReindexRethrottle core_reindex_rethrottle.NewReindexRethrottle
 	// Render a search template.
 	//
@@ -4392,6 +4459,8 @@ type Indices struct {
 	//   - The source index must have fewer primary shards than the target index.
 	//   - The number of primary shards in the target index must be a multiple of
 	//     the number of primary shards in the source index.
+	//   - The number of primary shards in the target index must be a divisor of the
+	//     source index's `index.number_of_routing_shards`.
 	//   - The node handling the split process must have sufficient free disk space
 	//     to accommodate a second copy of the existing index.
 	Split indices_split.NewSplit
@@ -4504,7 +4573,7 @@ type Inference struct {
 	//   - Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
 	//   - Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 	//     `sparse_embedding`, `text_embedding`)
-	//   - Anthropic (`completion`)
+	//   - Anthropic (`chat_completion`, `completion`)
 	//   - Azure AI Studio (`completion`, `rerank`, `text_embedding`)
 	//   - Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
 	//   - Cohere (`completion`, `rerank`, `text_embedding`)
@@ -6049,6 +6118,10 @@ type Security struct {
 	//
 	// NOTE: Service account tokens never expire. You must actively delete them if
 	// they are no longer needed.
+	//
+	// IMPORTANT: On Serverless, non-operator users can create tokens for only
+	// `elastic/fleet-server` and `elastic/fleet-server-remote`. Creating tokens for
+	// any other service account requires operator privileges.
 	CreateServiceToken security_create_service_token.NewCreateServiceToken
 	// Delegate PKI authentication.
 	//
@@ -6095,6 +6168,10 @@ type Security struct {
 	// Delete service account tokens.
 	//
 	// Delete service account tokens for a service in a specified namespace.
+	//
+	// IMPORTANT: On Serverless, non-operator users can delete tokens for only
+	// `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
+	// any other service account requires operator privileges.
 	DeleteServiceToken security_delete_service_token.NewDeleteServiceToken
 	// Delete users.
 	//
@@ -7350,7 +7427,9 @@ type Synonyms struct {
 	GetSynonymsSets synonyms_get_synonyms_sets.NewGetSynonymsSets
 	// Create or update a synonym set.
 	//
-	// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
+	// Synonym sets are limited to a maximum of 100,000 synonym rules per set by
+	// default. This limit is configurable using the `synonyms.max_synonym_rules`
+	// cluster setting.
 	//
 	// When an existing synonyms set is updated, the search analyzers that use the
 	// synonyms set are reloaded automatically for all indices. This is equivalent
@@ -7390,6 +7469,12 @@ type Tasks struct {
 	// tasks the system is running. You can also use the node hot threads API to
 	// obtain detailed information about the work the system is doing instead of
 	// completing the cancelled task.
+	//
+	// For relocatable tasks, this API transparently follows the task across
+	// graceful shutdown relocations, so callers can keep using the original task
+	// ID. The returned task reports its `original_task_id` and
+	// `original_start_time_in_millis` if it is continuing work from an earlier
+	// task.
 	Cancel tasks_cancel.NewCancel
 	// Get task information.
 	//
@@ -7400,6 +7485,12 @@ type Tasks struct {
 	//
 	// If the task identifier is not found, a 404 response code indicates that there
 	// are no resources that match the request.
+	//
+	// For relocatable tasks, this API transparently follows the task across
+	// graceful shutdown relocations, so callers can keep using the original task
+	// ID. The returned task reports its `original_task_id` and
+	// `original_start_time_in_millis` if it is continuing work from an earlier
+	// task.
 	Get tasks_get.NewGet
 	// Get all tasks.
 	//
@@ -7408,6 +7499,12 @@ type Tasks struct {
 	//
 	// WARNING: The task management API is new and should still be considered a beta
 	// feature. The API may change in ways that are not backwards compatible.
+	//
+	// For relocatable tasks, this API transparently follows the task across
+	// graceful shutdown relocations, so callers can keep using the original task
+	// ID. The returned task reports its `original_task_id` and
+	// `original_start_time_in_millis` if it is continuing work from an earlier
+	// task.
 	//
 	// # Identifying running tasks
 	//
@@ -8046,12 +8143,41 @@ type API struct {
 	// indexing throughput for large bulk requests. Refer to the linked
 	// documentation for step-by-step instructions using the index settings API.
 	Bulk core_bulk.NewBulk
-	// Cancel a reindex task.
+	// Cancel an ongoing reindex task.
 	//
-	// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-	// default), the response contains the final task state after cancellation. If
-	// `wait_for_completion` is `false`, the response contains only `acknowledged:
-	// true`.
+	// If `wait_for_completion` is `true` (the default), the response contains the
+	// final task state after cancellation. If `wait_for_completion` is `false`, the
+	// response contains only `acknowledged: true`.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// Returned task IDs and timings reflect the original task, not its relocated
+	// successor. Relocated task IDs are also supported. They are followed
+	// transparently and return the task ID and timings of the original task.
+	//
+	// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+	// child, finished task, or node left with no stored result), the API returns
+	// the following response with a 404 status code:
+	//
+	// 	{
+	// 	  "error": {
+	// 	    "type": "resource_not_found_exception",
+	// 	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+	// 	  },
+	// 	  "status": 404
+	// 	}
+	//
+	// During a brief handoff window of a node-shutdown relocation, you may receive
+	// the response below with a 503 status code. Retry with the same task ID; the
+	// retry follows the relocated task transparently.
+	//
+	// 	{
+	// 	  "error": {
+	// 	    "type": "status_exception",
+	// 	    "reason": "cannot cancel task [36619] because it is being relocated"
+	// 	  },
+	// 	  "status": 503
+	// 	}
 	CancelReindex core_cancel_reindex.NewCancelReindex
 	// Checks if the specified combination of method, API, parameters, and arbitrary
 	// capabilities are supported.
@@ -8477,9 +8603,27 @@ type API struct {
 	// immediately, although you won't be able to access it. Elasticsearch cleans up
 	// deleted documents in the background as you continue to index more data.
 	Get core_get.NewGet
-	// Get a reindex task.
-	//
 	// Get the status and progress of a specific reindex task.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// Returned task IDs and timings reflect the original task, not its relocated
+	// successor. Relocated task IDs are also supported. They are followed
+	// transparently and return the task ID and timings of the original task.
+	//
+	// When the task ID cannot be resolved, the API returns the response below with
+	// a 404 status code. This response is used whether the ID is unknown, refers to
+	// a non-reindex task, refers to a sliced child subtask, or refers to a task
+	// whose node left the cluster with no stored result (e.g. a non-graceful
+	// shutdown).
+	//
+	// 	{
+	// 	  "error": {
+	// 	    "type": "resource_not_found_exception",
+	// 	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+	// 	  },
+	// 	  "status": 404
+	// 	}
 	GetReindex core_get_reindex.NewGetReindex
 	// Get a script or search template.
 	//
@@ -8736,9 +8880,15 @@ type API struct {
 	// Deprecated: Since 8.4.0. The kNN search API has been replaced by the `knn`
 	// option in the search API.
 	KnnSearch core_knn_search.NewKnnSearch
-	// List active reindex tasks.
-	//
 	// Get information about all currently running reindex tasks.
+	//
+	// Reindex tasks that are mid-relocation between nodes are reported once, under
+	// their original task ID, so callers do not see duplicates across the
+	// relocation chain.
+	//
+	// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+	// `task_failures` are non-empty in the body, the listing is not a complete
+	// authoritative listing and may be missing tasks.
 	ListReindex core_list_reindex.NewListReindex
 	// Get multiple documents.
 	//
@@ -8958,14 +9108,28 @@ type API struct {
 	Reindex core_reindex.NewReindex
 	// Throttle a reindex operation.
 	//
-	// Change the number of requests per second for a particular reindex operation.
-	// For example:
+	// Change the maximum number of documents to index per second for a particular
+	// reindex operation. For example, to unthrottle to unlimited documents per
+	// second:
 	//
 	// 	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 	//
 	// Rethrottling that speeds up the query takes effect immediately. Rethrottling
-	// that slows down the query will take effect after completing the current
-	// batch. This behavior prevents scroll timeouts.
+	// that slows down the query will take effect after completing the current batch
+	// of documents. This behavior prevents scroll timeouts.
+	//
+	// This API follows reindex tasks across node-shutdown relocations, so callers
+	// can keep using the original task ID throughout the lifetime of the operation.
+	// The relocated task ID is also accepted and is followed transparently. In
+	// either case, returned task IDs and timings reflect the original task, not its
+	// relocated successor.
+	//
+	// The rethrottle may not have been applied to any tasks if either
+	// `node_failures` or `task_failures` are non-empty, or if the response contains
+	// no successfully rethrottled tasks — that is, no entries under `nodes`
+	// (returned with the default `group_by=nodes` in stack) or under `tasks`
+	// (returned in serverless, or in stack with `group_by=none` or
+	// `group_by=parents`).
 	ReindexRethrottle core_reindex_rethrottle.NewReindexRethrottle
 	// Render a search template.
 	//
@@ -10544,12 +10708,42 @@ func (p *MethodAPI) Bulk() *core_bulk.Bulk {
 	return _bulk()
 }
 
-// Cancel a reindex task.
+// Cancel an ongoing reindex task.
 //
-// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-// default), the response contains the final task state after cancellation. If
-// `wait_for_completion` is `false`, the response contains only `acknowledged:
-// true`.
+// If `wait_for_completion` is `true` (the default), the response contains the
+// final task state after cancellation. If `wait_for_completion` is `false`, the
+// response contains only `acknowledged: true`.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+// child, finished task, or node left with no stored result), the API returns
+// the following response with a 404 status code:
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+//	  },
+//	  "status": 404
+//	}
+//
+// During a brief handoff window of a node-shutdown relocation, you may receive
+// the response below with a 503 status code. Retry with the same task ID; the
+// retry follows the relocated task transparently.
+//
+//	{
+//	  "error": {
+//	    "type": "status_exception",
+//	    "reason": "cannot cancel task [36619] because it is being relocated"
+//	  },
+//	  "status": 503
+//	}
+//
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodAPI) CancelReindex(taskid string) *core_cancel_reindex.CancelReindex {
 	_cancelreindex := core_cancel_reindex.NewCancelReindexFunc(p.tp)
@@ -11074,9 +11268,28 @@ func (p *MethodAPI) Get(index, id string) *core_get.Get {
 	return _get(index, id)
 }
 
-// Get a reindex task.
-//
 // Get the status and progress of a specific reindex task.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be resolved, the API returns the response below with
+// a 404 status code. This response is used whether the ID is unknown, refers to
+// a non-reindex task, refers to a sliced child subtask, or refers to a task
+// whose node left the cluster with no stored result (e.g. a non-graceful
+// shutdown).
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+//	  },
+//	  "status": 404
+//	}
+//
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodAPI) GetReindex(taskid string) *core_get_reindex.GetReindex {
 	_getreindex := core_get_reindex.NewGetReindexFunc(p.tp)
@@ -11384,9 +11597,15 @@ func (p *MethodAPI) KnnSearch(index string) *core_knn_search.KnnSearch {
 	return _knnsearch(index)
 }
 
-// List active reindex tasks.
-//
 // Get information about all currently running reindex tasks.
+//
+// Reindex tasks that are mid-relocation between nodes are reported once, under
+// their original task ID, so callers do not see duplicates across the
+// relocation chain.
+//
+// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+// `task_failures` are non-empty in the body, the listing is not a complete
+// authoritative listing and may be missing tasks.
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodAPI) ListReindex() *core_list_reindex.ListReindex {
 	_listreindex := core_list_reindex.NewListReindexFunc(p.tp)
@@ -11673,14 +11892,28 @@ func (p *MethodAPI) Reindex() *core_reindex.Reindex {
 
 // Throttle a reindex operation.
 //
-// Change the number of requests per second for a particular reindex operation.
-// For example:
+// Change the maximum number of documents to index per second for a particular
+// reindex operation. For example, to unthrottle to unlimited documents per
+// second:
 //
 //	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 //
 // Rethrottling that speeds up the query takes effect immediately. Rethrottling
-// that slows down the query will take effect after completing the current
-// batch. This behavior prevents scroll timeouts.
+// that slows down the query will take effect after completing the current batch
+// of documents. This behavior prevents scroll timeouts.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// The relocated task ID is also accepted and is followed transparently. In
+// either case, returned task IDs and timings reflect the original task, not its
+// relocated successor.
+//
+// The rethrottle may not have been applied to any tasks if either
+// `node_failures` or `task_failures` are non-empty, or if the response contains
+// no successfully rethrottled tasks — that is, no entries under `nodes`
+// (returned with the default `group_by=nodes` in stack) or under `tasks`
+// (returned in serverless, or in stack with `group_by=none` or
+// `group_by=parents`).
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
@@ -13789,12 +14022,42 @@ func (p *MethodCore) Bulk() *core_bulk.Bulk {
 	return _bulk()
 }
 
-// Cancel a reindex task.
+// Cancel an ongoing reindex task.
 //
-// Cancel an ongoing reindex task. If `wait_for_completion` is `true` (the
-// default), the response contains the final task state after cancellation. If
-// `wait_for_completion` is `false`, the response contains only `acknowledged:
-// true`.
+// If `wait_for_completion` is `true` (the default), the response contains the
+// final task state after cancellation. If `wait_for_completion` is `false`, the
+// response contains only `acknowledged: true`.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be cancelled (unknown ID, non-reindex task, sliced
+// child, finished task, or node left with no stored result), the API returns
+// the following response with a 404 status code:
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "reindex task [r1A2WoRbTwKZ516z6NEs5A:36619] either not found or completed"
+//	  },
+//	  "status": 404
+//	}
+//
+// During a brief handoff window of a node-shutdown relocation, you may receive
+// the response below with a 503 status code. Retry with the same task ID; the
+// retry follows the relocated task transparently.
+//
+//	{
+//	  "error": {
+//	    "type": "status_exception",
+//	    "reason": "cannot cancel task [36619] because it is being relocated"
+//	  },
+//	  "status": 503
+//	}
+//
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodCore) CancelReindex(taskid string) *core_cancel_reindex.CancelReindex {
 	_cancelreindex := core_cancel_reindex.NewCancelReindexFunc(p.tp)
@@ -14319,9 +14582,28 @@ func (p *MethodCore) Get(index, id string) *core_get.Get {
 	return _get(index, id)
 }
 
-// Get a reindex task.
-//
 // Get the status and progress of a specific reindex task.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// Returned task IDs and timings reflect the original task, not its relocated
+// successor. Relocated task IDs are also supported. They are followed
+// transparently and return the task ID and timings of the original task.
+//
+// When the task ID cannot be resolved, the API returns the response below with
+// a 404 status code. This response is used whether the ID is unknown, refers to
+// a non-reindex task, refers to a sliced child subtask, or refers to a task
+// whose node left the cluster with no stored result (e.g. a non-graceful
+// shutdown).
+//
+//	{
+//	  "error": {
+//	    "type": "resource_not_found_exception",
+//	    "reason": "Reindex operation [r1A2WoRbTwKZ516z6NEs5A:36619] not found"
+//	  },
+//	  "status": 404
+//	}
+//
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodCore) GetReindex(taskid string) *core_get_reindex.GetReindex {
 	_getreindex := core_get_reindex.NewGetReindexFunc(p.tp)
@@ -14629,9 +14911,15 @@ func (p *MethodCore) KnnSearch(index string) *core_knn_search.KnnSearch {
 	return _knnsearch(index)
 }
 
-// List active reindex tasks.
-//
 // Get information about all currently running reindex tasks.
+//
+// Reindex tasks that are mid-relocation between nodes are reported once, under
+// their original task ID, so callers do not see duplicates across the
+// relocation chain.
+//
+// If the API returns a HTTP status of `200 OK`, but `node_failures` or
+// `task_failures` are non-empty in the body, the listing is not a complete
+// authoritative listing and may be missing tasks.
 // https://www.elastic.co/docs/api/doc/elasticsearch#TODO
 func (p *MethodCore) ListReindex() *core_list_reindex.ListReindex {
 	_listreindex := core_list_reindex.NewListReindexFunc(p.tp)
@@ -14918,14 +15206,28 @@ func (p *MethodCore) Reindex() *core_reindex.Reindex {
 
 // Throttle a reindex operation.
 //
-// Change the number of requests per second for a particular reindex operation.
-// For example:
+// Change the maximum number of documents to index per second for a particular
+// reindex operation. For example, to unthrottle to unlimited documents per
+// second:
 //
 //	POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
 //
 // Rethrottling that speeds up the query takes effect immediately. Rethrottling
-// that slows down the query will take effect after completing the current
-// batch. This behavior prevents scroll timeouts.
+// that slows down the query will take effect after completing the current batch
+// of documents. This behavior prevents scroll timeouts.
+//
+// This API follows reindex tasks across node-shutdown relocations, so callers
+// can keep using the original task ID throughout the lifetime of the operation.
+// The relocated task ID is also accepted and is followed transparently. In
+// either case, returned task IDs and timings reflect the original task, not its
+// relocated successor.
+//
+// The rethrottle may not have been applied to any tasks if either
+// `node_failures` or `task_failures` are non-empty, or if the response contains
+// no successfully rethrottled tasks — that is, no entries under `nodes`
+// (returned with the default `group_by=nodes` in stack) or under `tasks`
+// (returned in serverless, or in stack with `group_by=none` or
+// `group_by=parents`).
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-reindex
@@ -17447,6 +17749,8 @@ func (p *MethodIndices) SimulateTemplate() *indices_simulate_template.SimulateTe
 //   - The source index must have fewer primary shards than the target index.
 //   - The number of primary shards in the target index must be a multiple of
 //     the number of primary shards in the source index.
+//   - The number of primary shards in the target index must be a divisor of the
+//     source index's `index.number_of_routing_shards`.
 //   - The node handling the split process must have sufficient free disk space
 //     to accommodate a second copy of the existing index.
 //
@@ -17621,7 +17925,7 @@ func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inf
 //   - Amazon Bedrock (`chat_completion`, `completion`, `text_embedding`)
 //   - Amazon SageMaker (`chat_completion`, `completion`, `rerank`,
 //     `sparse_embedding`, `text_embedding`)
-//   - Anthropic (`completion`)
+//   - Anthropic (`chat_completion`, `completion`)
 //   - Azure AI Studio (`completion`, `rerank`, `text_embedding`)
 //   - Azure OpenAI (`chat_completion`, `completion`, `text_embedding`)
 //   - Cohere (`completion`, `rerank`, `text_embedding`)
@@ -18170,7 +18474,9 @@ func (p *MethodInference) SparseEmbedding(inferenceid string) *inference_sparse_
 // This API requires the `monitor_inference` cluster privilege (the built-in
 // `inference_admin` and `inference_user` roles grant this privilege). You must
 // use a client that supports streaming.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-stream-inference
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-stream-completion
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-stream-completion
 func (p *MethodInference) StreamCompletion(inferenceid string) *inference_stream_completion.StreamCompletion {
 	_streamcompletion := inference_stream_completion.NewStreamCompletionFunc(p.tp)
 	return _streamcompletion(inferenceid)
@@ -20313,6 +20619,10 @@ func (p *MethodSecurity) CreateCrossClusterApiKey() *security_create_cross_clust
 //
 // NOTE: Service account tokens never expire. You must actively delete them if
 // they are no longer needed.
+//
+// IMPORTANT: On Serverless, non-operator users can create tokens for only
+// `elastic/fleet-server` and `elastic/fleet-server-remote`. Creating tokens for
+// any other service account requires operator privileges.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token
 func (p *MethodSecurity) CreateServiceToken(namespace, service string) *security_create_service_token.CreateServiceToken {
 	_createservicetoken := security_create_service_token.NewCreateServiceTokenFunc(p.tp)
@@ -20387,6 +20697,10 @@ func (p *MethodSecurity) DeleteRoleMapping(name string) *security_delete_role_ma
 // Delete service account tokens.
 //
 // Delete service account tokens for a service in a specified namespace.
+//
+// IMPORTANT: On Serverless, non-operator users can delete tokens for only
+// `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
+// any other service account requires operator privileges.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
 func (p *MethodSecurity) DeleteServiceToken(namespace, service, name string) *security_delete_service_token.DeleteServiceToken {
 	_deleteservicetoken := security_delete_service_token.NewDeleteServiceTokenFunc(p.tp)
@@ -22102,7 +22416,9 @@ func (p *MethodSynonyms) GetSynonymsSets() *synonyms_get_synonyms_sets.GetSynony
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
+// Synonym sets are limited to a maximum of 100,000 synonym rules per set by
+// default. This limit is configurable using the `synonyms.max_synonym_rules`
+// cluster setting.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
 // synonyms set are reloaded automatically for all indices. This is equivalent
@@ -22153,6 +22469,12 @@ func (p *MethodSynonyms) PutSynonymRule(setid, ruleid string) *synonyms_put_syno
 // tasks the system is running. You can also use the node hot threads API to
 // obtain detailed information about the work the system is doing instead of
 // completing the cancelled task.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
 func (p *MethodTasks) Cancel() *tasks_cancel.Cancel {
 	_cancel := tasks_cancel.NewCancelFunc(p.tp)
@@ -22168,6 +22490,12 @@ func (p *MethodTasks) Cancel() *tasks_cancel.Cancel {
 //
 // If the task identifier is not found, a 404 response code indicates that there
 // are no resources that match the request.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
 func (p *MethodTasks) Get(taskid string) *tasks_get.Get {
 	_get := tasks_get.NewGetFunc(p.tp)
@@ -22181,6 +22509,12 @@ func (p *MethodTasks) Get(taskid string) *tasks_get.Get {
 //
 // WARNING: The task management API is new and should still be considered a beta
 // feature. The API may change in ways that are not backwards compatible.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 //
 // # Identifying running tasks
 //

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Update an inference endpoint.
 //
@@ -366,6 +366,16 @@ func (r *Update) _inferenceid(inferenceid string) *Update {
 func (r *Update) TaskType(tasktype string) *Update {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
+
+	return r
+}
+
+// Timeout Specifies the amount of time to wait for the inference endpoint to be
+// updated. The default depends on the task type: 120s for `completion` and
+// `chat_completion`, and 30s for all other task types.
+// API name: timeout
+func (r *Update) Timeout(duration string) *Update {
+	r.values.Set("timeout", duration)
 
 	return r
 }

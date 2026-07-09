@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
+// Synonym sets are limited to a maximum of 100,000 synonym rules per set by
+// default. This limit is configurable using the `synonyms.max_synonym_rules`
+// cluster setting.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
 // synonyms set are reloaded automatically for all indices. This is equivalent
@@ -93,7 +95,9 @@ func NewPutSynonymFunc(tp elastictransport.Interface) NewPutSynonym {
 
 // Create or update a synonym set.
 //
-// Synonyms sets are limited to a maximum of 10,000 synonym rules per set.
+// Synonym sets are limited to a maximum of 100,000 synonym rules per set by
+// default. This limit is configurable using the `synonyms.max_synonym_rules`
+// cluster setting.
 //
 // When an existing synonyms set is updated, the search analyzers that use the
 // synonyms set are reloaded automatically for all indices. This is equivalent
@@ -339,6 +343,16 @@ func (r *PutSynonym) _id(id string) *PutSynonym {
 // API name: refresh
 func (r *PutSynonym) Refresh(refresh bool) *PutSynonym {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
+
+	return r
+}
+
+// Append If `true`, the provided synonym rules are appended to the existing set, with
+// matching IDs overwriting existing rules. If `false`, the entire synonyms set
+// is replaced with the new synonym rules definitions.
+// API name: append
+func (r *PutSynonym) Append(append bool) *PutSynonym {
+	r.values.Set("append", strconv.FormatBool(append))
 
 	return r
 }

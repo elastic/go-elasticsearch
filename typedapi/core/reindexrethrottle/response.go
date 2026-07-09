@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package reindexrethrottle
 
@@ -32,12 +32,27 @@ import (
 
 // Response holds the response body struct for the package reindexrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L54
 type Response struct {
-	NodeFailures []types.ErrorCause           `json:"node_failures,omitempty"`
-	Nodes        map[string]types.ReindexNode `json:"nodes,omitempty"`
-	TaskFailures []types.TaskFailure          `json:"task_failures,omitempty"`
-	Tasks        types.ReindexTasks           `json:"tasks,omitempty"`
+	// NodeFailures Node-level failures encountered while applying the rethrottle request. Will
+	// return a `failed_node_exception` wrapping a `no_such_node_exception`, if a
+	// node handling the task either never existed, or has left the cluster, and one
+	// of the following is true: 1. The task has completed. 2. The task cannot be
+	// found.
+	//
+	// Note: Rethrottle handles relocations, so it should succeed if the task can be
+	// found and has not completed.
+	NodeFailures []types.ErrorCause `json:"node_failures,omitempty"`
+	// Nodes Tasks grouped by node, returned only when `group_by=nodes` (the default).
+	Nodes map[string]types.ReindexNode `json:"nodes,omitempty"`
+	// TaskFailures Per-task failures encountered while applying the rethrottle. If a rethrottle
+	// is attempted during a relocation handoff, the failure object reports `status:
+	// SERVICE_UNAVAILABLE` (the HTTP response itself is still `200 OK`). In this
+	// case, the request can be retried until success.
+	TaskFailures []types.TaskFailure `json:"task_failures,omitempty"`
+	// Tasks The tasks that were successfully rethrottled. Always returned in serverless.
+	// Returned with `group_by=none` or `group_by=parents` in stack.
+	Tasks types.ReindexTasks `json:"tasks,omitempty"`
 }
 
 // NewResponse returns a Response

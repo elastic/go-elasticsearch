@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -29,28 +29,32 @@ import (
 	"strconv"
 )
 
-// Information about a single reindex task, as returned by the reindex
+// Information about a single parent reindex task, as returned by the reindex
 // management APIs.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/Reindex.ts#L153-L191
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/Reindex.ts#L153-L191
 type ReindexTaskInfo struct {
 	// Cancelled Whether the reindex task has been cancelled.
 	Cancelled bool `json:"cancelled"`
 	// Description A sanitized description of the reindex operation (source and destination
 	// indices, and optionally remote host info).
 	Description *string `json:"description,omitempty"`
-	// Id The ID of the reindex task, in `nodeId:taskNum` format.
+	// Id The ID of the reindex task. The ID is assigned when the task was first
+	// created and remains the same across graceful shutdown relocations.
 	Id string `json:"id"`
-	// RunningTime The elapsed running time of the reindex task, in a human-readable format.
-	// Only present when the request includes the `?human=true` query parameter.
+	// RunningTime The elapsed running time of the reindex task, including relocations, in a
+	// human-readable format. Only present when the request includes the
+	// `?human=true` query parameter.
 	RunningTime Duration `json:"running_time,omitempty"`
-	// RunningTimeInNanos The elapsed running time of the reindex task, in nanoseconds.
+	// RunningTimeInNanos The elapsed running time of the reindex task, including relocations, in
+	// nanoseconds.
 	RunningTimeInNanos int64 `json:"running_time_in_nanos"`
-	// StartTime The time at which the reindex task started, as an ISO 8601 formatted string.
-	// Only present when the request includes the `?human=true` query parameter.
+	// StartTime The time at which the reindex task started, as an ISO-8601 formatted string.
+	// Remains the same across graceful shutdown relocations. Only present when the
+	// request includes the `?human=true` query parameter.
 	StartTime *string `json:"start_time,omitempty"`
 	// StartTimeInMillis The time at which the reindex task started, in milliseconds since the Unix
-	// epoch.
+	// epoch. Remains the same across graceful shutdown relocations.
 	StartTimeInMillis int64 `json:"start_time_in_millis"`
 	// Status The current progress of the reindex operation.
 	Status *ReindexStatus `json:"status,omitempty"`

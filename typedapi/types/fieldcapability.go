@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -33,13 +33,16 @@ import (
 
 // FieldCapability type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/field_caps/types.ts#L23-L81
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/field_caps/types.ts#L23-L93
 type FieldCapability struct {
 	// Aggregatable Whether this field can be aggregated on all indices.
 	Aggregatable bool `json:"aggregatable"`
 	// Indices The list of indices where this field has the same type family, or null if all
 	// indices have the same type family for the field.
 	Indices []string `json:"indices,omitempty"`
+	// Inference Whether this field is an inference field, meaning a field that automatically
+	// performs inference (for example, `semantic_text` fields), on all indices.
+	Inference *bool `json:"inference,omitempty"`
 	// Meta Merged metadata across all indices as a map of string keys to arrays of
 	// values. A value length of 1 indicates that all indices had the same value for
 	// this key, while a length of 2 or more indicates that not all indices had the
@@ -56,6 +59,9 @@ type FieldCapability struct {
 	// NonDimensionIndices If this list is present in response then some indices have the field marked
 	// as a dimension and other indices, the ones in this list, do not.
 	NonDimensionIndices []string `json:"non_dimension_indices,omitempty"`
+	// NonInferenceIndices The list of indices where this field is not an inference field, or null if
+	// all indices have the same definition for the field.
+	NonInferenceIndices []string `json:"non_inference_indices,omitempty"`
 	// NonSearchableIndices The list of indices where this field is not searchable, or null if all
 	// indices have the same definition for the field.
 	NonSearchableIndices []string `json:"non_searchable_indices,omitempty"`
@@ -114,6 +120,20 @@ func (s *FieldCapability) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "inference":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Inference", err)
+				}
+				s.Inference = &value
+			case bool:
+				s.Inference = &v
+			}
+
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
 				return fmt.Errorf("%s | %w", "Meta", err)
@@ -157,6 +177,22 @@ func (s *FieldCapability) UnmarshalJSON(data []byte) error {
 		case "non_dimension_indices":
 			if err := dec.Decode(&s.NonDimensionIndices); err != nil {
 				return fmt.Errorf("%s | %w", "NonDimensionIndices", err)
+			}
+
+		case "non_inference_indices":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "NonInferenceIndices", err)
+				}
+
+				s.NonInferenceIndices = append(s.NonInferenceIndices, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.NonInferenceIndices); err != nil {
+					return fmt.Errorf("%s | %w", "NonInferenceIndices", err)
+				}
 			}
 
 		case "non_searchable_indices":

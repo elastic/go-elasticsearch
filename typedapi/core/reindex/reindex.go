@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Reindex documents.
 //
@@ -452,8 +452,10 @@ func (r *Reindex) Refresh(refresh bool) *Reindex {
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second. By default, there
-// is no throttle.
+// RequestsPerSecond The maximum number of documents to index per second, across the entire
+// reindex operation (including slices). It can be either `-1` to turn off
+// throttling or any decimal number like `1.7` or `12` to throttle to that
+// level.
 // API name: requests_per_second
 func (r *Reindex) RequestsPerSecond(requestspersecond string) *Reindex {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -462,7 +464,11 @@ func (r *Reindex) RequestsPerSecond(requestspersecond string) *Reindex {
 }
 
 // Scroll The period of time that a consistent view of the index should be maintained
-// for scrolled search.
+// for scrolled search. In serverless, and stack versions >= v9.5.0, we use PIT
+// rather than scroll for pagination. We only use scroll for reindexing from
+// remote clusters that are older than v7.10.0. Therefore, this parameter is
+// ignored unless you are reindexing from a remote cluster that is older than
+// v7.10.0.
 // API name: scroll
 func (r *Reindex) Scroll(duration string) *Reindex {
 	r.values.Set("scroll", duration)

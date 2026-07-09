@@ -16,15 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
 // Profile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/search/_types/profile.ts#L101-L103
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/search/_types/profile.ts#L117-L123
 type Profile struct {
-	Shards []ShardProfile `json:"shards"`
+	// Request When profiling is enabled, the original query source and target indices from
+	// the coordinating request.
+	Request *SearchRequestCoordinatorMetadata `json:"request,omitempty"`
+	Shards  []ShardProfile                    `json:"shards"`
 }
 
 // NewProfile returns a Profile.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SynonymTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_types/analysis/token_filters.ts#L176-L178
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_types/analysis/token_filters.ts#L176-L178
 type SynonymTokenFilter struct {
 	// Expand Expands definitions for equivalent synonym rules. Defaults to `true`.
 	Expand *bool `json:"expand,omitempty"`
@@ -48,8 +48,9 @@ type SynonymTokenFilter struct {
 	// SynonymsPath Used to provide a synonym file. This path must be absolute or relative to the
 	// `config` location.
 	SynonymsPath *string `json:"synonyms_path,omitempty"`
-	// SynonymsSet Provide a synonym set created via Synonyms Management APIs.
-	SynonymsSet *string `json:"synonyms_set,omitempty"`
+	// SynonymsSet Provide one or more synonym sets created through the Synonyms Management
+	// APIs. Maximum 100 sets per filter.
+	SynonymsSet []string `json:"synonyms_set,omitempty"`
 	// Tokenizer Controls the tokenizers that will be used to tokenize the synonym, this
 	// parameter is for backwards compatibility for indices that created before 6.0.
 	Tokenizer *string `json:"tokenizer,omitempty"`
@@ -126,16 +127,20 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			s.SynonymsPath = &o
 
 		case "synonyms_set":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "SynonymsSet", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "SynonymsSet", err)
+				}
+
+				s.SynonymsSet = append(s.SynonymsSet, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.SynonymsSet); err != nil {
+					return fmt.Errorf("%s | %w", "SynonymsSet", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.SynonymsSet = &o
 
 		case "tokenizer":
 			var tmp json.RawMessage

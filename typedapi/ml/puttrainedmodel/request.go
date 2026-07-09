@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package puttrainedmodel
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L31-L140
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L31-L140
 type Request struct {
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
 	// model. If compressed_definition is specified, then definition cannot be
@@ -60,10 +60,9 @@ type Request struct {
 	// only works on one platform, because it is heavily optimized for a particular
 	// processor architecture and OS combination, then this field specifies which.
 	// The format of the string must match the platform identifiers used by
-	// Elasticsearch, so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
-	// `darwin-aarch64`, or `windows-x86_64`. For portable models (those that work
-	// independent of processor architecture or OS features), leave this field
-	// unset.
+	// Elasticsearch, so one of, `linux-x86_64`, `linux-aarch64`, `darwin-aarch64`,
+	// or `windows-x86_64`. For portable models (those that work independent of
+	// processor architecture or OS features), leave this field unset.
 	PlatformArchitecture *string `json:"platform_architecture,omitempty"`
 	// PrefixStrings Optional prefix strings applied at inference
 	PrefixStrings *types.TrainedModelPrefixStrings `json:"prefix_strings,omitempty"`

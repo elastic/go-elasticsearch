@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Cancel a task.
 //
@@ -36,6 +36,12 @@
 // tasks the system is running. You can also use the node hot threads API to
 // obtain detailed information about the work the system is doing instead of
 // completing the cancelled task.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 package cancel
 
 import (
@@ -109,6 +115,12 @@ func NewCancelFunc(tp elastictransport.Interface) NewCancel {
 // tasks the system is running. You can also use the node hot threads API to
 // obtain detailed information about the work the system is doing instead of
 // completing the cancelled task.
+//
+// For relocatable tasks, this API transparently follows the task across
+// graceful shutdown relocations, so callers can keep using the original task
+// ID. The returned task reports its `original_task_id` and
+// `original_start_time_in_millis` if it is continuing work from an earlier
+// task.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks
 func New(tp elastictransport.Interface) *Cancel {

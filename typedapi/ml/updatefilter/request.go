@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package updatefilter
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatefilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ml/update_filter/MlUpdateFilterRequest.ts#L23-L63
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/ml/update_filter/MlUpdateFilterRequest.ts#L23-L63
 type Request struct {
 	// AddItems The items to add to the filter.
 	AddItems []string `json:"add_items,omitempty"`

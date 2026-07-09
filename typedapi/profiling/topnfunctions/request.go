@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package topnfunctions
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package topnfunctions
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/profiling/topn_functions/ProfilingTopnFunctionsRequest.ts#L24-L45
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/profiling/topn_functions/ProfilingTopnFunctionsRequest.ts#L24-L45
 type Request = json.RawMessage
 
 // NewRequest returns a Request

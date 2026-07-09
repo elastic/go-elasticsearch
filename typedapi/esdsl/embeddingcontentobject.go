@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package esdsl
 
@@ -26,20 +26,26 @@ type _embeddingContentObject struct {
 	v *types.EmbeddingContentObject
 }
 
-func NewEmbeddingContentObject(content types.EmbeddingContentObjectContentsVariant) *_embeddingContentObject {
+func NewEmbeddingContentObject() *_embeddingContentObject {
 
-	tmp := &_embeddingContentObject{v: types.NewEmbeddingContentObject()}
-
-	tmp.Content(content)
-
-	return tmp
+	return &_embeddingContentObject{v: types.NewEmbeddingContentObject()}
 
 }
 
-func (s *_embeddingContentObject) Content(content types.EmbeddingContentObjectContentsVariant) *_embeddingContentObject {
+func (s *_embeddingContentObject) Content(embeddingcontentobjectgroups ...types.EmbeddingContentObjectItemVariant) *_embeddingContentObject {
 
-	s.v.Content = *content.EmbeddingContentObjectContentsCaster()
+	convertedItems := make([]types.EmbeddingContentObjectItem, 0, len(embeddingcontentobjectgroups))
+	for _, v := range embeddingcontentobjectgroups {
+		convertedItems = append(convertedItems, *v.EmbeddingContentObjectItemCaster())
+	}
+	s.v.Content = convertedItems
 
+	return s
+}
+
+func (s *_embeddingContentObject) ContentValues(embeddingcontentobjectgroupvalues []types.EmbeddingContentObjectItem) *_embeddingContentObject {
+
+	s.v.Content = embeddingcontentobjectgroupvalues
 	return s
 }
 

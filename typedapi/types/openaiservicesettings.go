@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -33,18 +33,37 @@ import (
 
 // OpenAIServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L2119-L2163
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/inference/_types/CommonTypes.ts#L2152-L2239
 type OpenAIServiceSettings struct {
 	// ApiKey A valid API key of your OpenAI account. You can find your OpenAI API keys in
 	// your OpenAI account under the API keys section.
 	//
-	// IMPORTANT: You need to provide the API key only once, during the inference
-	// model creation. The get inference endpoint API does not retrieve your API
-	// key.
-	ApiKey string `json:"api_key"`
-	// Dimensions The number of dimensions the resulting output embeddings should have. It is
-	// supported only in `text-embedding-3` and later models. If it is not set, the
-	// OpenAI defined default for the model is used.
+	// IMPORTANT: You must specify either `api_key` or `client_secret`. If you do
+	// not provide one or you provide more than one of them, you will receive an
+	// error when you try to create your endpoint.
+	ApiKey *string `json:"api_key,omitempty"`
+	// ClientId For OAuth 2.0 authorization using the client credentials grant flow. The
+	// application ID that's assigned to your app.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify `client_id`, `scopes`,
+	// `token_url`, and `client_secret` together. If one of the fields is missing,
+	// you will receive an error when you try to create your endpoint.
+	ClientId *string `json:"client_id,omitempty"`
+	// ClientSecret For OAuth 2.0 authorization using the client credentials grant flow. The
+	// application secret that you created for your app.
+	//
+	// IMPORTANT: You must specify either `api_key` or `client_secret`. If you do
+	// not provide one or you provide more than one of them, you will receive an
+	// error when you try to create your endpoint.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify `client_id`, `scopes`,
+	// `token_url`, and `client_secret` together. If one of the fields is missing,
+	// you will receive an error when you try to create your endpoint.
+	ClientSecret *string `json:"client_secret,omitempty"`
+	// Dimensions For a `text_embedding` or `embedding` task, the number of dimensions the
+	// resulting output embeddings should have. It is supported only in
+	// `text-embedding-3` and later models. If it is not set, the OpenAI defined
+	// default for the model is used.
 	Dimensions *int `json:"dimensions,omitempty"`
 	// ModelId The name of the model to use for the inference task. Refer to the OpenAI
 	// documentation for the list of available text embedding models.
@@ -54,14 +73,37 @@ type OpenAIServiceSettings struct {
 	OrganizationId *string `json:"organization_id,omitempty"`
 	// RateLimit This setting helps to minimize the number of rate limit errors returned from
 	// OpenAI. The `openai` service sets a default number of requests allowed per
-	// minute depending on the task type. For `text_embedding`, it is set to `3000`.
-	// For `completion`, it is set to `500`.
+	// minute depending on the task type. For `text_embedding` and `embedding`, it
+	// is set to `3000`. For `completion` and `chat_completion`, it is set to `500`.
 	RateLimit *RateLimitSetting `json:"rate_limit,omitempty"`
-	// Similarity For a `text_embedding` task, the similarity measure. One of cosine,
-	// dot_product, l2_norm. Defaults to `dot_product`.
+	// Scopes For OAuth 2.0 authorization using the client credentials grant flow. The
+	// resource identifier of the resource you want. For example:
+	//
+	//	"scopes": [
+	//	  "scope1",
+	//	  "scope2"
+	//	]
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify `client_id`, `scopes`,
+	// `token_url`, and `client_secret` together. If one of the fields is missing,
+	// you will receive an error when you try to create your endpoint.
+	Scopes []string `json:"scopes,omitempty"`
+	// Similarity For a `text_embedding` or `embedding` task, the similarity measure. One of
+	// `cosine`, `dot_product`, `l2_norm`. Defaults to `dot_product`.
 	Similarity *openaisimilaritytype.OpenAISimilarityType `json:"similarity,omitempty"`
+	// TokenUrl For OAuth 2.0 authorization using the client credentials grant flow. An
+	// OAuth2 token endpoint where Elasticsearch sends a request to exchange client
+	// credentials for an access token.
+	//
+	// IMPORTANT: To configure OAuth 2.0, you must specify `client_id`, `scopes`,
+	// `token_url`, and `client_secret` together. If one of the fields is missing,
+	// you will receive an error when you try to create your endpoint.
+	TokenUrl *string `json:"token_url,omitempty"`
 	// Url The URL endpoint to use for the requests. It can be changed for testing
-	// purposes.
+	// purposes. Default value is `https://api.openai.com/v1/embeddings` for a
+	// `text_embedding` or `embedding` task,
+	// `https://api.openai.com/v1/chat/completions` for a `completion` or
+	// `chat_completion` task.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -90,7 +132,31 @@ func (s *OpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ApiKey = o
+			s.ApiKey = &o
+
+		case "client_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClientId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClientId = &o
+
+		case "client_secret":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClientSecret", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClientSecret = &o
 
 		case "dimensions":
 
@@ -137,10 +203,27 @@ func (s *OpenAIServiceSettings) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "RateLimit", err)
 			}
 
+		case "scopes":
+			if err := dec.Decode(&s.Scopes); err != nil {
+				return fmt.Errorf("%s | %w", "Scopes", err)
+			}
+
 		case "similarity":
 			if err := dec.Decode(&s.Similarity); err != nil {
 				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
+
+		case "token_url":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "TokenUrl", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.TokenUrl = &o
 
 		case "url":
 			var tmp json.RawMessage

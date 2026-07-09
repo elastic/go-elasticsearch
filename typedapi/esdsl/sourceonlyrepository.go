@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package esdsl
 
@@ -26,19 +26,15 @@ type _sourceOnlyRepository struct {
 	v *types.SourceOnlyRepository
 }
 
-func NewSourceOnlyRepository(settings types.SourceOnlyRepositorySettingsVariant) *_sourceOnlyRepository {
+func NewSourceOnlyRepository() *_sourceOnlyRepository {
 
-	tmp := &_sourceOnlyRepository{v: types.NewSourceOnlyRepository()}
-
-	tmp.Settings(settings)
-
-	return tmp
+	return &_sourceOnlyRepository{v: types.NewSourceOnlyRepository()}
 
 }
 
-func (s *_sourceOnlyRepository) Settings(settings types.SourceOnlyRepositorySettingsVariant) *_sourceOnlyRepository {
+func (s *_sourceOnlyRepository) Settings(sourceonlyrepositorysettings types.SourceOnlyRepositorySettingsVariant) *_sourceOnlyRepository {
 
-	s.v.Settings = *settings.SourceOnlyRepositorySettingsCaster()
+	s.v.Settings = *sourceonlyrepositorysettings.SourceOnlyRepositorySettingsCaster()
 
 	return s
 }

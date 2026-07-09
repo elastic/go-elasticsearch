@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -28,13 +28,14 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/retentionsource"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/samplingmethod"
 )
 
 // Data stream lifecycle denotes that a data stream is managed by the data
 // stream lifecycle and contains the configuration.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/indices/_types/DataStreamLifecycle.ts#L26-L55
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/indices/_types/DataStreamLifecycle.ts#L26-L65
 type DataStreamLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
@@ -48,12 +49,16 @@ type DataStreamLifecycle struct {
 	// `last_value`. It requires `downsampling` to be defined. Defaults to
 	// `aggregate`.
 	DownsamplingMethod *samplingmethod.SamplingMethod `json:"downsampling_method,omitempty"`
+	// EffectiveRetention The least amount of time data should be kept by elasticsearch.
+	EffectiveRetention Duration `json:"effective_retention,omitempty"`
 	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
 	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
 	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
 	// FrozenAfter Only available with feature flag dlm_searchable_snapshots.
 	FrozenAfter Duration `json:"frozen_after,omitempty"`
+	// RetentionDeterminedBy Configuration source that can influence the retention of a data stream.
+	RetentionDeterminedBy *retentionsource.RetentionSource `json:"retention_determined_by,omitempty"`
 }
 
 func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
@@ -86,6 +91,11 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "DownsamplingMethod", err)
 			}
 
+		case "effective_retention":
+			if err := dec.Decode(&s.EffectiveRetention); err != nil {
+				return fmt.Errorf("%s | %w", "EffectiveRetention", err)
+			}
+
 		case "enabled":
 			var tmp any
 			dec.Decode(&tmp)
@@ -103,6 +113,11 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 		case "frozen_after":
 			if err := dec.Decode(&s.FrozenAfter); err != nil {
 				return fmt.Errorf("%s | %w", "FrozenAfter", err)
+			}
+
+		case "retention_determined_by":
+			if err := dec.Decode(&s.RetentionDeterminedBy); err != nil {
+				return fmt.Errorf("%s | %w", "RetentionDeterminedBy", err)
 			}
 
 		}

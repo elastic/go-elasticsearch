@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -31,20 +31,20 @@ import (
 
 // ParentReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/reindex_rethrottle/types.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/reindex_rethrottle/types.ts#L55-L57
 type ParentReindexTask struct {
-	Action             string        `json:"action"`
-	Cancellable        bool          `json:"cancellable"`
-	Cancelled          bool          `json:"cancelled"`
-	Children           []ReindexTask `json:"children,omitempty"`
-	Description        string        `json:"description"`
-	Headers            HttpHeaders   `json:"headers"`
-	Id                 int64         `json:"id"`
-	Node               string        `json:"node"`
-	RunningTimeInNanos int64         `json:"running_time_in_nanos"`
-	StartTimeInMillis  int64         `json:"start_time_in_millis"`
-	Status             ReindexStatus `json:"status"`
-	Type               string        `json:"type"`
+	Action             string              `json:"action"`
+	Cancellable        bool                `json:"cancellable"`
+	Cancelled          bool                `json:"cancelled"`
+	Children           []ReindexTask       `json:"children,omitempty"`
+	Description        string              `json:"description"`
+	Headers            HttpHeaders         `json:"headers"`
+	Id                 int64               `json:"id"`
+	Node               string              `json:"node"`
+	RunningTimeInNanos int64               `json:"running_time_in_nanos"`
+	StartTimeInMillis  int64               `json:"start_time_in_millis"`
+	Status             ParentReindexStatus `json:"status"`
+	Type               string              `json:"type"`
 }
 
 func (s *ParentReindexTask) UnmarshalJSON(data []byte) error {

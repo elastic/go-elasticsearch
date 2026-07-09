@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package oidcauthenticate
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package oidcauthenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/oidc_authenticate/Request.ts#L23-L65
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/security/oidc_authenticate/Request.ts#L23-L65
 type Request struct {
 	// Nonce Associate a client session with an ID token and mitigate replay attacks. This
 	// value needs to be the same as the one that was provided to the

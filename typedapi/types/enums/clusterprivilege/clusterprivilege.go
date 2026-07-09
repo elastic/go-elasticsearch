@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 // Package clusterprivilege
 package clusterprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/_types/Privileges.ts#L43-L210
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/security/_types/Privileges.ts#L43-L220
 type ClusterPrivilege struct {
 	Name string
 }
@@ -79,6 +79,8 @@ var (
 
 	Managepipeline = ClusterPrivilege{"manage_pipeline"}
 
+	Managereindex = ClusterPrivilege{"manage_reindex"}
+
 	Managerollup = ClusterPrivilege{"manage_rollup"}
 
 	Managesaml = ClusterPrivilege{"manage_saml"}
@@ -116,6 +118,8 @@ var (
 	Monitorinference = ClusterPrivilege{"monitor_inference"}
 
 	Monitorml = ClusterPrivilege{"monitor_ml"}
+
+	Monitorreindex = ClusterPrivilege{"monitor_reindex"}
 
 	Monitorrollup = ClusterPrivilege{"monitor_rollup"}
 
@@ -213,6 +217,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Manageownapikey
 	case "manage_pipeline":
 		*c = Managepipeline
+	case "manage_reindex":
+		*c = Managereindex
 	case "manage_rollup":
 		*c = Managerollup
 	case "manage_saml":
@@ -251,6 +257,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Monitorinference
 	case "monitor_ml":
 		*c = Monitorml
+	case "monitor_reindex":
+		*c = Monitorreindex
 	case "monitor_rollup":
 		*c = Monitorrollup
 	case "monitor_snapshot":

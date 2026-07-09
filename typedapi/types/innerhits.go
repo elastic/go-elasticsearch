@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/c0021097996e8ff7ae5fe8995f26b148dc329bae
 
 package types
 
@@ -31,12 +31,13 @@ import (
 
 // InnerHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_global/search/_types/hits.ts#L115-L149
+// https://github.com/elastic/elasticsearch-specification/blob/c0021097996e8ff7ae5fe8995f26b148dc329bae/specification/_global/search/_types/hits.ts#L115-L152
 type InnerHits struct {
 	Collapse       *FieldCollapse   `json:"collapse,omitempty"`
 	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
 	Explain        *bool            `json:"explain,omitempty"`
-	Fields         []string         `json:"fields,omitempty"`
+	Field          []string         `json:"field,omitempty"`
+	Fields         []FieldAndFormat `json:"fields,omitempty"`
 	// From Inner hit starting document offset.
 	From           *int       `json:"from,omitempty"`
 	Highlight      *Highlight `json:"highlight,omitempty"`
@@ -94,6 +95,11 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 				s.Explain = &value
 			case bool:
 				s.Explain = &v
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "fields":
