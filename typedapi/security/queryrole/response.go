@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package queryrole
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package queryrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/query_role/QueryRolesResponse.ts#L23-L43
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/query_role/QueryRolesResponse.ts#L23-L43
 type Response struct {
 	// Count The number of roles returned in the response.
 	Count int `json:"count"`

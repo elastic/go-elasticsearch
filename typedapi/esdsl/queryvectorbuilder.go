@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package esdsl
 
@@ -28,6 +28,13 @@ type _queryVectorBuilder struct {
 
 func NewQueryVectorBuilder() *_queryVectorBuilder {
 	return &_queryVectorBuilder{v: types.NewQueryVectorBuilder()}
+}
+
+func (s *_queryVectorBuilder) Embedding(embedding types.EmbeddingVariant) *_queryVectorBuilder {
+
+	s.v.Embedding = embedding.EmbeddingCaster()
+
+	return s
 }
 
 func (s *_queryVectorBuilder) Lookup(lookup types.LookupQueryVectorBuilderVariant) *_queryVectorBuilder {

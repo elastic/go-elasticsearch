@@ -18,7 +18,7 @@ on:
 
 env:
   GITHUB_ACTIONS: true
-  ELASTICSEARCH_VERSION: elasticsearch:9.4.0-SNAPSHOT
+  ELASTICSEARCH_VERSION: elasticsearch:9.5.0-SNAPSHOT
 
 jobs:
   test-integration:

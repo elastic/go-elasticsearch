@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 // Throttle a delete by query operation.
 //
@@ -309,8 +309,10 @@ func (r *DeleteByQueryRethrottle) _taskid(taskid string) *DeleteByQueryRethrottl
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second. To disable
-// throttling, set it to `-1`.
+// RequestsPerSecond The maximum number of documents to delete per second, across the entire
+// delete-by-query operation (including slices). It can be either `-1` to turn
+// off throttling or any decimal number like `1.7` or `12` to throttle to that
+// level.
 // API name: requests_per_second
 func (r *DeleteByQueryRethrottle) RequestsPerSecond(requestspersecond string) *DeleteByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

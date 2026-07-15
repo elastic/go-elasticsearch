@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
 // SchedulingConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/connector/_types/Connector.ts#L246-L250
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/connector/_types/Connector.ts#L246-L250
 type SchedulingConfiguration struct {
 	AccessControl *ConnectorScheduling `json:"access_control,omitempty"`
 	Full          *ConnectorScheduling `json:"full,omitempty"`

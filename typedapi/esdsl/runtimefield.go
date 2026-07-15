@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/runtimefieldtype"
 )
 
@@ -87,6 +88,12 @@ func (s *_runtimeField) InputField(field string) *_runtimeField {
 
 	s.v.InputField = &field
 
+	return s
+}
+
+func (s *_runtimeField) OnScriptError(onscripterror onscripterror.OnScriptError) *_runtimeField {
+
+	s.v.OnScriptError = &onscripterror
 	return s
 }
 

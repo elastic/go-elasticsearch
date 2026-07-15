@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package putsettings
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package putsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L26-L84
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L26-L84
 type Request struct {
 	// Persistent The settings that persist after the cluster restarts.
 	Persistent map[string]json.RawMessage `json:"persistent,omitempty"`

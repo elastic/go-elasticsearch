@@ -13,7 +13,7 @@ jobs:
   test-api:
     name: API Tests (Platinum)
     env:
-      STACK_VERSION: 9.4.0-SNAPSHOT
+      STACK_VERSION: 9.5.0-SNAPSHOT
       ELASTICSEARCH_URL: https://elastic:elastic@localhost:9200
       ELASTICSEARCH_CLIENTS_TESTS_BRANCH: main
     runs-on: ubuntu-latest

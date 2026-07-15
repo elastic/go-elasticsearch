@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 // Package embeddingcontenttype
 package embeddingcontenttype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L639-L645
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L666-L675
 type EmbeddingContentType struct {
 	Name string
 }
@@ -32,6 +32,12 @@ var (
 	Text = EmbeddingContentType{"text"}
 
 	Image = EmbeddingContentType{"image"}
+
+	Audio = EmbeddingContentType{"audio"}
+
+	Video = EmbeddingContentType{"video"}
+
+	Pdf = EmbeddingContentType{"pdf"}
 )
 
 func (e EmbeddingContentType) MarshalText() (text []byte, err error) {
@@ -45,6 +51,12 @@ func (e *EmbeddingContentType) UnmarshalText(text []byte) error {
 		*e = Text
 	case "image":
 		*e = Image
+	case "audio":
+		*e = Audio
+	case "video":
+		*e = Video
+	case "pdf":
+		*e = Pdf
 	default:
 		*e = EmbeddingContentType{string(text)}
 	}

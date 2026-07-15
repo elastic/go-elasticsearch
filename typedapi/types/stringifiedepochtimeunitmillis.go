@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -32,7 +32,7 @@ package types
 // Depending on the target language, code generators can keep the union or
 // remove it and leniently parse strings to the target type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/_spec_utils/Stringified.ts#L20-L27
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_spec_utils/Stringified.ts#L20-L27
 type StringifiedEpochTimeUnitMillis any
 
 type StringifiedEpochTimeUnitMillisVariant interface {

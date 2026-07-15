@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 // Package openaitasktype
 package openaitasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L2190-L2194
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L2266-L2271
 type OpenAITaskType struct {
 	Name string
 }
@@ -34,6 +34,8 @@ var (
 	Completion = OpenAITaskType{"completion"}
 
 	Textembedding = OpenAITaskType{"text_embedding"}
+
+	Embedding = OpenAITaskType{"embedding"}
 )
 
 func (o OpenAITaskType) MarshalText() (text []byte, err error) {
@@ -49,6 +51,8 @@ func (o *OpenAITaskType) UnmarshalText(text []byte) error {
 		*o = Completion
 	case "text_embedding":
 		*o = Textembedding
+	case "embedding":
+		*o = Embedding
 	default:
 		*o = OpenAITaskType{string(text)}
 	}

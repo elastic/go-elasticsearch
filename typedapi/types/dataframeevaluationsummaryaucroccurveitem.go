@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationSummaryAucRocCurveItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ml/evaluate_data_frame/types.ts#L95-L99
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/evaluate_data_frame/types.ts#L95-L99
 type DataframeEvaluationSummaryAucRocCurveItem struct {
 	Fpr       Float64 `json:"fpr"`
 	Threshold Float64 `json:"threshold"`
