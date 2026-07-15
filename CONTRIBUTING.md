@@ -27,4 +27,4 @@ Please run the tests locally with `make test` and make sure everything is in ord
 
 If your changes address the generator, you can run the integration tests with the following command:
 
-`TEST_SUITE=platinum STACK_VERSION=9.4.0-SNAPSHOT WORKSPACE=/tmp/workspace/$STACK_VERSION .buildkite/run-tests`
+`TEST_SUITE=platinum STACK_VERSION=9.5.0-SNAPSHOT WORKSPACE=/tmp/workspace/$STACK_VERSION .buildkite/run-tests`

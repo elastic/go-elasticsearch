@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package syncjobcancel
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package syncjobcancel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/connector/sync_job_cancel/SyncJobCancelResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/connector/sync_job_cancel/SyncJobCancelResponse.ts#L22-L26
 type Response struct {
 	Result result.Result `json:"result"`
 }

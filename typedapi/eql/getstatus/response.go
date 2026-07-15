@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package getstatus
 
 // Response holds the response body struct for the package getstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/eql/get_status/EqlGetStatusResponse.ts#L24-L51
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/eql/get_status/EqlGetStatusResponse.ts#L24-L51
 type Response struct {
 	// CompletionStatus For a completed search shows the http status code of the completed search.
 	CompletionStatus *int `json:"completion_status,omitempty"`

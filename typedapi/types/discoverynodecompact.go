@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // Alternative representation of DiscoveryNode used in ml.get_job_stats and
 // ml.get_datafeed_stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ml/_types/DiscoveryNode.ts#L39-L48
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/_types/DiscoveryNode.ts#L39-L48
 type DiscoveryNodeCompact struct {
 	Attributes       map[string]string `json:"attributes"`
 	EphemeralId      string            `json:"ephemeral_id"`

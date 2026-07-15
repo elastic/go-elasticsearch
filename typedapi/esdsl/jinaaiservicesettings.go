@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package esdsl
 
@@ -56,9 +56,9 @@ func (s *_jinaAIServiceSettings) Dimensions(dimensions int) *_jinaAIServiceSetti
 	return s
 }
 
-func (s *_jinaAIServiceSettings) ElementType(elementtype jinaaielementtype.JinaAIElementType) *_jinaAIServiceSettings {
+func (s *_jinaAIServiceSettings) EmbeddingType(embeddingtype jinaaielementtype.JinaAIElementType) *_jinaAIServiceSettings {
 
-	s.v.ElementType = &elementtype
+	s.v.EmbeddingType = &embeddingtype
 	return s
 }
 

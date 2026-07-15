@@ -16,20 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 // Package anthropictasktype
 package anthropictasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/inference/_types/CommonTypes.ts#L839-L841
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L869-L872
 type AnthropicTaskType struct {
 	Name string
 }
 
 var (
 	Completion = AnthropicTaskType{"completion"}
+
+	Chatcompletion = AnthropicTaskType{"chat_completion"}
 )
 
 func (a AnthropicTaskType) MarshalText() (text []byte, err error) {
@@ -41,6 +43,8 @@ func (a *AnthropicTaskType) UnmarshalText(text []byte) error {
 
 	case "completion":
 		*a = Completion
+	case "chat_completion":
+		*a = Chatcompletion
 	default:
 		*a = AnthropicTaskType{string(text)}
 	}

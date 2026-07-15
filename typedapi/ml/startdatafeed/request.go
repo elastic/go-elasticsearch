@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package startdatafeed
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L101
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L101
 type Request struct {
 	// End Refer to the description for the `end` query parameter.
 	End types.DateTime `json:"end,omitempty"`

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package oidcprepareauthentication
 
 // Response holds the response body struct for the package oidcprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/security/oidc_prepare_authentication/Response.ts#L20-L30
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/oidc_prepare_authentication/Response.ts#L20-L30
 type Response struct {
 	Nonce string `json:"nonce"`
 	Realm string `json:"realm"`

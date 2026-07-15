@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package putwatch
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L37-L124
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L37-L124
 type Request struct {
 	// Actions The list of actions that will be run if the condition matches.
 	Actions map[string]types.WatcherAction `json:"actions,omitempty"`

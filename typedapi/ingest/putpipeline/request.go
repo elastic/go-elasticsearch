@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/eb2e22fb2ac404e676d19bcc7bb089647f029026
+// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
 
 package putpipeline
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putpipeline
 //
-// https://github.com/elastic/elasticsearch-specification/blob/eb2e22fb2ac404e676d19bcc7bb089647f029026/specification/ingest/put_pipeline/PutPipelineRequest.ts#L27-L102
+// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ingest/put_pipeline/PutPipelineRequest.ts#L27-L102
 type Request struct {
 	// Deprecated Marks this ingest pipeline as deprecated. When a deprecated ingest pipeline
 	// is referenced as the default or final pipeline when creating or updating a
