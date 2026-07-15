@@ -582,11 +582,7 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
 	// ResponseCheck, we run the header check on the first answer from ES.
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		checkHeader := func() error { return genuineCheckHeader(res.Header) }
-		if err := c.doProductCheck(checkHeader); err != nil {
-			res.Body.Close()
-			return nil, err
-		}
+		// skip product check for opensource instance
 	}
 
 	return res, nil
@@ -624,14 +620,6 @@ func (c *BaseClient) doProductCheck(f func() error) error {
 
 	c.productCheckSuccess = true
 
-	return nil
-}
-
-// genuineCheckHeader validates the presence of the X-Elastic-Product header
-func genuineCheckHeader(header http.Header) error {
-	if header.Get("X-Elastic-Product") != "Elasticsearch" {
-		return errors.New(unknownProduct)
-	}
 	return nil
 }
 

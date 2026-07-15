@@ -2,6 +2,10 @@
 
 The official Go client for [Elasticsearch](https://www.elastic.co/products/elasticsearch).
 
+## Note
+
+This repository is forked from [eslactic/go-elasticsearch](https://github.com/elastic/go-elasticsearch). Please use the official client.
+
 **[Download the latest version of Elasticsearch](https://www.elastic.co/downloads/elasticsearch)**
 or
 **[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
