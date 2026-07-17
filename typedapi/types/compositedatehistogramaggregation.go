@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/aggregations/bucket.ts#L190-L198
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/aggregations/bucket.ts#L190-L198
 type CompositeDateHistogramAggregation struct {
 	// CalendarInterval Either `calendar_interval` or `fixed_interval` must be present
 	CalendarInterval *string `json:"calendar_interval,omitempty"`

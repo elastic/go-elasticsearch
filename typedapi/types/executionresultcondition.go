@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -28,17 +28,19 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/actionstatusoptions"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/conditiontype"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/executionresultstatus"
 )
 
 // ExecutionResultCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Execution.ts#L68-L72
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/watcher/_types/Execution.ts#L82-L88
 type ExecutionResultCondition struct {
-	Met    bool                                    `json:"met"`
-	Status actionstatusoptions.ActionStatusOptions `json:"status"`
-	Type   conditiontype.ConditionType             `json:"type"`
+	ArrayCompare *ExecutionResultConditionResolved           `json:"array_compare,omitempty"`
+	Compare      *ExecutionResultConditionResolved           `json:"compare,omitempty"`
+	Met          bool                                        `json:"met"`
+	Status       executionresultstatus.ExecutionResultStatus `json:"status"`
+	Type         conditiontype.ConditionType                 `json:"type"`
 }
 
 func (s *ExecutionResultCondition) UnmarshalJSON(data []byte) error {
@@ -55,6 +57,16 @@ func (s *ExecutionResultCondition) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "array_compare":
+			if err := dec.Decode(&s.ArrayCompare); err != nil {
+				return fmt.Errorf("%s | %w", "ArrayCompare", err)
+			}
+
+		case "compare":
+			if err := dec.Decode(&s.Compare); err != nil {
+				return fmt.Errorf("%s | %w", "Compare", err)
+			}
 
 		case "met":
 			var tmp any

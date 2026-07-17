@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package translate
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package translate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/sql/translate/TranslateSqlResponse.ts#L28-L39
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/sql/translate/TranslateSqlResponse.ts#L28-L39
 type Response struct {
 	Aggregations   map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Fields         []types.FieldAndFormat        `json:"fields,omitempty"`

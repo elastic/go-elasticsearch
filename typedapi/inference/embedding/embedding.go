@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 // Perform dense embedding inference on the service.
 package embedding
@@ -369,7 +369,8 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 // an array of `content` objects. `content` objects may contain a single item or
 // an array of items. Models that support multiple items per `content` object
 // will return a single embedding for each `content` object, regardless of how
-// many items it contains.
+// many items it contains. Support for multiple items in a single `content`
+// object is available in Elasticsearch 9.5.0 and later.
 //
 // string example:
 //
@@ -408,7 +409,8 @@ func (r *Embedding) Pretty(pretty bool) *Embedding {
 //	  }
 //	]
 //
-// Multiple items in one `content` object example:
+// Multiple items in one `content` object example (available in Elasticsearch
+// 9.5.0 and later):
 //
 //	"input": [
 //	  {

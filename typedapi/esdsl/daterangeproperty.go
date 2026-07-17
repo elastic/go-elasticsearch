@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package esdsl
 
@@ -64,9 +64,9 @@ func (s *_dateRangeProperty) CopyTo(fields ...string) *_dateRangeProperty {
 	return s
 }
 
-func (s *_dateRangeProperty) DocValues(docvalues bool) *_dateRangeProperty {
+func (s *_dateRangeProperty) DocValues(docvalues types.DocValuesVariant) *_dateRangeProperty {
 
-	s.v.DocValues = &docvalues
+	s.v.DocValues = *docvalues.DocValuesCaster()
 
 	return s
 }

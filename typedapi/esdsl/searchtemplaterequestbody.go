@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package esdsl
 
@@ -24,6 +24,7 @@ import (
 	"encoding/json"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scriptlanguage"
 )
 
 type _searchTemplateRequestBody struct {
@@ -47,6 +48,12 @@ func (s *_searchTemplateRequestBody) Id(id string) *_searchTemplateRequestBody {
 
 	s.v.Id = &id
 
+	return s
+}
+
+func (s *_searchTemplateRequestBody) Lang(lang scriptlanguage.ScriptLanguage) *_searchTemplateRequestBody {
+
+	s.v.Lang = &lang
 	return s
 }
 

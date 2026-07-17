@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/_types/RoleDescriptor.ts#L85-L88
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/_types/RoleDescriptor.ts#L85-L88
 type RoleDescriptorRead struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
@@ -43,8 +43,7 @@ type RoleDescriptorRead struct {
 	// Description Optional description of the role descriptor
 	Description *string `json:"description,omitempty"`
 	// Global An object defining global privileges. A global privilege is a form of cluster
-	// privilege that is request-aware. Support for global privileges is currently
-	// limited to the management of application privileges.
+	// privilege that is request-aware.
 	Global []GlobalPrivilege `json:"global,omitempty"`
 	// Indices A list of indices permissions entries.
 	Indices []IndicesPrivileges `json:"indices"`

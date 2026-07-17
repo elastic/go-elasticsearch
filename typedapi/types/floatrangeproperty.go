@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -34,12 +34,12 @@ import (
 
 // FloatRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/mapping/range.ts#L38-L40
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/mapping/range.ts#L38-L40
 type FloatRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
 	CopyTo      []string                       `json:"copy_to,omitempty"`
-	DocValues   *bool                          `json:"doc_values,omitempty"`
+	DocValues   DocValues                      `json:"doc_values,omitempty"`
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove *int                           `json:"ignore_above,omitempty"`
@@ -114,17 +114,39 @@ func (s *FloatRangeProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "doc_values":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "DocValues", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		docvalues_field:
+			for {
+				t, err := keyDec.Token()
 				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
 					return fmt.Errorf("%s | %w", "DocValues", err)
 				}
-				s.DocValues = &value
-			case bool:
-				s.DocValues = &v
+
+				switch t {
+
+				case "multi_value", "nullability":
+					o := NewDocValuesConfig()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "DocValues", err)
+					}
+					s.DocValues = o
+					break docvalues_field
+
+				}
+			}
+			if s.DocValues == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.DocValues); err != nil {
+					return fmt.Errorf("%s | %w", "DocValues", err)
+				}
 			}
 
 		case "dynamic":

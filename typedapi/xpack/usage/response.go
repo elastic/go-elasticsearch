@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package usage
 
@@ -26,37 +26,40 @@ import (
 
 // Response holds the response body struct for the package usage
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/xpack/usage/XPackUsageResponse.ts#L43-L82
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/xpack/usage/XPackUsageResponse.ts#L46-L94
 type Response struct {
-	AggregateMetric     types.Base                    `json:"aggregate_metric"`
-	Analytics           types.Analytics               `json:"analytics"`
-	Archive             types.Archive                 `json:"archive"`
-	Ccr                 types.Ccr                     `json:"ccr"`
-	DataFrame           *types.Base                   `json:"data_frame,omitempty"`
-	DataScience         *types.Base                   `json:"data_science,omitempty"`
-	DataStreams         *types.DataStreams            `json:"data_streams,omitempty"`
-	DataTiers           types.DataTiers               `json:"data_tiers"`
-	Enrich              *types.Base                   `json:"enrich,omitempty"`
-	Eql                 types.Eql                     `json:"eql"`
-	Flattened           *types.Flattened              `json:"flattened,omitempty"`
-	GpuVectorIndexing   *types.GpuVectorIndexing      `json:"gpu_vector_indexing,omitempty"`
-	Graph               types.Base                    `json:"graph"`
-	HealthApi           *types.HealthStatistics       `json:"health_api,omitempty"`
-	Ilm                 types.Ilm                     `json:"ilm"`
-	Logstash            types.Base                    `json:"logstash"`
-	Ml                  types.MachineLearning         `json:"ml"`
-	Monitoring          types.Monitoring              `json:"monitoring"`
-	Rollup              types.Base                    `json:"rollup"`
-	RuntimeFields       *types.XpackRuntimeFieldTypes `json:"runtime_fields,omitempty"`
-	SearchableSnapshots types.SearchableSnapshots     `json:"searchable_snapshots"`
-	Security            types.Security                `json:"security"`
-	Slm                 types.Slm                     `json:"slm"`
-	Spatial             types.Base                    `json:"spatial"`
-	Sql                 types.Sql                     `json:"sql"`
-	Transform           types.Base                    `json:"transform"`
-	Vectors             *types.Vector                 `json:"vectors,omitempty"`
-	VotingOnly          types.Base                    `json:"voting_only"`
-	Watcher             types.Watcher                 `json:"watcher"`
+	AggregateMetric     types.Base                      `json:"aggregate_metric"`
+	Analytics           types.Analytics                 `json:"analytics"`
+	Archive             types.Archive                   `json:"archive"`
+	Ccr                 types.Ccr                       `json:"ccr"`
+	DataFrame           *types.Base                     `json:"data_frame,omitempty"`
+	DataLifecycle       *types.DataStreamLifecycleUsage `json:"data_lifecycle,omitempty"`
+	DataScience         *types.Base                     `json:"data_science,omitempty"`
+	DataStreams         *types.DataStreams              `json:"data_streams,omitempty"`
+	DataTiers           types.DataTiers                 `json:"data_tiers"`
+	Enrich              *types.Base                     `json:"enrich,omitempty"`
+	Eql                 types.Eql                       `json:"eql"`
+	Flattened           *types.Flattened                `json:"flattened,omitempty"`
+	GpuVectorIndexing   *types.GpuVectorIndexing        `json:"gpu_vector_indexing,omitempty"`
+	Graph               types.Base                      `json:"graph"`
+	HealthApi           *types.HealthStatistics         `json:"health_api,omitempty"`
+	Ilm                 types.Ilm                       `json:"ilm"`
+	Logging             *types.Logging                  `json:"logging,omitempty"`
+	Logstash            types.Base                      `json:"logstash"`
+	Ml                  types.MachineLearning           `json:"ml"`
+	Monitoring          types.Monitoring                `json:"monitoring"`
+	Rollup              types.Base                      `json:"rollup"`
+	RuntimeFields       *types.XpackRuntimeFieldTypes   `json:"runtime_fields,omitempty"`
+	SearchableSnapshots types.SearchableSnapshots       `json:"searchable_snapshots"`
+	Security            types.Security                  `json:"security"`
+	Slm                 types.Slm                       `json:"slm"`
+	Spatial             types.Base                      `json:"spatial"`
+	Sql                 types.Sql                       `json:"sql"`
+	Transform           types.Base                      `json:"transform"`
+	VectordbDocument    *types.VectorDbDocument         `json:"vectordb_document,omitempty"`
+	Vectors             *types.Vector                   `json:"vectors,omitempty"`
+	VotingOnly          types.Base                      `json:"voting_only"`
+	Watcher             types.Watcher                   `json:"watcher"`
 }
 
 // NewResponse returns a Response

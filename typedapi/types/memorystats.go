@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,22 +31,32 @@ import (
 
 // MemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L661-L685
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/_types/Stats.ts#L793-L834
 type MemoryStats struct {
+	// AdjustedTotal If the amount of physical memory has been overridden using the
+	// `es`.`total_memory_bytes` system property then this reports the overridden
+	// value. Otherwise it reports the same value as `total`.
+	AdjustedTotal *string `json:"adjusted_total,omitempty"`
 	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
 	// `es`.`total_memory_bytes` system property then this reports the overridden
 	// value in bytes. Otherwise it reports the same value as `total_in_bytes`.
 	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
+	// Free Amount of free physical memory.
+	Free *string `json:"free,omitempty"`
 	// FreeInBytes Amount of free physical memory in bytes.
 	FreeInBytes     *int64  `json:"free_in_bytes,omitempty"`
 	Resident        *string `json:"resident,omitempty"`
 	ResidentInBytes *int64  `json:"resident_in_bytes,omitempty"`
 	Share           *string `json:"share,omitempty"`
 	ShareInBytes    *int64  `json:"share_in_bytes,omitempty"`
+	// Total Total amount of physical memory.
+	Total *string `json:"total,omitempty"`
 	// TotalInBytes Total amount of physical memory in bytes.
 	TotalInBytes        *int64  `json:"total_in_bytes,omitempty"`
 	TotalVirtual        *string `json:"total_virtual,omitempty"`
 	TotalVirtualInBytes *int64  `json:"total_virtual_in_bytes,omitempty"`
+	// Used Amount of used physical memory.
+	Used *string `json:"used,omitempty"`
 	// UsedInBytes Amount of used physical memory in bytes.
 	UsedInBytes *int64 `json:"used_in_bytes,omitempty"`
 }
@@ -66,6 +76,18 @@ func (s *MemoryStats) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "adjusted_total":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "AdjustedTotal", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.AdjustedTotal = &o
+
 		case "adjusted_total_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -80,6 +102,18 @@ func (s *MemoryStats) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.AdjustedTotalInBytes = &f
 			}
+
+		case "free":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Free", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Free = &o
 
 		case "free_in_bytes":
 			var tmp any
@@ -150,6 +184,18 @@ func (s *MemoryStats) UnmarshalJSON(data []byte) error {
 				s.ShareInBytes = &f
 			}
 
+		case "total":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Total", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Total = &o
+
 		case "total_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -191,6 +237,18 @@ func (s *MemoryStats) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.TotalVirtualInBytes = &f
 			}
+
+		case "used":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Used", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Used = &o
 
 		case "used_in_bytes":
 			var tmp any

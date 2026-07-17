@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -34,13 +34,15 @@ import (
 
 // An object containing the input data for a single item for the model to embed.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L647-L664
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/_types/CommonTypes.ts#L649-L667
 type EmbeddingContentObjectItem struct {
 	// Format The format of the input. For the `text` type this must be `text`. For all
 	// other types, this must be `base64`. If not specified, this will default to
 	// `text` for the `text` type and `base64` for all other types.
 	Format *embeddingcontentformat.EmbeddingContentFormat `json:"format,omitempty"`
-	// Type The type of input to embed. Not all models support all input types.
+	// Type The type of input to embed. Not all models support all input types. The
+	// `audio`, `video`, and `pdf` types are available in Elasticsearch 9.5.0 and
+	// later.
 	Type embeddingcontenttype.EmbeddingContentType `json:"type"`
 	// Value The value of the input to embed. For images, this must be a base64-encoded
 	// data URI, i.e. "data:content/type;base64,..."

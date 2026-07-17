@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Processor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L449-L466
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/_types/Stats.ts#L541-L562
 type Processor struct {
 	// Count Number of documents transformed by the processor.
 	Count *int64 `json:"count,omitempty"`
@@ -39,6 +39,8 @@ type Processor struct {
 	Current *int64 `json:"current,omitempty"`
 	// Failed Number of failed operations for the processor.
 	Failed *int64 `json:"failed,omitempty"`
+	// Time Time spent by the processor transforming documents.
+	Time Duration `json:"time,omitempty"`
 	// TimeInMillis Time, in milliseconds, spent by the processor transforming documents.
 	TimeInMillis *int64 `json:"time_in_millis,omitempty"`
 }
@@ -101,6 +103,11 @@ func (s *Processor) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.Failed = &f
+			}
+
+		case "time":
+			if err := dec.Decode(&s.Time); err != nil {
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":

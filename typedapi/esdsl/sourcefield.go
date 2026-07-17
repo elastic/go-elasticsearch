@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package esdsl
 
@@ -33,20 +33,6 @@ func NewSourceField() *_sourceField {
 
 	return &_sourceField{v: types.NewSourceField()}
 
-}
-
-func (s *_sourceField) Compress(compress bool) *_sourceField {
-
-	s.v.Compress = &compress
-
-	return s
-}
-
-func (s *_sourceField) CompressThreshold(compressthreshold string) *_sourceField {
-
-	s.v.CompressThreshold = &compressthreshold
-
-	return s
 }
 
 func (s *_sourceField) Enabled(enabled bool) *_sourceField {

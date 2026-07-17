@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 // Get term vector information.
 //
@@ -448,6 +448,17 @@ func (r *Termvectors) Preference(preference string) *Termvectors {
 // API name: realtime
 func (r *Termvectors) Realtime(realtime bool) *Termvectors {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *Termvectors) Slice_(slice_ string) *Termvectors {
+	r.values.Set("_slice", slice_)
 
 	return r
 }

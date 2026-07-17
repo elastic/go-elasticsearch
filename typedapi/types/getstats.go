@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,16 +31,16 @@ import (
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/Stats.ts#L155-L166
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/Stats.ts#L157-L168
 type GetStats struct {
 	Current             int64    `json:"current"`
 	ExistsTime          Duration `json:"exists_time,omitempty"`
 	ExistsTimeInMillis  int64    `json:"exists_time_in_millis"`
 	ExistsTotal         int64    `json:"exists_total"`
+	GetTime             Duration `json:"getTime,omitempty"`
 	MissingTime         Duration `json:"missing_time,omitempty"`
 	MissingTimeInMillis int64    `json:"missing_time_in_millis"`
 	MissingTotal        int64    `json:"missing_total"`
-	Time                Duration `json:"time,omitempty"`
 	TimeInMillis        int64    `json:"time_in_millis"`
 	Total               int64    `json:"total"`
 }
@@ -100,6 +100,11 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 				s.ExistsTotal = f
 			}
 
+		case "getTime":
+			if err := dec.Decode(&s.GetTime); err != nil {
+				return fmt.Errorf("%s | %w", "GetTime", err)
+			}
+
 		case "missing_time":
 			if err := dec.Decode(&s.MissingTime); err != nil {
 				return fmt.Errorf("%s | %w", "MissingTime", err)
@@ -123,11 +128,6 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.MissingTotal = f
-			}
-
-		case "time":
-			if err := dec.Decode(&s.Time); err != nil {
-				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":
