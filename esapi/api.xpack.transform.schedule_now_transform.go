@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -52,6 +53,7 @@ type TransformScheduleNowTransform func(transform_id string, o ...func(*Transfor
 type TransformScheduleNowTransformRequest struct {
 	TransformID string
 
+	Defer   *bool
 	Timeout time.Duration
 
 	Pretty     bool
@@ -98,6 +100,10 @@ func (r TransformScheduleNowTransformRequest) Do(providedCtx context.Context, tr
 	path.WriteString("_schedule_now")
 
 	params = make(map[string]string)
+
+	if r.Defer != nil {
+		params["defer"] = strconv.FormatBool(*r.Defer)
+	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -178,6 +184,13 @@ func (r TransformScheduleNowTransformRequest) Do(providedCtx context.Context, tr
 func (f TransformScheduleNowTransform) WithContext(v context.Context) func(*TransformScheduleNowTransformRequest) {
 	return func(r *TransformScheduleNowTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDefer - when true, defers the scheduling by the sync config delay amount instead of scheduling immediately.
+func (f TransformScheduleNowTransform) WithDefer(v bool) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
+		r.Defer = &v
 	}
 }
 

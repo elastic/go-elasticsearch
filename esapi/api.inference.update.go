@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceUpdateFunc(t Transport) InferenceUpdate {
@@ -54,6 +55,8 @@ type InferenceUpdateRequest struct {
 
 	InferenceID string
 	TaskType    string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -106,6 +109,10 @@ func (r InferenceUpdateRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("_update")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -196,6 +203,13 @@ func (f InferenceUpdate) WithContext(v context.Context) func(*InferenceUpdateReq
 func (f InferenceUpdate) WithTaskType(v string) func(*InferenceUpdateRequest) {
 	return func(r *InferenceUpdateRequest) {
 		r.TaskType = v
+	}
+}
+
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be updated. the default depends on the task type: 120s for completion and chat_completion, and 30s for all other task types..
+func (f InferenceUpdate) WithTimeout(v time.Duration) func(*InferenceUpdateRequest) {
+	return func(r *InferenceUpdateRequest) {
+		r.Timeout = v
 	}
 }
 

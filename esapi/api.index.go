@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -66,6 +66,7 @@ type IndexRequest struct {
 	RequireAlias         *bool
 	RequireDataStream    *bool
 	Routing              []string
+	Slice                string
 	Timeout              time.Duration
 	Version              *int64
 	VersionType          string
@@ -159,6 +160,10 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
+	}
+
+	if r.Slice != "" {
+		params["_slice"] = r.Slice
 	}
 
 	if r.Timeout != 0 {
@@ -329,6 +334,13 @@ func (f Index) WithRequireDataStream(v bool) func(*IndexRequest) {
 func (f Index) WithRouting(v ...string) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Routing = v
+	}
+}
+
+// WithSlice - slice value for slice-enabled indices. replaces routing when `index.slice.enabled` is true..
+func (f Index) WithSlice(v string) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.Slice = v
 	}
 }
 
