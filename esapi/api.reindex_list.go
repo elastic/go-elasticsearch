@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,7 @@ func newReindexListFunc(t Transport) ReindexList {
 
 // ReindexList list all running reindex operations
 //
-// This API is beta.
-//
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-list-reindex.
 type ReindexList func(o ...func(*ReindexListRequest)) (*Response, error)
 
 // ReindexListRequest configures the Reindex List API request.

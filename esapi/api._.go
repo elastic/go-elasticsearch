@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0 (b732c10): DO NOT EDIT
+// Code generated from specification version 9.5.0 (4a53326): DO NOT EDIT
 
 package esapi
 
@@ -107,10 +107,16 @@ type API struct {
 	EsqlAsyncQueryGet                             EsqlAsyncQueryGet
 	EsqlAsyncQuery                                EsqlAsyncQuery
 	EsqlAsyncQueryStop                            EsqlAsyncQueryStop
+	EsqlDeleteDataSource                          EsqlDeleteDataSource
+	EsqlDeleteDataset                             EsqlDeleteDataset
 	EsqlDeleteView                                EsqlDeleteView
+	EsqlGetDataSource                             EsqlGetDataSource
+	EsqlGetDataset                                EsqlGetDataset
 	EsqlGetQuery                                  EsqlGetQuery
 	EsqlGetView                                   EsqlGetView
 	EsqlListQueries                               EsqlListQueries
+	EsqlPutDataSource                             EsqlPutDataSource
+	EsqlPutDataset                                EsqlPutDataset
 	EsqlPutView                                   EsqlPutView
 	EsqlQuery                                     EsqlQuery
 	Exists                                        Exists
@@ -135,8 +141,10 @@ type API struct {
 	Index                                         Index
 	InferenceChatCompletionUnified                InferenceChatCompletionUnified
 	InferenceCompletion                           InferenceCompletion
+	InferenceDeleteRegionPolicy                   InferenceDeleteRegionPolicy
 	InferenceDelete                               InferenceDelete
 	InferenceEmbedding                            InferenceEmbedding
+	InferenceGetRegionPolicy                      InferenceGetRegionPolicy
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
 	InferencePutAi21                              InferencePutAi21
@@ -163,6 +171,7 @@ type API struct {
 	InferencePutNvidia                            InferencePutNvidia
 	InferencePutOpenai                            InferencePutOpenai
 	InferencePutOpenshiftAi                       InferencePutOpenshiftAi
+	InferencePutRegionPolicy                      InferencePutRegionPolicy
 	InferencePut                                  InferencePut
 	InferencePutVoyageai                          InferencePutVoyageai
 	InferencePutWatsonx                           InferencePutWatsonx
@@ -782,10 +791,16 @@ func New(t Transport) *API {
 		EsqlAsyncQueryGet:                  newEsqlAsyncQueryGetFunc(t),
 		EsqlAsyncQuery:                     newEsqlAsyncQueryFunc(t),
 		EsqlAsyncQueryStop:                 newEsqlAsyncQueryStopFunc(t),
+		EsqlDeleteDataSource:               newEsqlDeleteDataSourceFunc(t),
+		EsqlDeleteDataset:                  newEsqlDeleteDatasetFunc(t),
 		EsqlDeleteView:                     newEsqlDeleteViewFunc(t),
+		EsqlGetDataSource:                  newEsqlGetDataSourceFunc(t),
+		EsqlGetDataset:                     newEsqlGetDatasetFunc(t),
 		EsqlGetQuery:                       newEsqlGetQueryFunc(t),
 		EsqlGetView:                        newEsqlGetViewFunc(t),
 		EsqlListQueries:                    newEsqlListQueriesFunc(t),
+		EsqlPutDataSource:                  newEsqlPutDataSourceFunc(t),
+		EsqlPutDataset:                     newEsqlPutDatasetFunc(t),
 		EsqlPutView:                        newEsqlPutViewFunc(t),
 		EsqlQuery:                          newEsqlQueryFunc(t),
 		Exists:                             newExistsFunc(t),
@@ -810,8 +825,10 @@ func New(t Transport) *API {
 		Index:                              newIndexFunc(t),
 		InferenceChatCompletionUnified:     newInferenceChatCompletionUnifiedFunc(t),
 		InferenceCompletion:                newInferenceCompletionFunc(t),
+		InferenceDeleteRegionPolicy:        newInferenceDeleteRegionPolicyFunc(t),
 		InferenceDelete:                    newInferenceDeleteFunc(t),
 		InferenceEmbedding:                 newInferenceEmbeddingFunc(t),
+		InferenceGetRegionPolicy:           newInferenceGetRegionPolicyFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
 		InferencePutAi21:                   newInferencePutAi21Func(t),
@@ -838,6 +855,7 @@ func New(t Transport) *API {
 		InferencePutNvidia:                 newInferencePutNvidiaFunc(t),
 		InferencePutOpenai:                 newInferencePutOpenaiFunc(t),
 		InferencePutOpenshiftAi:            newInferencePutOpenshiftAiFunc(t),
+		InferencePutRegionPolicy:           newInferencePutRegionPolicyFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
 		InferencePutVoyageai:               newInferencePutVoyageaiFunc(t),
 		InferencePutWatsonx:                newInferencePutWatsonxFunc(t),
