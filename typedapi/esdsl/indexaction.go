@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
@@ -52,7 +52,7 @@ func (s *_indexAction) ExecutionTimeField(field string) *_indexAction {
 
 func (s *_indexAction) Index(indexname string) *_indexAction {
 
-	s.v.Index = indexname
+	s.v.Index = &indexname
 
 	return s
 }

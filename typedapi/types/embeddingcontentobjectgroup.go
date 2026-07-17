@@ -16,14 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
 // Allows specifying one or multiple items for the `embedding` task, which
-// should result in a single embedding vector.
+// should result in a single embedding vector. Support for multiple items is
+// available in Elasticsearch 9.5.0 and later.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L640-L645
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/_types/CommonTypes.ts#L641-L647
 type EmbeddingContentObjectGroup []EmbeddingContentObjectItem
 
 type EmbeddingContentObjectGroupVariant interface {

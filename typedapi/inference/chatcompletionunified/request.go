@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package chatcompletionunified
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package chatcompletionunified
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/chat_completion_unified/UnifiedRequest.ts#L24-L63
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/chat_completion_unified/UnifiedRequest.ts#L24-L63
 type Request = types.RequestChatCompletion
 
 // NewRequest returns a Request

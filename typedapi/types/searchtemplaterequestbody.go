@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -27,18 +27,23 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/scriptlanguage"
 )
 
 // SearchTemplateRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Input.ts#L125-L142
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/watcher/_types/Input.ts#L131-L154
 type SearchTemplateRequestBody struct {
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified, this parameter
 	// is required.
-	Id      *string                    `json:"id,omitempty"`
-	Params  map[string]json.RawMessage `json:"params,omitempty"`
-	Profile *bool                      `json:"profile,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Lang The language the template is written in. It is reported in the resolved
+	// search input of a watch record.
+	Lang    *scriptlanguage.ScriptLanguage `json:"lang,omitempty"`
+	Params  map[string]json.RawMessage     `json:"params,omitempty"`
+	Profile *bool                          `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. Also supports Mustache variables. If no id is specified, this
 	// parameter is required.
@@ -77,6 +82,11 @@ func (s *SearchTemplateRequestBody) UnmarshalJSON(data []byte) error {
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
 				return fmt.Errorf("%s | %w", "Id", err)
+			}
+
+		case "lang":
+			if err := dec.Decode(&s.Lang); err != nil {
+				return fmt.Errorf("%s | %w", "Lang", err)
 			}
 
 		case "params":

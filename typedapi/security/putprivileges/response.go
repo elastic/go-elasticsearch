@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package putprivileges
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package putprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/put_privileges/SecurityPutPrivilegesResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/put_privileges/SecurityPutPrivilegesResponse.ts#L23-L28
 
 type Response map[string]map[string]types.CreatedStatus
 

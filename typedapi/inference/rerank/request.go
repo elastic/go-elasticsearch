@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package rerank
 
@@ -27,16 +27,72 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/rerank/RerankRequest.ts#L26-L80
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/rerank/RerankRequest.ts#L26-L135
 type Request struct {
-	// Input The documents to rank.
-	Input []string `json:"input"`
-	// Query Query input.
-	Query string `json:"query"`
+	// Input The documents to rank. The input can be specified as a single string or an
+	// array of strings, or as an object or an array of objects. The object form
+	// additionally allows specifying non-text inputs, such as images.
+	//
+	// > info > Only the `elastic` service currently supports non-text inputs for
+	// the `rerank` task. For all other services, the input must be a string or an
+	// array of strings.
+	//
+	// string example:
+	//
+	// 	"input": "some document text"
+	//
+	// string array example:
+	//
+	// 	"input": ["some document text", "some more document text"]
+	//
+	// object example:
+	//
+	// 	"input": {
+	// 	  "type": "image",
+	// 	  "format": "base64",
+	// 	  "value": "data:image/jpeg;base64,..."
+	// 	}
+	//
+	// object array example:
+	//
+	// 	"input": [
+	// 	  {
+	// 	    "type": "text",
+	// 	    "format": "text",
+	// 	    "value": "some document text"
+	// 	  },
+	// 	  {
+	// 	    "type": "image",
+	// 	    "format": "base64",
+	// 	    "value": "data:image/jpeg;base64,..."
+	// 	  }
+	// 	]
+	Input types.RerankInput `json:"input"`
+	// Query Query input. The query can be specified as a single string, or as an object.
+	// The object form additionally allows specifying non-text inputs, such as
+	// images.
+	//
+	// > info > Only the `elastic` service currently supports non-text queries for
+	// the `rerank` task. For all other services, the query must be a string.
+	//
+	// string example:
+	//
+	// 	"query": "some query text"
+	//
+	// object example:
+	//
+	// 	"query": {
+	// 	  "type": "image",
+	// 	  "format": "base64",
+	// 	  "value": "data:image/jpeg;base64,..."
+	// 	}
+	Query types.RerankQuery `json:"query"`
 	// ReturnDocuments Include the document text in the response.
 	ReturnDocuments *bool `json:"return_documents,omitempty"`
 	// TaskSettings Task settings for the individual inference request. These settings are
@@ -86,16 +142,40 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Query", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		query_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Query", err)
+				}
+
+				switch t {
+
+				case "format", "type", "value":
+					o := types.NewRerankInputObject()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Query", err)
+					}
+					s.Query = o
+					break query_field
+
+				}
 			}
-			s.Query = o
+			if s.Query == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Query); err != nil {
+					return fmt.Errorf("%s | %w", "Query", err)
+				}
+			}
 
 		case "return_documents":
 			var tmp any

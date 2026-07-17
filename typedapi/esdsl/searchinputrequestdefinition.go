@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
@@ -35,20 +35,17 @@ func NewSearchInputRequestDefinition() *_searchInputRequestDefinition {
 
 }
 
-func (s *_searchInputRequestDefinition) Body(body types.SearchInputRequestBodyVariant) *_searchInputRequestDefinition {
+func (s *_searchInputRequestDefinition) Body(body types.SearchRequestBodyVariant) *_searchInputRequestDefinition {
 
-	s.v.Body = body.SearchInputRequestBodyCaster()
+	s.v.Body = body.SearchRequestBodyCaster()
 
 	return s
 }
 
 func (s *_searchInputRequestDefinition) Indices(indices ...string) *_searchInputRequestDefinition {
 
-	for _, v := range indices {
+	s.v.Indices = indices
 
-		s.v.Indices = append(s.v.Indices, v)
-
-	}
 	return s
 }
 

@@ -16,33 +16,47 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
 import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
-type _searchInputRequestBody struct {
-	v *types.SearchInputRequestBody
+type _datasetFieldMapping struct {
+	v *types.DatasetFieldMapping
 }
 
-func NewSearchInputRequestBody(query types.QueryVariant) *_searchInputRequestBody {
+func NewDatasetFieldMapping(type_ string) *_datasetFieldMapping {
 
-	tmp := &_searchInputRequestBody{v: types.NewSearchInputRequestBody()}
+	tmp := &_datasetFieldMapping{v: types.NewDatasetFieldMapping()}
 
-	tmp.Query(query)
+	tmp.Type(type_)
 
 	return tmp
 
 }
 
-func (s *_searchInputRequestBody) Query(query types.QueryVariant) *_searchInputRequestBody {
+func (s *_datasetFieldMapping) Format(format string) *_datasetFieldMapping {
 
-	s.v.Query = *query.QueryCaster()
+	s.v.Format = &format
 
 	return s
 }
 
-func (s *_searchInputRequestBody) SearchInputRequestBodyCaster() *types.SearchInputRequestBody {
+func (s *_datasetFieldMapping) Path(path string) *_datasetFieldMapping {
+
+	s.v.Path = &path
+
+	return s
+}
+
+func (s *_datasetFieldMapping) Type(type_ string) *_datasetFieldMapping {
+
+	s.v.Type = type_
+
+	return s
+}
+
+func (s *_datasetFieldMapping) DatasetFieldMappingCaster() *types.DatasetFieldMapping {
 	return s.v
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package gettoken
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L92
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L92
 type Request struct {
 	// GrantType The type of grant. Supported grant types are: `password`, `_kerberos`,
 	// `client_credentials`, and `refresh_token`.

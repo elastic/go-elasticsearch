@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Update documents.
 //
@@ -70,19 +70,6 @@
 // [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
 // you can use to cancel or get the status of the task. Elasticsearch creates a
 // record of this task as a document at `.tasks/task/${taskId}`.
-//
-// # Waiting for active shards
-//
-// `wait_for_active_shards` controls how many copies of a shard must be active
-// before proceeding with the request. See
-// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-// for details. `timeout` controls how long each write request waits for
-// unavailable shards to become available. Both work exactly the way they work
-// in the [Bulk
-// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-// Update by query uses scrolled searches, so you can also specify the `scroll`
-// parameter to control how long it keeps the search context alive, for example
-// `?scroll=10m`. The default is 5 minutes.
 //
 // # Throttling update requests
 //
@@ -274,19 +261,6 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
 // you can use to cancel or get the status of the task. Elasticsearch creates a
 // record of this task as a document at `.tasks/task/${taskId}`.
-//
-// # Waiting for active shards
-//
-// `wait_for_active_shards` controls how many copies of a shard must be active
-// before proceeding with the request. See
-// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-// for details. `timeout` controls how long each write request waits for
-// unavailable shards to become available. Both work exactly the way they work
-// in the [Bulk
-// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-// Update by query uses scrolled searches, so you can also specify the `scroll`
-// parameter to control how long it keeps the search context alive, for example
-// `?scroll=10m`. The default is 5 minutes.
 //
 // # Throttling update requests
 //
@@ -746,10 +720,22 @@ func (r *UpdateByQuery) RequestsPerSecond(requestspersecond string) *UpdateByQue
 	return r
 }
 
-// Routing A custom value used to route operations to a specific shard.
+// Routing A custom value used to route operations to a specific shard. Not allowed when
+// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 // API name: routing
 func (r *UpdateByQuery) Routing(routings ...string) *UpdateByQuery {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *UpdateByQuery) Slice_(slice_ string) *UpdateByQuery {
+	r.values.Set("_slice", slice_)
 
 	return r
 }
@@ -866,7 +852,10 @@ func (r *UpdateByQuery) VersionType(versiontype bool) *UpdateByQuery {
 // operation. Set to `all` or any positive integer up to the total number of
 // shards in the index (`number_of_replicas+1`). The `timeout` parameter
 // controls how long each write request waits for unavailable shards to become
-// available. Both work exactly the way they work in the bulk API.
+// available. Both work exactly the way they work in the bulk API. Update by
+// query uses scrolled searches, so you can also specify the `scroll` parameter
+// to control how long it keeps the search context alive, for example
+// `?scroll=10m`.
 // API name: wait_for_active_shards
 func (r *UpdateByQuery) WaitForActiveShards(waitforactiveshards string) *UpdateByQuery {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)

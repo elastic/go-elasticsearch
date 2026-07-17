@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // Carries the `implicitly_granted` marker that is set on entries contributed by
 // a registered `ImplicitPrivilegesProvider` when `include_implicit` is `true`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/get_role/types.ts#L33-L48
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_role/types.ts#L33-L48
 type IndicesPrivilegesRead struct {
 	// AllowRestrictedIndices Set to `true` if using wildcard or regular expressions for patterns that
 	// cover restricted indices. Implicitly, restricted indices have limited

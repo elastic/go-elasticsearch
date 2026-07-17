@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ReindexDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/reindex/types.ts#L39-L67
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/reindex/types.ts#L39-L75
 type ReindexDestination struct {
 	// Index The name of the data stream, index, or index alias you are copying to.
 	Index string `json:"index"`
@@ -51,8 +51,15 @@ type ReindexDestination struct {
 	// is set to the routing on the match. If it is `discard`, the routing on the
 	// bulk request sent for each match is set to `null`. If it is `=value`, the
 	// routing on the bulk request sent for each match is set to all value specified
-	// after the equals sign (`=`).
+	// after the equals sign (`=`). Not allowed when `index.slice.enabled` is `true`
+	// for the destination index; use `_slice` instead.
 	Routing *string `json:"routing,omitempty"`
+	// Slice_ The slice identifier used to route the reindexed documents to a specific
+	// slice of the destination index. Use the special value `_all` to target all
+	// slices without restricting to a routing value. Required when
+	// `index.slice.enabled` is `true` for the destination index; not allowed when
+	// `index.slice.enabled` is `false`.
+	Slice_ *string `json:"_slice,omitempty"`
 	// VersionType The versioning to use for the indexing operation.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -105,6 +112,18 @@ func (s *ReindexDestination) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Routing = &o
+
+		case "_slice":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Slice_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Slice_ = &o
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {

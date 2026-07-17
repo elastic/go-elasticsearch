@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterRemoteProxyInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L58-L83
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L58-L83
 type ClusterRemoteProxyInfo struct {
 	// ClusterCredentials This field is present and has a value of `::es_redacted::` only when the
 	// remote cluster is configured with the API key based model. Otherwise, the

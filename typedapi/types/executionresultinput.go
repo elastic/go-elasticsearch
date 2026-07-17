@@ -16,29 +16,37 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
 import (
 	"encoding/json"
 
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/actionstatusoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/executionresultstatus"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/inputtype"
 )
 
 // ExecutionResultInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Execution.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/watcher/_types/Execution.ts#L134-L151
 type ExecutionResultInput struct {
-	Payload map[string]json.RawMessage              `json:"payload"`
-	Status  actionstatusoptions.ActionStatusOptions `json:"status"`
-	Type    inputtype.InputType                     `json:"type"`
+	// Chain The result of each named input, present when the input is a chain input.
+	Chain map[string]ExecutionResultInput `json:"chain,omitempty"`
+	Error *ErrorCause                     `json:"error,omitempty"`
+	// Http The resolved HTTP request, present when the input is an HTTP input.
+	Http    *ExecutionResultHttpInput  `json:"http,omitempty"`
+	Payload map[string]json.RawMessage `json:"payload,omitempty"`
+	// Search The resolved search request, present when the input is a search input.
+	Search *ExecutionResultSearchInput                 `json:"search,omitempty"`
+	Status executionresultstatus.ExecutionResultStatus `json:"status"`
+	Type   inputtype.InputType                         `json:"type"`
 }
 
 // NewExecutionResultInput returns a ExecutionResultInput.
 func NewExecutionResultInput() *ExecutionResultInput {
 	r := &ExecutionResultInput{
+		Chain:   make(map[string]ExecutionResultInput),
 		Payload: make(map[string]json.RawMessage),
 	}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,10 +31,14 @@ import (
 
 // Allocations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L120-L141
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L183-L212
 type Allocations struct {
+	// CurrentDiskUsage Current disk usage for the node.
+	CurrentDiskUsage *string `json:"current_disk_usage,omitempty"`
 	// CurrentDiskUsageInBytes Current disk usage, in bytes, for the node.
 	CurrentDiskUsageInBytes *int64 `json:"current_disk_usage_in_bytes,omitempty"`
+	// ForecastedDiskUsage Forecasted disk usage for the node.
+	ForecastedDiskUsage *string `json:"forecasted_disk_usage,omitempty"`
 	// ForecastedDiskUsageInBytes Forecasted disk usage, in bytes, for the node.
 	ForecastedDiskUsageInBytes *int64 `json:"forecasted_disk_usage_in_bytes,omitempty"`
 	// ForecastedIngestLoad Forecasted ingest load for the node.
@@ -60,6 +64,18 @@ func (s *Allocations) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "current_disk_usage":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "CurrentDiskUsage", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.CurrentDiskUsage = &o
+
 		case "current_disk_usage_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -74,6 +90,18 @@ func (s *Allocations) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.CurrentDiskUsageInBytes = &f
 			}
+
+		case "forecasted_disk_usage":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ForecastedDiskUsage", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ForecastedDiskUsage = &o
 
 		case "forecasted_disk_usage_in_bytes":
 			var tmp any

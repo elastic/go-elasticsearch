@@ -1,0 +1,74 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+
+package esdsl
+
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamic"
+)
+
+type _datasetMapping struct {
+	v *types.DatasetMapping
+}
+
+func NewDatasetMapping() *_datasetMapping {
+
+	return &_datasetMapping{v: types.NewDatasetMapping()}
+
+}
+
+func (s *_datasetMapping) Dynamic(dynamic dynamic.Dynamic) *_datasetMapping {
+
+	s.v.Dynamic = &dynamic
+	return s
+}
+
+func (s *_datasetMapping) Id_(id_ types.IdPathVariant) *_datasetMapping {
+
+	s.v.Id_ = id_.IdPathCaster()
+
+	return s
+}
+
+func (s *_datasetMapping) Properties(properties map[string]types.DatasetFieldMapping) *_datasetMapping {
+
+	s.v.Properties = properties
+	return s
+}
+
+func (s *_datasetMapping) AddProperty(key string, value types.DatasetFieldMappingVariant) *_datasetMapping {
+
+	var tmp map[string]types.DatasetFieldMapping
+	if s.v.Properties == nil {
+		s.v.Properties = make(map[string]types.DatasetFieldMapping)
+	} else {
+		tmp = s.v.Properties
+	}
+
+	tmp[key] = *value.DatasetFieldMappingCaster()
+
+	s.v.Properties = tmp
+	return s
+}
+
+func (s *_datasetMapping) DatasetMappingCaster() *types.DatasetMapping {
+	return s.v
+}

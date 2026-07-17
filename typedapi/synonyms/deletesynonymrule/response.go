@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package deletesynonymrule
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package deletesynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/synonyms/delete_synonym_rule/SynonymRuleDeleteResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/synonyms/delete_synonym_rule/SynonymRuleDeleteResponse.ts#L22-L25
 type Response struct {
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set can reload the associated analyzers in
 	// case refresh is set to true. This information is the analyzers reloading

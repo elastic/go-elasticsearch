@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -30,12 +30,13 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/preserveleafarrays"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/mapping/complex.ts#L26-L38
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/mapping/complex.ts#L26-L44
 type FlattenedProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	DepthLimit          *int                           `json:"depth_limit,omitempty"`
@@ -47,8 +48,13 @@ type FlattenedProperty struct {
 	Index               *bool                          `json:"index,omitempty"`
 	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
 	// Meta Metadata about the field.
-	Meta                     map[string]string                                `json:"meta,omitempty"`
-	NullValue                *string                                          `json:"null_value,omitempty"`
+	Meta      map[string]string `json:"meta,omitempty"`
+	NullValue *string           `json:"null_value,omitempty"`
+	// PreserveLeafArrays How leaf arrays are represented in synthetic source. When set to `lossy`,
+	// leaf arrays are sorted, de-nulled, and deduplicated in the returned synthetic
+	// source. When set to `exact`, leaf arrays preserve order, nulls, and
+	// duplicates.
+	PreserveLeafArrays       *preserveleafarrays.PreserveLeafArrays           `json:"preserve_leaf_arrays,omitempty"`
 	Properties               map[string]Property                              `json:"properties,omitempty"`
 	Similarity               *string                                          `json:"similarity,omitempty"`
 	SplitQueriesOnWhitespace *bool                                            `json:"split_queries_on_whitespace,omitempty"`
@@ -535,6 +541,11 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			}
 			s.NullValue = &o
 
+		case "preserve_leaf_arrays":
+			if err := dec.Decode(&s.PreserveLeafArrays); err != nil {
+				return fmt.Errorf("%s | %w", "PreserveLeafArrays", err)
+			}
+
 		case "properties":
 			if s.Properties == nil {
 				s.Properties = make(map[string]Property, 0)
@@ -939,6 +950,7 @@ func (s FlattenedProperty) MarshalJSON() ([]byte, error) {
 		IndexOptions:             s.IndexOptions,
 		Meta:                     s.Meta,
 		NullValue:                s.NullValue,
+		PreserveLeafArrays:       s.PreserveLeafArrays,
 		Properties:               s.Properties,
 		Similarity:               s.Similarity,
 		SplitQueriesOnWhitespace: s.SplitQueriesOnWhitespace,

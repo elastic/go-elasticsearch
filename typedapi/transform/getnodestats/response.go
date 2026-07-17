@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package getnodestats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getnodestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/transform/get_node_stats/GetNodeStatsResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/transform/get_node_stats/GetNodeStatsResponse.ts#L22-L25
 type Response struct {
 	Total                  types.TransformNodeStats            `json:"total"`
 	TransformNodeFullStats map[string]types.TransformNodeStats `json:"-"`
