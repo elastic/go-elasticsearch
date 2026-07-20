@@ -94,12 +94,6 @@ jobs:
         with:
           go-version-file: internal/build/go.mod
 
-      - name: Install goimports
-        working-directory: internal/build
-        run: |
-          version=$(go list -m -f '{{.Version}}' golang.org/x/tools)
-          go install golang.org/x/tools/cmd/goimports@"${version}"
-
       - name: Derive ES version
         id: es-version
         run: |
