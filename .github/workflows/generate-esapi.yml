@@ -92,10 +92,13 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version-file: go.mod
+          go-version-file: internal/build/go.mod
 
       - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
+        working-directory: internal/build
+        run: |
+          version=$(go list -m -f '{{.Version}}' golang.org/x/tools)
+          go install golang.org/x/tools/cmd/goimports@"${version}"
 
       - name: Derive ES version
         id: es-version
