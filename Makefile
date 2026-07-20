@@ -452,7 +452,6 @@ endif
 		rm -rf $(output)/*_test.go && \
 		rm -rf $(output)/xpack && \
 		cd internal/build && \
-		go get golang.org/x/tools/cmd/goimports && \
 		go generate ./... && \
 		go run main.go apitests --input '$(PWD)/$(input)/tests/**/*.y*ml' --output '$(PWD)/$(output)' $(args); \
 	}
