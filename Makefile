@@ -162,6 +162,8 @@ go-mod-tidy-all: ## Run go mod tidy in all modules
 			printf "\033[2m────────────────────────────────────────────────────────────────────────────────\033[0m\n"; \
 			(cd "$$moddir" && go mod tidy); \
 		done < <(find . -name go.mod -print | sort); \
+		printf "\033[1mRunning go work sync\033[0m\n"; \
+		go work sync; \
 	}
 
 lint:  ## Run lint on the package

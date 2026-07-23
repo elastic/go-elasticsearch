@@ -207,7 +207,7 @@ func (g *Generator) genFileHeader() {
 	g.w(`
 import (
 	encjson "encoding/json"
-	encyaml "gopkg.in/yaml.v2"
+	encyaml "gopkg.in/yaml.v3"
 	"fmt"
 	"context"
 	"crypto/tls"
