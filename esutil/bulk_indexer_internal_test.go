@@ -2029,6 +2029,32 @@ func TestBulkIndexerFlush(t *testing.T) {
 		}
 	})
 
+	t.Run("DoubleClose", func(t *testing.T) {
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers:    1,
+			FlushInterval: time.Hour,
+			Client:        es,
+		})
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if err := bi.Close(context.Background()); err != nil {
+			t.Fatalf("Unexpected error on first Close: %s", err)
+		}
+
+		// A second Close must not panic (close of closed channel) and should
+		// report that the indexer is already closed.
+		if err := bi.Close(context.Background()); !errors.Is(err, ErrIndexerClosed) {
+			t.Fatalf("Expected ErrIndexerClosed on second Close, got: %v", err)
+		}
+	})
+
 	t.Run("ContextCancelled", func(t *testing.T) {
 		release := make(chan struct{})
 

@@ -423,8 +423,15 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 // If the indexer auto-created its client (because BulkIndexerConfig.Client was
 // nil), Close also closes that client. It remains the caller's responsibility
 // to close any client they passed in via BulkIndexerConfig.Client.
+//
+// Close is idempotent: once the indexer is closed, subsequent calls are no-ops
+// that return ErrIndexerClosed.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	bi.flushMu.Lock()
+	if bi.closed.Load() {
+		bi.flushMu.Unlock()
+		return ErrIndexerClosed
+	}
 	bi.closed.Store(true)
 	for _, w := range bi.workers {
 		close(w.ch)
