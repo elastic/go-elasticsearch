@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -54,18 +54,19 @@ type SnapshotRepositoryAnalyze func(repository string, o ...func(*SnapshotReposi
 type SnapshotRepositoryAnalyzeRequest struct {
 	Repository string
 
-	BlobCount              *int
-	Concurrency            *int
-	Detailed               *bool
-	EarlyReadNodeCount     *int
-	MaxBlobSize            string
-	MaxTotalDataSize       string
-	RareActionProbability  interface{}
-	RarelyAbortWrites      *bool
-	ReadNodeCount          *int
-	RegisterOperationCount *int
-	Seed                   *int
-	Timeout                time.Duration
+	BlobCount                *int
+	CheckOverwriteProtection *bool
+	Concurrency              *int
+	Detailed                 *bool
+	EarlyReadNodeCount       *int
+	MaxBlobSize              string
+	MaxTotalDataSize         string
+	RareActionProbability    interface{}
+	RarelyAbortWrites        *bool
+	ReadNodeCount            *int
+	RegisterOperationCount   *int
+	Seed                     *int
+	Timeout                  time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -114,6 +115,10 @@ func (r SnapshotRepositoryAnalyzeRequest) Do(providedCtx context.Context, transp
 
 	if r.BlobCount != nil {
 		params["blob_count"] = strconv.FormatInt(int64(*r.BlobCount), 10)
+	}
+
+	if r.CheckOverwriteProtection != nil {
+		params["check_overwrite_protection"] = strconv.FormatBool(*r.CheckOverwriteProtection)
 	}
 
 	if r.Concurrency != nil {
@@ -242,6 +247,13 @@ func (f SnapshotRepositoryAnalyze) WithContext(v context.Context) func(*Snapshot
 func (f SnapshotRepositoryAnalyze) WithBlobCount(v int) func(*SnapshotRepositoryAnalyzeRequest) {
 	return func(r *SnapshotRepositoryAnalyzeRequest) {
 		r.BlobCount = &v
+	}
+}
+
+// WithCheckOverwriteProtection - whether to run the overwrite protection check. defaults to 'true'..
+func (f SnapshotRepositoryAnalyze) WithCheckOverwriteProtection(v bool) func(*SnapshotRepositoryAnalyzeRequest) {
+	return func(r *SnapshotRepositoryAnalyzeRequest) {
+		r.CheckOverwriteProtection = &v
 	}
 }
 

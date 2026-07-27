@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -46,9 +46,7 @@ func newReindexGetFunc(t Transport) ReindexGet {
 
 // ReindexGet get information for a reindex operation
 //
-// This API is beta.
-//
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-reindex.
 type ReindexGet func(task_id string, o ...func(*ReindexGetRequest)) (*Response, error)
 
 // ReindexGetRequest configures the Reindex Get API request.

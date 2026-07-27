@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -69,6 +69,7 @@ type CountRequest struct {
 	Preference        string
 	Query             string
 	Routing           []string
+	Stats             []string
 	TerminateAfter    *int64
 
 	Pretty     bool
@@ -166,6 +167,10 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
+	}
+
+	if len(r.Stats) > 0 {
+		params["stats"] = strings.Join(r.Stats, ",")
 	}
 
 	if r.TerminateAfter != nil {
@@ -359,6 +364,13 @@ func (f Count) WithQuery(v string) func(*CountRequest) {
 func (f Count) WithRouting(v ...string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.Routing = v
+	}
+}
+
+// WithStats - specific 'tag' of the request for logging and statistical purposes.
+func (f Count) WithStats(v ...string) func(*CountRequest) {
+	return func(r *CountRequest) {
+		r.Stats = v
 	}
 }
 
