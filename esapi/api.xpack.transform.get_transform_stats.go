@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type TransformGetTransformStatsRequest struct {
 	TransformID []string
 
 	AllowNoMatch *bool
+	Basic        *bool
 	From         *int64
 	Size         *int64
 	Timeout      time.Duration
@@ -110,6 +111,10 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
+	}
+
+	if r.Basic != nil {
+		params["basic"] = strconv.FormatBool(*r.Basic)
 	}
 
 	if r.From != nil {
@@ -206,6 +211,13 @@ func (f TransformGetTransformStats) WithContext(v context.Context) func(*Transfo
 func (f TransformGetTransformStats) WithAllowNoMatch(v bool) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.AllowNoMatch = &v
+	}
+}
+
+// WithBasic - if true, the response includes ID, state, node, stats, health, and basic checkpointing information (last and next checkpoint numbers and the next checkpoint's position and progress). skips statistics that require heavy computations to calculate: operations_behind, changes_last_detected_at, last_search_time, and checkpoint timestamps..
+func (f TransformGetTransformStats) WithBasic(v bool) func(*TransformGetTransformStatsRequest) {
+	return func(r *TransformGetTransformStatsRequest) {
+		r.Basic = &v
 	}
 }
 

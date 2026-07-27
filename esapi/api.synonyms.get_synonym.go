@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -52,8 +52,9 @@ type SynonymsGetSynonym func(id string, o ...func(*SynonymsGetSynonymRequest)) (
 type SynonymsGetSynonymRequest struct {
 	DocumentID string
 
-	From *int
-	Size *int
+	From        *int
+	SearchAfter string
+	Size        *int
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +101,10 @@ func (r SynonymsGetSynonymRequest) Do(providedCtx context.Context, transport Tra
 
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.SearchAfter != "" {
+		params["search_after"] = r.SearchAfter
 	}
 
 	if r.Size != nil {
@@ -184,14 +189,21 @@ func (f SynonymsGetSynonym) WithContext(v context.Context) func(*SynonymsGetSyno
 	}
 }
 
-// WithFrom - starting offset.
+// WithFrom - starting offset for offset-based pagination.
 func (f SynonymsGetSynonym) WithFrom(v int) func(*SynonymsGetSynonymRequest) {
 	return func(r *SynonymsGetSynonymRequest) {
 		r.From = &v
 	}
 }
 
-// WithSize - specifies a max number of results to get.
+// WithSearchAfter - the rule ID of the last result from the previous page, for cursor-based pagination.
+func (f SynonymsGetSynonym) WithSearchAfter(v string) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
+		r.SearchAfter = v
+	}
+}
+
+// WithSize - maximum number of results to retrieve.
 func (f SynonymsGetSynonym) WithSize(v int) func(*SynonymsGetSynonymRequest) {
 	return func(r *SynonymsGetSynonymRequest) {
 		r.Size = &v

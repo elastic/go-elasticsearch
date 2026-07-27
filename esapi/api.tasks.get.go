@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type TasksGet func(task_id string, o ...func(*TasksGetRequest)) (*Response, erro
 type TasksGetRequest struct {
 	TaskID string
 
+	FollowRelocations *bool
 	Timeout           time.Duration
 	WaitForCompletion *bool
 
@@ -100,6 +101,10 @@ func (r TasksGetRequest) Do(providedCtx context.Context, transport Transport) (*
 	}
 
 	params = make(map[string]string)
+
+	if r.FollowRelocations != nil {
+		params["follow_relocations"] = strconv.FormatBool(*r.FollowRelocations)
+	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -184,6 +189,13 @@ func (r TasksGetRequest) Do(providedCtx context.Context, transport Transport) (*
 func (f TasksGet) WithContext(v context.Context) func(*TasksGetRequest) {
 	return func(r *TasksGetRequest) {
 		r.ctx = v
+	}
+}
+
+// WithFollowRelocations - internal use only.
+func (f TasksGet) WithFollowRelocations(v bool) func(*TasksGetRequest) {
+	return func(r *TasksGetRequest) {
+		r.FollowRelocations = &v
 	}
 }
 

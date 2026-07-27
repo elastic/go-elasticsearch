@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type SynonymsPutSynonymRequest struct {
 
 	Body io.Reader
 
+	Append  *bool
 	Refresh *bool
 
 	Pretty     bool
@@ -99,6 +100,10 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.Append != nil {
+		params["append"] = strconv.FormatBool(*r.Append)
+	}
 
 	if r.Refresh != nil {
 		params["refresh"] = strconv.FormatBool(*r.Refresh)
@@ -186,6 +191,13 @@ func (r SynonymsPutSynonymRequest) Do(providedCtx context.Context, transport Tra
 func (f SynonymsPutSynonym) WithContext(v context.Context) func(*SynonymsPutSynonymRequest) {
 	return func(r *SynonymsPutSynonymRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAppend - if true, rules in the body are appended to the existing set (rules with matching ids are overwritten). if false (default), the set is replaced..
+func (f SynonymsPutSynonym) WithAppend(v bool) func(*SynonymsPutSynonymRequest) {
+	return func(r *SynonymsPutSynonymRequest) {
+		r.Append = &v
 	}
 }
 
