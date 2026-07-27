@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -26,40 +26,43 @@ import (
 
 // IndicesShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/indices/stats/types.ts#L192-L223
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/indices/stats/types.ts#L197-L230
 type IndicesShardStats struct {
-	Bulk            *BulkStats                 `json:"bulk,omitempty"`
-	Commit          *ShardCommit               `json:"commit,omitempty"`
-	Completion      *CompletionStats           `json:"completion,omitempty"`
-	Docs            *DocStats                  `json:"docs,omitempty"`
-	Fielddata       *FielddataStats            `json:"fielddata,omitempty"`
-	Flush           *FlushStats                `json:"flush,omitempty"`
-	Get             *GetStats                  `json:"get,omitempty"`
-	Indexing        *IndexingStats             `json:"indexing,omitempty"`
-	Indices         *IndicesStats              `json:"indices,omitempty"`
-	Mappings        *MappingStats              `json:"mappings,omitempty"`
-	Merges          *MergesStats               `json:"merges,omitempty"`
-	QueryCache      *ShardQueryCache           `json:"query_cache,omitempty"`
-	Recovery        *RecoveryStats             `json:"recovery,omitempty"`
-	Refresh         *RefreshStats              `json:"refresh,omitempty"`
-	RequestCache    *RequestCacheStats         `json:"request_cache,omitempty"`
-	RetentionLeases *ShardRetentionLeases      `json:"retention_leases,omitempty"`
-	Routing         *ShardRouting              `json:"routing,omitempty"`
-	Search          *SearchStats               `json:"search,omitempty"`
-	Segments        *SegmentsStats             `json:"segments,omitempty"`
-	SeqNo           *ShardSequenceNumber       `json:"seq_no,omitempty"`
-	ShardPath       *ShardPath                 `json:"shard_path,omitempty"`
-	ShardStats      *ShardsTotalStats          `json:"shard_stats,omitempty"`
-	Shards          map[string]json.RawMessage `json:"shards,omitempty"`
-	Store           *StoreStats                `json:"store,omitempty"`
-	Translog        *TranslogStats             `json:"translog,omitempty"`
-	Warmer          *WarmerStats               `json:"warmer,omitempty"`
+	Bulk            *BulkStats                   `json:"bulk,omitempty"`
+	Commit          *ShardCommit                 `json:"commit,omitempty"`
+	Completion      *CompletionStats             `json:"completion,omitempty"`
+	DenseVector     *DenseVectorStats            `json:"dense_vector,omitempty"`
+	Docs            *DocStats                    `json:"docs,omitempty"`
+	Fielddata       *FielddataStats              `json:"fielddata,omitempty"`
+	Flush           *FlushStats                  `json:"flush,omitempty"`
+	Get             *GetStats                    `json:"get,omitempty"`
+	Indexing        *IndexingStats               `json:"indexing,omitempty"`
+	Indices         map[string]IndicesShardStats `json:"indices,omitempty"`
+	Mappings        *MappingStats                `json:"mappings,omitempty"`
+	Merges          *MergesStats                 `json:"merges,omitempty"`
+	QueryCache      *ShardQueryCache             `json:"query_cache,omitempty"`
+	Recovery        *RecoveryStats               `json:"recovery,omitempty"`
+	Refresh         *RefreshStats                `json:"refresh,omitempty"`
+	RequestCache    *RequestCacheStats           `json:"request_cache,omitempty"`
+	RetentionLeases *ShardRetentionLeases        `json:"retention_leases,omitempty"`
+	Routing         *ShardRouting                `json:"routing,omitempty"`
+	Search          *SearchStats                 `json:"search,omitempty"`
+	Segments        *SegmentsStats               `json:"segments,omitempty"`
+	SeqNo           *ShardSequenceNumber         `json:"seq_no,omitempty"`
+	ShardPath       *ShardPath                   `json:"shard_path,omitempty"`
+	ShardStats      *ShardsTotalStats            `json:"shard_stats,omitempty"`
+	Shards          map[string]json.RawMessage   `json:"shards,omitempty"`
+	SparseVector    *SparseVectorStats           `json:"sparse_vector,omitempty"`
+	Store           *StoreStats                  `json:"store,omitempty"`
+	Translog        *TranslogStats               `json:"translog,omitempty"`
+	Warmer          *WarmerStats                 `json:"warmer,omitempty"`
 }
 
 // NewIndicesShardStats returns a IndicesShardStats.
 func NewIndicesShardStats() *IndicesShardStats {
 	r := &IndicesShardStats{
-		Shards: make(map[string]json.RawMessage),
+		Indices: make(map[string]IndicesShardStats),
+		Shards:  make(map[string]json.RawMessage),
 	}
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IngestTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L425-L442
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/_types/Stats.ts#L513-L534
 type IngestTotal struct {
 	// Count Total number of documents ingested during the lifetime of this node.
 	Count int64 `json:"count"`
@@ -39,6 +39,9 @@ type IngestTotal struct {
 	Current int64 `json:"current"`
 	// Failed Total number of failed ingest operations during the lifetime of this node.
 	Failed int64 `json:"failed"`
+	// Time Total time spent preprocessing ingest documents during the lifetime of this
+	// node.
+	Time Duration `json:"time,omitempty"`
 	// TimeInMillis Total time, in milliseconds, spent preprocessing ingest documents during the
 	// lifetime of this node.
 	TimeInMillis int64 `json:"time_in_millis"`
@@ -102,6 +105,11 @@ func (s *IngestTotal) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.Failed = f
+			}
+
+		case "time":
+			if err := dec.Decode(&s.Time); err != nil {
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":

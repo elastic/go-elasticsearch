@@ -16,28 +16,41 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
-package types
+package esdsl
 
-// SearchInputRequestBody type.
-//
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Input.ts#L144-L146
-type SearchInputRequestBody struct {
-	Query Query `json:"query"`
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+
+// This is provide all the types that are part of the union.
+type _docValues struct {
+	v types.DocValues
 }
 
-// NewSearchInputRequestBody returns a SearchInputRequestBody.
-func NewSearchInputRequestBody() *SearchInputRequestBody {
-	r := &SearchInputRequestBody{}
-
-	return r
+func NewDocValues() *_docValues {
+	return &_docValues{v: nil}
 }
 
-type SearchInputRequestBodyVariant interface {
-	SearchInputRequestBodyCaster() *SearchInputRequestBody
+func (u *_docValues) Bool(bool bool) *_docValues {
+
+	u.v = &bool
+
+	return u
 }
 
-func (s *SearchInputRequestBody) SearchInputRequestBodyCaster() *SearchInputRequestBody {
-	return s
+func (u *_docValues) DocValuesConfig(docvaluesconfig types.DocValuesConfigVariant) *_docValues {
+
+	u.v = docvaluesconfig.DocValuesConfigCaster()
+
+	return u
+}
+
+// Interface implementation for DocValuesConfig in DocValues union
+func (u *_docValuesConfig) DocValuesCaster() *types.DocValues {
+	t := types.DocValues(u.v)
+	return &t
+}
+
+func (u *_docValues) DocValuesCaster() *types.DocValues {
+	return &u.v
 }

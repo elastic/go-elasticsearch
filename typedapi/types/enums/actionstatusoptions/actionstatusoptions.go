@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 // Package actionstatusoptions
 package actionstatusoptions
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Action.ts#L96-L101
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/watcher/_types/Action.ts#L96-L108
 type ActionStatusOptions struct {
 	Name string
 }
@@ -33,9 +33,15 @@ var (
 
 	Failure = ActionStatusOptions{"failure"}
 
-	Simulated = ActionStatusOptions{"simulated"}
+	Partialfailure = ActionStatusOptions{"partial_failure"}
+
+	Acknowledged = ActionStatusOptions{"acknowledged"}
 
 	Throttled = ActionStatusOptions{"throttled"}
+
+	Conditionfailed = ActionStatusOptions{"condition_failed"}
+
+	Simulated = ActionStatusOptions{"simulated"}
 )
 
 func (a ActionStatusOptions) MarshalText() (text []byte, err error) {
@@ -49,10 +55,16 @@ func (a *ActionStatusOptions) UnmarshalText(text []byte) error {
 		*a = Success
 	case "failure":
 		*a = Failure
-	case "simulated":
-		*a = Simulated
+	case "partial_failure":
+		*a = Partialfailure
+	case "acknowledged":
+		*a = Acknowledged
 	case "throttled":
 		*a = Throttled
+	case "condition_failed":
+		*a = Conditionfailed
+	case "simulated":
+		*a = Simulated
 	default:
 		*a = ActionStatusOptions{string(text)}
 	}

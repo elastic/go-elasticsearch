@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IngestStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L385-L423
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/_types/Stats.ts#L456-L511
 type IngestStats struct {
 	// Count Total number of documents ingested during the lifetime of this node.
 	Count int64 `json:"count"`
@@ -39,21 +39,33 @@ type IngestStats struct {
 	Current int64 `json:"current"`
 	// Failed Total number of failed ingest operations during the lifetime of this node.
 	Failed int64 `json:"failed"`
-	// IngestedAsFirstPipelineInBytes Total number of bytes of all documents ingested by the pipeline. This field
-	// is only present on pipelines which are the first to process a document. Thus,
-	// it is not present on pipelines which only serve as a final pipeline after a
-	// default pipeline, a pipeline run after a reroute processor, or pipelines in
-	// pipeline processors.
+	// IngestedAsFirstPipeline Total size of all documents ingested by the pipeline. The value counts
+	// documents for which this pipeline was the first to process them; for
+	// pipelines that are not the first to process a document (for example, a final
+	// pipeline after a default pipeline, a pipeline run after a reroute processor,
+	// or a pipeline invoked by a pipeline processor), the value is `0`.
+	IngestedAsFirstPipeline ByteSize `json:"ingested_as_first_pipeline,omitempty"`
+	// IngestedAsFirstPipelineInBytes Total number of bytes of all documents ingested by the pipeline. The value
+	// counts documents for which this pipeline was the first to process them; for
+	// pipelines that are not the first to process a document, the value is `0`.
 	IngestedAsFirstPipelineInBytes int64 `json:"ingested_as_first_pipeline_in_bytes"`
 	// Processors Total number of ingest processors.
 	Processors []map[string]KeyedProcessor `json:"processors"`
-	// ProducedAsFirstPipelineInBytes Total number of bytes of all documents produced by the pipeline. This field
-	// is only present on pipelines which are the first to process a document. Thus,
-	// it is not present on pipelines which only serve as a final pipeline after a
-	// default pipeline, a pipeline run after a reroute processor, or pipelines in
-	// pipeline processors. In situations where there are subsequent pipelines, the
-	// value represents the size of the document after all pipelines have run.
+	// ProducedAsFirstPipeline Total size of all documents produced by the pipeline. The value counts
+	// documents for which this pipeline was the first to process them; for
+	// pipelines that are not the first to process a document, the value is `0`. In
+	// situations where there are subsequent pipelines, the value represents the
+	// size of the document after all pipelines have run.
+	ProducedAsFirstPipeline ByteSize `json:"produced_as_first_pipeline,omitempty"`
+	// ProducedAsFirstPipelineInBytes Total number of bytes of all documents produced by the pipeline. The value
+	// counts documents for which this pipeline was the first to process them; for
+	// pipelines that are not the first to process a document, the value is `0`. In
+	// situations where there are subsequent pipelines, the value represents the
+	// size of the document after all pipelines have run.
 	ProducedAsFirstPipelineInBytes int64 `json:"produced_as_first_pipeline_in_bytes"`
+	// Time Total time spent preprocessing ingest documents during the lifetime of this
+	// node.
+	Time Duration `json:"time,omitempty"`
 	// TimeInMillis Total time, in milliseconds, spent preprocessing ingest documents during the
 	// lifetime of this node.
 	TimeInMillis int64 `json:"time_in_millis"`
@@ -119,6 +131,11 @@ func (s *IngestStats) UnmarshalJSON(data []byte) error {
 				s.Failed = f
 			}
 
+		case "ingested_as_first_pipeline":
+			if err := dec.Decode(&s.IngestedAsFirstPipeline); err != nil {
+				return fmt.Errorf("%s | %w", "IngestedAsFirstPipeline", err)
+			}
+
 		case "ingested_as_first_pipeline_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -139,6 +156,11 @@ func (s *IngestStats) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Processors", err)
 			}
 
+		case "produced_as_first_pipeline":
+			if err := dec.Decode(&s.ProducedAsFirstPipeline); err != nil {
+				return fmt.Errorf("%s | %w", "ProducedAsFirstPipeline", err)
+			}
+
 		case "produced_as_first_pipeline_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -152,6 +174,11 @@ func (s *IngestStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.ProducedAsFirstPipelineInBytes = f
+			}
+
+		case "time":
+			if err := dec.Decode(&s.Time); err != nil {
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":

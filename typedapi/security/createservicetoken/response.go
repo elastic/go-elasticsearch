@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package createservicetoken
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package createservicetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/create_service_token/CreateServiceTokenResponse.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/create_service_token/CreateServiceTokenResponse.ts#L22-L30
 type Response struct {
 	Created bool               `json:"created"`
 	Token   types.ServiceToken `json:"token"`

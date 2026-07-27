@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
 // MlInferenceIngestProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/xpack/usage/types.ts#L218-L223
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/xpack/usage/types.ts#L359-L364
 type MlInferenceIngestProcessor struct {
 	NumDocsProcessed MlInferenceIngestProcessorCount `json:"num_docs_processed"`
 	NumFailures      MlInferenceIngestProcessorCount `json:"num_failures"`

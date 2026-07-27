@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 // Run an async ES|QL query.
 //
@@ -561,6 +561,21 @@ func (r *AsyncQuery) Query(query string) *AsyncQuery {
 	}
 
 	r.req.Query = query
+
+	return r
+}
+
+// Per-query settings, the request-body equivalent of the in-query `SET`
+// command. For example, `time_zone` can be supplied here instead of as a
+// top-level field.
+// API name: settings
+func (r *AsyncQuery) Settings(settings types.EsqlQuerySettingsVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Settings = settings.EsqlQuerySettingsCaster()
 
 	return r
 }

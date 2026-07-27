@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -33,14 +33,12 @@ import (
 
 // SourceField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/mapping/meta-fields.ts#L58-L65
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/mapping/meta-fields.ts#L58-L63
 type SourceField struct {
-	Compress          *bool                            `json:"compress,omitempty"`
-	CompressThreshold *string                          `json:"compress_threshold,omitempty"`
-	Enabled           *bool                            `json:"enabled,omitempty"`
-	Excludes          []string                         `json:"excludes,omitempty"`
-	Includes          []string                         `json:"includes,omitempty"`
-	Mode              *sourcefieldmode.SourceFieldMode `json:"mode,omitempty"`
+	Enabled  *bool                            `json:"enabled,omitempty"`
+	Excludes []string                         `json:"excludes,omitempty"`
+	Includes []string                         `json:"includes,omitempty"`
+	Mode     *sourcefieldmode.SourceFieldMode `json:"mode,omitempty"`
 }
 
 func (s *SourceField) UnmarshalJSON(data []byte) error {
@@ -57,32 +55,6 @@ func (s *SourceField) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "compress":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "Compress", err)
-				}
-				s.Compress = &value
-			case bool:
-				s.Compress = &v
-			}
-
-		case "compress_threshold":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "CompressThreshold", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.CompressThreshold = &o
 
 		case "enabled":
 			var tmp any

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,8 +31,11 @@ import (
 
 // Transport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L1153-L1196
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/_types/Stats.ts#L1352-L1399
 type Transport struct {
+	// Actions Statistics about the transport messages sent and received by the node, broken
+	// down by action name.
+	Actions map[string]TransportActionStats `json:"actions,omitempty"`
 	// InboundHandlingTimeHistogram The distribution of the time spent handling each inbound message on a
 	// transport thread, represented as a histogram.
 	InboundHandlingTimeHistogram []TransportHistogram `json:"inbound_handling_time_histogram,omitempty"`
@@ -81,6 +84,14 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "actions":
+			if s.Actions == nil {
+				s.Actions = make(map[string]TransportActionStats, 0)
+			}
+			if err := dec.Decode(&s.Actions); err != nil {
+				return fmt.Errorf("%s | %w", "Actions", err)
+			}
 
 		case "inbound_handling_time_histogram":
 			if err := dec.Decode(&s.InboundHandlingTimeHistogram); err != nil {
@@ -214,7 +225,9 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 
 // NewTransport returns a Transport.
 func NewTransport() *Transport {
-	r := &Transport{}
+	r := &Transport{
+		Actions: make(map[string]TransportActionStats),
+	}
 
 	return r
 }

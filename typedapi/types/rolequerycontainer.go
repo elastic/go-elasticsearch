@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // RoleQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/query_role/types.ts#L37-L101
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/query_role/types.ts#L37-L101
 type RoleQueryContainer struct {
 	AdditionalRoleQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches roles matching boolean combinations of other queries.

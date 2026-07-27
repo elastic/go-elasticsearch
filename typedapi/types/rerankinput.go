@@ -16,33 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
-package esdsl
+package types
 
-import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+// RerankInput holds the union for the following types:
+//
+//	[]string
+//	[]RerankInputObject
+//
+// The documents to rank for the `rerank` task. Either a string, an array of
+// strings, an object, or an array of objects. The object form additionally
+// allows specifying non-text inputs, such as images.
+//
+// > info > Only the `elastic` service currently supports non-text inputs for
+// the `rerank` task.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/rerank/RerankRequest.ts#L147-L156
+type RerankInput any
 
-type _searchInputRequestBody struct {
-	v *types.SearchInputRequestBody
-}
-
-func NewSearchInputRequestBody(query types.QueryVariant) *_searchInputRequestBody {
-
-	tmp := &_searchInputRequestBody{v: types.NewSearchInputRequestBody()}
-
-	tmp.Query(query)
-
-	return tmp
-
-}
-
-func (s *_searchInputRequestBody) Query(query types.QueryVariant) *_searchInputRequestBody {
-
-	s.v.Query = *query.QueryCaster()
-
-	return s
-}
-
-func (s *_searchInputRequestBody) SearchInputRequestBodyCaster() *types.SearchInputRequestBody {
-	return s.v
+type RerankInputVariant interface {
+	RerankInputCaster() *RerankInput
 }

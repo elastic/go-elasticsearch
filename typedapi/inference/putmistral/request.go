@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package putmistral
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putmistral
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/put_mistral/PutMistralRequest.ts#L30-L83
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/put_mistral/PutMistralRequest.ts#L30-L83
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
 	// type. Not applicable to the `completion` or `chat_completion` task types.

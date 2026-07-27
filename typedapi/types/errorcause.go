@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 // common to all error types. Additional details are also provided, that depend
 // on the error type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/Errors.ts#L25-L50
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/Errors.ts#L25-L50
 type ErrorCause struct {
 	CausedBy *ErrorCause                `json:"caused_by,omitempty"`
 	Metadata map[string]json.RawMessage `json:"-"`

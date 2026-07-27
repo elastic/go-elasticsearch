@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -33,9 +33,9 @@ import (
 
 // SearchInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Input.ts#L115-L122
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/watcher/_types/Input.ts#L121-L128
 type SearchInputRequestDefinition struct {
-	Body               *SearchInputRequestBody    `json:"body,omitempty"`
+	Body               *SearchRequestBody         `json:"body,omitempty"`
 	Indices            []string                   `json:"indices,omitempty"`
 	IndicesOptions     *IndicesOptions            `json:"indices_options,omitempty"`
 	RestTotalHitsAsInt *bool                      `json:"rest_total_hits_as_int,omitempty"`
@@ -64,8 +64,19 @@ func (s *SearchInputRequestDefinition) UnmarshalJSON(data []byte) error {
 			}
 
 		case "indices":
-			if err := dec.Decode(&s.Indices); err != nil {
-				return fmt.Errorf("%s | %w", "Indices", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Indices", err)
+				}
+
+				s.Indices = append(s.Indices, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Indices); err != nil {
+					return fmt.Errorf("%s | %w", "Indices", err)
+				}
 			}
 
 		case "indices_options":

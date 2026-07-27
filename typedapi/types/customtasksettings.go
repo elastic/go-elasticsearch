@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
 // CustomTaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/_types/CommonTypes.ts#L1466-L1480
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/_types/CommonTypes.ts#L1470-L1487
 type CustomTaskSettings struct {
 	// Parameters Specifies parameters that are required to run the custom service. The
 	// parameters depend on the model your custom service uses. For example:
@@ -33,6 +33,10 @@ type CustomTaskSettings struct {
 	//	    "return_token":true
 	//	  }
 	//	}
+	//
+	// > warn > The `task_settings.parameters` cannot contain the same keys as
+	// `secret_parameters`. If they do, an error will be returned. This applies to
+	// PUT requests and POST requests.
 	Parameters map[string]CustomTaskParameter `json:"parameters,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package putai21
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putai21
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/put_ai21/PutAi21Request.ts#L29-L75
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/put_ai21/PutAi21Request.ts#L29-L75
 type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `ai21`.

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package putiplocationdatabase
 
 // Response holds the response body struct for the package putiplocationdatabase
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ingest/put_ip_location_database/PutIpLocationDatabaseResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ingest/put_ip_location_database/PutIpLocationDatabaseResponse.ts#L22-L25
 type Response struct {
 	// Acknowledged For a successful response, this value is always true. On failure, an
 	// exception is returned instead.

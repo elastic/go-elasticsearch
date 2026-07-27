@@ -1,0 +1,76 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+
+// Package datasourceprivilege
+package datasourceprivilege
+
+import "strings"
+
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/_types/Privileges.ts#L446-L468
+type DataSourcePrivilege struct {
+	Name string
+}
+
+var (
+
+	// Create Grants privilege to create a data source with a matching name.
+	Create = DataSourcePrivilege{"create"}
+
+	// Delete Grants privilege to delete a data source with a matching name.
+	Delete = DataSourcePrivilege{"delete"}
+
+	// Readmetadata Grants privilege to read a data source's metadata.
+	Readmetadata = DataSourcePrivilege{"read_metadata"}
+
+	// Read Grants privilege to attach a dataset to a data source with a matching name.
+	Read = DataSourcePrivilege{"read"}
+
+	// Manage Grants all data source privileges, including `create`, `delete`, `read`, and
+	// `read_metadata`.
+	Manage = DataSourcePrivilege{"manage"}
+)
+
+func (d DataSourcePrivilege) MarshalText() (text []byte, err error) {
+	return []byte(d.String()), nil
+}
+
+func (d *DataSourcePrivilege) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "create":
+		*d = Create
+	case "delete":
+		*d = Delete
+	case "read_metadata":
+		*d = Readmetadata
+	case "read":
+		*d = Read
+	case "manage":
+		*d = Manage
+	default:
+		*d = DataSourcePrivilege{string(text)}
+	}
+
+	return nil
+}
+
+func (d DataSourcePrivilege) String() string {
+	return d.Name
+}

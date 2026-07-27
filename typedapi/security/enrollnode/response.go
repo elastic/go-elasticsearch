@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package enrollnode
 
 // Response holds the response body struct for the package enrollnode
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/enroll_node/Response.ts#L20-L47
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/enroll_node/Response.ts#L20-L47
 type Response struct {
 	// HttpCaCert The CA certificate that can be used by the new node in order to sign its
 	// certificate for the HTTP layer, as a Base64 encoded string of the ASN.1 DER

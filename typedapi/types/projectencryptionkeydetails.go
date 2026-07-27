@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package types
 
@@ -31,10 +31,14 @@ import (
 
 // ProjectEncryptionKeyDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_global/health_report/types.ts#L226-L232
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_global/health_report/types.ts#L226-L237
 type ProjectEncryptionKeyDetails struct {
-	ActiveKeyId        *string `json:"active_key_id,omitempty"`
-	ActivePasswordId   string  `json:"active_password_id"`
+	ActiveKeyId      *string `json:"active_key_id,omitempty"`
+	ActivePasswordId string  `json:"active_password_id"`
+	// EncryptionRequired Whether callers must refuse to store secrets when the service is not ready.
+	// If `false`, callers may fall back to storing secrets in plaintext (with a
+	// warning).
+	EncryptionRequired bool    `json:"encryption_required"`
 	KeyCount           *int    `json:"key_count,omitempty"`
 	MetadataPasswordId *string `json:"metadata_password_id,omitempty"`
 	State              string  `json:"state"`
@@ -78,6 +82,20 @@ func (s *ProjectEncryptionKeyDetails) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.ActivePasswordId = o
+
+		case "encryption_required":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "EncryptionRequired", err)
+				}
+				s.EncryptionRequired = value
+			case bool:
+				s.EncryptionRequired = v
+			}
 
 		case "key_count":
 

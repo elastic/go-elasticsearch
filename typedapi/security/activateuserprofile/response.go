@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package activateuserprofile
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package activateuserprofile
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/activate_user_profile/Response.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/activate_user_profile/Response.ts#L22-L25
 type Response struct {
 	Data             map[string]json.RawMessage   `json:"data"`
 	Doc_             types.UserProfileHitMetadata `json:"_doc"`

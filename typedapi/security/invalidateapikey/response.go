@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package invalidateapikey
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/security/invalidate_api_key/SecurityInvalidateApiKeyResponse.ts#L23-L46
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/invalidate_api_key/SecurityInvalidateApiKeyResponse.ts#L23-L46
 type Response struct {
 	// ErrorCount The number of errors that were encountered when invalidating the API keys.
 	ErrorCount int `json:"error_count"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package esdsl
 
@@ -26,11 +26,9 @@ type _watch struct {
 	v *types.Watch
 }
 
-func NewWatch(condition types.WatcherConditionVariant, input types.WatcherInputVariant, trigger types.TriggerContainerVariant) *_watch {
+func NewWatch(input types.WatcherInputVariant, trigger types.TriggerContainerVariant) *_watch {
 
 	tmp := &_watch{v: types.NewWatch()}
-
-	tmp.Condition(condition)
 
 	tmp.Input(input)
 
@@ -63,7 +61,7 @@ func (s *_watch) AddAction(key string, value types.WatcherActionVariant) *_watch
 
 func (s *_watch) Condition(condition types.WatcherConditionVariant) *_watch {
 
-	s.v.Condition = *condition.WatcherConditionCaster()
+	s.v.Condition = condition.WatcherConditionCaster()
 
 	return s
 }

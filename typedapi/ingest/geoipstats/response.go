@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
 
 package geoipstats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package geoipstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ingest/geo_ip_stats/IngestGeoIpStatsResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ingest/geo_ip_stats/IngestGeoIpStatsResponse.ts#L24-L31
 type Response struct {
 	// Nodes Downloaded GeoIP2 databases for each node.
 	Nodes map[string]types.GeoIpNodeDatabases `json:"nodes"`
