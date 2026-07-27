@@ -2030,7 +2030,7 @@ func TestBulkIndexerFlush(t *testing.T) {
 	})
 
 	t.Run("DoubleClose", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{})))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
