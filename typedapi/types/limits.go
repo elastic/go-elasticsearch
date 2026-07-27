@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Limits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/info/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/info/types.ts#L44-L50
 type Limits struct {
 	EffectiveMaxModelMemoryLimit ByteSize `json:"effective_max_model_memory_limit,omitempty"`
 	MaxModelMemoryLimit          ByteSize `json:"max_model_memory_limit,omitempty"`

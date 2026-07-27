@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataPathStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L615-L659
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L715-L791
 type DataPathStats struct {
 	// Available Total amount of disk space available to this Java virtual machine on this
 	// file store.
@@ -46,10 +46,34 @@ type DataPathStats struct {
 	DiskWriteSize        *string `json:"disk_write_size,omitempty"`
 	DiskWriteSizeInBytes *int64  `json:"disk_write_size_in_bytes,omitempty"`
 	DiskWrites           *int64  `json:"disk_writes,omitempty"`
+	// FloodStageFreeSpace The amount of free disk space that, once reached, triggers the flood stage
+	// disk watermark.
+	FloodStageFreeSpace *string `json:"flood_stage_free_space,omitempty"`
+	// FloodStageFreeSpaceInBytes The amount of free disk space, in bytes, that, once reached, triggers the
+	// flood stage disk watermark.
+	FloodStageFreeSpaceInBytes *int64 `json:"flood_stage_free_space_in_bytes,omitempty"`
 	// Free Total amount of unallocated disk space in the file store.
 	Free *string `json:"free,omitempty"`
 	// FreeInBytes Total number of unallocated bytes in the file store.
 	FreeInBytes *int64 `json:"free_in_bytes,omitempty"`
+	// FrozenFloodStageFreeSpace The amount of free disk space that, once reached, triggers the frozen flood
+	// stage disk watermark.
+	FrozenFloodStageFreeSpace *string `json:"frozen_flood_stage_free_space,omitempty"`
+	// FrozenFloodStageFreeSpaceInBytes The amount of free disk space, in bytes, that, once reached, triggers the
+	// frozen flood stage disk watermark.
+	FrozenFloodStageFreeSpaceInBytes *int64 `json:"frozen_flood_stage_free_space_in_bytes,omitempty"`
+	// HighWatermarkFreeSpace The amount of free disk space that, once reached, triggers the high disk
+	// watermark.
+	HighWatermarkFreeSpace *string `json:"high_watermark_free_space,omitempty"`
+	// HighWatermarkFreeSpaceInBytes The amount of free disk space, in bytes, that, once reached, triggers the
+	// high disk watermark.
+	HighWatermarkFreeSpaceInBytes *int64 `json:"high_watermark_free_space_in_bytes,omitempty"`
+	// LowWatermarkFreeSpace The amount of free disk space that, once reached, triggers the low disk
+	// watermark.
+	LowWatermarkFreeSpace *string `json:"low_watermark_free_space,omitempty"`
+	// LowWatermarkFreeSpaceInBytes The amount of free disk space, in bytes, that, once reached, triggers the low
+	// disk watermark.
+	LowWatermarkFreeSpaceInBytes *int64 `json:"low_watermark_free_space_in_bytes,omitempty"`
 	// Mount Mount point of the file store (for example: `/dev/sda2`).
 	Mount *string `json:"mount,omitempty"`
 	// Path Path to the file store.
@@ -200,6 +224,33 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 				s.DiskWrites = &f
 			}
 
+		case "flood_stage_free_space":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "FloodStageFreeSpace", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.FloodStageFreeSpace = &o
+
+		case "flood_stage_free_space_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FloodStageFreeSpaceInBytes", err)
+				}
+				s.FloodStageFreeSpaceInBytes = &value
+			case float64:
+				f := int64(v)
+				s.FloodStageFreeSpaceInBytes = &f
+			}
+
 		case "free":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -225,6 +276,87 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.FreeInBytes = &f
+			}
+
+		case "frozen_flood_stage_free_space":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "FrozenFloodStageFreeSpace", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.FrozenFloodStageFreeSpace = &o
+
+		case "frozen_flood_stage_free_space_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FrozenFloodStageFreeSpaceInBytes", err)
+				}
+				s.FrozenFloodStageFreeSpaceInBytes = &value
+			case float64:
+				f := int64(v)
+				s.FrozenFloodStageFreeSpaceInBytes = &f
+			}
+
+		case "high_watermark_free_space":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "HighWatermarkFreeSpace", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.HighWatermarkFreeSpace = &o
+
+		case "high_watermark_free_space_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "HighWatermarkFreeSpaceInBytes", err)
+				}
+				s.HighWatermarkFreeSpaceInBytes = &value
+			case float64:
+				f := int64(v)
+				s.HighWatermarkFreeSpaceInBytes = &f
+			}
+
+		case "low_watermark_free_space":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "LowWatermarkFreeSpace", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.LowWatermarkFreeSpace = &o
+
+		case "low_watermark_free_space_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "LowWatermarkFreeSpaceInBytes", err)
+				}
+				s.LowWatermarkFreeSpaceInBytes = &value
+			case float64:
+				f := int64(v)
+				s.LowWatermarkFreeSpaceInBytes = &f
 			}
 
 		case "mount":

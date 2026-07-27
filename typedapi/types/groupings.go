@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
 // Groupings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/rollup/_types/Groupings.ts#L24-L40
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/rollup/_types/Groupings.ts#L24-L40
 type Groupings struct {
 	// DateHistogram A date histogram group aggregates a date field into time-based buckets. This
 	// group is mandatory; you currently cannot roll up documents without a

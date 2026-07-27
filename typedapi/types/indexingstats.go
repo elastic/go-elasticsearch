@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,25 +31,26 @@ import (
 
 // IndexingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/Stats.ts#L168-L186
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Stats.ts#L170-L189
 type IndexingStats struct {
-	DeleteCurrent        int64                    `json:"delete_current"`
-	DeleteTime           Duration                 `json:"delete_time,omitempty"`
-	DeleteTimeInMillis   int64                    `json:"delete_time_in_millis"`
-	DeleteTotal          int64                    `json:"delete_total"`
-	IndexCurrent         int64                    `json:"index_current"`
-	IndexFailed          int64                    `json:"index_failed"`
-	IndexTime            Duration                 `json:"index_time,omitempty"`
-	IndexTimeInMillis    int64                    `json:"index_time_in_millis"`
-	IndexTotal           int64                    `json:"index_total"`
-	IsThrottled          bool                     `json:"is_throttled"`
-	NoopUpdateTotal      int64                    `json:"noop_update_total"`
-	PeakWriteLoad        *Float64                 `json:"peak_write_load,omitempty"`
-	RecentWriteLoad      *Float64                 `json:"recent_write_load,omitempty"`
-	ThrottleTime         Duration                 `json:"throttle_time,omitempty"`
-	ThrottleTimeInMillis int64                    `json:"throttle_time_in_millis"`
-	Types                map[string]IndexingStats `json:"types,omitempty"`
-	WriteLoad            *Float64                 `json:"write_load,omitempty"`
+	DeleteCurrent                   int64                    `json:"delete_current"`
+	DeleteTime                      Duration                 `json:"delete_time,omitempty"`
+	DeleteTimeInMillis              int64                    `json:"delete_time_in_millis"`
+	DeleteTotal                     int64                    `json:"delete_total"`
+	IndexCurrent                    int64                    `json:"index_current"`
+	IndexFailed                     int64                    `json:"index_failed"`
+	IndexFailedDueToVersionConflict int64                    `json:"index_failed_due_to_version_conflict"`
+	IndexTime                       Duration                 `json:"index_time,omitempty"`
+	IndexTimeInMillis               int64                    `json:"index_time_in_millis"`
+	IndexTotal                      int64                    `json:"index_total"`
+	IsThrottled                     bool                     `json:"is_throttled"`
+	NoopUpdateTotal                 int64                    `json:"noop_update_total"`
+	PeakWriteLoad                   *Float64                 `json:"peak_write_load,omitempty"`
+	RecentWriteLoad                 *Float64                 `json:"recent_write_load,omitempty"`
+	ThrottleTime                    Duration                 `json:"throttle_time,omitempty"`
+	ThrottleTimeInMillis            int64                    `json:"throttle_time_in_millis"`
+	Types                           map[string]IndexingStats `json:"types,omitempty"`
+	WriteLoad                       *Float64                 `json:"write_load,omitempty"`
 }
 
 func (s *IndexingStats) UnmarshalJSON(data []byte) error {
@@ -135,6 +136,21 @@ func (s *IndexingStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.IndexFailed = f
+			}
+
+		case "index_failed_due_to_version_conflict":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IndexFailedDueToVersionConflict", err)
+				}
+				s.IndexFailedDueToVersionConflict = value
+			case float64:
+				f := int64(v)
+				s.IndexFailedDueToVersionConflict = f
 			}
 
 		case "index_time":

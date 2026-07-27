@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Perform reranking inference on the service.
 package rerank
@@ -365,30 +365,84 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 	return r
 }
 
-// The documents to rank.
+// The documents to rank. The input can be specified as a single string or an
+// array of strings, or as an object or an array of objects. The object form
+// additionally allows specifying non-text inputs, such as images.
+//
+// > info > Only the `elastic` service currently supports non-text inputs for
+// the `rerank` task. For all other services, the input must be a string or an
+// array of strings.
+//
+// string example:
+//
+//	"input": "some document text"
+//
+// string array example:
+//
+//	"input": ["some document text", "some more document text"]
+//
+// object example:
+//
+//	"input": {
+//	  "type": "image",
+//	  "format": "base64",
+//	  "value": "data:image/jpeg;base64,..."
+//	}
+//
+// object array example:
+//
+//	"input": [
+//	  {
+//	    "type": "text",
+//	    "format": "text",
+//	    "value": "some document text"
+//	  },
+//	  {
+//	    "type": "image",
+//	    "format": "base64",
+//	    "value": "data:image/jpeg;base64,..."
+//	  }
+//	]
+//
 // API name: input
-func (r *Rerank) Input(inputs ...string) *Rerank {
+func (r *Rerank) Input(rerankinput types.RerankInputVariant) *Rerank {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range inputs {
 
-		r.req.Input = append(r.req.Input, v)
+	r.req.Input = *rerankinput.RerankInputCaster()
 
-	}
 	return r
 }
 
-// Query input.
+// Query input. The query can be specified as a single string, or as an object.
+// The object form additionally allows specifying non-text inputs, such as
+// images.
+//
+// > info > Only the `elastic` service currently supports non-text queries for
+// the `rerank` task. For all other services, the query must be a string.
+//
+// string example:
+//
+//	"query": "some query text"
+//
+// object example:
+//
+//	"query": {
+//	  "type": "image",
+//	  "format": "base64",
+//	  "value": "data:image/jpeg;base64,..."
+//	}
+//
 // API name: query
-func (r *Rerank) Query(query string) *Rerank {
+func (r *Rerank) Query(rerankquery types.RerankQueryVariant) *Rerank {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.Query = query
+	r.req.Query = *rerankquery.RerankQueryCaster()
 
 	return r
 }

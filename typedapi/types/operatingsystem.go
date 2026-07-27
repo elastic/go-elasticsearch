@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OperatingSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L1050-L1056
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L1249-L1255
 type OperatingSystem struct {
 	Cgroup    *Cgroup              `json:"cgroup,omitempty"`
 	Cpu       *Cpu                 `json:"cpu,omitempty"`

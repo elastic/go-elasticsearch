@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardFileSizeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/indices/stats/types.ts#L124-L131
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/stats/types.ts#L125-L132
 type ShardFileSizeInfo struct {
 	AverageSizeInBytes *int64 `json:"average_size_in_bytes,omitempty"`
 	Count              *int64 `json:"count,omitempty"`

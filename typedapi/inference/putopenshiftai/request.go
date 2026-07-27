@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package putopenshiftai
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putopenshiftai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/put_openshift_ai/PutOpenShiftAiRequest.ts#L31-L92
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/put_openshift_ai/PutOpenShiftAiRequest.ts#L31-L92
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
 	// type. Not applicable to the `rerank`, `completion`, or `chat_completion` task

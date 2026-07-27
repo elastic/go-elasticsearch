@@ -16,24 +16,30 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Package inputtype
 package inputtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Input.ts#L97-L101
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/watcher/_types/Input.ts#L100-L107
 type InputType struct {
 	Name string
 }
 
 var (
+	Chain = InputType{"chain"}
+
 	Http = InputType{"http"}
+
+	None = InputType{"none"}
 
 	Search = InputType{"search"}
 
 	Simple = InputType{"simple"}
+
+	Transform = InputType{"transform"}
 )
 
 func (i InputType) MarshalText() (text []byte, err error) {
@@ -43,12 +49,18 @@ func (i InputType) MarshalText() (text []byte, err error) {
 func (i *InputType) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "chain":
+		*i = Chain
 	case "http":
 		*i = Http
+	case "none":
+		*i = None
 	case "search":
 		*i = Search
 	case "simple":
 		*i = Simple
+	case "transform":
+		*i = Transform
 	default:
 		*i = InputType{string(text)}
 	}

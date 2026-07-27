@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,11 +31,13 @@ import (
 
 // TimeHttpHistogram type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L737-L741
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L888-L894
 type TimeHttpHistogram struct {
-	Count    int64  `json:"count"`
-	GeMillis *int64 `json:"ge_millis,omitempty"`
-	LtMillis *int64 `json:"lt_millis,omitempty"`
+	Count    int64    `json:"count"`
+	Ge       Duration `json:"ge,omitempty"`
+	GeMillis *int64   `json:"ge_millis,omitempty"`
+	Lt       Duration `json:"lt,omitempty"`
+	LtMillis *int64   `json:"lt_millis,omitempty"`
 }
 
 func (s *TimeHttpHistogram) UnmarshalJSON(data []byte) error {
@@ -68,6 +70,11 @@ func (s *TimeHttpHistogram) UnmarshalJSON(data []byte) error {
 				s.Count = f
 			}
 
+		case "ge":
+			if err := dec.Decode(&s.Ge); err != nil {
+				return fmt.Errorf("%s | %w", "Ge", err)
+			}
+
 		case "ge_millis":
 			var tmp any
 			dec.Decode(&tmp)
@@ -81,6 +88,11 @@ func (s *TimeHttpHistogram) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.GeMillis = &f
+			}
+
+		case "lt":
+			if err := dec.Decode(&s.Lt); err != nil {
+				return fmt.Errorf("%s | %w", "Lt", err)
 			}
 
 		case "lt_millis":

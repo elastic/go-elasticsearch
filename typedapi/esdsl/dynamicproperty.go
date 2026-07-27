@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
@@ -197,9 +197,9 @@ func (s *_dynamicProperty) CopyTo(fields ...string) *_dynamicProperty {
 	return s
 }
 
-func (s *_dynamicProperty) DocValues(docvalues bool) *_dynamicProperty {
+func (s *_dynamicProperty) DocValues(docvalues types.DocValuesVariant) *_dynamicProperty {
 
-	s.v.DocValues = &docvalues
+	s.v.DocValues = *docvalues.DocValuesCaster()
 
 	return s
 }

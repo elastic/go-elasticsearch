@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,21 +31,27 @@ import (
 
 // Client type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L749-L796
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L904-L963
 type Client struct {
 	// Agent Reported agent for the HTTP client. If unavailable, this property is not
 	// included in the response.
 	Agent *string `json:"agent,omitempty"`
+	// ClosedTime Time at which the client closed the connection if the connection is closed.
+	ClosedTime *string `json:"closed_time,omitempty"`
 	// ClosedTimeMillis Time at which the client closed the connection if the connection is closed.
 	ClosedTimeMillis *int64 `json:"closed_time_millis,omitempty"`
 	// Id Unique ID for the HTTP client.
 	Id *int64 `json:"id,omitempty"`
+	// LastRequestTime Time of the most recent request from this client.
+	LastRequestTime *string `json:"last_request_time,omitempty"`
 	// LastRequestTimeMillis Time of the most recent request from this client.
 	LastRequestTimeMillis *int64 `json:"last_request_time_millis,omitempty"`
 	// LastUri The URI of the client’s most recent request.
 	LastUri *string `json:"last_uri,omitempty"`
 	// LocalAddress Local address for the HTTP connection.
 	LocalAddress *string `json:"local_address,omitempty"`
+	// OpenedTime Time at which the client opened the connection.
+	OpenedTime *string `json:"opened_time,omitempty"`
 	// OpenedTimeMillis Time at which the client opened the connection.
 	OpenedTimeMillis *int64 `json:"opened_time_millis,omitempty"`
 	// RemoteAddress Remote address for the HTTP connection.
@@ -86,6 +92,18 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			}
 			s.Agent = &o
 
+		case "closed_time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ClosedTime", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ClosedTime = &o
+
 		case "closed_time_millis":
 			var tmp any
 			dec.Decode(&tmp)
@@ -115,6 +133,18 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.Id = &f
 			}
+
+		case "last_request_time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "LastRequestTime", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.LastRequestTime = &o
 
 		case "last_request_time_millis":
 			var tmp any
@@ -154,6 +184,18 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.LocalAddress = &o
+
+		case "opened_time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "OpenedTime", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.OpenedTime = &o
 
 		case "opened_time_millis":
 			var tmp any

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MatchPhraseQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/query_dsl/fulltext.ts#L466-L490
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/query_dsl/fulltext.ts#L466-L490
 type MatchPhraseQuery struct {
 	// Analyzer Analyzer used to convert the text in the query value into tokens.
 	Analyzer *string `json:"analyzer,omitempty"`

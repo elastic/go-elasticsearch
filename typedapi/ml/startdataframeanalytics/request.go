@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package startdataframeanalytics
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package startdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsRequest.ts#L24-L83
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsRequest.ts#L24-L83
 type Request struct {
 	// Id If provided, must be the same identifier as in the path.
 	Id *string `json:"id,omitempty"`

@@ -16,28 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
-package types
+package esdsl
 
-// SearchInputRequestBody type.
-//
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Input.ts#L144-L146
-type SearchInputRequestBody struct {
-	Query Query `json:"query"`
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+
+// This is provide all the types that are part of the union.
+type _rerankStringInput struct {
+	v types.RerankStringInput
 }
 
-// NewSearchInputRequestBody returns a SearchInputRequestBody.
-func NewSearchInputRequestBody() *SearchInputRequestBody {
-	r := &SearchInputRequestBody{}
-
-	return r
+func NewRerankStringInput() *_rerankStringInput {
+	return &_rerankStringInput{v: nil}
 }
 
-type SearchInputRequestBodyVariant interface {
-	SearchInputRequestBodyCaster() *SearchInputRequestBody
+func (u *_rerankStringInput) Strings(strings ...string) *_rerankStringInput {
+
+	u.v = make([]string, len(strings))
+	u.v = strings
+
+	return u
 }
 
-func (s *SearchInputRequestBody) SearchInputRequestBodyCaster() *SearchInputRequestBody {
-	return s
+func (u *_rerankStringInput) RerankStringInputCaster() *types.RerankStringInput {
+	return &u.v
 }

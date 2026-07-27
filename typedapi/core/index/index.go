@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Create or update a document in an index.
 //
@@ -45,7 +45,8 @@
 //
 // NOTE: Replica shards might not all be started when an indexing operation
 // returns successfully. By default, only the primary is required. Set
-// `wait_for_active_shards` to change this default behavior.
+// `wait_for_active_shards` to change this default behavior (this parameter is
+// not available in Elasticsearch Serverless).
 //
 // # Automatically create data streams and indices
 //
@@ -118,7 +119,8 @@
 // proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 // be overridden in the index settings dynamically by setting
 // `index.write.wait_for_active_shards`. To alter this behavior per operation,
-// use the `wait_for_active_shards request` parameter.
+// use the `wait_for_active_shards request` parameter (this parameter is not
+// available in Elasticsearch Serverless).
 //
 // Valid values are all or any positive integer up to the total number of
 // configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -296,7 +298,8 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 //
 // NOTE: Replica shards might not all be started when an indexing operation
 // returns successfully. By default, only the primary is required. Set
-// `wait_for_active_shards` to change this default behavior.
+// `wait_for_active_shards` to change this default behavior (this parameter is
+// not available in Elasticsearch Serverless).
 //
 // # Automatically create data streams and indices
 //
@@ -369,7 +372,8 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 // proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 // be overridden in the index settings dynamically by setting
 // `index.write.wait_for_active_shards`. To alter this behavior per operation,
-// use the `wait_for_active_shards request` parameter.
+// use the `wait_for_active_shards request` parameter (this parameter is not
+// available in Elasticsearch Serverless).
 //
 // Valid values are all or any positive integer up to the total number of
 // configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -780,10 +784,23 @@ func (r *Index) Refresh(refresh refresh.Refresh) *Index {
 	return r
 }
 
-// Routing A custom value that is used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard. Not
+// allowed when `index.slice.enabled` is `true` for the target index; use
+// `_slice` instead.
 // API name: routing
 func (r *Index) Routing(routings ...string) *Index {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *Index) Slice_(slice_ string) *Index {
+	r.values.Set("_slice", slice_)
 
 	return r
 }

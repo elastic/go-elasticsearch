@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Get multiple documents.
 //
@@ -395,10 +395,22 @@ func (r *Mget) Refresh(refresh bool) *Mget {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Custom value used to route operations to a specific shard. Not allowed when
+// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 // API name: routing
 func (r *Mget) Routing(routings ...string) *Mget {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *Mget) Slice_(slice_ string) *Mget {
+	r.values.Set("_slice", slice_)
 
 	return r
 }

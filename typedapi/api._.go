@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package typedapi
 
@@ -171,6 +171,7 @@ import (
 	dangling_indices_delete_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/deletedanglingindex"
 	dangling_indices_import_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/importdanglingindex"
 	dangling_indices_list_dangling_indices "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/listdanglingindices"
+	encryption_reset "github.com/elastic/go-elasticsearch/v9/typedapi/encryption/reset"
 	enrich_delete_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/deletepolicy"
 	enrich_execute_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/executepolicy"
 	enrich_get_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/getpolicy"
@@ -184,10 +185,16 @@ import (
 	esql_async_query_delete "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerydelete"
 	esql_async_query_get "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncqueryget"
 	esql_async_query_stop "github.com/elastic/go-elasticsearch/v9/typedapi/esql/asyncquerystop"
+	esql_delete_dataset "github.com/elastic/go-elasticsearch/v9/typedapi/esql/deletedataset"
+	esql_delete_data_source "github.com/elastic/go-elasticsearch/v9/typedapi/esql/deletedatasource"
 	esql_delete_view "github.com/elastic/go-elasticsearch/v9/typedapi/esql/deleteview"
+	esql_get_dataset "github.com/elastic/go-elasticsearch/v9/typedapi/esql/getdataset"
+	esql_get_data_source "github.com/elastic/go-elasticsearch/v9/typedapi/esql/getdatasource"
 	esql_get_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/getquery"
 	esql_get_view "github.com/elastic/go-elasticsearch/v9/typedapi/esql/getview"
 	esql_list_queries "github.com/elastic/go-elasticsearch/v9/typedapi/esql/listqueries"
+	esql_put_dataset "github.com/elastic/go-elasticsearch/v9/typedapi/esql/putdataset"
+	esql_put_data_source "github.com/elastic/go-elasticsearch/v9/typedapi/esql/putdatasource"
 	esql_put_view "github.com/elastic/go-elasticsearch/v9/typedapi/esql/putview"
 	esql_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
 	features_get_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/getfeatures"
@@ -284,8 +291,10 @@ import (
 	inference_chat_completion_unified "github.com/elastic/go-elasticsearch/v9/typedapi/inference/chatcompletionunified"
 	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
 	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
+	inference_delete_region_policy "github.com/elastic/go-elasticsearch/v9/typedapi/inference/deleteregionpolicy"
 	inference_embedding "github.com/elastic/go-elasticsearch/v9/typedapi/inference/embedding"
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
+	inference_get_region_policy "github.com/elastic/go-elasticsearch/v9/typedapi/inference/getregionpolicy"
 	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
 	inference_put_ai21 "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putai21"
@@ -312,6 +321,7 @@ import (
 	inference_put_nvidia "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putnvidia"
 	inference_put_openai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putopenai"
 	inference_put_openshift_ai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putopenshiftai"
+	inference_put_region_policy "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putregionpolicy"
 	inference_put_voyageai "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putvoyageai"
 	inference_put_watsonx "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putwatsonx"
 	inference_rerank "github.com/elastic/go-elasticsearch/v9/typedapi/inference/rerank"
@@ -1635,12 +1645,6 @@ type Core struct {
 	// NOTE: Data streams do not support custom routing unless they were created
 	// with the `allow_custom_routing` setting enabled in the template.
 	//
-	// # Wait for active shards
-	//
-	// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-	// require a minimum number of shard copies to be active before starting to
-	// process the bulk request.
-	//
 	// # Refresh
 	//
 	// Control when the changes made by this request are visible to search.
@@ -2218,7 +2222,8 @@ type Core struct {
 	//
 	// NOTE: Replica shards might not all be started when an indexing operation
 	// returns successfully. By default, only the primary is required. Set
-	// `wait_for_active_shards` to change this default behavior.
+	// `wait_for_active_shards` to change this default behavior (this parameter is
+	// not available in Elasticsearch Serverless).
 	//
 	// # Automatically create data streams and indices
 	//
@@ -2291,7 +2296,8 @@ type Core struct {
 	// proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 	// be overridden in the index settings dynamically by setting
 	// `index.write.wait_for_active_shards`. To alter this behavior per operation,
-	// use the `wait_for_active_shards request` parameter.
+	// use the `wait_for_active_shards request` parameter (this parameter is not
+	// available in Elasticsearch Serverless).
 	//
 	// Valid values are all or any positive integer up to the total number of
 	// configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -2969,19 +2975,6 @@ type Core struct {
 	// you can use to cancel or get the status of the task. Elasticsearch creates a
 	// record of this task as a document at `.tasks/task/${taskId}`.
 	//
-	// # Waiting for active shards
-	//
-	// `wait_for_active_shards` controls how many copies of a shard must be active
-	// before proceeding with the request. See
-	// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-	// for details. `timeout` controls how long each write request waits for
-	// unavailable shards to become available. Both work exactly the way they work
-	// in the [Bulk
-	// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-	// Update by query uses scrolled searches, so you can also specify the `scroll`
-	// parameter to control how long it keeps the search context alive, for example
-	// `?scroll=10m`. The default is 5 minutes.
-	//
 	// # Throttling update requests
 	//
 	// To control the rate at which update by query issues batches of update
@@ -3090,6 +3083,25 @@ type DanglingIndices struct {
 	ListDanglingIndices dangling_indices_list_dangling_indices.NewListDanglingIndices
 }
 
+type Encryption struct {
+	// Reset the project encryption key.
+	//
+	// Destroy the current project encryption key (PEK) and generate a new one. This
+	// is the recovery path for when the on-disk encrypted PEK becomes permanently
+	// inaccessible, for example because the key encryption material protecting it
+	// was lost.
+	//
+	// All data that was encrypted under the destroyed key becomes permanently
+	// unrecoverable. Each feature that stores encrypted data decides how to handle
+	// its own data during the reset: some features drop the encrypted values
+	// entirely, while others preserve the rest of the affected data and only clear
+	// the values that can no longer be decrypted.
+	//
+	// Because this operation causes permanent data loss, it requires the
+	// `accept_data_loss` query parameter to be set to `true`.
+	Reset encryption_reset.NewReset
+}
+
 type Enrich struct {
 	// Delete an enrich policy.
 	//
@@ -3170,10 +3182,27 @@ type Esql struct {
 	// the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can stop it.
 	AsyncQueryStop esql_async_query_stop.NewAsyncQueryStop
+	// Delete one or more ES|QL data sources.
+	//
+	// Fails with `409` if any dataset references one of the named data sources;
+	// delete the dependent datasets first.
+	DeleteDataSource esql_delete_data_source.NewDeleteDataSource
+	// Delete one or more ES|QL datasets.
+	DeleteDataset esql_delete_dataset.NewDeleteDataset
 	// Delete an ES|QL view.
 	//
 	// Deletes a stored ES|QL view.
 	DeleteView esql_delete_view.NewDeleteView
+	// Get one or more ES|QL data sources.
+	//
+	// Returns the requested data sources. A concrete-name miss returns `404`; a
+	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	GetDataSource esql_get_data_source.NewGetDataSource
+	// Get one or more ES|QL datasets.
+	//
+	// Returns the requested datasets. A concrete-name miss returns `404`; a
+	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	GetDataset esql_get_dataset.NewGetDataset
 	// Get a specific running ES|QL query information.
 	//
 	// Returns an object extended information about a running ES|QL query.
@@ -3187,6 +3216,18 @@ type Esql struct {
 	// Returns an object containing IDs and other information about the running
 	// ES|QL queries.
 	ListQueries esql_list_queries.NewListQueries
+	// Create or update an ES|QL data source.
+	//
+	// Creates or replaces a named, type-specific data source configuration that
+	// datasets reference to access external data. Names must be lowercase and
+	// follow index/alias naming rules.
+	PutDataSource esql_put_data_source.NewPutDataSource
+	// Create or replace an ES|QL dataset.
+	//
+	// Creates or replaces a dataset that references a data source. Dataset names
+	// participate in the index namespace and must follow index/alias naming rules.
+	// Returns `404` if the referenced data source does not exist.
+	PutDataset esql_put_dataset.NewPutDataset
 	// Create or update an ES|QL view.
 	PutView esql_put_view.NewPutView
 	// Run an ES|QL query.
@@ -4526,6 +4567,8 @@ type Inference struct {
 	// This API requires the manage_inference cluster privilege (the built-in
 	// `inference_admin` role grants this privilege).
 	Delete inference_delete.NewDelete
+	// Delete the inference region policy.
+	DeleteRegionPolicy inference_delete_region_policy.NewDeleteRegionPolicy
 	// Perform dense embedding inference on the service.
 	Embedding inference_embedding.NewEmbedding
 	// Get an inference endpoint.
@@ -4533,6 +4576,8 @@ type Inference struct {
 	// This API requires the `monitor_inference` cluster privilege (the built-in
 	// `inference_admin` and `inference_user` roles grant this privilege).
 	Get inference_get.NewGet
+	// Get the inference region policy.
+	GetRegionPolicy inference_get_region_policy.NewGetRegionPolicy
 	// Perform inference on the service.
 	//
 	// This API enables you to use machine learning models to perform specific tasks
@@ -4878,6 +4923,11 @@ type Inference struct {
 	// Create an inference endpoint to perform an inference task with the
 	// `openshift_ai` service.
 	PutOpenshiftAi inference_put_openshift_ai.NewPutOpenshiftAi
+	// Create or update the inference region policy.
+	//
+	// The region policy restricts inference to a set of allowed geographic areas or
+	// cloud service provider regions.
+	PutRegionPolicy inference_put_region_policy.NewPutRegionPolicy
 	// Create a VoyageAI inference endpoint.
 	//
 	// Create an inference endpoint to perform an inference task with the `voyageai`
@@ -7952,6 +8002,7 @@ type API struct {
 	Connector           Connector
 	Core                Core
 	DanglingIndices     DanglingIndices
+	Encryption          Encryption
 	Enrich              Enrich
 	Eql                 Eql
 	Esql                Esql
@@ -8121,12 +8172,6 @@ type API struct {
 	//
 	// NOTE: Data streams do not support custom routing unless they were created
 	// with the `allow_custom_routing` setting enabled in the template.
-	//
-	// # Wait for active shards
-	//
-	// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-	// require a minimum number of shard copies to be active before starting to
-	// process the bulk request.
 	//
 	// # Refresh
 	//
@@ -8705,7 +8750,8 @@ type API struct {
 	//
 	// NOTE: Replica shards might not all be started when an indexing operation
 	// returns successfully. By default, only the primary is required. Set
-	// `wait_for_active_shards` to change this default behavior.
+	// `wait_for_active_shards` to change this default behavior (this parameter is
+	// not available in Elasticsearch Serverless).
 	//
 	// # Automatically create data streams and indices
 	//
@@ -8778,7 +8824,8 @@ type API struct {
 	// proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 	// be overridden in the index settings dynamically by setting
 	// `index.write.wait_for_active_shards`. To alter this behavior per operation,
-	// use the `wait_for_active_shards request` parameter.
+	// use the `wait_for_active_shards request` parameter (this parameter is not
+	// available in Elasticsearch Serverless).
 	//
 	// Valid values are all or any positive integer up to the total number of
 	// configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -9456,19 +9503,6 @@ type API struct {
 	// you can use to cancel or get the status of the task. Elasticsearch creates a
 	// record of this task as a document at `.tasks/task/${taskId}`.
 	//
-	// # Waiting for active shards
-	//
-	// `wait_for_active_shards` controls how many copies of a shard must be active
-	// before proceeding with the request. See
-	// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-	// for details. `timeout` controls how long each write request waits for
-	// unavailable shards to become available. Both work exactly the way they work
-	// in the [Bulk
-	// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-	// Update by query uses scrolled searches, so you can also specify the `scroll`
-	// parameter to control how long it keeps the search context alive, for example
-	// `?scroll=10m`. The default is 5 minutes.
-	//
 	// # Throttling update requests
 	//
 	// To control the rate at which update by query issues batches of update
@@ -9726,6 +9760,10 @@ func New(tp elastictransport.Interface) *API {
 			ListDanglingIndices: dangling_indices_list_dangling_indices.NewListDanglingIndicesFunc(tp),
 		},
 
+		Encryption: Encryption{
+			Reset: encryption_reset.NewResetFunc(tp),
+		},
+
 		Enrich: Enrich{
 			DeletePolicy:  enrich_delete_policy.NewDeletePolicyFunc(tp),
 			ExecutePolicy: enrich_execute_policy.NewExecutePolicyFunc(tp),
@@ -9746,10 +9784,16 @@ func New(tp elastictransport.Interface) *API {
 			AsyncQueryDelete: esql_async_query_delete.NewAsyncQueryDeleteFunc(tp),
 			AsyncQueryGet:    esql_async_query_get.NewAsyncQueryGetFunc(tp),
 			AsyncQueryStop:   esql_async_query_stop.NewAsyncQueryStopFunc(tp),
+			DeleteDataSource: esql_delete_data_source.NewDeleteDataSourceFunc(tp),
+			DeleteDataset:    esql_delete_dataset.NewDeleteDatasetFunc(tp),
 			DeleteView:       esql_delete_view.NewDeleteViewFunc(tp),
+			GetDataSource:    esql_get_data_source.NewGetDataSourceFunc(tp),
+			GetDataset:       esql_get_dataset.NewGetDatasetFunc(tp),
 			GetQuery:         esql_get_query.NewGetQueryFunc(tp),
 			GetView:          esql_get_view.NewGetViewFunc(tp),
 			ListQueries:      esql_list_queries.NewListQueriesFunc(tp),
+			PutDataSource:    esql_put_data_source.NewPutDataSourceFunc(tp),
+			PutDataset:       esql_put_dataset.NewPutDatasetFunc(tp),
 			PutView:          esql_put_view.NewPutViewFunc(tp),
 			Query:            esql_query.NewQueryFunc(tp),
 		},
@@ -9864,8 +9908,10 @@ func New(tp elastictransport.Interface) *API {
 			ChatCompletionUnified: inference_chat_completion_unified.NewChatCompletionUnifiedFunc(tp),
 			Completion:            inference_completion.NewCompletionFunc(tp),
 			Delete:                inference_delete.NewDeleteFunc(tp),
+			DeleteRegionPolicy:    inference_delete_region_policy.NewDeleteRegionPolicyFunc(tp),
 			Embedding:             inference_embedding.NewEmbeddingFunc(tp),
 			Get:                   inference_get.NewGetFunc(tp),
+			GetRegionPolicy:       inference_get_region_policy.NewGetRegionPolicyFunc(tp),
 			Inference:             inference_inference.NewInferenceFunc(tp),
 			Put:                   inference_put.NewPutFunc(tp),
 			PutAi21:               inference_put_ai21.NewPutAi21Func(tp),
@@ -9892,6 +9938,7 @@ func New(tp elastictransport.Interface) *API {
 			PutNvidia:             inference_put_nvidia.NewPutNvidiaFunc(tp),
 			PutOpenai:             inference_put_openai.NewPutOpenaiFunc(tp),
 			PutOpenshiftAi:        inference_put_openshift_ai.NewPutOpenshiftAiFunc(tp),
+			PutRegionPolicy:       inference_put_region_policy.NewPutRegionPolicyFunc(tp),
 			PutVoyageai:           inference_put_voyageai.NewPutVoyageaiFunc(tp),
 			PutWatsonx:            inference_put_watsonx.NewPutWatsonxFunc(tp),
 			Rerank:                inference_rerank.NewRerankFunc(tp),
@@ -10355,6 +10402,10 @@ type MethodDanglingIndices struct {
 	tp elastictransport.Interface
 }
 
+type MethodEncryption struct {
+	tp elastictransport.Interface
+}
+
 type MethodEnrich struct {
 	tp elastictransport.Interface
 }
@@ -10509,6 +10560,7 @@ type MethodAPI struct {
 	Connector           MethodConnector
 	Core                MethodCore
 	DanglingIndices     MethodDanglingIndices
+	Encryption          MethodEncryption
 	Enrich              MethodEnrich
 	Eql                 MethodEql
 	Esql                MethodEsql
@@ -10679,12 +10731,6 @@ type MethodAPI struct {
 //
 // NOTE: Data streams do not support custom routing unless they were created
 // with the `allow_custom_routing` setting enabled in the template.
-//
-// # Wait for active shards
-//
-// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-// require a minimum number of shard copies to be active before starting to
-// process the bulk request.
 //
 // # Refresh
 //
@@ -11406,7 +11452,8 @@ func (p *MethodAPI) HealthReport() *core_health_report.HealthReport {
 //
 // NOTE: Replica shards might not all be started when an indexing operation
 // returns successfully. By default, only the primary is required. Set
-// `wait_for_active_shards` to change this default behavior.
+// `wait_for_active_shards` to change this default behavior (this parameter is
+// not available in Elasticsearch Serverless).
 //
 // # Automatically create data streams and indices
 //
@@ -11479,7 +11526,8 @@ func (p *MethodAPI) HealthReport() *core_health_report.HealthReport {
 // proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 // be overridden in the index settings dynamically by setting
 // `index.write.wait_for_active_shards`. To alter this behavior per operation,
-// use the `wait_for_active_shards request` parameter.
+// use the `wait_for_active_shards request` parameter (this parameter is not
+// available in Elasticsearch Serverless).
 //
 // Valid values are all or any positive integer up to the total number of
 // configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -12312,19 +12360,6 @@ func (p *MethodAPI) Update(index, id string) *core_update.Update {
 // [task](https://www.elastic.co/docs/api/doc/elasticsearch/group/endpoint-tasks)
 // you can use to cancel or get the status of the task. Elasticsearch creates a
 // record of this task as a document at `.tasks/task/${taskId}`.
-//
-// # Waiting for active shards
-//
-// `wait_for_active_shards` controls how many copies of a shard must be active
-// before proceeding with the request. See
-// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-// for details. `timeout` controls how long each write request waits for
-// unavailable shards to become available. Both work exactly the way they work
-// in the [Bulk
-// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-// Update by query uses scrolled searches, so you can also specify the `scroll`
-// parameter to control how long it keeps the search context alive, for example
-// `?scroll=10m`. The default is 5 minutes.
 //
 // # Throttling update requests
 //
@@ -13994,12 +14029,6 @@ func (p *MethodConnector) UpdateStatus(connectorid string) *connector_update_sta
 // NOTE: Data streams do not support custom routing unless they were created
 // with the `allow_custom_routing` setting enabled in the template.
 //
-// # Wait for active shards
-//
-// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-// require a minimum number of shard copies to be active before starting to
-// process the bulk request.
-//
 // # Refresh
 //
 // Control when the changes made by this request are visible to search.
@@ -14720,7 +14749,8 @@ func (p *MethodCore) HealthReport() *core_health_report.HealthReport {
 //
 // NOTE: Replica shards might not all be started when an indexing operation
 // returns successfully. By default, only the primary is required. Set
-// `wait_for_active_shards` to change this default behavior.
+// `wait_for_active_shards` to change this default behavior (this parameter is
+// not available in Elasticsearch Serverless).
 //
 // # Automatically create data streams and indices
 //
@@ -14793,7 +14823,8 @@ func (p *MethodCore) HealthReport() *core_health_report.HealthReport {
 // proceeding (that is to say `wait_for_active_shards` is `1`). This default can
 // be overridden in the index settings dynamically by setting
 // `index.write.wait_for_active_shards`. To alter this behavior per operation,
-// use the `wait_for_active_shards request` parameter.
+// use the `wait_for_active_shards request` parameter (this parameter is not
+// available in Elasticsearch Serverless).
 //
 // Valid values are all or any positive integer up to the total number of
 // configured copies per shard in the index (which is `number_of_replicas`+1).
@@ -15627,19 +15658,6 @@ func (p *MethodCore) Update(index, id string) *core_update.Update {
 // you can use to cancel or get the status of the task. Elasticsearch creates a
 // record of this task as a document at `.tasks/task/${taskId}`.
 //
-// # Waiting for active shards
-//
-// `wait_for_active_shards` controls how many copies of a shard must be active
-// before proceeding with the request. See
-// [`wait_for_active_shards`](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-create#operation-create-wait_for_active_shards)
-// for details. `timeout` controls how long each write request waits for
-// unavailable shards to become available. Both work exactly the way they work
-// in the [Bulk
-// API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-bulk).
-// Update by query uses scrolled searches, so you can also specify the `scroll`
-// parameter to control how long it keeps the search context alive, for example
-// `?scroll=10m`. The default is 5 minutes.
-//
 // # Throttling update requests
 //
 // To control the rate at which update by query issues batches of update
@@ -15768,6 +15786,27 @@ func (p *MethodDanglingIndices) ImportDanglingIndex(indexuuid string) *dangling_
 func (p *MethodDanglingIndices) ListDanglingIndices() *dangling_indices_list_dangling_indices.ListDanglingIndices {
 	_listdanglingindices := dangling_indices_list_dangling_indices.NewListDanglingIndicesFunc(p.tp)
 	return _listdanglingindices()
+}
+
+// Reset the project encryption key.
+//
+// Destroy the current project encryption key (PEK) and generate a new one. This
+// is the recovery path for when the on-disk encrypted PEK becomes permanently
+// inaccessible, for example because the key encryption material protecting it
+// was lost.
+//
+// All data that was encrypted under the destroyed key becomes permanently
+// unrecoverable. Each feature that stores encrypted data decides how to handle
+// its own data during the reset: some features drop the encrypted values
+// entirely, while others preserve the rest of the affected data and only clear
+// the values that can no longer be decrypted.
+//
+// Because this operation causes permanent data loss, it requires the
+// `accept_data_loss` query parameter to be set to `true`.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodEncryption) Reset() *encryption_reset.Reset {
+	_reset := encryption_reset.NewResetFunc(p.tp)
+	return _reset()
 }
 
 // Delete an enrich policy.
@@ -15925,6 +15964,23 @@ func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQuery
 	return _asyncquerystop(id)
 }
 
+// Delete one or more ES|QL data sources.
+//
+// Fails with `409` if any dataset references one of the named data sources;
+// delete the dependent datasets first.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodEsql) DeleteDataSource(name string) *esql_delete_data_source.DeleteDataSource {
+	_deletedatasource := esql_delete_data_source.NewDeleteDataSourceFunc(p.tp)
+	return _deletedatasource(name)
+}
+
+// Delete one or more ES|QL datasets.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodEsql) DeleteDataset(name string) *esql_delete_dataset.DeleteDataset {
+	_deletedataset := esql_delete_dataset.NewDeleteDatasetFunc(p.tp)
+	return _deletedataset(name)
+}
+
 // Delete an ES|QL view.
 //
 // Deletes a stored ES|QL view.
@@ -15932,6 +15988,26 @@ func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQuery
 func (p *MethodEsql) DeleteView(name string) *esql_delete_view.DeleteView {
 	_deleteview := esql_delete_view.NewDeleteViewFunc(p.tp)
 	return _deleteview(name)
+}
+
+// Get one or more ES|QL data sources.
+//
+// Returns the requested data sources. A concrete-name miss returns `404`; a
+// wildcard pattern or list-all with no match returns `200` with an empty array.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodEsql) GetDataSource() *esql_get_data_source.GetDataSource {
+	_getdatasource := esql_get_data_source.NewGetDataSourceFunc(p.tp)
+	return _getdatasource()
+}
+
+// Get one or more ES|QL datasets.
+//
+// Returns the requested datasets. A concrete-name miss returns `404`; a
+// wildcard pattern or list-all with no match returns `200` with an empty array.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+func (p *MethodEsql) GetDataset() *esql_get_dataset.GetDataset {
+	_getdataset := esql_get_dataset.NewGetDatasetFunc(p.tp)
+	return _getdataset()
 }
 
 // Get a specific running ES|QL query information.
@@ -15964,6 +16040,28 @@ func (p *MethodEsql) GetView() *esql_get_view.GetView {
 func (p *MethodEsql) ListQueries() *esql_list_queries.ListQueries {
 	_listqueries := esql_list_queries.NewListQueriesFunc(p.tp)
 	return _listqueries()
+}
+
+// Create or update an ES|QL data source.
+//
+// Creates or replaces a named, type-specific data source configuration that
+// datasets reference to access external data. Names must be lowercase and
+// follow index/alias naming rules.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodEsql) PutDataSource(name string) *esql_put_data_source.PutDataSource {
+	_putdatasource := esql_put_data_source.NewPutDataSourceFunc(p.tp)
+	return _putdatasource(name)
+}
+
+// Create or replace an ES|QL dataset.
+//
+// Creates or replaces a dataset that references a data source. Dataset names
+// participate in the index namespace and must follow index/alias naming rules.
+// Returns `404` if the referenced data source does not exist.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+func (p *MethodEsql) PutDataset(name string) *esql_put_dataset.PutDataset {
+	_putdataset := esql_put_dataset.NewPutDatasetFunc(p.tp)
+	return _putdataset(name)
 }
 
 // Create or update an ES|QL view.
@@ -17857,6 +17955,15 @@ func (p *MethodInference) Delete(inferenceid string) *inference_delete.Delete {
 	return _delete(inferenceid)
 }
 
+// Delete the inference region policy.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete-region-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-delete-region-policy
+func (p *MethodInference) DeleteRegionPolicy() *inference_delete_region_policy.DeleteRegionPolicy {
+	_deleteregionpolicy := inference_delete_region_policy.NewDeleteRegionPolicyFunc(p.tp)
+	return _deleteregionpolicy()
+}
+
 // Perform dense embedding inference on the service.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
 //
@@ -17876,6 +17983,15 @@ func (p *MethodInference) Embedding(inferenceid string) *inference_embedding.Emb
 func (p *MethodInference) Get() *inference_get.Get {
 	_get := inference_get.NewGetFunc(p.tp)
 	return _get()
+}
+
+// Get the inference region policy.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get-region-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-get-region-policy
+func (p *MethodInference) GetRegionPolicy() *inference_get_region_policy.GetRegionPolicy {
+	_getregionpolicy := inference_get_region_policy.NewGetRegionPolicyFunc(p.tp)
+	return _getregionpolicy()
 }
 
 // Perform inference on the service.
@@ -18406,6 +18522,18 @@ func (p *MethodInference) PutOpenai(tasktype, openaiinferenceid string) *inferen
 func (p *MethodInference) PutOpenshiftAi(tasktype, openshiftaiinferenceid string) *inference_put_openshift_ai.PutOpenshiftAi {
 	_putopenshiftai := inference_put_openshift_ai.NewPutOpenshiftAiFunc(p.tp)
 	return _putopenshiftai(tasktype, openshiftaiinferenceid)
+}
+
+// Create or update the inference region policy.
+//
+// The region policy restricts inference to a set of allowed geographic areas or
+// cloud service provider regions.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-region-policy
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-put-region-policy
+func (p *MethodInference) PutRegionPolicy() *inference_put_region_policy.PutRegionPolicy {
+	_putregionpolicy := inference_put_region_policy.NewPutRegionPolicyFunc(p.tp)
+	return _putregionpolicy()
 }
 
 // Create a VoyageAI inference endpoint.
@@ -23140,6 +23268,7 @@ func NewMethodAPI(tp elastictransport.Interface) *MethodAPI {
 		Connector:           MethodConnector{tp: tp},
 		Core:                MethodCore{tp: tp},
 		DanglingIndices:     MethodDanglingIndices{tp: tp},
+		Encryption:          MethodEncryption{tp: tp},
 		Enrich:              MethodEnrich{tp: tp},
 		Eql:                 MethodEql{tp: tp},
 		Esql:                MethodEsql{tp: tp},

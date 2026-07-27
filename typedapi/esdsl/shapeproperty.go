@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
@@ -71,9 +71,9 @@ func (s *_shapeProperty) CopyTo(fields ...string) *_shapeProperty {
 	return s
 }
 
-func (s *_shapeProperty) DocValues(docvalues bool) *_shapeProperty {
+func (s *_shapeProperty) DocValues(docvalues types.DocValuesVariant) *_shapeProperty {
 
-	s.v.DocValues = &docvalues
+	s.v.DocValues = *docvalues.DocValuesCaster()
 
 	return s
 }

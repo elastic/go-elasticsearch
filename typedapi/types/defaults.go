@@ -16,16 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/modelplatformvariant"
+)
+
 // Defaults type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/ml/info/types.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/info/types.ts#L24-L32
 type Defaults struct {
 	AnomalyDetectors AnomalyDetectors `json:"anomaly_detectors"`
 	Datafeeds        Datafeeds        `json:"datafeeds"`
+	// ModelPlatformVariant Returns `linux-x86_64` when all ML nodes are x86, or when no ML nodes exist
+	// but the cluster is in Elastic Cloud. Returns `platform_agnostic` otherwise.
+	ModelPlatformVariant modelplatformvariant.ModelPlatformVariant `json:"model_platform_variant"`
 }
 
 // NewDefaults returns a Defaults.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Reindex documents.
 //
@@ -519,7 +519,12 @@ func (r *Reindex) WaitForActiveShards(waitforactiveshards string) *Reindex {
 	return r
 }
 
-// WaitForCompletion If `true`, the request blocks until the operation is complete.
+// WaitForCompletion If `true`, the request blocks until the operation is complete. If your
+// requested reindex operation is complex or time-consuming, it might timeout
+// due to transport-layer limitations. While the reindex will continue to be
+// processed by the cluster, your client will not receive updates on status
+// automatically after timeout. Set this option `true` if you anticipate a
+// long-running reindex.
 // API name: wait_for_completion
 func (r *Reindex) WaitForCompletion(waitforcompletion bool) *Reindex {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
