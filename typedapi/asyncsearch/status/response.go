@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package status
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package status
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L42
 type Response struct {
 	// Clusters_ Metadata about clusters involved in the cross-cluster search. It is not shown
 	// for local-only searches.

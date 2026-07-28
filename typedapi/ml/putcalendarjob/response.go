@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package putcalendarjob
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package putcalendarjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ml/put_calendar_job/MlPutCalendarJobResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ml/put_calendar_job/MlPutCalendarJobResponse.ts#L22-L31
 type Response struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId string `json:"calendar_id"`

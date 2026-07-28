@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryRulesetListItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/query_rules/list_rulesets/types.ts#L23-L44
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/query_rules/list_rulesets/types.ts#L23-L44
 type QueryRulesetListItem struct {
 	// RuleCriteriaTypesCounts A map of criteria type (for example, `exact`) to the number of rules of that
 	// type.

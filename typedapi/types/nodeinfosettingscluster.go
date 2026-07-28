@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodeInfoSettingsCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/info/types.ts#L142-L152
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/nodes/info/types.ts#L142-L152
 type NodeInfoSettingsCluster struct {
 	DeprecationIndexing *DeprecationIndexing            `json:"deprecation_indexing,omitempty"`
 	Election            NodeInfoSettingsClusterElection `json:"election"`

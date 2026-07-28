@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package getcalendars
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getcalendars
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ml/get_calendars/MlGetCalendarsResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ml/get_calendars/MlGetCalendarsResponse.ts#L23-L25
 type Response struct {
 	Calendars []types.Calendar `json:"calendars"`
 	Count     int64            `json:"count"`

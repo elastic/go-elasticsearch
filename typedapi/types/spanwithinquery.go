@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanWithinQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/query_dsl/span.ts#L143-L157
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/query_dsl/span.ts#L143-L157
 type SpanWithinQuery struct {
 	// Big Can be any span query. Matching spans from `little` that are enclosed within
 	// `big` are returned.

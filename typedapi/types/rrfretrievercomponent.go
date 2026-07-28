@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Wraps a retriever with an optional weight for RRF scoring.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/Retriever.ts#L145-L156
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/Retriever.ts#L145-L156
 type RRFRetrieverComponent struct {
 	// Retriever The nested retriever configuration.
 	Retriever RetrieverContainer `json:"retriever"`

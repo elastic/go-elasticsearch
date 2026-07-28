@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
 // QueryRuleActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/query_rules/_types/QueryRuleset.ts#L109-L125
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/query_rules/_types/QueryRuleset.ts#L109-L125
 type QueryRuleActions struct {
 	// Docs The documents to apply the rule to. Only one of `ids` or `docs` may be
 	// specified and at least one must be specified. There is a maximum value of 100

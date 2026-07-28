@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 // Get multiple term vectors.
 //
@@ -410,13 +410,13 @@ func (r *Mtermvectors) Routing(routings ...string) *Mtermvectors {
 	return r
 }
 
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// RouteSlice_ The slice identifier used to route the operation to a specific slice. Use the
 // special value `_all` to target all slices without restricting to a routing
 // value. Required when `index.slice.enabled` is `true` for the target index;
 // not allowed when `index.slice.enabled` is `false`.
 // API name: _slice
-func (r *Mtermvectors) Slice_(slice_ string) *Mtermvectors {
-	r.values.Set("_slice", slice_)
+func (r *Mtermvectors) RouteSlice_(routeslice_ string) *Mtermvectors {
+	r.values.Set("_slice", routeslice_)
 
 	return r
 }

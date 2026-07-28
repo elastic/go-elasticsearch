@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package putgeoipdatabase
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package putgeoipdatabase
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ingest/put_geoip_database/PutGeoipDatabaseRequest.ts#L25-L69
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ingest/put_geoip_database/PutGeoipDatabaseRequest.ts#L25-L69
 type Request struct {
 	// Maxmind The configuration necessary to identify which IP geolocation provider to use
 	// to download the database, as well as any provider-specific configuration

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
 // DataframeEvaluationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ml/_types/DataframeEvaluation.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ml/_types/DataframeEvaluation.ts#L25-L33
 type DataframeEvaluationContainer struct {
 	// Classification Classification evaluation evaluates the results of a classification analysis
 	// which outputs a prediction that identifies to which of the classes each

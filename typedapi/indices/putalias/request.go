@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package putalias
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L107
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L107
 type Request struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *types.Query `json:"filter,omitempty"`

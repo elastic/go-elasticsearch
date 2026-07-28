@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package getdataset
 
@@ -26,8 +26,9 @@ import (
 
 // Response holds the response body struct for the package getdataset
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/esql/get_dataset/GetDatasetResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/esql/get_dataset/GetDatasetResponse.ts#L22-L27
 type Response struct {
+	// Datasets The matching datasets.
 	Datasets []types.ESQLDataset `json:"datasets"`
 }
 

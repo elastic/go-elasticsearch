@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package getrepositoriesmeteringinfo
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getrepositoriesmeteringinfo
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/nodes/get_repositories_metering_info/GetRepositoriesMeteringInfoResponse.ts#L36-L39
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/nodes/get_repositories_metering_info/GetRepositoriesMeteringInfoResponse.ts#L36-L39
 type Response struct {
 	// ClusterName Name of the cluster. Based on the `cluster.name` setting.
 	ClusterName string `json:"cluster_name"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -28,7 +28,7 @@ package types
 // A precision that can be expressed as a geohash length between 1 and 12, or a
 // distance measure like "1km", "10m".
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_types/Geo.ts#L86-L90
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/Geo.ts#L86-L90
 type GeoHashPrecision any
 
 type GeoHashPrecisionVariant interface {

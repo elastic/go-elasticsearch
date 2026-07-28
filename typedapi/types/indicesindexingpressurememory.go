@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndicesIndexingPressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/indices/_types/IndexSettings.ts#L627-L634
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/indices/_types/IndexSettings.ts#L627-L634
 type IndicesIndexingPressureMemory struct {
 	// Limit Number of outstanding bytes that may be consumed by indexing requests. When
 	// this limit is reached or exceeded, the node will reject new coordinating and

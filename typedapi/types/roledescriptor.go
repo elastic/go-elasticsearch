@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RoleDescriptor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/_types/RoleDescriptor.ts#L33-L83
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/_types/RoleDescriptor.ts#L33-L83
 type RoleDescriptor struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`

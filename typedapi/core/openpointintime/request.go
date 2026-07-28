@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package openpointintime
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package openpointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_global/open_point_in_time/OpenPointInTimeRequest.ts#L32-L153
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/open_point_in_time/OpenPointInTimeRequest.ts#L32-L153
 type Request struct {
 	// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`

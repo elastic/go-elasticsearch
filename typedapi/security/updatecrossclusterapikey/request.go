@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package updatecrossclusterapikey
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatecrossclusterapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L96
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/update_cross_cluster_api_key/UpdateCrossClusterApiKeyRequest.ts#L25-L96
 type Request struct {
 	// Access The access to be granted to this API key. The access is composed of
 	// permissions for cross cluster search and cross cluster replication. At least
