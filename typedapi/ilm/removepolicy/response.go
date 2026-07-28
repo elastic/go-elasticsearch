@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package removepolicy
 
 // Response holds the response body struct for the package removepolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ilm/remove_policy/RemovePolicyResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ilm/remove_policy/RemovePolicyResponse.ts#L22-L27
 type Response struct {
 	FailedIndexes []string `json:"failed_indexes"`
 	HasFailures   bool     `json:"has_failures"`

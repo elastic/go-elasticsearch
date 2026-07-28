@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // A named ES|QL query parameter supplied in its classified form. Exactly one of
 // `value`, `identifier`, or `pattern` must be set.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/esql/_types/types.ts#L41-L59
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/esql/_types/types.ts#L41-L59
 type ClassifiedNamedParameter struct {
 	// Identifier Interpret the parameter as an identifier, such as a field or function name.
 	Identifier *string `json:"identifier,omitempty"`

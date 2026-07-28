@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
-// Get one or more ES|QL datasets.
+// Get ES|QL datasets.
 //
-// Returns the requested datasets. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
+// Returns one or more datasets used in ES|QL data federation. A concrete-name
+// miss returns `404`; a wildcard pattern or list-all request with no match
+// returns `200` with an empty array.
 package getdataset
 
 import (
@@ -77,12 +78,15 @@ func NewGetDatasetFunc(tp elastictransport.Interface) NewGetDataset {
 	}
 }
 
-// Get one or more ES|QL datasets.
+// Get ES|QL datasets.
 //
-// Returns the requested datasets. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
+// Returns one or more datasets used in ES|QL data federation. A concrete-name
+// miss returns `404`; a wildcard pattern or list-all request with no match
+// returns `200` with an empty array.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-dataset
 func New(tp elastictransport.Interface) *GetDataset {
 	r := &GetDataset{
 		transport: tp,

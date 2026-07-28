@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package stoptrainedmodeldeployment
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package stoptrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/ml/stop_trained_model_deployment/MlStopTrainedModelDeploymentRequest.ts#L23-L84
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ml/stop_trained_model_deployment/MlStopTrainedModelDeploymentRequest.ts#L23-L84
 type Request struct {
 	// AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
 	// there are no deployments that match; contains the `_all` string or no

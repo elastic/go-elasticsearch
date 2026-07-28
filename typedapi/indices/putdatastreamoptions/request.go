@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package putdatastreamoptions
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putdatastreamoptions
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/indices/put_data_stream_options/IndicesPutDataStreamOptionsRequest.ts#L25-L83
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/indices/put_data_stream_options/IndicesPutDataStreamOptionsRequest.ts#L25-L83
 type Request struct {
 	// FailureStore If defined, it will update the failure store configuration of every data
 	// stream resolved by the name expression.

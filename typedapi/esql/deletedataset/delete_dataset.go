@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
-// Delete one or more ES|QL datasets.
+// Delete ES|QL datasets.
+//
+// Deletes one or more datasets used in ES|QL data federation. If any specified
+// dataset does not exist, the request fails and no datasets are deleted.
 package deletedataset
 
 import (
@@ -76,9 +79,14 @@ func NewDeleteDatasetFunc(tp elastictransport.Interface) NewDeleteDataset {
 	}
 }
 
-// Delete one or more ES|QL datasets.
+// Delete ES|QL datasets.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Deletes one or more datasets used in ES|QL data federation. If any specified
+// dataset does not exist, the request fails and no datasets are deleted.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-dataset
 func New(tp elastictransport.Interface) *DeleteDataset {
 	r := &DeleteDataset{
 		transport: tp,

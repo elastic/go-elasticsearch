@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -27,7 +27,7 @@ import (
 // A user-declared mapping (the `mappings` block) attached to a dataset. It is
 // entirely optional: a dataset with no declared mapping relies on inference.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/esql/_types/types.ts#L61-L80
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/esql/_types/types.ts#L61-L80
 type DatasetMapping struct {
 	// Dynamic The policy for columns that are not declared in `properties`. `true` (the
 	// default) infers undeclared columns and overlays the declarations; `false`
