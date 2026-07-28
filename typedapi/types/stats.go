@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L30-L118
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L30-L122
 type Stats struct {
 	// AdaptiveSelection Statistics about adaptive replica selection.
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`
@@ -69,6 +69,9 @@ type Stats struct {
 	Os *OperatingSystem `json:"os,omitempty"`
 	// Process Process statistics, memory consumption, cpu usage, open file descriptors.
 	Process *Process `json:"process,omitempty"`
+	// Repositories Statistics about snapshot activity for the node's registered repositories,
+	// keyed by repository name.
+	Repositories map[string]RepositorySnapshotStats `json:"repositories,omitempty"`
 	// Roles Roles assigned to the node.
 	Roles []noderole.NodeRole `json:"roles,omitempty"`
 	// Script Contains script statistics for the node.
@@ -200,6 +203,14 @@ func (s *Stats) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Process", err)
 			}
 
+		case "repositories":
+			if s.Repositories == nil {
+				s.Repositories = make(map[string]RepositorySnapshotStats, 0)
+			}
+			if err := dec.Decode(&s.Repositories); err != nil {
+				return fmt.Errorf("%s | %w", "Repositories", err)
+			}
+
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
 				return fmt.Errorf("%s | %w", "Roles", err)
@@ -278,6 +289,7 @@ func NewStats() *Stats {
 		AdaptiveSelection: make(map[string]AdaptiveSelection),
 		Attributes:        make(map[string]string),
 		Breakers:          make(map[string]Breaker),
+		Repositories:      make(map[string]RepositorySnapshotStats),
 		ScriptCache:       make(map[string][]ScriptCache),
 		ThreadPool:        make(map[string]ThreadCount),
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -45,9 +45,7 @@ func newReindexCancelFunc(t Transport) ReindexCancel {
 
 // ReindexCancel cancel a reindex operation
 //
-// This API is beta.
-//
-// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cancel-reindex.
 type ReindexCancel func(task_id string, o ...func(*ReindexCancelRequest)) (*Response, error)
 
 // ReindexCancelRequest configures the Reindex Cancel API request.

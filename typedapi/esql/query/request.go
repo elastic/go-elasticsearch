@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/esql/query/QueryRequest.ts#L28-L147
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/query/QueryRequest.ts#L28-L154
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,
@@ -73,6 +73,10 @@ type Request struct {
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
+	// Settings Per-query settings, the request-body equivalent of the in-query `SET`
+	// command. For example, `time_zone` can be supplied here instead of as a
+	// top-level field.
+	Settings *types.EsqlQuerySettings `json:"settings,omitempty"`
 	// Tables Tables to use with the LOOKUP operation. The top level key is the table name
 	// and the next level key is the column name.
 	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
@@ -209,6 +213,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Query = o
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return fmt.Errorf("%s | %w", "Settings", err)
+			}
 
 		case "tables":
 			if s.Tables == nil {

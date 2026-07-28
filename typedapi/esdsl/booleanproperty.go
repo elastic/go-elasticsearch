@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package esdsl
 
@@ -99,9 +99,9 @@ func (s *_booleanProperty) CopyTo(fields ...string) *_booleanProperty {
 	return s
 }
 
-func (s *_booleanProperty) DocValues(docvalues bool) *_booleanProperty {
+func (s *_booleanProperty) DocValues(docvalues types.DocValuesVariant) *_booleanProperty {
 
-	s.v.DocValues = &docvalues
+	s.v.DocValues = *docvalues.DocValuesCaster()
 
 	return s
 }

@@ -1,0 +1,39 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+
+package types
+
+// RerankQuery holds the union for the following types:
+//
+//	string
+//	RerankInputObject
+//
+// Query input for the `rerank` task. Either a string, or an object. The object
+// form additionally allows specifying non-text inputs, such as images.
+//
+// > info > Only the `elastic` service currently supports non-text queries for
+// the `rerank` task.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/rerank/RerankRequest.ts#L137-L145
+type RerankQuery any
+
+type RerankQueryVariant interface {
+	RerankQueryCaster() *RerankQuery
+}

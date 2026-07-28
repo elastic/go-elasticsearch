@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,20 +31,28 @@ import (
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L947-L981
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L1114-L1164
 type JvmMemoryStats struct {
+	// HeapCommitted Amount of memory available for use by the heap.
+	HeapCommitted ByteSize `json:"heap_committed,omitempty"`
 	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
 	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
 	// HeapMax Maximum amount of memory, available for use by the heap.
 	HeapMax ByteSize `json:"heap_max,omitempty"`
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	HeapMaxInBytes *int64 `json:"heap_max_in_bytes,omitempty"`
+	// HeapUsed Memory currently in use by the heap.
+	HeapUsed ByteSize `json:"heap_used,omitempty"`
 	// HeapUsedInBytes Memory, in bytes, currently in use by the heap.
 	HeapUsedInBytes *int64 `json:"heap_used_in_bytes,omitempty"`
 	// HeapUsedPercent Percentage of memory currently in use by the heap.
 	HeapUsedPercent *int64 `json:"heap_used_percent,omitempty"`
+	// NonHeapCommitted Amount of non-heap memory available.
+	NonHeapCommitted ByteSize `json:"non_heap_committed,omitempty"`
 	// NonHeapCommittedInBytes Amount of non-heap memory available, in bytes.
 	NonHeapCommittedInBytes *int64 `json:"non_heap_committed_in_bytes,omitempty"`
+	// NonHeapUsed Non-heap memory used.
+	NonHeapUsed ByteSize `json:"non_heap_used,omitempty"`
 	// NonHeapUsedInBytes Non-heap memory used, in bytes.
 	NonHeapUsedInBytes *int64 `json:"non_heap_used_in_bytes,omitempty"`
 	// Pools Contains statistics about heap memory usage for the node.
@@ -65,6 +73,11 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "heap_committed":
+			if err := dec.Decode(&s.HeapCommitted); err != nil {
+				return fmt.Errorf("%s | %w", "HeapCommitted", err)
+			}
 
 		case "heap_committed_in_bytes":
 			var tmp any
@@ -101,6 +114,11 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 				s.HeapMaxInBytes = &f
 			}
 
+		case "heap_used":
+			if err := dec.Decode(&s.HeapUsed); err != nil {
+				return fmt.Errorf("%s | %w", "HeapUsed", err)
+			}
+
 		case "heap_used_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -131,6 +149,11 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 				s.HeapUsedPercent = &f
 			}
 
+		case "non_heap_committed":
+			if err := dec.Decode(&s.NonHeapCommitted); err != nil {
+				return fmt.Errorf("%s | %w", "NonHeapCommitted", err)
+			}
+
 		case "non_heap_committed_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -144,6 +167,11 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.NonHeapCommittedInBytes = &f
+			}
+
+		case "non_heap_used":
+			if err := dec.Decode(&s.NonHeapUsed); err != nil {
+				return fmt.Errorf("%s | %w", "NonHeapUsed", err)
 			}
 
 		case "non_heap_used_in_bytes":

@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -50,6 +51,8 @@ type SecurityGetRole func(o ...func(*SecurityGetRoleRequest)) (*Response, error)
 // SecurityGetRoleRequest configures the Security Get Role API request.
 type SecurityGetRoleRequest struct {
 	Name []string
+
+	IncludeImplicit *bool
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r SecurityGetRoleRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.IncludeImplicit != nil {
+		params["include_implicit"] = strconv.FormatBool(*r.IncludeImplicit)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -180,6 +187,13 @@ func (f SecurityGetRole) WithContext(v context.Context) func(*SecurityGetRoleReq
 func (f SecurityGetRole) WithName(v ...string) func(*SecurityGetRoleRequest) {
 	return func(r *SecurityGetRoleRequest) {
 		r.Name = v
+	}
+}
+
+// WithIncludeImplicit - if true, include privileges that are implicitly granted by registered implicitprivilegesproviders alongside the explicitly configured privileges. these implicit privileges are computed for each role individually; for a user holding multiple roles, the privileges effectively granted at authorization time may therefore differ from the per-role view returned here..
+func (f SecurityGetRole) WithIncludeImplicit(v bool) func(*SecurityGetRoleRequest) {
+	return func(r *SecurityGetRoleRequest) {
+		r.IncludeImplicit = &v
 	}
 }
 

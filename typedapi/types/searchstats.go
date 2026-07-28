@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,15 +31,17 @@ import (
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/Stats.ts#L279-L299
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Stats.ts#L299-L321
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
+	FetchFailure        int64                  `json:"fetch_failure"`
 	FetchTime           Duration               `json:"fetch_time,omitempty"`
 	FetchTimeInMillis   int64                  `json:"fetch_time_in_millis"`
 	FetchTotal          int64                  `json:"fetch_total"`
 	Groups              map[string]SearchStats `json:"groups,omitempty"`
 	OpenContexts        *int64                 `json:"open_contexts,omitempty"`
 	QueryCurrent        int64                  `json:"query_current"`
+	QueryFailure        int64                  `json:"query_failure"`
 	QueryTime           Duration               `json:"query_time,omitempty"`
 	QueryTimeInMillis   int64                  `json:"query_time_in_millis"`
 	QueryTotal          int64                  `json:"query_total"`
@@ -82,6 +84,21 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.FetchCurrent = f
+			}
+
+		case "fetch_failure":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FetchFailure", err)
+				}
+				s.FetchFailure = value
+			case float64:
+				f := int64(v)
+				s.FetchFailure = f
 			}
 
 		case "fetch_time":
@@ -145,6 +162,21 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.QueryCurrent = f
+			}
+
+		case "query_failure":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "QueryFailure", err)
+				}
+				s.QueryFailure = value
+			case float64:
+				f := int64(v)
+				s.QueryFailure = f
 			}
 
 		case "query_time":

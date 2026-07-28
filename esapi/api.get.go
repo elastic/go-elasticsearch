@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.4.0: DO NOT EDIT
+// Code generated from specification version 9.5.0: DO NOT EDIT
 
 package esapi
 
@@ -58,6 +58,7 @@ type GetRequest struct {
 	Realtime             *bool
 	Refresh              *bool
 	Routing              []string
+	Slice                string
 	Source               []string
 	SourceExcludeVectors *bool
 	SourceExcludes       []string
@@ -132,6 +133,10 @@ func (r GetRequest) Do(providedCtx context.Context, transport Transport) (*Respo
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
+	}
+
+	if r.Slice != "" {
+		params["_slice"] = r.Slice
 	}
 
 	if len(r.Source) > 0 {
@@ -272,6 +277,13 @@ func (f Get) WithRefresh(v bool) func(*GetRequest) {
 func (f Get) WithRouting(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Routing = v
+	}
+}
+
+// WithSlice - slice routing value, used instead of routing when the index has index.slice.enabled set to true.
+func (f Get) WithSlice(v string) func(*GetRequest) {
+	return func(r *GetRequest) {
+		r.Slice = v
 	}
 }
 

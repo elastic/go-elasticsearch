@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,16 +31,16 @@ import (
 
 // PrefixQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/_types/query_dsl/term.ts#L98-L120
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/query_dsl/term.ts#L98-L120
 type PrefixQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query. Boost values are relative to the default value of 1.0. A boost
 	// value between 0 and 1.0 decreases the relevance score. A value greater than
 	// 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
-	// CaseInsensitive Allows ASCII case insensitive matching of the value with the indexed field
-	// values when set to `true`. Default is `false` which means the case
-	// sensitivity of matching depends on the underlying field’s mapping.
+	// CaseInsensitive Allows case insensitive matching of the value with the indexed field values
+	// when set to `true`. Default is `false` which means the case sensitivity of
+	// matching depends on the underlying field’s mapping.
 	CaseInsensitive *bool   `json:"case_insensitive,omitempty"`
 	QueryName_      *string `json:"_name,omitempty"`
 	// Rewrite Method used to rewrite the query.

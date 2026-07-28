@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,14 +31,20 @@ import (
 
 // TransportHistogram type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L1198-L1212
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L1458-L1481
 type TransportHistogram struct {
 	// Count The number of times a transport thread took a period of time within the
 	// bounds of this bucket to handle an inbound message.
 	Count *int64 `json:"count,omitempty"`
+	// Ge The inclusive lower bound of the bucket. May be omitted on the first bucket
+	// if this bucket has no lower bound.
+	Ge Duration `json:"ge,omitempty"`
 	// GeMillis The inclusive lower bound of the bucket in milliseconds. May be omitted on
 	// the first bucket if this bucket has no lower bound.
 	GeMillis *int64 `json:"ge_millis,omitempty"`
+	// Lt The exclusive upper bound of the bucket. May be omitted on the last bucket if
+	// this bucket has no upper bound.
+	Lt Duration `json:"lt,omitempty"`
 	// LtMillis The exclusive upper bound of the bucket in milliseconds. May be omitted on
 	// the last bucket if this bucket has no upper bound.
 	LtMillis *int64 `json:"lt_millis,omitempty"`
@@ -74,6 +80,11 @@ func (s *TransportHistogram) UnmarshalJSON(data []byte) error {
 				s.Count = &f
 			}
 
+		case "ge":
+			if err := dec.Decode(&s.Ge); err != nil {
+				return fmt.Errorf("%s | %w", "Ge", err)
+			}
+
 		case "ge_millis":
 			var tmp any
 			dec.Decode(&tmp)
@@ -87,6 +98,11 @@ func (s *TransportHistogram) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.GeMillis = &f
+			}
+
+		case "lt":
+			if err := dec.Decode(&s.Lt); err != nil {
+				return fmt.Errorf("%s | %w", "Lt", err)
 			}
 
 		case "lt_millis":

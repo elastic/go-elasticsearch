@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,14 +31,22 @@ import (
 
 // Pool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/nodes/_types/Stats.ts#L983-L1000
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/_types/Stats.ts#L1166-L1199
 type Pool struct {
+	// Max Maximum amount of memory available for use by the heap.
+	Max *string `json:"max,omitempty"`
 	// MaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	MaxInBytes *int64 `json:"max_in_bytes,omitempty"`
+	// PeakMax Largest amount of memory historically used by the heap.
+	PeakMax *string `json:"peak_max,omitempty"`
 	// PeakMaxInBytes Largest amount of memory, in bytes, historically used by the heap.
 	PeakMaxInBytes *int64 `json:"peak_max_in_bytes,omitempty"`
+	// PeakUsed Largest amount of memory historically used by the heap.
+	PeakUsed *string `json:"peak_used,omitempty"`
 	// PeakUsedInBytes Largest amount of memory, in bytes, historically used by the heap.
 	PeakUsedInBytes *int64 `json:"peak_used_in_bytes,omitempty"`
+	// Used Memory used by the heap.
+	Used *string `json:"used,omitempty"`
 	// UsedInBytes Memory, in bytes, used by the heap.
 	UsedInBytes *int64 `json:"used_in_bytes,omitempty"`
 }
@@ -58,6 +66,18 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "max":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Max", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Max = &o
+
 		case "max_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -72,6 +92,18 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.MaxInBytes = &f
 			}
+
+		case "peak_max":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "PeakMax", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.PeakMax = &o
 
 		case "peak_max_in_bytes":
 			var tmp any
@@ -88,6 +120,18 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 				s.PeakMaxInBytes = &f
 			}
 
+		case "peak_used":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "PeakUsed", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.PeakUsed = &o
+
 		case "peak_used_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -102,6 +146,18 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.PeakUsedInBytes = &f
 			}
+
+		case "used":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Used", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Used = &o
 
 		case "used_in_bytes":
 			var tmp any

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Bulk index or delete documents.
 //
@@ -150,12 +150,6 @@
 //
 // NOTE: Data streams do not support custom routing unless they were created
 // with the `allow_custom_routing` setting enabled in the template.
-//
-// # Wait for active shards
-//
-// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-// require a minimum number of shard copies to be active before starting to
-// process the bulk request.
 //
 // # Refresh
 //
@@ -364,12 +358,6 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 //
 // NOTE: Data streams do not support custom routing unless they were created
 // with the `allow_custom_routing` setting enabled in the template.
-//
-// # Wait for active shards
-//
-// When making bulk calls, you can set the `wait_for_active_shards` parameter to
-// require a minimum number of shard copies to be active before starting to
-// process the bulk request.
 //
 // # Refresh
 //
@@ -667,10 +655,23 @@ func (r *Bulk) Refresh(refresh refresh.Refresh) *Bulk {
 	return r
 }
 
-// Routing A custom value that is used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard. Not
+// allowed when `index.slice.enabled` is `true` for the target index; use
+// `_slice` instead.
 // API name: routing
 func (r *Bulk) Routing(routings ...string) *Bulk {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *Bulk) Slice_(slice_ string) *Bulk {
+	r.values.Set("_slice", slice_)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 // Validate a query.
 //
@@ -441,6 +441,26 @@ func (r *ValidateQuery) Rewrite(rewrite bool) *ValidateQuery {
 // API name: q
 func (r *ValidateQuery) Q(q string) *ValidateQuery {
 	r.values.Set("q", q)
+
+	return r
+}
+
+// Routing A custom value used to route operations to a specific shard. Not allowed when
+// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+// API name: routing
+func (r *ValidateQuery) Routing(routings ...string) *ValidateQuery {
+	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// special value `_all` to target all slices without restricting to a routing
+// value. Required when `index.slice.enabled` is `true` for the target index;
+// not allowed when `index.slice.enabled` is `false`.
+// API name: _slice
+func (r *ValidateQuery) Slice_(slice_ string) *ValidateQuery {
+	r.values.Set("_slice", slice_)
 
 	return r
 }

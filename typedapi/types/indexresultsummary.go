@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package types
 
@@ -31,15 +31,21 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/result"
 )
 
-// IndexResultSummary type.
+// A single item of an index action result. Successful items and failed items
+// expose different fields; only `id` and `index` are present in both. Failed
+// items appear when a bulk index action ends in `failure` or `partial_failure`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/watcher/_types/Actions.ts#L271-L277
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/watcher/_types/Actions.ts#L296-L316
 type IndexResultSummary struct {
-	Created bool          `json:"created"`
-	Id      string        `json:"id"`
-	Index   string        `json:"index"`
-	Result  result.Result `json:"result"`
-	Version int64         `json:"version"`
+	Created *bool `json:"created,omitempty"`
+	// Failed Only present for failed items
+	Failed *bool  `json:"failed,omitempty"`
+	Id     string `json:"id"`
+	Index  string `json:"index"`
+	// Message Only present for failed items
+	Message *string        `json:"message,omitempty"`
+	Result  *result.Result `json:"result,omitempty"`
+	Version *int64         `json:"version,omitempty"`
 }
 
 func (s *IndexResultSummary) UnmarshalJSON(data []byte) error {
@@ -66,9 +72,23 @@ func (s *IndexResultSummary) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Created", err)
 				}
-				s.Created = value
+				s.Created = &value
 			case bool:
-				s.Created = v
+				s.Created = &v
+			}
+
+		case "failed":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Failed", err)
+				}
+				s.Failed = &value
+			case bool:
+				s.Failed = &v
 			}
 
 		case "id":
@@ -80,6 +100,18 @@ func (s *IndexResultSummary) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
 			}
+
+		case "message":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Message", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Message = &o
 
 		case "result":
 			if err := dec.Decode(&s.Result); err != nil {

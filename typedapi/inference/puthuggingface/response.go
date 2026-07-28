@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/37285cbd3fd155f913b50d880b40ec45f9df64b3
+// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
 
 package puthuggingface
 
@@ -29,7 +29,7 @@ import (
 
 // Response holds the response body struct for the package puthuggingface
 //
-// https://github.com/elastic/elasticsearch-specification/blob/37285cbd3fd155f913b50d880b40ec45f9df64b3/specification/inference/put_hugging_face/PutHuggingFaceResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/put_hugging_face/PutHuggingFaceResponse.ts#L22-L25
 type Response struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `embedding`,
 	// `sparse_embedding` and `text_embedding` task types. Not applicable to the
