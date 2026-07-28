@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // The `affected_data_streams` and `retention_millis` fields are only present
 // when this global retention is defined.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/xpack/usage/types.ts#L206-L222
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/xpack/usage/types.ts#L206-L222
 type DataStreamLifecycleGlobalRetentionStats struct {
 	// AffectedDataStreams The number of data streams affected by this global retention.
 	AffectedDataStreams *int64 `json:"affected_data_streams,omitempty"`

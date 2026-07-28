@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // An object describing a single input for the `rerank` task, which additionally
 // allows specifying non-text inputs, such as images.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/inference/rerank/RerankRequest.ts#L168-L185
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/inference/rerank/RerankRequest.ts#L168-L185
 type RerankInputObject struct {
 	// Format The format of the input. For the `text` type this must be `text`. For the
 	// `image` type this must be `base64`. If not specified, this defaults to `text`

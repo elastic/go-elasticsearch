@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 // Get a document by its ID.
 //
@@ -491,13 +491,13 @@ func (r *Get) Routing(routings ...string) *Get {
 	return r
 }
 
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// RouteSlice The slice identifier used to route the operation to a specific slice. Use the
 // special value `_all` to target all slices without restricting to a routing
 // value. Required when `index.slice.enabled` is `true` for the target index;
 // not allowed when `index.slice.enabled` is `false`.
 // API name: _slice
-func (r *Get) Slice_(slice_ string) *Get {
-	r.values.Set("_slice", slice_)
+func (r *Get) RouteSlice(routeslice string) *Get {
+	r.values.Set("_slice", routeslice)
 
 	return r
 }

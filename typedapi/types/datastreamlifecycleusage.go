@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -33,7 +33,7 @@ import (
 // under `data_lifecycle`. Besides `available` and `enabled`, all the following
 // statistics are only present when the feature is enabled.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/xpack/usage/types.ts#L131-L161
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/xpack/usage/types.ts#L131-L161
 type DataStreamLifecycleUsage struct {
 	Available bool `json:"available"`
 	// Count The number of data streams that have a lifecycle configured.

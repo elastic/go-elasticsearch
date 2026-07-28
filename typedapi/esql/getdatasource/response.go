@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package getdatasource
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getdatasource
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/esql/get_data_source/GetDataSourceResponse.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/esql/get_data_source/GetDataSourceResponse.ts#L22-L30
 type Response struct {
 	// DataSources The matching data sources. Credential values in each data source's settings
 	// are redacted as `::es_redacted::` in the response.

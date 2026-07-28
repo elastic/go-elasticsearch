@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c
+// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ReindexDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8076b1c4ff3b8bd4eb5372bc75372577a21d1b0c/specification/_global/reindex/types.ts#L39-L75
+// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/reindex/types.ts#L39-L76
 type ReindexDestination struct {
 	// Index The name of the data stream, index, or index alias you are copying to.
 	Index string `json:"index"`
@@ -46,6 +46,12 @@ type ReindexDestination struct {
 	OpType *optype.OpType `json:"op_type,omitempty"`
 	// Pipeline The name of the pipeline to use.
 	Pipeline *string `json:"pipeline,omitempty"`
+	// RouteSlice The slice identifier used to route the reindexed documents to a specific
+	// slice of the destination index. Use the special value `_all` to target all
+	// slices without restricting to a routing value. Required when
+	// `index.slice.enabled` is `true` for the destination index; not allowed when
+	// `index.slice.enabled` is `false`.
+	RouteSlice *string `json:"_slice,omitempty"`
 	// Routing By default, a document's routing is preserved unless it's changed by the
 	// script. If it is `keep`, the routing on the bulk request sent for each match
 	// is set to the routing on the match. If it is `discard`, the routing on the
@@ -54,12 +60,6 @@ type ReindexDestination struct {
 	// after the equals sign (`=`). Not allowed when `index.slice.enabled` is `true`
 	// for the destination index; use `_slice` instead.
 	Routing *string `json:"routing,omitempty"`
-	// Slice_ The slice identifier used to route the reindexed documents to a specific
-	// slice of the destination index. Use the special value `_all` to target all
-	// slices without restricting to a routing value. Required when
-	// `index.slice.enabled` is `true` for the destination index; not allowed when
-	// `index.slice.enabled` is `false`.
-	Slice_ *string `json:"_slice,omitempty"`
 	// VersionType The versioning to use for the indexing operation.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
@@ -101,6 +101,18 @@ func (s *ReindexDestination) UnmarshalJSON(data []byte) error {
 			}
 			s.Pipeline = &o
 
+		case "_slice":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.RouteSlice = &o
+
 		case "routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -112,18 +124,6 @@ func (s *ReindexDestination) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Routing = &o
-
-		case "_slice":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Slice_", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Slice_ = &o
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {
