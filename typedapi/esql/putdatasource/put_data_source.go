@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 // Create or update an ES|QL data source.
 //
-// Creates or replaces a named, type-specific data source configuration that
-// datasets reference to access external data. Names must be lowercase and
-// follow index/alias naming rules.
+// Creates or replaces a named, type-specific data source configuration for
+// ES|QL data federation. Datasets reference data source configurations to
+// access external data. Names must be lowercase and follow index or alias
+// naming rules.
 package putdatasource
 
 import (
@@ -87,11 +88,14 @@ func NewPutDataSourceFunc(tp elastictransport.Interface) NewPutDataSource {
 
 // Create or update an ES|QL data source.
 //
-// Creates or replaces a named, type-specific data source configuration that
-// datasets reference to access external data. Names must be lowercase and
-// follow index/alias naming rules.
+// Creates or replaces a named, type-specific data source configuration for
+// ES|QL data federation. Datasets reference data source configurations to
+// access external data. Names must be lowercase and follow index or alias
+// naming rules.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-data-source
 func New(tp elastictransport.Interface) *PutDataSource {
 	r := &PutDataSource{
 		transport: tp,
@@ -392,8 +396,9 @@ func (r *PutDataSource) Description(description string) *PutDataSource {
 	return r
 }
 
-// Type-specific settings. The accepted keys depend on the data source type's
-// validator.
+// Type-specific connection and authentication settings. For `s3`, connection
+// settings include `region` and `endpoint`. Authentication settings include
+// `auth` and the credentials required by the selected authentication method.
 // API name: settings
 func (r *PutDataSource) Settings(settings map[string]json.RawMessage) *PutDataSource {
 	// Initialize the request if it is not already initialized
@@ -423,7 +428,8 @@ func (r *PutDataSource) AddSetting(key string, value json.RawMessage) *PutDataSo
 	return r
 }
 
-// The data source type. Must be lowercase and contain no whitespace.
+// The data source type. Currently, `s3` is supported. The value must be
+// lowercase and contain no whitespace.
 // API name: type
 func (r *PutDataSource) Type(type_ string) *PutDataSource {
 	// Initialize the request if it is not already initialized

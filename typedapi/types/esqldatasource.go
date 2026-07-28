@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package types
 
@@ -33,15 +33,15 @@ import (
 // holds connection settings (credentials, endpoints, auth) for an external data
 // provider.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/_types/types.ts#L132-L145
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/esql/_types/types.ts#L132-L145
 type ESQLDataSource struct {
 	// Description A free-text description.
 	Description *string `json:"description,omitempty"`
 	// Name The data source name.
 	Name string `json:"name"`
-	// Settings Type-specific settings.
+	// Settings Type-specific connection and authentication settings.
 	Settings map[string]json.RawMessage `json:"settings"`
-	// Type The data source type.
+	// Type The data source type. Currently, `s3` is supported.
 	Type string `json:"type"`
 }
 

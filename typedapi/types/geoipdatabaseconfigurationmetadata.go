@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoipDatabaseConfigurationMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ingest/get_geoip_database/GetGeoipDatabaseResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/ingest/get_geoip_database/GetGeoipDatabaseResponse.ts#L29-L34
 type GeoipDatabaseConfigurationMetadata struct {
 	Database           DatabaseConfiguration `json:"database"`
 	Id                 string                `json:"id"`

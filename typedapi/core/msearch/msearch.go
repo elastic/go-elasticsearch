@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 // Run multiple searches.
 //
@@ -496,7 +496,7 @@ func (r *Msearch) SearchType(searchtype searchtype.SearchType) *Msearch {
 	return r
 }
 
-// Slice_ The slice identifier for routing the search to a specific slice. When
+// RouteSlice_ The slice identifier for routing the search to a specific slice. When
 // provided at the top level, all sub-searches are routed to shards matching the
 // given slice value. Use the special value `_all` to query all slices without
 // restricting to a routing value. Required when `index.slice.enabled` is `true`
@@ -504,8 +504,8 @@ func (r *Msearch) SearchType(searchtype searchtype.SearchType) *Msearch {
 // Individual sub-search headers can also specify `_slice` to override the
 // top-level setting.
 // API name: _slice
-func (r *Msearch) Slice_(slice_ string) *Msearch {
-	r.values.Set("_slice", slice_)
+func (r *Msearch) RouteSlice_(routeslice_ string) *Msearch {
+	r.values.Set("_slice", routeslice_)
 
 	return r
 }

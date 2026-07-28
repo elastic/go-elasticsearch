@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
-// Get one or more ES|QL data sources.
+// Get ES|QL data sources.
 //
-// Returns the requested data sources. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
+// Returns one or more data sources used in ES|QL data federation. A
+// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+// no match returns `200` with an empty array.
 package getdatasource
 
 import (
@@ -77,12 +78,15 @@ func NewGetDataSourceFunc(tp elastictransport.Interface) NewGetDataSource {
 	}
 }
 
-// Get one or more ES|QL data sources.
+// Get ES|QL data sources.
 //
-// Returns the requested data sources. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
+// Returns one or more data sources used in ES|QL data federation. A
+// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+// no match returns `200` with an empty array.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-data-source
 func New(tp elastictransport.Interface) *GetDataSource {
 	r := &GetDataSource{
 		transport: tp,

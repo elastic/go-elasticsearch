@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DownsampleAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ilm/_types/Phase.ts#L115-L118
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/ilm/_types/Phase.ts#L115-L118
 type DownsampleAction struct {
 	FixedInterval string   `json:"fixed_interval"`
 	WaitTimeout   Duration `json:"wait_timeout,omitempty"`

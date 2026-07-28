@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package putdatasource
 
@@ -27,14 +27,16 @@ import (
 
 // Request holds the request body struct for the package putdatasource
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/put_data_source/PutDataSourceRequest.ts#L26-L72
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/esql/put_data_source/PutDataSourceRequest.ts#L26-L79
 type Request struct {
 	// Description A free-text description of the data source.
 	Description *string `json:"description,omitempty"`
-	// Settings Type-specific settings. The accepted keys depend on the data source type's
-	// validator.
+	// Settings Type-specific connection and authentication settings. For `s3`, connection
+	// settings include `region` and `endpoint`. Authentication settings include
+	// `auth` and the credentials required by the selected authentication method.
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`
-	// Type The data source type. Must be lowercase and contain no whitespace.
+	// Type The data source type. Currently, `s3` is supported. The value must be
+	// lowercase and contain no whitespace.
 	Type string `json:"type"`
 }
 

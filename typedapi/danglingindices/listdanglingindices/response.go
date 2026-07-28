@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package listdanglingindices
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package listdanglingindices
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/dangling_indices/list_dangling_indices/ListDanglingIndicesResponse.ts#L23-L27
 type Response struct {
 	DanglingIndices []types.DanglingIndex `json:"dangling_indices"`
 }

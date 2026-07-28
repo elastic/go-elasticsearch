@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 // Validate a query.
 //
@@ -454,13 +454,13 @@ func (r *ValidateQuery) Routing(routings ...string) *ValidateQuery {
 	return r
 }
 
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// RouteSlice_ The slice identifier used to route the operation to a specific slice. Use the
 // special value `_all` to target all slices without restricting to a routing
 // value. Required when `index.slice.enabled` is `true` for the target index;
 // not allowed when `index.slice.enabled` is `false`.
 // API name: _slice
-func (r *ValidateQuery) Slice_(slice_ string) *ValidateQuery {
-	r.values.Set("_slice", slice_)
+func (r *ValidateQuery) RouteSlice_(routeslice_ string) *ValidateQuery {
+	r.values.Set("_slice", routeslice_)
 
 	return r
 }

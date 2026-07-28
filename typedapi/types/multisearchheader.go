@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // Contains parameters used to limit or change the subsequent search body
 // request.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/msearch/types.ts#L37-L77
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/_global/msearch/types.ts#L37-L78
 type MultisearchHeader struct {
 	// AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
 	// the request returns an error (1) if any wildcard expression (including `_all`
@@ -57,15 +57,15 @@ type MultisearchHeader struct {
 	Preference        *string  `json:"preference,omitempty"`
 	ProjectRouting    *string  `json:"project_routing,omitempty"`
 	RequestCache      *bool    `json:"request_cache,omitempty"`
+	// RouteSlice_ The slice identifier for routing the search to a specific slice. Use the
+	// special value `_all` to query all slices without restricting to a routing
+	// value. Required when `index.slice.enabled` is `true` for the target index;
+	// not allowed when `index.slice.enabled` is `false`.
+	RouteSlice_ *string `json:"_slice,omitempty"`
 	// Routing A custom value used to route operations to a specific shard. Not allowed when
 	// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	Routing    []string               `json:"routing,omitempty"`
 	SearchType *searchtype.SearchType `json:"search_type,omitempty"`
-	// Slice_ The slice identifier for routing the search to a specific slice. Use the
-	// special value `_all` to query all slices without restricting to a routing
-	// value. Required when `index.slice.enabled` is `true` for the target index;
-	// not allowed when `index.slice.enabled` is `false`.
-	Slice_ *string `json:"_slice,omitempty"`
 }
 
 func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
@@ -216,6 +216,18 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 				s.RequestCache = &v
 			}
 
+		case "_slice":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice_", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.RouteSlice_ = &o
+
 		case "routing":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -236,18 +248,6 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.SearchType); err != nil {
 				return fmt.Errorf("%s | %w", "SearchType", err)
 			}
-
-		case "_slice":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Slice_", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Slice_ = &o
 
 		}
 	}

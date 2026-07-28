@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/7fd0bd13eaf28bd179fc906f57da09e852eb818e
 
 package types
 
 // Query flags can be either a single flag or a combination of flags, e.g.
 // `OR|AND|PREFIX`
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/query_dsl/fulltext.ts#L775-L779
+// https://github.com/elastic/elasticsearch-specification/blob/7fd0bd13eaf28bd179fc906f57da09e852eb818e/specification/_types/query_dsl/fulltext.ts#L775-L779
 type SimpleQueryStringFlags PipeSeparatedFlagsSimpleQueryStringFlag
 
 type SimpleQueryStringFlagsVariant interface {
