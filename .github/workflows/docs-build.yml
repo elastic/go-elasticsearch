@@ -8,6 +8,7 @@ on:
   merge_group: ~
 permissions:
   contents: read
+  packages: read
   pull-requests: read
 jobs:
   build:
