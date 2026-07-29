@@ -51,7 +51,7 @@ jobs:
 
           build_variant() {
             # $1=workdir, $2=variant, $3=output path
-            (cd "$1" && go build -trimpath -o "$3" "./internal/cmd/binsize/$2")
+            (cd "$1" && GOWORK=off go build -trimpath -o "$3" "./internal/cmd/binsize/$2")
           }
 
           file_size() { stat -c%s "$1"; }
