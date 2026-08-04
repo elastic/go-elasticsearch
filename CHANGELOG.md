@@ -1,5 +1,240 @@
 # Changelog
 
+## [9.4.3](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.4.3) (2026-08-04)
+
+
+### Features
+
+* **Typed API:** Update 9.4 client to spec aad9207 [#1533](https://github.com/elastic/go-elasticsearch/issues/1533) ([7732b79](https://github.com/elastic/go-elasticsearch/commit/7732b7986b1a20e70cbda1867b8afc14feadcdae))
+
+## [9.3.6](https://github.com/elastic/go-elasticsearch/compare/v9.3.5...v9.3.6) (2026-08-04)
+
+
+### Features
+
+* **esapi:** Update 9.3 client from spec 17b451d ([#1553](https://github.com/elastic/go-elasticsearch/issues/1553)) ([9b25ff4](https://github.com/elastic/go-elasticsearch/commit/9b25ff4d0dcd505f2ba334d1fa0b12ddc023c067))
+* **Typed API:** Update 9.3 client to spec 17fab0b ([#1531](https://github.com/elastic/go-elasticsearch/issues/1531)) ([02eb5fd](https://github.com/elastic/go-elasticsearch/commit/02eb5fd2c6375c60610ba06850a35fbed04bd625))
+
+## [8.19.7](https://github.com/elastic/go-elasticsearch/compare/v8.19.6...v8.19.7) (2026-07-20)
+
+
+### Features
+
+* **Typed API:** Update 8.19 client to spec c799312 ([#1530](https://github.com/elastic/go-elasticsearch/issues/1530)) ([8f2cb5e](https://github.com/elastic/go-elasticsearch/commit/8f2cb5eb3fcaee71d237872c5dbd1859e61c7e3a))
+
+## [9.4.2](https://github.com/elastic/go-elasticsearch/compare/v9.4.1...v9.4.2) (2026-06-22)
+
+
+### Bug Fixes
+
+* **esutil:** Omit empty routing query param in BulkIndexer ([#1515](https://github.com/elastic/go-elasticsearch/issues/1515)) ([3845bb1](https://github.com/elastic/go-elasticsearch/commit/3845bb1fe082d2276c8de94e911569b4bec1576f))
+
+## [9.3.5](https://github.com/elastic/go-elasticsearch/compare/v9.3.4...v9.3.5) (2026-06-22)
+
+
+### Bug Fixes
+
+* **esutil:** Omit empty routing query param in BulkIndexer ([#1514](https://github.com/elastic/go-elasticsearch/issues/1514)) ([f9640f0](https://github.com/elastic/go-elasticsearch/commit/f9640f0ea7e5f7a48dffd9df737c30de0941b2c9))
+
+## [9.4.1](https://github.com/elastic/go-elasticsearch/compare/v9.4.0...v9.4.1) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** (*elasticsearch.Client).ToTyped() is removed. Use elasticsearch.NewTypedFrom(c) instead.
+
+### Bug Fixes
+
+* **client:** Remove (*Client).ToTyped() to fix binary-size regression ([#1480](https://github.com/elastic/go-elasticsearch/issues/1480)) ([86e8f65](https://github.com/elastic/go-elasticsearch/commit/86e8f65c4394177be1e2db2096be625c152d4faa))
+
+## [9.3.4](https://github.com/elastic/go-elasticsearch/compare/v9.3.3...v9.3.4) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** (*elasticsearch.Client).ToTyped() is removed. Use elasticsearch.NewTypedFrom(c) instead.
+
+### Bug Fixes
+
+* **client:** Remove (*Client).ToTyped() to fix binary-size regression ([#1479](https://github.com/elastic/go-elasticsearch/issues/1479)) ([7d5b37e](https://github.com/elastic/go-elasticsearch/commit/7d5b37ea792bf1f31b50f8e54623933f2117221a))
+
+## [9.2.6](https://github.com/elastic/go-elasticsearch/compare/v9.2.5...v9.2.6) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** (*elasticsearch.Client).ToTyped() is removed. Use elasticsearch.NewTypedFrom(c) instead.
+
+### Bug Fixes
+
+* **client:** Remove (*Client).ToTyped() to fix binary-size regression ([#1478](https://github.com/elastic/go-elasticsearch/issues/1478)) ([e328483](https://github.com/elastic/go-elasticsearch/commit/e328483f0a8b3c297cde86b1069dabadedf38266))
+
+## [8.19.6](https://github.com/elastic/go-elasticsearch/compare/v8.19.5...v8.19.6) (2026-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** (*elasticsearch.Client).ToTyped() is removed. Use elasticsearch.NewTypedFrom(c) instead.
+
+### Bug Fixes
+
+* **client:** Remove (*Client).ToTyped() to fix binary-size regression ([#1477](https://github.com/elastic/go-elasticsearch/issues/1477)) ([078f8ec](https://github.com/elastic/go-elasticsearch/commit/078f8ec58ee588a6b059d0fb9cffe05e6cf26433))
+
+## [9.4.0](https://github.com/elastic/go-elasticsearch/compare/v9.3.3...v9.4.0) (2026-05-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esutil:** default Client to elasticsearch.NewBase in NewBulkIndexer
+* **esapi:** params previously typed *int on ~25 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1373](https://github.com/elastic/go-elasticsearch/issues/1373)) ([4a7dfdf](https://github.com/elastic/go-elasticsearch/commit/4a7dfdff074984dc8ee64e9b01c808ff60b5bc88))
+* **client:** Add (*Client).ToTyped() conversion method ([#1449](https://github.com/elastic/go-elasticsearch/issues/1449)) ([6d5f630](https://github.com/elastic/go-elasticsearch/commit/6d5f630c037a1cc48a0206737472146cc940576a))
+* Deprecate legacy Config-based constructors ([#1378](https://github.com/elastic/go-elasticsearch/issues/1378)) ([30dad2d](https://github.com/elastic/go-elasticsearch/commit/30dad2d4469c9b6eeee9789941046f9466f723d9))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1360](https://github.com/elastic/go-elasticsearch/issues/1360)) ([e61767b](https://github.com/elastic/go-elasticsearch/commit/e61767b69dbdfc4a340928c31a8cf96a8afd29c7))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1442](https://github.com/elastic/go-elasticsearch/issues/1442)) ([5e9828b](https://github.com/elastic/go-elasticsearch/commit/5e9828beb0c49294a46ff6a8dc35480656c5c901))
+* **esutil:** Default Client to elasticsearch.NewBase in NewBulkIndexer ([60905b7](https://github.com/elastic/go-elasticsearch/commit/60905b7c1d6349719cf44d489561b62342b5e134))
+* **Typed API:** Update 9.4 client to spec fcf537e ([#1455](https://github.com/elastic/go-elasticsearch/issues/1455)) ([4aa8c6e](https://github.com/elastic/go-elasticsearch/commit/4aa8c6edff8a4cd2edce4e8a9455dc91101e6938))
+* **Typed API:** Update client from spec 836fca8 ([27b32e4](https://github.com/elastic/go-elasticsearch/commit/27b32e40d9b1c3be12665db5d6431a62c58f80aa))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1402](https://github.com/elastic/go-elasticsearch/issues/1402)) ([84b4bf8](https://github.com/elastic/go-elasticsearch/commit/84b4bf81833352428f159fb899204784ee0e28ec))
+* **gen:** Map spec long to *int64 for esapi params ([#1394](https://github.com/elastic/go-elasticsearch/issues/1394)) ([34db2b1](https://github.com/elastic/go-elasticsearch/commit/34db2b1fe70b409a7419e29f50c35a1966528c0c))
+* **gen:** Support *int64 fields in gen-tests output ([#1420](https://github.com/elastic/go-elasticsearch/issues/1420)) ([b8e1973](https://github.com/elastic/go-elasticsearch/commit/b8e19736e529235c2a33cc97b97c791c5abb8304))
+
+## [9.3.3](https://github.com/elastic/go-elasticsearch/compare/v9.3.2...v9.3.3) (2026-04-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esapi:** params previously typed *int on ~20 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* **client:** Add (*Client).ToTyped() conversion method ([#1448](https://github.com/elastic/go-elasticsearch/issues/1448)) ([4d9a8c5](https://github.com/elastic/go-elasticsearch/commit/4d9a8c54168be58abb136557e0b705cec4aee198))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1441](https://github.com/elastic/go-elasticsearch/issues/1441)) ([2b601d1](https://github.com/elastic/go-elasticsearch/commit/2b601d1d8ca404022d340dd9f9063163783125c8))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1403](https://github.com/elastic/go-elasticsearch/issues/1403)) ([6a630a2](https://github.com/elastic/go-elasticsearch/commit/6a630a2d4e6161228f19cccc6f801fa5634596d7))
+* **gen:** Map spec long to *int64 for esapi params ([#1393](https://github.com/elastic/go-elasticsearch/issues/1393)) ([911ff9a](https://github.com/elastic/go-elasticsearch/commit/911ff9a42323484e8f54ecec2aa1d524af444d27))
+* **gen:** Support *int64 fields in gen-tests output ([#1419](https://github.com/elastic/go-elasticsearch/issues/1419)) ([2da1373](https://github.com/elastic/go-elasticsearch/commit/2da1373f1f1181526716850eed8438c0c45cc4e7))
+
+## [9.2.5](https://github.com/elastic/go-elasticsearch/compare/v9.2.4...v9.2.5) (2026-04-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esapi:** params previously typed *int on ~20 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* **client:** Add (*Client).ToTyped() conversion method ([#1447](https://github.com/elastic/go-elasticsearch/issues/1447)) ([78ce95c](https://github.com/elastic/go-elasticsearch/commit/78ce95cfe80611b3359131eabc2094fb54577ec3))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1440](https://github.com/elastic/go-elasticsearch/issues/1440)) ([9f768d2](https://github.com/elastic/go-elasticsearch/commit/9f768d2a89735b0577f7abe421f5c7de6885dfa9))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1421](https://github.com/elastic/go-elasticsearch/issues/1421)) ([e30cdb6](https://github.com/elastic/go-elasticsearch/commit/e30cdb6f2a67ee202eb323d96f12c8d6ce6fc23c))
+* **gen:** Map spec long to *int64 for esapi params ([#1392](https://github.com/elastic/go-elasticsearch/issues/1392)) ([ef6e458](https://github.com/elastic/go-elasticsearch/commit/ef6e458627eaa2347cec196d85f5c7f5020992c2))
+* **gen:** Normalize date URL part and param types to string ([#1415](https://github.com/elastic/go-elasticsearch/issues/1415)) ([a029ed0](https://github.com/elastic/go-elasticsearch/commit/a029ed077f658502f87b06aa0cd42a653b7ad5fb))
+* **gen:** Pass []string to DeleteIndexTemplate in test boilerplate ([#1423](https://github.com/elastic/go-elasticsearch/issues/1423)) ([af25eed](https://github.com/elastic/go-elasticsearch/commit/af25eeddc9bf7ac4a73d5ddd0a282e1e48e46573))
+* **gen:** Pass []string to DeletePrivileges in xpack test boilerplate ([#1424](https://github.com/elastic/go-elasticsearch/issues/1424)) ([d603097](https://github.com/elastic/go-elasticsearch/commit/d603097baed037dc16b828e82ac786cfb30e5c0b))
+* **gen:** Support *int64 fields in gen-tests output ([#1418](https://github.com/elastic/go-elasticsearch/issues/1418)) ([3a61210](https://github.com/elastic/go-elasticsearch/commit/3a612105122ffd79ad6a7e20801ea4b5935f984e))
+
+## [8.19.5](https://github.com/elastic/go-elasticsearch/compare/v8.19.4...v8.19.5) (2026-04-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **esapi:** params previously typed *int on ~20 esapi endpoints are now *int64 to match the spec long type. Call sites passing untyped integer literals keep compiling; call sites passing a typed int variable need an int64(...) cast.
+
+### Features
+
+* **client:** Add (*Client).ToTyped() conversion method ([#1450](https://github.com/elastic/go-elasticsearch/issues/1450)) ([5615aed](https://github.com/elastic/go-elasticsearch/commit/5615aed0f4d300552262af28932ba8c067b032e7))
+* **esutil:** Add FlushJitter option to BulkIndexer ([#1439](https://github.com/elastic/go-elasticsearch/issues/1439)) ([f0ad701](https://github.com/elastic/go-elasticsearch/commit/f0ad701d50fcc751d93283e5e8e9a6fb4826500c))
+
+
+### Bug Fixes
+
+* **esapi:** Regenerate esapi with *int64 for long-typed params ([#1414](https://github.com/elastic/go-elasticsearch/issues/1414)) ([13e5d5e](https://github.com/elastic/go-elasticsearch/commit/13e5d5e2688f61c21cfaf663c165f4f9d8301d50))
+* **gen:** Accept bool form for deprecated in URL parts and paths ([#1413](https://github.com/elastic/go-elasticsearch/issues/1413)) ([9874577](https://github.com/elastic/go-elasticsearch/commit/98745779b3636d84944d26ead07d7f81356d1961))
+* **gen:** Map spec long to *int64 for esapi params ([#1391](https://github.com/elastic/go-elasticsearch/issues/1391)) ([9a2424c](https://github.com/elastic/go-elasticsearch/commit/9a2424c77d0125cc4a915eacd5b6c293fcbe280c))
+* **gen:** Support *int64 fields in gen-tests output ([#1417](https://github.com/elastic/go-elasticsearch/issues/1417)) ([fa81ccf](https://github.com/elastic/go-elasticsearch/commit/fa81ccfdd75b0471dc2a4ac2e801d93203421f99))
+
+## [9.3.2](https://github.com/elastic/go-elasticsearch/compare/v9.3.1...v9.3.2) (2026-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Typed API:** update client from spec df81426
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1372](https://github.com/elastic/go-elasticsearch/issues/1372)) ([783c1ac](https://github.com/elastic/go-elasticsearch/commit/783c1acba726019d60579b985798f89ff2790ac5))
+* Add functional options pattern for client instantiation ([#1295](https://github.com/elastic/go-elasticsearch/issues/1295)) ([#1323](https://github.com/elastic/go-elasticsearch/issues/1323)) ([c0a69b1](https://github.com/elastic/go-elasticsearch/commit/c0a69b19d4e5e2eb2a9dc51c7df8d60356594939))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1363](https://github.com/elastic/go-elasticsearch/issues/1363)) ([892f0d6](https://github.com/elastic/go-elasticsearch/commit/892f0d652a25465a1ebf9f14683e51f48df0be15))
+* **Typed API:** Improved generated code comments ([f37f7d1](https://github.com/elastic/go-elasticsearch/commit/f37f7d17abbcce255e1124f3d3f82e885566c0b3))
+* **Typed API:** Update client from spec df81426 ([32ea244](https://github.com/elastic/go-elasticsearch/commit/32ea2446ee295a7f54137e82ff642db63637b20c))
+
+
+### Bug Fixes
+
+* **esapi:** Document Response.Body must be closed; fix leaks in examples ([#1313](https://github.com/elastic/go-elasticsearch/issues/1313)) ([3b3dd1e](https://github.com/elastic/go-elasticsearch/commit/3b3dd1e33bc8b91a0127c3b3abe986c6fcafb1f4))
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1340](https://github.com/elastic/go-elasticsearch/issues/1340)) ([a02272b](https://github.com/elastic/go-elasticsearch/commit/a02272b6210e326981df3bacb8327d8133582f1c))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1316](https://github.com/elastic/go-elasticsearch/issues/1316)) ([d28cd9d](https://github.com/elastic/go-elasticsearch/commit/d28cd9dc91703ac40818216897e734ad9ff83ba9))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1331](https://github.com/elastic/go-elasticsearch/issues/1331)) ([f37f7d1](https://github.com/elastic/go-elasticsearch/commit/f37f7d17abbcce255e1124f3d3f82e885566c0b3))
+
+## [9.2.4](https://github.com/elastic/go-elasticsearch/compare/v9.2.3...v9.2.4) (2026-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Typed API:** update client from spec 49022a2
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1371](https://github.com/elastic/go-elasticsearch/issues/1371)) ([3ece805](https://github.com/elastic/go-elasticsearch/commit/3ece8054d6363cf553edac29e3ef25cb5befd338))
+* Add functional options pattern for client instantiation ([#1295](https://github.com/elastic/go-elasticsearch/issues/1295)) ([#1322](https://github.com/elastic/go-elasticsearch/issues/1322)) ([bf3b10b](https://github.com/elastic/go-elasticsearch/commit/bf3b10b1196774a09635a9d8e80e450e0195eeaa))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1362](https://github.com/elastic/go-elasticsearch/issues/1362)) ([b4d2d73](https://github.com/elastic/go-elasticsearch/commit/b4d2d73ac413bf6e720316ba18db62c3892f575c))
+* **Typed API:** Improved generated code comments ([f52219c](https://github.com/elastic/go-elasticsearch/commit/f52219ce281fa53d446375eaccf8b0259dd24000))
+* **Typed API:** Update client from spec 49022a2 ([f32334d](https://github.com/elastic/go-elasticsearch/commit/f32334d71b19e4210fd44a00acc08ec112f1e808))
+
+
+### Bug Fixes
+
+* **esapi:** Document Response.Body must be closed; fix leaks in examples ([#1312](https://github.com/elastic/go-elasticsearch/issues/1312)) ([c680847](https://github.com/elastic/go-elasticsearch/commit/c68084784dc524b58e1846fd74864060646ab20a))
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1339](https://github.com/elastic/go-elasticsearch/issues/1339)) ([0b34e21](https://github.com/elastic/go-elasticsearch/commit/0b34e213a1dc64d64a44b0d193e0617b59c24693))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1315](https://github.com/elastic/go-elasticsearch/issues/1315)) ([cf70e22](https://github.com/elastic/go-elasticsearch/commit/cf70e22390783d646287498a1d8a7222180275b0))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1330](https://github.com/elastic/go-elasticsearch/issues/1330)) ([f52219c](https://github.com/elastic/go-elasticsearch/commit/f52219ce281fa53d446375eaccf8b0259dd24000))
+
+## [8.19.4](https://github.com/elastic/go-elasticsearch/compare/v8.19.3...v8.19.4) (2026-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Typed API:** update client from spec 6ee016a
+
+### Features
+
+* Add AutoDrainBody option for automatic response body draining ([#1370](https://github.com/elastic/go-elasticsearch/issues/1370)) ([c9a2b0b](https://github.com/elastic/go-elasticsearch/commit/c9a2b0b0e7ed10f44e0b2cf8374d7eea09851da3))
+* Add functional options pattern for client instantiation  ([#1321](https://github.com/elastic/go-elasticsearch/issues/1321)) ([7561adf](https://github.com/elastic/go-elasticsearch/commit/7561adf790844fcd452b0c8e59e71d411d6cd8c3))
+* **esutil:** Add Flush method to BulkIndexer for explicit flush-and-wait ([#1361](https://github.com/elastic/go-elasticsearch/issues/1361)) ([be8564d](https://github.com/elastic/go-elasticsearch/commit/be8564d3c7ada9b716eef73da43efb7659166a9e))
+* **Typed API:** Improved generated code comments ([fe06c54](https://github.com/elastic/go-elasticsearch/commit/fe06c5464042d04515370275894e3e8a1c99851b))
+* **Typed API:** Update client from spec 6ee016a ([74ed65d](https://github.com/elastic/go-elasticsearch/commit/74ed65da267c0efc909172df233edc88c853f089))
+
+
+### Bug Fixes
+
+* **esutil:** Deterministic context check in BulkIndexer.Close ([#1338](https://github.com/elastic/go-elasticsearch/issues/1338)) ([a00439e](https://github.com/elastic/go-elasticsearch/commit/a00439efa2561f1da7c431f170bcac400eda6bf9))
+* **esutil:** Propagate caller context through BulkIndexer item callbacks ([#1314](https://github.com/elastic/go-elasticsearch/issues/1314)) ([ca77d44](https://github.com/elastic/go-elasticsearch/commit/ca77d4484355780c7e65ee4aac3c7a86f20943b2))
+* **Typed API:** Context variable shadowing in TypedAPI Perform causing otel attributes to leak to parent span ([#1329](https://github.com/elastic/go-elasticsearch/issues/1329)) ([fe06c54](https://github.com/elastic/go-elasticsearch/commit/fe06c5464042d04515370275894e3e8a1c99851b))
+
 ## [9.3.1](https://github.com/elastic/go-elasticsearch/compare/v9.3.0...v9.3.1) (2026-02-11)
 
 
@@ -206,7 +441,7 @@
 
 * This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
 
-## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.3...v9.0.0) (2025-04-17)
+## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.7...v9.0.0) (2025-04-17)
 
 
 * The client now requires **Go 1.23** or later.
