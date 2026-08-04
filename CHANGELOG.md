@@ -1,5 +1,14 @@
 # Changelog
 
+## [9.5.0](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.5.0) (2026-08-04)
+
+
+### Features
+
+* Add RouteSlice capabilities ([5b7dd8a](https://github.com/elastic/go-elasticsearch/commit/5b7dd8a71a8bcf62566982709e39d46b0e27be44))
+* **esapi:** Update 9.5 client from spec 4a53326 ([#1541](https://github.com/elastic/go-elasticsearch/issues/1541)) ([bcdfdb7](https://github.com/elastic/go-elasticsearch/commit/bcdfdb7049d1197a15347114dde92e7d9a5827ef))
+* **Typed API:** Update 9.5 client to spec 37285cb ([#1532](https://github.com/elastic/go-elasticsearch/issues/1532)) ([1266ad2](https://github.com/elastic/go-elasticsearch/commit/1266ad245ebc1f0a00dbb248806f64b8ceb0bb3b))
+
 ## [9.4.3](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.4.3) (2026-08-04)
 
 
