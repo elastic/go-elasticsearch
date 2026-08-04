@@ -1,5 +1,20 @@
 # Changelog
 
+## [9.3.6](https://github.com/elastic/go-elasticsearch/compare/v9.3.5...v9.3.6) (2026-08-04)
+
+
+### Features
+
+* **esapi:** Update 9.3 client from spec 17b451d ([#1553](https://github.com/elastic/go-elasticsearch/issues/1553)) ([9b25ff4](https://github.com/elastic/go-elasticsearch/commit/9b25ff4d0dcd505f2ba334d1fa0b12ddc023c067))
+* **Typed API:** Update 9.3 client to spec 17fab0b ([#1531](https://github.com/elastic/go-elasticsearch/issues/1531)) ([02eb5fd](https://github.com/elastic/go-elasticsearch/commit/02eb5fd2c6375c60610ba06850a35fbed04bd625))
+
+## [8.19.7](https://github.com/elastic/go-elasticsearch/compare/v8.19.6...v8.19.7) (2026-07-20)
+
+
+### Features
+
+* **Typed API:** Update 8.19 client to spec c799312 ([#1530](https://github.com/elastic/go-elasticsearch/issues/1530)) ([8f2cb5e](https://github.com/elastic/go-elasticsearch/commit/8f2cb5eb3fcaee71d237872c5dbd1859e61c7e3a))
+
 ## [9.4.2](https://github.com/elastic/go-elasticsearch/compare/v9.4.1...v9.4.2) (2026-06-22)
 
 
@@ -419,7 +434,7 @@
 
 * This patch release fixes the broken build found in 8.18.0. If you are using the `TypedClient`, you should update to this version.
 
-## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.6...v9.0.0) (2025-04-17)
+## [9.0.0](https://github.com/elastic/go-elasticsearch/compare/v8.19.7...v9.0.0) (2025-04-17)
 
 
 * The client now requires **Go 1.23** or later.
