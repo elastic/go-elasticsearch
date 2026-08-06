@@ -53,8 +53,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
-var metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
-var called bool
+var (
+	metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
+	called                 bool
+)
 
 type mockTransp struct {
 	RoundTripFunc func(*http.Request) (*http.Response, error)
@@ -92,7 +94,6 @@ func TestClientConfiguration(t *testing.T) {
 
 	t.Run("With empty", func(t *testing.T) {
 		c, err := New()
-
 		if err != nil {
 			t.Errorf("Unexpected error: %s", err)
 		}
@@ -230,12 +231,99 @@ func TestClientConfiguration(t *testing.T) {
 			t.Errorf("Expected error, got: %+v", c)
 		}
 	})
+
+	t.Run("With URL userinfo auth does not mutate cfg credentials", func(t *testing.T) {
+		cfg := Config{
+			Addresses: []string{"https://urluser:urlpass@localhost:9200"},
+			Username:  "cfguser",
+			Password:  "cfgpass",
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					username, password, ok := req.BasicAuth()
+					if !ok {
+						t.Fatal("expected request basic auth")
+					}
+					if username != "urluser" || password != "urlpass" {
+						t.Fatalf("unexpected request basic auth, want=urluser/urlpass got=%s/%s", username, password)
+					}
+					return &http.Response{
+						StatusCode: 200,
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header: http.Header{
+							"X-Elastic-Product": []string{"Elasticsearch"},
+						},
+					}, nil
+				},
+			},
+		}
+		c, err := NewClient(cfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		if cfg.Username != "cfguser" {
+			t.Fatalf("expected cfg username to stay unchanged, got=%q", cfg.Username)
+		}
+		if cfg.Password != "cfgpass" {
+			t.Fatalf("expected cfg password to stay unchanged, got=%q", cfg.Password)
+		}
+
+		req, err := http.NewRequest(http.MethodGet, "http://localhost/", nil)
+		if err != nil {
+			t.Fatalf("Unexpected error creating request: %s", err)
+		}
+
+		_, err = c.Perform(req)
+		if err != nil {
+			t.Fatalf("Unexpected error performing request: %s", err)
+		}
+	})
+
+	t.Run("With cfg credentials when URL has no userinfo", func(t *testing.T) {
+		cfg := Config{
+			Addresses: []string{"https://localhost:9200"},
+			Username:  "cfguser",
+			Password:  "cfgpass",
+			Transport: &mockTransp{
+				RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+					username, password, ok := req.BasicAuth()
+					if !ok {
+						t.Fatal("expected request basic auth")
+					}
+					if username != "cfguser" || password != "cfgpass" {
+						t.Fatalf("unexpected request basic auth, want=cfguser/cfgpass got=%s/%s", username, password)
+					}
+					return &http.Response{
+						StatusCode: 200,
+						Body:       io.NopCloser(strings.NewReader(`{}`)),
+						Header: http.Header{
+							"X-Elastic-Product": []string{"Elasticsearch"},
+						},
+					}, nil
+				},
+			},
+		}
+
+		c, err := NewClient(cfg)
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+
+		req, err := http.NewRequest(http.MethodGet, "http://localhost/", nil)
+		if err != nil {
+			t.Fatalf("Unexpected error creating request: %s", err)
+		}
+
+		_, err = c.Perform(req)
+		if err != nil {
+			t.Fatalf("Unexpected error performing request: %s", err)
+		}
+	})
 }
 
 func TestClientInterface(t *testing.T) {
 	t.Run("Transport", func(t *testing.T) {
 		c, err := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
-
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
@@ -336,7 +424,7 @@ func TestAddrsToURLs(t *testing.T) {
 
 func TestCloudID(t *testing.T) {
 	t.Run("Parse", func(t *testing.T) {
-		var testdata = []struct {
+		testdata := []struct {
 			in  string
 			out string
 		}{
@@ -367,7 +455,6 @@ func TestCloudID(t *testing.T) {
 				t.Errorf("Unexpected output, want=%q, got=%q", tt.out, actual)
 			}
 		}
-
 	})
 
 	t.Run("Invalid format", func(t *testing.T) {
@@ -1602,7 +1689,6 @@ func TestClose(t *testing.T) {
 					t.Fatalf("unexpected error: %v", err)
 				}
 			})
-
 		})
 	}
 }
@@ -1681,7 +1767,8 @@ func TestIntercepts(t *testing.T) {
 		{
 			name: "interceptor array many interceptors",
 			args: args{interceptors: []elastictransport.InterceptorFunc{
-				dummyInterceptorFactory(1), dummyInterceptorFactory(2), dummyInterceptorFactory(3)}},
+				dummyInterceptorFactory(1), dummyInterceptorFactory(2), dummyInterceptorFactory(3),
+			}},
 			wantErr:          false,
 			validateResponse: validateReqRespH("1,2,3", "3,2,1"),
 		},
