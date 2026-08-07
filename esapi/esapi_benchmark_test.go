@@ -28,9 +28,8 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 )
-
-// TODO(karmi): Refactor into a shared mock/testing package
 
 var (
 	defaultResponse = &http.Response{
@@ -64,17 +63,9 @@ var (
 	}
 )
 
-type FakeTransport struct {
-	RoundTripFn func(*http.Request) (*http.Response, error)
-}
-
-func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	return t.RoundTripFn(req)
-}
-
 func newFakeClient(b *testing.B) *elasticsearch.Client {
 	es, err := elasticsearch.New(
-		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&FakeTransport{RoundTripFn: defaultRoundTripFn})),
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: defaultRoundTripFn})),
 	)
 
 	if err != nil {
@@ -86,7 +77,7 @@ func newFakeClient(b *testing.B) *elasticsearch.Client {
 
 func newFakeClientWithError(b *testing.B) *elasticsearch.Client {
 	es, err := elasticsearch.New(
-		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&FakeTransport{RoundTripFn: errorRoundTripFn})),
+		elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: errorRoundTripFn})),
 	)
 
 	if err != nil {

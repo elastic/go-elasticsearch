@@ -27,6 +27,8 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 )
 
 type Doc struct {
@@ -259,10 +261,6 @@ var testPayload = `{
   ]
 }`
 
-type mockTransp struct {
-	RoundTripFunc func(*http.Request) (*http.Response, error)
-}
-
 var successfullRoundTripFunc = func(*http.Request) (*http.Response, error) {
 	res := &http.Response{}
 	res.Header = http.Header{}
@@ -285,13 +283,6 @@ var customErrorRoundTripFunc = func(*http.Request) (*http.Response, error) {
 	return nil, fmt.Errorf("something really bad happened")
 }
 
-func (t mockTransp) Perform(request *http.Request) (*http.Response, error) {
-	if t.RoundTripFunc == nil {
-		return successfullRoundTripFunc(request)
-	}
-	return t.RoundTripFunc(request)
-}
-
 func TestHelper(t *testing.T) {
 	type args struct {
 		ctx       context.Context
@@ -309,7 +300,7 @@ func TestHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				esqlQuery: &Query{
-					transport: mockTransp{},
+					transport: &mocktransport.Transport{DefaultRoundTripFn: successfullRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),
@@ -351,7 +342,7 @@ func TestHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				esqlQuery: &Query{
-					transport: mockTransp{badPayloadRoundTripFunc},
+					transport: &mocktransport.Transport{RoundTripFn: badPayloadRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),
@@ -367,7 +358,7 @@ func TestHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				esqlQuery: &Query{
-					transport: mockTransp{customErrorRoundTripFunc},
+					transport: &mocktransport.Transport{RoundTripFn: customErrorRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),
@@ -411,7 +402,7 @@ func TestNewIteratorHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				query: &Query{
-					transport: mockTransp{},
+					transport: &mocktransport.Transport{DefaultRoundTripFn: successfullRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),
@@ -453,7 +444,7 @@ func TestNewIteratorHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				query: &Query{
-					transport: mockTransp{badPayloadRoundTripFunc},
+					transport: &mocktransport.Transport{RoundTripFn: badPayloadRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),
@@ -469,7 +460,7 @@ func TestNewIteratorHelper(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				query: &Query{
-					transport: mockTransp{customErrorRoundTripFunc},
+					transport: &mocktransport.Transport{RoundTripFn: customErrorRoundTripFunc},
 					values:    make(url.Values),
 					headers:   make(http.Header),
 					buf:       bytes.NewBuffer(nil),

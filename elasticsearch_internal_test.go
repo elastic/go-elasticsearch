@@ -50,15 +50,12 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/esapi"
+	"github.com/elastic/go-elasticsearch/v9/internal/test/mocktransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 var metaHeaderReValidation = regexp.MustCompile(`^[a-z]{1,}=[a-z0-9\.\-]{1,}(?:,[a-z]{1,}=[a-z0-9\.\-]+)*$`)
 var called bool
-
-type mockTransp struct {
-	RoundTripFunc func(*http.Request) (*http.Response, error)
-}
 
 var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
 	response := &http.Response{Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}}}
@@ -77,13 +74,6 @@ var defaultRoundTripFunc = func(req *http.Request) (*http.Response, error) {
 	}
 
 	return response, nil
-}
-
-func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	if t.RoundTripFunc == nil {
-		return defaultRoundTripFunc(req)
-	}
-	return t.RoundTripFunc(req)
 }
 
 //nolint:gocyclo
@@ -234,7 +224,7 @@ func TestClientConfiguration(t *testing.T) {
 
 func TestClientInterface(t *testing.T) {
 	t.Run("Transport", func(t *testing.T) {
-		c, err := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+		c, err := New(WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc})))
 
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
@@ -509,7 +499,7 @@ func TestResponseCheckOnly(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c, err := New(WithTransportOptions(
-				elastictransport.WithTransport(&mockTransp{RoundTripFunc: func(_ *http.Request) (*http.Response, error) {
+				elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: func(_ *http.Request) (*http.Response, error) {
 					return tt.response, tt.requestErr
 				}}),
 			))
@@ -690,8 +680,8 @@ func TestCompatibilityHeader(t *testing.T) {
 			t.Setenv(esCompatHeader, strconv.FormatBool(test.compatibilityHeader))
 
 			opts := []Option{
-				WithTransportOptions(elastictransport.WithTransport(&mockTransp{
-					RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+				WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{
+					RoundTripFn: func(req *http.Request) (*http.Response, error) {
 						if test.compatibilityHeader {
 							if !reflect.DeepEqual(req.Header["Accept"], test.expectsHeader) {
 								t.Errorf("Compatibility header enabled but header is, not in request headers, got: %s, want: %s", req.Header["Accept"], test.expectsHeader)
@@ -798,8 +788,8 @@ func TestMetaHeader(t *testing.T) {
 	t.Run("MetaHeader with elastictransport", func(t *testing.T) {
 		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(request *http.Request) (*http.Response, error) {
 					h := request.Header.Get(HeaderClientMeta)
 					if !metaHeaderReValidation.MatchString(h) {
 						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
@@ -833,8 +823,8 @@ func TestMetaHeader(t *testing.T) {
 	t.Run("Metaheader with typedclient", func(t *testing.T) {
 		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(request *http.Request) (*http.Response, error) {
 					h := request.Header.Get(HeaderClientMeta)
 					if !metaHeaderReValidation.MatchString(h) {
 						t.Errorf("expected client metaheader to validate regexp, got: %s", h)
@@ -869,8 +859,8 @@ func TestMetaHeader(t *testing.T) {
 func TestNewTypedClient(t *testing.T) {
 	tp, err := elastictransport.New(elastictransport.Config{
 		URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-		Transport: &mockTransp{
-			RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+		Transport: &mocktransport.Transport{
+			RoundTripFn: func(request *http.Request) (*http.Response, error) {
 				h := request.Header.Get(HeaderClientMeta)
 				if !metaHeaderReValidation.MatchString(h) {
 					t.Errorf("expected client metaheader to validate regexp, got: %s", h)
@@ -920,8 +910,8 @@ func toTypedMockTransport(t *testing.T, capture *http.Header) elastictransport.I
 	t.Helper()
 	tp, err := elastictransport.NewClient(
 		elastictransport.WithURLs(&url.URL{Scheme: "http", Host: "foo"}),
-		elastictransport.WithTransport(&mockTransp{
-			RoundTripFunc: func(req *http.Request) (*http.Response, error) {
+		elastictransport.WithTransport(&mocktransport.Transport{
+			RoundTripFn: func(req *http.Request) (*http.Response, error) {
 				if capture != nil {
 					*capture = req.Header.Clone()
 				}
@@ -1054,8 +1044,8 @@ func TestContentTypeOverride(t *testing.T) {
 
 		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(request *http.Request) (*http.Response, error) {
 					h := request.Header.Get("Content-Type")
 					if h != contentType {
 						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
@@ -1090,8 +1080,8 @@ func TestContentTypeOverride(t *testing.T) {
 
 		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(request *http.Request) (*http.Response, error) {
 					h := request.Header.Get("Content-Type")
 					if h != contentType {
 						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
@@ -1128,8 +1118,8 @@ func TestContentTypeOverride(t *testing.T) {
 
 		tp, err := elastictransport.New(elastictransport.Config{
 			URLs: []*url.URL{{Scheme: "http", Host: "foo"}},
-			Transport: &mockTransp{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+			Transport: &mocktransport.Transport{
+				RoundTripFn: func(request *http.Request) (*http.Response, error) {
 					h := request.Header.Get("Content-Type")
 					if h != contentType {
 						t.Fatalf("unexpected content-type, wanted %s, got: %s", contentType, h)
@@ -1388,7 +1378,7 @@ func TestInstrumentation(t *testing.T) {
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
 				es, err := NewTyped(
-					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: test.args.roundTripFunc})),
 					WithInstrumentation(instrument),
 				)
 				if err != nil {
@@ -1433,7 +1423,7 @@ func TestInstrumentation(t *testing.T) {
 				instrument.AfterRequestFunc = test.want.AfterRequestFunc
 
 				es, err := New(
-					WithTransportOptions(elastictransport.WithTransport(&mockTransp{RoundTripFunc: test.args.roundTripFunc})),
+					WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: test.args.roundTripFunc})),
 					WithInstrumentation(instrument),
 				)
 				if err != nil {
@@ -1482,15 +1472,15 @@ func TestClose(t *testing.T) {
 		c    func() closeable
 	}{
 		{name: "BaseClient", c: func() closeable {
-			c, _ := NewBase(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			c, _ := NewBase(WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc})))
 			return c
 		}},
 		{name: "Client", c: func() closeable {
-			c, _ := New(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			c, _ := New(WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc})))
 			return c
 		}},
 		{name: "TypedClient", c: func() closeable {
-			c, _ := NewTyped(WithTransportOptions(elastictransport.WithTransport(&mockTransp{})))
+			c, _ := NewTyped(WithTransportOptions(elastictransport.WithTransport(&mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc})))
 			return c
 		}},
 	}
@@ -1703,7 +1693,7 @@ func TestIntercepts(t *testing.T) {
 			t.Run("typed client", func(t *testing.T) {
 				es, _ := NewTyped(
 					WithTransportOptions(
-						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: successTp}),
 						elastictransport.WithInterceptors(tt.args.interceptors...),
 					),
 				)
@@ -1715,7 +1705,7 @@ func TestIntercepts(t *testing.T) {
 			t.Run("low-level client", func(t *testing.T) {
 				es, _ := New(
 					WithTransportOptions(
-						elastictransport.WithTransport(&mockTransp{RoundTripFunc: successTp}),
+						elastictransport.WithTransport(&mocktransport.Transport{RoundTripFn: successTp}),
 						elastictransport.WithInterceptors(tt.args.interceptors...),
 					),
 				)
@@ -1740,7 +1730,7 @@ func (m mockESTransport) Perform(req *http.Request) (*http.Response, error) {
 	if m.PerformFunc != nil {
 		return m.PerformFunc(req)
 	}
-	t := &mockTransp{}
+	t := &mocktransport.Transport{DefaultRoundTripFn: defaultRoundTripFunc}
 	return t.RoundTrip(req)
 }
 
