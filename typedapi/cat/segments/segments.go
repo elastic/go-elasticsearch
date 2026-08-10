@@ -330,7 +330,7 @@ func (r *Segments) H(catsegmentscolumns ...catsegmentscolumn.CatSegmentsColumn) 
 	for _, item := range catsegmentscolumns {
 		tmp = append(tmp, item.String())
 	}
-	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+	r.values.Set("h", strings.Join(tmp, ","))
 
 	return r
 }
