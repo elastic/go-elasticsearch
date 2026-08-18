@@ -168,6 +168,13 @@ func TestClient_DownloadRestResources(t *testing.T) {
 			wantErrMsg: "empty destination",
 		},
 		{
+			name:       "release index unavailable for stable version",
+			ref:        "8.15.0",
+			dest:       "/output",
+			wantErr:    true,
+			wantErrMsg: "cannot list releases",
+		},
+		{
 			name: "release not found",
 			ref:  "99.99.99",
 			dest: "/output",
