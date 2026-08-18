@@ -28,6 +28,21 @@ import (
 	"github.com/hashicorp/go-retryablehttp"
 )
 
+func TestManifestToBuildStartTime(t *testing.T) {
+	for _, tt := range []struct{ input, want string }{
+		{"2025-05-22T12:43:21+02:00", "2025-05-22T10:43:21Z"},
+		{"2025-05-22T12:43:21.123456789+02:00", "2025-05-22T10:43:21.123456789Z"},
+		{"invalid", "invalid"},
+	} {
+		t.Run(tt.input, func(t *testing.T) {
+			m := Manifest{StartTime: tt.input}
+			if got := m.ToBuild().StartTime; got != tt.want {
+				t.Fatalf("StartTime = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestClient_GetManifest(t *testing.T) {
 	type fields struct {
 		snapshotBaseURL            string

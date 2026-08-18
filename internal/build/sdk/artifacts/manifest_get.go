@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 )
 
 // GetManifestRequest represents the request parameters for the GetManifest API.
@@ -111,6 +112,9 @@ func (m *Manifest) ToBuild() Build {
 	var build Build
 
 	build.StartTime = m.StartTime
+	if startTime, err := time.Parse(time.RFC3339, m.StartTime); err == nil {
+		build.StartTime = startTime.UTC().Format(time.RFC3339Nano)
+	}
 	build.Version = m.Version
 	build.BuildID = m.BuildID
 	build.Projects.Elasticsearch.Branch = m.Projects.Elasticsearch.Branch
