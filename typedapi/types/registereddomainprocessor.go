@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RegisteredDomainProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ingest/_types/Processors.ts#L1408-L1424
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/ingest/_types/Processors.ts#L1408-L1424
 type RegisteredDomainProcessor struct {
 	// Description Description of the processor. Useful for describing the purpose of the
 	// processor or its configuration.

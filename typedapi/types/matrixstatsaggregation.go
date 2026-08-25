@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MatrixStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/aggregations/matrix.ts#L38-L44
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/matrix.ts#L38-L44
 type MatrixStatsAggregation struct {
 	// Fields An array of fields for computing the statistics.
 	Fields []string `json:"fields,omitempty"`

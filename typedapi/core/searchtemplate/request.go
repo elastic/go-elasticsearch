@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package searchtemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/search_template/SearchTemplateRequest.ts#L35-L179
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/search_template/SearchTemplateRequest.ts#L35-L179
 type Request struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit. If you specify both this and the `explain` query parameter, the API

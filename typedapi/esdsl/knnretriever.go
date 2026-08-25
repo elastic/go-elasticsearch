@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package esdsl
 
@@ -27,15 +27,13 @@ type _knnRetriever struct {
 }
 
 // A retriever that replaces the functionality of a knn search.
-func NewKnnRetriever(field string, k int, numcandidates int) *_knnRetriever {
+func NewKnnRetriever(field string, k int) *_knnRetriever {
 
 	tmp := &_knnRetriever{v: types.NewKnnRetriever()}
 
 	tmp.Field(field)
 
 	tmp.K(k)
-
-	tmp.NumCandidates(numcandidates)
 
 	return tmp
 
@@ -57,7 +55,7 @@ func (s *_knnRetriever) K(k int) *_knnRetriever {
 
 func (s *_knnRetriever) NumCandidates(numcandidates int) *_knnRetriever {
 
-	s.v.NumCandidates = numcandidates
+	s.v.NumCandidates = &numcandidates
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/cat/segments/types.ts#L22-L107
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/cat/segments/types.ts#L22-L107
 type SegmentsRecord struct {
 	// Committed If `true`, the segment is synced to disk. Segments that are synced can
 	// survive a hard reboot. If `false`, the data from uncommitted segments is also

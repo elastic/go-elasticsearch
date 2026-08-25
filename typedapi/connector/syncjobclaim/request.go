@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package syncjobclaim
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package syncjobclaim
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/connector/sync_job_claim/SyncJobClaimRequest.ts#L23-L64
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/connector/sync_job_claim/SyncJobClaimRequest.ts#L23-L64
 type Request struct {
 	// SyncCursor The cursor object from the last incremental sync job. This should reference
 	// the `sync_cursor` field in the connector state for which the job runs.

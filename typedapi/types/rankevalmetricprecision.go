@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Precision at K (P@k)
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/rank_eval/types.ts#L42-L52
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/rank_eval/types.ts#L42-L52
 type RankEvalMetricPrecision struct {
 	// IgnoreUnlabeled Controls how unlabeled documents in the search results are counted. If set to
 	// true, unlabeled documents are ignored and neither count as relevant or

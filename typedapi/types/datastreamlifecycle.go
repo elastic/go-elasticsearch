@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // Data stream lifecycle denotes that a data stream is managed by the data
 // stream lifecycle and contains the configuration.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/indices/_types/DataStreamLifecycle.ts#L26-L65
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/indices/_types/DataStreamLifecycle.ts#L26-L68
 type DataStreamLifecycle struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be
@@ -55,7 +55,9 @@ type DataStreamLifecycle struct {
 	// data stream. A data stream lifecycle that's disabled (enabled: `false`) will
 	// have no effect on the data stream.
 	Enabled *bool `json:"enabled,omitempty"`
-	// FrozenAfter Only available with feature flag dlm_searchable_snapshots.
+	// FrozenAfter The period after which data stream backing indices are automatically
+	// converted to partially mounted searchable snapshots. This field is valid only
+	// on main data stream lifecycles and cannot be set on failure-store lifecycles.
 	FrozenAfter Duration `json:"frozen_after,omitempty"`
 	// RetentionDeterminedBy Configuration source that can influence the retention of a data stream.
 	RetentionDeterminedBy *retentionsource.RetentionSource `json:"retention_determined_by,omitempty"`

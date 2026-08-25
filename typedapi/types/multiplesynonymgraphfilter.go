@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultipleSynonymGraphFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/cluster/stats/types.ts#L387-L398
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/cluster/stats/types.ts#L387-L398
 type MultipleSynonymGraphFilter struct {
 	// AnalyzerCount Number of analyzers across the cluster whose filter chain contains more than
 	// one synonym_graph filter.

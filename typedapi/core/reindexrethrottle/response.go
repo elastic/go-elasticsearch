@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package reindexrethrottle
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package reindexrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L54
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/reindex_rethrottle/ReindexRethrottleResponse.ts#L24-L54
 type Response struct {
 	// NodeFailures Node-level failures encountered while applying the rethrottle request. Will
 	// return a `failed_node_exception` wrapping a `no_such_node_exception`, if a

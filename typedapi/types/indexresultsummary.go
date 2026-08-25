@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -35,7 +35,7 @@ import (
 // expose different fields; only `id` and `index` are present in both. Failed
 // items appear when a bulk index action ends in `failure` or `partial_failure`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/watcher/_types/Actions.ts#L296-L316
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/watcher/_types/Actions.ts#L296-L316
 type IndexResultSummary struct {
 	Created *bool `json:"created,omitempty"`
 	// Failed Only present for failed items

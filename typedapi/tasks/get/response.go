@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package get
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/tasks/get/GetTaskResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/tasks/get/GetTaskResponse.ts#L24-L31
 type Response struct {
 	Completed bool              `json:"completed"`
 	Error     *types.ErrorCause `json:"error,omitempty"`

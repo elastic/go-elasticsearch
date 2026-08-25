@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SignificantTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/aggregations/bucket.ts#L925-L1000
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/bucket.ts#L925-L1000
 type SignificantTextAggregation struct {
 	// BackgroundFilter A background filter that can be used to focus in on significant terms within
 	// a narrower context, instead of the entire index.

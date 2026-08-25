@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package oidclogout
 
 // Response holds the response body struct for the package oidclogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/oidc_logout/Response.ts#L20-L27
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/security/oidc_logout/Response.ts#L20-L27
 type Response struct {
 	// Redirect A URI that points to the end session endpoint of the OpenID Connect Provider
 	// with all the parameters of the logout request as HTTP GET parameters.

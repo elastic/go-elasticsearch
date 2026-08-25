@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package updatedatafeed
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L52
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L52
 type Response struct {
 	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Authorization          *types.DatafeedAuthorization  `json:"authorization,omitempty"`

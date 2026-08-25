@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package putamazonbedrock
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putamazonbedrock
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/inference/put_amazonbedrock/PutAmazonBedrockRequest.ts#L31-L92
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/inference/put_amazonbedrock/PutAmazonBedrockRequest.ts#L31-L92
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
 	// type. Not applicable to the `chat_completion` and `completion` task types.
