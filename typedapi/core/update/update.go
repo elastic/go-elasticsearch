@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 // Update a document.
 //
@@ -451,13 +451,13 @@ func (r *Update) Routing(routings ...string) *Update {
 	return r
 }
 
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
+// RouteSlice The slice identifier used to route the operation to a specific slice. Use the
 // special value `_all` to target all slices without restricting to a routing
 // value. Required when `index.slice.enabled` is `true` for the target index;
 // not allowed when `index.slice.enabled` is `false`.
 // API name: _slice
-func (r *Update) Slice_(slice_ string) *Update {
-	r.values.Set("_slice", slice_)
+func (r *Update) RouteSlice(routeslice string) *Update {
+	r.values.Set("_slice", routeslice)
 
 	return r
 }

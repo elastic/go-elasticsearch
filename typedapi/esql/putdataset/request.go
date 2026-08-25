@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package putdataset
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdataset
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/put_dataset/PutDatasetRequest.ts#L27-L83
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/esql/put_dataset/PutDatasetRequest.ts#L27-L86
 type Request struct {
 	// DataSource The name of the referenced data source. The data source must already exist.
 	DataSource string `json:"data_source"`
@@ -42,13 +42,14 @@ type Request struct {
 	// Mappings User-declared mapping on the dataset definition
 	Mappings *types.DatasetMapping `json:"mappings,omitempty"`
 	// Resource The URI that identifies the data to read, resolved against the referenced
-	// data source, rather than only a path. For S3, it can include glob patterns,
-	// for example a recursive `/**` matching `*.parquet` files under a prefix such
-	// as `s3://bucket/logs`.
+	// data source. It can include glob patterns. For example, a recursive pattern
+	// can match all Parquet files under the `s3://logs-bucket/access` prefix.
 	Resource string `json:"resource"`
 	// Settings Format and parsing-specific settings that configure how the resource is read.
-	// The accepted keys depend on the format reader; compression can be inferred
-	// from the resource URI.
+	// Common keys include `format`, which explicitly selects a registered format,
+	// and `partition_detection`, which accepts `auto`, `hive`, `template`, or
+	// `none`. Additional keys depend on the format reader. Compression can be
+	// inferred from the resource URI.
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 
