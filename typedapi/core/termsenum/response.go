@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package termsenum
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/terms_enum/TermsEnumResponse.ts#L22-L32
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/terms_enum/TermsEnumResponse.ts#L22-L32
 type Response struct {
 	// Complete If `false`, the returned terms set may be incomplete and should be treated as
 	// approximate. This can occur due to a few reasons, such as a request timeout

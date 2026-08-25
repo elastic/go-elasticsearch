@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package putelasticsearch
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putelasticsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/inference/put_elasticsearch/PutElasticsearchRequest.ts#L31-L103
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/inference/put_elasticsearch/PutElasticsearchRequest.ts#L31-L103
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` and
 	// `text_embedding` task types. Not applicable to the `rerank` task type.

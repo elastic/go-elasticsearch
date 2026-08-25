@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package samlauthenticate
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package samlauthenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/saml_authenticate/Request.ts#L23-L63
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/security/saml_authenticate/Request.ts#L23-L63
 type Request struct {
 	// Content The SAML response as it was sent by the user's browser, usually a Base64
 	// encoded XML document.

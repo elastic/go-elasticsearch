@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package get
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/snapshot/get/SnapshotGetResponse.ts#L25-L47
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/snapshot/get/SnapshotGetResponse.ts#L25-L47
 type Response struct {
 	// Next If the request contained a size limit and there might be more results, a
 	// `next` field will be added to the response. It can be used as the `after`

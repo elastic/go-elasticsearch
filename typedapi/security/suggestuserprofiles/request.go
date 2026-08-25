@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package suggestuserprofiles
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package suggestuserprofiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/suggest_user_profiles/Request.ts#L25-L84
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/security/suggest_user_profiles/Request.ts#L25-L84
 type Request struct {
 	// Data A comma-separated list of filters for the `data` field of the profile
 	// document. To return all content use `data=*`. To return a subset of content,

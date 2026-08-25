@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package post
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package post
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/connector/post/ConnectorPostResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/connector/post/ConnectorPostResponse.ts#L23-L28
 type Response struct {
 	Id     string        `json:"id"`
 	Result result.Result `json:"result"`

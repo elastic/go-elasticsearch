@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package test
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package test
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/query_rules/test/QueryRulesetTestRequest.ts#L24-L60
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/query_rules/test/QueryRulesetTestRequest.ts#L24-L60
 type Request struct {
 	// MatchCriteria The match criteria to apply to rules in the given query ruleset. Match
 	// criteria should match the keys defined in the `criteria.metadata` field of

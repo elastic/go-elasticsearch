@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // DateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/aggregations/bucket.ts#L205-L263
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/bucket.ts#L205-L263
 type DateHistogramAggregation struct {
 	// CalendarInterval Calendar-aware interval. Can be specified using the unit name, such as
 	// `month`, or as a single unit quantity, such as `1M`.

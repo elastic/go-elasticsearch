@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package delete
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package delete
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_global/delete/DeleteResponse.ts#L22-L36
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/delete/DeleteResponse.ts#L22-L36
 type Response struct {
 	// FailureStore The role of the failure store in this document response
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`

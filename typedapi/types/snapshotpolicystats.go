@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SnapshotPolicyStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/slm/_types/SnapshotLifecycle.ts#L153-L159
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/slm/_types/SnapshotLifecycle.ts#L153-L159
 type SnapshotPolicyStats struct {
 	Policy                   string `json:"policy"`
 	SnapshotDeletionFailures int64  `json:"snapshot_deletion_failures"`

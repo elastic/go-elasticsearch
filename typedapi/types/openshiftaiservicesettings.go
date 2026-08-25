@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // OpenShiftAiServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/inference/_types/CommonTypes.ts#L2284-L2317
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/inference/_types/CommonTypes.ts#L2284-L2317
 type OpenShiftAiServiceSettings struct {
 	// ApiKey A valid API key for your OpenShift AI endpoint. Can be found in `Token
 	// authentication` section of model related information.

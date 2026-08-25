@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package updateapikey
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package updateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/security/update_api_key/Request.ts#L26-L93
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/security/update_api_key/Request.ts#L26-L93
 type Request struct {
 	// Expiration The expiration time for the API key. By default, API keys never expire. This
 	// property can be omitted to leave the expiration unchanged.

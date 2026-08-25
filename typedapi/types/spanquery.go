@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SpanQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/_types/query_dsl/span.ts#L159-L201
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/query_dsl/span.ts#L159-L201
 type SpanQuery struct {
 	AdditionalSpanQueryProperty map[string]json.RawMessage `json:"-"`
 	// SpanContaining Accepts a list of span queries, but only returns those spans which also match

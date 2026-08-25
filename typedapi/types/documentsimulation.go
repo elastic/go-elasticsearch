@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/7560c979602e6941815872bdaec801200bc7ec4e
+// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // The simulated document, with optional metadata.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/7560c979602e6941815872bdaec801200bc7ec4e/specification/ingest/_types/Simulation.ts#L85-L115
+// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/ingest/_types/Simulation.ts#L85-L115
 type DocumentSimulation struct {
 	DocumentSimulation map[string]string `json:"-"`
 	// Id_ Unique identifier for the document. This ID must be unique within the
