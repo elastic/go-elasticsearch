@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 // Update a transform.
 //
@@ -417,6 +417,22 @@ func (r *UpdateTransform) Dest(dest types.TransformDestinationVariant) *UpdateTr
 	}
 
 	r.req.Dest = dest.TransformDestinationCaster()
+
+	return r
+}
+
+// When true, force reminting of the transform's internal cloud API key from the
+// caller's cloud credential without requiring other configuration changes.
+// Requires a cloud-authenticated caller and an environment that supports
+// cross-project calls. Rejected with 400 otherwise.
+// API name: _force_rekeying
+func (r *UpdateTransform) ForceRekeying_(forcerekeying_ bool) *UpdateTransform {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ForceRekeying_ = &forcerekeying_
 
 	return r
 }

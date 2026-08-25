@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/mapping/core.ts#L272-L307
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/_types/mapping/core.ts#L272-L309
 type SemanticTextProperty struct {
 	// ChunkingSettings Settings for chunking text into smaller passages. If specified, these will
 	// override the chunking settings sent in the inference endpoint associated with
@@ -48,7 +48,11 @@ type SemanticTextProperty struct {
 	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
 	// This parameter cannot be updated. Use the Create inference API to create the
 	// endpoint. If `search_inference_id` is specified, the inference endpoint will
-	// only be used at index time.
+	// only be used at index time. If the `inference_id` is not specified, it will
+	// default to `.jina-embeddings-v5-text-small` if the cluster is authorized to
+	// use the Elastic Inference Service, otherwise it will default to
+	// `.elser-2-elasticsearch`. The `.elser-2-elasticsearch` inference endpoint
+	// relies on a local ML node to run the ELSER model.
 	InferenceId *string           `json:"inference_id,omitempty"`
 	Meta        map[string]string `json:"meta,omitempty"`
 	// SearchInferenceId Inference endpoint that will be used to generate embeddings at query time.

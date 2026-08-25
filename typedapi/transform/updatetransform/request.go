@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package updatetransform
 
@@ -33,12 +33,17 @@ import (
 
 // Request holds the request body struct for the package updatetransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L116
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L124
 type Request struct {
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`
 	// Dest The destination for the transform.
 	Dest *types.TransformDestination `json:"dest,omitempty"`
+	// ForceRekeying_ When true, force reminting of the transform's internal cloud API key from the
+	// caller's cloud credential without requiring other configuration changes.
+	// Requires a cloud-authenticated caller and an environment that supports
+	// cross-project calls. Rejected with 400 otherwise.
+	ForceRekeying_ *bool `json:"_force_rekeying,omitempty"`
 	// Frequency The interval between checks for changes in the source indices when the
 	// transform is running continuously. Also determines the retry interval in the
 	// event of transient failures while the transform is searching or indexing. The
@@ -105,6 +110,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "dest":
 			if err := dec.Decode(&s.Dest); err != nil {
 				return fmt.Errorf("%s | %w", "Dest", err)
+			}
+
+		case "_force_rekeying":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ForceRekeying_", err)
+				}
+				s.ForceRekeying_ = &value
+			case bool:
+				s.ForceRekeying_ = &v
 			}
 
 		case "frequency":

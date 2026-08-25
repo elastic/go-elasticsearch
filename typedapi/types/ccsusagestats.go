@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CCSUsageStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cluster/stats/types.ts#L865-L890
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/cluster/stats/types.ts#L865-L890
 type CCSUsageStats struct {
 	// Clients Statistics about the clients that executed cross-cluster search requests. The
 	// keys are the names of the clients, and the values are the number of requests

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package clearrepositoriesmeteringarchive
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package clearrepositoriesmeteringarchive
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/nodes/clear_repositories_metering_archive/ClearRepositoriesMeteringArchiveResponse.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/nodes/clear_repositories_metering_archive/ClearRepositoriesMeteringArchiveResponse.ts#L37-L40
 type Response struct {
 	// ClusterName Name of the cluster. Based on the `cluster.name` setting.
 	ClusterName string `json:"cluster_name"`

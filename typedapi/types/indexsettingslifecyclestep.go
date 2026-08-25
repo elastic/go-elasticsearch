@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexSettingsLifecycleStep type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/_types/IndexSettings.ts#L347-L353
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/indices/_types/IndexSettings.ts#L347-L353
 type IndexSettingsLifecycleStep struct {
 	// WaitTimeThreshold Time to wait for the cluster to resolve allocation issues during an ILM
 	// shrink action. Must be greater than 1h (1 hour). See Shard allocation for

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package createapikey
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L91
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L91
 type Request struct {
 	// Expiration The expiration time for the API key. By default, API keys never expire.
 	Expiration types.Duration `json:"expiration,omitempty"`

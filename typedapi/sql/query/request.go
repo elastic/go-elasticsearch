@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/sql/query/QuerySqlRequest.ts#L28-L167
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/sql/query/QuerySqlRequest.ts#L28-L167
 type Request struct {
 	// AllowPartialSearchResults If `true`, the response has partial results when there are shard request
 	// timeouts or shard failures. If `false`, the API returns an error with no

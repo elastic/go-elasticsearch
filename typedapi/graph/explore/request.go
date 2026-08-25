@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package explore
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package explore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/graph/explore/GraphExploreRequest.ts#L28-L87
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/graph/explore/GraphExploreRequest.ts#L28-L87
 type Request struct {
 	// Connections Specifies or more fields from which you want to extract terms that are
 	// associated with the specified vertices.

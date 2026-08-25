@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package cancelreindex
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package cancelreindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/cancel_reindex/CancelReindexResponse.ts#L31-L87
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/_global/cancel_reindex/CancelReindexResponse.ts#L31-L87
 type Response struct {
 	// Acknowledged Present and `true` when `wait_for_completion=false`.
 	Acknowledged *bool `json:"acknowledged,omitempty"`

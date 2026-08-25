@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package getbuiltinprivileges
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package getbuiltinprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L42
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L42
 type Response struct {
 	// Cluster The list of cluster privileges that are understood by this version of
 	// Elasticsearch.

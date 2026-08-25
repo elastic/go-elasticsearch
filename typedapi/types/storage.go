@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Storage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/_types/IndexSettings.ts#L580-L591
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/indices/_types/IndexSettings.ts#L580-L591
 type Storage struct {
 	// AllowMmap You can restrict the use of the mmapfs and the related hybridfs store type
 	// via the setting node.store.allow_mmap. This is a boolean setting indicating

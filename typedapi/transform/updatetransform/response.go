@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package updatetransform
 
@@ -26,12 +26,12 @@ import (
 
 // Response holds the response body struct for the package updatetransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/transform/update_transform/UpdateTransformResponse.ts#L33-L51
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/transform/update_transform/UpdateTransformResponse.ts#L34-L52
 type Response struct {
 	Authorization   *types.TransformAuthorization   `json:"authorization,omitempty"`
 	CreateTime      int64                           `json:"create_time"`
 	Description     string                          `json:"description"`
-	Dest            types.ReindexDestination        `json:"dest"`
+	Dest            types.TransformDestination      `json:"dest"`
 	Frequency       types.Duration                  `json:"frequency,omitempty"`
 	Id              string                          `json:"id"`
 	Latest          *types.Latest                   `json:"latest,omitempty"`
