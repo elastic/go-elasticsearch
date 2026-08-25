@@ -30,7 +30,9 @@ jobs:
           go-version-file: go.mod
 
       - name: Install apidiff
-        run: go install golang.org/x/exp/cmd/apidiff@latest
+        # Pinned to the last golang.org/x/exp commit whose go.mod allows the
+        # Go version in this repo's go.mod (newer commits require go >= 1.26).
+        run: go install golang.org/x/exp/cmd/apidiff@v0.0.0-20260820122028-d6e0b57b1a69
 
       - name: Run apidiff
         id: apidiff
