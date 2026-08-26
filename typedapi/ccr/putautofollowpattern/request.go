@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package putautofollowpattern
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putautofollowpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L33-L142
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L33-L142
 type Request struct {
 	// FollowIndexPattern The name of follower index. The template {{leader_index}} can be used to
 	// derive the name of the follower index from the name of the leader index. When

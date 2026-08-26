@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package deleterole
 
 // Response holds the response body struct for the package deleterole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/delete_role/SecurityDeleteRoleResponse.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/security/delete_role/SecurityDeleteRoleResponse.ts#L20-L28
 type Response struct {
 	// Found If the role is successfully deleted, `found` is `true`. Otherwise, `found` is
 	// `false`.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package putamazonsagemaker
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putamazonsagemaker
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/put_amazonsagemaker/PutAmazonSageMakerRequest.ts#L31-L90
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/inference/put_amazonsagemaker/PutAmazonSageMakerRequest.ts#L31-L90
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `sparse_embedding` or
 	// `text_embedding` task types. Not applicable to the `rerank`, `completion`, or

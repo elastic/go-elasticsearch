@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package postcalendarevents
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package postcalendarevents
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ml/post_calendar_events/MlPostCalendarEventsRequest.ts#L24-L51
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/ml/post_calendar_events/MlPostCalendarEventsRequest.ts#L24-L51
 type Request struct {
 	// Events A list of one of more scheduled events. The event’s start and end times can
 	// be specified as integer milliseconds since the epoch or as a string in ISO

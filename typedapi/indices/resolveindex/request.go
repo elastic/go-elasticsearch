@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package resolveindex
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package resolveindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/resolve_index/ResolveIndexRequest.ts#L29-L101
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/indices/resolve_index/ResolveIndexRequest.ts#L29-L101
 type Request struct {
 	// ProjectRouting Specifies a subset of projects to target using project metadata tags in a
 	// subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a

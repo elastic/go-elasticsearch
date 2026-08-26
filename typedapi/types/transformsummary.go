@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TransformSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/transform/get_transform/types.ts#L33-L62
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/transform/get_transform/types.ts#L33-L62
 type TransformSummary struct {
 	// Authorization The security privileges that the transform uses to run its queries. If
 	// Elastic Stack security features were disabled at the time of the most recent
@@ -43,11 +43,11 @@ type TransformSummary struct {
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`
 	// Dest The destination for the transform.
-	Dest      ReindexDestination `json:"dest"`
-	Frequency Duration           `json:"frequency,omitempty"`
-	Id        string             `json:"id"`
-	Latest    *Latest            `json:"latest,omitempty"`
-	Meta_     Metadata           `json:"_meta,omitempty"`
+	Dest      TransformDestination `json:"dest"`
+	Frequency Duration             `json:"frequency,omitempty"`
+	Id        string               `json:"id"`
+	Latest    *Latest              `json:"latest,omitempty"`
+	Meta_     Metadata             `json:"_meta,omitempty"`
 	// Pivot The pivot method transforms the data by aggregating and grouping it.
 	Pivot           *Pivot                    `json:"pivot,omitempty"`
 	RetentionPolicy *RetentionPolicyContainer `json:"retention_policy,omitempty"`

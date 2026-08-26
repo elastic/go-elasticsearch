@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Represents an inference endpoint as returned by the GET API
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/Services.ts#L76-L88
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/inference/_types/Services.ts#L76-L88
 type InferenceEndpointInfo struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `embedding`,
 	// `sparse_embedding` and `text_embedding` task types. Not applicable to the

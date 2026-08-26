@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package activatewatch
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package activatewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/watcher/activate_watch/WatcherActivateWatchResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/watcher/activate_watch/WatcherActivateWatchResponse.ts#L22-L24
 type Response struct {
 	Status types.ActivationStatus `json:"status"`
 }

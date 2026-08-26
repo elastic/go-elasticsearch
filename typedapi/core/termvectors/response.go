@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package termvectors
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_global/termvectors/TermVectorsResponse.ts#L25-L34
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/_global/termvectors/TermVectorsResponse.ts#L25-L34
 type Response struct {
 	Found       bool                        `json:"found"`
 	Id_         *string                     `json:"_id,omitempty"`

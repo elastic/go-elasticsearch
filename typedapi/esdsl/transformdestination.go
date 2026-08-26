@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package esdsl
 
@@ -30,6 +30,22 @@ func NewTransformDestination() *_transformDestination {
 
 	return &_transformDestination{v: types.NewTransformDestination()}
 
+}
+
+func (s *_transformDestination) Aliases(aliases ...types.DestinationAliasVariant) *_transformDestination {
+
+	for _, v := range aliases {
+
+		s.v.Aliases = append(s.v.Aliases, *v.DestinationAliasCaster())
+
+	}
+	return s
+}
+
+func (s *_transformDestination) AliasesValues(aliasesvalues []types.DestinationAlias) *_transformDestination {
+
+	s.v.Aliases = aliasesvalues
+	return s
 }
 
 func (s *_transformDestination) Index(indexname string) *_transformDestination {

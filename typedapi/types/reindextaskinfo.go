@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Information about a single reindex task, as returned by the reindex
 // management APIs.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/Reindex.ts#L153-L191
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/_types/Reindex.ts#L153-L191
 type ReindexTaskInfo struct {
 	// Cancelled Whether the reindex task has been cancelled.
 	Cancelled bool `json:"cancelled"`
