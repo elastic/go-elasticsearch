@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/esql/query/QueryRequest.ts#L28-L119
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/esql/query/QueryRequest.ts#L28-L119
 type Request struct {
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
 	// individual document as one row. For the JSON, YAML, CBOR and smile formats,

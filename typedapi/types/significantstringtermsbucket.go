@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SignificantStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/aggregations/Aggregate.ts#L759-L761
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_types/aggregations/Aggregate.ts#L759-L761
 type SignificantStringTermsBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	BgCount      int64                `json:"bg_count"`

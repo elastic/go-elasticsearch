@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package updatenative
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatenative
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/connector/update_native/ConnectorUpdateNativeRequest.ts#L22-L50
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/connector/update_native/ConnectorUpdateNativeRequest.ts#L22-L50
 type Request struct {
 	IsNative bool `json:"is_native"`
 }

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package deleteuser
 
 // Response holds the response body struct for the package deleteuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/delete_user/SecurityDeleteUserResponse.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/security/delete_user/SecurityDeleteUserResponse.ts#L20-L28
 type Response struct {
 	// Found If the user is successfully deleted, the request returns `{"found": true}`.
 	// Otherwise, `found` is set to `false`.

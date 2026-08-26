@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateIndexNameProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ingest/_types/Processors.ts#L736-L774
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ingest/_types/Processors.ts#L736-L774
 type DateIndexNameProcessor struct {
 	// DateFormats An array of the expected date formats for parsing dates / timestamps in the
 	// document being preprocessed. Can be a java time pattern or one of the

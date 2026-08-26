@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package count
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package count
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/count/CountResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_global/count/CountResponse.ts#L23-L25
 type Response struct {
 	Count   int64                 `json:"count"`
 	Shards_ types.ShardStatistics `json:"_shards"`

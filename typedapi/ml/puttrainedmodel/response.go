@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package puttrainedmodel
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
 type Response struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.

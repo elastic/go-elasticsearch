@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CommonGramsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/analysis/token_filters.ts#L219-L235
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_types/analysis/token_filters.ts#L219-L235
 type CommonGramsTokenFilter struct {
 	// CommonWords A list of tokens. The filter generates bigrams for these tokens. Either this
 	// or the `common_words_path` parameter is required.

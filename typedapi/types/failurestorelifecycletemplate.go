@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Template equivalent of FailureStoreLifecycle that allows nullable values.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/_types/DataStreamFailureStore.ts#L74-L90
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/indices/_types/DataStreamFailureStore.ts#L74-L90
 type FailureStoreLifecycleTemplate struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame. Any time after this duration the document could be

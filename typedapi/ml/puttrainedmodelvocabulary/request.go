@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package puttrainedmodelvocabulary
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodelvocabulary
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/put_trained_model_vocabulary/MlPutTrainedModelVocabularyRequest.ts#L24-L70
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ml/put_trained_model_vocabulary/MlPutTrainedModelVocabularyRequest.ts#L24-L70
 type Request struct {
 	// Merges The optional model merges if required by the tokenizer.
 	Merges []string `json:"merges,omitempty"`

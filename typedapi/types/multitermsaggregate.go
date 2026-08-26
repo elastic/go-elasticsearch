@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultiTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/aggregations/Aggregate.ts#L572-L577
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_types/aggregations/Aggregate.ts#L572-L577
 type MultiTermsAggregate struct {
 	Buckets                 BucketsMultiTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                  `json:"doc_count_error_upper_bound,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // DataframeEvaluationClassificationMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/_types/DataframeEvaluation.ts#L73-L78
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ml/_types/DataframeEvaluation.ts#L73-L78
 type DataframeEvaluationClassificationMetrics struct {
 	// Accuracy Accuracy of predictions (per-class and overall).
 	Accuracy map[string]json.RawMessage `json:"accuracy,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package oidcprepareauthentication
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package oidcprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/oidc_prepare_authentication/Request.ts#L23-L74
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/security/oidc_prepare_authentication/Request.ts#L23-L74
 type Request struct {
 	// Iss In the case of a third party initiated single sign on, this is the issuer
 	// identifier for the OP that the RP is to send the authentication request to.

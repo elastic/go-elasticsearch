@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package getrule
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package getrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/query_rules/get_rule/QueryRuleGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/query_rules/get_rule/QueryRuleGetResponse.ts#L22-L24
 type Response struct {
 	// Actions The actions to take when the rule is matched. The format of this action
 	// depends on the rule type.
