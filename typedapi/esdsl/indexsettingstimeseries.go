@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package esdsl
 
@@ -42,6 +42,13 @@ func (s *_indexSettingsTimeSeries) EndTime(datetime types.DateTimeVariant) *_ind
 func (s *_indexSettingsTimeSeries) StartTime(datetime types.DateTimeVariant) *_indexSettingsTimeSeries {
 
 	s.v.StartTime = *datetime.DateTimeCaster()
+
+	return s
+}
+
+func (s *_indexSettingsTimeSeries) TemporalityField(field string) *_indexSettingsTimeSeries {
+
+	s.v.TemporalityField = &field
 
 	return s
 }

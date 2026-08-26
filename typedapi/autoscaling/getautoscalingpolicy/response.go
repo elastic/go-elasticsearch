@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package getautoscalingpolicy
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getautoscalingpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/autoscaling/get_autoscaling_policy/GetAutoscalingPolicyResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/autoscaling/get_autoscaling_policy/GetAutoscalingPolicyResponse.ts#L22-L25
 type Response struct {
 	// Deciders Decider settings.
 	Deciders map[string]json.RawMessage `json:"deciders"`

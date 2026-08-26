@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package embedding
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package embedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/embedding/EmbeddingRequest.ts#L25-L57
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/inference/embedding/EmbeddingRequest.ts#L25-L57
 type Request = types.RequestEmbedding
 
 // NewRequest returns a Request

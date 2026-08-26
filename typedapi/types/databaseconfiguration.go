@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package types
 
@@ -36,7 +36,7 @@ import (
 // `ipinfo`) must be specified. The web and local providers can be returned as
 // read only configurations.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ingest/_types/Database.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/ingest/_types/Database.ts#L22-L37
 type DatabaseConfiguration struct {
 	Ipinfo  *Ipinfo  `json:"ipinfo,omitempty"`
 	Maxmind *Maxmind `json:"maxmind,omitempty"`

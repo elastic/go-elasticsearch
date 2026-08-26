@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package esdsl
 
@@ -24,6 +24,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexoptions"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/preserveleafarrays"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 )
 
@@ -82,6 +83,12 @@ func (s *_flattenedProperty) NullValue(nullvalue string) *_flattenedProperty {
 
 	s.v.NullValue = &nullvalue
 
+	return s
+}
+
+func (s *_flattenedProperty) PreserveLeafArrays(preserveleafarrays preserveleafarrays.PreserveLeafArrays) *_flattenedProperty {
+
+	s.v.PreserveLeafArrays = &preserveleafarrays
 	return s
 }
 

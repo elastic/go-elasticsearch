@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/964a36594f01c23463551aa7d09d17e514f361d1
 
 package types
 
@@ -33,7 +33,7 @@ package types
 // Since this is embedded in `IndicesPrivileges`, the same structure is used for
 // clarity in both contexts.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/_types/Privileges.ts#L315-L323
+// https://github.com/elastic/elasticsearch-specification/blob/964a36594f01c23463551aa7d09d17e514f361d1/specification/security/_types/Privileges.ts#L315-L323
 type IndicesPrivilegesQuery any
 
 type IndicesPrivilegesQueryVariant interface {
