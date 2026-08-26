@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package putnode
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putnode
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L112
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L112
 type Request struct {
 	// AllocationDelay Only valid if type is restart. Controls how long Elasticsearch will wait for
 	// the node to restart and join the cluster before reassigning its shards to

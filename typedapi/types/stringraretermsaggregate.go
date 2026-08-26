@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Result of the `rare_terms` aggregation when the field is a string.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/aggregations/Aggregate.ts#L554-L558
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_types/aggregations/Aggregate.ts#L554-L558
 type StringRareTermsAggregate struct {
 	Buckets BucketsStringRareTermsBucket `json:"buckets"`
 	Meta    Metadata                     `json:"meta,omitempty"`

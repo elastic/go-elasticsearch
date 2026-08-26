@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package getcalendarevents
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getcalendarevents
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/get_calendar_events/MlGetCalendarEventsResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ml/get_calendar_events/MlGetCalendarEventsResponse.ts#L23-L28
 type Response struct {
 	Count  int64                 `json:"count"`
 	Events []types.CalendarEvent `json:"events"`

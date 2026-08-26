@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoGridProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ingest/_types/Processors.ts#L395-L436
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ingest/_types/Processors.ts#L395-L436
 type GeoGridProcessor struct {
 	// ChildrenField If specified and children tiles exist, save those tile addresses to this
 	// field as an array of strings.

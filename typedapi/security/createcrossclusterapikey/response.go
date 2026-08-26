@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package createcrossclusterapikey
 
 // Response holds the response body struct for the package createcrossclusterapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/create_cross_cluster_api_key/CreateCrossClusterApiKeyResponse.ts#L23-L48
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/security/create_cross_cluster_api_key/CreateCrossClusterApiKeyResponse.ts#L23-L48
 type Response struct {
 	// ApiKey Generated API key.
 	ApiKey string `json:"api_key"`

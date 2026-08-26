@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IlmIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/health_report/types.ts#L169-L173
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/_global/health_report/types.ts#L169-L173
 type IlmIndicatorDetails struct {
 	IlmStatus         lifecycleoperationmode.LifecycleOperationMode `json:"ilm_status"`
 	Policies          int64                                         `json:"policies"`

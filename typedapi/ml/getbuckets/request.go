@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package getbuckets
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/get_buckets/MlGetBucketsRequest.ts#L26-L147
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ml/get_buckets/MlGetBucketsRequest.ts#L26-L147
 type Request struct {
 	// AnomalyScore Refer to the description for the `anomaly_score` query parameter.
 	AnomalyScore *types.Float64 `json:"anomaly_score,omitempty"`

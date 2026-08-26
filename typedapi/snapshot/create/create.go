@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 // Create a snapshot. Take a snapshot of a cluster or of data streams and
 // indices.
@@ -488,12 +488,18 @@ func (r *Create) Metadata(metadata types.Metadata) *Create {
 	return r
 }
 
-// Partial If `true`, it enables you to restore a partial snapshot of indices with
-// unavailable shards. Only shards that were successfully included in the
-// snapshot will be restored. All missing shards will be recreated as empty.
+// Partial If `true`, allows the snapshot to proceed even if some of the target shards
+// are unavailable. In this case, the resulting snapshot will not contain
+// snapshots of the unavailable target shards, and will report its state as
+// `PARTIAL`. Additionally, if `true`, allows index metadata operations such as
+// deletions while the snapshot is in progress. This is almost always preferable
+// to failing the snapshot completely when a single shard is unavailable, and
+// blocking index metadata operations.
 //
 // If `false`, the entire restore operation will fail if one or more indices
-// included in the snapshot do not have all primary shards available.
+// included in the snapshot do not have all primary shards available, and index
+// metadata operations such as deletions will be forbidden until the snapshot
+// completes.
 // API name: partial
 func (r *Create) Partial(partial bool) *Create {
 	if r.req == nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package putgooglevertexai
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putgooglevertexai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/inference/put_googlevertexai/PutGoogleVertexAiRequest.ts#L31-L87
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/inference/put_googlevertexai/PutGoogleVertexAiRequest.ts#L31-L87
 type Request struct {
 	// ChunkingSettings The chunking configuration object.
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`

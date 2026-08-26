@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package putrole
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/put_role/SecurityPutRoleResponse.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/security/put_role/SecurityPutRoleResponse.ts#L22-L29
 type Response struct {
 	// Role When an existing role is updated, `created` is set to `false`.
 	Role types.CreatedStatus `json:"role"`

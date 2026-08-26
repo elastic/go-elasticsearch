@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package syncjobpost
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package syncjobpost
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/connector/sync_job_post/SyncJobPostRequest.ts#L23-L53
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/connector/sync_job_post/SyncJobPostRequest.ts#L23-L53
 type Request struct {
 	// Id The id of the associated connector
 	Id            string                                     `json:"id"`

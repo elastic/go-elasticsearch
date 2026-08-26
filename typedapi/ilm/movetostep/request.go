@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package movetostep
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package movetostep
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ilm/move_to_step/MoveToStepRequest.ts#L24-L67
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/ilm/move_to_step/MoveToStepRequest.ts#L24-L67
 type Request struct {
 	// CurrentStep The step that the index is expected to be in.
 	CurrentStep types.StepKey `json:"current_step"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/1238d46521feb57fd76cef640240d927ca0ad05d
 
 package putdeepseek
 
@@ -29,7 +29,7 @@ import (
 
 // Response holds the response body struct for the package putdeepseek
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/inference/put_deepseek/PutDeepSeekResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/1238d46521feb57fd76cef640240d927ca0ad05d/specification/inference/put_deepseek/PutDeepSeekResponse.ts#L22-L25
 type Response struct {
 	// ChunkingSettings Chunking configuration object
 	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
