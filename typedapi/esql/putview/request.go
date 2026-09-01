@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package putview
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package putview
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/esql/put_view/PutViewRequest.ts#L23-L49
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/esql/put_view/PutViewRequest.ts#L23-L49
 type Request struct {
 	// Query The ES|QL query string from which to create a view.
 	Query string `json:"query"`

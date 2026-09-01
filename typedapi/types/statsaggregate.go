@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Statistics aggregation result. `min`, `max` and `avg` are missing if there
 // were no values to process (`count` is zero).
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/Aggregate.ts#L262-L278
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/aggregations/Aggregate.ts#L262-L278
 type StatsAggregate struct {
 	Avg         *Float64 `json:"avg,omitempty"`
 	AvgAsString *string  `json:"avg_as_string,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // Result of a `rare_terms` aggregation when the field is unmapped. `buckets` is
 // always empty.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/Aggregate.ts#L565-L571
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/aggregations/Aggregate.ts#L565-L571
 type UnmappedRareTermsAggregate struct {
 	Buckets BucketsVoid `json:"buckets"`
 	Meta    Metadata    `json:"meta,omitempty"`

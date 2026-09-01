@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // from the pipelines that would be executed if this document had been ingested
 // into _index.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/simulate/ingest/SimulateIngestResponse.ts#L36-L80
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/simulate/ingest/SimulateIngestResponse.ts#L36-L80
 type IngestDocumentSimulation struct {
 	EffectiveMapping *TypeMapping `json:"effective_mapping,omitempty"`
 	// Error Any error resulting from simulatng ingest on this doc. This can be an error

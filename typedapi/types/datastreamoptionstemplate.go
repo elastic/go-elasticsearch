@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // Data stream options template contains the same information as
 // DataStreamOptions but allows them to be set explicitly to null.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/indices/_types/DataStreamOptions.ts#L36-L41
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/indices/_types/DataStreamOptions.ts#L36-L41
 type DataStreamOptionsTemplate struct {
 	FailureStore *DataStreamFailureStoreTemplate `json:"failure_store,omitempty"`
 }

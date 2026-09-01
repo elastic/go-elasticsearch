@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package esdsl
 
@@ -29,15 +29,11 @@ type _innerRetriever struct {
 	v *types.InnerRetriever
 }
 
-func NewInnerRetriever(normalizer scorenormalizer.ScoreNormalizer, retriever types.RetrieverContainerVariant, weight float32) *_innerRetriever {
+func NewInnerRetriever(retriever types.RetrieverContainerVariant) *_innerRetriever {
 
 	tmp := &_innerRetriever{v: types.NewInnerRetriever()}
 
-	tmp.Normalizer(normalizer)
-
 	tmp.Retriever(retriever)
-
-	tmp.Weight(weight)
 
 	return tmp
 
@@ -45,7 +41,7 @@ func NewInnerRetriever(normalizer scorenormalizer.ScoreNormalizer, retriever typ
 
 func (s *_innerRetriever) Normalizer(normalizer scorenormalizer.ScoreNormalizer) *_innerRetriever {
 
-	s.v.Normalizer = normalizer
+	s.v.Normalizer = &normalizer
 	return s
 }
 
@@ -58,7 +54,7 @@ func (s *_innerRetriever) Retriever(retriever types.RetrieverContainerVariant) *
 
 func (s *_innerRetriever) Weight(weight float32) *_innerRetriever {
 
-	s.v.Weight = weight
+	s.v.Weight = &weight
 
 	return s
 }

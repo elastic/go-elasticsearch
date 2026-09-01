@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package restore
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/snapshot/restore/SnapshotRestoreResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/snapshot/restore/SnapshotRestoreResponse.ts#L23-L28
 type Response struct {
 	Accepted *bool                  `json:"accepted,omitempty"`
 	Snapshot *types.SnapshotRestore `json:"snapshot,omitempty"`
