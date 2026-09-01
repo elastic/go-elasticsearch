@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Mean Reciprocal Rank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/rank_eval/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_global/rank_eval/types.ts#L60-L64
 type RankEvalMetricMeanReciprocalRank struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelInferenceStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/ml/_types/TrainedModel.ts#L128-L148
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ml/_types/TrainedModel.ts#L128-L148
 type TrainedModelInferenceStats struct {
 	// CacheMissCount The number of times the model was loaded for inference and was not retrieved
 	// from the cache. If this number is close to the `inference_count`, the cache

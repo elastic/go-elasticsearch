@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package hasprivileges
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package hasprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/security/has_privileges/SecurityHasPrivilegesRequest.ts#L25-L62
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/security/has_privileges/SecurityHasPrivilegesRequest.ts#L25-L62
 type Request struct {
 	Application []types.ApplicationPrivilegesCheck `json:"application,omitempty"`
 	// Cluster A list of the cluster privileges that you want to check.

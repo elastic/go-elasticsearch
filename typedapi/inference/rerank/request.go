@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package rerank
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/inference/rerank/RerankRequest.ts#L26-L135
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/inference/rerank/RerankRequest.ts#L26-L135
 type Request struct {
 	// Input The documents to rank. The input can be specified as a single string or an
 	// array of strings, or as an object or an array of objects. The object form

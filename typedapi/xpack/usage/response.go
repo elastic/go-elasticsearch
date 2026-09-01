@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package usage
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package usage
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/xpack/usage/XPackUsageResponse.ts#L46-L94
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/xpack/usage/XPackUsageResponse.ts#L46-L94
 type Response struct {
 	AggregateMetric     types.Base                      `json:"aggregate_metric"`
 	Analytics           types.Analytics                 `json:"analytics"`

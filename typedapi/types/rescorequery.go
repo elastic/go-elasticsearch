@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RescoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/search/_types/rescoring.ts#L43-L65
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_global/search/_types/rescoring.ts#L43-L65
 type RescoreQuery struct {
 	// Query The query to use for rescoring. This query is only run on the Top-K results
 	// returned by the `query` and `post_filter` phases.

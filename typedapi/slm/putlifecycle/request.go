@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package putlifecycle
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L92
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L92
 type Request struct {
 	// Config Configuration for each snapshot created by the policy.
 	Config *types.Configuration `json:"config,omitempty"`

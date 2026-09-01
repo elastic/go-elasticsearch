@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DatafeedsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/cat/ml_datafeeds/types.ts#L22-L87
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/cat/ml_datafeeds/types.ts#L22-L87
 type DatafeedsRecord struct {
 	// AssignmentExplanation For started datafeeds only, contains messages relating to the selection of a
 	// node.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -33,8 +33,22 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/mapping/DenseVectorProperty.ts#L134-L189
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/mapping/DenseVectorProperty.ts#L134-L228
 type DenseVectorIndexOptions struct {
+	// AutoCalibrate Only applicable to `bbq_disk`. When `true`, Elasticsearch automatically
+	// selects the optimal quantization encoding, oversampling factor, and
+	// preconditioning for each merged segment based on estimated recall
+	// characteristics. Cannot be changed after the field is created.
+	AutoCalibrate *bool `json:"auto_calibrate,omitempty"`
+	// Bits Only applicable to `bbq_disk`. The number of bits per dimension for
+	// quantization encoding. Valid values are `1`, `2`, `4`, or `7`. When no
+	// `rescore_vector` is explicitly set, the default oversampling is automatically
+	// adjusted based on the bits value. This setting can be changed without
+	// reindexing.
+	Bits *int `json:"bits,omitempty"`
+	// ClusterSize Only applicable to `bbq_disk`. The number of vectors per cluster. Must be
+	// between 64 and 65536.
+	ClusterSize *int `json:"cluster_size,omitempty"`
 	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
 	// between and including `0.90` and `1.0` or exactly `0`. When the value is `0`,
 	// this indicates that dynamic quantiles should be calculated for optimized
@@ -51,6 +65,10 @@ type DenseVectorIndexOptions struct {
 	// Only applicable to `int8_hnsw`, `int4_hnsw`, `int8_flat`, and `int4_flat`
 	// index types.
 	ConfidenceInterval *float32 `json:"confidence_interval,omitempty"`
+	// DefaultVisitPercentage Only applicable to `bbq_disk`. The percentage of clusters to visit during
+	// search. Must be between 0 and 100. A value of 0 defaults to using
+	// `num_candidates` for calculating the visit percentage.
+	DefaultVisitPercentage *float32 `json:"default_visit_percentage,omitempty"`
 	// EfConstruction The number of candidates to track while assembling the list of nearest
 	// neighbors for each new node.
 	//
@@ -63,8 +81,8 @@ type DenseVectorIndexOptions struct {
 	// `int4_hnsw`. `0` always builds the graph. A positive value overrides the
 	// format default.
 	//
-	// Only applicable to `hnsw`, `int8_hnsw`, `int4_hnsw`, and `bbq_hnsw` index
-	// types.
+	// Only applicable to `hnsw`, `int8_hnsw`, `int4_hnsw`, `bbq_hnsw`, and
+	// `bbq_disk` index types.
 	FlatIndexThreshold *int `json:"flat_index_threshold,omitempty"`
 	// M The number of neighbors each node will be connected to in the HNSW graph.
 	//
@@ -75,6 +93,11 @@ type DenseVectorIndexOptions struct {
 	//
 	// Only applicable to `bbq_disk`, `bbq_hnsw`, `int4_hnsw`, `int8_hnsw`
 	OnDiskRescore *bool `json:"on_disk_rescore,omitempty"`
+	// Precondition Only applicable to `bbq_disk`. When `true`, transforms indexed vectors using
+	// a random orthogonal projection before quantization, which can improve
+	// accuracy when vector components are not normally distributed. Cannot be
+	// changed after the field is created.
+	Precondition *bool `json:"precondition,omitempty"`
 	// RescoreVector The rescore vector options. This is only applicable to `bbq_disk`,
 	// `bbq_hnsw`, `int4_hnsw`, `int8_hnsw`, `bbq_flat`, `int4_flat`, and
 	// `int8_flat` index types.
@@ -98,6 +121,52 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "auto_calibrate":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AutoCalibrate", err)
+				}
+				s.AutoCalibrate = &value
+			case bool:
+				s.AutoCalibrate = &v
+			}
+
+		case "bits":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Bits", err)
+				}
+				s.Bits = &value
+			case float64:
+				f := int(v)
+				s.Bits = &f
+			}
+
+		case "cluster_size":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ClusterSize", err)
+				}
+				s.ClusterSize = &value
+			case float64:
+				f := int(v)
+				s.ClusterSize = &f
+			}
+
 		case "confidence_interval":
 			var tmp any
 			dec.Decode(&tmp)
@@ -112,6 +181,22 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.ConfidenceInterval = &f
+			}
+
+		case "default_visit_percentage":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DefaultVisitPercentage", err)
+				}
+				f := float32(value)
+				s.DefaultVisitPercentage = &f
+			case float64:
+				f := float32(v)
+				s.DefaultVisitPercentage = &f
 			}
 
 		case "ef_construction":
@@ -174,6 +259,20 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 				s.OnDiskRescore = &value
 			case bool:
 				s.OnDiskRescore = &v
+			}
+
+		case "precondition":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Precondition", err)
+				}
+				s.Precondition = &value
+			case bool:
+				s.Precondition = &v
 			}
 
 		case "rescore_vector":

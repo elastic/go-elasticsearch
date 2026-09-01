@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Sum aggregation result. `value` is always present and is zero if there were
 // no values to process.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/aggregations/Aggregate.ts#L216-L221
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/aggregations/Aggregate.ts#L216-L221
 type SumAggregate struct {
 	Meta Metadata `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to

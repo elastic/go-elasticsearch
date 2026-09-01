@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WordDelimiterGraphTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_types/analysis/token_filters.ts#L216-L222
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/analysis/token_filters.ts#L216-L222
 type WordDelimiterGraphTokenFilter struct {
 	// AdjustOffsets If `true`, the filter adjusts the offsets of split or catenated tokens to
 	// better reflect their actual position in the token stream. Defaults to `true`.

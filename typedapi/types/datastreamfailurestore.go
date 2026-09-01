@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // Data stream failure store contains the configuration of the failure store for
 // a given data stream.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/indices/_types/DataStreamFailureStore.ts#L22-L37
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/indices/_types/DataStreamFailureStore.ts#L22-L37
 type DataStreamFailureStore struct {
 	// Enabled If defined, it turns the failure store on/off (`true`/`false`) for this data
 	// stream. A data stream failure store that's disabled (enabled: `false`) will

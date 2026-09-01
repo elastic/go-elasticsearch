@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/abf9c2c6bb21328339daa197aae15af2ecbc46f0
+// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
 
 package types
 
@@ -33,7 +33,7 @@ import (
 // partial document, script, or upsert options to apply, plus optional update
 // settings.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/abf9c2c6bb21328339daa197aae15af2ecbc46f0/specification/_global/bulk/types.ts#L186-L225
+// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_global/bulk/types.ts#L187-L226
 type UpdateAction struct {
 	// DetectNoop If true, the `result` in the response is set to 'noop' when no changes to the
 	// document occur.
