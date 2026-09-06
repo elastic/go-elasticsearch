@@ -61,6 +61,18 @@ func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.RoundTripFunc(req)
 }
 
+type errReadSeeker struct {
+	err error
+}
+
+func (r errReadSeeker) Read(_ []byte) (int, error) {
+	return 0, r.err
+}
+
+func (r errReadSeeker) Seek(_ int64, _ int) (int64, error) {
+	return 0, r.err
+}
+
 //nolint:gocyclo
 func TestBulkIndexer(t *testing.T) {
 	t.Run("Basic", func(t *testing.T) {
@@ -351,34 +363,63 @@ func TestBulkIndexer(t *testing.T) {
 	})
 
 	t.Run("Add() Timeout", func(t *testing.T) {
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{}})
+		var requestCalls atomic.Uint32
+		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+			RoundTripFunc: func(*http.Request) (*http.Response, error) {
+				requestCalls.Add(1)
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Body:       io.NopCloser(strings.NewReader(`{"took":1,"errors":false,"items":[]}`)),
+					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
+				}, nil
+			},
+		}})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
-		bi, err := NewBulkIndexer(BulkIndexerConfig{NumWorkers: 1, Client: es})
+
+		var onErrorCalls atomic.Uint32
+		var onError error
+		bi, err := NewBulkIndexer(BulkIndexerConfig{
+			NumWorkers:          1,
+			QueueSizeMultiplier: 10,
+			FlushInterval:       time.Hour,
+			Client:              es,
+			OnError: func(_ context.Context, err error) {
+				onErrorCalls.Add(1)
+				onError = err
+			},
+		})
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
-		ctx, cancel := context.WithTimeout(context.Background(), time.Nanosecond)
+
+		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(-time.Second))
 		defer cancel()
-		time.Sleep(100 * time.Millisecond)
 
-		var errs []error
-		for i := 0; i < 10; i++ {
-			errs = append(errs, bi.Add(ctx, BulkIndexerItem{Action: "delete", DocumentID: "timeout"}))
+		err = bi.Add(ctx, BulkIndexerItem{
+			Action:     "delete",
+			DocumentID: "timeout",
+			Body:       errReadSeeker{err: errors.New("item preparation should not run")},
+		})
+		if !errors.Is(err, context.DeadlineExceeded) {
+			t.Errorf("Expected context.DeadlineExceeded, got: %v", err)
 		}
+		if onErrorCalls.Load() != 1 {
+			t.Errorf("Unexpected OnError callbacks: want=1, got=%d", onErrorCalls.Load())
+		}
+		if !errors.Is(onError, context.DeadlineExceeded) {
+			t.Errorf("Expected OnError to receive context.DeadlineExceeded, got: %v", onError)
+		}
+		if stats := bi.Stats(); stats.NumAdded != 1 {
+			t.Errorf("Unexpected NumAdded: want=1, got=%d", stats.NumAdded)
+		}
+
 		if err := bi.Close(context.Background()); err != nil {
-			t.Errorf("Unexpected error: %s", err)
+			t.Fatalf("Unexpected error: %s", err)
 		}
-
-		var gotError bool
-		for _, err := range errs {
-			if err != nil && err.Error() == "context deadline exceeded" {
-				gotError = true
-			}
-		}
-		if !gotError {
-			t.Errorf("Expected timeout error, but none in: %q", errs)
+		if requestCalls.Load() != 0 {
+			t.Errorf("Unexpected bulk requests: want=0, got=%d", requestCalls.Load())
 		}
 	})
 
