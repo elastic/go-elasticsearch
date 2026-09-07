@@ -369,6 +369,13 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
 
+	if err := ctx.Err(); err != nil {
+		if bi.config.OnError != nil {
+			bi.config.OnError(ctx, err)
+		}
+		return err
+	}
+
 	if item.ctx == nil {
 		item.ctx = ctx
 	}
