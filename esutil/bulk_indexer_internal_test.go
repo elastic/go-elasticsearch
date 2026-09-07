@@ -364,7 +364,7 @@ func TestBulkIndexer(t *testing.T) {
 
 	t.Run("Add() Timeout", func(t *testing.T) {
 		var requestCalls atomic.Uint32
-		es, err := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
+		es, err := elasticsearch.New(elasticsearch.WithTransportOptions(elastictransport.WithTransport(&mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				requestCalls.Add(1)
 				return &http.Response{
@@ -373,7 +373,7 @@ func TestBulkIndexer(t *testing.T) {
 					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
-		}})
+		})))
 		if err != nil {
 			t.Fatalf("Unexpected error: %s", err)
 		}
