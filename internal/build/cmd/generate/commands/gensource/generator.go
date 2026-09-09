@@ -509,6 +509,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 	var (
 		method  string
 		path    strings.Builder
+		rawPath strings.Builder
 		params  map[string]string
 		ctx     context.Context
 	)` + "\n\n")
@@ -607,6 +608,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 		// even if some arguments are missing.
 		pathGrow.WriteString(`7 + `)
 		pathContent.WriteString(`path.WriteString("http://")` + "\n")
+		pathContent.WriteString(`rawPath.WriteString("http://")` + "\n")
 
 		// FIXME: Select longest path based on number of template entries, not string length
 		longestPath := g.Endpoint.URL.Paths[0]
@@ -633,6 +635,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 			}
 			pathGrow.WriteString(`len("` + longestPath.Path + `")`)
 			pathContent.WriteString(`	path.WriteString("` + longestPath.Path + `")` + "\n")
+			pathContent.WriteString(`	rawPath.WriteString("` + longestPath.Path + `")` + "\n")
 
 		} else {
 			pathParts := make([]string, 0)
@@ -654,17 +657,20 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 						p = a.GoName()
 						pathGrow.WriteString(`1 + `)
 						pathContent.WriteString(`	path.WriteString("/")` + "\n")
+						pathContent.WriteString(`	rawPath.WriteString("/")` + "\n")
 						switch a.Type {
 						case "int", "integer":
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
+							pathContent.WriteString(`	rawPath.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
 							}` + "\n")
 						case "string", "enum":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
+							pathContent.WriteString(`	rawPath.WriteString(escapePathPart(r.` + p + `))` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
 							}` + "\n")
@@ -672,6 +678,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							requiredArgsValidation.WriteString(`if len(r.` + p + `) == 0 { return nil, errors.New("` + a.Name + ` is required and cannot be nil or empty") }` + "\n")
 							pathGrow.WriteString(`len(strings.Join(r.` + p + `, ",")) + `)
 							pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+							pathContent.WriteString(`	rawPath.WriteString(escapePathPart(strings.Join(r.` + p + `, ",")))` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
 							}` + "\n")
@@ -679,6 +686,7 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.FormatInt(*r.` + p + `, 10)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.FormatInt(*r.` + p + `, 10))` + "\n")
+							pathContent.WriteString(`	rawPath.WriteString(strconv.FormatInt(*r.` + p + `, 10))` + "\n")
 							pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.FormatInt(*r.` + p + `, 10))
 							}` + "\n")
@@ -701,7 +709,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathGrow.WriteString(`1 + len(r.` + p + `) + `)
 								pathContent.WriteString(`	if r.` + p + ` != "" {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(r.` + p + `)` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString(escapePathPart(r.` + p + `))` + "\n")
 								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
 							}` + "\n")
@@ -710,7 +720,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathGrow.WriteString(`1 + len(strings.Join(r.` + p + `, ",")) + `)
 								pathContent.WriteString(`	if len(r.` + p + `) > 0 {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString(escapePathPart(strings.Join(r.` + p + `, ",")))` + "\n")
 								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
 							}` + "\n")
@@ -720,7 +732,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 								pathContent.WriteString(`		value := strconv.FormatInt(int64(*r.` + p + `), 10)` + "\n")
 								pathContent.WriteString(`		path.Grow(1 + len(value))` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(value)` + "\n")
+								pathContent.WriteString(`		rawPath.WriteString(value)` + "\n")
 								pathContent.WriteString(`if instrument, ok := r.Instrument.(Instrumentation); ok {
 								instrument.RecordPathPart(ctx, "` + a.Name + `", value)
 							}` + "\n")
@@ -741,13 +755,16 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 							p = a.GoName()
 							pathGrow.WriteString("1 +")
 							pathContent.WriteString(`	path.WriteString("/")` + "\n")
+							pathContent.WriteString(`	rawPath.WriteString("/")` + "\n")
 							switch a.Type {
 							case "string", "enum":
 								pathGrow.WriteString(`len(r.` + p + `)`)
 								pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
+								pathContent.WriteString(`	rawPath.WriteString(escapePathPart(r.` + p + `))` + "\n")
 							case "list":
 								pathGrow.WriteString(`len(strings.Join(r.` + p + `, ","))`)
 								pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+								pathContent.WriteString(`	rawPath.WriteString(escapePathPart(strings.Join(r.` + p + `, ",")))` + "\n")
 							default:
 								panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL param %q\n", g.Endpoint.Name, a.Type, a.Name))
 							}
@@ -760,7 +777,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 				if p == "" {
 					pathGrow.WriteString(`1 + len("` + v + `") + `)
 					pathContent.WriteString(`	path.WriteString("/")` + "\n")
+					pathContent.WriteString(`	rawPath.WriteString("/")` + "\n")
 					pathContent.WriteString(`	path.WriteString("` + v + `")` + "\n")
+					pathContent.WriteString(`	rawPath.WriteString("` + v + `")` + "\n")
 				}
 			}
 		}
@@ -869,6 +888,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 		}
 		return nil, err
 	}` + "\n\n")
+
+	g.w(`req.URL.Path = path.String()[7:]
+	req.URL.RawPath = rawPath.String()[7:]` + "\n\n")
 
 	g.w(`if len(params) > 0 {
 		q := req.URL.Query()
