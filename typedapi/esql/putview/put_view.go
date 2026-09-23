@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 // Create or update an ES|QL view.
 package putview
@@ -351,6 +351,19 @@ func (r *PutView) Human(human bool) *PutView {
 // API name: pretty
 func (r *PutView) Pretty(pretty bool) *PutView {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// A free-text description of the view.
+// API name: description
+func (r *PutView) Description(description string) *PutView {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Description = &description
 
 	return r
 }

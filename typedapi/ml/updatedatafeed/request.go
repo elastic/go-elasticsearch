@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package updatedatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L173
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L181
 type Request struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -51,6 +51,12 @@ type Request struct {
 	// datafeed has passed that moment in time. This check runs only on real-time
 	// datafeeds.
 	DelayedDataCheckConfig *types.DelayedDataCheckConfig `json:"delayed_data_check_config,omitempty"`
+	// ForceRekeying_ When true, force reminting of the datafeed's internal cloud API key from the
+	// caller's cloud credential without requiring other configuration changes.
+	// Requires a cloud-authenticated caller and an environment that supports
+	// cross-project calls. Rejected with 400 otherwise. The datafeed must be
+	// stopped.
+	ForceRekeying_ *bool `json:"_force_rekeying,omitempty"`
 	// Frequency The interval at which scheduled queries are made while the datafeed runs in
 	// real time. The default value is either the bucket span for short bucket
 	// spans, or, for longer bucket spans, a sensible fraction of the bucket span.
@@ -153,6 +159,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "delayed_data_check_config":
 			if err := dec.Decode(&s.DelayedDataCheckConfig); err != nil {
 				return fmt.Errorf("%s | %w", "DelayedDataCheckConfig", err)
+			}
+
+		case "_force_rekeying":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ForceRekeying_", err)
+				}
+				s.ForceRekeying_ = &value
+			case bool:
+				s.ForceRekeying_ = &v
 			}
 
 		case "frequency":

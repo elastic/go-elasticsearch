@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package getsynonymrule
 
 // Response holds the response body struct for the package getsynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/synonyms/get_synonym_rule/SynonymRuleGetResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/synonyms/get_synonym_rule/SynonymRuleGetResponse.ts#L22-L25
 type Response struct {
 	// Id The identifier for the synonym rule. If you do not specify a synonym rule ID
 	// when you create a rule, an identifier is created automatically by

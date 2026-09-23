@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -25,7 +25,7 @@ package types
 // and its metadata, such as the target index and document ID. All actions
 // except `delete` expect a source line to follow.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/bulk/types.ts#L157-L184
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/_global/bulk/types.ts#L157-L184
 type OperationContainer struct {
 	// Create Index the specified document if it does not already exist. The following line
 	// must contain the source data to be indexed.

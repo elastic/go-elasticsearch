@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package putregionpolicy
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putregionpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/put_region_policy/PutRegionPolicyRequest.ts#L24-L56
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/inference/put_region_policy/PutRegionPolicyRequest.ts#L24-L56
 type Request struct {
 	// RegionPolicy The region policy configuration.
 	RegionPolicy types.RegionPolicy `json:"region_policy"`

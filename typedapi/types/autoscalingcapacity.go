@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
 // AutoscalingCapacity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L38-L41
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L38-L41
 type AutoscalingCapacity struct {
 	Node  AutoscalingResources `json:"node"`
 	Total AutoscalingResources `json:"total"`

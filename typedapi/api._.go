@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package typedapi
 
@@ -3182,26 +3182,32 @@ type Esql struct {
 	// the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can stop it.
 	AsyncQueryStop esql_async_query_stop.NewAsyncQueryStop
-	// Delete one or more ES|QL data sources.
+	// Delete ES|QL data sources.
 	//
-	// Fails with `409` if any dataset references one of the named data sources;
-	// delete the dependent datasets first.
+	// Deletes one or more data sources used in ES|QL data federation. Fails with
+	// `409` if any dataset references one of the named data sources; delete the
+	// dependent datasets first.
 	DeleteDataSource esql_delete_data_source.NewDeleteDataSource
-	// Delete one or more ES|QL datasets.
+	// Delete ES|QL datasets.
+	//
+	// Deletes one or more datasets used in ES|QL data federation. If any specified
+	// dataset does not exist, the request fails and no datasets are deleted.
 	DeleteDataset esql_delete_dataset.NewDeleteDataset
 	// Delete an ES|QL view.
 	//
 	// Deletes a stored ES|QL view.
 	DeleteView esql_delete_view.NewDeleteView
-	// Get one or more ES|QL data sources.
+	// Get ES|QL data sources.
 	//
-	// Returns the requested data sources. A concrete-name miss returns `404`; a
-	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	// Returns one or more data sources used in ES|QL data federation. A
+	// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+	// no match returns `200` with an empty array.
 	GetDataSource esql_get_data_source.NewGetDataSource
-	// Get one or more ES|QL datasets.
+	// Get ES|QL datasets.
 	//
-	// Returns the requested datasets. A concrete-name miss returns `404`; a
-	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	// Returns one or more datasets used in ES|QL data federation. A concrete-name
+	// miss returns `404`; a wildcard pattern or list-all request with no match
+	// returns `200` with an empty array.
 	GetDataset esql_get_dataset.NewGetDataset
 	// Get a specific running ES|QL query information.
 	//
@@ -3218,15 +3224,17 @@ type Esql struct {
 	ListQueries esql_list_queries.NewListQueries
 	// Create or update an ES|QL data source.
 	//
-	// Creates or replaces a named, type-specific data source configuration that
-	// datasets reference to access external data. Names must be lowercase and
-	// follow index/alias naming rules.
+	// Creates or replaces a named, type-specific data source configuration for
+	// ES|QL data federation. Datasets reference data source configurations to
+	// access external data. Names must be lowercase and follow index or alias
+	// naming rules.
 	PutDataSource esql_put_data_source.NewPutDataSource
-	// Create or replace an ES|QL dataset.
+	// Create or update an ES|QL dataset.
 	//
-	// Creates or replaces a dataset that references a data source. Dataset names
-	// participate in the index namespace and must follow index/alias naming rules.
-	// Returns `404` if the referenced data source does not exist.
+	// Creates or replaces a dataset that references a data source in ES|QL data
+	// federation. Dataset names participate in the index namespace and must follow
+	// index or alias naming rules. Returns `404` if the referenced data source does
+	// not exist.
 	PutDataset esql_put_dataset.NewPutDataset
 	// Create or update an ES|QL view.
 	PutView esql_put_view.NewPutView
@@ -3776,8 +3784,7 @@ type Indices struct {
 	// some preflight checks, launches the request, and returns a task you can use
 	// to get the status of the task. However, you can not cancel this task as the
 	// force merge task is not cancelable. Elasticsearch creates a record of this
-	// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-	// should delete the task document so Elasticsearch can reclaim the space.
+	// task as a document at `_tasks/<task_id>`.
 	//
 	// # Force merging multiple indices
 	//
@@ -3788,11 +3795,11 @@ type Indices struct {
 	//   - One or more aliases
 	//   - All data streams and indices in a cluster
 	//
-	// Each targeted shard is force-merged separately using the force_merge
-	// threadpool. By default each node only has a single `force_merge` thread which
-	// means that the shards on that node are force-merged one at a time. If you
-	// expand the `force_merge` threadpool on a node then it will force merge its
-	// shards in parallel
+	// Each targeted shard is force-merged separately using the `force_merge`
+	// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+	// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+	// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+	// node then it will force merge its shards with more parallelism.
 	//
 	// Force merge makes the storage for the shard being merged temporarily
 	// increase, as it may require free space up to triple its size in case
@@ -15964,18 +15971,26 @@ func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQuery
 	return _asyncquerystop(id)
 }
 
-// Delete one or more ES|QL data sources.
+// Delete ES|QL data sources.
 //
-// Fails with `409` if any dataset references one of the named data sources;
-// delete the dependent datasets first.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Deletes one or more data sources used in ES|QL data federation. Fails with
+// `409` if any dataset references one of the named data sources; delete the
+// dependent datasets first.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-data-source
 func (p *MethodEsql) DeleteDataSource(name string) *esql_delete_data_source.DeleteDataSource {
 	_deletedatasource := esql_delete_data_source.NewDeleteDataSourceFunc(p.tp)
 	return _deletedatasource(name)
 }
 
-// Delete one or more ES|QL datasets.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Delete ES|QL datasets.
+//
+// Deletes one or more datasets used in ES|QL data federation. If any specified
+// dataset does not exist, the request fails and no datasets are deleted.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-dataset
 func (p *MethodEsql) DeleteDataset(name string) *esql_delete_dataset.DeleteDataset {
 	_deletedataset := esql_delete_dataset.NewDeleteDatasetFunc(p.tp)
 	return _deletedataset(name)
@@ -15990,21 +16005,27 @@ func (p *MethodEsql) DeleteView(name string) *esql_delete_view.DeleteView {
 	return _deleteview(name)
 }
 
-// Get one or more ES|QL data sources.
+// Get ES|QL data sources.
 //
-// Returns the requested data sources. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Returns one or more data sources used in ES|QL data federation. A
+// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+// no match returns `200` with an empty array.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-data-source
 func (p *MethodEsql) GetDataSource() *esql_get_data_source.GetDataSource {
 	_getdatasource := esql_get_data_source.NewGetDataSourceFunc(p.tp)
 	return _getdatasource()
 }
 
-// Get one or more ES|QL datasets.
+// Get ES|QL datasets.
 //
-// Returns the requested datasets. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// Returns one or more datasets used in ES|QL data federation. A concrete-name
+// miss returns `404`; a wildcard pattern or list-all request with no match
+// returns `200` with an empty array.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-dataset
 func (p *MethodEsql) GetDataset() *esql_get_dataset.GetDataset {
 	_getdataset := esql_get_dataset.NewGetDatasetFunc(p.tp)
 	return _getdataset()
@@ -16044,21 +16065,27 @@ func (p *MethodEsql) ListQueries() *esql_list_queries.ListQueries {
 
 // Create or update an ES|QL data source.
 //
-// Creates or replaces a named, type-specific data source configuration that
-// datasets reference to access external data. Names must be lowercase and
-// follow index/alias naming rules.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Creates or replaces a named, type-specific data source configuration for
+// ES|QL data federation. Datasets reference data source configurations to
+// access external data. Names must be lowercase and follow index or alias
+// naming rules.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-data-source
 func (p *MethodEsql) PutDataSource(name string) *esql_put_data_source.PutDataSource {
 	_putdatasource := esql_put_data_source.NewPutDataSourceFunc(p.tp)
 	return _putdatasource(name)
 }
 
-// Create or replace an ES|QL dataset.
+// Create or update an ES|QL dataset.
 //
-// Creates or replaces a dataset that references a data source. Dataset names
-// participate in the index namespace and must follow index/alias naming rules.
-// Returns `404` if the referenced data source does not exist.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// Creates or replaces a dataset that references a data source in ES|QL data
+// federation. Dataset names participate in the index namespace and must follow
+// index or alias naming rules. Returns `404` if the referenced data source does
+// not exist.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-dataset
 func (p *MethodEsql) PutDataset(name string) *esql_put_dataset.PutDataset {
 	_putdataset := esql_put_dataset.NewPutDatasetFunc(p.tp)
 	return _putdataset(name)
@@ -16862,8 +16889,7 @@ func (p *MethodIndices) Flush() *indices_flush.Flush {
 // some preflight checks, launches the request, and returns a task you can use
 // to get the status of the task. However, you can not cancel this task as the
 // force merge task is not cancelable. Elasticsearch creates a record of this
-// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-// should delete the task document so Elasticsearch can reclaim the space.
+// task as a document at `_tasks/<task_id>`.
 //
 // # Force merging multiple indices
 //
@@ -16874,11 +16900,11 @@ func (p *MethodIndices) Flush() *indices_flush.Flush {
 //   - One or more aliases
 //   - All data streams and indices in a cluster
 //
-// Each targeted shard is force-merged separately using the force_merge
-// threadpool. By default each node only has a single `force_merge` thread which
-// means that the shards on that node are force-merged one at a time. If you
-// expand the `force_merge` threadpool on a node then it will force merge its
-// shards in parallel
+// Each targeted shard is force-merged separately using the `force_merge`
+// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+// node then it will force merge its shards with more parallelism.
 //
 // Force merge makes the storage for the shard being merged temporarily
 // increase, as it may require free space up to triple its size in case

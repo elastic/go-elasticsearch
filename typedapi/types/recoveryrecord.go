@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/cat/recovery/types.ts#L24-L162
 type RecoveryRecord struct {
 	// Bytes The number of bytes to recover.
 	Bytes *string `json:"bytes,omitempty"`
@@ -51,6 +51,8 @@ type RecoveryRecord struct {
 	FilesTotal *string `json:"files_total,omitempty"`
 	// Index The index name.
 	Index *string `json:"index,omitempty"`
+	// Priority The recovery priority.
+	Priority *string `json:"priority,omitempty"`
 	// Repository The repository name.
 	Repository *string `json:"repository,omitempty"`
 	// Shard The shard name.
@@ -188,6 +190,18 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
 			}
+
+		case "priority", "pr":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Priority", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Priority = &o
 
 		case "repository", "rep":
 			var tmp json.RawMessage

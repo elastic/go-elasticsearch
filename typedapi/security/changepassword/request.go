@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package changepassword
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package changepassword
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/change_password/SecurityChangePasswordRequest.ts#L23-L70
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/security/change_password/SecurityChangePasswordRequest.ts#L23-L70
 type Request struct {
 	// Password The new password value. Passwords must be at least 6 characters long.
 	Password *string `json:"password,omitempty"`

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 // Package catrecoverycolumn
 package catrecoverycolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cat/_types/CatBase.ts#L2322-L2454
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/cat/_types/CatBase.ts#L2322-L2461
 type CatRecoveryColumn struct {
 	Name string
 }
@@ -56,6 +56,9 @@ var (
 
 	// Stage The recovery stage.
 	Stage = CatRecoveryColumn{"stage"}
+
+	// Priority The recovery priority.
+	Priority = CatRecoveryColumn{"priority"}
 
 	// Sourcehost The source host.
 	Sourcehost = CatRecoveryColumn{"source_host"}
@@ -134,6 +137,8 @@ func (c *CatRecoveryColumn) UnmarshalText(text []byte) error {
 		*c = Type
 	case "stage":
 		*c = Stage
+	case "priority":
+		*c = Priority
 	case "source_host":
 		*c = Sourcehost
 	case "source_node":

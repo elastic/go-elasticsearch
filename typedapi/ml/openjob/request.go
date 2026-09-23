@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package openjob
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package openjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/open_job/MlOpenJobRequest.ts#L24-L69
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/ml/open_job/MlOpenJobRequest.ts#L24-L69
 type Request struct {
 	// Timeout Refer to the description for the `timeout` query parameter.
 	Timeout types.Duration `json:"timeout,omitempty"`

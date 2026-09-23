@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package search
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/search_application/search/SearchApplicationsSearchRequest.ts#L24-L64
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/search_application/search/SearchApplicationsSearchRequest.ts#L24-L64
 type Request struct {
 	// Params Query parameters specific to this request, which will override any defaults
 	// specified in the template.

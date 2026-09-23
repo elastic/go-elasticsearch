@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package ingest
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package ingest
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/simulate/ingest/SimulateIngestRequest.ts#L29-L111
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/simulate/ingest/SimulateIngestRequest.ts#L29-L111
 type Request struct {
 	// ComponentTemplateSubstitutions A map of component template names to substitute component template definition
 	// objects.

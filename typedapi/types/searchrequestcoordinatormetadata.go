@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -25,7 +25,7 @@ package types
 // omitted when the cluster contains mixed-version nodes that do not serialize
 // this metadata.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/profile.ts#L102-L115
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/_global/search/_types/profile.ts#L102-L115
 type SearchRequestCoordinatorMetadata struct {
 	// Indices Target index expressions from the request (before index resolution).
 	Indices []string `json:"indices,omitempty"`

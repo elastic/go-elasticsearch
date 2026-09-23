@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -28,18 +28,21 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/recoverypriority"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/recoverystage"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/recoverytype"
 )
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/recovery/types.ts#L146-L165
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/indices/recovery/types.ts#L164-L190
 type ShardRecovery struct {
 	Id      int64               `json:"id"`
 	Index   RecoveryIndexStatus `json:"index"`
 	Primary bool                `json:"primary"`
-	Source  RecoveryOrigin      `json:"source"`
+	// Priority The recovery priority.
+	Priority *recoverypriority.RecoveryPriority `json:"priority,omitempty"`
+	Source   RecoveryOrigin                     `json:"source"`
 	// Stage The recovery stage.
 	Stage             recoverystage.RecoveryStage `json:"stage"`
 	Start             *RecoveryStartStatus        `json:"start,omitempty"`
@@ -103,6 +106,11 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 				s.Primary = value
 			case bool:
 				s.Primary = v
+			}
+
+		case "priority":
+			if err := dec.Decode(&s.Priority); err != nil {
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 
 		case "source":

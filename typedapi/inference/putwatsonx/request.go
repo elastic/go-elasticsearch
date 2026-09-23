@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package putwatsonx
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putwatsonx
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/put_watsonx/PutWatsonxRequest.ts#L30-L85
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/inference/put_watsonx/PutWatsonxRequest.ts#L30-L85
 type Request struct {
 	// ChunkingSettings The chunking configuration object. Applies only to the `text_embedding` task
 	// type. Not applicable to the `rerank`, `completion` or `chat_completion` task
