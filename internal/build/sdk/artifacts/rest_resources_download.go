@@ -52,15 +52,13 @@ func (c *Client) DownloadRestResources(ctx context.Context, ref ref.Ref, dest st
 		// Try to find in releases using the base version (without prerelease suffix)
 		baseVersion := ref.BaseVersion()
 		releases, err := c.ListReleases(ctx)
-		if err != nil {
-			return fmt.Errorf("cannot list releases: %w", err)
-		}
-
 		var release *Release
-		for i := range releases.Releases {
-			if releases.Releases[i].Version == baseVersion {
-				release = &releases.Releases[i]
-				break
+		if err == nil {
+			for i := range releases.Releases {
+				if releases.Releases[i].Version == baseVersion {
+					release = &releases.Releases[i]
+					break
+				}
 			}
 		}
 
@@ -73,6 +71,8 @@ func (c *Client) DownloadRestResources(ctx context.Context, ref ref.Ref, dest st
 				return fmt.Errorf("cannot get latest snapshot: %w", err)
 			}
 			manifestURL = latestSnapshot.ManifestURL
+		} else if err != nil {
+			return fmt.Errorf("cannot list releases: %w", err)
 		} else {
 			return fmt.Errorf("release %s not found", ref.String())
 		}
