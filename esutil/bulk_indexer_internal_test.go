@@ -1288,6 +1288,70 @@ func TestBulkIndexer(t *testing.T) {
 				`{"index":{"_id":"42","_index":"test","require_alias":true}}` + "\n",
 			},
 			{
+				"with require_alias only",
+				args{BulkIndexerItem{
+					Action:       "index",
+					RequireAlias: true,
+				}},
+				`{"index":{"require_alias":true}}` + "\n",
+			},
+			{
+				"with require_alias and ignored retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "index",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"index":{"require_alias":true}}` + "\n",
+			},
+			{
+				"with require_alias and ignored zero retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "create",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(0),
+				}},
+				`{"create":{"require_alias":true}}` + "\n",
+			},
+			{
+				"with require_alias and retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "update",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"update":{"retry_on_conflict":3,"require_alias":true}}` + "\n",
+			},
+			{
+				"with require_alias and zero retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "update",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(0),
+				}},
+				`{"update":{"retry_on_conflict":0,"require_alias":true}}` + "\n",
+			},
+			{
+				"with _index, require_alias and ignored retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "index",
+					Index:           "test",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"index":{"_index":"test","require_alias":true}}` + "\n",
+			},
+			{
+				"with routing, require_alias and ignored retry_on_conflict",
+				args{BulkIndexerItem{
+					Action:          "index",
+					Routing:         "user1",
+					RequireAlias:    true,
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"index":{"routing":"user1","require_alias":true}}` + "\n",
+			},
+			{
 				"with version, version_type and require_alias",
 				args{BulkIndexerItem{
 					Action:       "index",
@@ -1307,6 +1371,14 @@ func TestBulkIndexer(t *testing.T) {
 					RetryOnConflict: esapi.IntPtr(3),
 				}},
 				`{"index":{"_id":"1"}}` + "\n",
+			},
+			{
+				"with ignored retry_on_conflict only",
+				args{BulkIndexerItem{
+					Action:          "index",
+					RetryOnConflict: esapi.IntPtr(3),
+				}},
+				`{"index":{}}` + "\n",
 			},
 			{
 				"with retry_on_conflict",
@@ -1338,6 +1410,9 @@ func TestBulkIndexer(t *testing.T) {
 				tt.args.item.marshallMeta()
 				if err := w.writeMeta(&tt.args.item); err != nil {
 					t.Errorf("Unexpected error: %v", err)
+				}
+				if !json.Valid(w.buf.Bytes()) {
+					t.Fatalf("worker.writeMeta() returned invalid JSON: %s", w.buf.String())
 				}
 
 				if w.buf.String() != tt.want {

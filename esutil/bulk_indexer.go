@@ -205,7 +205,7 @@ func (item *BulkIndexerItem) marshallMeta() {
 		aux = aux[:0]
 	}
 	if item.RequireAlias {
-		if item.DocumentID != "" || item.Routing != "" || item.Index != "" || item.RetryOnConflict != nil {
+		if item.DocumentID != "" || item.Routing != "" || item.Index != "" || (item.RetryOnConflict != nil && item.Action == "update") {
 			item.meta.WriteString(",")
 		}
 		item.meta.WriteString(`"require_alias":`)
