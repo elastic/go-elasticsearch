@@ -38,7 +38,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/esapi"
 )
 
-// ErrIndexerClosed is returned when Flush is called on a closed indexer.
+// ErrIndexerClosed is returned when Flush or Close is called on a closed indexer.
 var ErrIndexerClosed = errors.New("bulk indexer is closed")
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
@@ -53,6 +53,10 @@ type BulkIndexer interface {
 	Add(context.Context, BulkIndexerItem) error
 
 	// Close waits until all added items are flushed and closes the indexer.
+	//
+	// Close is idempotent: once the indexer is closed, subsequent calls
+	// return ErrIndexerClosed without waiting for the shutdown started by
+	// the first call to complete.
 	Close(context.Context) error
 
 	// Flush drains all currently queued items, flushes all worker buffers to
@@ -430,8 +434,16 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 // If the indexer auto-created its client (because BulkIndexerConfig.Client was
 // nil), Close also closes that client. It remains the caller's responsibility
 // to close any client they passed in via BulkIndexerConfig.Client.
+//
+// Close is idempotent: once the indexer is closed, subsequent calls return
+// ErrIndexerClosed without waiting for the shutdown started by the first call
+// to complete.
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	bi.flushMu.Lock()
+	if bi.closed.Load() {
+		bi.flushMu.Unlock()
+		return ErrIndexerClosed
+	}
 	bi.closed.Store(true)
 	for _, w := range bi.workers {
 		close(w.ch)
