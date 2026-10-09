@@ -1,8 +1,8 @@
 module _examples
 
-go 1.25.0
+go 1.26.0
 
-toolchain go1.25.12
+toolchain go1.26.9
 
 replace github.com/elastic/go-elasticsearch/v9 => ../
 
