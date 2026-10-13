@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // A non-materialized ES|QL view.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/_types/types.ts#L120-L130
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/esql/_types/types.ts#L120-L132
 type ESQLView struct {
+	// Description A free-text description of the view.
+	Description *string `json:"description,omitempty"`
 	// Name The name of the ES|QL view
 	Name string `json:"name"`
 	// Query The ES|QL query
@@ -53,6 +55,18 @@ func (s *ESQLView) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
 
 		case "name":
 			var tmp json.RawMessage

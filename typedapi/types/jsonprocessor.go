@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // JsonProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ingest/_types/Processors.ts#L1206-L1235
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/ingest/_types/Processors.ts#L1206-L1235
 type JsonProcessor struct {
 	// AddToRoot Flag that forces the parsed JSON to be added at the top level of the
 	// document. `target_field` must not be set when this option is chosen.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 // Force a merge.
 //
@@ -54,8 +54,7 @@
 // some preflight checks, launches the request, and returns a task you can use
 // to get the status of the task. However, you can not cancel this task as the
 // force merge task is not cancelable. Elasticsearch creates a record of this
-// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-// should delete the task document so Elasticsearch can reclaim the space.
+// task as a document at `_tasks/<task_id>`.
 //
 // # Force merging multiple indices
 //
@@ -66,11 +65,11 @@
 //   - One or more aliases
 //   - All data streams and indices in a cluster
 //
-// Each targeted shard is force-merged separately using the force_merge
-// threadpool. By default each node only has a single `force_merge` thread which
-// means that the shards on that node are force-merged one at a time. If you
-// expand the `force_merge` threadpool on a node then it will force merge its
-// shards in parallel
+// Each targeted shard is force-merged separately using the `force_merge`
+// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+// node then it will force merge its shards with more parallelism.
 //
 // Force merge makes the storage for the shard being merged temporarily
 // increase, as it may require free space up to triple its size in case
@@ -180,8 +179,7 @@ func NewForcemergeFunc(tp elastictransport.Interface) NewForcemerge {
 // some preflight checks, launches the request, and returns a task you can use
 // to get the status of the task. However, you can not cancel this task as the
 // force merge task is not cancelable. Elasticsearch creates a record of this
-// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-// should delete the task document so Elasticsearch can reclaim the space.
+// task as a document at `_tasks/<task_id>`.
 //
 // # Force merging multiple indices
 //
@@ -192,11 +190,11 @@ func NewForcemergeFunc(tp elastictransport.Interface) NewForcemerge {
 //   - One or more aliases
 //   - All data streams and indices in a cluster
 //
-// Each targeted shard is force-merged separately using the force_merge
-// threadpool. By default each node only has a single `force_merge` thread which
-// means that the shards on that node are force-merged one at a time. If you
-// expand the `force_merge` threadpool on a node then it will force merge its
-// shards in parallel
+// Each targeted shard is force-merged separately using the `force_merge`
+// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+// node then it will force merge its shards with more parallelism.
 //
 // Force merge makes the storage for the shard being merged temporarily
 // increase, as it may require free space up to triple its size in case

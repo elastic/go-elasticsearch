@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package clone
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package clone
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/snapshot/clone/SnapshotCloneRequest.ts#L24-L73
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/snapshot/clone/SnapshotCloneRequest.ts#L24-L73
 type Request struct {
 	// Indices A comma-separated list of indices to include in the snapshot. Multi-target
 	// syntax is supported.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // exposed as request-body parameters can be set here; other `SET`-only settings
 // (such as `unmapped_fields`) must be supplied in the query itself.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/_types/types.ts#L175-L212
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/esql/_types/types.ts#L179-L216
 type EsqlQuerySettings struct {
 	// Approximation Enables query approximation if possible for the query. `false` (the default)
 	// disables query approximation and `true` enables it with default settings. A

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SharedFileSystemRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/snapshot/_types/SnapshotRepository.ts#L349-L376
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/snapshot/_types/SnapshotRepository.ts#L349-L376
 type SharedFileSystemRepositorySettings struct {
 	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
 	// during snapshotting. It is not recommended to change this value from its

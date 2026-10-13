@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // WatcherCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/watcher/_types/Conditions.ts#L51-L63
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/watcher/_types/Conditions.ts#L51-L63
 type WatcherCondition struct {
 	Always       *AlwaysCondition                                  `json:"always,omitempty"`
 	ArrayCompare map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`

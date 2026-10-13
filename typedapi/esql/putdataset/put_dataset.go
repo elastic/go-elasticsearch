@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
-// Create or replace an ES|QL dataset.
+// Create or update an ES|QL dataset.
 //
-// Creates or replaces a dataset that references a data source. Dataset names
-// participate in the index namespace and must follow index/alias naming rules.
-// Returns `404` if the referenced data source does not exist.
+// Creates or replaces a dataset that references a data source in ES|QL data
+// federation. Dataset names participate in the index namespace and must follow
+// index or alias naming rules. Returns `404` if the referenced data source does
+// not exist.
 package putdataset
 
 import (
@@ -85,13 +86,16 @@ func NewPutDatasetFunc(tp elastictransport.Interface) NewPutDataset {
 	}
 }
 
-// Create or replace an ES|QL dataset.
+// Create or update an ES|QL dataset.
 //
-// Creates or replaces a dataset that references a data source. Dataset names
-// participate in the index namespace and must follow index/alias naming rules.
-// Returns `404` if the referenced data source does not exist.
+// Creates or replaces a dataset that references a data source in ES|QL data
+// federation. Dataset names participate in the index namespace and must follow
+// index or alias naming rules. Returns `404` if the referenced data source does
+// not exist.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-dataset
 func New(tp elastictransport.Interface) *PutDataset {
 	r := &PutDataset{
 		transport: tp,
@@ -419,9 +423,8 @@ func (r *PutDataset) Mappings(mappings types.DatasetMappingVariant) *PutDataset 
 }
 
 // The URI that identifies the data to read, resolved against the referenced
-// data source, rather than only a path. For S3, it can include glob patterns,
-// for example a recursive `/**` matching `*.parquet` files under a prefix such
-// as `s3://bucket/logs`.
+// data source. It can include glob patterns. For example, a recursive pattern
+// can match all Parquet files under the `s3://logs-bucket/access` prefix.
 // API name: resource
 func (r *PutDataset) Resource(resource string) *PutDataset {
 	// Initialize the request if it is not already initialized
@@ -435,8 +438,10 @@ func (r *PutDataset) Resource(resource string) *PutDataset {
 }
 
 // Format and parsing-specific settings that configure how the resource is read.
-// The accepted keys depend on the format reader; compression can be inferred
-// from the resource URI.
+// Common keys include `format`, which explicitly selects a registered format,
+// and `partition_detection`, which accepts `auto`, `hive`, `template`, or
+// `none`. Additional keys depend on the format reader. Compression can be
+// inferred from the resource URI.
 // API name: settings
 func (r *PutDataset) Settings(settings map[string]json.RawMessage) *PutDataset {
 	// Initialize the request if it is not already initialized

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package esdsl
 
@@ -106,6 +106,13 @@ func (s *_multisearchHeader) RequestCache(requestcache bool) *_multisearchHeader
 	return s
 }
 
+func (s *_multisearchHeader) RouteSlice(routeslice string) *_multisearchHeader {
+
+	s.v.RouteSlice = &routeslice
+
+	return s
+}
+
 func (s *_multisearchHeader) Routing(routings ...string) *_multisearchHeader {
 
 	s.v.Routing = routings
@@ -116,13 +123,6 @@ func (s *_multisearchHeader) Routing(routings ...string) *_multisearchHeader {
 func (s *_multisearchHeader) SearchType(searchtype searchtype.SearchType) *_multisearchHeader {
 
 	s.v.SearchType = &searchtype
-	return s
-}
-
-func (s *_multisearchHeader) Slice_(slice_ string) *_multisearchHeader {
-
-	s.v.Slice_ = &slice_
-
 	return s
 }
 

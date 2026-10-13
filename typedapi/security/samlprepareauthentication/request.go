@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package samlprepareauthentication
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package samlprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/saml_prepare_authentication/Request.ts#L23-L70
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/security/saml_prepare_authentication/Request.ts#L23-L70
 type Request struct {
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realms in
 	// Elasticsearch. The realm is used to generate the authentication request. You

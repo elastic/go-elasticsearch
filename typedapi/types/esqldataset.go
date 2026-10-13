@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -34,7 +34,7 @@ import (
 // indices, aliases, and views. Datasets inherit credentials from their
 // referenced data source at query time.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/_types/types.ts#L147-L173
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/esql/_types/types.ts#L149-L177
 type ESQLDataset struct {
 	// DataSource The name of the referenced data source.
 	DataSource string `json:"data_source"`
@@ -45,13 +45,13 @@ type ESQLDataset struct {
 	// Name The dataset name.
 	Name string `json:"name"`
 	// Resource The URI that identifies the data to read, resolved against the referenced
-	// data source, rather than only a path. For S3, it can include glob patterns,
-	// for example a recursive `/**` matching `*.parquet` files under a prefix such
-	// as `s3://bucket/logs`.
+	// data source. It can include glob patterns, for example a recursive pattern
+	// that matches Parquet files under `s3://logs-bucket/access`.
 	Resource string `json:"resource"`
 	// Settings Format- and parsing-specific settings that configure how the resource is
-	// read. The accepted keys depend on the format reader; compression can be
-	// inferred from the resource URI.
+	// read. Common keys include `format` and `partition_detection`. Additional keys
+	// depend on the format reader; compression can be inferred from the resource
+	// URI.
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 

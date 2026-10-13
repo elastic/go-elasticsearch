@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Checkpointing type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/transform/get_transform_stats/types.ts#L102-L110
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/transform/get_transform_stats/types.ts#L102-L110
 type Checkpointing struct {
 	ChangesLastDetectedAt       *int64           `json:"changes_last_detected_at,omitempty"`
 	ChangesLastDetectedAtString DateTime         `json:"changes_last_detected_at_string,omitempty"`

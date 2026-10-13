@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AsciiFoldingTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/analysis/token_filters.ts#L224-L228
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/_types/analysis/token_filters.ts#L224-L228
 type AsciiFoldingTokenFilter struct {
 	// PreserveOriginal If `true`, emit both original tokens and folded tokens. Defaults to `false`.
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`

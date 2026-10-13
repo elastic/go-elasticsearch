@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6
 
 package getpolicy
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/enrich/get_policy/GetEnrichPolicyResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/56c1eabdd35f941d1fbb3ad7ad8a9676664223f6/specification/enrich/get_policy/GetEnrichPolicyResponse.ts#L22-L24
 type Response struct {
 	Policies []types.Summary `json:"policies"`
 }
