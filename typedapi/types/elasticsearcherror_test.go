@@ -18,6 +18,8 @@
 package types
 
 import (
+	"errors"
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -120,5 +122,27 @@ func TestElasticsearchError_UnmarshalJSON(t *testing.T) {
 				t.Errorf("Metadata = %v, want %v", gotMetadata, tt.wantMetadata)
 			}
 		})
+	}
+}
+
+func TestElasticsearchError_As(t *testing.T) {
+	reason := "no such index [foo]"
+	err := fmt.Errorf("search failed: %w", &ElasticsearchError{
+		Status:     404,
+		ErrorCause: ErrorCause{Type: "index_not_found_exception", Reason: &reason},
+	})
+
+	var target ElasticsearchError
+	if !errors.As(err, &target) {
+		t.Fatalf("errors.As() = false, want true")
+	}
+	if target.Status != 404 {
+		t.Errorf("Status = %d, want 404", target.Status)
+	}
+	if target.ErrorCause.Type != "index_not_found_exception" {
+		t.Errorf("Type = %q, want %q", target.ErrorCause.Type, "index_not_found_exception")
+	}
+	if target.ErrorCause.Reason == nil || *target.ErrorCause.Reason != reason {
+		t.Errorf("Reason = %v, want %q", target.ErrorCause.Reason, reason)
 	}
 }
