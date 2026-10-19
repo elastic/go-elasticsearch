@@ -51,7 +51,8 @@ func (e ElasticsearchError) Is(err error) bool {
 
 // As implements errors.As interface to allow type matching of ElasticsearchError.
 func (e ElasticsearchError) As(err interface{}) bool {
-	if _, ok := err.(*ElasticsearchError); ok {
+	if target, ok := err.(*ElasticsearchError); ok {
+		*target = e
 		return true
 	}
 	return false
