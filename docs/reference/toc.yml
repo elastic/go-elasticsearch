@@ -4,22 +4,26 @@ toc:
   - file: installation.md
   - file: connecting.md
   - file: configuration.md
-  - file: using-the-api/index.md
+  - folder: using-the-api
     children:
-      - file: using-the-api/crud-operations.md
-      - file: using-the-api/searching.md
-      - file: using-the-api/aggregations.md
-      - file: using-the-api/bulk-indexing.md
-      - file: using-the-api/esql.md
-      - file: using-the-api/dense-vectors.md
-  - file: typed-api/index.md
+      - file: index.md
+      - file: crud-operations.md
+      - file: searching.md
+      - file: aggregations.md
+      - file: bulk-indexing.md
+      - file: esql.md
+      - file: dense-vectors.md
+  - folder: typed-api
     children:
-      - file: typed-api/conventions.md
-      - file: typed-api/esdsl.md
-  - file: low-level-api/index.md
+      - file: index.md
+      - file: conventions.md
+      - file: esdsl.md
+  - folder: low-level-api
     children:
-      - file: low-level-api/migration.md
-  - file: advanced/index.md
+      - file: index.md
+      - file: migration.md
+  - folder: advanced
     children:
-      - file: advanced/interceptors.md
-      - file: advanced/observability.md
+      - file: index.md
+      - file: interceptors.md
+      - file: observability.md
