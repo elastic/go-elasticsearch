@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.5.0](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.5.0) (2026-11-02)
+
+
+### Bug Fixes
+
+* **build:** Normalize legacy manifest timestamps to UTC ([#1588](https://github.com/elastic/go-elasticsearch/issues/1588)) ([f13cda0](https://github.com/elastic/go-elasticsearch/commit/f13cda04963bfeb467279a4f1151dbe71d76a90d))
+* **build:** Retain snapshot fallback when the release index fails ([#1589](https://github.com/elastic/go-elasticsearch/issues/1589)) ([17ebbb5](https://github.com/elastic/go-elasticsearch/commit/17ebbb57fd68b95966a6d1004e35e9237c7d1b07))
+* **ci:** Pin ESAPI generator tooling ([#1548](https://github.com/elastic/go-elasticsearch/issues/1548)) ([f140830](https://github.com/elastic/go-elasticsearch/commit/f14083019312de66451826224234628c65658b1a))
+* **ci:** Remove unnecessary goimports installation ([#1550](https://github.com/elastic/go-elasticsearch/issues/1550)) ([e06041b](https://github.com/elastic/go-elasticsearch/commit/e06041b9da5ebe337d332ed5241e3dbfbe1b6701))
+* **esutil:** Reject expired contexts in BulkIndexer.Add ([#1586](https://github.com/elastic/go-elasticsearch/issues/1586)) ([ecf1c4c](https://github.com/elastic/go-elasticsearch/commit/ecf1c4cca65465825b70eab6478e36cd31183d79))
+
 ## [9.5.0](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.5.0) (2026-08-04)
 
 
