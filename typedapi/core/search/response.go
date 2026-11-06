@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/SearchResponse.ts#L34-L37
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/SearchResponse.ts#L34-L37
 type Response struct {
 	Aggregations map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_    *types.ClusterStatistics   `json:"_clusters,omitempty"`
@@ -43,8 +43,17 @@ type Response struct {
 	Hits            types.HitsMetadata `json:"hits"`
 	MaxScore        *types.Float64     `json:"max_score,omitempty"`
 	NumReducePhases *int64             `json:"num_reduce_phases,omitempty"`
-	PitId           *string            `json:"pit_id,omitempty"`
-	Profile         *types.Profile     `json:"profile,omitempty"`
+	// PitId An updated identifier for the point-in-time that was searched.
+	//
+	// IMPORTANT: Each search request against a PIT returns in its response a
+	// `pit_id` field which may be different from the identifier you originally
+	// supplied. Always use the most recently-received PIT identifier for the next
+	// request. If you make concurrent search requests against the same PIT,
+	// Elasticsearch can return several different `pit_id` values in its responses.
+	// In that case, use any of these values for later requests, preferring more
+	// recently-received values whenever possible.
+	PitId   *string        `json:"pit_id,omitempty"`
+	Profile *types.Profile `json:"profile,omitempty"`
 	// ScrollId_ The identifier for the search and its search context. You can use this scroll
 	// ID with the scroll API to retrieve the next batch of search results for the
 	// request. This property is returned only if the `scroll` query parameter is

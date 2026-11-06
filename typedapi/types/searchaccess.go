@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchAccess type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/_types/Privileges.ts#L482-L502
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/_types/Privileges.ts#L529-L549
 type SearchAccess struct {
 	// AllowRestrictedIndices Set to `true` if using wildcard or regular expressions for patterns that
 	// cover restricted indices. Implicitly, restricted indices have limited
@@ -119,7 +119,7 @@ func (s *SearchAccess) UnmarshalJSON(data []byte) error {
 
 				switch t {
 
-				case "AdditionalQueryProperty", "bool", "boosting", "combined_fields", "common", "constant_score", "dis_max", "distance_feature", "exists", "function_score", "fuzzy", "geo_bounding_box", "geo_distance", "geo_grid", "geo_polygon", "geo_shape", "has_child", "has_parent", "ids", "intervals", "knn", "match", "match_all", "match_bool_prefix", "match_none", "match_phrase", "match_phrase_prefix", "more_like_this", "multi_match", "nested", "parent_id", "percolate", "pinned", "prefix", "query_string", "range", "rank_feature", "regexp", "rule", "script", "script_score", "semantic", "shape", "simple_query_string", "span_containing", "span_field_masking", "span_first", "span_multi", "span_near", "span_not", "span_or", "span_term", "span_within", "sparse_vector", "term", "terms", "terms_set", "text_expansion", "type", "weighted_tokens", "wildcard", "wrapper":
+				case "AdditionalQueryProperty", "bool", "boosting", "combined_fields", "common", "constant_score", "dense_vector", "dis_max", "distance_feature", "exists", "function_score", "fuzzy", "geo_bounding_box", "geo_distance", "geo_grid", "geo_polygon", "geo_shape", "has_child", "has_parent", "ids", "intervals", "knn", "kql", "match", "match_all", "match_bool_prefix", "match_none", "match_phrase", "match_phrase_prefix", "more_like_this", "multi_match", "nested", "parent_id", "percolate", "pinned", "prefix", "query_string", "range", "rank_feature", "regexp", "rule", "script", "script_score", "semantic", "shape", "simple_query_string", "span_containing", "span_field_masking", "span_first", "span_multi", "span_near", "span_not", "span_or", "span_term", "span_within", "sparse_vector", "term", "terms", "terms_set", "text_expansion", "type", "weighted_tokens", "wildcard", "wrapper":
 					o := NewQuery()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {

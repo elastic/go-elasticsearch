@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // The source of the data for the transform.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/transform/_types/Transform.ts#L98-L165
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/transform/_types/Transform.ts#L129-L206
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align checkpoint ranges with the date
@@ -39,8 +39,8 @@ type Settings struct {
 	// transform config. As a result, less document updates in the destination index
 	// will be performed thus improving overall performance.
 	AlignCheckpoints *bool `json:"align_checkpoints,omitempty"`
-	// DatesAsEpochMillis Defines if dates in the ouput should be written as ISO formatted string or as
-	// millis since epoch. epoch_millis was the default for transforms created
+	// DatesAsEpochMillis Defines if dates in the output should be written as ISO formatted string or
+	// as millis since epoch. epoch_millis was the default for transforms created
 	// before version 7.11. For compatible output set this value to `true`.
 	DatesAsEpochMillis *bool `json:"dates_as_epoch_millis,omitempty"`
 	// DeduceMappings Specifies whether the transform should deduce the destination index mappings
@@ -50,6 +50,11 @@ type Settings struct {
 	// throttles the transform by adding a wait time between search requests. The
 	// default value is null, which disables throttling.
 	DocsPerSecond *float32 `json:"docs_per_second,omitempty"`
+	// IndexerRequestTimeout The initial timeout for the requests the transform sends to nodes to retrieve
+	// checkpoint information. Each consecutive failure doubles the timeout, up to a
+	// maximum of `12h`. The minimum value is `1ms` and the maximum is `12h`.
+	// Defaults to `30s`.
+	IndexerRequestTimeout Duration `json:"indexer_request_timeout,omitempty"`
 	// MaxPageSearchSize Defines the initial page size to use for the composite aggregation for each
 	// checkpoint. If circuit breaker exceptions occur, the page size is dynamically
 	// adjusted to a lower value. The minimum value is `10` and the maximum is
@@ -150,6 +155,11 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.DocsPerSecond = &f
+			}
+
+		case "indexer_request_timeout":
+			if err := dec.Decode(&s.IndexerRequestTimeout); err != nil {
+				return fmt.Errorf("%s | %w", "IndexerRequestTimeout", err)
 			}
 
 		case "max_page_search_size":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Check a document.
 //
@@ -57,6 +57,8 @@ const (
 	idMask = iota + 1
 
 	indexMask
+
+	slice_Mask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -73,8 +75,9 @@ type Exists struct {
 
 	paramSet int
 
-	id    string
-	index string
+	id     string
+	index  string
+	slice_ string
 
 	spanStarted bool
 
@@ -156,6 +159,29 @@ func (r *Exists) HttpRequest(ctx context.Context) (*http.Request, error) {
 			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
+		path.WriteString("/")
+		path.WriteString("_doc")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
+		}
+		path.WriteString(r.id)
+
+		method = http.MethodHead
+	case r.paramSet == indexMask|slice_Mask|idMask:
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
+		}
+		path.WriteString(r.index)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "slice_", r.slice_)
+		}
+		path.WriteString(r.slice_)
 		path.WriteString("/")
 		path.WriteString("_doc")
 		path.WriteString("/")
@@ -306,6 +332,18 @@ func (r *Exists) _index(index string) *Exists {
 	return r
 }
 
+// Slice_ The slice identifier for a slice-enabled index (`index.slice.enabled` set to
+// `true`), which scopes the operation to that slice. Required when
+// `index.slice.enabled` is `true` for the target index; not allowed when
+// `index.slice.enabled` is `false`.
+// API Name: slice_
+func (r *Exists) Slice_(slice_ string) *Exists {
+	r.paramSet |= slice_Mask
+	r.slice_ = slice_
+
+	return r
+}
+
 // Preference The node or shard the operation should be performed on. By default, the
 // operation is randomized between the shard replicas.
 //
@@ -341,7 +379,8 @@ func (r *Exists) Refresh(refresh bool) *Exists {
 	return r
 }
 
-// Routing A custom value used to route operations to a specific shard.
+// Routing A custom value used to route operations to a specific shard. Not allowed when
+// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 // API name: routing
 func (r *Exists) Routing(routings ...string) *Exists {
 	r.values.Set("routing", strings.Join(routings, ","))

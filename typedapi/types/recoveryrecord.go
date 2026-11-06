@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,8 +31,12 @@ import (
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/cat/recovery/types.ts#L24-L192
 type RecoveryRecord struct {
+	// BlockedForMillis The elapsed time in milliseconds recovery is blocked for.
+	//
+	// The value is `n/a` when the recovery is not blocked by a recovery gate.
+	BlockedForMillis *string `json:"blocked_for_millis,omitempty"`
 	// Bytes The number of bytes to recover.
 	Bytes *string `json:"bytes,omitempty"`
 	// BytesPercent The ratio of bytes recovered.
@@ -49,8 +53,18 @@ type RecoveryRecord struct {
 	FilesRecovered *string `json:"files_recovered,omitempty"`
 	// FilesTotal The total number of files.
 	FilesTotal *string `json:"files_total,omitempty"`
+	// Gate The name of the recovery gate that blocked recovery on the target node.
+	//
+	// The value is `n/a` unless the recovery is queued in the `created` stage and
+	// blocked by a recovery gate.
+	Gate *string `json:"gate,omitempty"`
 	// Index The index name.
 	Index *string `json:"index,omitempty"`
+	// LocalRetries The number of times this recovery has failed in a way which is retried
+	// locally (i.e. on the data node).
+	LocalRetries *string `json:"local_retries,omitempty"`
+	// Priority The recovery priority.
+	Priority *string `json:"priority,omitempty"`
 	// Repository The repository name.
 	Repository *string `json:"repository,omitempty"`
 	// Shard The shard name.
@@ -63,19 +77,24 @@ type RecoveryRecord struct {
 	SourceNode *string `json:"source_node,omitempty"`
 	// Stage The recovery stage.
 	Stage *string `json:"stage,omitempty"`
-	// StartTime The recovery start time.
+	// StartTime The recovery start time. For recoveries in the `created` stage (not yet
+	// started), this value is the Unix epoch (1970-01-01T00:00:00.000Z).
 	StartTime DateTime `json:"start_time,omitempty"`
-	// StartTimeMillis The recovery start time in epoch milliseconds.
+	// StartTimeMillis The recovery start time in epoch milliseconds. For recoveries in the
+	// `created` stage (not yet started), this value is 0.
 	StartTimeMillis *int64 `json:"start_time_millis,omitempty"`
-	// StopTime The recovery stop time.
+	// StopTime The recovery stop time. For recoveries that have not yet completed, this
+	// value is the Unix epoch (1970-01-01T00:00:00.000Z).
 	StopTime DateTime `json:"stop_time,omitempty"`
-	// StopTimeMillis The recovery stop time in epoch milliseconds.
+	// StopTimeMillis The recovery stop time in epoch milliseconds. For recoveries that have not
+	// yet completed, this value is 0.
 	StopTimeMillis *int64 `json:"stop_time_millis,omitempty"`
 	// TargetHost The target host.
 	TargetHost *string `json:"target_host,omitempty"`
 	// TargetNode The target node name.
 	TargetNode *string `json:"target_node,omitempty"`
-	// Time The recovery time.
+	// Time The recovery time. For recoveries in the `created` stage (not yet started),
+	// this value is 0.
 	Time Duration `json:"time,omitempty"`
 	// TranslogOps The number of translog operations to recover.
 	TranslogOps *string `json:"translog_ops,omitempty"`
@@ -101,6 +120,18 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "blocked_for_millis", "bf":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "BlockedForMillis", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.BlockedForMillis = &o
 
 		case "bytes", "b":
 			var tmp json.RawMessage
@@ -184,10 +215,46 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			}
 			s.FilesTotal = &o
 
+		case "gate", "g":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Gate", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Gate = &o
+
 		case "index", "i", "idx":
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
 			}
+
+		case "local_retries", "lr":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "LocalRetries", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.LocalRetries = &o
+
+		case "priority", "pr":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Priority", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Priority = &o
 
 		case "repository", "rep":
 			var tmp json.RawMessage

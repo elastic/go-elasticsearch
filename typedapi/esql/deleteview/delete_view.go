@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Delete an ES|QL view.
 //
-// Deletes a stored ES|QL view.
+// Deletes a stored ES|QL view. Deleting a reserved view fails.
 package deleteview
 
 import (
@@ -80,9 +80,11 @@ func NewDeleteViewFunc(tp elastictransport.Interface) NewDeleteView {
 
 // Delete an ES|QL view.
 //
-// Deletes a stored ES|QL view.
+// Deletes a stored ES|QL view. Deleting a reserved view fails.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-view
 func New(tp elastictransport.Interface) *DeleteView {
 	r := &DeleteView{
 		transport: tp,

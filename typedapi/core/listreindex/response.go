@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package listreindex
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package listreindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/list_reindex/ListReindexResponse.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/list_reindex/ListReindexResponse.ts#L23-L40
 type Response struct {
 	// NodeFailures Node-level failures encountered while listing reindex tasks. Typically
 	// populated when a node disconnects or stops responding mid-request, reindex

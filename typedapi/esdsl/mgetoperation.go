@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -45,6 +45,13 @@ func (s *_mgetOperation) Id_(id string) *_mgetOperation {
 func (s *_mgetOperation) Index_(indexname string) *_mgetOperation {
 
 	s.v.Index_ = &indexname
+
+	return s
+}
+
+func (s *_mgetOperation) RouteSlice(sliceid string) *_mgetOperation {
+
+	s.v.RouteSlice = &sliceid
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Start a transform.
 //
@@ -360,6 +360,17 @@ func (r *StartTransform) Timeout(duration string) *StartTransform {
 // API name: from
 func (r *StartTransform) From(from string) *StartTransform {
 	r.values.Set("from", from)
+
+	return r
+}
+
+// InitialDelay A one-time, reduced sync delay that applies until the transform has processed
+// its first document. It then reverts to the `sync.time.delay` of the
+// transform. Only applicable for continuous transforms, and it can't be greater
+// than `sync.time.delay`.
+// API name: initial_delay
+func (r *StartTransform) InitialDelay(duration string) *StartTransform {
+	r.values.Set("initial_delay", duration)
 
 	return r
 }

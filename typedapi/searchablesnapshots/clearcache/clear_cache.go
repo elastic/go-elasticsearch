@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-// Clear the cache.
+// Clear the searchable snapshots shared cache.
 //
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
@@ -78,7 +78,7 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 	}
 }
 
-// Clear the cache.
+// Clear the searchable snapshots shared cache.
 //
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.

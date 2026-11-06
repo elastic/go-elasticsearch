@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Create a new document in the index.
 //
@@ -156,6 +156,8 @@ const (
 	idMask = iota + 1
 
 	indexMask
+
+	slice_Mask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -176,8 +178,9 @@ type Create struct {
 
 	paramSet int
 
-	id    string
-	index string
+	id     string
+	index  string
+	slice_ string
 
 	spanStarted bool
 
@@ -413,6 +416,29 @@ func (r *Create) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString(r.id)
 
 		method = http.MethodPut
+	case r.paramSet == indexMask|slice_Mask|idMask:
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
+		}
+		path.WriteString(r.index)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "slice_", r.slice_)
+		}
+		path.WriteString(r.slice_)
+		path.WriteString("/")
+		path.WriteString("_create")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
+		}
+		path.WriteString(r.id)
+
+		method = http.MethodPut
 	}
 
 	r.path.Path = path.String()
@@ -573,6 +599,18 @@ func (r *Create) _index(index string) *Create {
 	return r
 }
 
+// Slice_ The slice identifier for a slice-enabled index (`index.slice.enabled` set to
+// `true`), which scopes the operation to that slice. Required when
+// `index.slice.enabled` is `true` for the target index; not allowed when
+// `index.slice.enabled` is `false`.
+// API Name: slice_
+func (r *Create) Slice_(slice_ string) *Create {
+	r.paramSet |= slice_Mask
+	r.slice_ = slice_
+
+	return r
+}
+
 // IncludeSourceOnError True or false if to include the document source in the error message in case
 // of parsing errors.
 // API name: include_source_on_error
@@ -620,7 +658,9 @@ func (r *Create) RequireDataStream(requiredatastream bool) *Create {
 	return r
 }
 
-// Routing A custom value that is used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard. Not
+// allowed when `index.slice.enabled` is `true` for the target index; use
+// `_slice` instead.
 // API name: routing
 func (r *Create) Routing(routings ...string) *Create {
 	r.values.Set("routing", strings.Join(routings, ","))

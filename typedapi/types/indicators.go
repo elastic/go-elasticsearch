@@ -16,20 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
 // Indicators type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/health_report/types.ts#L33-L44
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/health_report/types.ts#L33-L49
 type Indicators struct {
-	DataStreamLifecycle  *DataStreamLifecycleIndicator  `json:"data_stream_lifecycle,omitempty"`
-	Disk                 *DiskIndicator                 `json:"disk,omitempty"`
+	ClusterStateEncryption *ProjectEncryptionKeyIndicator `json:"cluster_state_encryption,omitempty"`
+	DataStreamLifecycle    *DataStreamLifecycleIndicator  `json:"data_stream_lifecycle,omitempty"`
+	Disk                   *DiskIndicator                 `json:"disk,omitempty"`
+	// DlmFrozenTransitions Reports the health of data stream lifecycle transitions of backing indices to
+	// the frozen tier.
+	DlmFrozenTransitions *DlmFrozenTransitionsIndicator `json:"dlm_frozen_transitions,omitempty"`
 	FileSettings         *FileSettingsIndicator         `json:"file_settings,omitempty"`
 	Ilm                  *IlmIndicator                  `json:"ilm,omitempty"`
 	MasterIsStable       *MasterIsStableIndicator       `json:"master_is_stable,omitempty"`
-	ProjectEncryptionKey *ProjectEncryptionKeyIndicator `json:"project_encryption_key,omitempty"`
 	RepositoryIntegrity  *RepositoryIntegrityIndicator  `json:"repository_integrity,omitempty"`
 	ShardsAvailability   *ShardsAvailabilityIndicator   `json:"shards_availability,omitempty"`
 	ShardsCapacity       *ShardsCapacityIndicator       `json:"shards_capacity,omitempty"`

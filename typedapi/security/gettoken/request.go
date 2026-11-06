@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package gettoken
 
@@ -33,10 +33,10 @@ import (
 
 // Request holds the request body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L92
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L99
 type Request struct {
 	// GrantType The type of grant. Supported grant types are: `password`, `_kerberos`,
-	// `client_credentials`, and `refresh_token`.
+	// `client_credentials`, `refresh_token`, and `_user_managed_service_account`.
 	GrantType *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
 	// KerberosTicket The base64 encoded kerberos ticket. If you specify the `_kerberos` grant
 	// type, this parameter is required. This parameter is not valid with any other
@@ -53,6 +53,11 @@ type Request struct {
 	// Scope The scope of the token. Currently tokens are only issued for a scope of FULL
 	// regardless of the value sent with the request.
 	Scope *string `json:"scope,omitempty"`
+	// ServiceAccountToken The service account token of a user-managed service account, as returned by
+	// the create service account token API. If you specify the
+	// `_user_managed_service_account` grant type, this parameter is required. This
+	// parameter is not valid with any other supported grant type.
+	ServiceAccountToken *string `json:"service_account_token,omitempty"`
 	// Username The username that identifies the user. If you specify the `password` grant
 	// type, this parameter is required. This parameter is not valid with any other
 	// supported grant type.
@@ -137,6 +142,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Scope = &o
+
+		case "service_account_token":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ServiceAccountToken", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ServiceAccountToken = &o
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {

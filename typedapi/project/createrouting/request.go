@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package createrouting
 
@@ -26,7 +26,7 @@ import (
 
 // Request holds the request body struct for the package createrouting
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/project/create_routing/CreateRoutingRequest.ts#L24-L52
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/project/create_routing/CreateRoutingRequest.ts#L24-L52
 type Request = types.ProjectRoutingExpression
 
 // NewRequest returns a Request

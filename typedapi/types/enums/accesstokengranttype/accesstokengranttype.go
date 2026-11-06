@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Package accesstokengranttype
 package accesstokengranttype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_token/types.ts#L23-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/get_token/types.ts#L25-L60
 type AccessTokenGrantType struct {
 	Name string
 }
@@ -55,6 +55,18 @@ var (
 	// user exchanges a previously issued refresh token for a new access token and a
 	// new refresh token.
 	Refreshtoken = AccessTokenGrantType{"refresh_token"}
+
+	// Usermanagedserviceaccount This grant type is supported internally and exchanges a user-managed service
+	// account token for an access token that represents that service account. The
+	// request must be made by an authenticated caller with the `manage_token`
+	// cluster privilege, on behalf of the service account whose token is passed in
+	// the `service_account_token` parameter. The service account token is
+	// authenticated on every exchange, so a disabled account or an invalidated
+	// token is rejected. Tokens that belong to built-in (`elastic/*`) service
+	// accounts are rejected. It generates only access tokens that cannot be
+	// refreshed. The `_user_managed_service_account` grant type may change from
+	// version to version.
+	Usermanagedserviceaccount = AccessTokenGrantType{"_user_managed_service_account"}
 )
 
 func (a AccessTokenGrantType) MarshalText() (text []byte, err error) {
@@ -72,6 +84,8 @@ func (a *AccessTokenGrantType) UnmarshalText(text []byte) error {
 		*a = Kerberos
 	case "refresh_token":
 		*a = Refreshtoken
+	case "_user_managed_service_account":
+		*a = Usermanagedserviceaccount
 	default:
 		*a = AccessTokenGrantType{string(text)}
 	}

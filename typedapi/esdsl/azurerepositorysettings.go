@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -53,6 +53,13 @@ func (s *_azureRepositorySettings) Container(container string) *_azureRepository
 	return s
 }
 
+func (s *_azureRepositorySettings) DataAccessTier(dataaccesstier string) *_azureRepositorySettings {
+
+	s.v.DataAccessTier = &dataaccesstier
+
+	return s
+}
+
 func (s *_azureRepositorySettings) DeleteObjectsMaxSize(deleteobjectsmaxsize int) *_azureRepositorySettings {
 
 	s.v.DeleteObjectsMaxSize = &deleteobjectsmaxsize
@@ -70,6 +77,13 @@ func (s *_azureRepositorySettings) LocationMode(locationmode string) *_azureRepo
 func (s *_azureRepositorySettings) MaxConcurrentBatchDeletes(maxconcurrentbatchdeletes int) *_azureRepositorySettings {
 
 	s.v.MaxConcurrentBatchDeletes = &maxconcurrentbatchdeletes
+
+	return s
+}
+
+func (s *_azureRepositorySettings) MetadataAccessTier(metadataaccesstier string) *_azureRepositorySettings {
+
+	s.v.MetadataAccessTier = &metadataaccesstier
 
 	return s
 }

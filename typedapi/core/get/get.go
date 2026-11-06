@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get a document by its ID.
 //
@@ -99,6 +99,8 @@ const (
 	idMask = iota + 1
 
 	indexMask
+
+	slice_Mask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -115,8 +117,9 @@ type Get struct {
 
 	paramSet int
 
-	id    string
-	index string
+	id     string
+	index  string
+	slice_ string
 
 	spanStarted bool
 
@@ -237,6 +240,29 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
+		path.WriteString("/")
+		path.WriteString("_doc")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
+		}
+		path.WriteString(r.id)
+
+		method = http.MethodGet
+	case r.paramSet == indexMask|slice_Mask|idMask:
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
+		}
+		path.WriteString(r.index)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "slice_", r.slice_)
+		}
+		path.WriteString(r.slice_)
 		path.WriteString("/")
 		path.WriteString("_doc")
 		path.WriteString("/")
@@ -436,6 +462,18 @@ func (r *Get) _index(index string) *Get {
 	return r
 }
 
+// Slice_ The slice identifier for a slice-enabled index (`index.slice.enabled` set to
+// `true`), which scopes the operation to that slice. Required when
+// `index.slice.enabled` is `true` for the target index; not allowed when
+// `index.slice.enabled` is `false`.
+// API Name: slice_
+func (r *Get) Slice_(slice_ string) *Get {
+	r.paramSet |= slice_Mask
+	r.slice_ = slice_
+
+	return r
+}
+
 // ForceSyntheticSource Indicates whether the request forces synthetic `_source`. Use this parameter
 // to test if the mapping supports synthetic `_source` and to get a sense of the
 // worst case performance. Fetches with this parameter enabled will be slower
@@ -487,17 +525,6 @@ func (r *Get) Refresh(refresh bool) *Get {
 // API name: routing
 func (r *Get) Routing(routings ...string) *Get {
 	r.values.Set("routing", strings.Join(routings, ","))
-
-	return r
-}
-
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
-// special value `_all` to target all slices without restricting to a routing
-// value. Required when `index.slice.enabled` is `true` for the target index;
-// not allowed when `index.slice.enabled` is `false`.
-// API name: _slice
-func (r *Get) Slice_(slice_ string) *Get {
-	r.values.Set("_slice", slice_)
 
 	return r
 }

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package cloneapikey
 
 // Response holds the response body struct for the package cloneapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/clone_api_key/SecurityCloneApiKeyResponse.ts#L23-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/clone_api_key/SecurityCloneApiKeyResponse.ts#L23-L48
 type Response struct {
 	// ApiKey The generated API key value for the cloned key.
 	ApiKey string `json:"api_key"`

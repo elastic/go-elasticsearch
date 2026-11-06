@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -30,10 +30,14 @@ import (
 
 // PointInTimeReference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/PointInTimeReference.ts#L23-L33
 type PointInTimeReference struct {
 	Id        string   `json:"id"`
 	KeepAlive Duration `json:"keep_alive,omitempty"`
+	// RouteSlice The slice identifiers to search within the point in time: a single slice, a
+	// comma-separated list such as `tenant-a,tenant-b`, or `_all` to search all
+	// slices.
+	RouteSlice *string `json:"_slice,omitempty"`
 }
 
 func (s *PointInTimeReference) UnmarshalJSON(data []byte) error {
@@ -59,6 +63,11 @@ func (s *PointInTimeReference) UnmarshalJSON(data []byte) error {
 		case "keep_alive":
 			if err := dec.Decode(&s.KeepAlive); err != nil {
 				return fmt.Errorf("%s | %w", "KeepAlive", err)
+			}
+
+		case "_slice":
+			if err := dec.Decode(&s.RouteSlice); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice", err)
 			}
 
 		}

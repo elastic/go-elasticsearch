@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // An Elasticsearch Query DSL (Domain Specific Language) object that defines a
 // query.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/query_dsl/abstractions.ts#L97-L428
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/query_dsl/abstractions.ts#L99-L446
 type Query struct {
 	AdditionalQueryProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches documents matching boolean combinations of other queries.
@@ -46,6 +46,11 @@ type Query struct {
 	// ConstantScore Wraps a filter query and returns every matching document with a relevance
 	// score equal to the `boost` parameter value.
 	ConstantScore *ConstantScoreQuery `json:"constant_score,omitempty"`
+	// DenseVector Scores every document that has a value for a `dense_vector` field, with the
+	// exact similarity between its vector and a query vector. Unlike the `knn`
+	// query, it doesn't use an index structure, or a cutoff based on `k` or
+	// `num_candidates`.
+	DenseVector *DenseVectorQuery `json:"dense_vector,omitempty"`
 	// DisMax Returns documents matching one or more wrapped queries, called query clauses
 	// or clauses. If a returned document matches multiple query clauses, the
 	// `dis_max` query assigns the document the highest relevance score from any
@@ -90,6 +95,9 @@ type Query struct {
 	// metric. knn query finds nearest vectors through approximate search on indexed
 	// dense_vectors.
 	Knn *KnnQuery `json:"knn,omitempty"`
+	// Kql Returns documents matching a provided Kibana Query Language (KQL) expression.
+	// The expression is parsed and rewritten into standard Query DSL.
+	Kql *KqlQuery `json:"kql,omitempty"`
 	// Match Returns documents that match a provided text, number, date or boolean value.
 	// The provided text is analyzed before matching.
 	Match map[string]MatchQuery `json:"match,omitempty"`
@@ -243,6 +251,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ConstantScore", err)
 			}
 
+		case "dense_vector":
+			if err := dec.Decode(&s.DenseVector); err != nil {
+				return fmt.Errorf("%s | %w", "DenseVector", err)
+			}
+
 		case "dis_max":
 			if err := dec.Decode(&s.DisMax); err != nil {
 				return fmt.Errorf("%s | %w", "DisMax", err)
@@ -334,6 +347,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "knn":
 			if err := dec.Decode(&s.Knn); err != nil {
 				return fmt.Errorf("%s | %w", "Knn", err)
+			}
+
+		case "kql":
+			if err := dec.Decode(&s.Kql); err != nil {
+				return fmt.Errorf("%s | %w", "Kql", err)
 			}
 
 		case "match":

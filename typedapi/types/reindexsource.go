@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/reindex/types.ts#L77-L133
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/reindex/types.ts#L80-L145
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from. It accepts
 	// a comma-separated list to reindex from multiple sources.
@@ -44,7 +44,12 @@ type ReindexSource struct {
 	// Query The documents to reindex, which is defined with Query DSL.
 	Query *Query `json:"query,omitempty"`
 	// Remote A remote instance of Elasticsearch that you want to index from.
-	Remote          *RemoteSource `json:"remote,omitempty"`
+	Remote *RemoteSource `json:"remote,omitempty"`
+	// RouteSlice The slice of a slice-enabled source index (`index.slice.enabled` set to
+	// `true`) to read, or `_all` to read all slices. The reindexed documents keep
+	// the slice they are read from, unless `_slice` is set in `dest`. Not supported
+	// when reindexing from a remote cluster.
+	RouteSlice      *string       `json:"_slice,omitempty"`
 	RuntimeMappings RuntimeFields `json:"runtime_mappings,omitempty"`
 	// Size The number of documents to index per batch. Use it when you are indexing from
 	// remote to ensure that the batches fit within the on-heap buffer, which
@@ -111,6 +116,11 @@ func (s *ReindexSource) UnmarshalJSON(data []byte) error {
 		case "remote":
 			if err := dec.Decode(&s.Remote); err != nil {
 				return fmt.Errorf("%s | %w", "Remote", err)
+			}
+
+		case "_slice":
+			if err := dec.Decode(&s.RouteSlice); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice", err)
 			}
 
 		case "runtime_mappings":

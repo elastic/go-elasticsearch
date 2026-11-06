@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package restore
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L178
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L189
 type Request struct {
 	// FeatureStates The feature states to restore. If `include_global_state` is `true`, the
 	// request restores all feature states in the snapshot by default. If
@@ -111,6 +111,15 @@ type Request struct {
 	RenamePattern *string `json:"rename_pattern,omitempty"`
 	// RenameReplacement The rename replacement string that is used with the `rename_pattern`.
 	RenameReplacement *string `json:"rename_replacement,omitempty"`
+	// RestoreOverExisting If `true`, the request can restore over destination indices and data streams
+	// that already exist, without closing or deleting them first. An open
+	// destination index is closed and restored over in a single step. A destination
+	// data stream is deleted, together with its backing and failure store indices,
+	// and recreated from the snapshot.
+	//
+	// It can't be combined with `rename_pattern`, `rename_replacement`,
+	// `include_global_state`, or `partial`.
+	RestoreOverExisting *bool `json:"restore_over_existing,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -256,6 +265,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.RenameReplacement = &o
+
+		case "restore_over_existing":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RestoreOverExisting", err)
+				}
+				s.RestoreOverExisting = &value
+			case bool:
+				s.RestoreOverExisting = &v
+			}
 
 		}
 	}

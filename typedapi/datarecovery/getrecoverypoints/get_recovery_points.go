@@ -1,0 +1,360 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
+
+// Get recovery points.
+//
+// Get recovery points from the platform-managed data recovery repository. This
+// API is intended for internal operator use. Recovery points are returned in
+// descending order by end time. Repository, snapshot, and policy identifiers
+// are not exposed.
+package getrecoverypoints
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
+
+// ErrBuildPath is returned in case of missing parameters within the build of the request.
+var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
+
+type GetRecoveryPoints struct {
+	transport elastictransport.Interface
+
+	headers http.Header
+	values  url.Values
+	path    url.URL
+
+	raw io.Reader
+
+	paramSet int
+
+	spanStarted bool
+
+	instrument elastictransport.Instrumentation
+}
+
+// NewGetRecoveryPoints type alias for index.
+type NewGetRecoveryPoints func() *GetRecoveryPoints
+
+// NewGetRecoveryPointsFunc returns a new instance of GetRecoveryPoints with the provided transport.
+// Used in the index of the library this allows to retrieve every apis in once place.
+func NewGetRecoveryPointsFunc(tp elastictransport.Interface) NewGetRecoveryPoints {
+	return func() *GetRecoveryPoints {
+		n := New(tp)
+
+		return n
+	}
+}
+
+// Get recovery points.
+//
+// Get recovery points from the platform-managed data recovery repository. This
+// API is intended for internal operator use. Recovery points are returned in
+// descending order by end time. Repository, snapshot, and policy identifiers
+// are not exposed.
+//
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-data-recovery-get-recovery-points
+func New(tp elastictransport.Interface) *GetRecoveryPoints {
+	r := &GetRecoveryPoints{
+		transport: tp,
+		values:    make(url.Values),
+		headers:   make(http.Header),
+	}
+
+	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
+		if instrument := instrumented.InstrumentationEnabled(); instrument != nil {
+			r.instrument = instrument
+		}
+	}
+
+	return r
+}
+
+// HttpRequest returns the http.Request object built from the
+// given parameters.
+func (r *GetRecoveryPoints) HttpRequest(ctx context.Context) (*http.Request, error) {
+	var path strings.Builder
+	var method string
+	var req *http.Request
+
+	var err error
+
+	r.path.Scheme = "http"
+
+	switch {
+	case r.paramSet == 0:
+		path.WriteString("/")
+		path.WriteString("_data_recovery")
+		path.WriteString("/")
+		path.WriteString("points")
+
+		method = http.MethodGet
+	}
+
+	r.path.Path = path.String()
+	r.path.RawQuery = r.values.Encode()
+
+	if r.path.Path == "" {
+		return nil, ErrBuildPath
+	}
+
+	if ctx != nil {
+		req, err = http.NewRequestWithContext(ctx, method, r.path.String(), r.raw)
+	} else {
+		req, err = http.NewRequest(method, r.path.String(), r.raw)
+	}
+
+	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Accept") == "" {
+		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=9")
+	}
+
+	if err != nil {
+		return req, fmt.Errorf("could not build http.Request: %w", err)
+	}
+
+	return req, nil
+}
+
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetRecoveryPoints) Perform(providedCtx context.Context) (*http.Response, error) {
+	var ctx context.Context
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		if r.spanStarted == false {
+			ctx = instrument.Start(providedCtx, "data_recovery.get_recovery_points")
+			defer instrument.Close(ctx)
+		}
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	req, err := r.HttpRequest(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.BeforeRequest(req, "data_recovery.get_recovery_points")
+		if reader := instrument.RecordRequestBody(ctx, "data_recovery.get_recovery_points", r.raw); reader != nil {
+			req.Body = reader
+		}
+	}
+	res, err := r.transport.Perform(req)
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "data_recovery.get_recovery_points")
+	}
+	if err != nil {
+		localErr := fmt.Errorf("an error happened during the GetRecoveryPoints query execution: %w", err)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, localErr)
+		}
+		return nil, localErr
+	}
+
+	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a getrecoverypoints.Response
+func (r GetRecoveryPoints) Do(providedCtx context.Context) (*Response, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "data_recovery.get_recovery_points")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
+}
+
+// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
+// This only exists for endpoints without a request payload and allows for quick control flow.
+func (r GetRecoveryPoints) IsSuccess(providedCtx context.Context) (bool, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "data_recovery.get_recovery_points")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	res, err := r.Perform(ctx)
+
+	if err != nil {
+		return false, err
+	}
+	io.Copy(io.Discard, res.Body)
+	err = res.Body.Close()
+	if err != nil {
+		return false, err
+	}
+
+	if res.StatusCode >= 200 && res.StatusCode < 300 {
+		return true, nil
+	}
+
+	if res.StatusCode != 404 {
+		err := fmt.Errorf("an error happened during the GetRecoveryPoints query execution, status code: %d", res.StatusCode)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return false, err
+	}
+
+	return false, nil
+}
+
+// Header set a key, value pair in the GetRecoveryPoints headers map.
+func (r *GetRecoveryPoints) Header(key, value string) *GetRecoveryPoints {
+	r.headers.Set(key, value)
+
+	return r
+}
+
+// EndTimeBefore Return only recovery points whose end time is earlier than this value. The
+// boundary is exclusive and can be set to the last recovery point's end time to
+// retrieve the next page.
+// API name: end_time_before
+func (r *GetRecoveryPoints) EndTimeBefore(datetime string) *GetRecoveryPoints {
+	r.values.Set("end_time_before", datetime)
+
+	return r
+}
+
+// MasterTimeout The period to wait for the master node. If the master node is not available
+// before the timeout expires, the request fails and returns an error. To
+// indicate that the request should never timeout, set it to `-1`.
+// API name: master_timeout
+func (r *GetRecoveryPoints) MasterTimeout(duration string) *GetRecoveryPoints {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Size The maximum number of recovery points to return. The value must be between 1
+// and 1000.
+// API name: size
+func (r *GetRecoveryPoints) Size(size int) *GetRecoveryPoints {
+	r.values.Set("size", strconv.Itoa(size))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetRecoveryPoints) ErrorTrace(errortrace bool) *GetRecoveryPoints {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetRecoveryPoints) FilterPath(filterpaths ...string) *GetRecoveryPoints {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and `"exists_time_in_millis":
+// 3600000` for computers. When disabled the human readable values will be
+// omitted. This makes sense for responses being consumed only by machines.
+// API name: human
+func (r *GetRecoveryPoints) Human(human bool) *GetRecoveryPoints {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use this
+// option for debugging only.
+// API name: pretty
+func (r *GetRecoveryPoints) Pretty(pretty bool) *GetRecoveryPoints {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get index statistics.
 //
@@ -426,6 +426,16 @@ func (r *Stats) Groups(groups ...string) *Stats {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
 	}
 	r.values.Set("groups", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IncludeAutoCalibration If `true`, the response includes the auto-calibration information of each
+// `dense_vector` field that supports auto-calibration. Only applies at the
+// `indices` and `shards` levels.
+// API name: include_auto_calibration
+func (r *Stats) IncludeAutoCalibration(includeautocalibration bool) *Stats {
+	r.values.Set("include_auto_calibration", strconv.FormatBool(includeautocalibration))
 
 	return r
 }

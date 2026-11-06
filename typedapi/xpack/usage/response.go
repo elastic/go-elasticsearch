@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package usage
 
@@ -26,40 +26,47 @@ import (
 
 // Response holds the response body struct for the package usage
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/xpack/usage/XPackUsageResponse.ts#L46-L94
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/xpack/usage/XPackUsageResponse.ts#L48-L112
 type Response struct {
-	AggregateMetric     types.Base                      `json:"aggregate_metric"`
-	Analytics           types.Analytics                 `json:"analytics"`
-	Archive             types.Archive                   `json:"archive"`
-	Ccr                 types.Ccr                       `json:"ccr"`
-	DataFrame           *types.Base                     `json:"data_frame,omitempty"`
-	DataLifecycle       *types.DataStreamLifecycleUsage `json:"data_lifecycle,omitempty"`
-	DataScience         *types.Base                     `json:"data_science,omitempty"`
-	DataStreams         *types.DataStreams              `json:"data_streams,omitempty"`
-	DataTiers           types.DataTiers                 `json:"data_tiers"`
-	Enrich              *types.Base                     `json:"enrich,omitempty"`
-	Eql                 types.Eql                       `json:"eql"`
-	Flattened           *types.Flattened                `json:"flattened,omitempty"`
-	GpuVectorIndexing   *types.GpuVectorIndexing        `json:"gpu_vector_indexing,omitempty"`
-	Graph               types.Base                      `json:"graph"`
-	HealthApi           *types.HealthStatistics         `json:"health_api,omitempty"`
-	Ilm                 types.Ilm                       `json:"ilm"`
-	Logging             *types.Logging                  `json:"logging,omitempty"`
-	Logstash            types.Base                      `json:"logstash"`
-	Ml                  types.MachineLearning           `json:"ml"`
-	Monitoring          types.Monitoring                `json:"monitoring"`
-	Rollup              types.Base                      `json:"rollup"`
-	RuntimeFields       *types.XpackRuntimeFieldTypes   `json:"runtime_fields,omitempty"`
-	SearchableSnapshots types.SearchableSnapshots       `json:"searchable_snapshots"`
-	Security            types.Security                  `json:"security"`
-	Slm                 types.Slm                       `json:"slm"`
-	Spatial             types.Base                      `json:"spatial"`
-	Sql                 types.Sql                       `json:"sql"`
-	Transform           types.Base                      `json:"transform"`
-	VectordbDocument    *types.VectorDbDocument         `json:"vectordb_document,omitempty"`
-	Vectors             *types.Vector                   `json:"vectors,omitempty"`
-	VotingOnly          types.Base                      `json:"voting_only"`
-	Watcher             types.Watcher                   `json:"watcher"`
+	AggregateMetric types.Base      `json:"aggregate_metric"`
+	Analytics       types.Analytics `json:"analytics"`
+	Archive         types.Archive   `json:"archive"`
+	Ccr             types.Ccr       `json:"ccr"`
+	// Columnar Usage of the indices with `index.mode` set to `columnar`.
+	Columnar          *types.IndexModeUsage           `json:"columnar,omitempty"`
+	DataFrame         *types.Base                     `json:"data_frame,omitempty"`
+	DataLifecycle     *types.DataStreamLifecycleUsage `json:"data_lifecycle,omitempty"`
+	DataScience       *types.Base                     `json:"data_science,omitempty"`
+	DataStreams       *types.DataStreams              `json:"data_streams,omitempty"`
+	DataTiers         types.DataTiers                 `json:"data_tiers"`
+	Enrich            *types.Base                     `json:"enrich,omitempty"`
+	Eql               types.Eql                       `json:"eql"`
+	Flattened         *types.Flattened                `json:"flattened,omitempty"`
+	GpuVectorIndexing *types.GpuVectorIndexing        `json:"gpu_vector_indexing,omitempty"`
+	Graph             types.Base                      `json:"graph"`
+	HealthApi         *types.HealthStatistics         `json:"health_api,omitempty"`
+	Ilm               types.Ilm                       `json:"ilm"`
+	Logging           *types.Logging                  `json:"logging,omitempty"`
+	// LogsdbColumnar Usage of the indices with `index.mode` set to `logsdb_columnar`.
+	LogsdbColumnar      *types.IndexModeUsage         `json:"logsdb_columnar,omitempty"`
+	Logstash            types.Base                    `json:"logstash"`
+	Ml                  types.MachineLearning         `json:"ml"`
+	Monitoring          types.Monitoring              `json:"monitoring"`
+	Rollup              types.Base                    `json:"rollup"`
+	RuntimeFields       *types.XpackRuntimeFieldTypes `json:"runtime_fields,omitempty"`
+	SearchableSnapshots types.SearchableSnapshots     `json:"searchable_snapshots"`
+	Security            types.Security                `json:"security"`
+	Slm                 types.Slm                     `json:"slm"`
+	Spatial             types.Base                    `json:"spatial"`
+	Sql                 types.Sql                     `json:"sql"`
+	Transform           types.Base                    `json:"transform"`
+	// VectordbColumnar The `vectordb_columnar` index mode is behind a feature flag. Without the
+	// flag, this section is still returned, disabled and with zero counts.
+	VectordbColumnar *types.VectorDbColumnar `json:"vectordb_columnar,omitempty"`
+	VectordbDocument *types.VectorDbDocument `json:"vectordb_document,omitempty"`
+	Vectors          *types.Vector           `json:"vectors,omitempty"`
+	VotingOnly       types.Base              `json:"voting_only"`
+	Watcher          types.Watcher           `json:"watcher"`
 }
 
 // NewResponse returns a Response

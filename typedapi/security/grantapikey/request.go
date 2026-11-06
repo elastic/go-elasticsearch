@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package grantapikey
 
@@ -34,20 +34,31 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L104
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L28-L125
 type Request struct {
 	// AccessToken The user's access token. If you specify the `access_token` grant type, this
 	// parameter is required. It is not valid with other grant types.
 	AccessToken *string `json:"access_token,omitempty"`
 	// ApiKey The API key.
 	ApiKey types.GrantApiKey `json:"api_key"`
-	// GrantType The type of grant. Supported grant types are: `access_token`, `password`.
+	// ClientAuthentication The client authentication for a JWT that requires it, which is what is
+	// normally sent in the `ES-Client-Authentication` request header. It is valid
+	// only with the `access_token` grant type, when the access token is a JWT.
+	ClientAuthentication *types.GrantApiKeyClientAuthentication `json:"client_authentication,omitempty"`
+	// GrantType The type of grant. Supported grant types are: `access_token`, `password`, and
+	// `_user_managed_service_account`.
 	GrantType apikeygranttype.ApiKeyGrantType `json:"grant_type"`
 	// Password The user's password. If you specify the `password` grant type, this parameter
 	// is required. It is not valid with other grant types.
 	Password *string `json:"password,omitempty"`
-	// RunAs The name of the user to be impersonated.
+	// RunAs The name of the user to be impersonated. It is not valid with the
+	// `_user_managed_service_account` grant type.
 	RunAs *string `json:"run_as,omitempty"`
+	// ServiceAccountToken The service account token of a user-managed service account, as returned by
+	// the create service account token API. If you specify the
+	// `_user_managed_service_account` grant type, this parameter is required. It is
+	// not valid with other grant types.
+	ServiceAccountToken *string `json:"service_account_token,omitempty"`
 	// Username The user name that identifies the user. If you specify the `password` grant
 	// type, this parameter is required. It is not valid with other grant types.
 	Username *string `json:"username,omitempty"`
@@ -103,6 +114,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ApiKey", err)
 			}
 
+		case "client_authentication":
+			if err := dec.Decode(&s.ClientAuthentication); err != nil {
+				return fmt.Errorf("%s | %w", "ClientAuthentication", err)
+			}
+
 		case "grant_type":
 			if err := dec.Decode(&s.GrantType); err != nil {
 				return fmt.Errorf("%s | %w", "GrantType", err)
@@ -117,6 +133,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.RunAs); err != nil {
 				return fmt.Errorf("%s | %w", "RunAs", err)
 			}
+
+		case "service_account_token":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ServiceAccountToken", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ServiceAccountToken = &o
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {

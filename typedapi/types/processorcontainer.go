@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ingest/_types/Processors.ts#L28-L307
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/ingest/_types/Processors.ts#L28-L320
 type ProcessorContainer struct {
 	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
@@ -134,8 +134,15 @@ type ProcessorContainer struct {
 	// NetworkDirection Calculates the network direction given a source IP address, destination IP
 	// address, and a list of internal networks.
 	NetworkDirection *NetworkDirectionProcessor `json:"network_direction,omitempty"`
+	// NormalizeForStream Detects whether a document is OpenTelemetry-compliant and, if not, normalizes
+	// it so that it can be queried by clients that expect either ECS or
+	// OpenTelemetry Semantic Conventions formats.
+	NormalizeForStream *NormalizeForStreamProcessor `json:"normalize_for_stream,omitempty"`
 	// Pipeline Executes another pipeline.
 	Pipeline *PipelineProcessor `json:"pipeline,omitempty"`
+	// RecoverFailureDocument Recovers documents that have been stored in a data stream's failure store by
+	// restoring them to their original format.
+	RecoverFailureDocument *RecoverFailureDocumentProcessor `json:"recover_failure_document,omitempty"`
 	// Redact The Redact processor uses the Grok rules engine to obscure text in the input
 	// document matching the given Grok patterns. The processor can be used to
 	// obscure Personal Identifying Information (PII) by configuring it to detect
@@ -363,9 +370,19 @@ func (s *ProcessorContainer) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "NetworkDirection", err)
 			}
 
+		case "normalize_for_stream":
+			if err := dec.Decode(&s.NormalizeForStream); err != nil {
+				return fmt.Errorf("%s | %w", "NormalizeForStream", err)
+			}
+
 		case "pipeline":
 			if err := dec.Decode(&s.Pipeline); err != nil {
 				return fmt.Errorf("%s | %w", "Pipeline", err)
+			}
+
+		case "recover_failure_document":
+			if err := dec.Decode(&s.RecoverFailureDocument); err != nil {
+				return fmt.Errorf("%s | %w", "RecoverFailureDocument", err)
 			}
 
 		case "redact":

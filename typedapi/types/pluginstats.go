@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,17 +31,18 @@ import (
 
 // PluginStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Stats.ts#L210-L220
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/Stats.ts#L210-L225
 type PluginStats struct {
-	Classname            string   `json:"classname"`
-	Description          string   `json:"description"`
-	ElasticsearchVersion string   `json:"elasticsearch_version"`
-	ExtendedPlugins      []string `json:"extended_plugins"`
-	HasNativeController  bool     `json:"has_native_controller"`
-	JavaVersion          string   `json:"java_version"`
-	Licensed             bool     `json:"licensed"`
-	Name                 string   `json:"name"`
-	Version              string   `json:"version"`
+	Classname                       string   `json:"classname"`
+	Description                     string   `json:"description"`
+	ElasticsearchVersion            string   `json:"elasticsearch_version"`
+	ExtendedPlugins                 []string `json:"extended_plugins"`
+	HasNativeController             bool     `json:"has_native_controller"`
+	JavaVersion                     string   `json:"java_version"`
+	Licensed                        bool     `json:"licensed"`
+	Name                            string   `json:"name"`
+	NativeControllerEnabledSettings []string `json:"native_controller_enabled_settings"`
+	Version                         string   `json:"version"`
 }
 
 func (s *PluginStats) UnmarshalJSON(data []byte) error {
@@ -129,6 +130,11 @@ func (s *PluginStats) UnmarshalJSON(data []byte) error {
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
 				return fmt.Errorf("%s | %w", "Name", err)
+			}
+
+		case "native_controller_enabled_settings":
+			if err := dec.Decode(&s.NativeControllerEnabledSettings); err != nil {
+				return fmt.Errorf("%s | %w", "NativeControllerEnabledSettings", err)
 			}
 
 		case "version":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -96,6 +96,13 @@ func (s *_mTermVectorsOperation) Payloads(payloads bool) *_mTermVectorsOperation
 func (s *_mTermVectorsOperation) Positions(positions bool) *_mTermVectorsOperation {
 
 	s.v.Positions = &positions
+
+	return s
+}
+
+func (s *_mTermVectorsOperation) RouteSlice(sliceid string) *_mTermVectorsOperation {
+
+	s.v.RouteSlice = &sliceid
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,12 +31,15 @@ import (
 
 // ShardSegmentRouting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/segments/types.ts#L64-L71
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/segments/types.ts#L124-L133
 type ShardSegmentRouting struct {
 	// Node The node ID of the node that holds the shard.
 	Node string `json:"node"`
 	// Primary If `true`, the shard is a primary shard.
 	Primary bool `json:"primary"`
+	// RelocatingNode The node ID of the node the shard is relocating to. Only returned while the
+	// shard is relocating.
+	RelocatingNode *string `json:"relocating_node,omitempty"`
 	// State The state of the shard, such as `STARTED` or `RELOCATING`.
 	State string `json:"state"`
 }
@@ -57,16 +60,9 @@ func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "node":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Node); err != nil {
 				return fmt.Errorf("%s | %w", "Node", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Node = o
 
 		case "primary":
 			var tmp any
@@ -80,6 +76,11 @@ func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {
 				s.Primary = value
 			case bool:
 				s.Primary = v
+			}
+
+		case "relocating_node":
+			if err := dec.Decode(&s.RelocatingNode); err != nil {
+				return fmt.Errorf("%s | %w", "RelocatingNode", err)
 			}
 
 		case "state":

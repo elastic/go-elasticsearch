@@ -16,13 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package updatebyquery
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/conflicts"
@@ -30,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/update_by_query/UpdateByQueryRequest.ts#L38-L365
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/update_by_query/UpdateByQueryRequest.ts#L40-L378
 type Request struct {
 	// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
 	// or `proceed`.
@@ -39,6 +43,9 @@ type Request struct {
 	MaxDocs *int64 `json:"max_docs,omitempty"`
 	// Query The documents to update using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
+	// RuntimeMappings One or more runtime fields in the search request. These fields take
+	// precedence over mapped fields with the same name.
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// Script The script to run to update the document source or metadata when updating.
 	Script *types.Script `json:"script,omitempty"`
 	// Slice Slice the request manually using the provided slice ID and total number of
@@ -63,4 +70,63 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "conflicts":
+			if err := dec.Decode(&s.Conflicts); err != nil {
+				return fmt.Errorf("%s | %w", "Conflicts", err)
+			}
+
+		case "max_docs":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxDocs", err)
+				}
+				s.MaxDocs = &value
+			case float64:
+				f := int64(v)
+				s.MaxDocs = &f
+			}
+
+		case "query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+
+		case "runtime_mappings":
+			if err := dec.Decode(&s.RuntimeMappings); err != nil {
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
+			}
+
+		case "slice":
+			if err := dec.Decode(&s.Slice); err != nil {
+				return fmt.Errorf("%s | %w", "Slice", err)
+			}
+
+		}
+	}
+	return nil
 }

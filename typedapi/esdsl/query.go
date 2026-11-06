@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -82,6 +82,13 @@ func (s *_query) Common(key string, value types.CommonTermsQueryVariant) *_query
 func (s *_query) ConstantScore(constantscore types.ConstantScoreQueryVariant) *_query {
 
 	s.v.ConstantScore = constantscore.ConstantScoreQueryCaster()
+
+	return s
+}
+
+func (s *_query) DenseVector(densevector types.DenseVectorQueryVariant) *_query {
+
+	s.v.DenseVector = densevector.DenseVectorQueryCaster()
 
 	return s
 }
@@ -202,6 +209,13 @@ func (s *_query) Interval(key string, value types.IntervalsQueryVariant) *_query
 func (s *_query) Knn(knn types.KnnQueryVariant) *_query {
 
 	s.v.Knn = knn.KnnQueryCaster()
+
+	return s
+}
+
+func (s *_query) Kql(kql types.KqlQueryVariant) *_query {
+
+	s.v.Kql = kql.KqlQueryCaster()
 
 	return s
 }

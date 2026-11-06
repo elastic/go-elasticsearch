@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get an ES|QL view.
 //
-// Returns a stored ES|QL view.
+// Returns one or more stored views. A reserved view includes `reserved` set to
+// `true`.
 package getview
 
 import (
@@ -78,9 +79,12 @@ func NewGetViewFunc(tp elastictransport.Interface) NewGetView {
 
 // Get an ES|QL view.
 //
-// Returns a stored ES|QL view.
+// Returns one or more stored views. A reserved view includes `reserved` set to
+// `true`.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-view
 func New(tp elastictransport.Interface) *GetView {
 	r := &GetView{
 		transport: tp,

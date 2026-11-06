@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,9 +31,8 @@ import (
 
 // FieldCollapse type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/FieldCollapse.ts#L24-L41
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/FieldCollapse.ts#L24-L40
 type FieldCollapse struct {
-	Collapse *FieldCollapse `json:"collapse,omitempty"`
 	// Field The field to collapse the result set on
 	Field string `json:"field"`
 	// InnerHits The number of inner hits and their sort order
@@ -57,11 +56,6 @@ func (s *FieldCollapse) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "collapse":
-			if err := dec.Decode(&s.Collapse); err != nil {
-				return fmt.Errorf("%s | %w", "Collapse", err)
-			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {

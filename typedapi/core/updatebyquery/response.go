@@ -16,17 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package updatebyquery
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/update_by_query/UpdateByQueryResponse.ts#L27-L76
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/update_by_query/UpdateByQueryResponse.ts#L27-L76
 type Response struct {
 	// Batches The number of scroll responses pulled back by the update by query.
 	Batches *int64 `json:"batches,omitempty"`
@@ -38,7 +45,7 @@ type Response struct {
 	// to end, but all failures in the current batch are collected into the array.
 	// You can use the `conflicts` option to prevent reindex from ending when
 	// version conflicts occur.
-	Failures []types.BulkIndexByScrollFailure `json:"failures,omitempty"`
+	Failures []types.BulkByPaginatedSearchFailure `json:"failures,omitempty"`
 	// Noops The number of documents that were ignored because the script used for the
 	// update by query returned a noop value for `ctx.op`.
 	Noops *int64 `json:"noops,omitempty"`
@@ -76,4 +83,231 @@ type Response struct {
 func NewResponse() *Response {
 	r := &Response{}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "batches":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Batches", err)
+				}
+				s.Batches = &value
+			case float64:
+				f := int64(v)
+				s.Batches = &f
+			}
+
+		case "deleted":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Deleted", err)
+				}
+				s.Deleted = &value
+			case float64:
+				f := int64(v)
+				s.Deleted = &f
+			}
+
+		case "failures":
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
+				return fmt.Errorf("%s | %w", "Failures", err)
+			}
+		failures_field:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return fmt.Errorf("%s | %w", "Failures", err)
+					}
+
+					switch t {
+
+					case "cause", "id":
+						o := types.NewBulkIndexByScrollFailure()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Failures", err)
+						}
+						s.Failures = append(s.Failures, o)
+						continue failures_field
+
+					case "node", "primary", "reason", "shard":
+						o := types.NewShardFailure()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Failures", err)
+						}
+						s.Failures = append(s.Failures, o)
+						continue failures_field
+
+					}
+				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Failures", err)
+				}
+				s.Failures = append(s.Failures, o)
+			}
+
+		case "noops":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Noops", err)
+				}
+				s.Noops = &value
+			case float64:
+				f := int64(v)
+				s.Noops = &f
+			}
+
+		case "requests_per_second":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RequestsPerSecond", err)
+				}
+				f := float32(value)
+				s.RequestsPerSecond = &f
+			case float64:
+				f := float32(v)
+				s.RequestsPerSecond = &f
+			}
+
+		case "retries":
+			if err := dec.Decode(&s.Retries); err != nil {
+				return fmt.Errorf("%s | %w", "Retries", err)
+			}
+
+		case "slices":
+			if err := dec.Decode(&s.Slices); err != nil {
+				return fmt.Errorf("%s | %w", "Slices", err)
+			}
+
+		case "task":
+			if err := dec.Decode(&s.Task); err != nil {
+				return fmt.Errorf("%s | %w", "Task", err)
+			}
+
+		case "throttled":
+			if err := dec.Decode(&s.Throttled); err != nil {
+				return fmt.Errorf("%s | %w", "Throttled", err)
+			}
+
+		case "throttled_millis":
+			if err := dec.Decode(&s.ThrottledMillis); err != nil {
+				return fmt.Errorf("%s | %w", "ThrottledMillis", err)
+			}
+
+		case "throttled_until":
+			if err := dec.Decode(&s.ThrottledUntil); err != nil {
+				return fmt.Errorf("%s | %w", "ThrottledUntil", err)
+			}
+
+		case "throttled_until_millis":
+			if err := dec.Decode(&s.ThrottledUntilMillis); err != nil {
+				return fmt.Errorf("%s | %w", "ThrottledUntilMillis", err)
+			}
+
+		case "timed_out":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TimedOut", err)
+				}
+				s.TimedOut = &value
+			case bool:
+				s.TimedOut = &v
+			}
+
+		case "took":
+			if err := dec.Decode(&s.Took); err != nil {
+				return fmt.Errorf("%s | %w", "Took", err)
+			}
+
+		case "total":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Total", err)
+				}
+				s.Total = &value
+			case float64:
+				f := int64(v)
+				s.Total = &f
+			}
+
+		case "updated":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Updated", err)
+				}
+				s.Updated = &value
+			case float64:
+				f := int64(v)
+				s.Updated = &f
+			}
+
+		case "version_conflicts":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "VersionConflicts", err)
+				}
+				s.VersionConflicts = &value
+			case float64:
+				f := int64(v)
+				s.VersionConflicts = &f
+			}
+
+		}
+	}
+	return nil
 }

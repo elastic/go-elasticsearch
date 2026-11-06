@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -34,15 +34,15 @@ import (
 
 // InferenceString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Knn.ts#L139-L154
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/Knn.ts#L143-L158
 type InferenceString struct {
 	// Format The format of the data. If null, the default data format for the given type
 	// is used.
 	Format *embeddingcontentformat.EmbeddingContentFormat `json:"format,omitempty"`
 	// Type The type of data that the value represents.
 	Type embeddingcontenttype.EmbeddingContentType `json:"type"`
-	// Value String which may be raw text, or the string representation of some other data
-	// such as an image in base64.
+	// Value String which may be raw text, the string representation of some other data
+	// such as an image in base64, or a URL that points to the data.
 	Value string `json:"value"`
 }
 

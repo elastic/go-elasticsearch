@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -26,19 +26,15 @@ type _globalPrivilege struct {
 	v *types.GlobalPrivilege
 }
 
-func NewGlobalPrivilege(application types.ApplicationGlobalUserPrivilegesVariant) *_globalPrivilege {
+func NewGlobalPrivilege() *_globalPrivilege {
 
-	tmp := &_globalPrivilege{v: types.NewGlobalPrivilege()}
-
-	tmp.Application(application)
-
-	return tmp
+	return &_globalPrivilege{v: types.NewGlobalPrivilege()}
 
 }
 
 func (s *_globalPrivilege) Application(application types.ApplicationGlobalUserPrivilegesVariant) *_globalPrivilege {
 
-	s.v.Application = *application.ApplicationGlobalUserPrivilegesCaster()
+	s.v.Application = application.ApplicationGlobalUserPrivilegesCaster()
 
 	return s
 }
@@ -56,6 +52,20 @@ func (s *_globalPrivilege) DataSource(datasources ...types.DataSourcePrivilegesV
 func (s *_globalPrivilege) DataSourceValues(datasourcevalues []types.DataSourcePrivileges) *_globalPrivilege {
 
 	s.v.DataSource = datasourcevalues
+	return s
+}
+
+func (s *_globalPrivilege) Profile(profile types.WriteProfileGlobalUserPrivilegesVariant) *_globalPrivilege {
+
+	s.v.Profile = profile.WriteProfileGlobalUserPrivilegesCaster()
+
+	return s
+}
+
+func (s *_globalPrivilege) Role(role types.ManageRolesGlobalUserPrivilegesVariant) *_globalPrivilege {
+
+	s.v.Role = role.ManageRolesGlobalUserPrivilegesCaster()
+
 	return s
 }
 

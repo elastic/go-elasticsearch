@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,23 +31,23 @@ import (
 
 // DenseVectorOffHeapStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cluster/stats/types.ts#L193-L209
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/cluster/stats/types.ts#L198-L214
 type DenseVectorOffHeapStats struct {
-	Fielddata            map[string]map[string]int64 `json:"fielddata,omitempty"`
-	TotalCenivfSize      ByteSize                    `json:"total_cenivf_size,omitempty"`
-	TotalCenivfSizeBytes int64                       `json:"total_cenivf_size_bytes"`
-	TotalClivfSize       ByteSize                    `json:"total_clivf_size,omitempty"`
-	TotalClivfSizeBytes  int64                       `json:"total_clivf_size_bytes"`
-	TotalSize            ByteSize                    `json:"total_size,omitempty"`
-	TotalSizeBytes       int64                       `json:"total_size_bytes"`
-	TotalVebSize         ByteSize                    `json:"total_veb_size,omitempty"`
-	TotalVebSizeBytes    int64                       `json:"total_veb_size_bytes"`
-	TotalVecSize         ByteSize                    `json:"total_vec_size,omitempty"`
-	TotalVecSizeBytes    int64                       `json:"total_vec_size_bytes"`
-	TotalVeqSize         ByteSize                    `json:"total_veq_size,omitempty"`
-	TotalVeqSizeBytes    int64                       `json:"total_veq_size_bytes"`
-	TotalVexSize         ByteSize                    `json:"total_vex_size,omitempty"`
-	TotalVexSizeBytes    int64                       `json:"total_vex_size_bytes"`
+	Fielddata            map[string]DenseVectorFieldOffHeapStats `json:"fielddata,omitempty"`
+	TotalCenivfSize      ByteSize                                `json:"total_cenivf_size,omitempty"`
+	TotalCenivfSizeBytes int64                                   `json:"total_cenivf_size_bytes"`
+	TotalClivfSize       ByteSize                                `json:"total_clivf_size,omitempty"`
+	TotalClivfSizeBytes  int64                                   `json:"total_clivf_size_bytes"`
+	TotalSize            ByteSize                                `json:"total_size,omitempty"`
+	TotalSizeBytes       int64                                   `json:"total_size_bytes"`
+	TotalVebSize         ByteSize                                `json:"total_veb_size,omitempty"`
+	TotalVebSizeBytes    int64                                   `json:"total_veb_size_bytes"`
+	TotalVecSize         ByteSize                                `json:"total_vec_size,omitempty"`
+	TotalVecSizeBytes    int64                                   `json:"total_vec_size_bytes"`
+	TotalVeqSize         ByteSize                                `json:"total_veq_size,omitempty"`
+	TotalVeqSizeBytes    int64                                   `json:"total_veq_size_bytes"`
+	TotalVexSize         ByteSize                                `json:"total_vex_size,omitempty"`
+	TotalVexSizeBytes    int64                                   `json:"total_vex_size_bytes"`
 }
 
 func (s *DenseVectorOffHeapStats) UnmarshalJSON(data []byte) error {
@@ -67,7 +67,7 @@ func (s *DenseVectorOffHeapStats) UnmarshalJSON(data []byte) error {
 
 		case "fielddata":
 			if s.Fielddata == nil {
-				s.Fielddata = make(map[string]map[string]int64, 0)
+				s.Fielddata = make(map[string]DenseVectorFieldOffHeapStats, 0)
 			}
 			if err := dec.Decode(&s.Fielddata); err != nil {
 				return fmt.Errorf("%s | %w", "Fielddata", err)
@@ -221,7 +221,7 @@ func (s *DenseVectorOffHeapStats) UnmarshalJSON(data []byte) error {
 // NewDenseVectorOffHeapStats returns a DenseVectorOffHeapStats.
 func NewDenseVectorOffHeapStats() *DenseVectorOffHeapStats {
 	r := &DenseVectorOffHeapStats{
-		Fielddata: make(map[string]map[string]int64),
+		Fielddata: make(map[string]DenseVectorFieldOffHeapStats),
 	}
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Update a datafeed.
 //
@@ -486,6 +486,23 @@ func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig types.Del
 	return r
 }
 
+// When true, force reminting of the datafeed's internal cloud API key from the
+// caller's cloud credential without requiring other configuration changes.
+// Requires a cloud-authenticated caller and an environment that supports
+// cross-project calls. Rejected with 400 otherwise. The datafeed must be
+// stopped.
+// API name: _force_rekeying
+func (r *UpdateDatafeed) ForceRekeying_(forcerekeying_ bool) *UpdateDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ForceRekeying_ = &forcerekeying_
+
+	return r
+}
+
 // The interval at which scheduled queries are made while the datafeed runs in
 // real time. The default value is either the bucket span for short bucket
 // spans, or, for longer bucket spans, a sensible fraction of the bucket span.
@@ -547,6 +564,25 @@ func (r *UpdateDatafeed) JobId(id string) *UpdateDatafeed {
 	return r
 }
 
+// The maximum number of consecutive real-time data extraction failures the
+// datafeed tolerates before it automatically stops itself, leaving the
+// associated job open. The consecutive-failure counter resets on any cycle that
+// extracts successfully, including empty-data cycles. If not set, the threshold
+// defaults to roughly one day's worth of searches based on the datafeed
+// `frequency` (floored at 1). Set to `-1` to disable auto-stop and retry
+// indefinitely. Values of `0` or less than `-1` are rejected.
+// API name: max_consecutive_extraction_failures
+func (r *UpdateDatafeed) MaxConsecutiveExtractionFailures(maxconsecutiveextractionfailures int) *UpdateDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.MaxConsecutiveExtractionFailures = &maxconsecutiveextractionfailures
+
+	return r
+}
+
 // If a real-time datafeed has never seen any data (including during any initial
 // training period), it automatically stops and closes the associated job after
 // this many real-time searches return no documents. In other words, it stops
@@ -561,6 +597,22 @@ func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed 
 	}
 
 	r.req.MaxEmptySearches = &maxemptysearches
+
+	return r
+}
+
+// A Lucene-style expression that limits which linked projects the datafeed
+// searches when cross-project search is enabled. Examples: `_alias:_origin`,
+// `_alias:prod-*`. If omitted, searches all linked projects within the
+// cross-project search scope. Rejected when CPS is not enabled for datafeeds.
+// API name: project_routing
+func (r *UpdateDatafeed) ProjectRouting(projectrouting string) *UpdateDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ProjectRouting = &projectrouting
 
 	return r
 }

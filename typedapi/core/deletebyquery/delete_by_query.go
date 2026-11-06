@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Delete documents.
 //
@@ -158,6 +158,8 @@ import (
 
 const (
 	indexMask = iota + 1
+
+	slice_Mask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -178,7 +180,8 @@ type DeleteByQuery struct {
 
 	paramSet int
 
-	index string
+	index  string
+	slice_ string
 
 	spanStarted bool
 
@@ -401,6 +404,23 @@ func (r *DeleteByQuery) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("_delete_by_query")
 
 		method = http.MethodPost
+	case r.paramSet == indexMask|slice_Mask:
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
+		}
+		path.WriteString(r.index)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "slice_", r.slice_)
+		}
+		path.WriteString(r.slice_)
+		path.WriteString("/")
+		path.WriteString("_delete_by_query")
+
+		method = http.MethodPost
 	}
 
 	r.path.Path = path.String()
@@ -545,6 +565,17 @@ func (r *DeleteByQuery) Header(key, value string) *DeleteByQuery {
 func (r *DeleteByQuery) _index(index string) *DeleteByQuery {
 	r.paramSet |= indexMask
 	r.index = index
+
+	return r
+}
+
+// Slice_ The slice identifiers for a slice-enabled index (`index.slice.enabled` set to
+// `true`): a single slice, a comma-separated list such as `tenant-a,tenant-b`,
+// or `_all` to target all slices.
+// API Name: slice_
+func (r *DeleteByQuery) Slice_(slice_ string) *DeleteByQuery {
+	r.paramSet |= slice_Mask
+	r.slice_ = slice_
 
 	return r
 }
@@ -697,17 +728,6 @@ func (r *DeleteByQuery) RequestsPerSecond(requestspersecond string) *DeleteByQue
 // API name: routing
 func (r *DeleteByQuery) Routing(routings ...string) *DeleteByQuery {
 	r.values.Set("routing", strings.Join(routings, ","))
-
-	return r
-}
-
-// Slice_ The slice identifier used to route the operation to a specific slice. Use the
-// special value `_all` to target all slices without restricting to a routing
-// value. Required when `index.slice.enabled` is `true` for the target index;
-// not allowed when `index.slice.enabled` is `false`.
-// API name: _slice
-func (r *DeleteByQuery) Slice_(slice_ string) *DeleteByQuery {
-	r.values.Set("_slice", slice_)
 
 	return r
 }
@@ -892,6 +912,20 @@ func (r *DeleteByQuery) Query(query types.QueryVariant) *DeleteByQuery {
 	}
 
 	r.req.Query = query.QueryCaster()
+
+	return r
+}
+
+// One or more runtime fields in the search request. These fields take
+// precedence over mapped fields with the same name.
+// API name: runtime_mappings
+func (r *DeleteByQuery) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *DeleteByQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
 
 	return r
 }

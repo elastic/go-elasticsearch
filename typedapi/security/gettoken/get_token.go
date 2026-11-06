@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get a token.
 //
@@ -376,7 +376,7 @@ func (r *GetToken) Pretty(pretty bool) *GetToken {
 }
 
 // The type of grant. Supported grant types are: `password`, `_kerberos`,
-// `client_credentials`, and `refresh_token`.
+// `client_credentials`, `refresh_token`, and `_user_managed_service_account`.
 // API name: grant_type
 func (r *GetToken) GrantType(granttype accesstokengranttype.AccessTokenGrantType) *GetToken {
 	// Initialize the request if it is not already initialized
@@ -442,6 +442,22 @@ func (r *GetToken) Scope(scope string) *GetToken {
 	}
 
 	r.req.Scope = &scope
+
+	return r
+}
+
+// The service account token of a user-managed service account, as returned by
+// the create service account token API. If you specify the
+// `_user_managed_service_account` grant type, this parameter is required. This
+// parameter is not valid with any other supported grant type.
+// API name: service_account_token
+func (r *GetToken) ServiceAccountToken(serviceaccounttoken string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ServiceAccountToken = &serviceaccounttoken
 
 	return r
 }

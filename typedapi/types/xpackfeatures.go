@@ -16,18 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
 // XpackFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/xpack/info/types.ts#L42-L86
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/xpack/info/types.ts#L42-L94
 type XpackFeatures struct {
 	AggregateMetric     XpackFeature  `json:"aggregate_metric"`
 	Analytics           XpackFeature  `json:"analytics"`
 	Archive             XpackFeature  `json:"archive"`
 	Ccr                 XpackFeature  `json:"ccr"`
+	Columnar            XpackFeature  `json:"columnar"`
 	DataStreams         XpackFeature  `json:"data_streams"`
 	DataTiers           XpackFeature  `json:"data_tiers"`
 	Enrich              XpackFeature  `json:"enrich"`
@@ -38,6 +39,7 @@ type XpackFeatures struct {
 	Graph               XpackFeature  `json:"graph"`
 	Ilm                 XpackFeature  `json:"ilm"`
 	Logsdb              XpackFeature  `json:"logsdb"`
+	LogsdbColumnar      XpackFeature  `json:"logsdb_columnar"`
 	Logstash            XpackFeature  `json:"logstash"`
 	Ml                  XpackFeature  `json:"ml"`
 	Monitoring          XpackFeature  `json:"monitoring"`

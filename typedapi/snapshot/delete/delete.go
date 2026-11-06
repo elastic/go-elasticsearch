@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Delete snapshots.
 package delete
@@ -328,9 +328,18 @@ func (r *Delete) MasterTimeout(duration string) *Delete {
 	return r
 }
 
-// WaitForCompletion If `true`, the request returns a response when the matching snapshots are all
-// deleted. If `false`, the request returns a response as soon as the deletes
-// are scheduled.
+// WaitForCompletion If `false`, the request returns a response as soon as the deletes are
+// scheduled. If `true`, the request returns a response when the matching
+// snapshots are all deleted, and the post-deletion cleanup work associated with
+// the request has completed. If you make several requests to the
+// delete-snapshots API targetting overlapping collections of snapshots then
+// some of those requests may perform different parts of the associated
+// post-deletion cleanup work, returning their responses at different times. For
+// example, if you make two requests to delete the same snapshot then sometimes
+// all of the post-deletion cleanup work will be associated with the first
+// request, delaying its response, while the second request has no associated
+// post-deletion cleanup work and receives its response as soon as the snapshot
+// has been deleted.
 // API name: wait_for_completion
 func (r *Delete) WaitForCompletion(waitforcompletion bool) *Delete {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

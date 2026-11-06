@@ -16,22 +16,79 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package getserviceaccounts
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
 )
 
 // Response holds the response body struct for the package getserviceaccounts
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_service_accounts/GetServiceAccountsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/get_service_accounts/GetServiceAccountsResponse.ts#L23-L29
 
-type Response map[string]types.RoleDescriptorWrapper
+type Response map[string]types.ServiceAccountInfo
 
 // NewResponse returns a Response
 func NewResponse() Response {
 	r := make(Response, 0)
 	return r
+}
+
+func (r Response) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+	o := make(map[string]any, 0)
+	dec.Decode(&o)
+	dec = json.NewDecoder(bytes.NewReader(data))
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		key := fmt.Sprintf("%s", t)
+		if target, ok := o[key]; ok {
+			if t, ok := target.(map[string]any)["type"]; ok {
+
+				switch t {
+
+				case "built_in":
+					oo := types.NewBuiltInServiceAccount()
+					err := dec.Decode(&oo)
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return err
+					}
+					r[key] = oo
+
+				case "user_managed":
+					oo := types.NewUserManagedServiceAccount()
+					err := dec.Decode(&oo)
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return err
+					}
+					r[key] = oo
+
+				}
+			}
+		}
+
+	}
+	return nil
 }

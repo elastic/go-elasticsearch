@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package putdatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L38-L194
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L38-L210
 type Request struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -69,6 +69,14 @@ type Request struct {
 	IndicesOptions *types.IndicesOptions `json:"indices_options,omitempty"`
 	// JobId Identifier for the anomaly detection job.
 	JobId *string `json:"job_id,omitempty"`
+	// MaxConsecutiveExtractionFailures The maximum number of consecutive real-time data extraction failures the
+	// datafeed tolerates before it automatically stops itself, leaving the
+	// associated job open. The consecutive-failure counter resets on any cycle that
+	// extracts successfully, including empty-data cycles. If not set, the threshold
+	// defaults to roughly one day's worth of searches based on the datafeed
+	// `frequency` (floored at 1). Set to `-1` to disable auto-stop and retry
+	// indefinitely. Values of `0` or less than `-1` are rejected.
+	MaxConsecutiveExtractionFailures *int `json:"max_consecutive_extraction_failures,omitempty"`
 	// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
 	// training period), it automatically stops and closes the associated job after
 	// this many real-time searches return no documents. In other words, it stops
@@ -76,6 +84,11 @@ type Request struct {
 	// set, a datafeed with no end time that sees no data remains started until it
 	// is explicitly stopped. By default, it is not set.
 	MaxEmptySearches *int `json:"max_empty_searches,omitempty"`
+	// ProjectRouting A Lucene-style expression that limits which linked projects the datafeed
+	// searches when cross-project search is enabled. Examples: `_alias:_origin`,
+	// `_alias:prod-*`. If omitted, searches all linked projects within the
+	// cross-project search scope. Rejected when CPS is not enabled for datafeeds.
+	ProjectRouting *string `json:"project_routing,omitempty"`
 	// Query The Elasticsearch query domain-specific language (DSL). This value
 	// corresponds to the query object in an Elasticsearch search POST body. All the
 	// options that are supported by Elasticsearch can be used, as this object is
@@ -189,6 +202,22 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
+		case "max_consecutive_extraction_failures":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxConsecutiveExtractionFailures", err)
+				}
+				s.MaxConsecutiveExtractionFailures = &value
+			case float64:
+				f := int(v)
+				s.MaxConsecutiveExtractionFailures = &f
+			}
+
 		case "max_empty_searches":
 
 			var tmp any
@@ -204,6 +233,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.MaxEmptySearches = &f
 			}
+
+		case "project_routing":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ProjectRouting", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ProjectRouting = &o
 
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {

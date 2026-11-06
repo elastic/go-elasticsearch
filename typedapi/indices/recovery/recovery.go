@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get index recovery information.
 //
@@ -371,7 +371,8 @@ func (r *Recovery) Index(index string) *Recovery {
 	return r
 }
 
-// ActiveOnly If `true`, the response only includes ongoing shard recoveries.
+// ActiveOnly If `true`, the response only includes shard recoveries that have not yet
+// completed (excludes `DONE` stage).
 // API name: active_only
 func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
 	r.values.Set("active_only", strconv.FormatBool(activeonly))

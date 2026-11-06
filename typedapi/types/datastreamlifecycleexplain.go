@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,9 +31,10 @@ import (
 
 // DataStreamLifecycleExplain type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L76
 type DataStreamLifecycleExplain struct {
 	Error                   *string                          `json:"error,omitempty"`
+	FrozenTransitionStatus  *string                          `json:"frozen_transition_status,omitempty"`
 	GenerationTime          Duration                         `json:"generation_time,omitempty"`
 	Index                   string                           `json:"index"`
 	IndexCreationDateMillis *int64                           `json:"index_creation_date_millis,omitempty"`
@@ -42,6 +43,7 @@ type DataStreamLifecycleExplain struct {
 	RolloverDateMillis      *int64                           `json:"rollover_date_millis,omitempty"`
 	TimeSinceIndexCreation  Duration                         `json:"time_since_index_creation,omitempty"`
 	TimeSinceRollover       Duration                         `json:"time_since_rollover,omitempty"`
+	UnmanagedReason         *string                          `json:"unmanaged_reason,omitempty"`
 }
 
 func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
@@ -70,6 +72,18 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Error = &o
+
+		case "frozen_transition_status":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "FrozenTransitionStatus", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.FrozenTransitionStatus = &o
 
 		case "generation_time":
 			if err := dec.Decode(&s.GenerationTime); err != nil {
@@ -119,6 +133,18 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.TimeSinceRollover); err != nil {
 				return fmt.Errorf("%s | %w", "TimeSinceRollover", err)
 			}
+
+		case "unmanaged_reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "UnmanagedReason", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.UnmanagedReason = &o
 
 		}
 	}

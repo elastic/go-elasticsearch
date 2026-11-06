@@ -16,11 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-// Create or update an alias.
+// Update aliases and delete indices atomically.
 //
-// Adds a data stream or index to an alias.
+// Applies one or more actions in a single request:
+//
+//   - Add a data stream or index to an alias.
+//   - Remove a data stream or index from an alias.
+//   - Delete an index in that same request, so the deletion and the alias
+//     changes are applied together.
+//
+// For example, you can replace an index with an alias of the same name.
+//
+// NOTE: Every `remove_index` action in the request runs first, before any `add`
+// or `remove` actions, no matter where it sits in the `actions` array.
 package updatealiases
 
 import (
@@ -75,9 +85,19 @@ func NewUpdateAliasesFunc(tp elastictransport.Interface) NewUpdateAliases {
 	}
 }
 
-// Create or update an alias.
+// Update aliases and delete indices atomically.
 //
-// Adds a data stream or index to an alias.
+// Applies one or more actions in a single request:
+//
+//   - Add a data stream or index to an alias.
+//   - Remove a data stream or index from an alias.
+//   - Delete an index in that same request, so the deletion and the alias
+//     changes are applied together.
+//
+// For example, you can replace an index with an alias of the same name.
+//
+// NOTE: Every `remove_index` action in the request runs first, before any `add`
+// or `remove` actions, no matter where it sits in the `actions` array.
 //
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
 //

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -35,16 +35,20 @@ import (
 // An object describing a single input for the `rerank` task, which additionally
 // allows specifying non-text inputs, such as images.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/rerank/RerankRequest.ts#L168-L185
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/inference/rerank/RerankRequest.ts#L186-L206
 type RerankInputObject struct {
 	// Format The format of the input. For the `text` type this must be `text`. For the
-	// `image` type this must be `base64`. If not specified, this defaults to `text`
-	// for the `text` type and `base64` for the `image` type.
+	// `image` type this must be `base64` or `url`. If not specified, this defaults
+	// to `text` for the `text` type and `base64` for the `image` type. The `url`
+	// format is available in Elasticsearch 9.6.0 and later. Not all services and
+	// models support all formats.
 	Format *rerankinputformat.RerankInputFormat `json:"format,omitempty"`
 	// Type The type of input. Not all services and models support all input types.
 	Type rerankinputtype.RerankInputType `json:"type"`
-	// Value The value of the input. For images, this must be a base64-encoded data URI,
-	// that is, "data:content/type;base64,...".
+	// Value The value of the input. For the `base64` format, this must be a
+	// base64-encoded data URI, that is, "data:content/type;base64,...". For the
+	// `url` format, this must be a URL that points to the content, that is,
+	// "https://example.com/image.jpg".
 	Value string `json:"value"`
 }
 

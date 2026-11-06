@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RequestEmbedding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/_types/CommonTypes.ts#L527-L610
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/inference/_types/CommonTypes.ts#L565-L658
 type RequestEmbedding struct {
 	// Input Inference input. Either a string, an array of strings, a `content` object, or
 	// an array of `content` objects. `content` objects may contain a single item or
@@ -76,6 +76,17 @@ type RequestEmbedding struct {
 	//	    }
 	//	  }
 	//	]
+	//
+	// `content` object using the `url` format example (available in Elasticsearch
+	// 9.6.0 and later):
+	//
+	//	"input": {
+	//	    "content": {
+	//	      "type": "image",
+	//	      "format": "url",
+	//	      "value": "https://example.com/image.jpg"
+	//	    }
+	//	  }
 	//
 	// Multiple items in one `content` object example (available in Elasticsearch
 	// 9.5.0 and later):

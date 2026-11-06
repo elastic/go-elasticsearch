@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get the hot threads for nodes.
 //
@@ -37,6 +37,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/threadsortorder"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/threadtype"
 )
 
@@ -363,7 +364,7 @@ func (r *HotThreads) Type(type_ threadtype.ThreadType) *HotThreads {
 
 // Sort The sort order for 'cpu' type
 // API name: sort
-func (r *HotThreads) Sort(sort threadtype.ThreadType) *HotThreads {
+func (r *HotThreads) Sort(sort threadsortorder.ThreadSortOrder) *HotThreads {
 	r.values.Set("sort", sort.String())
 
 	return r
