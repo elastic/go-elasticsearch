@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AddAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/update_aliases/types.ts#L41-L95
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/update_aliases/types.ts#L41-L97
 type AddAction struct {
 	// Alias Alias for the action. Index alias names support date math.
 	Alias *string `json:"alias,omitempty"`
@@ -39,13 +39,15 @@ type AddAction struct {
 	Aliases []string `json:"aliases,omitempty"`
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
-	// Index Data stream or index for the action. Supports wildcards (`*`).
+	// Index Data stream or index for the action. Supports wildcards (`*`). Wildcard
+	// patterns that match both data streams and indices return an error.
 	Index *string `json:"index,omitempty"`
 	// IndexRouting Value used to route indexing operations to a specific shard. If specified,
 	// this overwrites the `routing` value for indexing operations. Data stream
 	// aliases don’t support this parameter.
 	IndexRouting *string `json:"index_routing,omitempty"`
-	// Indices Data streams or indices for the action. Supports wildcards (`*`).
+	// Indices Data streams or indices for the action. Supports wildcards (`*`). Wildcard
+	// patterns that match both data streams and indices return an error.
 	Indices []string `json:"indices,omitempty"`
 	// IsHidden If `true`, the alias is hidden.
 	IsHidden *bool `json:"is_hidden,omitempty"`

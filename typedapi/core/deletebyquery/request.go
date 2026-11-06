@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package deletebyquery
 
@@ -33,12 +33,15 @@ import (
 
 // Request holds the request body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L38-L340
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L40-L353
 type Request struct {
 	// MaxDocs The maximum number of documents to delete.
 	MaxDocs *int64 `json:"max_docs,omitempty"`
 	// Query The documents to delete specified with Query DSL.
 	Query *types.Query `json:"query,omitempty"`
+	// RuntimeMappings One or more runtime fields in the search request. These fields take
+	// precedence over mapped fields with the same name.
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// Slice Slice the request manually using the provided slice ID and total number of
 	// slices.
 	Slice *types.SlicedScroll `json:"slice,omitempty"`
@@ -97,6 +100,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
 				return fmt.Errorf("%s | %w", "Query", err)
+			}
+
+		case "runtime_mappings":
+			if err := dec.Decode(&s.RuntimeMappings); err != nil {
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
 			}
 
 		case "slice":

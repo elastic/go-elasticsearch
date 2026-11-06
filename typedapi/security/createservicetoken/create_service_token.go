@@ -16,12 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Create a service account token.
 //
 // Create a service accounts token for access without requiring basic
-// authentication.
+// authentication. This route serves both kinds of service account, but the
+// privileges differ: `manage_service_account` authorizes tokens of built-in
+// accounts in the `elastic` namespace only, and tokens of a user-managed
+// account require `manage_security`.
 //
 // NOTE: Service account tokens never expire. You must actively delete them if
 // they are no longer needed.
@@ -98,7 +101,10 @@ func NewCreateServiceTokenFunc(tp elastictransport.Interface) NewCreateServiceTo
 // Create a service account token.
 //
 // Create a service accounts token for access without requiring basic
-// authentication.
+// authentication. This route serves both kinds of service account, but the
+// privileges differ: `manage_service_account` authorizes tokens of built-in
+// accounts in the `elastic` namespace only, and tokens of a user-managed
+// account require `manage_security`.
 //
 // NOTE: Service account tokens never expire. You must actively delete them if
 // they are no longer needed.

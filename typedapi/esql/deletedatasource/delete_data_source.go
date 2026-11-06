@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-// Delete one or more ES|QL data sources.
+// Delete ES|QL data sources.
 //
-// Fails with `409` if any dataset references one of the named data sources;
-// delete the dependent datasets first.
+// Deletes one or more data sources used in ES|QL data federation. Fails with
+// `409` if any dataset references one of the named data sources; delete the
+// dependent datasets first.
 package deletedatasource
 
 import (
@@ -79,12 +80,15 @@ func NewDeleteDataSourceFunc(tp elastictransport.Interface) NewDeleteDataSource 
 	}
 }
 
-// Delete one or more ES|QL data sources.
+// Delete ES|QL data sources.
 //
-// Fails with `409` if any dataset references one of the named data sources;
-// delete the dependent datasets first.
+// Deletes one or more data sources used in ES|QL data federation. Fails with
+// `409` if any dataset references one of the named data sources; delete the
+// dependent datasets first.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-data-source
 func New(tp elastictransport.Interface) *DeleteDataSource {
 	r := &DeleteDataSource{
 		transport: tp,

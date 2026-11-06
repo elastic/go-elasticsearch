@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Package catrecoverycolumn
 package catrecoverycolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/cat/_types/CatBase.ts#L2322-L2454
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/cat/_types/CatBase.ts#L2322-L2486
 type CatRecoveryColumn struct {
 	Name string
 }
@@ -56,6 +56,24 @@ var (
 
 	// Stage The recovery stage.
 	Stage = CatRecoveryColumn{"stage"}
+
+	// Localretries The number of times this recovery has failed in a way which is retried
+	// locally (i.e. on the data node).
+	Localretries = CatRecoveryColumn{"local_retries"}
+
+	// Priority The recovery priority.
+	Priority = CatRecoveryColumn{"priority"}
+
+	// Gate The name of the recovery gate that blocked recovery on the target node.
+	//
+	// The value is `n/a` unless the recovery is queued in the `created` stage and
+	// blocked by a recovery gate.
+	Gate = CatRecoveryColumn{"gate"}
+
+	// Blockedformillis The elapsed time in milliseconds recovery is blocked for.
+	//
+	// The value is `n/a` when the recovery is not blocked by a recovery gate.
+	Blockedformillis = CatRecoveryColumn{"blocked_for_millis"}
 
 	// Sourcehost The source host.
 	Sourcehost = CatRecoveryColumn{"source_host"}
@@ -134,6 +152,14 @@ func (c *CatRecoveryColumn) UnmarshalText(text []byte) error {
 		*c = Type
 	case "stage":
 		*c = Stage
+	case "local_retries":
+		*c = Localretries
+	case "priority":
+		*c = Priority
+	case "gate":
+		*c = Gate
+	case "blocked_for_millis":
+		*c = Blockedformillis
 	case "source_host":
 		*c = Sourcehost
 	case "source_node":

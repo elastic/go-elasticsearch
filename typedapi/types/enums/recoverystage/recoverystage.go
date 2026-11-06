@@ -16,21 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Package recoverystage
 package recoverystage
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/recovery/types.ts#L118-L131
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/recovery/types.ts#L118-L138
 type RecoveryStage struct {
 	Name string
 }
 
 var (
 
-	// INIT Recovery has not started.
+	// CREATED The shard's recovery state has been created, but the recovery has not started
+	// yet (it may be queued behind other ongoing recoveries).
+	CREATED = RecoveryStage{"CREATED"}
+
+	// INIT Recovery has started and is initializing.
 	INIT = RecoveryStage{"INIT"}
 
 	// INDEX Reading index metadata and copying bytes from source to destination.
@@ -56,6 +60,8 @@ func (r RecoveryStage) MarshalText() (text []byte, err error) {
 func (r *RecoveryStage) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
+	case "created":
+		*r = CREATED
 	case "init":
 		*r = INIT
 	case "index":

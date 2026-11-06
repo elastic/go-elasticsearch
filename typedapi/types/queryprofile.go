@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,13 +31,18 @@ import (
 
 // QueryProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/profile.ts#L148-L154
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/profile.ts#L158-L172
 type QueryProfile struct {
-	Breakdown   QueryBreakdown `json:"breakdown"`
-	Children    []QueryProfile `json:"children,omitempty"`
-	Description string         `json:"description"`
-	TimeInNanos int64          `json:"time_in_nanos"`
-	Type        string         `json:"type"`
+	Breakdown QueryBreakdown `json:"breakdown"`
+	Children  []QueryProfile `json:"children,omitempty"`
+	// Debug Extra details about the query.
+	//
+	// Queries run by a rescorer include a `rescorer` key with the position of that
+	// rescorer in the shard's `rescore` array.
+	Debug       map[string]json.RawMessage `json:"debug,omitempty"`
+	Description string                     `json:"description"`
+	TimeInNanos int64                      `json:"time_in_nanos"`
+	Type        string                     `json:"type"`
 }
 
 func (s *QueryProfile) UnmarshalJSON(data []byte) error {
@@ -63,6 +68,14 @@ func (s *QueryProfile) UnmarshalJSON(data []byte) error {
 		case "children":
 			if err := dec.Decode(&s.Children); err != nil {
 				return fmt.Errorf("%s | %w", "Children", err)
+			}
+
+		case "debug":
+			if s.Debug == nil {
+				s.Debug = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Debug); err != nil {
+				return fmt.Errorf("%s | %w", "Debug", err)
 			}
 
 		case "description":
@@ -101,7 +114,9 @@ func (s *QueryProfile) UnmarshalJSON(data []byte) error {
 
 // NewQueryProfile returns a QueryProfile.
 func NewQueryProfile() *QueryProfile {
-	r := &QueryProfile{}
+	r := &QueryProfile{
+		Debug: make(map[string]json.RawMessage),
+	}
 
 	return r
 }

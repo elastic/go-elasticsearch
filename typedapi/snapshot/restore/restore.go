@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Restore a snapshot.
 //
@@ -631,6 +631,26 @@ func (r *Restore) RenameReplacement(renamereplacement string) *Restore {
 	}
 
 	r.req.RenameReplacement = &renamereplacement
+
+	return r
+}
+
+// If `true`, the request can restore over destination indices and data streams
+// that already exist, without closing or deleting them first. An open
+// destination index is closed and restored over in a single step. A destination
+// data stream is deleted, together with its backing and failure store indices,
+// and recreated from the snapshot.
+//
+// It can't be combined with `rename_pattern`, `rename_replacement`,
+// `include_global_state`, or `partial`.
+// API name: restore_over_existing
+func (r *Restore) RestoreOverExisting(restoreoverexisting bool) *Restore {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RestoreOverExisting = &restoreoverexisting
 
 	return r
 }

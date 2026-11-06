@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get index segments.
 //
@@ -343,6 +343,24 @@ func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildc
 // API name: ignore_unavailable
 func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// IncludeAutoCalibration If `true`, the response includes the auto-calibration information of each
+// segment, for the `dense_vector` fields that support auto-calibration.
+// API name: include_auto_calibration
+func (r *Segments) IncludeAutoCalibration(includeautocalibration bool) *Segments {
+	r.values.Set("include_auto_calibration", strconv.FormatBool(includeautocalibration))
+
+	return r
+}
+
+// VectorFormats If `true`, the response includes the vector formats used by the fields of
+// each segment, in `attributes`.
+// API name: vector_formats
+func (r *Segments) VectorFormats(vectorformats bool) *Segments {
+	r.values.Set("vector_formats", strconv.FormatBool(vectorformats))
 
 	return r
 }

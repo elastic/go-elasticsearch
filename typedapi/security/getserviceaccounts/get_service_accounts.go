@@ -16,14 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Get service accounts.
 //
 // Get a list of service accounts that match the provided path parameters.
+// Built-in service accounts ship with Elasticsearch in the `elastic` namespace;
+// user-managed service accounts are created with the put user-managed service
+// account API.
 //
-// NOTE: Currently, only the `elastic/fleet-server` service account is
-// available.
+// NOTE: When `type` is omitted, a request without a namespace reports built-in
+// accounts only, which preserves the response of a whole-cluster listing. A
+// request scoped to a namespace reports both kinds, so an account you created
+// is found without naming its kind.
 package getserviceaccounts
 
 import (
@@ -39,6 +44,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/serviceaccounttype"
 )
 
 const (
@@ -85,9 +91,14 @@ func NewGetServiceAccountsFunc(tp elastictransport.Interface) NewGetServiceAccou
 // Get service accounts.
 //
 // Get a list of service accounts that match the provided path parameters.
+// Built-in service accounts ship with Elasticsearch in the `elastic` namespace;
+// user-managed service accounts are created with the put user-managed service
+// account API.
 //
-// NOTE: Currently, only the `elastic/fleet-server` service account is
-// available.
+// NOTE: When `type` is omitted, a request without a namespace reports built-in
+// accounts only, which preserves the response of a whole-cluster listing. A
+// request scoped to a namespace reports both kinds, so an account you created
+// is found without naming its kind.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-accounts
 func New(tp elastictransport.Interface) *GetServiceAccounts {
@@ -344,6 +355,31 @@ func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 func (r *GetServiceAccounts) Service(service string) *GetServiceAccounts {
 	r.paramSet |= serviceMask
 	r.service = service
+
+	return r
+}
+
+// Type A comma-separated list of the kinds of service account to return. If it is
+// omitted, it defaults to `built_in` when no namespace is given and to
+// `built_in,user_managed` otherwise.
+// API name: type
+func (r *GetServiceAccounts) Type(type_s ...serviceaccounttype.ServiceAccountType) *GetServiceAccounts {
+	tmp := []string{}
+	for _, item := range type_s {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("type", strings.Join(tmp, ","))
+
+	return r
+}
+
+// WithProfileUid If `true`, each user-managed service account also includes the profile UIDs
+// of the users who created and last replaced it, under the
+// `created_by_profile_uid` and `updated_by_profile_uid` fields. A profile UID
+// is included only for a user who has an activated user profile.
+// API name: with_profile_uid
+func (r *GetServiceAccounts) WithProfileUid(withprofileuid bool) *GetServiceAccounts {
+	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))
 
 	return r
 }

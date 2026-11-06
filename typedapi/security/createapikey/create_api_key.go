@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Create an API key.
 //
@@ -407,7 +407,8 @@ func (r *CreateApiKey) Metadata(metadata types.MetadataVariant) *CreateApiKey {
 	return r
 }
 
-// A name for the API key.
+// A name for the API key. It is required, and it cannot be longer than 256
+// characters, begin or end with whitespace, or begin with an underscore.
 // API name: name
 func (r *CreateApiKey) Name(name string) *CreateApiKey {
 	// Initialize the request if it is not already initialized
@@ -415,7 +416,7 @@ func (r *CreateApiKey) Name(name string) *CreateApiKey {
 		r.req = NewRequest()
 	}
 
-	r.req.Name = &name
+	r.req.Name = name
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package deprecations
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deprecations
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L54
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L59
 type Response struct {
 	// ClusterSettings Cluster-level deprecation warnings.
 	ClusterSettings []types.Deprecation            `json:"cluster_settings"`
@@ -43,6 +43,8 @@ type Response struct {
 	// incorporate these settings, it is important to read the details section for
 	// more information about which nodes are affected.
 	NodeSettings []types.Deprecation `json:"node_settings"`
+	// Repositories Snapshot repository warnings are sectioned off per repository.
+	Repositories map[string][]types.Deprecation `json:"repositories"`
 	// Templates Template warnings are sectioned off per template and include deprecations for
 	// both component templates and index templates.
 	Templates map[string][]types.Deprecation `json:"templates"`
@@ -54,6 +56,7 @@ func NewResponse() *Response {
 		DataStreams:   make(map[string][]types.Deprecation, 0),
 		IlmPolicies:   make(map[string][]types.Deprecation, 0),
 		IndexSettings: make(map[string][]types.Deprecation, 0),
+		Repositories:  make(map[string][]types.Deprecation, 0),
 		Templates:     make(map[string][]types.Deprecation, 0),
 	}
 	return r

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Package sourcefieldmode
 package sourcefieldmode
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/mapping/meta-fields.ts#L65-L73
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/mapping/meta-fields.ts#L65-L77
 type SourceFieldMode struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	Disabled = SourceFieldMode{"disabled"}
 
 	Stored = SourceFieldMode{"stored"}
+
+	Columnarstored = SourceFieldMode{"columnar_stored"}
 
 	// Synthetic Instead of storing source documents on disk exactly as you send them,
 	// Elasticsearch can reconstruct source content on the fly upon retrieval.
@@ -49,6 +51,8 @@ func (s *SourceFieldMode) UnmarshalText(text []byte) error {
 		*s = Disabled
 	case "stored":
 		*s = Stored
+	case "columnar_stored":
+		*s = Columnarstored
 	case "synthetic":
 		*s = Synthetic
 	default:

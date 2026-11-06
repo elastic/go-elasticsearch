@@ -16,22 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
 // FieldSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L58-L67
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L58-L72
 type FieldSummary struct {
-	Any           uint          `json:"any"`
-	DocValues     uint          `json:"doc_values"`
-	InvertedIndex InvertedIndex `json:"inverted_index"`
-	KnnVectors    uint          `json:"knn_vectors"`
-	Norms         uint          `json:"norms"`
-	Points        uint          `json:"points"`
-	StoredFields  uint          `json:"stored_fields"`
-	TermVectors   uint          `json:"term_vectors"`
+	Any              uint          `json:"any"`
+	DocValues        uint          `json:"doc_values"`
+	DocValuesSkipper uint          `json:"doc_values_skipper"`
+	InvertedIndex    InvertedIndex `json:"inverted_index"`
+	KnnVectors       uint          `json:"knn_vectors"`
+	Norms            uint          `json:"norms"`
+	Points           uint          `json:"points"`
+	StoredFields     uint          `json:"stored_fields"`
+	TermVectors      uint          `json:"term_vectors"`
 }
 
 // NewFieldSummary returns a FieldSummary.

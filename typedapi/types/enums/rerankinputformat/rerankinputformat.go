@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Package rerankinputformat
 package rerankinputformat
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/rerank/RerankRequest.ts#L195-L202
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/inference/rerank/RerankRequest.ts#L216-L225
 type RerankInputFormat struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	Text = RerankInputFormat{"text"}
 
 	Base64 = RerankInputFormat{"base64"}
+
+	Url = RerankInputFormat{"url"}
 )
 
 func (r RerankInputFormat) MarshalText() (text []byte, err error) {
@@ -45,6 +47,8 @@ func (r *RerankInputFormat) UnmarshalText(text []byte) error {
 		*r = Text
 	case "base64":
 		*r = Base64
+	case "url":
+		*r = Url
 	default:
 		*r = RerankInputFormat{string(text)}
 	}

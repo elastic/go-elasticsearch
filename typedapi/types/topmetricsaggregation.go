@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,16 +31,10 @@ import (
 
 // TopMetricsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/aggregations/metric.ts#L435-L452
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/aggregations/metric.ts#L435-L452
 type TopMetricsAggregation struct {
-	// Field The field on which to run the aggregation.
-	Field *string `json:"field,omitempty"`
 	// Metrics The fields of the top document to return.
 	Metrics []TopMetricsValue `json:"metrics,omitempty"`
-	// Missing The value to apply to documents that do not have a value. By default,
-	// documents without a value are ignored.
-	Missing Missing `json:"missing,omitempty"`
-	Script  *Script `json:"script,omitempty"`
 	// Size The number of top documents from which to return metrics.
 	Size *int `json:"size,omitempty"`
 	// Sort The sort order of the documents.
@@ -62,11 +56,6 @@ func (s *TopMetricsAggregation) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "field":
-			if err := dec.Decode(&s.Field); err != nil {
-				return fmt.Errorf("%s | %w", "Field", err)
-			}
-
 		case "metrics":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -81,16 +70,6 @@ func (s *TopMetricsAggregation) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Metrics); err != nil {
 					return fmt.Errorf("%s | %w", "Metrics", err)
 				}
-			}
-
-		case "missing":
-			if err := dec.Decode(&s.Missing); err != nil {
-				return fmt.Errorf("%s | %w", "Missing", err)
-			}
-
-		case "script":
-			if err := dec.Decode(&s.Script); err != nil {
-				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
 		case "size":

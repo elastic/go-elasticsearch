@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/profile.ts#L125-L146
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/profile.ts#L125-L156
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -43,6 +43,8 @@ type QueryBreakdown struct {
 	CountWeightCount            int64 `json:"count_weight_count"`
 	CreateWeight                int64 `json:"create_weight"`
 	CreateWeightCount           int64 `json:"create_weight_count"`
+	IntoBitSet                  int64 `json:"into_bit_set"`
+	IntoBitSetCount             int64 `json:"into_bit_set_count"`
 	Match                       int64 `json:"match"`
 	MatchCount                  int64 `json:"match_count"`
 	NextDoc                     int64 `json:"next_doc"`
@@ -218,6 +220,36 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.CreateWeightCount = f
+			}
+
+		case "into_bit_set":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IntoBitSet", err)
+				}
+				s.IntoBitSet = value
+			case float64:
+				f := int64(v)
+				s.IntoBitSet = f
+			}
+
+		case "into_bit_set_count":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IntoBitSetCount", err)
+				}
+				s.IntoBitSetCount = value
+			case float64:
+				f := int64(v)
+				s.IntoBitSetCount = f
 			}
 
 		case "match":

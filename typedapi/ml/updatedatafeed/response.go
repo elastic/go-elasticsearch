@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package updatedatafeed
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L52
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L61
 type Response struct {
 	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Authorization          *types.DatafeedAuthorization  `json:"authorization,omitempty"`
@@ -41,16 +41,22 @@ type Response struct {
 	// overwritten by the full bucket results. If the datafeed uses aggregations,
 	// this value must be divisible by the interval of the date histogram
 	// aggregation.
-	Frequency        types.Duration               `json:"frequency,omitempty"`
-	Indices          []string                     `json:"indices"`
-	IndicesOptions   *types.IndicesOptions        `json:"indices_options,omitempty"`
-	JobId            string                       `json:"job_id"`
-	MaxEmptySearches *int                         `json:"max_empty_searches,omitempty"`
-	Query            types.Query                  `json:"query"`
-	QueryDelay       types.Duration               `json:"query_delay"`
-	RuntimeMappings  types.RuntimeFields          `json:"runtime_mappings,omitempty"`
-	ScriptFields     map[string]types.ScriptField `json:"script_fields,omitempty"`
-	ScrollSize       int                          `json:"scroll_size"`
+	Frequency                        types.Duration        `json:"frequency,omitempty"`
+	Indices                          []string              `json:"indices"`
+	IndicesOptions                   *types.IndicesOptions `json:"indices_options,omitempty"`
+	JobId                            string                `json:"job_id"`
+	MaxConsecutiveExtractionFailures *int                  `json:"max_consecutive_extraction_failures,omitempty"`
+	MaxEmptySearches                 *int                  `json:"max_empty_searches,omitempty"`
+	// ProjectRouting A Lucene-style expression that limits which linked projects the datafeed
+	// searches when cross-project search is enabled. Examples: `_alias:_origin`,
+	// `_alias:prod-*`. If omitted, searches all linked projects within the
+	// cross-project search scope. Rejected when CPS is not enabled for datafeeds.
+	ProjectRouting  *string                      `json:"project_routing,omitempty"`
+	Query           types.Query                  `json:"query"`
+	QueryDelay      types.Duration               `json:"query_delay"`
+	RuntimeMappings types.RuntimeFields          `json:"runtime_mappings,omitempty"`
+	ScriptFields    map[string]types.ScriptField `json:"script_fields,omitempty"`
+	ScrollSize      int                          `json:"scroll_size"`
 }
 
 // NewResponse returns a Response

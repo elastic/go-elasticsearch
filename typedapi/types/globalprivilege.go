@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
 // GlobalPrivilege type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/_types/Privileges.ts#L418-L425
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/_types/Privileges.ts#L422-L437
 type GlobalPrivilege struct {
-	Application ApplicationGlobalUserPrivileges `json:"application"`
+	Application *ApplicationGlobalUserPrivileges `json:"application,omitempty"`
 	// DataSource A list of data source privilege entries, used to grant access to ES|QL data
 	// sources.
 	DataSource []DataSourcePrivileges `json:"data_source,omitempty"`
+	// Profile A privilege that grants the ability to write the `data` and `access` sections
+	// of user profiles for the specified applications.
+	Profile *WriteProfileGlobalUserPrivileges `json:"profile,omitempty"`
+	// Role A privilege that grants the ability to manage roles that are scoped to the
+	// specified indices.
+	Role *ManageRolesGlobalUserPrivileges `json:"role,omitempty"`
 }
 
 // NewGlobalPrivilege returns a GlobalPrivilege.

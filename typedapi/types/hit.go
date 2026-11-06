@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/hits.ts#L40-L69
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/hits.ts#L41-L76
 type Hit struct {
 	Explanation_       *Explanation                 `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage   `json:"fields,omitempty"`
@@ -50,9 +50,12 @@ type Hit struct {
 	Score_             *Float64                     `json:"_score,omitempty"`
 	SeqNo_             *int64                       `json:"_seq_no,omitempty"`
 	Shard_             *string                      `json:"_shard,omitempty"`
-	Sort               []FieldValue                 `json:"sort,omitempty"`
-	Source_            json.RawMessage              `json:"_source,omitempty"`
-	Version_           *int64                       `json:"_version,omitempty"`
+	// Slice_ The slice the document belongs to, for a slice-enabled index
+	// (`index.slice.enabled` set to `true`).
+	Slice_   *string         `json:"_slice,omitempty"`
+	Sort     []FieldValue    `json:"sort,omitempty"`
+	Source_  json.RawMessage `json:"_source,omitempty"`
+	Version_ *int64          `json:"_version,omitempty"`
 }
 
 func (s *Hit) UnmarshalJSON(data []byte) error {
@@ -224,6 +227,11 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Shard_ = &o
+
+		case "_slice":
+			if err := dec.Decode(&s.Slice_); err != nil {
+				return fmt.Errorf("%s | %w", "Slice_", err)
+			}
 
 		case "sort":
 			if err := dec.Decode(&s.Sort); err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Update an anomaly detection job.
 //
@@ -492,27 +492,18 @@ func (r *UpdateJob) Description(description string) *UpdateJob {
 	return r
 }
 
-// An array of detector update objects.
+// A detector update object or an array of detector update objects.
 // API name: detectors
 func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdateVariant) *UpdateJob {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	for _, v := range detectors {
-
-		r.req.Detectors = append(r.req.Detectors, *v.DetectorUpdateCaster())
-
+	r.req.Detectors = make([]types.DetectorUpdate, len(detectors))
+	for i, v := range detectors {
+		r.req.Detectors[i] = *v.DetectorUpdateCaster()
 	}
-	return r
-}
 
-func (r *UpdateJob) DetectorsValues(detectorsvalues []types.DetectorUpdate) *UpdateJob {
-	// Initialize the request if it is not already initialized
-	if r.req == nil {
-		r.req = NewRequest()
-	}
-	r.req.Detectors = detectorsvalues
 	return r
 }
 

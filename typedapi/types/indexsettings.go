@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/_types/IndexSettings.ts#L71-L186
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/_types/IndexSettings.ts#L71-L186
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -67,7 +67,7 @@ type IndexSettings struct {
 	MaxRefreshListeners     *int                  `json:"max_refresh_listeners,omitempty"`
 	MaxRegexLength          *int                  `json:"max_regex_length,omitempty"`
 	MaxRescoreWindow        *int                  `json:"max_rescore_window,omitempty"`
-	MaxResultWindow         *int                  `json:"max_result_window,omitempty"`
+	MaxResultWindow         Stringifiedinteger    `json:"max_result_window,omitempty"`
 	MaxScriptFields         *int                  `json:"max_script_fields,omitempty"`
 	MaxShingleDiff          *int                  `json:"max_shingle_diff,omitempty"`
 	MaxSlicesPerScroll      *int                  `json:"max_slices_per_scroll,omitempty"`
@@ -346,19 +346,8 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_result_window":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "MaxResultWindow", err)
-				}
-				s.MaxResultWindow = &value
-			case float64:
-				f := int(v)
-				s.MaxResultWindow = &f
+			if err := dec.Decode(&s.MaxResultWindow); err != nil {
+				return fmt.Errorf("%s | %w", "MaxResultWindow", err)
 			}
 
 		case "max_script_fields":

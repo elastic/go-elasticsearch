@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SourceOnlyRepositorySettingsForAzure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/snapshot/_types/SnapshotRepository.ts#L440-L444
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/snapshot/_types/SnapshotRepository.ts#L455-L459
 type SourceOnlyRepositorySettingsForAzure struct {
 	// BasePath The path to the repository data within the container. It defaults to the root
 	// directory.
@@ -44,8 +44,13 @@ type SourceOnlyRepositorySettingsForAzure struct {
 	// Client The name of the Azure repository client to use.
 	Client *string `json:"client,omitempty"`
 	// Container The Azure container.
-	Container    *string `json:"container,omitempty"`
-	DelegateType string  `json:"delegate_type,omitempty"`
+	Container *string `json:"container,omitempty"`
+	// DataAccessTier The Azure access tier applied to the data blobs of the repository, which hold
+	// the files that make up each snapshotted shard. Accepted values are `hot`,
+	// `cool` and `cold`, in any letter case. If not set, no access tier is
+	// requested and Azure applies the default tier of the storage account.
+	DataAccessTier *string `json:"data_access_tier,omitempty"`
+	DelegateType   string  `json:"delegate_type,omitempty"`
 	// DeleteObjectsMaxSize The maxmimum batch size, between 1 and 256, used for `BlobBatch` requests.
 	// Defaults to 256 which is the maximum number supported by the Azure blob batch
 	// API.
@@ -59,6 +64,12 @@ type SourceOnlyRepositorySettingsForAzure struct {
 	// connection and event loop thread limits. Defaults to 10, minimum is 1,
 	// maximum is 100.
 	MaxConcurrentBatchDeletes *int `json:"max_concurrent_batch_deletes,omitempty"`
+	// MetadataAccessTier The Azure access tier applied to the metadata blobs of the repository. These
+	// are generally smaller than the data blobs but can be read more often, for
+	// example to list the repository contents or to take snapshots. Accepted values
+	// are `hot`, `cool` and `cold`, in any letter case. If not set, no access tier
+	// is requested and Azure applies the default tier of the storage account.
+	MetadataAccessTier *string `json:"metadata_access_tier,omitempty"`
 	// Readonly If `true`, the repository is read-only. The cluster can retrieve and restore
 	// snapshots from the repository but not write to the repository or create
 	// snapshots in it.
@@ -126,6 +137,18 @@ func (s *SourceOnlyRepositorySettingsForAzure) UnmarshalJSON(data []byte) error 
 			}
 			s.Container = &o
 
+		case "data_access_tier":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "DataAccessTier", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.DataAccessTier = &o
+
 		case "delegate_type":
 			if err := dec.Decode(&s.DelegateType); err != nil {
 				return fmt.Errorf("%s | %w", "DelegateType", err)
@@ -175,6 +198,18 @@ func (s *SourceOnlyRepositorySettingsForAzure) UnmarshalJSON(data []byte) error 
 				s.MaxConcurrentBatchDeletes = &f
 			}
 
+		case "metadata_access_tier":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MetadataAccessTier", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MetadataAccessTier = &o
+
 		case "readonly":
 			var tmp any
 			dec.Decode(&tmp)
@@ -201,10 +236,12 @@ func (s SourceOnlyRepositorySettingsForAzure) MarshalJSON() ([]byte, error) {
 		BasePath:                  s.BasePath,
 		Client:                    s.Client,
 		Container:                 s.Container,
+		DataAccessTier:            s.DataAccessTier,
 		DelegateType:              s.DelegateType,
 		DeleteObjectsMaxSize:      s.DeleteObjectsMaxSize,
 		LocationMode:              s.LocationMode,
 		MaxConcurrentBatchDeletes: s.MaxConcurrentBatchDeletes,
+		MetadataAccessTier:        s.MetadataAccessTier,
 		Readonly:                  s.Readonly,
 	}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Close a point in time.
 //
@@ -347,6 +347,14 @@ func (r *ClosePointInTime) Pretty(pretty bool) *ClosePointInTime {
 }
 
 // The ID of the point-in-time.
+//
+// IMPORTANT: Each search request against a PIT returns in its response a
+// `pit_id` field which may be different from the identifier you originally
+// supplied. Always use the most recently-received PIT identifier for the next
+// request. If you make concurrent search requests against the same PIT,
+// Elasticsearch can return several different `pit_id` values in its responses.
+// In that case, use any of these values for later requests, preferring more
+// recently-received values whenever possible.
 // API name: id
 func (r *ClosePointInTime) Id(id string) *ClosePointInTime {
 	// Initialize the request if it is not already initialized

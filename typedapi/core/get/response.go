@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package get
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/get/GetResponse.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/get/GetResponse.ts#L23-L36
 type Response struct {
 	// Fields If the `stored_fields` parameter is set to `true` and `found` is `true`, it
 	// contains the document fields stored in the index.
@@ -46,6 +46,9 @@ type Response struct {
 	// Sequence numbers are used to ensure an older version of a document doesn't
 	// overwrite a newer version.
 	SeqNo_ *int64 `json:"_seq_no,omitempty"`
+	// Slice_ The slice the document belongs to, for a slice-enabled index
+	// (`index.slice.enabled` set to `true`).
+	Slice_ *string `json:"_slice,omitempty"`
 	// Source_ If `found` is `true`, it contains the document data formatted in JSON. If the
 	// `_source` parameter is set to `false` or the `stored_fields` parameter is set
 	// to `true`, it is excluded.

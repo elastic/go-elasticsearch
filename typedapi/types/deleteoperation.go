@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DeleteOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/bulk/types.ts#L143-L143
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/bulk/types.ts#L154-L154
 type DeleteOperation struct {
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
@@ -41,8 +41,13 @@ type DeleteOperation struct {
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
 	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
+	// RouteSlice The slice identifier for a slice-enabled index (`index.slice.enabled` set to
+	// `true`), which scopes the operation to that slice. It overrides the `_slice`
+	// set in the request path.
+	RouteSlice *string `json:"_slice,omitempty"`
 	// Routing A custom value used to route operations to a specific shard, or multiple
-	// comma separated values.
+	// comma separated values. Not allowed when `index.slice.enabled` is `true` for
+	// the target index; use `_slice` instead.
 	Routing     *string                  `json:"routing,omitempty"`
 	Version     *int64                   `json:"version,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
@@ -91,6 +96,11 @@ func (s *DeleteOperation) UnmarshalJSON(data []byte) error {
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
 				return fmt.Errorf("%s | %w", "Index_", err)
+			}
+
+		case "_slice":
+			if err := dec.Decode(&s.RouteSlice); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice", err)
 			}
 
 		case "routing":

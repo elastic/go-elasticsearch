@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // FieldCapability type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/field_caps/types.ts#L23-L93
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/field_caps/types.ts#L23-L106
 type FieldCapability struct {
 	// Aggregatable Whether this field can be aggregated on all indices.
 	Aggregatable bool `json:"aggregatable"`
@@ -62,9 +62,15 @@ type FieldCapability struct {
 	// NonInferenceIndices The list of indices where this field is not an inference field, or null if
 	// all indices have the same definition for the field.
 	NonInferenceIndices []string `json:"non_inference_indices,omitempty"`
+	// NonPassthroughIndices The list of indices where this field is not a passthrough source, or null if
+	// all indices have the same definition for the field.
+	NonPassthroughIndices []string `json:"non_passthrough_indices,omitempty"`
 	// NonSearchableIndices The list of indices where this field is not searchable, or null if all
 	// indices have the same definition for the field.
 	NonSearchableIndices []string `json:"non_searchable_indices,omitempty"`
+	// Passthrough Whether this field is a passthrough source on all indices. This property is
+	// present only for field types that support passthrough.
+	Passthrough *bool `json:"passthrough,omitempty"`
 	// Searchable Whether this field is indexed for search on all indices.
 	Searchable bool `json:"searchable"`
 	// TimeSeriesDimension Whether this field is used as a time series dimension.
@@ -195,6 +201,22 @@ func (s *FieldCapability) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "non_passthrough_indices":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "NonPassthroughIndices", err)
+				}
+
+				s.NonPassthroughIndices = append(s.NonPassthroughIndices, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.NonPassthroughIndices); err != nil {
+					return fmt.Errorf("%s | %w", "NonPassthroughIndices", err)
+				}
+			}
+
 		case "non_searchable_indices":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -209,6 +231,20 @@ func (s *FieldCapability) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.NonSearchableIndices); err != nil {
 					return fmt.Errorf("%s | %w", "NonSearchableIndices", err)
 				}
+			}
+
+		case "passthrough":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Passthrough", err)
+				}
+				s.Passthrough = &value
+			case bool:
+				s.Passthrough = &v
 			}
 
 		case "searchable":

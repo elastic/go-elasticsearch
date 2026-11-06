@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnSearchQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/knn_search/_types/Knn.ts#L24-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/knn_search/_types/Knn.ts#L24-L33
 type KnnSearchQuery struct {
 	// Field The name of the vector field to search against
 	Field string `json:"field"`
@@ -40,7 +40,7 @@ type KnnSearchQuery struct {
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
 	NumCandidates int `json:"num_candidates"`
 	// QueryVector The query vector
-	QueryVector []float32 `json:"query_vector"`
+	QueryVector QueryVector `json:"query_vector"`
 }
 
 func (s *KnnSearchQuery) UnmarshalJSON(data []byte) error {

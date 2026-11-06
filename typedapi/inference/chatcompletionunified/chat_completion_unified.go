@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-// Perform chat completion inference on the service.
+// Perform streaming chat completion inference on the service.
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
 // during computation. It only works with the `chat_completion` task type.
 //
-// NOTE: The `chat_completion` task type is only available within the _stream
-// API and only supports streaming. The Chat completion inference API and the
-// Stream inference API differ in their response structure and capabilities. The
-// Chat completion inference API provides more comprehensive customization
-// options through more fields and function calling support. To determine
-// whether a given inference service supports this task type, please see the
-// page for that service.
+// NOTE: The `chat_completion` task type supports both streaming and
+// non-streaming. The Chat completion inference API and the Stream inference API
+// differ in their response structure and capabilities. The Chat completion
+// inference API provides more comprehensive customization options through more
+// fields and function calling support. To determine whether a given inference
+// service supports this task type, please see the page for that service.
 package chatcompletionunified
 
 import (
@@ -93,19 +92,18 @@ func NewChatCompletionUnifiedFunc(tp elastictransport.Interface) NewChatCompleti
 	}
 }
 
-// Perform chat completion inference on the service.
+// Perform streaming chat completion inference on the service.
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
 // during computation. It only works with the `chat_completion` task type.
 //
-// NOTE: The `chat_completion` task type is only available within the _stream
-// API and only supports streaming. The Chat completion inference API and the
-// Stream inference API differ in their response structure and capabilities. The
-// Chat completion inference API provides more comprehensive customization
-// options through more fields and function calling support. To determine
-// whether a given inference service supports this task type, please see the
-// page for that service.
+// NOTE: The `chat_completion` task type supports both streaming and
+// non-streaming. The Chat completion inference API and the Stream inference API
+// differ in their response structure and capabilities. The Chat completion
+// inference API provides more comprehensive customization options through more
+// fields and function calling support. To determine whether a given inference
+// service supports this task type, please see the page for that service.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
 func New(tp elastictransport.Interface) *ChatCompletionUnified {
@@ -389,6 +387,29 @@ func (r *ChatCompletionUnified) Pretty(pretty bool) *ChatCompletionUnified {
 	return r
 }
 
+// The prompt caching configuration for the completion request. Example:
+//
+//	{
+//	  "cache_control": {
+//	    "type": "ephemeral",
+//	    "ttl": "1h"
+//	  }
+//	}
+//
+// Unknown fields in the object and invalid `ttl` values return an error.
+// Currently supported only for `elastic` provider.
+// API name: cache_control
+func (r *ChatCompletionUnified) CacheControl(cachecontrol types.CacheControlVariant) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.CacheControl = cachecontrol.CacheControlCaster()
+
+	return r
+}
+
 // The upper bound limit for the number of tokens that can be generated for a
 // completion request.
 // API name: max_completion_tokens
@@ -489,6 +510,20 @@ func (r *ChatCompletionUnified) Reasoning(reasoning types.ReasoningVariant) *Cha
 	}
 
 	r.req.Reasoning = reasoning.ReasoningCaster()
+
+	return r
+}
+
+// An identifier that groups related completion requests into a session.
+// Currently supported only for `elastic` provider.
+// API name: session_id
+func (r *ChatCompletionUnified) SessionId(sessionid string) *ChatCompletionUnified {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.SessionId = &sessionid
 
 	return r
 }

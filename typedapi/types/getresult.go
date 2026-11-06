@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GetResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/get/types.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/get/types.ts#L31-L79
 type GetResult struct {
 	// Fields If the `stored_fields` parameter is set to `true` and `found` is `true`, it
 	// contains the document fields stored in the index.
@@ -51,6 +51,9 @@ type GetResult struct {
 	// Sequence numbers are used to ensure an older version of a document doesn't
 	// overwrite a newer version.
 	SeqNo_ *int64 `json:"_seq_no,omitempty"`
+	// Slice_ The slice the document belongs to, for a slice-enabled index
+	// (`index.slice.enabled` set to `true`).
+	Slice_ *string `json:"_slice,omitempty"`
 	// Source_ If `found` is `true`, it contains the document data formatted in JSON. If the
 	// `_source` parameter is set to `false` or the `stored_fields` parameter is set
 	// to `true`, it is excluded.
@@ -141,6 +144,11 @@ func (s *GetResult) UnmarshalJSON(data []byte) error {
 		case "_seq_no":
 			if err := dec.Decode(&s.SeqNo_); err != nil {
 				return fmt.Errorf("%s | %w", "SeqNo_", err)
+			}
+
+		case "_slice":
+			if err := dec.Decode(&s.Slice_); err != nil {
+				return fmt.Errorf("%s | %w", "Slice_", err)
 			}
 
 		case "_source":

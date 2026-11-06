@@ -16,20 +16,40 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-package types
+package esdsl
 
-// RoleDescriptorWrapper type.
-//
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/get_service_accounts/types.ts#L22-L24
-type RoleDescriptorWrapper struct {
-	RoleDescriptor RoleDescriptorRead `json:"role_descriptor"`
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+
+type _decisionScoreLevelObject struct {
+	v *types.DecisionScoreLevelObject
 }
 
-// NewRoleDescriptorWrapper returns a RoleDescriptorWrapper.
-func NewRoleDescriptorWrapper() *RoleDescriptorWrapper {
-	r := &RoleDescriptorWrapper{}
+func NewDecisionScoreLevelObject(label string) *_decisionScoreLevelObject {
 
-	return r
+	tmp := &_decisionScoreLevelObject{v: types.NewDecisionScoreLevelObject()}
+
+	tmp.Label(label)
+
+	return tmp
+
+}
+
+func (s *_decisionScoreLevelObject) Description(description string) *_decisionScoreLevelObject {
+
+	s.v.Description = &description
+
+	return s
+}
+
+func (s *_decisionScoreLevelObject) Label(label string) *_decisionScoreLevelObject {
+
+	s.v.Label = label
+
+	return s
+}
+
+func (s *_decisionScoreLevelObject) DecisionScoreLevelObjectCaster() *types.DecisionScoreLevelObject {
+	return s.v
 }

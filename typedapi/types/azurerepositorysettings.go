@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/snapshot/_types/SnapshotRepository.ts#L146-L197
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/snapshot/_types/SnapshotRepository.ts#L146-L212
 type AzureRepositorySettings struct {
 	// BasePath The path to the repository data within the container. It defaults to the root
 	// directory.
@@ -57,6 +57,11 @@ type AzureRepositorySettings struct {
 	Compress *bool `json:"compress,omitempty"`
 	// Container The Azure container.
 	Container *string `json:"container,omitempty"`
+	// DataAccessTier The Azure access tier applied to the data blobs of the repository, which hold
+	// the files that make up each snapshotted shard. Accepted values are `hot`,
+	// `cool` and `cold`, in any letter case. If not set, no access tier is
+	// requested and Azure applies the default tier of the storage account.
+	DataAccessTier *string `json:"data_access_tier,omitempty"`
 	// DeleteObjectsMaxSize The maxmimum batch size, between 1 and 256, used for `BlobBatch` requests.
 	// Defaults to 256 which is the maximum number supported by the Azure blob batch
 	// API.
@@ -78,6 +83,12 @@ type AzureRepositorySettings struct {
 	// defaults to unlimited, and the rate is additionally throttled through
 	// recovery settings.
 	MaxSnapshotBytesPerSec ByteSize `json:"max_snapshot_bytes_per_sec,omitempty"`
+	// MetadataAccessTier The Azure access tier applied to the metadata blobs of the repository. These
+	// are generally smaller than the data blobs but can be read more often, for
+	// example to list the repository contents or to take snapshots. Accepted values
+	// are `hot`, `cool` and `cold`, in any letter case. If not set, no access tier
+	// is requested and Azure applies the default tier of the storage account.
+	MetadataAccessTier *string `json:"metadata_access_tier,omitempty"`
 	// Readonly If `true`, the repository is read-only. The cluster can retrieve and restore
 	// snapshots from the repository but not write to the repository or create
 	// snapshots in it.
@@ -164,6 +175,18 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 			s.Container = &o
 
+		case "data_access_tier":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "DataAccessTier", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.DataAccessTier = &o
+
 		case "delete_objects_max_size":
 
 			var tmp any
@@ -217,6 +240,18 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.MaxSnapshotBytesPerSec); err != nil {
 				return fmt.Errorf("%s | %w", "MaxSnapshotBytesPerSec", err)
 			}
+
+		case "metadata_access_tier":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MetadataAccessTier", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MetadataAccessTier = &o
 
 		case "readonly":
 			var tmp any

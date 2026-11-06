@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DiversifyRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Retriever.ts#L216-L233
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/Retriever.ts#L228-L245
 type DiversifyRetriever struct {
 	// Field The document field on which to diversify results on.
 	Field string `json:"field"`
@@ -49,7 +49,7 @@ type DiversifyRetriever struct {
 	// Name_ Retriever name.
 	Name_ *string `json:"_name,omitempty"`
 	// QueryVector The query vector used for diversification.
-	QueryVector []float32 `json:"query_vector,omitempty"`
+	QueryVector QueryVector `json:"query_vector,omitempty"`
 	// QueryVectorBuilder a dense vector query vector builder to use instead of a static query_vector
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
 	// RankWindowSize The number of top documents from the nested retriever to consider for

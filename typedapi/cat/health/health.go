@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
-// Get the cluster health status.
+// Get a compact cluster health summary.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
@@ -83,7 +83,7 @@ func NewHealthFunc(tp elastictransport.Interface) NewHealth {
 	}
 }
 
-// Get the cluster health status.
+// Get a compact cluster health summary.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For

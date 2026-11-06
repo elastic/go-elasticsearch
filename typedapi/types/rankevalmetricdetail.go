@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankEvalMetricDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/rank_eval/types.ts#L128-L137
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/rank_eval/types.ts#L140-L151
 type RankEvalMetricDetail struct {
 	// Hits The hits section shows a grouping of the search results with their supplied
 	// ratings
@@ -43,6 +43,8 @@ type RankEvalMetricDetail struct {
 	// MetricScore The metric_score in the details section shows the contribution of this query
 	// to the global quality metric score
 	MetricScore Float64 `json:"metric_score"`
+	// Took The time in milliseconds it took to execute the search request for this query
+	Took int64 `json:"took"`
 	// UnratedDocs The unrated_docs section contains an _index and _id entry for each document
 	// in the search result for this query that didn’t have a ratings value. This
 	// can be used to ask the user to supply ratings for these documents
@@ -91,6 +93,21 @@ func (s *RankEvalMetricDetail) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := Float64(v)
 				s.MetricScore = f
+			}
+
+		case "took":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Took", err)
+				}
+				s.Took = value
+			case float64:
+				f := int64(v)
+				s.Took = f
 			}
 
 		case "unrated_docs":

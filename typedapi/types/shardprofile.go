@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/search/_types/profile.ts#L162-L172
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/search/_types/profile.ts#L239-L255
 type ShardProfile struct {
 	Aggregations []AggregationProfile `json:"aggregations"`
 	Cluster      string               `json:"cluster"`
@@ -40,8 +40,11 @@ type ShardProfile struct {
 	Id           string               `json:"id"`
 	Index        string               `json:"index"`
 	NodeId       string               `json:"node_id"`
-	Searches     []SearchProfile      `json:"searches"`
-	ShardId      int                  `json:"shard_id"`
+	// Rescore One entry per rescorer, in the order they ran. Omitted when the request has
+	// no rescorer.
+	Rescore  []RescoreProfile `json:"rescore,omitempty"`
+	Searches []SearchProfile  `json:"searches"`
+	ShardId  int              `json:"shard_id"`
 }
 
 func (s *ShardProfile) UnmarshalJSON(data []byte) error {
@@ -106,6 +109,47 @@ func (s *ShardProfile) UnmarshalJSON(data []byte) error {
 		case "node_id":
 			if err := dec.Decode(&s.NodeId); err != nil {
 				return fmt.Errorf("%s | %w", "NodeId", err)
+			}
+
+		case "rescore":
+
+			buf := []json.RawMessage{}
+			dec.Decode(&buf)
+			for _, rawMsg := range buf {
+
+				source := bytes.NewReader(rawMsg)
+				localDec := json.NewDecoder(source)
+				kind := make(map[string]string, 0)
+				localDec.Decode(&kind)
+				source.Seek(0, io.SeekStart)
+
+				switch kind["type"] {
+
+				case "query":
+					o := NewQueryRescoreProfile()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "query", err)
+					}
+					s.Rescore = append(s.Rescore, *o)
+				case "script":
+					o := NewScriptRescoreProfile()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "script", err)
+					}
+					s.Rescore = append(s.Rescore, *o)
+				case "learning_to_rank":
+					o := NewLearningToRankRescoreProfile()
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "learning_to_rank", err)
+					}
+					s.Rescore = append(s.Rescore, *o)
+				default:
+					o := new(any)
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("Rescore | %w", err)
+					}
+					s.Rescore = append(s.Rescore, *o)
+				}
 			}
 
 		case "searches":

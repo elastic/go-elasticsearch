@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -56,16 +56,16 @@ func (s *_reindexDestination) Pipeline(pipeline string) *_reindexDestination {
 	return s
 }
 
-func (s *_reindexDestination) Routing(routing string) *_reindexDestination {
+func (s *_reindexDestination) RouteSlice(sliceid string) *_reindexDestination {
 
-	s.v.Routing = &routing
+	s.v.RouteSlice = &sliceid
 
 	return s
 }
 
-func (s *_reindexDestination) Slice_(slice_ string) *_reindexDestination {
+func (s *_reindexDestination) Routing(routing string) *_reindexDestination {
 
-	s.v.Slice_ = &slice_
+	s.v.Routing = &routing
 
 	return s
 }

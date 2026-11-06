@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package typedapi
 
@@ -144,6 +144,7 @@ import (
 	core_health_report "github.com/elastic/go-elasticsearch/v9/typedapi/core/healthreport"
 	core_index "github.com/elastic/go-elasticsearch/v9/typedapi/core/index"
 	core_info "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+	core_knn_eval "github.com/elastic/go-elasticsearch/v9/typedapi/core/knneval"
 	core_knn_search "github.com/elastic/go-elasticsearch/v9/typedapi/core/knnsearch"
 	core_list_reindex "github.com/elastic/go-elasticsearch/v9/typedapi/core/listreindex"
 	core_mget "github.com/elastic/go-elasticsearch/v9/typedapi/core/mget"
@@ -171,6 +172,12 @@ import (
 	dangling_indices_delete_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/deletedanglingindex"
 	dangling_indices_import_dangling_index "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/importdanglingindex"
 	dangling_indices_list_dangling_indices "github.com/elastic/go-elasticsearch/v9/typedapi/danglingindices/listdanglingindices"
+	data_recovery_get_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/getrecovery"
+	data_recovery_get_recovery_points "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/getrecoverypoints"
+	data_recovery_get_recovery_sources "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/getrecoverysources"
+	data_recovery_get_rpo_series "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/getrposeries"
+	data_recovery_list_recoveries "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/listrecoveries"
+	data_recovery_start_recovery "github.com/elastic/go-elasticsearch/v9/typedapi/datarecovery/startrecovery"
 	encryption_reset "github.com/elastic/go-elasticsearch/v9/typedapi/encryption/reset"
 	enrich_delete_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/deletepolicy"
 	enrich_execute_policy "github.com/elastic/go-elasticsearch/v9/typedapi/enrich/executepolicy"
@@ -197,6 +204,7 @@ import (
 	esql_put_data_source "github.com/elastic/go-elasticsearch/v9/typedapi/esql/putdatasource"
 	esql_put_view "github.com/elastic/go-elasticsearch/v9/typedapi/esql/putview"
 	esql_query "github.com/elastic/go-elasticsearch/v9/typedapi/esql/query"
+	esql_test_data_source_connection "github.com/elastic/go-elasticsearch/v9/typedapi/esql/testdatasourceconnection"
 	features_get_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/getfeatures"
 	features_reset_features "github.com/elastic/go-elasticsearch/v9/typedapi/features/resetfeatures"
 	fleet_delete_secret "github.com/elastic/go-elasticsearch/v9/typedapi/fleet/deletesecret"
@@ -290,12 +298,15 @@ import (
 	indices_validate_query "github.com/elastic/go-elasticsearch/v9/typedapi/indices/validatequery"
 	inference_chat_completion_unified "github.com/elastic/go-elasticsearch/v9/typedapi/inference/chatcompletionunified"
 	inference_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/completion"
+	inference_decision "github.com/elastic/go-elasticsearch/v9/typedapi/inference/decision"
 	inference_delete "github.com/elastic/go-elasticsearch/v9/typedapi/inference/delete"
 	inference_delete_region_policy "github.com/elastic/go-elasticsearch/v9/typedapi/inference/deleteregionpolicy"
+	inference_document_extraction "github.com/elastic/go-elasticsearch/v9/typedapi/inference/documentextraction"
 	inference_embedding "github.com/elastic/go-elasticsearch/v9/typedapi/inference/embedding"
 	inference_get "github.com/elastic/go-elasticsearch/v9/typedapi/inference/get"
 	inference_get_region_policy "github.com/elastic/go-elasticsearch/v9/typedapi/inference/getregionpolicy"
 	inference_inference "github.com/elastic/go-elasticsearch/v9/typedapi/inference/inference"
+	inference_non_streaming_chat_completion "github.com/elastic/go-elasticsearch/v9/typedapi/inference/nonstreamingchatcompletion"
 	inference_put "github.com/elastic/go-elasticsearch/v9/typedapi/inference/put"
 	inference_put_ai21 "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putai21"
 	inference_put_alibabacloud "github.com/elastic/go-elasticsearch/v9/typedapi/inference/putalibabacloud"
@@ -496,6 +507,7 @@ import (
 	security_delete_role_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleterolemapping"
 	security_delete_service_token "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteservicetoken"
 	security_delete_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteuser"
+	security_delete_user_managed_service_account "github.com/elastic/go-elasticsearch/v9/typedapi/security/deleteusermanagedserviceaccount"
 	security_disable_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/disableuser"
 	security_disable_user_profile "github.com/elastic/go-elasticsearch/v9/typedapi/security/disableuserprofile"
 	security_enable_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/enableuser"
@@ -527,8 +539,10 @@ import (
 	security_put_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/putrole"
 	security_put_role_mapping "github.com/elastic/go-elasticsearch/v9/typedapi/security/putrolemapping"
 	security_put_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/putuser"
+	security_put_user_managed_service_account "github.com/elastic/go-elasticsearch/v9/typedapi/security/putusermanagedserviceaccount"
 	security_query_api_keys "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryapikeys"
 	security_query_role "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryrole"
+	security_query_service_accounts "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryserviceaccounts"
 	security_query_user "github.com/elastic/go-elasticsearch/v9/typedapi/security/queryuser"
 	security_saml_authenticate "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlauthenticate"
 	security_saml_complete_logout "github.com/elastic/go-elasticsearch/v9/typedapi/security/samlcompletelogout"
@@ -708,7 +722,7 @@ type Autoscaling struct {
 }
 
 type Cat struct {
-	// Get aliases.
+	// Get a compact list of aliases.
 	//
 	// Get the cluster's index aliases, including filter and routing information.
 	// This API does not return data stream aliases.
@@ -730,7 +744,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications.
 	CircuitBreaker cat_circuit_breaker.NewCircuitBreaker
-	// Get component templates.
+	// Get a compact list of component templates.
 	//
 	// Get information about component templates in a cluster. Component templates
 	// are building blocks for constructing index templates that specify index
@@ -763,7 +777,7 @@ type Cat struct {
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes stats API.
 	Fielddata cat_fielddata.NewFielddata
-	// Get the cluster health status.
+	// Get a compact cluster health summary.
 	//
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
@@ -781,7 +795,7 @@ type Cat struct {
 	//
 	// Get help for the CAT APIs.
 	Help cat_help.NewHelp
-	// Get index information.
+	// Get a compact list of indices.
 	//
 	// Get high-level information about indices in a cluster, including backing
 	// indices for data streams.
@@ -869,7 +883,7 @@ type Cat struct {
 	// are not intended for use by applications. For application consumption, use
 	// the nodes info API.
 	Nodeattrs cat_nodeattrs.NewNodeattrs
-	// Get node information.
+	// Get a compact list of nodes.
 	//
 	// Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 	// intended for human consumption using the command line or Kibana console. They
@@ -901,7 +915,7 @@ type Cat struct {
 	// using the command line or Kibana console. They are not intended for use by
 	// applications. For application consumption, use the index recovery API.
 	Recovery cat_recovery.NewRecovery
-	// Get snapshot repository information.
+	// Get a compact list of snapshot repositories.
 	//
 	// Get a list of snapshot repositories for a cluster. IMPORTANT: cat APIs are
 	// only intended for human consumption using the command line or Kibana console.
@@ -923,7 +937,7 @@ type Cat struct {
 	// intended for human consumption using the command line or Kibana console. They
 	// are not intended for use by applications.
 	Shards cat_shards.NewShards
-	// Get snapshot information.
+	// Get a compact list of snapshots.
 	//
 	// Get information about the snapshots stored in one or more repositories. A
 	// snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -931,7 +945,7 @@ type Cat struct {
 	// Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get snapshot API.
 	Snapshots cat_snapshots.NewSnapshots
-	// Get task information.
+	// Get a compact list of running tasks.
 	//
 	// Get information about tasks currently running in the cluster. IMPORTANT: cat
 	// APIs are only intended for human consumption using the command line or Kibana
@@ -1134,7 +1148,7 @@ type Cluster struct {
 	// reaches a certain high watermark health level. The cluster status is
 	// controlled by the worst index status.
 	Health cluster_health.NewHealth
-	// Get cluster info.
+	// Get cluster subsystem info.
 	//
 	// Returns basic information about the cluster.
 	Info cluster_info.NewInfo
@@ -2391,6 +2405,27 @@ type Core struct {
 	// meaningful for assessing feature availability. Clients should detect a
 	// Serverless environment by checking for `build_flavor: serverless`.
 	Info core_info.NewInfo
+	// Evaluate kNN search settings.
+	//
+	// Estimate the recall and cost of approximate kNN search configurations on a
+	// `dense_vector` field against a more thorough baseline. The field must use the
+	// `bbq_disk` index type, and must not be inside a nested object.
+	//
+	// Each `knn_settings` entry reports the mean recall of the baseline's top `k`,
+	// not of relevance judgments, plus included and excluded query counts and cost
+	// totals. A query is excluded from the mean recall when the candidate finds a
+	// document scoring above the baseline's lowest top `k` score. A baseline
+	// returning fewer than `k` hits fails that query, because recall at `k` is
+	// undefined. All configurations run against one point in time.
+	//
+	// The default baseline uses a `visit_percentage` of 20 and a
+	// `rescore_vector.oversample` of 100. An exact full-precision baseline must be
+	// requested explicitly with `allow_exact_baseline`, and is limited to 100
+	// million vector-by-query comparisons.
+	//
+	// The request is refused when the `search.knn_eval.enabled` cluster setting or
+	// the `index.knn_eval.enabled` index setting is `false`.
+	KnnEval core_knn_eval.NewKnnEval
 	// Run a knn search.
 	//
 	// NOTE: The kNN search API has been replaced by the `knn` option in the search
@@ -2500,9 +2535,13 @@ type Core struct {
 	// point in time search results, up to the first 10,000 hits. If you want to
 	// retrieve more hits, use PIT with `search_after`.
 	//
-	// IMPORTANT: The open point in time request and each subsequent search request
-	// can return different identifiers; always use the most recently received ID
-	// for the next search request.
+	// IMPORTANT: Each search request against a PIT returns in its response a
+	// `pit_id` field which may be different from the identifier you originally
+	// supplied. Always use the most recently-received PIT identifier for the next
+	// request. If you make concurrent search requests against the same PIT,
+	// Elasticsearch can return several different `pit_id` values in its responses.
+	// In that case, use any of these values for later requests, preferring more
+	// recently-received values whenever possible.
 	//
 	// When a PIT that contains shard failures is used in a search request, the
 	// missing are always reported in the search response as a
@@ -3083,6 +3122,55 @@ type DanglingIndices struct {
 	ListDanglingIndices dangling_indices_list_dangling_indices.NewListDanglingIndices
 }
 
+type DataRecovery struct {
+	// Get a recovery.
+	//
+	// Get the status and details of a recovery that was started with the start
+	// recovery API. This API is intended for internal operator use. The progress of
+	// a running recovery is reported as a percentage, and the repository and audit
+	// details of the recovery are not exposed.
+	GetRecovery data_recovery_get_recovery.NewGetRecovery
+	// Get recovery points.
+	//
+	// Get recovery points from the platform-managed data recovery repository. This
+	// API is intended for internal operator use. Recovery points are returned in
+	// descending order by end time. Repository, snapshot, and policy identifiers
+	// are not exposed.
+	GetRecoveryPoints data_recovery_get_recovery_points.NewGetRecoveryPoints
+	// Get recovery sources.
+	//
+	// Get the logical sources captured at an exact recovery point in the
+	// platform-managed data recovery repository. This API is intended for internal
+	// operator use. Repository, snapshot, and policy identifiers are not exposed.
+	GetRecoverySources data_recovery_get_recovery_sources.NewGetRecoverySources
+	// Get the recovery point objective series.
+	//
+	// Get, for each bucket in the half-open range `[start, end)`, the maximum age
+	// that the newest recoverable state reached during that bucket. This API is
+	// intended for internal operator use. The range is divided into at most 1,000
+	// buckets. A bucket has no value if no retained recovery point covers its
+	// start.
+	GetRpoSeries data_recovery_get_rpo_series.NewGetRpoSeries
+	// List recoveries.
+	//
+	// List the recoveries that were started with the start recovery API, including
+	// those that have finished. This API is intended for internal operator use.
+	// Recoveries are ordered by start time, and the most recent are returned first
+	// by default. To retrieve further pages, pass the start time and identifier of
+	// the last recovery of a page as `search_after_started_at` and
+	// `search_after_recovery_id`.
+	ListRecoveries data_recovery_list_recoveries.NewListRecoveries
+	// Start a recovery.
+	//
+	// Start recovering indices and data streams from a recovery point. This API is
+	// intended for internal operator use. Depending on the mode, the sources are
+	// either replaced with their state at the recovery point, over the data that
+	// currently exists, or recovered under new names. The recovery runs in the
+	// background, so the API returns with a `202 Accepted` status once it has
+	// started.
+	StartRecovery data_recovery_start_recovery.NewStartRecovery
+}
+
 type Encryption struct {
 	// Reset the project encryption key.
 	//
@@ -3182,26 +3270,32 @@ type Esql struct {
 	// the Elasticsearch security features are enabled, only the user who first
 	// submitted the ES|QL query can stop it.
 	AsyncQueryStop esql_async_query_stop.NewAsyncQueryStop
-	// Delete one or more ES|QL data sources.
+	// Delete ES|QL data sources.
 	//
-	// Fails with `409` if any dataset references one of the named data sources;
-	// delete the dependent datasets first.
+	// Deletes one or more data sources used in ES|QL data federation. Fails with
+	// `409` if any dataset references one of the named data sources; delete the
+	// dependent datasets first.
 	DeleteDataSource esql_delete_data_source.NewDeleteDataSource
-	// Delete one or more ES|QL datasets.
+	// Delete ES|QL datasets.
+	//
+	// Deletes one or more datasets used in ES|QL data federation. If any specified
+	// dataset does not exist, the request fails and no datasets are deleted.
 	DeleteDataset esql_delete_dataset.NewDeleteDataset
 	// Delete an ES|QL view.
 	//
-	// Deletes a stored ES|QL view.
+	// Deletes a stored ES|QL view. Deleting a reserved view fails.
 	DeleteView esql_delete_view.NewDeleteView
-	// Get one or more ES|QL data sources.
+	// Get ES|QL data sources.
 	//
-	// Returns the requested data sources. A concrete-name miss returns `404`; a
-	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	// Returns one or more data sources used in ES|QL data federation. A
+	// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+	// no match returns `200` with an empty array.
 	GetDataSource esql_get_data_source.NewGetDataSource
-	// Get one or more ES|QL datasets.
+	// Get ES|QL datasets.
 	//
-	// Returns the requested datasets. A concrete-name miss returns `404`; a
-	// wildcard pattern or list-all with no match returns `200` with an empty array.
+	// Returns one or more datasets used in ES|QL data federation. A concrete-name
+	// miss returns `404`; a wildcard pattern or list-all request with no match
+	// returns `200` with an empty array.
 	GetDataset esql_get_dataset.NewGetDataset
 	// Get a specific running ES|QL query information.
 	//
@@ -3209,7 +3303,8 @@ type Esql struct {
 	GetQuery esql_get_query.NewGetQuery
 	// Get an ES|QL view.
 	//
-	// Returns a stored ES|QL view.
+	// Returns one or more stored views. A reserved view includes `reserved` set to
+	// `true`.
 	GetView esql_get_view.NewGetView
 	// Get running ES|QL queries information.
 	//
@@ -3218,22 +3313,35 @@ type Esql struct {
 	ListQueries esql_list_queries.NewListQueries
 	// Create or update an ES|QL data source.
 	//
-	// Creates or replaces a named, type-specific data source configuration that
-	// datasets reference to access external data. Names must be lowercase and
-	// follow index/alias naming rules.
+	// Creates or replaces a named, type-specific data source configuration for
+	// ES|QL data federation. Datasets reference data source configurations to
+	// access external data. Names must be lowercase and follow index or alias
+	// naming rules.
 	PutDataSource esql_put_data_source.NewPutDataSource
-	// Create or replace an ES|QL dataset.
+	// Create or update an ES|QL dataset.
 	//
-	// Creates or replaces a dataset that references a data source. Dataset names
-	// participate in the index namespace and must follow index/alias naming rules.
-	// Returns `404` if the referenced data source does not exist.
+	// Creates or replaces a dataset that references a data source in ES|QL data
+	// federation. Dataset names participate in the index namespace and must follow
+	// index or alias naming rules. Returns `404` if the referenced data source does
+	// not exist.
 	PutDataset esql_put_dataset.NewPutDataset
 	// Create or update an ES|QL view.
+	//
+	// Stores an ES|QL query that runs whenever the view is referenced. A query that
+	// cannot be parsed is rejected. Replacing a reserved view fails.
 	PutView esql_put_view.NewPutView
 	// Run an ES|QL query.
 	//
 	// Get search results for an ES|QL (Elasticsearch query language) query.
 	Query esql_query.NewQuery
+	// Test an ES|QL data source connection.
+	//
+	// Tests whether the supplied data source configuration can establish a live
+	// connection. The data source does not need to exist in cluster state: this
+	// endpoint is intended for validating a new configuration before saving it. The
+	// request body accepts the same `type` and `settings` fields as the create or
+	// update data source API.
+	TestDataSourceConnection esql_test_data_source_connection.NewTestDataSourceConnection
 }
 
 type Features struct {
@@ -3776,8 +3884,7 @@ type Indices struct {
 	// some preflight checks, launches the request, and returns a task you can use
 	// to get the status of the task. However, you can not cancel this task as the
 	// force merge task is not cancelable. Elasticsearch creates a record of this
-	// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-	// should delete the task document so Elasticsearch can reclaim the space.
+	// task as a document at `_tasks/<task_id>`.
 	//
 	// # Force merging multiple indices
 	//
@@ -3788,11 +3895,11 @@ type Indices struct {
 	//   - One or more aliases
 	//   - All data streams and indices in a cluster
 	//
-	// Each targeted shard is force-merged separately using the force_merge
-	// threadpool. By default each node only has a single `force_merge` thread which
-	// means that the shards on that node are force-merged one at a time. If you
-	// expand the `force_merge` threadpool on a node then it will force merge its
-	// shards in parallel
+	// Each targeted shard is force-merged separately using the `force_merge`
+	// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+	// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+	// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+	// node then it will force merge its shards with more parallelism.
 	//
 	// Force merge makes the storage for the shard being merged temporarily
 	// increase, as it may require free space up to triple its size in case
@@ -3845,7 +3952,7 @@ type Indices struct {
 	//
 	// Get setting information for one or more data streams.
 	GetDataStreamSettings indices_get_data_stream_settings.NewGetDataStreamSettings
-	// Get mapping definitions.
+	// Get field mapping definitions.
 	//
 	// Retrieves mapping definitions for one or more fields. For data streams, the
 	// API retrieves field mappings for the stream’s backing indices.
@@ -4314,9 +4421,9 @@ type Indices struct {
 	ResolveIndex indices_resolve_index.NewResolveIndex
 	// Roll over to a new index.
 	//
-	// TIP: We recommend using the index lifecycle rollover action to automate
-	// rollovers. However, Serverless does not support Index Lifecycle Management
-	// (ILM), so don't use this approach in the Serverless context.
+	// TIP: To automate rollovers, use index lifecycle management (ILM) in
+	// deployments that support it. Serverless does not support ILM. For data
+	// streams in Serverless, use data stream lifecycle instead.
 	//
 	// The rollover API creates a new index for a data stream or index alias. The
 	// API behavior depends on the rollover target.
@@ -4520,9 +4627,19 @@ type Indices struct {
 	// cleared. Although the shard is no longer part of the node, that node retains
 	// any node-level statistics to which the shard contributed.
 	Stats indices_stats.NewStats
-	// Create or update an alias.
+	// Update aliases and delete indices atomically.
 	//
-	// Adds a data stream or index to an alias.
+	// Applies one or more actions in a single request:
+	//
+	//   - Add a data stream or index to an alias.
+	//   - Remove a data stream or index from an alias.
+	//   - Delete an index in that same request, so the deletion and the alias
+	//     changes are applied together.
+	//
+	// For example, you can replace an index with an alias of the same name.
+	//
+	// NOTE: Every `remove_index` action in the request runs first, before any `add`
+	// or `remove` actions, no matter where it sits in the `actions` array.
 	UpdateAliases indices_update_aliases.NewUpdateAliases
 	// Validate a query.
 	//
@@ -4531,19 +4648,18 @@ type Indices struct {
 }
 
 type Inference struct {
-	// Perform chat completion inference on the service.
+	// Perform streaming chat completion inference on the service.
 	//
 	// The chat completion inference API enables real-time responses for chat
 	// completion tasks by delivering answers incrementally, reducing response times
 	// during computation. It only works with the `chat_completion` task type.
 	//
-	// NOTE: The `chat_completion` task type is only available within the _stream
-	// API and only supports streaming. The Chat completion inference API and the
-	// Stream inference API differ in their response structure and capabilities. The
-	// Chat completion inference API provides more comprehensive customization
-	// options through more fields and function calling support. To determine
-	// whether a given inference service supports this task type, please see the
-	// page for that service.
+	// NOTE: The `chat_completion` task type supports both streaming and
+	// non-streaming. The Chat completion inference API and the Stream inference API
+	// differ in their response structure and capabilities. The Chat completion
+	// inference API provides more comprehensive customization options through more
+	// fields and function calling support. To determine whether a given inference
+	// service supports this task type, please see the page for that service.
 	ChatCompletionUnified inference_chat_completion_unified.NewChatCompletionUnified
 	// Perform completion inference on the service.
 	//
@@ -4562,6 +4678,15 @@ type Inference struct {
 	// This API requires the `monitor_inference` cluster privilege (the built-in
 	// `inference_admin` and `inference_user` roles grant this privilege).
 	Completion inference_completion.NewCompletion
+	// Perform decision inference on the service.
+	//
+	// Answer a set of named questions about an input, such as whether a customer is
+	// complaining, which team should handle a request, or how angry a customer is.
+	// The questions are defined in the task settings of the inference endpoint, and
+	// can be replaced for a single request through `task_settings`.
+	//
+	// > info > Only the `elastic` service currently supports the `decision` task.
+	Decision inference_decision.NewDecision
 	// Delete an inference endpoint.
 	//
 	// This API requires the manage_inference cluster privilege (the built-in
@@ -4569,6 +4694,11 @@ type Inference struct {
 	Delete inference_delete.NewDelete
 	// Delete the inference region policy.
 	DeleteRegionPolicy inference_delete_region_policy.NewDeleteRegionPolicy
+	// Perform document extraction inference on the service.
+	//
+	// Extract the content of documents, such as PDFs or images of documents, into a
+	// textual format.
+	DocumentExtraction inference_document_extraction.NewDocumentExtraction
 	// Perform dense embedding inference on the service.
 	Embedding inference_embedding.NewEmbedding
 	// Get an inference endpoint.
@@ -4598,6 +4728,33 @@ type Inference struct {
 	// models or if you want to use non-NLP models, use the machine learning trained
 	// model APIs.
 	Inference inference_inference.NewInference
+	// Perform non-streaming chat completion inference on the service.
+	//
+	// The chat completion inference API enables rich responses for chat completion
+	// tasks. It only works with the `chat_completion` task type.
+	//
+	// NOTE: The `chat_completion` task type supports both streaming and
+	// non-streaming. The Chat completion inference API provides more comprehensive
+	// customization options through more fields and function calling support. To
+	// determine whether a given inference service supports this task type, please
+	// see the page for that service.
+	//
+	// These services support non-streaming chat completion inference:
+	//
+	//   - AI21
+	//   - Azure OpenAI
+	//   - Deepseek
+	//   - Elastic
+	//   - FireworksAI
+	//   - Groq
+	//   - Huggingface
+	//   - IBMWatsonX
+	//   - Llama
+	//   - Mistral
+	//   - NVIDIA
+	//   - OpenAI
+	//   - OpenShiftAI
+	NonStreamingChatCompletion inference_non_streaming_chat_completion.NewNonStreamingChatCompletion
 	// Create an inference endpoint.
 	//
 	// IMPORTANT: The inference APIs enable you to use certain services, such as
@@ -5973,7 +6130,7 @@ type SearchableSnapshots struct {
 	//
 	// Get statistics about the shared cache for partially mounted indices.
 	CacheStats searchable_snapshots_cache_stats.NewCacheStats
-	// Clear the cache.
+	// Clear the searchable snapshots shared cache.
 	//
 	// Clear indices and data streams from the shared cache for partially mounted
 	// indices.
@@ -6164,7 +6321,10 @@ type Security struct {
 	// Create a service account token.
 	//
 	// Create a service accounts token for access without requiring basic
-	// authentication.
+	// authentication. This route serves both kinds of service account, but the
+	// privileges differ: `manage_service_account` authorizes tokens of built-in
+	// accounts in the `elastic` namespace only, and tokens of a user-managed
+	// account require `manage_security`.
 	//
 	// NOTE: Service account tokens never expire. You must actively delete them if
 	// they are no longer needed.
@@ -6217,7 +6377,11 @@ type Security struct {
 	DeleteRoleMapping security_delete_role_mapping.NewDeleteRoleMapping
 	// Delete service account tokens.
 	//
-	// Delete service account tokens for a service in a specified namespace.
+	// Delete service account tokens for a service in a specified namespace. This
+	// route serves both kinds of service account, but the privileges differ:
+	// `manage_service_account` authorizes tokens of built-in accounts in the
+	// `elastic` namespace only, and tokens of a user-managed account require
+	// `manage_security`.
 	//
 	// IMPORTANT: On Serverless, non-operator users can delete tokens for only
 	// `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
@@ -6227,6 +6391,20 @@ type Security struct {
 	//
 	// Delete users from the native realm.
 	DeleteUser security_delete_user.NewDeleteUser
+	// Delete user-managed service accounts.
+	//
+	// Delete a service account from a namespace of your own.
+	//
+	// Deleting an account that still has service tokens is rejected unless `force`
+	// is `true`. A forced delete leaves the tokens behind: they cannot authenticate
+	// while no account of that name exists, and recreating the account is rejected
+	// until they are deleted.
+	//
+	// NOTE: The `elastic` namespace is reserved for the built-in service accounts
+	// that ship with Elasticsearch. A name that no user-managed service account
+	// could have is rejected rather than reported as not found. The
+	// `manage_service_account` privilege does not authorize this API.
+	DeleteUserManagedServiceAccount security_delete_user_managed_service_account.NewDeleteUserManagedServiceAccount
 	// Disable users.
 	//
 	// Disable users in the native realm. By default, when you create users, they
@@ -6324,9 +6502,14 @@ type Security struct {
 	// Get service accounts.
 	//
 	// Get a list of service accounts that match the provided path parameters.
+	// Built-in service accounts ship with Elasticsearch in the `elastic` namespace;
+	// user-managed service accounts are created with the put user-managed service
+	// account API.
 	//
-	// NOTE: Currently, only the `elastic/fleet-server` service account is
-	// available.
+	// NOTE: When `type` is omitted, a request without a namespace reports built-in
+	// accounts only, which preserves the response of a whole-cluster listing. A
+	// request scoped to a namespace reports both kinds, so an account you created
+	// is found without naming its kind.
 	GetServiceAccounts security_get_service_accounts.NewGetServiceAccounts
 	// Get service account credentials.
 	//
@@ -6411,10 +6594,12 @@ type Security struct {
 	//   - username and password
 	//   - Elasticsearch access tokens
 	//   - JWTs
+	//   - service account tokens of user-managed service accounts
 	//
 	// The user, for whom the authentication credentials is provided, can optionally
 	// "run as" (impersonate) another user. In this case, the API key will be
-	// created on behalf of the impersonated user.
+	// created on behalf of the impersonated user. Run as is not supported with the
+	// `_user_managed_service_account` grant type.
 	//
 	// This API is intended be used by applications that need to create and manage
 	// API keys for end users, but cannot guarantee that those users have permission
@@ -6599,6 +6784,20 @@ type Security struct {
 	// new user but is optional when updating an existing user. To change a user's
 	// password without updating any other fields, use the change password API.
 	PutUser security_put_user.NewPutUser
+	// Create user-managed service accounts.
+	//
+	// Create a service account in a namespace of your own, or replace one that
+	// already exists. A replacement is not a partial update: every write applies
+	// the defaults, so an account that was disabled and is then written again
+	// without `enabled` comes back enabled.
+	//
+	// Creating an account whose name still has leftover service tokens is rejected.
+	// Delete those tokens first.
+	//
+	// NOTE: The `elastic` namespace is reserved for the built-in service accounts
+	// that ship with Elasticsearch. The `manage_service_account` privilege does not
+	// authorize this API.
+	PutUserManagedServiceAccount security_put_user_managed_service_account.NewPutUserManagedServiceAccount
 	// Find API keys with a query.
 	//
 	// Get a paginated list of API keys and their information. You can optionally
@@ -6619,6 +6818,14 @@ type Security struct {
 	// nor built-in ones. You can optionally filter the results with a query. Also,
 	// the results can be paginated and sorted.
 	QueryRole security_query_role.NewQueryRole
+	// Find user-managed service accounts with a query.
+	//
+	// Get a paginated list of user-managed service accounts and their information.
+	// You can optionally filter the results with a query.
+	//
+	// NOTE: Built-in service accounts are not stored in the security index, so this
+	// API never returns them. Use the get service accounts API to list them.
+	QueryServiceAccounts security_query_service_accounts.NewQueryServiceAccounts
 	// Find users with a query.
 	//
 	// Get information for users in a paginated manner. You can optionally filter
@@ -8002,6 +8209,7 @@ type API struct {
 	Connector           Connector
 	Core                Core
 	DanglingIndices     DanglingIndices
+	DataRecovery        DataRecovery
 	Encryption          Encryption
 	Enrich              Enrich
 	Eql                 Eql
@@ -8919,6 +9127,27 @@ type API struct {
 	// meaningful for assessing feature availability. Clients should detect a
 	// Serverless environment by checking for `build_flavor: serverless`.
 	Info core_info.NewInfo
+	// Evaluate kNN search settings.
+	//
+	// Estimate the recall and cost of approximate kNN search configurations on a
+	// `dense_vector` field against a more thorough baseline. The field must use the
+	// `bbq_disk` index type, and must not be inside a nested object.
+	//
+	// Each `knn_settings` entry reports the mean recall of the baseline's top `k`,
+	// not of relevance judgments, plus included and excluded query counts and cost
+	// totals. A query is excluded from the mean recall when the candidate finds a
+	// document scoring above the baseline's lowest top `k` score. A baseline
+	// returning fewer than `k` hits fails that query, because recall at `k` is
+	// undefined. All configurations run against one point in time.
+	//
+	// The default baseline uses a `visit_percentage` of 20 and a
+	// `rescore_vector.oversample` of 100. An exact full-precision baseline must be
+	// requested explicitly with `allow_exact_baseline`, and is limited to 100
+	// million vector-by-query comparisons.
+	//
+	// The request is refused when the `search.knn_eval.enabled` cluster setting or
+	// the `index.knn_eval.enabled` index setting is `false`.
+	KnnEval core_knn_eval.NewKnnEval
 	// Run a knn search.
 	//
 	// NOTE: The kNN search API has been replaced by the `knn` option in the search
@@ -9028,9 +9257,13 @@ type API struct {
 	// point in time search results, up to the first 10,000 hits. If you want to
 	// retrieve more hits, use PIT with `search_after`.
 	//
-	// IMPORTANT: The open point in time request and each subsequent search request
-	// can return different identifiers; always use the most recently received ID
-	// for the next search request.
+	// IMPORTANT: Each search request against a PIT returns in its response a
+	// `pit_id` field which may be different from the identifier you originally
+	// supplied. Always use the most recently-received PIT identifier for the next
+	// request. If you make concurrent search requests against the same PIT,
+	// Elasticsearch can return several different `pit_id` values in its responses.
+	// In that case, use any of these values for later requests, preferring more
+	// recently-received values whenever possible.
 	//
 	// When a PIT that contains shard failures is used in a search request, the
 	// missing are always reported in the search response as a
@@ -9728,6 +9961,7 @@ func New(tp elastictransport.Interface) *API {
 			HealthReport:            core_health_report.NewHealthReportFunc(tp),
 			Index:                   core_index.NewIndexFunc(tp),
 			Info:                    core_info.NewInfoFunc(tp),
+			KnnEval:                 core_knn_eval.NewKnnEvalFunc(tp),
 			KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 			ListReindex:             core_list_reindex.NewListReindexFunc(tp),
 			Mget:                    core_mget.NewMgetFunc(tp),
@@ -9760,6 +9994,15 @@ func New(tp elastictransport.Interface) *API {
 			ListDanglingIndices: dangling_indices_list_dangling_indices.NewListDanglingIndicesFunc(tp),
 		},
 
+		DataRecovery: DataRecovery{
+			GetRecovery:        data_recovery_get_recovery.NewGetRecoveryFunc(tp),
+			GetRecoveryPoints:  data_recovery_get_recovery_points.NewGetRecoveryPointsFunc(tp),
+			GetRecoverySources: data_recovery_get_recovery_sources.NewGetRecoverySourcesFunc(tp),
+			GetRpoSeries:       data_recovery_get_rpo_series.NewGetRpoSeriesFunc(tp),
+			ListRecoveries:     data_recovery_list_recoveries.NewListRecoveriesFunc(tp),
+			StartRecovery:      data_recovery_start_recovery.NewStartRecoveryFunc(tp),
+		},
+
 		Encryption: Encryption{
 			Reset: encryption_reset.NewResetFunc(tp),
 		},
@@ -9780,22 +10023,23 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Esql: Esql{
-			AsyncQuery:       esql_async_query.NewAsyncQueryFunc(tp),
-			AsyncQueryDelete: esql_async_query_delete.NewAsyncQueryDeleteFunc(tp),
-			AsyncQueryGet:    esql_async_query_get.NewAsyncQueryGetFunc(tp),
-			AsyncQueryStop:   esql_async_query_stop.NewAsyncQueryStopFunc(tp),
-			DeleteDataSource: esql_delete_data_source.NewDeleteDataSourceFunc(tp),
-			DeleteDataset:    esql_delete_dataset.NewDeleteDatasetFunc(tp),
-			DeleteView:       esql_delete_view.NewDeleteViewFunc(tp),
-			GetDataSource:    esql_get_data_source.NewGetDataSourceFunc(tp),
-			GetDataset:       esql_get_dataset.NewGetDatasetFunc(tp),
-			GetQuery:         esql_get_query.NewGetQueryFunc(tp),
-			GetView:          esql_get_view.NewGetViewFunc(tp),
-			ListQueries:      esql_list_queries.NewListQueriesFunc(tp),
-			PutDataSource:    esql_put_data_source.NewPutDataSourceFunc(tp),
-			PutDataset:       esql_put_dataset.NewPutDatasetFunc(tp),
-			PutView:          esql_put_view.NewPutViewFunc(tp),
-			Query:            esql_query.NewQueryFunc(tp),
+			AsyncQuery:               esql_async_query.NewAsyncQueryFunc(tp),
+			AsyncQueryDelete:         esql_async_query_delete.NewAsyncQueryDeleteFunc(tp),
+			AsyncQueryGet:            esql_async_query_get.NewAsyncQueryGetFunc(tp),
+			AsyncQueryStop:           esql_async_query_stop.NewAsyncQueryStopFunc(tp),
+			DeleteDataSource:         esql_delete_data_source.NewDeleteDataSourceFunc(tp),
+			DeleteDataset:            esql_delete_dataset.NewDeleteDatasetFunc(tp),
+			DeleteView:               esql_delete_view.NewDeleteViewFunc(tp),
+			GetDataSource:            esql_get_data_source.NewGetDataSourceFunc(tp),
+			GetDataset:               esql_get_dataset.NewGetDatasetFunc(tp),
+			GetQuery:                 esql_get_query.NewGetQueryFunc(tp),
+			GetView:                  esql_get_view.NewGetViewFunc(tp),
+			ListQueries:              esql_list_queries.NewListQueriesFunc(tp),
+			PutDataSource:            esql_put_data_source.NewPutDataSourceFunc(tp),
+			PutDataset:               esql_put_dataset.NewPutDatasetFunc(tp),
+			PutView:                  esql_put_view.NewPutViewFunc(tp),
+			Query:                    esql_query.NewQueryFunc(tp),
+			TestDataSourceConnection: esql_test_data_source_connection.NewTestDataSourceConnectionFunc(tp),
 		},
 
 		Features: Features{
@@ -9905,47 +10149,50 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Inference: Inference{
-			ChatCompletionUnified: inference_chat_completion_unified.NewChatCompletionUnifiedFunc(tp),
-			Completion:            inference_completion.NewCompletionFunc(tp),
-			Delete:                inference_delete.NewDeleteFunc(tp),
-			DeleteRegionPolicy:    inference_delete_region_policy.NewDeleteRegionPolicyFunc(tp),
-			Embedding:             inference_embedding.NewEmbeddingFunc(tp),
-			Get:                   inference_get.NewGetFunc(tp),
-			GetRegionPolicy:       inference_get_region_policy.NewGetRegionPolicyFunc(tp),
-			Inference:             inference_inference.NewInferenceFunc(tp),
-			Put:                   inference_put.NewPutFunc(tp),
-			PutAi21:               inference_put_ai21.NewPutAi21Func(tp),
-			PutAlibabacloud:       inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
-			PutAmazonbedrock:      inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
-			PutAmazonsagemaker:    inference_put_amazonsagemaker.NewPutAmazonsagemakerFunc(tp),
-			PutAnthropic:          inference_put_anthropic.NewPutAnthropicFunc(tp),
-			PutAzureaistudio:      inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
-			PutAzureopenai:        inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
-			PutCohere:             inference_put_cohere.NewPutCohereFunc(tp),
-			PutContextualai:       inference_put_contextualai.NewPutContextualaiFunc(tp),
-			PutCustom:             inference_put_custom.NewPutCustomFunc(tp),
-			PutDeepseek:           inference_put_deepseek.NewPutDeepseekFunc(tp),
-			PutElasticsearch:      inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
-			PutElser:              inference_put_elser.NewPutElserFunc(tp),
-			PutFireworksai:        inference_put_fireworksai.NewPutFireworksaiFunc(tp),
-			PutGoogleaistudio:     inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
-			PutGooglevertexai:     inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
-			PutGroq:               inference_put_groq.NewPutGroqFunc(tp),
-			PutHuggingFace:        inference_put_hugging_face.NewPutHuggingFaceFunc(tp),
-			PutJinaai:             inference_put_jinaai.NewPutJinaaiFunc(tp),
-			PutLlama:              inference_put_llama.NewPutLlamaFunc(tp),
-			PutMistral:            inference_put_mistral.NewPutMistralFunc(tp),
-			PutNvidia:             inference_put_nvidia.NewPutNvidiaFunc(tp),
-			PutOpenai:             inference_put_openai.NewPutOpenaiFunc(tp),
-			PutOpenshiftAi:        inference_put_openshift_ai.NewPutOpenshiftAiFunc(tp),
-			PutRegionPolicy:       inference_put_region_policy.NewPutRegionPolicyFunc(tp),
-			PutVoyageai:           inference_put_voyageai.NewPutVoyageaiFunc(tp),
-			PutWatsonx:            inference_put_watsonx.NewPutWatsonxFunc(tp),
-			Rerank:                inference_rerank.NewRerankFunc(tp),
-			SparseEmbedding:       inference_sparse_embedding.NewSparseEmbeddingFunc(tp),
-			StreamCompletion:      inference_stream_completion.NewStreamCompletionFunc(tp),
-			TextEmbedding:         inference_text_embedding.NewTextEmbeddingFunc(tp),
-			Update:                inference_update.NewUpdateFunc(tp),
+			ChatCompletionUnified:      inference_chat_completion_unified.NewChatCompletionUnifiedFunc(tp),
+			Completion:                 inference_completion.NewCompletionFunc(tp),
+			Decision:                   inference_decision.NewDecisionFunc(tp),
+			Delete:                     inference_delete.NewDeleteFunc(tp),
+			DeleteRegionPolicy:         inference_delete_region_policy.NewDeleteRegionPolicyFunc(tp),
+			DocumentExtraction:         inference_document_extraction.NewDocumentExtractionFunc(tp),
+			Embedding:                  inference_embedding.NewEmbeddingFunc(tp),
+			Get:                        inference_get.NewGetFunc(tp),
+			GetRegionPolicy:            inference_get_region_policy.NewGetRegionPolicyFunc(tp),
+			Inference:                  inference_inference.NewInferenceFunc(tp),
+			NonStreamingChatCompletion: inference_non_streaming_chat_completion.NewNonStreamingChatCompletionFunc(tp),
+			Put:                        inference_put.NewPutFunc(tp),
+			PutAi21:                    inference_put_ai21.NewPutAi21Func(tp),
+			PutAlibabacloud:            inference_put_alibabacloud.NewPutAlibabacloudFunc(tp),
+			PutAmazonbedrock:           inference_put_amazonbedrock.NewPutAmazonbedrockFunc(tp),
+			PutAmazonsagemaker:         inference_put_amazonsagemaker.NewPutAmazonsagemakerFunc(tp),
+			PutAnthropic:               inference_put_anthropic.NewPutAnthropicFunc(tp),
+			PutAzureaistudio:           inference_put_azureaistudio.NewPutAzureaistudioFunc(tp),
+			PutAzureopenai:             inference_put_azureopenai.NewPutAzureopenaiFunc(tp),
+			PutCohere:                  inference_put_cohere.NewPutCohereFunc(tp),
+			PutContextualai:            inference_put_contextualai.NewPutContextualaiFunc(tp),
+			PutCustom:                  inference_put_custom.NewPutCustomFunc(tp),
+			PutDeepseek:                inference_put_deepseek.NewPutDeepseekFunc(tp),
+			PutElasticsearch:           inference_put_elasticsearch.NewPutElasticsearchFunc(tp),
+			PutElser:                   inference_put_elser.NewPutElserFunc(tp),
+			PutFireworksai:             inference_put_fireworksai.NewPutFireworksaiFunc(tp),
+			PutGoogleaistudio:          inference_put_googleaistudio.NewPutGoogleaistudioFunc(tp),
+			PutGooglevertexai:          inference_put_googlevertexai.NewPutGooglevertexaiFunc(tp),
+			PutGroq:                    inference_put_groq.NewPutGroqFunc(tp),
+			PutHuggingFace:             inference_put_hugging_face.NewPutHuggingFaceFunc(tp),
+			PutJinaai:                  inference_put_jinaai.NewPutJinaaiFunc(tp),
+			PutLlama:                   inference_put_llama.NewPutLlamaFunc(tp),
+			PutMistral:                 inference_put_mistral.NewPutMistralFunc(tp),
+			PutNvidia:                  inference_put_nvidia.NewPutNvidiaFunc(tp),
+			PutOpenai:                  inference_put_openai.NewPutOpenaiFunc(tp),
+			PutOpenshiftAi:             inference_put_openshift_ai.NewPutOpenshiftAiFunc(tp),
+			PutRegionPolicy:            inference_put_region_policy.NewPutRegionPolicyFunc(tp),
+			PutVoyageai:                inference_put_voyageai.NewPutVoyageaiFunc(tp),
+			PutWatsonx:                 inference_put_watsonx.NewPutWatsonxFunc(tp),
+			Rerank:                     inference_rerank.NewRerankFunc(tp),
+			SparseEmbedding:            inference_sparse_embedding.NewSparseEmbeddingFunc(tp),
+			StreamCompletion:           inference_stream_completion.NewStreamCompletionFunc(tp),
+			TextEmbedding:              inference_text_embedding.NewTextEmbeddingFunc(tp),
+			Update:                     inference_update.NewUpdateFunc(tp),
 		},
 
 		Ingest: Ingest{
@@ -10134,72 +10381,75 @@ func New(tp elastictransport.Interface) *API {
 		},
 
 		Security: Security{
-			ActivateUserProfile:         security_activate_user_profile.NewActivateUserProfileFunc(tp),
-			Authenticate:                security_authenticate.NewAuthenticateFunc(tp),
-			BulkDeleteRole:              security_bulk_delete_role.NewBulkDeleteRoleFunc(tp),
-			BulkPutRole:                 security_bulk_put_role.NewBulkPutRoleFunc(tp),
-			BulkUpdateApiKeys:           security_bulk_update_api_keys.NewBulkUpdateApiKeysFunc(tp),
-			ChangePassword:              security_change_password.NewChangePasswordFunc(tp),
-			ClearApiKeyCache:            security_clear_api_key_cache.NewClearApiKeyCacheFunc(tp),
-			ClearCachedPrivileges:       security_clear_cached_privileges.NewClearCachedPrivilegesFunc(tp),
-			ClearCachedRealms:           security_clear_cached_realms.NewClearCachedRealmsFunc(tp),
-			ClearCachedRoles:            security_clear_cached_roles.NewClearCachedRolesFunc(tp),
-			ClearCachedServiceTokens:    security_clear_cached_service_tokens.NewClearCachedServiceTokensFunc(tp),
-			CloneApiKey:                 security_clone_api_key.NewCloneApiKeyFunc(tp),
-			CreateApiKey:                security_create_api_key.NewCreateApiKeyFunc(tp),
-			CreateCrossClusterApiKey:    security_create_cross_cluster_api_key.NewCreateCrossClusterApiKeyFunc(tp),
-			CreateServiceToken:          security_create_service_token.NewCreateServiceTokenFunc(tp),
-			DelegatePki:                 security_delegate_pki.NewDelegatePkiFunc(tp),
-			DeletePrivileges:            security_delete_privileges.NewDeletePrivilegesFunc(tp),
-			DeleteRole:                  security_delete_role.NewDeleteRoleFunc(tp),
-			DeleteRoleMapping:           security_delete_role_mapping.NewDeleteRoleMappingFunc(tp),
-			DeleteServiceToken:          security_delete_service_token.NewDeleteServiceTokenFunc(tp),
-			DeleteUser:                  security_delete_user.NewDeleteUserFunc(tp),
-			DisableUser:                 security_disable_user.NewDisableUserFunc(tp),
-			DisableUserProfile:          security_disable_user_profile.NewDisableUserProfileFunc(tp),
-			EnableUser:                  security_enable_user.NewEnableUserFunc(tp),
-			EnableUserProfile:           security_enable_user_profile.NewEnableUserProfileFunc(tp),
-			EnrollKibana:                security_enroll_kibana.NewEnrollKibanaFunc(tp),
-			EnrollNode:                  security_enroll_node.NewEnrollNodeFunc(tp),
-			GetApiKey:                   security_get_api_key.NewGetApiKeyFunc(tp),
-			GetBuiltinPrivileges:        security_get_builtin_privileges.NewGetBuiltinPrivilegesFunc(tp),
-			GetPrivileges:               security_get_privileges.NewGetPrivilegesFunc(tp),
-			GetRole:                     security_get_role.NewGetRoleFunc(tp),
-			GetRoleMapping:              security_get_role_mapping.NewGetRoleMappingFunc(tp),
-			GetServiceAccounts:          security_get_service_accounts.NewGetServiceAccountsFunc(tp),
-			GetServiceCredentials:       security_get_service_credentials.NewGetServiceCredentialsFunc(tp),
-			GetSettings:                 security_get_settings.NewGetSettingsFunc(tp),
-			GetStats:                    security_get_stats.NewGetStatsFunc(tp),
-			GetToken:                    security_get_token.NewGetTokenFunc(tp),
-			GetUser:                     security_get_user.NewGetUserFunc(tp),
-			GetUserPrivileges:           security_get_user_privileges.NewGetUserPrivilegesFunc(tp),
-			GetUserProfile:              security_get_user_profile.NewGetUserProfileFunc(tp),
-			GrantApiKey:                 security_grant_api_key.NewGrantApiKeyFunc(tp),
-			HasPrivileges:               security_has_privileges.NewHasPrivilegesFunc(tp),
-			HasPrivilegesUserProfile:    security_has_privileges_user_profile.NewHasPrivilegesUserProfileFunc(tp),
-			InvalidateApiKey:            security_invalidate_api_key.NewInvalidateApiKeyFunc(tp),
-			InvalidateToken:             security_invalidate_token.NewInvalidateTokenFunc(tp),
-			OidcAuthenticate:            security_oidc_authenticate.NewOidcAuthenticateFunc(tp),
-			OidcLogout:                  security_oidc_logout.NewOidcLogoutFunc(tp),
-			OidcPrepareAuthentication:   security_oidc_prepare_authentication.NewOidcPrepareAuthenticationFunc(tp),
-			PutPrivileges:               security_put_privileges.NewPutPrivilegesFunc(tp),
-			PutRole:                     security_put_role.NewPutRoleFunc(tp),
-			PutRoleMapping:              security_put_role_mapping.NewPutRoleMappingFunc(tp),
-			PutUser:                     security_put_user.NewPutUserFunc(tp),
-			QueryApiKeys:                security_query_api_keys.NewQueryApiKeysFunc(tp),
-			QueryRole:                   security_query_role.NewQueryRoleFunc(tp),
-			QueryUser:                   security_query_user.NewQueryUserFunc(tp),
-			SamlAuthenticate:            security_saml_authenticate.NewSamlAuthenticateFunc(tp),
-			SamlCompleteLogout:          security_saml_complete_logout.NewSamlCompleteLogoutFunc(tp),
-			SamlInvalidate:              security_saml_invalidate.NewSamlInvalidateFunc(tp),
-			SamlLogout:                  security_saml_logout.NewSamlLogoutFunc(tp),
-			SamlPrepareAuthentication:   security_saml_prepare_authentication.NewSamlPrepareAuthenticationFunc(tp),
-			SamlServiceProviderMetadata: security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(tp),
-			SuggestUserProfiles:         security_suggest_user_profiles.NewSuggestUserProfilesFunc(tp),
-			UpdateApiKey:                security_update_api_key.NewUpdateApiKeyFunc(tp),
-			UpdateCrossClusterApiKey:    security_update_cross_cluster_api_key.NewUpdateCrossClusterApiKeyFunc(tp),
-			UpdateSettings:              security_update_settings.NewUpdateSettingsFunc(tp),
-			UpdateUserProfileData:       security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
+			ActivateUserProfile:             security_activate_user_profile.NewActivateUserProfileFunc(tp),
+			Authenticate:                    security_authenticate.NewAuthenticateFunc(tp),
+			BulkDeleteRole:                  security_bulk_delete_role.NewBulkDeleteRoleFunc(tp),
+			BulkPutRole:                     security_bulk_put_role.NewBulkPutRoleFunc(tp),
+			BulkUpdateApiKeys:               security_bulk_update_api_keys.NewBulkUpdateApiKeysFunc(tp),
+			ChangePassword:                  security_change_password.NewChangePasswordFunc(tp),
+			ClearApiKeyCache:                security_clear_api_key_cache.NewClearApiKeyCacheFunc(tp),
+			ClearCachedPrivileges:           security_clear_cached_privileges.NewClearCachedPrivilegesFunc(tp),
+			ClearCachedRealms:               security_clear_cached_realms.NewClearCachedRealmsFunc(tp),
+			ClearCachedRoles:                security_clear_cached_roles.NewClearCachedRolesFunc(tp),
+			ClearCachedServiceTokens:        security_clear_cached_service_tokens.NewClearCachedServiceTokensFunc(tp),
+			CloneApiKey:                     security_clone_api_key.NewCloneApiKeyFunc(tp),
+			CreateApiKey:                    security_create_api_key.NewCreateApiKeyFunc(tp),
+			CreateCrossClusterApiKey:        security_create_cross_cluster_api_key.NewCreateCrossClusterApiKeyFunc(tp),
+			CreateServiceToken:              security_create_service_token.NewCreateServiceTokenFunc(tp),
+			DelegatePki:                     security_delegate_pki.NewDelegatePkiFunc(tp),
+			DeletePrivileges:                security_delete_privileges.NewDeletePrivilegesFunc(tp),
+			DeleteRole:                      security_delete_role.NewDeleteRoleFunc(tp),
+			DeleteRoleMapping:               security_delete_role_mapping.NewDeleteRoleMappingFunc(tp),
+			DeleteServiceToken:              security_delete_service_token.NewDeleteServiceTokenFunc(tp),
+			DeleteUser:                      security_delete_user.NewDeleteUserFunc(tp),
+			DeleteUserManagedServiceAccount: security_delete_user_managed_service_account.NewDeleteUserManagedServiceAccountFunc(tp),
+			DisableUser:                     security_disable_user.NewDisableUserFunc(tp),
+			DisableUserProfile:              security_disable_user_profile.NewDisableUserProfileFunc(tp),
+			EnableUser:                      security_enable_user.NewEnableUserFunc(tp),
+			EnableUserProfile:               security_enable_user_profile.NewEnableUserProfileFunc(tp),
+			EnrollKibana:                    security_enroll_kibana.NewEnrollKibanaFunc(tp),
+			EnrollNode:                      security_enroll_node.NewEnrollNodeFunc(tp),
+			GetApiKey:                       security_get_api_key.NewGetApiKeyFunc(tp),
+			GetBuiltinPrivileges:            security_get_builtin_privileges.NewGetBuiltinPrivilegesFunc(tp),
+			GetPrivileges:                   security_get_privileges.NewGetPrivilegesFunc(tp),
+			GetRole:                         security_get_role.NewGetRoleFunc(tp),
+			GetRoleMapping:                  security_get_role_mapping.NewGetRoleMappingFunc(tp),
+			GetServiceAccounts:              security_get_service_accounts.NewGetServiceAccountsFunc(tp),
+			GetServiceCredentials:           security_get_service_credentials.NewGetServiceCredentialsFunc(tp),
+			GetSettings:                     security_get_settings.NewGetSettingsFunc(tp),
+			GetStats:                        security_get_stats.NewGetStatsFunc(tp),
+			GetToken:                        security_get_token.NewGetTokenFunc(tp),
+			GetUser:                         security_get_user.NewGetUserFunc(tp),
+			GetUserPrivileges:               security_get_user_privileges.NewGetUserPrivilegesFunc(tp),
+			GetUserProfile:                  security_get_user_profile.NewGetUserProfileFunc(tp),
+			GrantApiKey:                     security_grant_api_key.NewGrantApiKeyFunc(tp),
+			HasPrivileges:                   security_has_privileges.NewHasPrivilegesFunc(tp),
+			HasPrivilegesUserProfile:        security_has_privileges_user_profile.NewHasPrivilegesUserProfileFunc(tp),
+			InvalidateApiKey:                security_invalidate_api_key.NewInvalidateApiKeyFunc(tp),
+			InvalidateToken:                 security_invalidate_token.NewInvalidateTokenFunc(tp),
+			OidcAuthenticate:                security_oidc_authenticate.NewOidcAuthenticateFunc(tp),
+			OidcLogout:                      security_oidc_logout.NewOidcLogoutFunc(tp),
+			OidcPrepareAuthentication:       security_oidc_prepare_authentication.NewOidcPrepareAuthenticationFunc(tp),
+			PutPrivileges:                   security_put_privileges.NewPutPrivilegesFunc(tp),
+			PutRole:                         security_put_role.NewPutRoleFunc(tp),
+			PutRoleMapping:                  security_put_role_mapping.NewPutRoleMappingFunc(tp),
+			PutUser:                         security_put_user.NewPutUserFunc(tp),
+			PutUserManagedServiceAccount:    security_put_user_managed_service_account.NewPutUserManagedServiceAccountFunc(tp),
+			QueryApiKeys:                    security_query_api_keys.NewQueryApiKeysFunc(tp),
+			QueryRole:                       security_query_role.NewQueryRoleFunc(tp),
+			QueryServiceAccounts:            security_query_service_accounts.NewQueryServiceAccountsFunc(tp),
+			QueryUser:                       security_query_user.NewQueryUserFunc(tp),
+			SamlAuthenticate:                security_saml_authenticate.NewSamlAuthenticateFunc(tp),
+			SamlCompleteLogout:              security_saml_complete_logout.NewSamlCompleteLogoutFunc(tp),
+			SamlInvalidate:                  security_saml_invalidate.NewSamlInvalidateFunc(tp),
+			SamlLogout:                      security_saml_logout.NewSamlLogoutFunc(tp),
+			SamlPrepareAuthentication:       security_saml_prepare_authentication.NewSamlPrepareAuthenticationFunc(tp),
+			SamlServiceProviderMetadata:     security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(tp),
+			SuggestUserProfiles:             security_suggest_user_profiles.NewSuggestUserProfilesFunc(tp),
+			UpdateApiKey:                    security_update_api_key.NewUpdateApiKeyFunc(tp),
+			UpdateCrossClusterApiKey:        security_update_cross_cluster_api_key.NewUpdateCrossClusterApiKeyFunc(tp),
+			UpdateSettings:                  security_update_settings.NewUpdateSettingsFunc(tp),
+			UpdateUserProfileData:           security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
 		},
 
 		Shutdown: Shutdown{
@@ -10343,6 +10593,7 @@ func New(tp elastictransport.Interface) *API {
 		HealthReport:            core_health_report.NewHealthReportFunc(tp),
 		Index:                   core_index.NewIndexFunc(tp),
 		Info:                    core_info.NewInfoFunc(tp),
+		KnnEval:                 core_knn_eval.NewKnnEvalFunc(tp),
 		KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
 		ListReindex:             core_list_reindex.NewListReindexFunc(tp),
 		Mget:                    core_mget.NewMgetFunc(tp),
@@ -10399,6 +10650,10 @@ type MethodCore struct {
 }
 
 type MethodDanglingIndices struct {
+	tp elastictransport.Interface
+}
+
+type MethodDataRecovery struct {
 	tp elastictransport.Interface
 }
 
@@ -10560,6 +10815,7 @@ type MethodAPI struct {
 	Connector           MethodConnector
 	Core                MethodCore
 	DanglingIndices     MethodDanglingIndices
+	DataRecovery        MethodDataRecovery
 	Encryption          MethodEncryption
 	Enrich              MethodEnrich
 	Eql                 MethodEql
@@ -11633,6 +11889,34 @@ func (p *MethodAPI) Info() *core_info.Info {
 	return _info()
 }
 
+// Evaluate kNN search settings.
+//
+// Estimate the recall and cost of approximate kNN search configurations on a
+// `dense_vector` field against a more thorough baseline. The field must use the
+// `bbq_disk` index type, and must not be inside a nested object.
+//
+// Each `knn_settings` entry reports the mean recall of the baseline's top `k`,
+// not of relevance judgments, plus included and excluded query counts and cost
+// totals. A query is excluded from the mean recall when the candidate finds a
+// document scoring above the baseline's lowest top `k` score. A baseline
+// returning fewer than `k` hits fails that query, because recall at `k` is
+// undefined. All configurations run against one point in time.
+//
+// The default baseline uses a `visit_percentage` of 20 and a
+// `rescore_vector.oversample` of 100. An exact full-precision baseline must be
+// requested explicitly with `allow_exact_baseline`, and is limited to 100
+// million vector-by-query comparisons.
+//
+// The request is refused when the `search.knn_eval.enabled` cluster setting or
+// the `index.knn_eval.enabled` index setting is `false`.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-eval
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-knn-eval
+func (p *MethodAPI) KnnEval(index string) *core_knn_eval.KnnEval {
+	_knneval := core_knn_eval.NewKnnEvalFunc(p.tp)
+	return _knneval(index)
+}
+
 // Run a knn search.
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
@@ -11780,9 +12064,13 @@ func (p *MethodAPI) Mtermvectors() *core_mtermvectors.Mtermvectors {
 // point in time search results, up to the first 10,000 hits. If you want to
 // retrieve more hits, use PIT with `search_after`.
 //
-// IMPORTANT: The open point in time request and each subsequent search request
-// can return different identifiers; always use the most recently received ID
-// for the next search request.
+// IMPORTANT: Each search request against a PIT returns in its response a
+// `pit_id` field which may be different from the identifier you originally
+// supplied. Always use the most recently-received PIT identifier for the next
+// request. If you make concurrent search requests against the same PIT,
+// Elasticsearch can return several different `pit_id` values in its responses.
+// In that case, use any of these values for later requests, preferring more
+// recently-received values whenever possible.
 //
 // When a PIT that contains shard failures is used in a search request, the
 // missing are always reported in the search response as a
@@ -12582,7 +12870,7 @@ func (p *MethodAutoscaling) PutAutoscalingPolicy(name string) *autoscaling_put_a
 	return _putautoscalingpolicy(name)
 }
 
-// Get aliases.
+// Get a compact list of aliases.
 //
 // Get the cluster's index aliases, including filter and routing information.
 // This API does not return data stream aliases.
@@ -12621,7 +12909,7 @@ func (p *MethodCat) CircuitBreaker() *cat_circuit_breaker.CircuitBreaker {
 	return _circuitbreaker()
 }
 
-// Get component templates.
+// Get a compact list of component templates.
 //
 // Get information about component templates in a cluster. Component templates
 // are building blocks for constructing index templates that specify index
@@ -12673,7 +12961,7 @@ func (p *MethodCat) Fielddata() *cat_fielddata.Fielddata {
 	return _fielddata()
 }
 
-// Get the cluster health status.
+// Get a compact cluster health summary.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
@@ -12701,7 +12989,7 @@ func (p *MethodCat) Help() *cat_help.Help {
 	return _help()
 }
 
-// Get index information.
+// Get a compact list of indices.
 //
 // Get high-level information about indices in a cluster, including backing
 // indices for data streams.
@@ -12834,7 +13122,7 @@ func (p *MethodCat) Nodeattrs() *cat_nodeattrs.Nodeattrs {
 	return _nodeattrs()
 }
 
-// Get node information.
+// Get a compact list of nodes.
 //
 // Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 // intended for human consumption using the command line or Kibana console. They
@@ -12886,7 +13174,7 @@ func (p *MethodCat) Recovery() *cat_recovery.Recovery {
 	return _recovery()
 }
 
-// Get snapshot repository information.
+// Get a compact list of snapshot repositories.
 //
 // Get a list of snapshot repositories for a cluster. IMPORTANT: cat APIs are
 // only intended for human consumption using the command line or Kibana console.
@@ -12923,7 +13211,7 @@ func (p *MethodCat) Shards() *cat_shards.Shards {
 	return _shards()
 }
 
-// Get snapshot information.
+// Get a compact list of snapshots.
 //
 // Get information about the snapshots stored in one or more repositories. A
 // snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -12936,7 +13224,7 @@ func (p *MethodCat) Snapshots() *cat_snapshots.Snapshots {
 	return _snapshots()
 }
 
-// Get task information.
+// Get a compact list of running tasks.
 //
 // Get information about tasks currently running in the cluster. IMPORTANT: cat
 // APIs are only intended for human consumption using the command line or Kibana
@@ -13261,7 +13549,7 @@ func (p *MethodCluster) Health() *cluster_health.Health {
 	return _health()
 }
 
-// Get cluster info.
+// Get cluster subsystem info.
 //
 // Returns basic information about the cluster.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
@@ -14930,6 +15218,34 @@ func (p *MethodCore) Info() *core_info.Info {
 	return _info()
 }
 
+// Evaluate kNN search settings.
+//
+// Estimate the recall and cost of approximate kNN search configurations on a
+// `dense_vector` field against a more thorough baseline. The field must use the
+// `bbq_disk` index type, and must not be inside a nested object.
+//
+// Each `knn_settings` entry reports the mean recall of the baseline's top `k`,
+// not of relevance judgments, plus included and excluded query counts and cost
+// totals. A query is excluded from the mean recall when the candidate finds a
+// document scoring above the baseline's lowest top `k` score. A baseline
+// returning fewer than `k` hits fails that query, because recall at `k` is
+// undefined. All configurations run against one point in time.
+//
+// The default baseline uses a `visit_percentage` of 20 and a
+// `rescore_vector.oversample` of 100. An exact full-precision baseline must be
+// requested explicitly with `allow_exact_baseline`, and is limited to 100
+// million vector-by-query comparisons.
+//
+// The request is refused when the `search.knn_eval.enabled` cluster setting or
+// the `index.knn_eval.enabled` index setting is `false`.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-knn-eval
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-knn-eval
+func (p *MethodCore) KnnEval(index string) *core_knn_eval.KnnEval {
+	_knneval := core_knn_eval.NewKnnEvalFunc(p.tp)
+	return _knneval(index)
+}
+
 // Run a knn search.
 //
 // NOTE: The kNN search API has been replaced by the `knn` option in the search
@@ -15077,9 +15393,13 @@ func (p *MethodCore) Mtermvectors() *core_mtermvectors.Mtermvectors {
 // point in time search results, up to the first 10,000 hits. If you want to
 // retrieve more hits, use PIT with `search_after`.
 //
-// IMPORTANT: The open point in time request and each subsequent search request
-// can return different identifiers; always use the most recently received ID
-// for the next search request.
+// IMPORTANT: Each search request against a PIT returns in its response a
+// `pit_id` field which may be different from the identifier you originally
+// supplied. Always use the most recently-received PIT identifier for the next
+// request. If you make concurrent search requests against the same PIT,
+// Elasticsearch can return several different `pit_id` values in its responses.
+// In that case, use any of these values for later requests, preferring more
+// recently-received values whenever possible.
 //
 // When a PIT that contains shard failures is used in a search request, the
 // missing are always reported in the search response as a
@@ -15788,6 +16108,85 @@ func (p *MethodDanglingIndices) ListDanglingIndices() *dangling_indices_list_dan
 	return _listdanglingindices()
 }
 
+// Get a recovery.
+//
+// Get the status and details of a recovery that was started with the start
+// recovery API. This API is intended for internal operator use. The progress of
+// a running recovery is reported as a percentage, and the repository and audit
+// details of the recovery are not exposed.
+func (p *MethodDataRecovery) GetRecovery(recoveryid string) *data_recovery_get_recovery.GetRecovery {
+	_getrecovery := data_recovery_get_recovery.NewGetRecoveryFunc(p.tp)
+	return _getrecovery(recoveryid)
+}
+
+// Get recovery points.
+//
+// Get recovery points from the platform-managed data recovery repository. This
+// API is intended for internal operator use. Recovery points are returned in
+// descending order by end time. Repository, snapshot, and policy identifiers
+// are not exposed.
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-data-recovery-get-recovery-points
+func (p *MethodDataRecovery) GetRecoveryPoints() *data_recovery_get_recovery_points.GetRecoveryPoints {
+	_getrecoverypoints := data_recovery_get_recovery_points.NewGetRecoveryPointsFunc(p.tp)
+	return _getrecoverypoints()
+}
+
+// Get recovery sources.
+//
+// Get the logical sources captured at an exact recovery point in the
+// platform-managed data recovery repository. This API is intended for internal
+// operator use. Repository, snapshot, and policy identifiers are not exposed.
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-data-recovery-get-recovery-sources
+func (p *MethodDataRecovery) GetRecoverySources() *data_recovery_get_recovery_sources.GetRecoverySources {
+	_getrecoverysources := data_recovery_get_recovery_sources.NewGetRecoverySourcesFunc(p.tp)
+	return _getrecoverysources()
+}
+
+// Get the recovery point objective series.
+//
+// Get, for each bucket in the half-open range `[start, end)`, the maximum age
+// that the newest recoverable state reached during that bucket. This API is
+// intended for internal operator use. The range is divided into at most 1,000
+// buckets. A bucket has no value if no retained recovery point covers its
+// start.
+// [Elasticsearch]
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-data-recovery-get-rpo-series
+func (p *MethodDataRecovery) GetRpoSeries() *data_recovery_get_rpo_series.GetRpoSeries {
+	_getrposeries := data_recovery_get_rpo_series.NewGetRpoSeriesFunc(p.tp)
+	return _getrposeries()
+}
+
+// List recoveries.
+//
+// List the recoveries that were started with the start recovery API, including
+// those that have finished. This API is intended for internal operator use.
+// Recoveries are ordered by start time, and the most recent are returned first
+// by default. To retrieve further pages, pass the start time and identifier of
+// the last recovery of a page as `search_after_started_at` and
+// `search_after_recovery_id`.
+func (p *MethodDataRecovery) ListRecoveries() *data_recovery_list_recoveries.ListRecoveries {
+	_listrecoveries := data_recovery_list_recoveries.NewListRecoveriesFunc(p.tp)
+	return _listrecoveries()
+}
+
+// Start a recovery.
+//
+// Start recovering indices and data streams from a recovery point. This API is
+// intended for internal operator use. Depending on the mode, the sources are
+// either replaced with their state at the recovery point, over the data that
+// currently exists, or recovered under new names. The recovery runs in the
+// background, so the API returns with a `202 Accepted` status once it has
+// started.
+func (p *MethodDataRecovery) StartRecovery() *data_recovery_start_recovery.StartRecovery {
+	_startrecovery := data_recovery_start_recovery.NewStartRecoveryFunc(p.tp)
+	return _startrecovery()
+}
+
 // Reset the project encryption key.
 //
 // Destroy the current project encryption key (PEK) and generate a new one. This
@@ -15964,18 +16363,26 @@ func (p *MethodEsql) AsyncQueryStop(id string) *esql_async_query_stop.AsyncQuery
 	return _asyncquerystop(id)
 }
 
-// Delete one or more ES|QL data sources.
+// Delete ES|QL data sources.
 //
-// Fails with `409` if any dataset references one of the named data sources;
-// delete the dependent datasets first.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Deletes one or more data sources used in ES|QL data federation. Fails with
+// `409` if any dataset references one of the named data sources; delete the
+// dependent datasets first.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-data-source
 func (p *MethodEsql) DeleteDataSource(name string) *esql_delete_data_source.DeleteDataSource {
 	_deletedatasource := esql_delete_data_source.NewDeleteDataSourceFunc(p.tp)
 	return _deletedatasource(name)
 }
 
-// Delete one or more ES|QL datasets.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Delete ES|QL datasets.
+//
+// Deletes one or more datasets used in ES|QL data federation. If any specified
+// dataset does not exist, the request fails and no datasets are deleted.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-dataset
 func (p *MethodEsql) DeleteDataset(name string) *esql_delete_dataset.DeleteDataset {
 	_deletedataset := esql_delete_dataset.NewDeleteDatasetFunc(p.tp)
 	return _deletedataset(name)
@@ -15983,28 +16390,36 @@ func (p *MethodEsql) DeleteDataset(name string) *esql_delete_dataset.DeleteDatas
 
 // Delete an ES|QL view.
 //
-// Deletes a stored ES|QL view.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Deletes a stored ES|QL view. Deleting a reserved view fails.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-delete-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-delete-view
 func (p *MethodEsql) DeleteView(name string) *esql_delete_view.DeleteView {
 	_deleteview := esql_delete_view.NewDeleteViewFunc(p.tp)
 	return _deleteview(name)
 }
 
-// Get one or more ES|QL data sources.
+// Get ES|QL data sources.
 //
-// Returns the requested data sources. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Returns one or more data sources used in ES|QL data federation. A
+// concrete-name miss returns `404`; a wildcard pattern or list-all request with
+// no match returns `200` with an empty array.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-data-source
 func (p *MethodEsql) GetDataSource() *esql_get_data_source.GetDataSource {
 	_getdatasource := esql_get_data_source.NewGetDataSourceFunc(p.tp)
 	return _getdatasource()
 }
 
-// Get one or more ES|QL datasets.
+// Get ES|QL datasets.
 //
-// Returns the requested datasets. A concrete-name miss returns `404`; a
-// wildcard pattern or list-all with no match returns `200` with an empty array.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// Returns one or more datasets used in ES|QL data federation. A concrete-name
+// miss returns `404`; a wildcard pattern or list-all request with no match
+// returns `200` with an empty array.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-dataset
 func (p *MethodEsql) GetDataset() *esql_get_dataset.GetDataset {
 	_getdataset := esql_get_dataset.NewGetDatasetFunc(p.tp)
 	return _getdataset()
@@ -16023,8 +16438,11 @@ func (p *MethodEsql) GetQuery(id string) *esql_get_query.GetQuery {
 
 // Get an ES|QL view.
 //
-// Returns a stored ES|QL view.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Returns one or more stored views. A reserved view includes `reserved` set to
+// `true`.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-get-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-get-view
 func (p *MethodEsql) GetView() *esql_get_view.GetView {
 	_getview := esql_get_view.NewGetViewFunc(p.tp)
 	return _getview()
@@ -16044,28 +16462,39 @@ func (p *MethodEsql) ListQueries() *esql_list_queries.ListQueries {
 
 // Create or update an ES|QL data source.
 //
-// Creates or replaces a named, type-specific data source configuration that
-// datasets reference to access external data. Names must be lowercase and
-// follow index/alias naming rules.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Creates or replaces a named, type-specific data source configuration for
+// ES|QL data federation. Datasets reference data source configurations to
+// access external data. Names must be lowercase and follow index or alias
+// naming rules.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-data-source
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-data-source
 func (p *MethodEsql) PutDataSource(name string) *esql_put_data_source.PutDataSource {
 	_putdatasource := esql_put_data_source.NewPutDataSourceFunc(p.tp)
 	return _putdatasource(name)
 }
 
-// Create or replace an ES|QL dataset.
+// Create or update an ES|QL dataset.
 //
-// Creates or replaces a dataset that references a data source. Dataset names
-// participate in the index namespace and must follow index/alias naming rules.
-// Returns `404` if the referenced data source does not exist.
-// https://www.elastic.co/docs/api/doc/elasticsearch/operation#TODO
+// Creates or replaces a dataset that references a data source in ES|QL data
+// federation. Dataset names participate in the index namespace and must follow
+// index or alias naming rules. Returns `404` if the referenced data source does
+// not exist.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-dataset
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-dataset
 func (p *MethodEsql) PutDataset(name string) *esql_put_dataset.PutDataset {
 	_putdataset := esql_put_dataset.NewPutDatasetFunc(p.tp)
 	return _putdataset(name)
 }
 
 // Create or update an ES|QL view.
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+//
+// Stores an ES|QL query that runs whenever the view is referenced. A query that
+// cannot be parsed is rejected. Replacing a reserved view fails.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-view
 func (p *MethodEsql) PutView(name string) *esql_put_view.PutView {
 	_putview := esql_put_view.NewPutViewFunc(p.tp)
 	return _putview(name)
@@ -16078,6 +16507,21 @@ func (p *MethodEsql) PutView(name string) *esql_put_view.PutView {
 func (p *MethodEsql) Query() *esql_query.Query {
 	_query := esql_query.NewQueryFunc(p.tp)
 	return _query()
+}
+
+// Test an ES|QL data source connection.
+//
+// Tests whether the supplied data source configuration can establish a live
+// connection. The data source does not need to exist in cluster state: this
+// endpoint is intended for validating a new configuration before saving it. The
+// request body accepts the same `type` and `settings` fields as the create or
+// update data source API.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-test-connection
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-data-source-test-connection
+func (p *MethodEsql) TestDataSourceConnection() *esql_test_data_source_connection.TestDataSourceConnection {
+	_testdatasourceconnection := esql_test_data_source_connection.NewTestDataSourceConnectionFunc(p.tp)
+	return _testdatasourceconnection()
 }
 
 // Get the features.
@@ -16862,8 +17306,7 @@ func (p *MethodIndices) Flush() *indices_flush.Flush {
 // some preflight checks, launches the request, and returns a task you can use
 // to get the status of the task. However, you can not cancel this task as the
 // force merge task is not cancelable. Elasticsearch creates a record of this
-// task as a document at `_tasks/<task_id>`. When you are done with a task, you
-// should delete the task document so Elasticsearch can reclaim the space.
+// task as a document at `_tasks/<task_id>`.
 //
 // # Force merging multiple indices
 //
@@ -16874,11 +17317,11 @@ func (p *MethodIndices) Flush() *indices_flush.Flush {
 //   - One or more aliases
 //   - All data streams and indices in a cluster
 //
-// Each targeted shard is force-merged separately using the force_merge
-// threadpool. By default each node only has a single `force_merge` thread which
-// means that the shards on that node are force-merged one at a time. If you
-// expand the `force_merge` threadpool on a node then it will force merge its
-// shards in parallel
+// Each targeted shard is force-merged separately using the `force_merge`
+// threadpool. The `force_merge` threadpool has a fixed size of `max(1,
+// allocatedProcessors / 8)` per node, which means multiple shards on a node may
+// be force-merged in parallel. If you expand the `force_merge` threadpool on a
+// node then it will force merge its shards with more parallelism.
 //
 // Force merge makes the storage for the shard being merged temporarily
 // increase, as it may require free space up to triple its size in case
@@ -16991,7 +17434,7 @@ func (p *MethodIndices) GetDataStreamSettings(name string) *indices_get_data_str
 	return _getdatastreamsettings(name)
 }
 
-// Get mapping definitions.
+// Get field mapping definitions.
 //
 // Retrieves mapping definitions for one or more fields. For data streams, the
 // API retrieves field mappings for the stream’s backing indices.
@@ -17624,9 +18067,9 @@ func (p *MethodIndices) ResolveIndex(name string) *indices_resolve_index.Resolve
 
 // Roll over to a new index.
 //
-// TIP: We recommend using the index lifecycle rollover action to automate
-// rollovers. However, Serverless does not support Index Lifecycle Management
-// (ILM), so don't use this approach in the Serverless context.
+// TIP: To automate rollovers, use index lifecycle management (ILM) in
+// deployments that support it. Serverless does not support ILM. For data
+// streams in Serverless, use data stream lifecycle instead.
 //
 // The rollover API creates a new index for a data stream or index alias. The
 // API behavior depends on the rollover target.
@@ -17878,9 +18321,19 @@ func (p *MethodIndices) Stats() *indices_stats.Stats {
 	return _stats()
 }
 
-// Create or update an alias.
+// Update aliases and delete indices atomically.
 //
-// Adds a data stream or index to an alias.
+// Applies one or more actions in a single request:
+//
+//   - Add a data stream or index to an alias.
+//   - Remove a data stream or index from an alias.
+//   - Delete an index in that same request, so the deletion and the alias
+//     changes are applied together.
+//
+// For example, you can replace an index with an alias of the same name.
+//
+// NOTE: Every `remove_index` action in the request runs first, before any `add`
+// or `remove` actions, no matter where it sits in the `actions` array.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
 //
 // [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-indices-update-aliases
@@ -17900,19 +18353,18 @@ func (p *MethodIndices) ValidateQuery() *indices_validate_query.ValidateQuery {
 	return _validatequery()
 }
 
-// Perform chat completion inference on the service.
+// Perform streaming chat completion inference on the service.
 //
 // The chat completion inference API enables real-time responses for chat
 // completion tasks by delivering answers incrementally, reducing response times
 // during computation. It only works with the `chat_completion` task type.
 //
-// NOTE: The `chat_completion` task type is only available within the _stream
-// API and only supports streaming. The Chat completion inference API and the
-// Stream inference API differ in their response structure and capabilities. The
-// Chat completion inference API provides more comprehensive customization
-// options through more fields and function calling support. To determine
-// whether a given inference service supports this task type, please see the
-// page for that service.
+// NOTE: The `chat_completion` task type supports both streaming and
+// non-streaming. The Chat completion inference API and the Stream inference API
+// differ in their response structure and capabilities. The Chat completion
+// inference API provides more comprehensive customization options through more
+// fields and function calling support. To determine whether a given inference
+// service supports this task type, please see the page for that service.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-unified-inference
 func (p *MethodInference) ChatCompletionUnified(inferenceid string) *inference_chat_completion_unified.ChatCompletionUnified {
 	_chatcompletionunified := inference_chat_completion_unified.NewChatCompletionUnifiedFunc(p.tp)
@@ -17943,6 +18395,22 @@ func (p *MethodInference) Completion(inferenceid string) *inference_completion.C
 	return _completion(inferenceid)
 }
 
+// Perform decision inference on the service.
+//
+// Answer a set of named questions about an input, such as whether a customer is
+// complaining, which team should handle a request, or how angry a customer is.
+// The questions are defined in the task settings of the inference endpoint, and
+// can be replaced for a single request through `task_settings`.
+//
+// > info > Only the `elastic` service currently supports the `decision` task.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
+func (p *MethodInference) Decision(inferenceid string) *inference_decision.Decision {
+	_decision := inference_decision.NewDecisionFunc(p.tp)
+	return _decision(inferenceid)
+}
+
 // Delete an inference endpoint.
 //
 // This API requires the manage_inference cluster privilege (the built-in
@@ -17962,6 +18430,18 @@ func (p *MethodInference) Delete(inferenceid string) *inference_delete.Delete {
 func (p *MethodInference) DeleteRegionPolicy() *inference_delete_region_policy.DeleteRegionPolicy {
 	_deleteregionpolicy := inference_delete_region_policy.NewDeleteRegionPolicyFunc(p.tp)
 	return _deleteregionpolicy()
+}
+
+// Perform document extraction inference on the service.
+//
+// Extract the content of documents, such as PDFs or images of documents, into a
+// textual format.
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-inference-inference
+func (p *MethodInference) DocumentExtraction(inferenceid string) *inference_document_extraction.DocumentExtraction {
+	_documentextraction := inference_document_extraction.NewDocumentExtractionFunc(p.tp)
+	return _documentextraction(inferenceid)
 }
 
 // Perform dense embedding inference on the service.
@@ -18019,6 +18499,39 @@ func (p *MethodInference) GetRegionPolicy() *inference_get_region_policy.GetRegi
 func (p *MethodInference) Inference(inferenceid string) *inference_inference.Inference {
 	_inference := inference_inference.NewInferenceFunc(p.tp)
 	return _inference(inferenceid)
+}
+
+// Perform non-streaming chat completion inference on the service.
+//
+// The chat completion inference API enables rich responses for chat completion
+// tasks. It only works with the `chat_completion` task type.
+//
+// NOTE: The `chat_completion` task type supports both streaming and
+// non-streaming. The Chat completion inference API provides more comprehensive
+// customization options through more fields and function calling support. To
+// determine whether a given inference service supports this task type, please
+// see the page for that service.
+//
+// These services support non-streaming chat completion inference:
+//
+//   - AI21
+//   - Azure OpenAI
+//   - Deepseek
+//   - Elastic
+//   - FireworksAI
+//   - Groq
+//   - Huggingface
+//   - IBMWatsonX
+//   - Llama
+//   - Mistral
+//   - NVIDIA
+//   - OpenAI
+//   - OpenShiftAI
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-non-streaming-chat-completion
+func (p *MethodInference) NonStreamingChatCompletion(inferenceid string) *inference_non_streaming_chat_completion.NonStreamingChatCompletion {
+	_nonstreamingchatcompletion := inference_non_streaming_chat_completion.NewNonStreamingChatCompletionFunc(p.tp)
+	return _nonstreamingchatcompletion(inferenceid)
 }
 
 // Create an inference endpoint.
@@ -20466,7 +20979,7 @@ func (p *MethodSearchableSnapshots) CacheStats() *searchable_snapshots_cache_sta
 	return _cachestats()
 }
 
-// Clear the cache.
+// Clear the searchable snapshots shared cache.
 //
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
@@ -20743,7 +21256,10 @@ func (p *MethodSecurity) CreateCrossClusterApiKey() *security_create_cross_clust
 // Create a service account token.
 //
 // Create a service accounts token for access without requiring basic
-// authentication.
+// authentication. This route serves both kinds of service account, but the
+// privileges differ: `manage_service_account` authorizes tokens of built-in
+// accounts in the `elastic` namespace only, and tokens of a user-managed
+// account require `manage_security`.
 //
 // NOTE: Service account tokens never expire. You must actively delete them if
 // they are no longer needed.
@@ -20824,7 +21340,11 @@ func (p *MethodSecurity) DeleteRoleMapping(name string) *security_delete_role_ma
 
 // Delete service account tokens.
 //
-// Delete service account tokens for a service in a specified namespace.
+// Delete service account tokens for a service in a specified namespace. This
+// route serves both kinds of service account, but the privileges differ:
+// `manage_service_account` authorizes tokens of built-in accounts in the
+// `elastic` namespace only, and tokens of a user-managed account require
+// `manage_security`.
 //
 // IMPORTANT: On Serverless, non-operator users can delete tokens for only
 // `elastic/fleet-server` and `elastic/fleet-server-remote`. Deleting tokens for
@@ -20842,6 +21362,25 @@ func (p *MethodSecurity) DeleteServiceToken(namespace, service, name string) *se
 func (p *MethodSecurity) DeleteUser(username string) *security_delete_user.DeleteUser {
 	_deleteuser := security_delete_user.NewDeleteUserFunc(p.tp)
 	return _deleteuser(username)
+}
+
+// Delete user-managed service accounts.
+//
+// Delete a service account from a namespace of your own.
+//
+// Deleting an account that still has service tokens is rejected unless `force`
+// is `true`. A forced delete leaves the tokens behind: they cannot authenticate
+// while no account of that name exists, and recreating the account is rejected
+// until they are deleted.
+//
+// NOTE: The `elastic` namespace is reserved for the built-in service accounts
+// that ship with Elasticsearch. A name that no user-managed service account
+// could have is rejected rather than reported as not found. The
+// `manage_service_account` privilege does not authorize this API.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-user-managed-service-account
+func (p *MethodSecurity) DeleteUserManagedServiceAccount(namespace, service string) *security_delete_user_managed_service_account.DeleteUserManagedServiceAccount {
+	_deleteusermanagedserviceaccount := security_delete_user_managed_service_account.NewDeleteUserManagedServiceAccountFunc(p.tp)
+	return _deleteusermanagedserviceaccount(namespace, service)
 }
 
 // Disable users.
@@ -21003,9 +21542,14 @@ func (p *MethodSecurity) GetRoleMapping() *security_get_role_mapping.GetRoleMapp
 // Get service accounts.
 //
 // Get a list of service accounts that match the provided path parameters.
+// Built-in service accounts ship with Elasticsearch in the `elastic` namespace;
+// user-managed service accounts are created with the put user-managed service
+// account API.
 //
-// NOTE: Currently, only the `elastic/fleet-server` service account is
-// available.
+// NOTE: When `type` is omitted, a request without a namespace reports built-in
+// accounts only, which preserves the response of a whole-cluster listing. A
+// request scoped to a namespace reports both kinds, so an account you created
+// is found without naming its kind.
 // https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-service-accounts
 func (p *MethodSecurity) GetServiceAccounts() *security_get_service_accounts.GetServiceAccounts {
 	_getserviceaccounts := security_get_service_accounts.NewGetServiceAccountsFunc(p.tp)
@@ -21131,10 +21675,12 @@ func (p *MethodSecurity) GetUserProfile(uid string) *security_get_user_profile.G
 //   - username and password
 //   - Elasticsearch access tokens
 //   - JWTs
+//   - service account tokens of user-managed service accounts
 //
 // The user, for whom the authentication credentials is provided, can optionally
 // "run as" (impersonate) another user. In this case, the API key will be
-// created on behalf of the impersonated user.
+// created on behalf of the impersonated user. Run as is not supported with the
+// `_user_managed_service_account` grant type.
 //
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
@@ -21386,6 +21932,25 @@ func (p *MethodSecurity) PutUser(username string) *security_put_user.PutUser {
 	return _putuser(username)
 }
 
+// Create user-managed service accounts.
+//
+// Create a service account in a namespace of your own, or replace one that
+// already exists. A replacement is not a partial update: every write applies
+// the defaults, so an account that was disabled and is then written again
+// without `enabled` comes back enabled.
+//
+// Creating an account whose name still has leftover service tokens is rejected.
+// Delete those tokens first.
+//
+// NOTE: The `elastic` namespace is reserved for the built-in service accounts
+// that ship with Elasticsearch. The `manage_service_account` privilege does not
+// authorize this API.
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-put-user-managed-service-account
+func (p *MethodSecurity) PutUserManagedServiceAccount(namespace, service string) *security_put_user_managed_service_account.PutUserManagedServiceAccount {
+	_putusermanagedserviceaccount := security_put_user_managed_service_account.NewPutUserManagedServiceAccountFunc(p.tp)
+	return _putusermanagedserviceaccount(namespace, service)
+}
+
 // Find API keys with a query.
 //
 // Get a paginated list of API keys and their information. You can optionally
@@ -21418,6 +21983,18 @@ func (p *MethodSecurity) QueryApiKeys() *security_query_api_keys.QueryApiKeys {
 func (p *MethodSecurity) QueryRole() *security_query_role.QueryRole {
 	_queryrole := security_query_role.NewQueryRoleFunc(p.tp)
 	return _queryrole()
+}
+
+// Find user-managed service accounts with a query.
+//
+// Get a paginated list of user-managed service accounts and their information.
+// You can optionally filter the results with a query.
+//
+// NOTE: Built-in service accounts are not stored in the security index, so this
+// API never returns them. Use the get service accounts API to list them.
+func (p *MethodSecurity) QueryServiceAccounts() *security_query_service_accounts.QueryServiceAccounts {
+	_queryserviceaccounts := security_query_service_accounts.NewQueryServiceAccountsFunc(p.tp)
+	return _queryserviceaccounts()
 }
 
 // Find users with a query.
@@ -23268,6 +23845,7 @@ func NewMethodAPI(tp elastictransport.Interface) *MethodAPI {
 		Connector:           MethodConnector{tp: tp},
 		Core:                MethodCore{tp: tp},
 		DanglingIndices:     MethodDanglingIndices{tp: tp},
+		DataRecovery:        MethodDataRecovery{tp: tp},
 		Encryption:          MethodEncryption{tp: tp},
 		Enrich:              MethodEnrich{tp: tp},
 		Eql:                 MethodEql{tp: tp},

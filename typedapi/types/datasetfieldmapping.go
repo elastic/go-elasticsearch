@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,14 +31,16 @@ import (
 
 // A per-column declaration inside a dataset mapping's `properties`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/esql/_types/types.ts#L101-L118
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/esql/_types/types.ts#L101-L121
 type DatasetFieldMapping struct {
 	// Format The date-parse pattern for a declared `date` column, mirroring the index
 	// date-field `format`.
 	Format *string `json:"format,omitempty"`
-	// Path The underlying file column that this logical column reads from. This is a
+	// RenameFrom The underlying file column that this logical column reads from. This is a
 	// read-path rename: the physical column becomes this single logical column.
-	Path *string `json:"path,omitempty"`
+	// Responses always use `rename_from`. `path`, the former name for this field,
+	// is still accepted in requests and means the same thing.
+	RenameFrom *string `json:"rename_from,omitempty"`
 	// Type The declared column type.
 	Type string `json:"type"`
 }
@@ -70,17 +72,17 @@ func (s *DatasetFieldMapping) UnmarshalJSON(data []byte) error {
 			}
 			s.Format = &o
 
-		case "path":
+		case "rename_from", "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Path", err)
+				return fmt.Errorf("%s | %w", "RenameFrom", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Path = &o
+			s.RenameFrom = &o
 
 		case "type":
 			var tmp json.RawMessage

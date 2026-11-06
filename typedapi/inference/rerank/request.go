@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package rerank
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package rerank
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/rerank/RerankRequest.ts#L26-L135
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/inference/rerank/RerankRequest.ts#L26-L153
 type Request struct {
 	// Input The documents to rank. The input can be specified as a single string or an
 	// array of strings, or as an object or an array of objects. The object form
@@ -73,6 +73,17 @@ type Request struct {
 	// 	    "value": "data:image/jpeg;base64,..."
 	// 	  }
 	// 	]
+	//
+	// object array example using the `url` format (available in Elasticsearch 9.6.0
+	// and later):
+	//
+	// 	"input": [
+	// 	  {
+	// 	    "type": "image",
+	// 	    "format": "url",
+	// 	    "value": "https://example.com/image.jpg"
+	// 	  }
+	// 	]
 	Input types.RerankInput `json:"input"`
 	// Query Query input. The query can be specified as a single string, or as an object.
 	// The object form additionally allows specifying non-text inputs, such as
@@ -91,6 +102,15 @@ type Request struct {
 	// 	  "type": "image",
 	// 	  "format": "base64",
 	// 	  "value": "data:image/jpeg;base64,..."
+	// 	}
+	//
+	// object example using the `url` format (available in Elasticsearch 9.6.0 and
+	// later):
+	//
+	// 	"query": {
+	// 	  "type": "image",
+	// 	  "format": "url",
+	// 	  "value": "https://example.com/image.jpg"
 	// 	}
 	Query types.RerankQuery `json:"query"`
 	// ReturnDocuments Include the document text in the response.

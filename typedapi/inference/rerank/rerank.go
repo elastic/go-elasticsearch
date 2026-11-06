@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Perform reranking inference on the service.
 package rerank
@@ -404,6 +404,17 @@ func (r *Rerank) Pretty(pretty bool) *Rerank {
 //	  }
 //	]
 //
+// object array example using the `url` format (available in Elasticsearch 9.6.0
+// and later):
+//
+//	"input": [
+//	  {
+//	    "type": "image",
+//	    "format": "url",
+//	    "value": "https://example.com/image.jpg"
+//	  }
+//	]
+//
 // API name: input
 func (r *Rerank) Input(rerankinput types.RerankInputVariant) *Rerank {
 	// Initialize the request if it is not already initialized
@@ -433,6 +444,15 @@ func (r *Rerank) Input(rerankinput types.RerankInputVariant) *Rerank {
 //	  "type": "image",
 //	  "format": "base64",
 //	  "value": "data:image/jpeg;base64,..."
+//	}
+//
+// object example using the `url` format (available in Elasticsearch 9.6.0 and
+// later):
+//
+//	"query": {
+//	  "type": "image",
+//	  "format": "url",
+//	  "value": "https://example.com/image.jpg"
 //	}
 //
 // API name: query

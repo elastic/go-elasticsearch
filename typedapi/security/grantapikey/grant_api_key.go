@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Grant an API key.
 //
@@ -30,10 +30,12 @@
 //   - username and password
 //   - Elasticsearch access tokens
 //   - JWTs
+//   - service account tokens of user-managed service accounts
 //
 // The user, for whom the authentication credentials is provided, can optionally
 // "run as" (impersonate) another user. In this case, the API key will be
-// created on behalf of the impersonated user.
+// created on behalf of the impersonated user. Run as is not supported with the
+// `_user_managed_service_account` grant type.
 //
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
@@ -114,10 +116,12 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 //   - username and password
 //   - Elasticsearch access tokens
 //   - JWTs
+//   - service account tokens of user-managed service accounts
 //
 // The user, for whom the authentication credentials is provided, can optionally
 // "run as" (impersonate) another user. In this case, the API key will be
-// created on behalf of the impersonated user.
+// created on behalf of the impersonated user. Run as is not supported with the
+// `_user_managed_service_account` grant type.
 //
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
@@ -427,7 +431,23 @@ func (r *GrantApiKey) ApiKey(apikey types.GrantApiKeyVariant) *GrantApiKey {
 	return r
 }
 
-// The type of grant. Supported grant types are: `access_token`, `password`.
+// The client authentication for a JWT that requires it, which is what is
+// normally sent in the `ES-Client-Authentication` request header. It is valid
+// only with the `access_token` grant type, when the access token is a JWT.
+// API name: client_authentication
+func (r *GrantApiKey) ClientAuthentication(clientauthentication types.GrantApiKeyClientAuthenticationVariant) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ClientAuthentication = clientauthentication.GrantApiKeyClientAuthenticationCaster()
+
+	return r
+}
+
+// The type of grant. Supported grant types are: `access_token`, `password`, and
+// `_user_managed_service_account`.
 // API name: grant_type
 func (r *GrantApiKey) GrantType(granttype apikeygranttype.ApiKeyGrantType) *GrantApiKey {
 	// Initialize the request if it is not already initialized
@@ -452,7 +472,8 @@ func (r *GrantApiKey) Password(password string) *GrantApiKey {
 	return r
 }
 
-// The name of the user to be impersonated.
+// The name of the user to be impersonated. It is not valid with the
+// `_user_managed_service_account` grant type.
 // API name: run_as
 func (r *GrantApiKey) RunAs(username string) *GrantApiKey {
 	// Initialize the request if it is not already initialized
@@ -461,6 +482,22 @@ func (r *GrantApiKey) RunAs(username string) *GrantApiKey {
 	}
 
 	r.req.RunAs = &username
+
+	return r
+}
+
+// The service account token of a user-managed service account, as returned by
+// the create service account token API. If you specify the
+// `_user_managed_service_account` grant type, this parameter is required. It is
+// not valid with other grant types.
+// API name: service_account_token
+func (r *GrantApiKey) ServiceAccountToken(serviceaccounttoken string) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ServiceAccountToken = &serviceaccounttoken
 
 	return r
 }

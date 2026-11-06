@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,11 +31,15 @@ import (
 
 // Segment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/indices/segments/types.ts#L28-L62
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/indices/segments/types.ts#L28-L75
 type Segment struct {
 	// Attributes Contains information about whether high compression was enabled and per-field
 	// vector formats.
-	Attributes map[string]string `json:"attributes"`
+	Attributes map[string]string `json:"attributes,omitempty"`
+	// AutoCalibration The auto-calibration information of the segment, per `dense_vector` field
+	// that supports auto-calibration. Only returned when `include_auto_calibration`
+	// is `true`.
+	AutoCalibration map[string]SegmentAutoCalibration `json:"auto_calibration,omitempty"`
 	// Committed If `true`, the segment is synced to disk. Segments that are synced can
 	// survive a hard reboot. If `false`, the data from uncommitted segments is also
 	// stored in the transaction log so that Elasticsearch is able to replay changes
@@ -43,7 +47,7 @@ type Segment struct {
 	Committed bool `json:"committed"`
 	// Compound If `true`, Lucene merged all files from the segment into a single file to
 	// save file descriptors.
-	Compound bool `json:"compound"`
+	Compound *bool `json:"compound,omitempty"`
 	// DeletedDocs The number of deleted documents as reported by Lucene, which may be higher or
 	// lower than the number of delete operations you have performed. This number
 	// excludes deletes that were performed recently and do not yet belong to a
@@ -55,6 +59,9 @@ type Segment struct {
 	// number for each segment written then uses this number to derive the segment
 	// name.
 	Generation int `json:"generation"`
+	// MergeId The ID of the merge the segment is part of. Only returned while the segment
+	// is being merged.
+	MergeId *string `json:"merge_id,omitempty"`
 	// NumDocs The number of documents as reported by Lucene. This excludes deleted
 	// documents and counts any nested documents separately from their parents. It
 	// also excludes documents which were indexed recently and do not yet belong to
@@ -63,10 +70,14 @@ type Segment struct {
 	// Search If `true`, the segment is searchable. If `false`, the segment has most likely
 	// been written to disk but needs a refresh to be searchable.
 	Search bool `json:"search"`
+	// Size Disk space used by the segment.
+	Size ByteSize `json:"size,omitempty"`
 	// SizeInBytes Disk space used by the segment, in bytes.
 	SizeInBytes Float64 `json:"size_in_bytes"`
+	// Sort The index sort of the segment. Only returned when the index is sorted.
+	Sort []SegmentSort `json:"sort,omitempty"`
 	// Version Version of Lucene used to write the segment.
-	Version string `json:"version"`
+	Version *string `json:"version,omitempty"`
 }
 
 func (s *Segment) UnmarshalJSON(data []byte) error {
@@ -92,6 +103,35 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
+		case "auto_calibration":
+			if s.AutoCalibration == nil {
+				s.AutoCalibration = make(map[string]SegmentAutoCalibration, 0)
+			}
+			refs := make(map[string]json.RawMessage, 0)
+			dec.Decode(&refs)
+			for key, message := range refs {
+				kind := make(map[string]any)
+				buf := bytes.NewReader(message)
+				localDec := json.NewDecoder(buf)
+				localDec.Decode(&kind)
+				buf.Seek(0, io.SeekStart)
+
+				switch kind["type"] {
+				case "osq":
+					oo := NewOsqSegmentAutoCalibration()
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("AutoCalibration | %w", err)
+					}
+					s.AutoCalibration[key] = oo
+				default:
+					oo := new(SegmentAutoCalibration)
+					if err := localDec.Decode(&oo); err != nil {
+						return fmt.Errorf("new(SegmentAutoCalibration) | %w", err)
+					}
+					s.AutoCalibration[key] = oo
+				}
+			}
+
 		case "committed":
 			var tmp any
 			dec.Decode(&tmp)
@@ -115,9 +155,9 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Compound", err)
 				}
-				s.Compound = value
+				s.Compound = &value
 			case bool:
-				s.Compound = v
+				s.Compound = &v
 			}
 
 		case "deleted_docs":
@@ -151,6 +191,18 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 				s.Generation = f
 			}
 
+		case "merge_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MergeId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MergeId = &o
+
 		case "num_docs":
 			var tmp any
 			dec.Decode(&tmp)
@@ -180,6 +232,11 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 				s.Search = v
 			}
 
+		case "size":
+			if err := dec.Decode(&s.Size); err != nil {
+				return fmt.Errorf("%s | %w", "Size", err)
+			}
+
 		case "size_in_bytes":
 			var tmp any
 			dec.Decode(&tmp)
@@ -196,6 +253,11 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 				s.SizeInBytes = f
 			}
 
+		case "sort":
+			if err := dec.Decode(&s.Sort); err != nil {
+				return fmt.Errorf("%s | %w", "Sort", err)
+			}
+
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
 				return fmt.Errorf("%s | %w", "Version", err)
@@ -209,7 +271,8 @@ func (s *Segment) UnmarshalJSON(data []byte) error {
 // NewSegment returns a Segment.
 func NewSegment() *Segment {
 	r := &Segment{
-		Attributes: make(map[string]string),
+		Attributes:      make(map[string]string),
+		AutoCalibration: make(map[string]SegmentAutoCalibration),
 	}
 
 	return r

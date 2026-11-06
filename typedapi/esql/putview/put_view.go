@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Create or update an ES|QL view.
+//
+// Stores an ES|QL query that runs whenever the view is referenced. A query that
+// cannot be parsed is rejected. Replacing a reserved view fails.
 package putview
 
 import (
@@ -83,7 +86,12 @@ func NewPutViewFunc(tp elastictransport.Interface) NewPutView {
 
 // Create or update an ES|QL view.
 //
-// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+// Stores an ES|QL query that runs whenever the view is referenced. A query that
+// cannot be parsed is rejected. Replacing a reserved view fails.
+//
+// [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-put-view
+//
+// [Serverless] https://www.elastic.co/docs/api/doc/elasticsearch-serverless/operation/operation-esql-put-view
 func New(tp elastictransport.Interface) *PutView {
 	r := &PutView{
 		transport: tp,
@@ -313,6 +321,19 @@ func (r *PutView) _name(name string) *PutView {
 	return r
 }
 
+// Validate Whether to analyze the view query and return a warning when validation fails.
+//
+// Validation reports an unknown index or column, including an index the caller
+// cannot read. The view is saved even when validation reports a problem.
+// Failures unrelated to the query, such as an overloaded cluster, produce no
+// warning.
+// API name: validate
+func (r *PutView) Validate(validate bool) *PutView {
+	r.values.Set("validate", strconv.FormatBool(validate))
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -355,7 +376,21 @@ func (r *PutView) Pretty(pretty bool) *PutView {
 	return r
 }
 
-// The ES|QL query string from which to create a view.
+// A free-text description of the view.
+// API name: description
+func (r *PutView) Description(description string) *PutView {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Description = &description
+
+	return r
+}
+
+// The ES|QL query string that defines the view. A query that cannot be parsed
+// is rejected.
 // API name: query
 func (r *PutView) Query(query string) *PutView {
 	// Initialize the request if it is not already initialized

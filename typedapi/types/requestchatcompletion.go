@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -31,8 +31,20 @@ import (
 
 // RequestChatCompletion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/inference/_types/CommonTypes.ts#L26-L133
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/inference/_types/CommonTypes.ts#L27-L156
 type RequestChatCompletion struct {
+	// CacheControl The prompt caching configuration for the completion request. Example:
+	//
+	//	{
+	//	  "cache_control": {
+	//	    "type": "ephemeral",
+	//	    "ttl": "1h"
+	//	  }
+	//	}
+	//
+	// Unknown fields in the object and invalid `ttl` values return an error.
+	// Currently supported only for `elastic` provider.
+	CacheControl *CacheControl `json:"cache_control,omitempty"`
 	// MaxCompletionTokens The upper bound limit for the number of tokens that can be generated for a
 	// completion request.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitempty"`
@@ -82,6 +94,9 @@ type RequestChatCompletion struct {
 	//
 	// Currently supported only for `elastic` provider.
 	Reasoning *Reasoning `json:"reasoning,omitempty"`
+	// SessionId An identifier that groups related completion requests into a session.
+	// Currently supported only for `elastic` provider.
+	SessionId *string `json:"session_id,omitempty"`
 	// Stop A sequence of strings to control when the model should stop generating
 	// additional tokens.
 	Stop []string `json:"stop,omitempty"`
@@ -146,6 +161,11 @@ func (s *RequestChatCompletion) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "cache_control":
+			if err := dec.Decode(&s.CacheControl); err != nil {
+				return fmt.Errorf("%s | %w", "CacheControl", err)
+			}
+
 		case "max_completion_tokens":
 			var tmp any
 			dec.Decode(&tmp)
@@ -182,6 +202,18 @@ func (s *RequestChatCompletion) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Reasoning); err != nil {
 				return fmt.Errorf("%s | %w", "Reasoning", err)
 			}
+
+		case "session_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "SessionId", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.SessionId = &o
 
 		case "stop":
 			if err := dec.Decode(&s.Stop); err != nil {

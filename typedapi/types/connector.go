@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // Connector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/connector/_types/Connector.ts#L252-L284
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/connector/_types/Connector.ts#L252-L284
 type Connector struct {
 	ApiKeyId                         *string                         `json:"api_key_id,omitempty"`
 	ApiKeySecretId                   *string                         `json:"api_key_secret_id,omitempty"`

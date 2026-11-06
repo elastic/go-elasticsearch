@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -249,9 +249,23 @@ func (s *_processorContainer) NetworkDirection(networkdirection types.NetworkDir
 	return s
 }
 
+func (s *_processorContainer) NormalizeForStream(normalizeforstream types.NormalizeForStreamProcessorVariant) *_processorContainer {
+
+	s.v.NormalizeForStream = normalizeforstream.NormalizeForStreamProcessorCaster()
+
+	return s
+}
+
 func (s *_processorContainer) Pipeline(pipeline types.PipelineProcessorVariant) *_processorContainer {
 
 	s.v.Pipeline = pipeline.PipelineProcessorCaster()
+
+	return s
+}
+
+func (s *_processorContainer) RecoverFailureDocument(recoverfailuredocument types.RecoverFailureDocumentProcessorVariant) *_processorContainer {
+
+	s.v.RecoverFailureDocument = recoverfailuredocument.RecoverFailureDocumentProcessorCaster()
 
 	return s
 }

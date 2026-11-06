@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -39,9 +39,37 @@ func NewDenseVectorIndexOptions(type_ densevectorindexoptionstype.DenseVectorInd
 
 }
 
+func (s *_denseVectorIndexOptions) AutoCalibrate(autocalibrate bool) *_denseVectorIndexOptions {
+
+	s.v.AutoCalibrate = &autocalibrate
+
+	return s
+}
+
+func (s *_denseVectorIndexOptions) Bits(bits int) *_denseVectorIndexOptions {
+
+	s.v.Bits = &bits
+
+	return s
+}
+
+func (s *_denseVectorIndexOptions) ClusterSize(clustersize int) *_denseVectorIndexOptions {
+
+	s.v.ClusterSize = &clustersize
+
+	return s
+}
+
 func (s *_denseVectorIndexOptions) ConfidenceInterval(confidenceinterval float32) *_denseVectorIndexOptions {
 
 	s.v.ConfidenceInterval = &confidenceinterval
+
+	return s
+}
+
+func (s *_denseVectorIndexOptions) DefaultVisitPercentage(defaultvisitpercentage float32) *_denseVectorIndexOptions {
+
+	s.v.DefaultVisitPercentage = &defaultvisitpercentage
 
 	return s
 }
@@ -70,6 +98,13 @@ func (s *_denseVectorIndexOptions) M(m int) *_denseVectorIndexOptions {
 func (s *_denseVectorIndexOptions) OnDiskRescore(ondiskrescore bool) *_denseVectorIndexOptions {
 
 	s.v.OnDiskRescore = &ondiskrescore
+
+	return s
+}
+
+func (s *_denseVectorIndexOptions) Precondition(precondition bool) *_denseVectorIndexOptions {
+
+	s.v.Precondition = &precondition
 
 	return s
 }

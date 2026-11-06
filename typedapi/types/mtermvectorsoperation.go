@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MTermVectorsOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_global/mtermvectors/types.ts#L35-L94
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_global/mtermvectors/types.ts#L36-L104
 type MTermVectorsOperation struct {
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
@@ -57,7 +57,12 @@ type MTermVectorsOperation struct {
 	Payloads *bool `json:"payloads,omitempty"`
 	// Positions If `true`, the response includes term positions.
 	Positions *bool `json:"positions,omitempty"`
-	// Routing Custom value used to route operations to a specific shard.
+	// RouteSlice The slice the document belongs to, for a slice-enabled index
+	// (`index.slice.enabled` set to `true`). It overrides the `_slice` set in the
+	// request path.
+	RouteSlice *string `json:"_slice,omitempty"`
+	// Routing Custom value used to route operations to a specific shard. Not allowed when
+	// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	Routing []string `json:"routing,omitempty"`
 	// TermStatistics If true, the response includes term frequency and document frequency.
 	TermStatistics *bool `json:"term_statistics,omitempty"`
@@ -172,6 +177,11 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 				s.Positions = &value
 			case bool:
 				s.Positions = &v
+			}
+
+		case "_slice":
+			if err := dec.Decode(&s.RouteSlice); err != nil {
+				return fmt.Errorf("%s | %w", "RouteSlice", err)
 			}
 
 		case "routing":

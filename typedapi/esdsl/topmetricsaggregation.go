@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package esdsl
 
@@ -65,27 +65,6 @@ func (s *_topMetricsAggregation) Sort(sorts ...types.SortCombinationsVariant) *_
 func (s *_topMetricsAggregation) SortValues(sortvalues []types.SortCombinations) *_topMetricsAggregation {
 
 	s.v.Sort = sortvalues
-	return s
-}
-
-func (s *_topMetricsAggregation) Field(field string) *_topMetricsAggregation {
-
-	s.v.Field = &field
-
-	return s
-}
-
-func (s *_topMetricsAggregation) Missing(missing types.MissingVariant) *_topMetricsAggregation {
-
-	s.v.Missing = *missing.MissingCaster()
-
-	return s
-}
-
-func (s *_topMetricsAggregation) Script(script types.ScriptVariant) *_topMetricsAggregation {
-
-	s.v.Script = script.ScriptCaster()
-
 	return s
 }
 

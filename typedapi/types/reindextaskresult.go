@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package types
 
@@ -32,7 +32,7 @@ import (
 // The final result of a completed reindex operation, as stored in the task
 // result. This is the serialized form of `BulkByScrollResponse`.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/_types/Reindex.ts#L90-L151
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/_types/Reindex.ts#L90-L151
 type ReindexTaskResult struct {
 	// Batches The number of scroll responses pulled back by the reindex.
 	Batches *int64 `json:"batches,omitempty"`
@@ -42,7 +42,7 @@ type ReindexTaskResult struct {
 	Deleted *int64 `json:"deleted,omitempty"`
 	// Failures Any failures encountered during the reindex. If non-empty, the reindex ended
 	// because of these failures.
-	Failures []BulkIndexByScrollFailure `json:"failures,omitempty"`
+	Failures []BulkByPaginatedSearchFailure `json:"failures,omitempty"`
 	// Noops The number of documents that were ignored because the script returned a
 	// `noop` value for `ctx.op`.
 	Noops *int64 `json:"noops,omitempty"`
@@ -127,8 +127,51 @@ func (s *ReindexTaskResult) UnmarshalJSON(data []byte) error {
 			}
 
 		case "failures":
-			if err := dec.Decode(&s.Failures); err != nil {
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
 				return fmt.Errorf("%s | %w", "Failures", err)
+			}
+		failures_field:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return fmt.Errorf("%s | %w", "Failures", err)
+					}
+
+					switch t {
+
+					case "cause", "id":
+						o := NewBulkIndexByScrollFailure()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Failures", err)
+						}
+						s.Failures = append(s.Failures, o)
+						continue failures_field
+
+					case "node", "primary", "reason", "shard":
+						o := NewShardFailure()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return fmt.Errorf("%s | %w", "Failures", err)
+						}
+						s.Failures = append(s.Failures, o)
+						continue failures_field
+
+					}
+				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Failures", err)
+				}
+				s.Failures = append(s.Failures, o)
 			}
 
 		case "noops":

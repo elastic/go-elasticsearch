@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Run a Fleet search.
 //
@@ -47,6 +47,8 @@ import (
 
 const (
 	indexMask = iota + 1
+
+	slice_Mask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -67,7 +69,8 @@ type Search struct {
 
 	paramSet int
 
-	index string
+	index  string
+	slice_ string
 
 	spanStarted bool
 
@@ -173,6 +176,25 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
+		path.WriteString("/")
+		path.WriteString("_fleet")
+		path.WriteString("/")
+		path.WriteString("_fleet_search")
+
+		method = http.MethodPost
+	case r.paramSet == indexMask|slice_Mask:
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
+		}
+		path.WriteString(r.index)
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "slice_", r.slice_)
+		}
+		path.WriteString(r.slice_)
 		path.WriteString("/")
 		path.WriteString("_fleet")
 		path.WriteString("/")
@@ -328,6 +350,19 @@ func (r *Search) _index(index string) *Search {
 	return r
 }
 
+// Slice_ The slice identifiers for a slice-enabled index (`index.slice.enabled` set to
+// `true`): a single slice, a comma-separated list such as `tenant-a,tenant-b`,
+// or `_all` to target all slices. When omitted, all slices are targeted.
+// Indices that are not slice-enabled match no documents when a slice is
+// specified.
+// API Name: slice_
+func (r *Search) Slice_(slice_ string) *Search {
+	r.paramSet |= slice_Mask
+	r.slice_ = slice_
+
+	return r
+}
+
 // AllowNoIndices A setting that does two separate checks on the index expression. If `false`,
 // the request returns an error (1) if any wildcard expression (including `_all`
 // and `*`) resolves to zero matching indices or (2) if the complete set of
@@ -447,6 +482,8 @@ func (r *Search) RequestCache(requestcache bool) *Search {
 	return r
 }
 
+// Routing A custom value used to route operations to a specific shard. Not allowed when
+// `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 // API name: routing
 func (r *Search) Routing(routings ...string) *Search {
 	r.values.Set("routing", strings.Join(routings, ","))

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 // Open a point in time.
 //
@@ -40,9 +40,13 @@
 // point in time search results, up to the first 10,000 hits. If you want to
 // retrieve more hits, use PIT with `search_after`.
 //
-// IMPORTANT: The open point in time request and each subsequent search request
-// can return different identifiers; always use the most recently received ID
-// for the next search request.
+// IMPORTANT: Each search request against a PIT returns in its response a
+// `pit_id` field which may be different from the identifier you originally
+// supplied. Always use the most recently-received PIT identifier for the next
+// request. If you make concurrent search requests against the same PIT,
+// Elasticsearch can return several different `pit_id` values in its responses.
+// In that case, use any of these values for later requests, preferring more
+// recently-received values whenever possible.
 //
 // When a PIT that contains shard failures is used in a search request, the
 // missing are always reported in the search response as a
@@ -158,9 +162,13 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 // point in time search results, up to the first 10,000 hits. If you want to
 // retrieve more hits, use PIT with `search_after`.
 //
-// IMPORTANT: The open point in time request and each subsequent search request
-// can return different identifiers; always use the most recently received ID
-// for the next search request.
+// IMPORTANT: Each search request against a PIT returns in its response a
+// `pit_id` field which may be different from the identifier you originally
+// supplied. Always use the most recently-received PIT identifier for the next
+// request. If you make concurrent search requests against the same PIT,
+// Elasticsearch can return several different `pit_id` values in its responses.
+// In that case, use any of these values for later requests, preferring more
+// recently-received values whenever possible.
 //
 // When a PIT that contains shard failures is used in a search request, the
 // missing are always reported in the search response as a
@@ -451,10 +459,22 @@ func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	return r
 }
 
-// Routing A custom value that is used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard. Not
+// allowed when `index.slice.enabled` is `true` for the target index; use
+// `_slice` instead.
 // API name: routing
 func (r *OpenPointInTime) Routing(routings ...string) *OpenPointInTime {
 	r.values.Set("routing", strings.Join(routings, ","))
+
+	return r
+}
+
+// RouteSlice The slice identifier for a slice-enabled index (`index.slice.enabled` set to
+// `true`), which scopes the point in time to that slice. When omitted, the
+// point in time covers all slices.
+// API name: _slice
+func (r *OpenPointInTime) RouteSlice(sliceids ...string) *OpenPointInTime {
+	r.values.Set("_slice", strings.Join(sliceids, ","))
 
 	return r
 }

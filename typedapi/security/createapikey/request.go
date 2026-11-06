@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9fcf6a64c550d2e8090c8134867f200b56fd7fc7
+// https://github.com/elastic/elasticsearch-specification/tree/3c28a85a71c6bf5dbfe27404e91d79340ad84f59
 
 package createapikey
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9fcf6a64c550d2e8090c8134867f200b56fd7fc7/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L91
+// https://github.com/elastic/elasticsearch-specification/blob/3c28a85a71c6bf5dbfe27404e91d79340ad84f59/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L94
 type Request struct {
 	// Expiration The expiration time for the API key. By default, API keys never expire.
 	Expiration types.Duration `json:"expiration,omitempty"`
@@ -40,8 +40,9 @@ type Request struct {
 	// nested data structure. Within the metadata object, keys beginning with `_`
 	// are reserved for system usage.
 	Metadata types.Metadata `json:"metadata,omitempty"`
-	// Name A name for the API key.
-	Name *string `json:"name,omitempty"`
+	// Name A name for the API key. It is required, and it cannot be longer than 256
+	// characters, begin or end with whitespace, or begin with an underscore.
+	Name string `json:"name"`
 	// RoleDescriptors An array of role descriptors for this API key. When it is not specified or it
 	// is an empty array, the API key will have a point in time snapshot of
 	// permissions of the authenticated user. If you supply role descriptors, the
