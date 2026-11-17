@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -53,12 +53,13 @@ type GetRequest struct {
 	Index      string
 	DocumentID string
 
+	Slice string
+
 	ForceSyntheticSource *bool
 	Preference           string
 	Realtime             *bool
 	Refresh              *bool
 	Routing              []string
-	Slice                string
 	Source               []string
 	SourceExcludeVectors *bool
 	SourceExcludes       []string
@@ -98,12 +99,19 @@ func (r GetRequest) Do(providedCtx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_doc")
@@ -133,10 +141,6 @@ func (r GetRequest) Do(providedCtx context.Context, transport Transport) (*Respo
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
-	}
-
-	if r.Slice != "" {
-		params["_slice"] = r.Slice
 	}
 
 	if len(r.Source) > 0 {
@@ -245,6 +249,13 @@ func (f Get) WithContext(v context.Context) func(*GetRequest) {
 	}
 }
 
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Get) WithSlice(v string) func(*GetRequest) {
+	return func(r *GetRequest) {
+		r.Slice = v
+	}
+}
+
 // WithForceSyntheticSource - should this request force synthetic _source? use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. fetches with this enabled will be slower the enabling synthetic source natively in the index..
 func (f Get) WithForceSyntheticSource(v bool) func(*GetRequest) {
 	return func(r *GetRequest) {
@@ -277,13 +288,6 @@ func (f Get) WithRefresh(v bool) func(*GetRequest) {
 func (f Get) WithRouting(v ...string) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Routing = v
-	}
-}
-
-// WithSlice - slice routing value, used instead of routing when the index has index.slice.enabled set to true.
-func (f Get) WithSlice(v string) func(*GetRequest) {
-	return func(r *GetRequest) {
-		r.Slice = v
 	}
 }
 

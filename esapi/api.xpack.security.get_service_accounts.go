@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -51,6 +52,9 @@ type SecurityGetServiceAccounts func(o ...func(*SecurityGetServiceAccountsReques
 type SecurityGetServiceAccountsRequest struct {
 	Namespace string
 	Service   string
+
+	DocumentType   []string
+	WithProfileUID *bool
 
 	Pretty     bool
 	Human      bool
@@ -105,6 +109,14 @@ func (r SecurityGetServiceAccountsRequest) Do(providedCtx context.Context, trans
 	}
 
 	params = make(map[string]string)
+
+	if len(r.DocumentType) > 0 {
+		params["type"] = strings.Join(r.DocumentType, ",")
+	}
+
+	if r.WithProfileUID != nil {
+		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUID)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -195,6 +207,20 @@ func (f SecurityGetServiceAccounts) WithNamespace(v string) func(*SecurityGetSer
 func (f SecurityGetServiceAccounts) WithService(v string) func(*SecurityGetServiceAccountsRequest) {
 	return func(r *SecurityGetServiceAccountsRequest) {
 		r.Service = v
+	}
+}
+
+// WithDocumentType - a list of the kinds of service account to return: `built_in` for the built-in accounts that ship with elasticsearch, `user_managed` for the accounts created through this api. defaults to `built_in` when no namespace is given and to `built_in,user_managed` otherwise..
+func (f SecurityGetServiceAccounts) WithDocumentType(v ...string) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
+		r.DocumentType = v
+	}
+}
+
+// WithWithProfileUID - flag to also retrieve the profile uid of each user-managed service account's creator and last updater, if they exist.
+func (f SecurityGetServiceAccounts) WithWithProfileUID(v bool) func(*SecurityGetServiceAccountsRequest) {
+	return func(r *SecurityGetServiceAccountsRequest) {
+		r.WithProfileUID = &v
 	}
 }
 

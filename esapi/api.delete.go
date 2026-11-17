@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -53,6 +53,8 @@ type Delete func(index string, id string, o ...func(*DeleteRequest)) (*Response,
 type DeleteRequest struct {
 	Index      string
 	DocumentID string
+
+	Slice string
 
 	IfPrimaryTerm       *int64
 	IfSeqNo             *int64
@@ -94,12 +96,19 @@ func (r DeleteRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_doc")
@@ -218,6 +227,13 @@ func (r DeleteRequest) Do(providedCtx context.Context, transport Transport) (*Re
 func (f Delete) WithContext(v context.Context) func(*DeleteRequest) {
 	return func(r *DeleteRequest) {
 		r.ctx = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Delete) WithSlice(v string) func(*DeleteRequest) {
+	return func(r *DeleteRequest) {
+		r.Slice = v
 	}
 }
 

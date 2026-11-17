@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -52,8 +52,9 @@ type TransformStartTransform func(transform_id string, o ...func(*TransformStart
 type TransformStartTransformRequest struct {
 	TransformID string
 
-	From    string
-	Timeout time.Duration
+	From         string
+	InitialDelay time.Duration
+	Timeout      time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +103,10 @@ func (r TransformStartTransformRequest) Do(providedCtx context.Context, transpor
 
 	if r.From != "" {
 		params["from"] = r.From
+	}
+
+	if r.InitialDelay != 0 {
+		params["initial_delay"] = formatDuration(r.InitialDelay)
 	}
 
 	if r.Timeout != 0 {
@@ -190,6 +195,13 @@ func (f TransformStartTransform) WithContext(v context.Context) func(*TransformS
 func (f TransformStartTransform) WithFrom(v string) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.From = v
+	}
+}
+
+// WithInitialDelay - one-time reduced sync delay applied until the transform has processed its first document, then it reverts to the steady-state sync.time.delay.
+func (f TransformStartTransform) WithInitialDelay(v time.Duration) func(*TransformStartTransformRequest) {
+	return func(r *TransformStartTransformRequest) {
+		r.InitialDelay = v
 	}
 }
 

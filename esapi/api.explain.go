@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type ExplainRequest struct {
 	DocumentID string
 
 	Body io.Reader
+
+	Slice string
 
 	Analyzer        string
 	AnalyzeWildcard *bool
@@ -100,12 +102,19 @@ func (r ExplainRequest) Do(providedCtx context.Context, transport Transport) (*R
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_explain") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_explain") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_explain")
@@ -254,6 +263,13 @@ func (f Explain) WithContext(v context.Context) func(*ExplainRequest) {
 func (f Explain) WithBody(v io.Reader) func(*ExplainRequest) {
 	return func(r *ExplainRequest) {
 		r.Body = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Explain) WithSlice(v string) func(*ExplainRequest) {
+	return func(r *ExplainRequest) {
+		r.Slice = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -52,9 +52,10 @@ type IndicesSegments func(o ...func(*IndicesSegmentsRequest)) (*Response, error)
 type IndicesSegmentsRequest struct {
 	Index []string
 
-	AllowNoIndices    *bool
-	ExpandWildcards   []string
-	IgnoreUnavailable *bool
+	AllowNoIndices         *bool
+	ExpandWildcards        []string
+	IgnoreUnavailable      *bool
+	IncludeAutoCalibration *bool
 
 	Pretty     bool
 	Human      bool
@@ -111,6 +112,10 @@ func (r IndicesSegmentsRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IncludeAutoCalibration != nil {
+		params["include_auto_calibration"] = strconv.FormatBool(*r.IncludeAutoCalibration)
 	}
 
 	if r.Pretty {
@@ -216,6 +221,13 @@ func (f IndicesSegments) WithExpandWildcards(v ...string) func(*IndicesSegmentsR
 func (f IndicesSegments) WithIgnoreUnavailable(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIncludeAutoCalibration - if set to true, auto-calibration parameters are included per segment for dense_vector fields that support auto-calibration..
+func (f IndicesSegments) WithIncludeAutoCalibration(v bool) func(*IndicesSegmentsRequest) {
+	return func(r *IndicesSegmentsRequest) {
+		r.IncludeAutoCalibration = &v
 	}
 }
 

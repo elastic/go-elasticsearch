@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -57,6 +57,8 @@ type UpdateByQueryRequest struct {
 	Index []string
 
 	Body io.Reader
+
+	Slice []string
 
 	AllowNoIndices      *bool
 	Analyzer            string
@@ -125,12 +127,19 @@ func (r UpdateByQueryRequest) Do(providedCtx context.Context, transport Transpor
 		return nil, errors.New("index is required and cannot be nil or empty")
 	}
 
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_update_by_query"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.Slice, ",")) + 1 + len("_update_by_query"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+	}
+	if len(r.Slice) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Slice, ","))
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", strings.Join(r.Slice, ","))
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_update_by_query")
@@ -350,6 +359,13 @@ func (f UpdateByQuery) WithContext(v context.Context) func(*UpdateByQueryRequest
 func (f UpdateByQuery) WithBody(v io.Reader) func(*UpdateByQueryRequest) {
 	return func(r *UpdateByQueryRequest) {
 		r.Body = v
+	}
+}
+
+// WithSlice - slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). a single slice, a list (for example `tenant-a,tenant-b`), or the reserved token `_all` to update across all slices..
+func (f UpdateByQuery) WithSlice(v ...string) func(*UpdateByQueryRequest) {
+	return func(r *UpdateByQueryRequest) {
+		r.Slice = v
 	}
 }
 

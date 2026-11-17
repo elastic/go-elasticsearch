@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type BulkRequest struct {
 	Index string
 
 	Body io.Reader
+
+	Slice string
 
 	IncludeSourceOnError  *bool
 	ListExecutedPipelines *bool
@@ -100,13 +102,20 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_bulk"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_bulk"))
 	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", r.Index)
+		}
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
 		}
 	}
 	path.WriteString("/")
@@ -251,6 +260,13 @@ func (f Bulk) WithContext(v context.Context) func(*BulkRequest) {
 func (f Bulk) WithIndex(v string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Index = v
+	}
+}
+
+// WithSlice - default slice identifier for a slice-enabled index (`index.slice.enabled=true`); applied to items that don't provide their own.
+func (f Bulk) WithSlice(v string) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.Slice = v
 	}
 }
 

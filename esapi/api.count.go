@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type CountRequest struct {
 	Index []string
 
 	Body io.Reader
+
+	Slice []string
 
 	AllowNoIndices    *bool
 	Analyzer          string
@@ -103,13 +105,20 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_count"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.Slice, ",")) + 1 + len("_count"))
 	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+		}
+	}
+	if len(r.Slice) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Slice, ","))
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", strings.Join(r.Slice, ","))
 		}
 	}
 	path.WriteString("/")
@@ -273,6 +282,13 @@ func (f Count) WithBody(v io.Reader) func(*CountRequest) {
 func (f Count) WithIndex(v ...string) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.Index = v
+	}
+}
+
+// WithSlice - slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). a single slice, a list (for example `tenant-a,tenant-b`), or the reserved token `_all` to count across all slices..
+func (f Count) WithSlice(v ...string) func(*CountRequest) {
+	return func(r *CountRequest) {
+		r.Slice = v
 	}
 }
 
