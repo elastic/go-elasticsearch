@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Storage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/_types/IndexSettings.ts#L548-L559
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/indices/_types/IndexSettings.ts#L563-L574
 type Storage struct {
 	// AllowMmap You can restrict the use of the mmapfs and the related hybridfs store type
 	// via the setting node.store.allow_mmap. This is a boolean setting indicating
@@ -43,8 +43,8 @@ type Storage struct {
 	// the ability to use memory-mapping.
 	AllowMmap *bool `json:"allow_mmap,omitempty"`
 	// StatsRefreshInterval How often store statistics are refreshed
-	StatsRefreshInterval Duration                `json:"stats_refresh_interval,omitempty"`
-	Type                 storagetype.StorageType `json:"type"`
+	StatsRefreshInterval Duration                 `json:"stats_refresh_interval,omitempty"`
+	Type                 *storagetype.StorageType `json:"type,omitempty"`
 }
 
 func (s *Storage) UnmarshalJSON(data []byte) error {

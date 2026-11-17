@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package querywatches
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package querywatches
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/watcher/query_watches/WatcherQueryWatchesRequest.ts#L26-L73
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/watcher/query_watches/WatcherQueryWatchesRequest.ts#L26-L73
 type Request struct {
 	// From The offset from the first result to fetch. It must be non-negative.
 	From *int `json:"from,omitempty"`

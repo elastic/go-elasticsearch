@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // KeepTypesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/analysis/token_filters.ts#L287-L293
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/analysis/token_filters.ts#L287-L293
 type KeepTypesTokenFilter struct {
 	// Mode Indicates whether to keep or remove the specified token types.
 	Mode *keeptypesmode.KeepTypesMode `json:"mode,omitempty"`

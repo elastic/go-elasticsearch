@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package rankeval
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package rankeval
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/rank_eval/RankEvalRequest.ts#L24-L85
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/rank_eval/RankEvalRequest.ts#L24-L85
 type Request struct {
 	// Metric Definition of the evaluation metric to calculate.
 	Metric *types.RankEvalMetric `json:"metric,omitempty"`

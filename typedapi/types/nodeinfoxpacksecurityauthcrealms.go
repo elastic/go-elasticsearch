@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
 // NodeInfoXpackSecurityAuthcRealms type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/nodes/info/types.ts#L281-L285
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/nodes/info/types.ts#L281-L285
 type NodeInfoXpackSecurityAuthcRealms struct {
 	File   map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"file,omitempty"`
 	Native map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"native,omitempty"`

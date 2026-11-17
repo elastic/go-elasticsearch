@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 // Update an anomaly detection job. Updates certain properties of an anomaly
 // detection job.
@@ -459,7 +459,7 @@ func (r *UpdateJob) Description(description string) *UpdateJob {
 	return r
 }
 
-// Detectors An array of detector update objects.
+// Detectors A detector update object or an array of detector update objects.
 // API name: detectors
 func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdate) *UpdateJob {
 	if r.req == nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -29,9 +29,11 @@ import (
 	"strconv"
 )
 
-// UpdateAction type.
+// The source line that must follow an `update` action line. It specifies the
+// partial document, script, or upsert options to apply, plus optional update
+// settings.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L182-L217
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L258-L305
 type UpdateAction struct {
 	// DetectNoop If true, the `result` in the response is set to 'noop' when no changes to the
 	// document occur.
@@ -40,6 +42,10 @@ type UpdateAction struct {
 	Doc json.RawMessage `json:"doc,omitempty"`
 	// DocAsUpsert Set to `true` to use the contents of `doc` as the value of `upsert`.
 	DocAsUpsert *bool `json:"doc_as_upsert,omitempty"`
+	// IfPrimaryTerm Only perform the update if the document has this primary term.
+	IfPrimaryTerm *int64 `json:"if_primary_term,omitempty"`
+	// IfSeqNo Only perform the update if the document has this sequence number.
+	IfSeqNo *int64 `json:"if_seq_no,omitempty"`
 	// Script The script to run to update the document.
 	Script *Script `json:"script,omitempty"`
 	// ScriptedUpsert Set to `true` to run the script whether or not the document exists.
@@ -98,6 +104,26 @@ func (s *UpdateAction) UnmarshalJSON(data []byte) error {
 				s.DocAsUpsert = &value
 			case bool:
 				s.DocAsUpsert = &v
+			}
+
+		case "if_primary_term":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IfPrimaryTerm", err)
+				}
+				s.IfPrimaryTerm = &value
+			case float64:
+				f := int64(v)
+				s.IfPrimaryTerm = &f
+			}
+
+		case "if_seq_no":
+			if err := dec.Decode(&s.IfSeqNo); err != nil {
+				return fmt.Errorf("%s | %w", "IfSeqNo", err)
 			}
 
 		case "script":

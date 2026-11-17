@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package putcomponenttemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putcomponenttemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L25-L112
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L25-L112
 type Request struct {
 	// Deprecated Marks this index template as deprecated. When creating or updating a
 	// non-deprecated index template that uses deprecated components, Elasticsearch

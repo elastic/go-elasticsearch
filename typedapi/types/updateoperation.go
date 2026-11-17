@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -27,13 +27,11 @@ import (
 	"fmt"
 	"io"
 	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
 // UpdateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L146-L156
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L196-L227
 type UpdateOperation struct {
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
@@ -41,15 +39,26 @@ type UpdateOperation struct {
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
 	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
+	// ListExecutedPipelines If `true`, the response includes the ingest pipelines that were run for the
+	// `upsert` document, if one is created.
+	ListExecutedPipelines *bool `json:"list_executed_pipelines,omitempty"`
+	// Pipeline The ID of the pipeline to use to preprocess the `upsert` document, if one is
+	// created. If the index has a default ingest pipeline specified, setting the
+	// value to `_none` turns off the default ingest pipeline for this request. If a
+	// final pipeline is configured, it will always run regardless of the value of
+	// this parameter.
+	Pipeline *string `json:"pipeline,omitempty"`
 	// RequireAlias If `true`, the request's actions must target an index alias.
 	RequireAlias *bool `json:"require_alias,omitempty"`
 	// RetryOnConflict The number of times an update should be retried in the case of a version
 	// conflict.
 	RetryOnConflict *int `json:"retry_on_conflict,omitempty"`
 	// Routing A custom value used to route operations to a specific shard.
-	Routing     *string                  `json:"routing,omitempty"`
-	Version     *int64                   `json:"version,omitempty"`
-	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
+	Routing *string `json:"routing,omitempty"`
+	// Source_ If `false`, source retrieval is turned off. You can also specify a
+	// comma-separated list of the fields you want to retrieve. If set, it overrides
+	// the `_source` value in the update source line.
+	Source_ SourceConfig `json:"_source,omitempty"`
 }
 
 func (s *UpdateOperation) UnmarshalJSON(data []byte) error {
@@ -97,6 +106,32 @@ func (s *UpdateOperation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
+		case "list_executed_pipelines":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ListExecutedPipelines", err)
+				}
+				s.ListExecutedPipelines = &value
+			case bool:
+				s.ListExecutedPipelines = &v
+			}
+
+		case "pipeline":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Pipeline", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Pipeline = &o
+
 		case "require_alias":
 			var tmp any
 			dec.Decode(&tmp)
@@ -132,14 +167,40 @@ func (s *UpdateOperation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
-		case "version":
-			if err := dec.Decode(&s.Version); err != nil {
-				return fmt.Errorf("%s | %w", "Version", err)
+		case "_source":
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		source__field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Source_", err)
+				}
 
-		case "version_type":
-			if err := dec.Decode(&s.VersionType); err != nil {
-				return fmt.Errorf("%s | %w", "VersionType", err)
+				switch t {
+
+				case "exclude_vectors", "excludes", "includes":
+					o := NewSourceFilter()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Source_", err)
+					}
+					s.Source_ = o
+					break source__field
+
+				}
+			}
+			if s.Source_ == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Source_); err != nil {
+					return fmt.Errorf("%s | %w", "Source_", err)
+				}
 			}
 
 		}

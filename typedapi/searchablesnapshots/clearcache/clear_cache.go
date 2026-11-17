@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
-// Clear the cache. Clear indices and data streams from the shared cache for
-// partially mounted indices.
+// Clear the searchable snapshots shared cache.
+//
+// Clear indices and data streams from the shared cache for partially mounted
+// indices.
 package clearcache
 
 import (
@@ -76,8 +78,10 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 	}
 }
 
-// Clear the cache. Clear indices and data streams from the shared cache for
-// partially mounted indices.
+// Clear the searchable snapshots shared cache.
+//
+// Clear indices and data streams from the shared cache for partially mounted
+// indices.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-api-clear-cache.html
 func New(tp elastictransport.Interface) *ClearCache {

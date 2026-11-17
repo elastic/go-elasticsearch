@@ -16,18 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
 // Groupings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/rollup/_types/Groupings.ts#L24-L40
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/rollup/_types/Groupings.ts#L24-L40
 type Groupings struct {
 	// DateHistogram A date histogram group aggregates a date field into time-based buckets. This
 	// group is mandatory; you currently cannot roll up documents without a
 	// timestamp and a `date_histogram` group.
-	DateHistogram *DateHistogramGrouping `json:"date_histogram,omitempty"`
+	DateHistogram DateHistogramGrouping `json:"date_histogram"`
 	// Histogram The histogram group aggregates one or more numeric fields into numeric
 	// histogram intervals.
 	Histogram *HistogramGrouping `json:"histogram,omitempty"`

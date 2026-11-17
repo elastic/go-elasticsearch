@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L37-L84
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L38-L88
 type ResponseItem struct {
 	// Error Additional information about the failed operation. The property is returned
 	// only for failed operations.
@@ -41,7 +41,13 @@ type ResponseItem struct {
 	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
 	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`
 	Get           *InlineGetDictUserDefined              `json:"get,omitempty"`
-	// Id_ The document ID associated with the operation.
+	// Id_ The document ID associated with the operation. It is `null` when an `index`
+	// or `create` operation without an explicit `_id` fails before Elasticsearch
+	// generates an ID for the document. Elasticsearch generates the ID when it
+	// routes the document to a shard, so the ID is still `null` for failures that
+	// happen earlier, such as an ingest pipeline error, a missing or closed target
+	// index, a failed `require_alias` or `require_data_stream` check, or missing
+	// required routing. `update` and `delete` operations always include an ID.
 	Id_ *string `json:"_id,omitempty"`
 	// Index_ The name of the index associated with the operation. If the operation
 	// targeted a data stream, this is the backing index into which the document was

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -31,6 +31,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/subobjects"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/syntheticsourcekeepenum"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termvectoroption"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
@@ -38,25 +39,27 @@ import (
 
 // DynamicProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/mapping/core.ts#L366-L397
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/mapping/core.ts#L367-L407
 type DynamicProperty struct {
-	Analyzer            *string                        `json:"analyzer,omitempty"`
-	Boost               *Float64                       `json:"boost,omitempty"`
-	Coerce              *bool                          `json:"coerce,omitempty"`
-	CopyTo              []string                       `json:"copy_to,omitempty"`
-	DocValues           *bool                          `json:"doc_values,omitempty"`
-	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
-	Enabled             *bool                          `json:"enabled,omitempty"`
-	Fields              map[string]Property            `json:"fields,omitempty"`
-	Format              *string                        `json:"format,omitempty"`
-	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
-	IgnoreMalformed     *bool                          `json:"ignore_malformed,omitempty"`
-	Index               *bool                          `json:"index,omitempty"`
-	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
-	IndexPhrases        *bool                          `json:"index_phrases,omitempty"`
-	IndexPrefixes       *TextIndexPrefixes             `json:"index_prefixes,omitempty"`
-	Locale              *string                        `json:"locale,omitempty"`
+	Analyzer                 *string                        `json:"analyzer,omitempty"`
+	Boost                    *Float64                       `json:"boost,omitempty"`
+	Coerce                   *bool                          `json:"coerce,omitempty"`
+	CopyTo                   []string                       `json:"copy_to,omitempty"`
+	DocValues                *bool                          `json:"doc_values,omitempty"`
+	Dynamic                  *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	EagerGlobalOrdinals      *bool                          `json:"eager_global_ordinals,omitempty"`
+	Enabled                  *bool                          `json:"enabled,omitempty"`
+	Fielddata                *bool                          `json:"fielddata,omitempty"`
+	FielddataFrequencyFilter *FielddataFrequencyFilter      `json:"fielddata_frequency_filter,omitempty"`
+	Fields                   map[string]Property            `json:"fields,omitempty"`
+	Format                   *string                        `json:"format,omitempty"`
+	IgnoreAbove              *int                           `json:"ignore_above,omitempty"`
+	IgnoreMalformed          *bool                          `json:"ignore_malformed,omitempty"`
+	Index                    *bool                          `json:"index,omitempty"`
+	IndexOptions             *indexoptions.IndexOptions     `json:"index_options,omitempty"`
+	IndexPhrases             *bool                          `json:"index_phrases,omitempty"`
+	IndexPrefixes            *TextIndexPrefixes             `json:"index_prefixes,omitempty"`
+	Locale                   *string                        `json:"locale,omitempty"`
 	// Meta Metadata about the field.
 	Meta                 map[string]string                                `json:"meta,omitempty"`
 	Norms                *bool                                            `json:"norms,omitempty"`
@@ -68,9 +71,12 @@ type DynamicProperty struct {
 	Script               *Script                                          `json:"script,omitempty"`
 	SearchAnalyzer       *string                                          `json:"search_analyzer,omitempty"`
 	SearchQuoteAnalyzer  *string                                          `json:"search_quote_analyzer,omitempty"`
+	Similarity           *string                                          `json:"similarity,omitempty"`
 	Store                *bool                                            `json:"store,omitempty"`
+	Subobjects           *subobjects.Subobjects                           `json:"subobjects,omitempty"`
 	SyntheticSourceKeep  *syntheticsourcekeepenum.SyntheticSourceKeepEnum `json:"synthetic_source_keep,omitempty"`
 	TermVector           *termvectoroption.TermVectorOption               `json:"term_vector,omitempty"`
+	TimeSeriesDimension  *bool                                            `json:"time_series_dimension,omitempty"`
 	TimeSeriesMetric     *timeseriesmetrictype.TimeSeriesMetricType       `json:"time_series_metric,omitempty"`
 	Type                 string                                           `json:"type,omitempty"`
 }
@@ -193,6 +199,25 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 				s.Enabled = &value
 			case bool:
 				s.Enabled = &v
+			}
+
+		case "fielddata":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Fielddata", err)
+				}
+				s.Fielddata = &value
+			case bool:
+				s.Fielddata = &v
+			}
+
+		case "fielddata_frequency_filter":
+			if err := dec.Decode(&s.FielddataFrequencyFilter); err != nil {
+				return fmt.Errorf("%s | %w", "FielddataFrequencyFilter", err)
 			}
 
 		case "fields":
@@ -1054,6 +1079,18 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 			}
 			s.SearchQuoteAnalyzer = &o
 
+		case "similarity":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Similarity", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Similarity = &o
+
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -1068,6 +1105,11 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 				s.Store = &v
 			}
 
+		case "subobjects":
+			if err := dec.Decode(&s.Subobjects); err != nil {
+				return fmt.Errorf("%s | %w", "Subobjects", err)
+			}
+
 		case "synthetic_source_keep":
 			if err := dec.Decode(&s.SyntheticSourceKeep); err != nil {
 				return fmt.Errorf("%s | %w", "SyntheticSourceKeep", err)
@@ -1076,6 +1118,20 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 		case "term_vector":
 			if err := dec.Decode(&s.TermVector); err != nil {
 				return fmt.Errorf("%s | %w", "TermVector", err)
+			}
+
+		case "time_series_dimension":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TimeSeriesDimension", err)
+				}
+				s.TimeSeriesDimension = &value
+			case bool:
+				s.TimeSeriesDimension = &v
 			}
 
 		case "time_series_metric":
@@ -1097,38 +1153,43 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 func (s DynamicProperty) MarshalJSON() ([]byte, error) {
 	type innerDynamicProperty DynamicProperty
 	tmp := innerDynamicProperty{
-		Analyzer:             s.Analyzer,
-		Boost:                s.Boost,
-		Coerce:               s.Coerce,
-		CopyTo:               s.CopyTo,
-		DocValues:            s.DocValues,
-		Dynamic:              s.Dynamic,
-		EagerGlobalOrdinals:  s.EagerGlobalOrdinals,
-		Enabled:              s.Enabled,
-		Fields:               s.Fields,
-		Format:               s.Format,
-		IgnoreAbove:          s.IgnoreAbove,
-		IgnoreMalformed:      s.IgnoreMalformed,
-		Index:                s.Index,
-		IndexOptions:         s.IndexOptions,
-		IndexPhrases:         s.IndexPhrases,
-		IndexPrefixes:        s.IndexPrefixes,
-		Locale:               s.Locale,
-		Meta:                 s.Meta,
-		Norms:                s.Norms,
-		NullValue:            s.NullValue,
-		OnScriptError:        s.OnScriptError,
-		PositionIncrementGap: s.PositionIncrementGap,
-		PrecisionStep:        s.PrecisionStep,
-		Properties:           s.Properties,
-		Script:               s.Script,
-		SearchAnalyzer:       s.SearchAnalyzer,
-		SearchQuoteAnalyzer:  s.SearchQuoteAnalyzer,
-		Store:                s.Store,
-		SyntheticSourceKeep:  s.SyntheticSourceKeep,
-		TermVector:           s.TermVector,
-		TimeSeriesMetric:     s.TimeSeriesMetric,
-		Type:                 s.Type,
+		Analyzer:                 s.Analyzer,
+		Boost:                    s.Boost,
+		Coerce:                   s.Coerce,
+		CopyTo:                   s.CopyTo,
+		DocValues:                s.DocValues,
+		Dynamic:                  s.Dynamic,
+		EagerGlobalOrdinals:      s.EagerGlobalOrdinals,
+		Enabled:                  s.Enabled,
+		Fielddata:                s.Fielddata,
+		FielddataFrequencyFilter: s.FielddataFrequencyFilter,
+		Fields:                   s.Fields,
+		Format:                   s.Format,
+		IgnoreAbove:              s.IgnoreAbove,
+		IgnoreMalformed:          s.IgnoreMalformed,
+		Index:                    s.Index,
+		IndexOptions:             s.IndexOptions,
+		IndexPhrases:             s.IndexPhrases,
+		IndexPrefixes:            s.IndexPrefixes,
+		Locale:                   s.Locale,
+		Meta:                     s.Meta,
+		Norms:                    s.Norms,
+		NullValue:                s.NullValue,
+		OnScriptError:            s.OnScriptError,
+		PositionIncrementGap:     s.PositionIncrementGap,
+		PrecisionStep:            s.PrecisionStep,
+		Properties:               s.Properties,
+		Script:                   s.Script,
+		SearchAnalyzer:           s.SearchAnalyzer,
+		SearchQuoteAnalyzer:      s.SearchQuoteAnalyzer,
+		Similarity:               s.Similarity,
+		Store:                    s.Store,
+		Subobjects:               s.Subobjects,
+		SyntheticSourceKeep:      s.SyntheticSourceKeep,
+		TermVector:               s.TermVector,
+		TimeSeriesDimension:      s.TimeSeriesDimension,
+		TimeSeriesMetric:         s.TimeSeriesMetric,
+		Type:                     s.Type,
 	}
 
 	tmp.Type = "{dynamic_type}"

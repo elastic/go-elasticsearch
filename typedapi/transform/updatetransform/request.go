@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package updatetransform
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatetransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L115
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L115
 type Request struct {
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`

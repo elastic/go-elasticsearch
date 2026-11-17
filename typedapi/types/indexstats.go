@@ -16,17 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
 // IndexStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/stats/types.ts#L52-L93
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/indices/stats/types.ts#L53-L98
 type IndexStats struct {
 	Bulk *BulkStats `json:"bulk,omitempty"`
 	// Completion Contains statistics about completions across all shards assigned to the node.
 	Completion *CompletionStats `json:"completion,omitempty"`
+	// DenseVector Contains statistics about the dense vectors in the index.
+	DenseVector *DenseVectorStats `json:"dense_vector,omitempty"`
 	// Docs Contains statistics about documents across all primary shards assigned to the
 	// node.
 	Docs *DocStats `json:"docs,omitempty"`
@@ -58,6 +60,8 @@ type IndexStats struct {
 	// Segments Contains statistics about segments across all shards assigned to the node.
 	Segments   *SegmentsStats    `json:"segments,omitempty"`
 	ShardStats *ShardsTotalStats `json:"shard_stats,omitempty"`
+	// SparseVector Contains statistics about the sparse vectors in the index.
+	SparseVector *SparseVectorStats `json:"sparse_vector,omitempty"`
 	// Store Contains statistics about the size of shards assigned to the node.
 	Store *StoreStats `json:"store,omitempty"`
 	// Translog Contains statistics about transaction log operations for the node.

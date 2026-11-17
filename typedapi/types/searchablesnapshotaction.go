@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -31,10 +31,19 @@ import (
 
 // SearchableSnapshotAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ilm/_types/Phase.ts#L128-L131
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/ilm/_types/Phase.ts#L128-L146
 type SearchableSnapshotAction struct {
-	ForceMergeIndex    *bool  `json:"force_merge_index,omitempty"`
-	SnapshotRepository string `json:"snapshot_repository"`
+	ForceMergeIndex *bool `json:"force_merge_index,omitempty"`
+	// ReplicateFor The period for which the mounted index keeps one replica before the replica
+	// is removed. By default, the index is mounted without replicas. Must be
+	// positive. Only the first `searchable_snapshot` action in a policy may set
+	// this. It must fit before the next phase starts: for example, if this phase
+	// has a `min_age` of 5d and the next phase has 12d, it can be at most 7d.
+	ReplicateFor       Duration `json:"replicate_for,omitempty"`
+	SnapshotRepository string   `json:"snapshot_repository"`
+	// TotalShardsPerNode The maximum number of shards, including primaries and replicas, that can be
+	// allocated to any single node for the mounted index. Must be at least 1.
+	TotalShardsPerNode *int `json:"total_shards_per_node,omitempty"`
 }
 
 func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
@@ -66,6 +75,11 @@ func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
 				s.ForceMergeIndex = &v
 			}
 
+		case "replicate_for":
+			if err := dec.Decode(&s.ReplicateFor); err != nil {
+				return fmt.Errorf("%s | %w", "ReplicateFor", err)
+			}
+
 		case "snapshot_repository":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -77,6 +91,22 @@ func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.SnapshotRepository = o
+
+		case "total_shards_per_node":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalShardsPerNode", err)
+				}
+				s.TotalShardsPerNode = &value
+			case float64:
+				f := int(v)
+				s.TotalShardsPerNode = &f
+			}
 
 		}
 	}

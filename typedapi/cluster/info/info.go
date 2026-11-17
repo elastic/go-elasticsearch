@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
-// Get cluster info. Returns basic information about the cluster.
+// Get cluster subsystem info.
+//
+// Returns basic information about the cluster.
 package info
 
 import (
@@ -76,7 +78,9 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Get cluster info. Returns basic information about the cluster.
+// Get cluster subsystem info.
+//
+// Returns basic information about the cluster.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-info.html
 func New(tp elastictransport.Interface) *Info {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexSettingsUnassignedNodeLeft type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/indices/_types/IndexSettings.ts#L338-L345
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/indices/_types/IndexSettings.ts#L339-L346
 type IndexSettingsUnassignedNodeLeft struct {
 	// DelayedTimeout The amount of time to wait for a node that has left before assuming its
 	// shards are permanently missing and starting to allocate replacement replicas.

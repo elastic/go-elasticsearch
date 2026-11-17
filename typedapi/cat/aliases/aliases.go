@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
-// Get aliases.
+// Get a compact list of aliases.
 //
 // Get the cluster's index aliases, including filter and routing information.
 // This API does not return data stream aliases.
@@ -85,7 +85,7 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 	}
 }
 
-// Get aliases.
+// Get a compact list of aliases.
 //
 // Get the cluster's index aliases, including filter and routing information.
 // This API does not return data stream aliases.

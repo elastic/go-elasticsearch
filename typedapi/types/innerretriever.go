@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,11 +33,17 @@ import (
 
 // InnerRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/Retriever.ts#L85-L89
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/Retriever.ts#L85-L101
 type InnerRetriever struct {
-	Normalizer scorenormalizer.ScoreNormalizer `json:"normalizer"`
-	Retriever  RetrieverContainer              `json:"retriever"`
-	Weight     float32                         `json:"weight"`
+	// Normalizer Score normalizer to apply to this retriever's results before weighting. Falls
+	// back to the top-level `normalizer` on the linear retriever if unset, then to
+	// `none` (identity) if neither is set.
+	Normalizer *scorenormalizer.ScoreNormalizer `json:"normalizer,omitempty"`
+	// Retriever The nested retriever configuration.
+	Retriever RetrieverContainer `json:"retriever"`
+	// Weight Weight multiplier for this retriever's contribution to the linear
+	// combination. Must be non-negative.
+	Weight *float32 `json:"weight,omitempty"`
 }
 
 func (s *InnerRetriever) UnmarshalJSON(data []byte) error {
@@ -75,10 +81,10 @@ func (s *InnerRetriever) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Weight", err)
 				}
 				f := float32(value)
-				s.Weight = f
+				s.Weight = &f
 			case float64:
 				f := float32(v)
-				s.Weight = f
+				s.Weight = &f
 			}
 
 		}

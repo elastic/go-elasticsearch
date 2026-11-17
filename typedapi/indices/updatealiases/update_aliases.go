@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
-// Create or update an alias. Adds a data stream or index to an alias.
+// Update aliases and delete indices atomically.
+//
+// Adds a data stream or index to an alias.
 package updatealiases
 
 import (
@@ -73,7 +75,9 @@ func NewUpdateAliasesFunc(tp elastictransport.Interface) NewUpdateAliases {
 	}
 }
 
-// Create or update an alias. Adds a data stream or index to an alias.
+// Update aliases and delete indices atomically.
+//
+// Adds a data stream or index to an alias.
 //
 // https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-update-aliases
 func New(tp elastictransport.Interface) *UpdateAliases {

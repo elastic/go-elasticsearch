@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package putdataframeanalytics
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L36-L163
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L36-L163
 type Request struct {
 	// AllowLazyStart Specifies whether this job can start when there is insufficient machine
 	// learning node capacity for it to be immediately assigned to a node. If set to

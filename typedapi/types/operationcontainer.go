@@ -16,13 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
-// OperationContainer type.
+// An action line, which is the first line of each operation in a bulk request.
+// It specifies the action to perform (`index`, `create`, `update`, or `delete`)
+// and its metadata, such as the target index and document ID. All actions
+// except `delete` expect a source line to follow.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L158-L180
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L229-L256
 type OperationContainer struct {
 	// Create Index the specified document if it does not already exist. The following line
 	// must contain the source data to be indexed.
