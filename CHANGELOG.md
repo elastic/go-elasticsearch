@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.19.8](https://github.com/elastic/go-elasticsearch/compare/v8.19.7...v8.19.8) (2026-11-17)
+
+
+### Features
+
+* **esapi:** Update 8.19 client from spec fe0276c ([#1610](https://github.com/elastic/go-elasticsearch/issues/1610)) ([8252744](https://github.com/elastic/go-elasticsearch/commit/825274468e2359ab0824560bceed5db4c69572e8))
+* **Typed API:** Update 8.19 client from spec fd5d063 ([#1580](https://github.com/elastic/go-elasticsearch/issues/1580)) ([e717101](https://github.com/elastic/go-elasticsearch/commit/e717101026bacd7b1b583b90d29a25fecc5ae05a))
+
 ## [8.19.7](https://github.com/elastic/go-elasticsearch/compare/v8.19.6...v8.19.7) (2026-07-20)
 
 
