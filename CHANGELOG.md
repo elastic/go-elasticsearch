@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.5.3](https://github.com/elastic/go-elasticsearch/compare/v9.5.2...v9.5.3) (2026-11-17)
+
+
+### Features
+
+* **esapi:** Update 9.5 client from spec 44a96f7 ([#1612](https://github.com/elastic/go-elasticsearch/issues/1612)) ([08d45e1](https://github.com/elastic/go-elasticsearch/commit/08d45e1e5f190ee4f9ffc8d3fb77c9fbeb6a1d76))
+* **Typed API:** Update 9.5 client from spec 1cdb031 ([#1605](https://github.com/elastic/go-elasticsearch/issues/1605)) ([13ca461](https://github.com/elastic/go-elasticsearch/commit/13ca461f4a379afbaa007db3b30e051eba5fa9a1))
+
 ## [9.5.2](https://github.com/elastic/go-elasticsearch/compare/v9.5.1...v9.5.2) (2026-09-01)
 
 
