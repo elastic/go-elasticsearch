@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.4.4](https://github.com/elastic/go-elasticsearch/compare/v9.4.3...v9.4.4) (2026-11-17)
+
+
+### Features
+
+* **esapi:** Update 9.4 client from spec b7633b5 ([#1611](https://github.com/elastic/go-elasticsearch/issues/1611)) ([ef65554](https://github.com/elastic/go-elasticsearch/commit/ef6555417a9b7ad2e8b2cb50692c7699b0daa87a))
+* **Typed API:** Update 9.4 client from spec c20dd2a ([#1581](https://github.com/elastic/go-elasticsearch/issues/1581)) ([50ec77f](https://github.com/elastic/go-elasticsearch/commit/50ec77f260c6da9a835779a2b7397eade01c84fa))
+
 ## [9.4.3](https://github.com/elastic/go-elasticsearch/compare/v9.4.2...v9.4.3) (2026-08-04)
 
 
