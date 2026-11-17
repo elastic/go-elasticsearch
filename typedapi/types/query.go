@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -31,7 +31,7 @@ import (
 // An Elasticsearch Query DSL (Domain Specific Language) object that defines a
 // query.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/_types/query_dsl/abstractions.ts#L97-L428
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/_types/query_dsl/abstractions.ts#L98-L437
 type Query struct {
 	AdditionalQueryProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches documents matching boolean combinations of other queries.
@@ -90,6 +90,9 @@ type Query struct {
 	// metric. knn query finds nearest vectors through approximate search on indexed
 	// dense_vectors.
 	Knn *KnnQuery `json:"knn,omitempty"`
+	// Kql Returns documents matching a provided Kibana Query Language (KQL) expression.
+	// The expression is parsed and rewritten into standard Query DSL.
+	Kql *KqlQuery `json:"kql,omitempty"`
 	// Match Returns documents that match a provided text, number, date or boolean value.
 	// The provided text is analyzed before matching.
 	Match map[string]MatchQuery `json:"match,omitempty"`
@@ -334,6 +337,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "knn":
 			if err := dec.Decode(&s.Knn); err != nil {
 				return fmt.Errorf("%s | %w", "Knn", err)
+			}
+
+		case "kql":
+			if err := dec.Decode(&s.Kql); err != nil {
+				return fmt.Errorf("%s | %w", "Kql", err)
 			}
 
 		case "match":

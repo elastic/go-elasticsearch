@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // An object representing part of the conversation.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/inference/_types/CommonTypes.ts#L300-L393
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/inference/_types/CommonTypes.ts#L303-L396
 type Message struct {
 	// Content The content of the message.
 	//
@@ -125,8 +125,39 @@ func (s *Message) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "content":
-			if err := dec.Decode(&s.Content); err != nil {
-				return fmt.Errorf("%s | %w", "Content", err)
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			kind := make(map[string]string, 0)
+			localDec := json.NewDecoder(source)
+			localDec.Decode(&kind)
+			source.Seek(0, io.SeekStart)
+
+			switch kind["type"] {
+
+			case "text":
+				o := NewTextContent()
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "text", err)
+				}
+				s.Content = *o
+			case "image_url":
+				o := NewImageUrlContent()
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "image_url", err)
+				}
+				s.Content = *o
+			case "file":
+				o := NewFileContentPart()
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "file", err)
+				}
+				s.Content = *o
+			default:
+				if err := localDec.Decode(&s.Content); err != nil {
+					return fmt.Errorf("Content | %w", err)
+				}
 			}
 
 		case "reasoning":

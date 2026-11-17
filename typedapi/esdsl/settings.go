@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -56,6 +56,13 @@ func (s *_settings) DeduceMappings(deducemappings bool) *_settings {
 func (s *_settings) DocsPerSecond(docspersecond float32) *_settings {
 
 	s.v.DocsPerSecond = &docspersecond
+
+	return s
+}
+
+func (s *_settings) IndexerRequestTimeout(indexerrequesttimeout types.DurationVariant) *_settings {
+
+	s.v.IndexerRequestTimeout = *indexerrequesttimeout.DurationCaster()
 
 	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package typedapi
 
@@ -445,6 +445,7 @@ import (
 	project_get_many_routing "github.com/elastic/go-elasticsearch/v9/typedapi/project/getmanyrouting"
 	project_get_routing "github.com/elastic/go-elasticsearch/v9/typedapi/project/getrouting"
 	project_tags "github.com/elastic/go-elasticsearch/v9/typedapi/project/tags"
+	prometheus_status_buildinfo "github.com/elastic/go-elasticsearch/v9/typedapi/prometheus/statusbuildinfo"
 	query_rules_delete_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleterule"
 	query_rules_delete_ruleset "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/deleteruleset"
 	query_rules_get_rule "github.com/elastic/go-elasticsearch/v9/typedapi/queryrules/getrule"
@@ -708,7 +709,7 @@ type Autoscaling struct {
 }
 
 type Cat struct {
-	// Get aliases.
+	// Get a compact list of aliases.
 	//
 	// Get the cluster's index aliases, including filter and routing information.
 	// This API does not return data stream aliases.
@@ -730,7 +731,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications.
 	CircuitBreaker cat_circuit_breaker.NewCircuitBreaker
-	// Get component templates.
+	// Get a compact list of component templates.
 	//
 	// Get information about component templates in a cluster. Component templates
 	// are building blocks for constructing index templates that specify index
@@ -763,7 +764,7 @@ type Cat struct {
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes stats API.
 	Fielddata cat_fielddata.NewFielddata
-	// Get the cluster health status.
+	// Get a compact cluster health summary.
 	//
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
@@ -781,7 +782,7 @@ type Cat struct {
 	//
 	// Get help for the CAT APIs.
 	Help cat_help.NewHelp
-	// Get index information.
+	// Get a compact list of indices.
 	//
 	// Get high-level information about indices in a cluster, including backing
 	// indices for data streams.
@@ -869,7 +870,7 @@ type Cat struct {
 	// are not intended for use by applications. For application consumption, use
 	// the nodes info API.
 	Nodeattrs cat_nodeattrs.NewNodeattrs
-	// Get node information.
+	// Get a compact list of nodes.
 	//
 	// Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 	// intended for human consumption using the command line or Kibana console. They
@@ -901,7 +902,7 @@ type Cat struct {
 	// using the command line or Kibana console. They are not intended for use by
 	// applications. For application consumption, use the index recovery API.
 	Recovery cat_recovery.NewRecovery
-	// Get snapshot repository information.
+	// Get a compact list of snapshot repositories.
 	//
 	// Get a list of snapshot repositories for a cluster. IMPORTANT: cat APIs are
 	// only intended for human consumption using the command line or Kibana console.
@@ -923,7 +924,7 @@ type Cat struct {
 	// intended for human consumption using the command line or Kibana console. They
 	// are not intended for use by applications.
 	Shards cat_shards.NewShards
-	// Get snapshot information.
+	// Get a compact list of snapshots.
 	//
 	// Get information about the snapshots stored in one or more repositories. A
 	// snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -931,7 +932,7 @@ type Cat struct {
 	// Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get snapshot API.
 	Snapshots cat_snapshots.NewSnapshots
-	// Get task information.
+	// Get a compact list of running tasks.
 	//
 	// Get information about tasks currently running in the cluster. IMPORTANT: cat
 	// APIs are only intended for human consumption using the command line or Kibana
@@ -1134,7 +1135,7 @@ type Cluster struct {
 	// reaches a certain high watermark health level. The cluster status is
 	// controlled by the worst index status.
 	Health cluster_health.NewHealth
-	// Get cluster info.
+	// Get cluster subsystem info.
 	//
 	// Returns basic information about the cluster.
 	Info cluster_info.NewInfo
@@ -3870,7 +3871,7 @@ type Indices struct {
 	//
 	// Get setting information for one or more data streams.
 	GetDataStreamSettings indices_get_data_stream_settings.NewGetDataStreamSettings
-	// Get mapping definitions.
+	// Get field mapping definitions.
 	//
 	// Retrieves mapping definitions for one or more fields. For data streams, the
 	// API retrieves field mappings for the stream’s backing indices.
@@ -4545,7 +4546,7 @@ type Indices struct {
 	// cleared. Although the shard is no longer part of the node, that node retains
 	// any node-level statistics to which the shard contributed.
 	Stats indices_stats.NewStats
-	// Create or update an alias.
+	// Update aliases and delete indices atomically.
 	//
 	// Adds a data stream or index to an alias.
 	UpdateAliases indices_update_aliases.NewUpdateAliases
@@ -5747,6 +5748,16 @@ type Project struct {
 	Tags project_tags.NewTags
 }
 
+type Prometheus struct {
+	// Get Prometheus build information.
+	//
+	// Get Elasticsearch build information in the format of the Prometheus
+	// `/api/v1/status/buildinfo` endpoint. Prometheus-compatible clients, such as
+	// Grafana, call this endpoint to identify the backend and the features it
+	// supports.
+	StatusBuildinfo prometheus_status_buildinfo.NewStatusBuildinfo
+}
+
 type QueryRules struct {
 	// Delete a query rule.
 	//
@@ -5998,7 +6009,7 @@ type SearchableSnapshots struct {
 	//
 	// Get statistics about the shared cache for partially mounted indices.
 	CacheStats searchable_snapshots_cache_stats.NewCacheStats
-	// Clear the cache.
+	// Clear the searchable snapshots shared cache.
 	//
 	// Clear indices and data streams from the shared cache for partially mounted
 	// indices.
@@ -8046,6 +8057,7 @@ type API struct {
 	Nodes               Nodes
 	Profiling           Profiling
 	Project             Project
+	Prometheus          Prometheus
 	QueryRules          QueryRules
 	Rollup              Rollup
 	SearchApplication   SearchApplication
@@ -10133,6 +10145,10 @@ func New(tp elastictransport.Interface) *API {
 			Tags:              project_tags.NewTagsFunc(tp),
 		},
 
+		Prometheus: Prometheus{
+			StatusBuildinfo: prometheus_status_buildinfo.NewStatusBuildinfoFunc(tp),
+		},
+
 		QueryRules: QueryRules{
 			DeleteRule:    query_rules_delete_rule.NewDeleteRuleFunc(tp),
 			DeleteRuleset: query_rules_delete_ruleset.NewDeleteRulesetFunc(tp),
@@ -10520,6 +10536,10 @@ type MethodProject struct {
 	tp elastictransport.Interface
 }
 
+type MethodPrometheus struct {
+	tp elastictransport.Interface
+}
+
 type MethodQueryRules struct {
 	tp elastictransport.Interface
 }
@@ -10621,6 +10641,7 @@ type MethodAPI struct {
 	Nodes               MethodNodes
 	Profiling           MethodProfiling
 	Project             MethodProject
+	Prometheus          MethodPrometheus
 	QueryRules          MethodQueryRules
 	Rollup              MethodRollup
 	SearchApplication   MethodSearchApplication
@@ -12641,7 +12662,7 @@ func (p *MethodAutoscaling) PutAutoscalingPolicy(name string) *autoscaling_put_a
 	return _putautoscalingpolicy(name)
 }
 
-// Get aliases.
+// Get a compact list of aliases.
 //
 // Get the cluster's index aliases, including filter and routing information.
 // This API does not return data stream aliases.
@@ -12680,7 +12701,7 @@ func (p *MethodCat) CircuitBreaker() *cat_circuit_breaker.CircuitBreaker {
 	return _circuitbreaker()
 }
 
-// Get component templates.
+// Get a compact list of component templates.
 //
 // Get information about component templates in a cluster. Component templates
 // are building blocks for constructing index templates that specify index
@@ -12732,7 +12753,7 @@ func (p *MethodCat) Fielddata() *cat_fielddata.Fielddata {
 	return _fielddata()
 }
 
-// Get the cluster health status.
+// Get a compact cluster health summary.
 //
 // IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
@@ -12760,7 +12781,7 @@ func (p *MethodCat) Help() *cat_help.Help {
 	return _help()
 }
 
-// Get index information.
+// Get a compact list of indices.
 //
 // Get high-level information about indices in a cluster, including backing
 // indices for data streams.
@@ -12893,7 +12914,7 @@ func (p *MethodCat) Nodeattrs() *cat_nodeattrs.Nodeattrs {
 	return _nodeattrs()
 }
 
-// Get node information.
+// Get a compact list of nodes.
 //
 // Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 // intended for human consumption using the command line or Kibana console. They
@@ -12945,7 +12966,7 @@ func (p *MethodCat) Recovery() *cat_recovery.Recovery {
 	return _recovery()
 }
 
-// Get snapshot repository information.
+// Get a compact list of snapshot repositories.
 //
 // Get a list of snapshot repositories for a cluster. IMPORTANT: cat APIs are
 // only intended for human consumption using the command line or Kibana console.
@@ -12982,7 +13003,7 @@ func (p *MethodCat) Shards() *cat_shards.Shards {
 	return _shards()
 }
 
-// Get snapshot information.
+// Get a compact list of snapshots.
 //
 // Get information about the snapshots stored in one or more repositories. A
 // snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -12995,7 +13016,7 @@ func (p *MethodCat) Snapshots() *cat_snapshots.Snapshots {
 	return _snapshots()
 }
 
-// Get task information.
+// Get a compact list of running tasks.
 //
 // Get information about tasks currently running in the cluster. IMPORTANT: cat
 // APIs are only intended for human consumption using the command line or Kibana
@@ -13320,7 +13341,7 @@ func (p *MethodCluster) Health() *cluster_health.Health {
 	return _health()
 }
 
-// Get cluster info.
+// Get cluster subsystem info.
 //
 // Returns basic information about the cluster.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-info
@@ -17087,7 +17108,7 @@ func (p *MethodIndices) GetDataStreamSettings(name string) *indices_get_data_str
 	return _getdatastreamsettings(name)
 }
 
-// Get mapping definitions.
+// Get field mapping definitions.
 //
 // Retrieves mapping definitions for one or more fields. For data streams, the
 // API retrieves field mappings for the stream’s backing indices.
@@ -17974,7 +17995,7 @@ func (p *MethodIndices) Stats() *indices_stats.Stats {
 	return _stats()
 }
 
-// Create or update an alias.
+// Update aliases and delete indices atomically.
 //
 // Adds a data stream or index to an alias.
 // [Elasticsearch] https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-update-aliases
@@ -20152,6 +20173,18 @@ func (p *MethodProject) Tags() *project_tags.Tags {
 	return _tags()
 }
 
+// Get Prometheus build information.
+//
+// Get Elasticsearch build information in the format of the Prometheus
+// `/api/v1/status/buildinfo` endpoint. Prometheus-compatible clients, such as
+// Grafana, call this endpoint to identify the backend and the features it
+// supports.
+// https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+func (p *MethodPrometheus) StatusBuildinfo() *prometheus_status_buildinfo.StatusBuildinfo {
+	_statusbuildinfo := prometheus_status_buildinfo.NewStatusBuildinfoFunc(p.tp)
+	return _statusbuildinfo()
+}
+
 // Delete a query rule.
 //
 // Delete a query rule within a query ruleset. This is a destructive action that
@@ -20562,7 +20595,7 @@ func (p *MethodSearchableSnapshots) CacheStats() *searchable_snapshots_cache_sta
 	return _cachestats()
 }
 
-// Clear the cache.
+// Clear the searchable snapshots shared cache.
 //
 // Clear indices and data streams from the shared cache for partially mounted
 // indices.
@@ -23383,6 +23416,7 @@ func NewMethodAPI(tp elastictransport.Interface) *MethodAPI {
 		Nodes:               MethodNodes{tp: tp},
 		Profiling:           MethodProfiling{tp: tp},
 		Project:             MethodProject{tp: tp},
+		Prometheus:          MethodPrometheus{tp: tp},
 		QueryRules:          MethodQueryRules{tp: tp},
 		Rollup:              MethodRollup{tp: tp},
 		SearchApplication:   MethodSearchApplication{tp: tp},

@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
 // GlobalPrivilege type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/security/_types/Privileges.ts#L418-L425
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/security/_types/Privileges.ts#L422-L429
 type GlobalPrivilege struct {
-	Application ApplicationGlobalUserPrivileges `json:"application"`
+	Application *ApplicationGlobalUserPrivileges `json:"application,omitempty"`
 	// DataSource A list of data source privilege entries, used to grant access to ES|QL data
 	// sources.
 	DataSource []DataSourcePrivileges `json:"data_source,omitempty"`

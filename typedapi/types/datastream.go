@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/indices/_types/DataStream.ts#L55-L151
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/indices/_types/DataStream.ts#L55-L153
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -96,8 +96,13 @@ type DataStream struct {
 	System *bool `json:"system,omitempty"`
 	// Template Name of the index template used to create the data stream’s backing
 	// indices. The template’s index pattern must match the name of this data
-	// stream.
-	Template string `json:"template"`
+	// stream. This property is omitted if no index template currently matches the
+	// data stream, for example on a cross-cluster replication follower cluster that
+	// has no matching local template. For replicated data streams (`replicated` is
+	// `true`), the value is the local index template that matches the data stream
+	// name, which might not be the template that created the backing indices on the
+	// leader cluster.
+	Template *string `json:"template,omitempty"`
 	// TimestampField Information about the `@timestamp` field in the data stream.
 	TimestampField DataStreamTimestampField `json:"timestamp_field"`
 }

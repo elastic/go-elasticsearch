@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/indices/get_data_lifecycle_stats/IndicesGetDataLifecycleStatsResponse.ts#L46-L59
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/indices/get_data_lifecycle_stats/IndicesGetDataLifecycleStatsResponse.ts#L46-L59
 type DataStreamStats struct {
 	// BackingIndicesInError The count of the backing indices for the data stream.
 	BackingIndicesInError int `json:"backing_indices_in_error"`

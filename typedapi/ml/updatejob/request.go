@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package updatejob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L150
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L150
 type Request struct {
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
 	// is insufficient machine learning node capacity for it to be immediately
@@ -68,7 +68,7 @@ type Request struct {
 	DailyModelSnapshotRetentionAfterDays *int64 `json:"daily_model_snapshot_retention_after_days,omitempty"`
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
-	// Detectors An array of detector update objects.
+	// Detectors A detector update object or an array of detector update objects.
 	Detectors []types.DetectorUpdate `json:"detectors,omitempty"`
 	// Groups A list of job groups. A job can belong to no groups or many.
 	Groups           []string               `json:"groups,omitempty"`
@@ -193,8 +193,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			s.Description = &o
 
 		case "detectors":
-			if err := dec.Decode(&s.Detectors); err != nil {
-				return fmt.Errorf("%s | %w", "Detectors", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := types.NewDetectorUpdate()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Detectors", err)
+				}
+
+				s.Detectors = append(s.Detectors, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Detectors); err != nil {
+					return fmt.Errorf("%s | %w", "Detectors", err)
+				}
 			}
 
 		case "groups":

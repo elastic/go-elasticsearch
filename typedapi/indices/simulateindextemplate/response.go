@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package simulateindextemplate
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package simulateindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateResponse.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateResponse.ts#L25-L30
 type Response struct {
 	Overlapping []types.Overlapping `json:"overlapping,omitempty"`
 	Template    types.Template      `json:"template"`

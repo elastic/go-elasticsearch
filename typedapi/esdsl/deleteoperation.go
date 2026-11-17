@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -34,6 +34,19 @@ func NewDeleteOperation() *_deleteOperation {
 
 	return &_deleteOperation{v: types.NewDeleteOperation()}
 
+}
+
+func (s *_deleteOperation) Version(versionnumber int64) *_deleteOperation {
+
+	s.v.Version = &versionnumber
+
+	return s
+}
+
+func (s *_deleteOperation) VersionType(versiontype versiontype.VersionType) *_deleteOperation {
+
+	s.v.VersionType = &versiontype
+	return s
 }
 
 func (s *_deleteOperation) Id_(id string) *_deleteOperation {
@@ -68,19 +81,6 @@ func (s *_deleteOperation) Routing(routing string) *_deleteOperation {
 
 	s.v.Routing = &routing
 
-	return s
-}
-
-func (s *_deleteOperation) Version(versionnumber int64) *_deleteOperation {
-
-	s.v.Version = &versionnumber
-
-	return s
-}
-
-func (s *_deleteOperation) VersionType(versiontype versiontype.VersionType) *_deleteOperation {
-
-	s.v.VersionType = &versiontype
 	return s
 }
 

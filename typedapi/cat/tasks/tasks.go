@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
-// Get task information.
+// Get a compact list of running tasks.
 //
 // Get information about tasks currently running in the cluster. IMPORTANT: cat
 // APIs are only intended for human consumption using the command line or Kibana
@@ -76,7 +76,7 @@ func NewTasksFunc(tp elastictransport.Interface) NewTasks {
 	}
 }
 
-// Get task information.
+// Get a compact list of running tasks.
 //
 // Get information about tasks currently running in the cluster. IMPORTANT: cat
 // APIs are only intended for human consumption using the command line or Kibana

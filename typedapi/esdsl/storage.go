@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -29,13 +29,9 @@ type _storage struct {
 	v *types.Storage
 }
 
-func NewStorage(type_ storagetype.StorageType) *_storage {
+func NewStorage() *_storage {
 
-	tmp := &_storage{v: types.NewStorage()}
-
-	tmp.Type(type_)
-
-	return tmp
+	return &_storage{v: types.NewStorage()}
 
 }
 
@@ -55,7 +51,7 @@ func (s *_storage) StatsRefreshInterval(duration types.DurationVariant) *_storag
 
 func (s *_storage) Type(type_ storagetype.StorageType) *_storage {
 
-	s.v.Type = type_
+	s.v.Type = &type_
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 // Create a datafeed.
 //
@@ -571,6 +571,25 @@ func (r *PutDatafeed) JobId(id string) *PutDatafeed {
 	}
 
 	r.req.JobId = &id
+
+	return r
+}
+
+// The maximum number of consecutive real-time data extraction failures the
+// datafeed tolerates before it automatically stops itself, leaving the
+// associated job open. The consecutive-failure counter resets on any cycle that
+// extracts successfully, including empty-data cycles. If not set, the threshold
+// defaults to roughly one day's worth of searches based on the datafeed
+// `frequency` (floored at 1). Set to `-1` to disable auto-stop and retry
+// indefinitely. Values of `0` or less than `-1` are rejected.
+// API name: max_consecutive_extraction_failures
+func (r *PutDatafeed) MaxConsecutiveExtractionFailures(maxconsecutiveextractionfailures int) *PutDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.MaxConsecutiveExtractionFailures = &maxconsecutiveextractionfailures
 
 	return r
 }

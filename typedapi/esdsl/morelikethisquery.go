@@ -16,14 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
-import (
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _moreLikeThisQuery struct {
 	v *types.MoreLikeThisQuery
@@ -133,13 +130,6 @@ func (s *_moreLikeThisQuery) MinimumShouldMatch(minimumshouldmatch types.Minimum
 	return s
 }
 
-func (s *_moreLikeThisQuery) Routing(routing string) *_moreLikeThisQuery {
-
-	s.v.Routing = &routing
-
-	return s
-}
-
 func (s *_moreLikeThisQuery) StopWords(stopwords types.StopWordsVariant) *_moreLikeThisQuery {
 
 	s.v.StopWords = *stopwords.StopWordsCaster()
@@ -154,19 +144,6 @@ func (s *_moreLikeThisQuery) Unlike(unlikes ...types.LikeVariant) *_moreLikeThis
 		s.v.Unlike[i] = *v.LikeCaster()
 	}
 
-	return s
-}
-
-func (s *_moreLikeThisQuery) Version(versionnumber int64) *_moreLikeThisQuery {
-
-	s.v.Version = &versionnumber
-
-	return s
-}
-
-func (s *_moreLikeThisQuery) VersionType(versiontype versiontype.VersionType) *_moreLikeThisQuery {
-
-	s.v.VersionType = &versiontype
 	return s
 }
 

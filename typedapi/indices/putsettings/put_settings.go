@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 // Update index settings.
 //
@@ -903,13 +903,13 @@ func (r *PutSettings) MaxRescoreWindow(maxrescorewindow int) *PutSettings {
 }
 
 // API name: max_result_window
-func (r *PutSettings) MaxResultWindow(maxresultwindow int) *PutSettings {
+func (r *PutSettings) MaxResultWindow(stringifiedinteger types.StringifiedintegerVariant) *PutSettings {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.MaxResultWindow = &maxresultwindow
+	r.req.MaxResultWindow = *stringifiedinteger.StringifiedintegerCaster()
 
 	return r
 }
@@ -1078,6 +1078,18 @@ func (r *PutSettings) RefreshInterval(duration types.DurationVariant) *PutSettin
 	}
 
 	r.req.RefreshInterval = *duration.DurationCaster()
+
+	return r
+}
+
+// API name: requests
+func (r *PutSettings) Requests(requests types.RequestsVariant) *PutSettings {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Requests = requests.RequestsCaster()
 
 	return r
 }
