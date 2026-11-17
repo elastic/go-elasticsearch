@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
-// Get node information.
+// Get a compact list of nodes.
 //
 // Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 // intended for human consumption using the command line or Kibana console. They
@@ -76,7 +76,7 @@ func NewNodesFunc(tp elastictransport.Interface) NewNodes {
 	}
 }
 
-// Get node information.
+// Get a compact list of nodes.
 //
 // Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 // intended for human consumption using the command line or Kibana console. They

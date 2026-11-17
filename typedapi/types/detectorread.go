@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DetectorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/ml/_types/Detector.ts#L69-L71
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/ml/_types/Detector.ts#L69-L71
 type DetectorRead struct {
 	// ByFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to their own history. It is used for

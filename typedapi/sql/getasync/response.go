@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package getasync
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package getasync
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/sql/get_async/SqlGetAsyncResponse.ts#L23-L60
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/sql/get_async/SqlGetAsyncResponse.ts#L23-L60
 type Response struct {
 	// Columns Column headings for the search results. Each object is a column.
 	Columns []types.Column `json:"columns,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureOpenAITaskSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/inference/_types/CommonTypes.ts#L767-L773
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/inference/_types/CommonTypes.ts#L767-L773
 type AzureOpenAITaskSettings struct {
 	// User For a `completion` or `text_embedding` task, specify the user issuing the
 	// request. This information can be used for abuse detection.

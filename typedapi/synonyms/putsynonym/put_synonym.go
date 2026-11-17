@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 // Create or update a synonym set. Synonyms sets are limited to a maximum of
 // 10,000 synonym rules per set. If you need to manage more synonym rules, you
@@ -37,6 +37,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -278,7 +279,8 @@ func (r PutSynonym) Do(providedCtx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || slices.Contains([]int{400}, res.StatusCode) {
+
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {

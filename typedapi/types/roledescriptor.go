@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RoleDescriptor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/_types/RoleDescriptor.ts#L33-L83
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/security/_types/RoleDescriptor.ts#L33-L83
 type RoleDescriptor struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
@@ -45,7 +45,7 @@ type RoleDescriptor struct {
 	// Global An object defining global privileges. A global privilege is a form of cluster
 	// privilege that is request-aware. Support for global privileges is currently
 	// limited to the management of application privileges.
-	Global []GlobalPrivilege `json:"global,omitempty"`
+	Global *GlobalPrivilege `json:"global,omitempty"`
 	// Indices A list of indices permissions entries.
 	Indices []IndicesPrivileges `json:"indices,omitempty"`
 	// Metadata Optional meta-data. Within the metadata object, keys that begin with `_` are
@@ -103,19 +103,8 @@ func (s *RoleDescriptor) UnmarshalJSON(data []byte) error {
 			s.Description = &o
 
 		case "global":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := NewGlobalPrivilege()
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "Global", err)
-				}
-
-				s.Global = append(s.Global, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Global); err != nil {
-					return fmt.Errorf("%s | %w", "Global", err)
-				}
+			if err := dec.Decode(&s.Global); err != nil {
+				return fmt.Errorf("%s | %w", "Global", err)
 			}
 
 		case "indices", "index":

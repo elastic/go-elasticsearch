@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DeleteOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L144-L144
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L182-L194
 type DeleteOperation struct {
 	// Id_ The document ID.
 	Id_           *string `json:"_id,omitempty"`
@@ -42,8 +42,12 @@ type DeleteOperation struct {
 	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
 	// Routing A custom value used to route operations to a specific shard.
-	Routing     *string                  `json:"routing,omitempty"`
-	Version     *int64                   `json:"version,omitempty"`
+	Routing *string `json:"routing,omitempty"`
+	// Version The explicit version number for concurrency control. It must be a
+	// non-negative long number. This parameter is not supported for `update`
+	// actions.
+	Version *int64 `json:"version,omitempty"`
+	// VersionType The version type. This parameter is not supported for `update` actions.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 // Delete documents.
 //
@@ -870,6 +870,18 @@ func (r *DeleteByQuery) Query(query *types.Query) *DeleteByQuery {
 	}
 
 	r.req.Query = query
+
+	return r
+}
+
+// RuntimeMappings One or more runtime fields in the search request. These fields take
+// precedence over mapped fields with the same name.
+// API name: runtime_mappings
+func (r *DeleteByQuery) RuntimeMappings(runtimefields types.RuntimeFields) *DeleteByQuery {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }

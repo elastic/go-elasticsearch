@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -28,12 +28,13 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
 // IndexOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_global/bulk/types.ts#L142-L142
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_global/bulk/types.ts#L174-L180
 type IndexOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates. It
 	// defaults to an empty map. If a name matches a dynamic template, that template
@@ -47,6 +48,11 @@ type IndexOperation struct {
 	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
 	// Index_ The name of the index or index alias to perform the action on.
 	Index_ *string `json:"_index,omitempty"`
+	// ListExecutedPipelines If `true`, the response includes the ingest pipelines that were run for this
+	// action.
+	ListExecutedPipelines *bool `json:"list_executed_pipelines,omitempty"`
+	// OpType Set to `create` to only index the document if it does not already exist.
+	OpType *optype.OpType `json:"op_type,omitempty"`
 	// Pipeline The ID of the pipeline to use to preprocess incoming documents. If the index
 	// has a default ingest pipeline specified, setting the value to `_none` turns
 	// off the default ingest pipeline for this request. If a final pipeline is
@@ -54,9 +60,15 @@ type IndexOperation struct {
 	Pipeline *string `json:"pipeline,omitempty"`
 	// RequireAlias If `true`, the request's actions must target an index alias.
 	RequireAlias *bool `json:"require_alias,omitempty"`
+	// RequireDataStream If `true`, the action must target a data stream (existing or to be created).
+	RequireDataStream *bool `json:"require_data_stream,omitempty"`
 	// Routing A custom value used to route operations to a specific shard.
-	Routing     *string                  `json:"routing,omitempty"`
-	Version     *int64                   `json:"version,omitempty"`
+	Routing *string `json:"routing,omitempty"`
+	// Version The explicit version number for concurrency control. It must be a
+	// non-negative long number. This parameter is not supported for `update`
+	// actions.
+	Version *int64 `json:"version,omitempty"`
+	// VersionType The version type. This parameter is not supported for `update` actions.
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
@@ -113,6 +125,25 @@ func (s *IndexOperation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
+		case "list_executed_pipelines":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ListExecutedPipelines", err)
+				}
+				s.ListExecutedPipelines = &value
+			case bool:
+				s.ListExecutedPipelines = &v
+			}
+
+		case "op_type":
+			if err := dec.Decode(&s.OpType); err != nil {
+				return fmt.Errorf("%s | %w", "OpType", err)
+			}
+
 		case "pipeline":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -137,6 +168,20 @@ func (s *IndexOperation) UnmarshalJSON(data []byte) error {
 				s.RequireAlias = &value
 			case bool:
 				s.RequireAlias = &v
+			}
+
+		case "require_data_stream":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RequireDataStream", err)
+				}
+				s.RequireDataStream = &value
+			case bool:
+				s.RequireDataStream = &v
 			}
 
 		case "routing":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -27,13 +27,11 @@ import (
 	"fmt"
 	"io"
 	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/query_dsl/specialized.ts#L87-L172
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/query_dsl/specialized.ts#L87-L167
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text. Defaults to the
 	// analyzer associated with the first field in fields.
@@ -79,14 +77,11 @@ type MoreLikeThisQuery struct {
 	// number of terms that must match.
 	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
 	QueryName_         *string            `json:"_name,omitempty"`
-	Routing            *string            `json:"routing,omitempty"`
 	// StopWords An array of stop words. Any word in this set is ignored.
 	StopWords StopWords `json:"stop_words,omitempty"`
 	// Unlike Used in combination with `like` to exclude documents that match a set of
 	// terms.
-	Unlike      []Like                   `json:"unlike,omitempty"`
-	Version     *int64                   `json:"version,omitempty"`
-	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
+	Unlike []Like `json:"unlike,omitempty"`
 }
 
 func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
@@ -310,11 +305,6 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "routing":
-			if err := dec.Decode(&s.Routing); err != nil {
-				return fmt.Errorf("%s | %w", "Routing", err)
-			}
-
 		case "stop_words":
 			if err := dec.Decode(&s.StopWords); err != nil {
 				return fmt.Errorf("%s | %w", "StopWords", err)
@@ -334,16 +324,6 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Unlike); err != nil {
 					return fmt.Errorf("%s | %w", "Unlike", err)
 				}
-			}
-
-		case "version":
-			if err := dec.Decode(&s.Version); err != nil {
-				return fmt.Errorf("%s | %w", "Version", err)
-			}
-
-		case "version_type":
-			if err := dec.Decode(&s.VersionType); err != nil {
-				return fmt.Errorf("%s | %w", "VersionType", err)
 			}
 
 		}

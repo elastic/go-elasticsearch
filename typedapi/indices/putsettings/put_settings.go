@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 // Update index settings. Changes dynamic index settings in real time. For data
 // streams, index setting changes are applied to all backing indices by default.
@@ -822,11 +822,11 @@ func (r *PutSettings) MaxRescoreWindow(maxrescorewindow int) *PutSettings {
 }
 
 // API name: max_result_window
-func (r *PutSettings) MaxResultWindow(maxresultwindow int) *PutSettings {
+func (r *PutSettings) MaxResultWindow(stringifiedinteger types.Stringifiedinteger) *PutSettings {
 	if r.req == nil {
 		r.req = NewRequest()
 	}
-	r.req.MaxResultWindow = &maxresultwindow
+	r.req.MaxResultWindow = stringifiedinteger
 
 	return r
 }
@@ -971,6 +971,17 @@ func (r *PutSettings) RefreshInterval(duration types.Duration) *PutSettings {
 		r.req = NewRequest()
 	}
 	r.req.RefreshInterval = duration
+
+	return r
+}
+
+// API name: requests
+func (r *PutSettings) Requests(requests *types.Requests) *PutSettings {
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Requests = requests
 
 	return r
 }

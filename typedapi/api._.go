@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package typedapi
 
@@ -671,7 +671,7 @@ type Autoscaling struct {
 }
 
 type Cat struct {
-	// Get aliases.
+	// Get a compact list of aliases.
 	//
 	// Get the cluster's index aliases, including filter and routing information.
 	// This API does not return data stream aliases.
@@ -688,7 +688,7 @@ type Cat struct {
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications.
 	Allocation cat_allocation.NewAllocation
-	// Get component templates.
+	// Get a compact list of component templates.
 	//
 	// Get information about component templates in a cluster. Component templates
 	// are building blocks for constructing index templates that specify index
@@ -717,7 +717,7 @@ type Cat struct {
 	// line or Kibana console. They are not intended for use by applications. For
 	// application consumption, use the nodes stats API.
 	Fielddata cat_fielddata.NewFielddata
-	// Get the cluster health status.
+	// Get a compact cluster health summary.
 	//
 	// IMPORTANT: CAT APIs are only intended for human consumption using the command
 	// line or Kibana console. They are not intended for use by applications. For
@@ -735,7 +735,7 @@ type Cat struct {
 	//
 	// Get help for the CAT APIs.
 	Help cat_help.NewHelp
-	// Get index information.
+	// Get a compact list of indices.
 	//
 	// Get high-level information about indices in a cluster, including backing
 	// indices for data streams.
@@ -813,7 +813,7 @@ type Cat struct {
 	// are not intended for use by applications. For application consumption, use
 	// the nodes info API.
 	Nodeattrs cat_nodeattrs.NewNodeattrs
-	// Get node information.
+	// Get a compact list of nodes.
 	//
 	// Get information about the nodes in a cluster. IMPORTANT: cat APIs are only
 	// intended for human consumption using the command line or Kibana console. They
@@ -845,7 +845,7 @@ type Cat struct {
 	// using the command line or Kibana console. They are not intended for use by
 	// applications. For application consumption, use the index recovery API.
 	Recovery cat_recovery.NewRecovery
-	// Get snapshot repository information.
+	// Get a compact list of snapshot repositories.
 	//
 	// Get a list of snapshot repositories for a cluster. IMPORTANT: cat APIs are
 	// only intended for human consumption using the command line or Kibana console.
@@ -867,7 +867,7 @@ type Cat struct {
 	// intended for human consumption using the command line or Kibana console. They
 	// are not intended for use by applications.
 	Shards cat_shards.NewShards
-	// Get snapshot information.
+	// Get a compact list of snapshots.
 	//
 	// Get information about the snapshots stored in one or more repositories. A
 	// snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -875,7 +875,7 @@ type Cat struct {
 	// Kibana console. They are not intended for use by applications. For
 	// application consumption, use the get snapshot API.
 	Snapshots cat_snapshots.NewSnapshots
-	// Get task information.
+	// Get a compact list of running tasks.
 	//
 	// Get information about tasks currently running in the cluster. IMPORTANT: cat
 	// APIs are only intended for human consumption using the command line or Kibana
@@ -1060,7 +1060,9 @@ type Cluster struct {
 	// reaches a certain high watermark health level. The cluster status is
 	// controlled by the worst index status.
 	Health cluster_health.NewHealth
-	// Get cluster info. Returns basic information about the cluster.
+	// Get cluster subsystem info.
+	//
+	// Returns basic information about the cluster.
 	Info cluster_info.NewInfo
 	// Get the pending cluster tasks. Get information about cluster-level changes
 	// (such as create index, update mapping, allocate or fail shard) that have not
@@ -3705,9 +3707,10 @@ type Indices struct {
 	//
 	// Get setting information for one or more data streams.
 	GetDataStreamSettings indices_get_data_stream_settings.NewGetDataStreamSettings
-	// Get mapping definitions. Retrieves mapping definitions for one or more
-	// fields. For data streams, the API retrieves field mappings for the stream’s
-	// backing indices.
+	// Get field mapping definitions.
+	//
+	// Retrieves mapping definitions for one or more fields. For data streams, the
+	// API retrieves field mappings for the stream’s backing indices.
 	//
 	// This API is useful if you don't need a complete mapping or if an index
 	// mapping contains a large number of fields.
@@ -4336,7 +4339,9 @@ type Indices struct {
 	//
 	// Deprecated: Since 7.14.0.
 	Unfreeze indices_unfreeze.NewUnfreeze
-	// Create or update an alias. Adds a data stream or index to an alias.
+	// Update aliases and delete indices atomically.
+	//
+	// Adds a data stream or index to an alias.
 	UpdateAliases indices_update_aliases.NewUpdateAliases
 	// Validate a query. Validates a query without running it.
 	ValidateQuery indices_validate_query.NewValidateQuery
@@ -5589,8 +5594,10 @@ type SearchableSnapshots struct {
 	// Get cache statistics. Get statistics about the shared cache for partially
 	// mounted indices.
 	CacheStats searchable_snapshots_cache_stats.NewCacheStats
-	// Clear the cache. Clear indices and data streams from the shared cache for
-	// partially mounted indices.
+	// Clear the searchable snapshots shared cache.
+	//
+	// Clear indices and data streams from the shared cache for partially mounted
+	// indices.
 	ClearCache searchable_snapshots_clear_cache.NewClearCache
 	// Mount a snapshot. Mount a snapshot as a searchable snapshot index. Do not use
 	// this API for snapshots managed by index lifecycle management (ILM). Manually

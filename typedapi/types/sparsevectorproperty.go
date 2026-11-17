@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // SparseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/mapping/core.ts#L227-L237
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/mapping/core.ts#L228-L238
 type SparseVectorProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`

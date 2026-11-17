@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -30,10 +30,14 @@ import (
 
 // TopMetricsValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/_types/aggregations/metric.ts#L454-L459
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/_types/aggregations/metric.ts#L454-L464
 type TopMetricsValue struct {
 	// Field A field to return as a metric.
 	Field string `json:"field"`
+	// Missing The value to treat a document as having when it has no value for the field.
+	// By default, a document that is missing any of the metrics or the sort value
+	// is ignored.
+	Missing Missing `json:"missing,omitempty"`
 }
 
 func (s *TopMetricsValue) UnmarshalJSON(data []byte) error {
@@ -54,6 +58,11 @@ func (s *TopMetricsValue) UnmarshalJSON(data []byte) error {
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
 				return fmt.Errorf("%s | %w", "Field", err)
+			}
+
+		case "missing":
+			if err := dec.Decode(&s.Missing); err != nil {
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DeepSeekServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/inference/_types/CommonTypes.ts#L1155-L1175
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/inference/_types/CommonTypes.ts#L1158-L1178
 type DeepSeekServiceSettings struct {
 	// ApiKey A valid API key for your DeepSeek account. You can find or create your
 	// DeepSeek API keys on the DeepSeek API key page.

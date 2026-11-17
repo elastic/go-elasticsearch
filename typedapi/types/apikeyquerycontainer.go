@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ApiKeyQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/query_api_keys/types.ts#L141-L205
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/security/query_api_keys/types.ts#L141-L205
 type ApiKeyQueryContainer struct {
 	AdditionalApiKeyQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool Matches documents matching boolean combinations of other queries.

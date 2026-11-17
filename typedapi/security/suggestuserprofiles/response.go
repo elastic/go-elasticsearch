@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/c799312b3466bb951152a0b4f524aa6d45195e16
+// https://github.com/elastic/elasticsearch-specification/tree/fd5d063c4824de5d33618b7fca4df0e6c1b8489f
 
 package suggestuserprofiles
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package suggestuserprofiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/c799312b3466bb951152a0b4f524aa6d45195e16/specification/security/suggest_user_profiles/Response.ts#L29-L44
+// https://github.com/elastic/elasticsearch-specification/blob/fd5d063c4824de5d33618b7fca4df0e6c1b8489f/specification/security/suggest_user_profiles/Response.ts#L29-L44
 type Response struct {
 	// Profiles A list of profile documents, ordered by relevance, that match the search
 	// criteria.
