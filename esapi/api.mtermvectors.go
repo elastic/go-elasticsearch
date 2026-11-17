@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -54,6 +54,8 @@ type MtermvectorsRequest struct {
 	Index string
 
 	Body io.Reader
+
+	Slice string
 
 	Fields          []string
 	FieldStatistics *bool
@@ -99,13 +101,20 @@ func (r MtermvectorsRequest) Do(providedCtx context.Context, transport Transport
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_mtermvectors"))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_mtermvectors"))
 	path.WriteString("http://")
 	if r.Index != "" {
 		path.WriteString("/")
 		path.WriteString(r.Index)
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", r.Index)
+		}
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
 		}
 	}
 	path.WriteString("/")
@@ -257,6 +266,13 @@ func (f Mtermvectors) WithBody(v io.Reader) func(*MtermvectorsRequest) {
 func (f Mtermvectors) WithIndex(v string) func(*MtermvectorsRequest) {
 	return func(r *MtermvectorsRequest) {
 		r.Index = v
+	}
+}
+
+// WithSlice - default slice identifier for a slice-enabled index (`index.slice.enabled=true`); applied to items that don't provide their own.
+func (f Mtermvectors) WithSlice(v string) func(*MtermvectorsRequest) {
+	return func(r *MtermvectorsRequest) {
+		r.Slice = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0 (4a53326): DO NOT EDIT
+// Code generated from specification version 9.6.0 (b17a03b): DO NOT EDIT
 
 package esapi
 
@@ -119,6 +119,8 @@ type API struct {
 	EsqlPutDataset                                EsqlPutDataset
 	EsqlPutView                                   EsqlPutView
 	EsqlQuery                                     EsqlQuery
+	EsqlStats                                     EsqlStats
+	EsqlTestDataSourceConnection                  EsqlTestDataSourceConnection
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
 	Explain                                       Explain
@@ -141,8 +143,10 @@ type API struct {
 	Index                                         Index
 	InferenceChatCompletionUnified                InferenceChatCompletionUnified
 	InferenceCompletion                           InferenceCompletion
+	InferenceDecision                             InferenceDecision
 	InferenceDeleteRegionPolicy                   InferenceDeleteRegionPolicy
 	InferenceDelete                               InferenceDelete
+	InferenceDocumentExtraction                   InferenceDocumentExtraction
 	InferenceEmbedding                            InferenceEmbedding
 	InferenceGetRegionPolicy                      InferenceGetRegionPolicy
 	InferenceGet                                  InferenceGet
@@ -181,6 +185,7 @@ type API struct {
 	InferenceTextEmbedding                        InferenceTextEmbedding
 	InferenceUpdate                               InferenceUpdate
 	Info                                          Info
+	KnnEval                                       KnnEval
 	LogstashDeletePipeline                        LogstashDeletePipeline
 	LogstashGetPipeline                           LogstashGetPipeline
 	LogstashPutPipeline                           LogstashPutPipeline
@@ -618,72 +623,75 @@ type Rollup struct {
 
 // Security contains the Security APIs
 type Security struct {
-	ActivateUserProfile         SecurityActivateUserProfile
-	Authenticate                SecurityAuthenticate
-	BulkDeleteRole              SecurityBulkDeleteRole
-	BulkPutRole                 SecurityBulkPutRole
-	BulkUpdateAPIKeys           SecurityBulkUpdateAPIKeys
-	ChangePassword              SecurityChangePassword
-	ClearAPIKeyCache            SecurityClearAPIKeyCache
-	ClearCachedPrivileges       SecurityClearCachedPrivileges
-	ClearCachedRealms           SecurityClearCachedRealms
-	ClearCachedRoles            SecurityClearCachedRoles
-	ClearCachedServiceTokens    SecurityClearCachedServiceTokens
-	CloneAPIKey                 SecurityCloneAPIKey
-	CreateAPIKey                SecurityCreateAPIKey
-	CreateCrossClusterAPIKey    SecurityCreateCrossClusterAPIKey
-	CreateServiceToken          SecurityCreateServiceToken
-	DelegatePki                 SecurityDelegatePki
-	DeletePrivileges            SecurityDeletePrivileges
-	DeleteRoleMapping           SecurityDeleteRoleMapping
-	DeleteRole                  SecurityDeleteRole
-	DeleteServiceToken          SecurityDeleteServiceToken
-	DeleteUser                  SecurityDeleteUser
-	DisableUserProfile          SecurityDisableUserProfile
-	DisableUser                 SecurityDisableUser
-	EnableUserProfile           SecurityEnableUserProfile
-	EnableUser                  SecurityEnableUser
-	EnrollKibana                SecurityEnrollKibana
-	EnrollNode                  SecurityEnrollNode
-	GetAPIKey                   SecurityGetAPIKey
-	GetBuiltinPrivileges        SecurityGetBuiltinPrivileges
-	GetPrivileges               SecurityGetPrivileges
-	GetRoleMapping              SecurityGetRoleMapping
-	GetRole                     SecurityGetRole
-	GetServiceAccounts          SecurityGetServiceAccounts
-	GetServiceCredentials       SecurityGetServiceCredentials
-	GetSettings                 SecurityGetSettings
-	GetStats                    SecurityGetStats
-	GetToken                    SecurityGetToken
-	GetUserPrivileges           SecurityGetUserPrivileges
-	GetUserProfile              SecurityGetUserProfile
-	GetUser                     SecurityGetUser
-	GrantAPIKey                 SecurityGrantAPIKey
-	HasPrivileges               SecurityHasPrivileges
-	HasPrivilegesUserProfile    SecurityHasPrivilegesUserProfile
-	InvalidateAPIKey            SecurityInvalidateAPIKey
-	InvalidateToken             SecurityInvalidateToken
-	OidcAuthenticate            SecurityOidcAuthenticate
-	OidcLogout                  SecurityOidcLogout
-	OidcPrepareAuthentication   SecurityOidcPrepareAuthentication
-	PutPrivileges               SecurityPutPrivileges
-	PutRoleMapping              SecurityPutRoleMapping
-	PutRole                     SecurityPutRole
-	PutUser                     SecurityPutUser
-	QueryAPIKeys                SecurityQueryAPIKeys
-	QueryRole                   SecurityQueryRole
-	QueryUser                   SecurityQueryUser
-	SamlAuthenticate            SecuritySamlAuthenticate
-	SamlCompleteLogout          SecuritySamlCompleteLogout
-	SamlInvalidate              SecuritySamlInvalidate
-	SamlLogout                  SecuritySamlLogout
-	SamlPrepareAuthentication   SecuritySamlPrepareAuthentication
-	SamlServiceProviderMetadata SecuritySamlServiceProviderMetadata
-	SuggestUserProfiles         SecuritySuggestUserProfiles
-	UpdateAPIKey                SecurityUpdateAPIKey
-	UpdateCrossClusterAPIKey    SecurityUpdateCrossClusterAPIKey
-	UpdateSettings              SecurityUpdateSettings
-	UpdateUserProfileData       SecurityUpdateUserProfileData
+	ActivateUserProfile             SecurityActivateUserProfile
+	Authenticate                    SecurityAuthenticate
+	BulkDeleteRole                  SecurityBulkDeleteRole
+	BulkPutRole                     SecurityBulkPutRole
+	BulkUpdateAPIKeys               SecurityBulkUpdateAPIKeys
+	ChangePassword                  SecurityChangePassword
+	ClearAPIKeyCache                SecurityClearAPIKeyCache
+	ClearCachedPrivileges           SecurityClearCachedPrivileges
+	ClearCachedRealms               SecurityClearCachedRealms
+	ClearCachedRoles                SecurityClearCachedRoles
+	ClearCachedServiceTokens        SecurityClearCachedServiceTokens
+	CloneAPIKey                     SecurityCloneAPIKey
+	CreateAPIKey                    SecurityCreateAPIKey
+	CreateCrossClusterAPIKey        SecurityCreateCrossClusterAPIKey
+	CreateServiceToken              SecurityCreateServiceToken
+	DelegatePki                     SecurityDelegatePki
+	DeletePrivileges                SecurityDeletePrivileges
+	DeleteRoleMapping               SecurityDeleteRoleMapping
+	DeleteRole                      SecurityDeleteRole
+	DeleteServiceToken              SecurityDeleteServiceToken
+	DeleteUserManagedServiceAccount SecurityDeleteUserManagedServiceAccount
+	DeleteUser                      SecurityDeleteUser
+	DisableUserProfile              SecurityDisableUserProfile
+	DisableUser                     SecurityDisableUser
+	EnableUserProfile               SecurityEnableUserProfile
+	EnableUser                      SecurityEnableUser
+	EnrollKibana                    SecurityEnrollKibana
+	EnrollNode                      SecurityEnrollNode
+	GetAPIKey                       SecurityGetAPIKey
+	GetBuiltinPrivileges            SecurityGetBuiltinPrivileges
+	GetPrivileges                   SecurityGetPrivileges
+	GetRoleMapping                  SecurityGetRoleMapping
+	GetRole                         SecurityGetRole
+	GetServiceAccounts              SecurityGetServiceAccounts
+	GetServiceCredentials           SecurityGetServiceCredentials
+	GetSettings                     SecurityGetSettings
+	GetStats                        SecurityGetStats
+	GetToken                        SecurityGetToken
+	GetUserPrivileges               SecurityGetUserPrivileges
+	GetUserProfile                  SecurityGetUserProfile
+	GetUser                         SecurityGetUser
+	GrantAPIKey                     SecurityGrantAPIKey
+	HasPrivileges                   SecurityHasPrivileges
+	HasPrivilegesUserProfile        SecurityHasPrivilegesUserProfile
+	InvalidateAPIKey                SecurityInvalidateAPIKey
+	InvalidateToken                 SecurityInvalidateToken
+	OidcAuthenticate                SecurityOidcAuthenticate
+	OidcLogout                      SecurityOidcLogout
+	OidcPrepareAuthentication       SecurityOidcPrepareAuthentication
+	PutPrivileges                   SecurityPutPrivileges
+	PutRoleMapping                  SecurityPutRoleMapping
+	PutRole                         SecurityPutRole
+	PutUserManagedServiceAccount    SecurityPutUserManagedServiceAccount
+	PutUser                         SecurityPutUser
+	QueryAPIKeys                    SecurityQueryAPIKeys
+	QueryRole                       SecurityQueryRole
+	QueryServiceAccounts            SecurityQueryServiceAccounts
+	QueryUser                       SecurityQueryUser
+	SamlAuthenticate                SecuritySamlAuthenticate
+	SamlCompleteLogout              SecuritySamlCompleteLogout
+	SamlInvalidate                  SecuritySamlInvalidate
+	SamlLogout                      SecuritySamlLogout
+	SamlPrepareAuthentication       SecuritySamlPrepareAuthentication
+	SamlServiceProviderMetadata     SecuritySamlServiceProviderMetadata
+	SuggestUserProfiles             SecuritySuggestUserProfiles
+	UpdateAPIKey                    SecurityUpdateAPIKey
+	UpdateCrossClusterAPIKey        SecurityUpdateCrossClusterAPIKey
+	UpdateSettings                  SecurityUpdateSettings
+	UpdateUserProfileData           SecurityUpdateUserProfileData
 }
 
 // SQL contains the SQL APIs
@@ -803,6 +811,8 @@ func New(t Transport) *API {
 		EsqlPutDataset:                     newEsqlPutDatasetFunc(t),
 		EsqlPutView:                        newEsqlPutViewFunc(t),
 		EsqlQuery:                          newEsqlQueryFunc(t),
+		EsqlStats:                          newEsqlStatsFunc(t),
+		EsqlTestDataSourceConnection:       newEsqlTestDataSourceConnectionFunc(t),
 		Exists:                             newExistsFunc(t),
 		ExistsSource:                       newExistsSourceFunc(t),
 		Explain:                            newExplainFunc(t),
@@ -825,8 +835,10 @@ func New(t Transport) *API {
 		Index:                              newIndexFunc(t),
 		InferenceChatCompletionUnified:     newInferenceChatCompletionUnifiedFunc(t),
 		InferenceCompletion:                newInferenceCompletionFunc(t),
+		InferenceDecision:                  newInferenceDecisionFunc(t),
 		InferenceDeleteRegionPolicy:        newInferenceDeleteRegionPolicyFunc(t),
 		InferenceDelete:                    newInferenceDeleteFunc(t),
+		InferenceDocumentExtraction:        newInferenceDocumentExtractionFunc(t),
 		InferenceEmbedding:                 newInferenceEmbeddingFunc(t),
 		InferenceGetRegionPolicy:           newInferenceGetRegionPolicyFunc(t),
 		InferenceGet:                       newInferenceGetFunc(t),
@@ -865,6 +877,7 @@ func New(t Transport) *API {
 		InferenceTextEmbedding:             newInferenceTextEmbeddingFunc(t),
 		InferenceUpdate:                    newInferenceUpdateFunc(t),
 		Info:                               newInfoFunc(t),
+		KnnEval:                            newKnnEvalFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),
 		LogstashPutPipeline:                newLogstashPutPipelineFunc(t),
@@ -1266,72 +1279,75 @@ func New(t Transport) *API {
 			StopJob:      newRollupStopJobFunc(t),
 		},
 		Security: &Security{
-			ActivateUserProfile:         newSecurityActivateUserProfileFunc(t),
-			Authenticate:                newSecurityAuthenticateFunc(t),
-			BulkDeleteRole:              newSecurityBulkDeleteRoleFunc(t),
-			BulkPutRole:                 newSecurityBulkPutRoleFunc(t),
-			BulkUpdateAPIKeys:           newSecurityBulkUpdateAPIKeysFunc(t),
-			ChangePassword:              newSecurityChangePasswordFunc(t),
-			ClearAPIKeyCache:            newSecurityClearAPIKeyCacheFunc(t),
-			ClearCachedPrivileges:       newSecurityClearCachedPrivilegesFunc(t),
-			ClearCachedRealms:           newSecurityClearCachedRealmsFunc(t),
-			ClearCachedRoles:            newSecurityClearCachedRolesFunc(t),
-			ClearCachedServiceTokens:    newSecurityClearCachedServiceTokensFunc(t),
-			CloneAPIKey:                 newSecurityCloneAPIKeyFunc(t),
-			CreateAPIKey:                newSecurityCreateAPIKeyFunc(t),
-			CreateCrossClusterAPIKey:    newSecurityCreateCrossClusterAPIKeyFunc(t),
-			CreateServiceToken:          newSecurityCreateServiceTokenFunc(t),
-			DelegatePki:                 newSecurityDelegatePkiFunc(t),
-			DeletePrivileges:            newSecurityDeletePrivilegesFunc(t),
-			DeleteRoleMapping:           newSecurityDeleteRoleMappingFunc(t),
-			DeleteRole:                  newSecurityDeleteRoleFunc(t),
-			DeleteServiceToken:          newSecurityDeleteServiceTokenFunc(t),
-			DeleteUser:                  newSecurityDeleteUserFunc(t),
-			DisableUserProfile:          newSecurityDisableUserProfileFunc(t),
-			DisableUser:                 newSecurityDisableUserFunc(t),
-			EnableUserProfile:           newSecurityEnableUserProfileFunc(t),
-			EnableUser:                  newSecurityEnableUserFunc(t),
-			EnrollKibana:                newSecurityEnrollKibanaFunc(t),
-			EnrollNode:                  newSecurityEnrollNodeFunc(t),
-			GetAPIKey:                   newSecurityGetAPIKeyFunc(t),
-			GetBuiltinPrivileges:        newSecurityGetBuiltinPrivilegesFunc(t),
-			GetPrivileges:               newSecurityGetPrivilegesFunc(t),
-			GetRoleMapping:              newSecurityGetRoleMappingFunc(t),
-			GetRole:                     newSecurityGetRoleFunc(t),
-			GetServiceAccounts:          newSecurityGetServiceAccountsFunc(t),
-			GetServiceCredentials:       newSecurityGetServiceCredentialsFunc(t),
-			GetSettings:                 newSecurityGetSettingsFunc(t),
-			GetStats:                    newSecurityGetStatsFunc(t),
-			GetToken:                    newSecurityGetTokenFunc(t),
-			GetUserPrivileges:           newSecurityGetUserPrivilegesFunc(t),
-			GetUserProfile:              newSecurityGetUserProfileFunc(t),
-			GetUser:                     newSecurityGetUserFunc(t),
-			GrantAPIKey:                 newSecurityGrantAPIKeyFunc(t),
-			HasPrivileges:               newSecurityHasPrivilegesFunc(t),
-			HasPrivilegesUserProfile:    newSecurityHasPrivilegesUserProfileFunc(t),
-			InvalidateAPIKey:            newSecurityInvalidateAPIKeyFunc(t),
-			InvalidateToken:             newSecurityInvalidateTokenFunc(t),
-			OidcAuthenticate:            newSecurityOidcAuthenticateFunc(t),
-			OidcLogout:                  newSecurityOidcLogoutFunc(t),
-			OidcPrepareAuthentication:   newSecurityOidcPrepareAuthenticationFunc(t),
-			PutPrivileges:               newSecurityPutPrivilegesFunc(t),
-			PutRoleMapping:              newSecurityPutRoleMappingFunc(t),
-			PutRole:                     newSecurityPutRoleFunc(t),
-			PutUser:                     newSecurityPutUserFunc(t),
-			QueryAPIKeys:                newSecurityQueryAPIKeysFunc(t),
-			QueryRole:                   newSecurityQueryRoleFunc(t),
-			QueryUser:                   newSecurityQueryUserFunc(t),
-			SamlAuthenticate:            newSecuritySamlAuthenticateFunc(t),
-			SamlCompleteLogout:          newSecuritySamlCompleteLogoutFunc(t),
-			SamlInvalidate:              newSecuritySamlInvalidateFunc(t),
-			SamlLogout:                  newSecuritySamlLogoutFunc(t),
-			SamlPrepareAuthentication:   newSecuritySamlPrepareAuthenticationFunc(t),
-			SamlServiceProviderMetadata: newSecuritySamlServiceProviderMetadataFunc(t),
-			SuggestUserProfiles:         newSecuritySuggestUserProfilesFunc(t),
-			UpdateAPIKey:                newSecurityUpdateAPIKeyFunc(t),
-			UpdateCrossClusterAPIKey:    newSecurityUpdateCrossClusterAPIKeyFunc(t),
-			UpdateSettings:              newSecurityUpdateSettingsFunc(t),
-			UpdateUserProfileData:       newSecurityUpdateUserProfileDataFunc(t),
+			ActivateUserProfile:             newSecurityActivateUserProfileFunc(t),
+			Authenticate:                    newSecurityAuthenticateFunc(t),
+			BulkDeleteRole:                  newSecurityBulkDeleteRoleFunc(t),
+			BulkPutRole:                     newSecurityBulkPutRoleFunc(t),
+			BulkUpdateAPIKeys:               newSecurityBulkUpdateAPIKeysFunc(t),
+			ChangePassword:                  newSecurityChangePasswordFunc(t),
+			ClearAPIKeyCache:                newSecurityClearAPIKeyCacheFunc(t),
+			ClearCachedPrivileges:           newSecurityClearCachedPrivilegesFunc(t),
+			ClearCachedRealms:               newSecurityClearCachedRealmsFunc(t),
+			ClearCachedRoles:                newSecurityClearCachedRolesFunc(t),
+			ClearCachedServiceTokens:        newSecurityClearCachedServiceTokensFunc(t),
+			CloneAPIKey:                     newSecurityCloneAPIKeyFunc(t),
+			CreateAPIKey:                    newSecurityCreateAPIKeyFunc(t),
+			CreateCrossClusterAPIKey:        newSecurityCreateCrossClusterAPIKeyFunc(t),
+			CreateServiceToken:              newSecurityCreateServiceTokenFunc(t),
+			DelegatePki:                     newSecurityDelegatePkiFunc(t),
+			DeletePrivileges:                newSecurityDeletePrivilegesFunc(t),
+			DeleteRoleMapping:               newSecurityDeleteRoleMappingFunc(t),
+			DeleteRole:                      newSecurityDeleteRoleFunc(t),
+			DeleteServiceToken:              newSecurityDeleteServiceTokenFunc(t),
+			DeleteUserManagedServiceAccount: newSecurityDeleteUserManagedServiceAccountFunc(t),
+			DeleteUser:                      newSecurityDeleteUserFunc(t),
+			DisableUserProfile:              newSecurityDisableUserProfileFunc(t),
+			DisableUser:                     newSecurityDisableUserFunc(t),
+			EnableUserProfile:               newSecurityEnableUserProfileFunc(t),
+			EnableUser:                      newSecurityEnableUserFunc(t),
+			EnrollKibana:                    newSecurityEnrollKibanaFunc(t),
+			EnrollNode:                      newSecurityEnrollNodeFunc(t),
+			GetAPIKey:                       newSecurityGetAPIKeyFunc(t),
+			GetBuiltinPrivileges:            newSecurityGetBuiltinPrivilegesFunc(t),
+			GetPrivileges:                   newSecurityGetPrivilegesFunc(t),
+			GetRoleMapping:                  newSecurityGetRoleMappingFunc(t),
+			GetRole:                         newSecurityGetRoleFunc(t),
+			GetServiceAccounts:              newSecurityGetServiceAccountsFunc(t),
+			GetServiceCredentials:           newSecurityGetServiceCredentialsFunc(t),
+			GetSettings:                     newSecurityGetSettingsFunc(t),
+			GetStats:                        newSecurityGetStatsFunc(t),
+			GetToken:                        newSecurityGetTokenFunc(t),
+			GetUserPrivileges:               newSecurityGetUserPrivilegesFunc(t),
+			GetUserProfile:                  newSecurityGetUserProfileFunc(t),
+			GetUser:                         newSecurityGetUserFunc(t),
+			GrantAPIKey:                     newSecurityGrantAPIKeyFunc(t),
+			HasPrivileges:                   newSecurityHasPrivilegesFunc(t),
+			HasPrivilegesUserProfile:        newSecurityHasPrivilegesUserProfileFunc(t),
+			InvalidateAPIKey:                newSecurityInvalidateAPIKeyFunc(t),
+			InvalidateToken:                 newSecurityInvalidateTokenFunc(t),
+			OidcAuthenticate:                newSecurityOidcAuthenticateFunc(t),
+			OidcLogout:                      newSecurityOidcLogoutFunc(t),
+			OidcPrepareAuthentication:       newSecurityOidcPrepareAuthenticationFunc(t),
+			PutPrivileges:                   newSecurityPutPrivilegesFunc(t),
+			PutRoleMapping:                  newSecurityPutRoleMappingFunc(t),
+			PutRole:                         newSecurityPutRoleFunc(t),
+			PutUserManagedServiceAccount:    newSecurityPutUserManagedServiceAccountFunc(t),
+			PutUser:                         newSecurityPutUserFunc(t),
+			QueryAPIKeys:                    newSecurityQueryAPIKeysFunc(t),
+			QueryRole:                       newSecurityQueryRoleFunc(t),
+			QueryServiceAccounts:            newSecurityQueryServiceAccountsFunc(t),
+			QueryUser:                       newSecurityQueryUserFunc(t),
+			SamlAuthenticate:                newSecuritySamlAuthenticateFunc(t),
+			SamlCompleteLogout:              newSecuritySamlCompleteLogoutFunc(t),
+			SamlInvalidate:                  newSecuritySamlInvalidateFunc(t),
+			SamlLogout:                      newSecuritySamlLogoutFunc(t),
+			SamlPrepareAuthentication:       newSecuritySamlPrepareAuthenticationFunc(t),
+			SamlServiceProviderMetadata:     newSecuritySamlServiceProviderMetadataFunc(t),
+			SuggestUserProfiles:             newSecuritySuggestUserProfilesFunc(t),
+			UpdateAPIKey:                    newSecurityUpdateAPIKeyFunc(t),
+			UpdateCrossClusterAPIKey:        newSecurityUpdateCrossClusterAPIKeyFunc(t),
+			UpdateSettings:                  newSecurityUpdateSettingsFunc(t),
+			UpdateUserProfileData:           newSecurityUpdateUserProfileDataFunc(t),
 		},
 		SQL: &SQL{
 			ClearCursor:    newSQLClearCursorFunc(t),

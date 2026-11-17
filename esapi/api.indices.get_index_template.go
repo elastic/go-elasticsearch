@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -53,10 +53,11 @@ type IndicesGetIndexTemplate func(o ...func(*IndicesGetIndexTemplateRequest)) (*
 type IndicesGetIndexTemplateRequest struct {
 	Name string
 
-	FlatSettings    *bool
-	IncludeDefaults *bool
-	Local           *bool
-	MasterTimeout   time.Duration
+	FlatSettings         *bool
+	IncludeDefaults      *bool
+	IncludeManagedFields *bool
+	Local                *bool
+	MasterTimeout        time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -109,6 +110,10 @@ func (r IndicesGetIndexTemplateRequest) Do(providedCtx context.Context, transpor
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
+	}
+
+	if r.IncludeManagedFields != nil {
+		params["include_managed_fields"] = strconv.FormatBool(*r.IncludeManagedFields)
 	}
 
 	if r.Local != nil {
@@ -215,6 +220,13 @@ func (f IndicesGetIndexTemplate) WithFlatSettings(v bool) func(*IndicesGetIndexT
 func (f IndicesGetIndexTemplate) WithIncludeDefaults(v bool) func(*IndicesGetIndexTemplateRequest) {
 	return func(r *IndicesGetIndexTemplateRequest) {
 		r.IncludeDefaults = &v
+	}
+}
+
+// WithIncludeManagedFields - include internally managed fields (default: false).
+func (f IndicesGetIndexTemplate) WithIncludeManagedFields(v bool) func(*IndicesGetIndexTemplateRequest) {
+	return func(r *IndicesGetIndexTemplateRequest) {
+		r.IncludeManagedFields = &v
 	}
 }
 

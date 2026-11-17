@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -52,6 +52,8 @@ type Exists func(index string, id string, o ...func(*ExistsRequest)) (*Response,
 type ExistsRequest struct {
 	Index      string
 	DocumentID string
+
+	Slice string
 
 	Preference     string
 	Realtime       *bool
@@ -95,12 +97,19 @@ func (r ExistsRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	method = "HEAD"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_doc")
@@ -227,6 +236,13 @@ func (r ExistsRequest) Do(providedCtx context.Context, transport Transport) (*Re
 func (f Exists) WithContext(v context.Context) func(*ExistsRequest) {
 	return func(r *ExistsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Exists) WithSlice(v string) func(*ExistsRequest) {
+	return func(r *ExistsRequest) {
+		r.Slice = v
 	}
 }
 

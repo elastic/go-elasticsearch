@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -60,6 +60,7 @@ type IndicesStatsRequest struct {
 	Fields                  []string
 	ForbidClosedIndices     *bool
 	Groups                  []string
+	IncludeAutoCalibration  *bool
 	IncludeSegmentFileSizes *bool
 	IncludeUnloadedSegments *bool
 	Level                   string
@@ -138,6 +139,10 @@ func (r IndicesStatsRequest) Do(providedCtx context.Context, transport Transport
 
 	if len(r.Groups) > 0 {
 		params["groups"] = strings.Join(r.Groups, ",")
+	}
+
+	if r.IncludeAutoCalibration != nil {
+		params["include_auto_calibration"] = strconv.FormatBool(*r.IncludeAutoCalibration)
 	}
 
 	if r.IncludeSegmentFileSizes != nil {
@@ -283,6 +288,13 @@ func (f IndicesStats) WithForbidClosedIndices(v bool) func(*IndicesStatsRequest)
 func (f IndicesStats) WithGroups(v ...string) func(*IndicesStatsRequest) {
 	return func(r *IndicesStatsRequest) {
 		r.Groups = v
+	}
+}
+
+// WithIncludeAutoCalibration - if set to true, auto-calibration parameters are included in dense_vector field stats (only applies at index or shard level).
+func (f IndicesStats) WithIncludeAutoCalibration(v bool) func(*IndicesStatsRequest) {
+	return func(r *IndicesStatsRequest) {
+		r.IncludeAutoCalibration = &v
 	}
 }
 

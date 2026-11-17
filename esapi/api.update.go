@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -56,6 +56,8 @@ type UpdateRequest struct {
 	DocumentID string
 
 	Body io.Reader
+
+	Slice string
 
 	IfPrimaryTerm        *int64
 	IfSeqNo              *int64
@@ -102,12 +104,19 @@ func (r UpdateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_update") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_update") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_update")
@@ -253,6 +262,13 @@ func (r UpdateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 func (f Update) WithContext(v context.Context) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.ctx = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Update) WithSlice(v string) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.Slice = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -64,6 +64,7 @@ type OpenPointInTimeRequest struct {
 	MaxConcurrentShardRequests *int
 	Preference                 string
 	Routing                    []string
+	Slice                      string
 
 	Pretty     bool
 	Human      bool
@@ -138,6 +139,10 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
+	}
+
+	if r.Slice != "" {
+		params["_slice"] = r.Slice
 	}
 
 	if r.Pretty {
@@ -278,6 +283,13 @@ func (f OpenPointInTime) WithPreference(v string) func(*OpenPointInTimeRequest) 
 func (f OpenPointInTime) WithRouting(v ...string) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.Routing = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the point in time to that slice. defaults to `_all` (all slices) when omitted on slice-enabled indices..
+func (f OpenPointInTime) WithSlice(v string) func(*OpenPointInTimeRequest) {
+	return func(r *OpenPointInTimeRequest) {
+		r.Slice = v
 	}
 }
 

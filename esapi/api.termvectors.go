@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type TermvectorsRequest struct {
 	DocumentID string
 
 	Body io.Reader
+
+	Slice string
 
 	Fields          []string
 	FieldStatistics *bool
@@ -99,12 +101,19 @@ func (r TermvectorsRequest) Do(providedCtx context.Context, transport Transport)
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_termvectors") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_termvectors")
@@ -258,6 +267,13 @@ func (f Termvectors) WithBody(v io.Reader) func(*TermvectorsRequest) {
 func (f Termvectors) WithDocumentID(v string) func(*TermvectorsRequest) {
 	return func(r *TermvectorsRequest) {
 		r.DocumentID = v
+	}
+}
+
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Termvectors) WithSlice(v string) func(*TermvectorsRequest) {
+	return func(r *TermvectorsRequest) {
+		r.Slice = v
 	}
 }
 

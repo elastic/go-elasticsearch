@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -57,6 +57,8 @@ type IndexRequest struct {
 
 	Body io.Reader
 
+	Slice string
+
 	IfPrimaryTerm        *int64
 	IfSeqNo              *int64
 	IncludeSourceOnError *bool
@@ -66,7 +68,6 @@ type IndexRequest struct {
 	RequireAlias         *bool
 	RequireDataStream    *bool
 	Routing              []string
-	Slice                string
 	Timeout              time.Duration
 	Version              *int64
 	VersionType          string
@@ -107,12 +108,19 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 		method = "POST"
 	}
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_doc") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len(r.Slice) + 1 + len("_doc") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
 		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
+	if r.Slice != "" {
+		path.WriteString("/")
+		path.WriteString(r.Slice)
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", r.Slice)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_doc")
@@ -160,10 +168,6 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	if len(r.Routing) > 0 {
 		params["routing"] = strings.Join(r.Routing, ",")
-	}
-
-	if r.Slice != "" {
-		params["_slice"] = r.Slice
 	}
 
 	if r.Timeout != 0 {
@@ -274,6 +278,13 @@ func (f Index) WithDocumentID(v string) func(*IndexRequest) {
 	}
 }
 
+// WithSlice - slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice.
+func (f Index) WithSlice(v string) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.Slice = v
+	}
+}
+
 // WithIfPrimaryTerm - only perform the index operation if the last operation that has changed the document has the specified primary term.
 func (f Index) WithIfPrimaryTerm(v int64) func(*IndexRequest) {
 	return func(r *IndexRequest) {
@@ -334,13 +345,6 @@ func (f Index) WithRequireDataStream(v bool) func(*IndexRequest) {
 func (f Index) WithRouting(v ...string) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.Routing = v
-	}
-}
-
-// WithSlice - slice value for slice-enabled indices. replaces routing when `index.slice.enabled` is true..
-func (f Index) WithSlice(v string) func(*IndexRequest) {
-	return func(r *IndexRequest) {
-		r.Slice = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -57,6 +57,8 @@ type SearchRequest struct {
 
 	Body io.Reader
 
+	Slice []string
+
 	AllowNoIndices             *bool
 	AllowPartialSearchResults  *bool
 	Analyzer                   string
@@ -85,7 +87,6 @@ type SearchRequest struct {
 	SearchType                 string
 	SeqNoPrimaryTerm           *bool
 	Size                       *int
-	Slice                      string
 	Sort                       []string
 	Source                     []string
 	SourceExcludeVectors       *bool
@@ -135,13 +136,20 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_search"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.Slice, ",")) + 1 + len("_search"))
 	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+		}
+	}
+	if len(r.Slice) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Slice, ","))
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", strings.Join(r.Slice, ","))
 		}
 	}
 	path.WriteString("/")
@@ -259,10 +267,6 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	if r.Size != nil {
 		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
-
-	if r.Slice != "" {
-		params["_slice"] = r.Slice
 	}
 
 	if len(r.Sort) > 0 {
@@ -429,6 +433,13 @@ func (f Search) WithBody(v io.Reader) func(*SearchRequest) {
 func (f Search) WithIndex(v ...string) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.Index = v
+	}
+}
+
+// WithSlice - slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). a single slice, a list (for example `tenant-a,tenant-b`), or the reserved token `_all` to search all slices..
+func (f Search) WithSlice(v ...string) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.Slice = v
 	}
 }
 
@@ -625,13 +636,6 @@ func (f Search) WithSeqNoPrimaryTerm(v bool) func(*SearchRequest) {
 func (f Search) WithSize(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.Size = &v
-	}
-}
-
-// WithSlice - slice value for slice-enabled indices. replaces routing when `index.slice.enabled` is true. use `_all` to search across all slices..
-func (f Search) WithSlice(v string) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.Slice = v
 	}
 }
 

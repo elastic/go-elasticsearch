@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -217,7 +217,7 @@ func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response..
+// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, `txt`, and `md` formats will return results in a tabular format, excluding other metadata fields from the response..
 func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.Format = v

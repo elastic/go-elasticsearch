@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0: DO NOT EDIT
+// Code generated from specification version 9.6.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,8 @@ type SearchTemplateRequest struct {
 	Index []string
 
 	Body io.Reader
+
+	Slice []string
 
 	AllowNoIndices        *bool
 	CcsMinimizeRoundtrips *bool
@@ -101,13 +103,20 @@ func (r SearchTemplateRequest) Do(providedCtx context.Context, transport Transpo
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_search") + 1 + len("template"))
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len(strings.Join(r.Slice, ",")) + 1 + len("_search") + 1 + len("template"))
 	path.WriteString("http://")
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
 		if instrument, ok := r.Instrument.(Instrumentation); ok {
 			instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+		}
+	}
+	if len(r.Slice) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.Slice, ","))
+		if instrument, ok := r.Instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "_slice", strings.Join(r.Slice, ","))
 		}
 	}
 	path.WriteString("/")
@@ -258,6 +267,13 @@ func (f SearchTemplate) WithContext(v context.Context) func(*SearchTemplateReque
 func (f SearchTemplate) WithIndex(v ...string) func(*SearchTemplateRequest) {
 	return func(r *SearchTemplateRequest) {
 		r.Index = v
+	}
+}
+
+// WithSlice - slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). a single slice, a list (for example `tenant-a,tenant-b`), or the reserved token `_all` to search all slices..
+func (f SearchTemplate) WithSlice(v ...string) func(*SearchTemplateRequest) {
+	return func(r *SearchTemplateRequest) {
+		r.Slice = v
 	}
 }
 
