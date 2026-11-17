@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newIndicesSplitFunc(t Transport) IndicesSplit {
-	return func(index string, target string, o ...func(*IndicesSplitRequest)) (*Response, error) {
-		var r = IndicesSplitRequest{Index: index, Target: target}
+	return func(index string, body io.Reader, target string, o ...func(*IndicesSplitRequest)) (*Response, error) {
+		var r = IndicesSplitRequest{Index: index, Body: body, Target: target}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newIndicesSplitFunc(t Transport) IndicesSplit {
 // IndicesSplit split an index
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/indices-split-index.html.
-type IndicesSplit func(index string, target string, o ...func(*IndicesSplitRequest)) (*Response, error)
+type IndicesSplit func(index string, body io.Reader, target string, o ...func(*IndicesSplitRequest)) (*Response, error)
 
 // IndicesSplitRequest configures the Indices Split API request.
 type IndicesSplitRequest struct {
@@ -203,13 +203,6 @@ func (r IndicesSplitRequest) Do(providedCtx context.Context, transport Transport
 func (f IndicesSplit) WithContext(v context.Context) func(*IndicesSplitRequest) {
 	return func(r *IndicesSplitRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The configuration for the target index (`settings` and `aliases`).
-func (f IndicesSplit) WithBody(v io.Reader) func(*IndicesSplitRequest) {
-	return func(r *IndicesSplitRequest) {
-		r.Body = v
 	}
 }
 

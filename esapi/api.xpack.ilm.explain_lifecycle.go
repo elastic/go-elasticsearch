@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -53,9 +53,10 @@ type ILMExplainLifecycle func(index string, o ...func(*ILMExplainLifecycleReques
 type ILMExplainLifecycleRequest struct {
 	Index string
 
-	MasterTimeout time.Duration
-	OnlyErrors    *bool
-	OnlyManaged   *bool
+	ExpandWildcards []string
+	MasterTimeout   time.Duration
+	OnlyErrors      *bool
+	OnlyManaged     *bool
 
 	Pretty     bool
 	Human      bool
@@ -101,6 +102,10 @@ func (r ILMExplainLifecycleRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("explain")
 
 	params = make(map[string]string)
+
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
+	}
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
@@ -189,6 +194,13 @@ func (r ILMExplainLifecycleRequest) Do(providedCtx context.Context, transport Tr
 func (f ILMExplainLifecycle) WithContext(v context.Context) func(*ILMExplainLifecycleRequest) {
 	return func(r *ILMExplainLifecycleRequest) {
 		r.ctx = v
+	}
+}
+
+// WithExpandWildcards - whether wildcard expressions should get expanded to open, closed, or hidden indices (default: open).
+func (f ILMExplainLifecycle) WithExpandWildcards(v ...string) func(*ILMExplainLifecycleRequest) {
+	return func(r *ILMExplainLifecycleRequest) {
+		r.ExpandWildcards = v
 	}
 }
 

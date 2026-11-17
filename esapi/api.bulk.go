@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -282,14 +282,14 @@ func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 	}
 }
 
-// WithRequireAlias - sets require_alias for all incoming documents. defaults to unset (false).
+// WithRequireAlias - if true, the request's actions must target an index alias. defaults to false..
 func (f Bulk) WithRequireAlias(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireAlias = &v
 	}
 }
 
-// WithRequireDataStream - when true, requires the destination to be a data stream (existing or to-be-created). default is false.
+// WithRequireDataStream - if true, the request's actions must target a data stream (existing or to-be-created). default to false.
 func (f Bulk) WithRequireDataStream(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireDataStream = &v

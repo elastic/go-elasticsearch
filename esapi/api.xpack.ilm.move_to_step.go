@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
-	return func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error) {
-		var r = ILMMoveToStepRequest{Index: index}
+	return func(index string, body io.Reader, o ...func(*ILMMoveToStepRequest)) (*Response, error) {
+		var r = ILMMoveToStepRequest{Index: index, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +46,7 @@ func newILMMoveToStepFunc(t Transport) ILMMoveToStep {
 // ILMMoveToStep - Move to a lifecycle step
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-move-to-step.html.
-type ILMMoveToStep func(index string, o ...func(*ILMMoveToStepRequest)) (*Response, error)
+type ILMMoveToStep func(index string, body io.Reader, o ...func(*ILMMoveToStepRequest)) (*Response, error)
 
 // ILMMoveToStepRequest configures the ILM Move To Step API request.
 type ILMMoveToStepRequest struct {
@@ -181,13 +181,6 @@ func (r ILMMoveToStepRequest) Do(providedCtx context.Context, transport Transpor
 func (f ILMMoveToStep) WithContext(v context.Context) func(*ILMMoveToStepRequest) {
 	return func(r *ILMMoveToStepRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The new lifecycle step to move to.
-func (f ILMMoveToStep) WithBody(v io.Reader) func(*ILMMoveToStepRequest) {
-	return func(r *ILMMoveToStepRequest) {
-		r.Body = v
 	}
 }
 

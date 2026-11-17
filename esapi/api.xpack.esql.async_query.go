@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -217,7 +217,7 @@ func (f EsqlAsyncQuery) WithDropNullColumns(v bool) func(*EsqlAsyncQueryRequest)
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, e.g. json, yaml.`csv`, `tsv`, and `txt` formats will return results in a tabular format, excluding other metadata fields from the response.for async requests, nothing will be returned if the async query doesn't finish within the timeout.the query ID and running status are available in the `x-elasticsearch-async-ID` and `x-elasticsearch-async-is-running` http headers of the response, respectively..
 func (f EsqlAsyncQuery) WithFormat(v string) func(*EsqlAsyncQueryRequest) {
 	return func(r *EsqlAsyncQueryRequest) {
 		r.Format = v

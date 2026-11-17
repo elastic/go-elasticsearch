@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -64,11 +65,11 @@ type CountRequest struct {
 	IgnoreThrottled   *bool
 	IgnoreUnavailable *bool
 	Lenient           *bool
-	MinScore          *int
+	MinScore          interface{}
 	Preference        string
 	Query             string
 	Routing           []string
-	TerminateAfter    *int
+	TerminateAfter    *int64
 
 	Pretty     bool
 	Human      bool
@@ -152,7 +153,7 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.MinScore != nil {
-		params["min_score"] = strconv.FormatInt(int64(*r.MinScore), 10)
+		params["min_score"] = fmt.Sprintf("%v", r.MinScore)
 	}
 
 	if r.Preference != "" {
@@ -168,7 +169,7 @@ func (r CountRequest) Do(providedCtx context.Context, transport Transport) (*Res
 	}
 
 	if r.TerminateAfter != nil {
-		params["terminate_after"] = strconv.FormatInt(int64(*r.TerminateAfter), 10)
+		params["terminate_after"] = strconv.FormatInt(*r.TerminateAfter, 10)
 	}
 
 	if r.Pretty {
@@ -334,9 +335,9 @@ func (f Count) WithLenient(v bool) func(*CountRequest) {
 }
 
 // WithMinScore - include only documents with a specific `_score` value in the result.
-func (f Count) WithMinScore(v int) func(*CountRequest) {
+func (f Count) WithMinScore(v interface{}) func(*CountRequest) {
 	return func(r *CountRequest) {
-		r.MinScore = &v
+		r.MinScore = v
 	}
 }
 
@@ -362,7 +363,7 @@ func (f Count) WithRouting(v ...string) func(*CountRequest) {
 }
 
 // WithTerminateAfter - the maximum count for each shard, upon reaching which the query execution will terminate early.
-func (f Count) WithTerminateAfter(v int) func(*CountRequest) {
+func (f Count) WithTerminateAfter(v int64) func(*CountRequest) {
 	return func(r *CountRequest) {
 		r.TerminateAfter = &v
 	}

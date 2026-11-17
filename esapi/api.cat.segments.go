@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -53,15 +53,20 @@ type CatSegments func(o ...func(*CatSegmentsRequest)) (*Response, error)
 type CatSegmentsRequest struct {
 	Index []string
 
-	Bytes         string
-	Format        string
-	H             []string
-	Help          *bool
-	Local         *bool
-	MasterTimeout time.Duration
-	S             []string
-	Time          string
-	V             *bool
+	AllowClosed       *bool
+	AllowNoIndices    *bool
+	Bytes             string
+	ExpandWildcards   []string
+	Format            string
+	H                 []string
+	Help              *bool
+	IgnoreThrottled   *bool
+	IgnoreUnavailable *bool
+	Local             *bool
+	MasterTimeout     time.Duration
+	S                 []string
+	Time              string
+	V                 *bool
 
 	Pretty     bool
 	Human      bool
@@ -110,8 +115,20 @@ func (r CatSegmentsRequest) Do(providedCtx context.Context, transport Transport)
 
 	params = make(map[string]string)
 
+	if r.AllowClosed != nil {
+		params["allow_closed"] = strconv.FormatBool(*r.AllowClosed)
+	}
+
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
 	if r.Bytes != "" {
 		params["bytes"] = r.Bytes
+	}
+
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.Format != "" {
@@ -124,6 +141,14 @@ func (r CatSegmentsRequest) Do(providedCtx context.Context, transport Transport)
 
 	if r.Help != nil {
 		params["help"] = strconv.FormatBool(*r.Help)
+	}
+
+	if r.IgnoreThrottled != nil {
+		params["ignore_throttled"] = strconv.FormatBool(*r.IgnoreThrottled)
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
 	if r.Local != nil {
@@ -231,10 +256,31 @@ func (f CatSegments) WithIndex(v ...string) func(*CatSegmentsRequest) {
 	}
 }
 
+// WithAllowClosed - if true, allow closed indices to be returned in the response otherwise if false, keep the legacy behaviour of throwing an exception if index pattern matches closed indices.
+func (f CatSegments) WithAllowClosed(v bool) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.AllowClosed = &v
+	}
+}
+
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified). only allowed when providing an index expression..
+func (f CatSegments) WithAllowNoIndices(v bool) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
 // WithBytes - the unit in which to display byte values.
 func (f CatSegments) WithBytes(v string) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.Bytes = v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
+func (f CatSegments) WithExpandWildcards(v ...string) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.ExpandWildcards = v
 	}
 }
 
@@ -256,6 +302,20 @@ func (f CatSegments) WithH(v ...string) func(*CatSegmentsRequest) {
 func (f CatSegments) WithHelp(v bool) func(*CatSegmentsRequest) {
 	return func(r *CatSegmentsRequest) {
 		r.Help = &v
+	}
+}
+
+// WithIgnoreThrottled - whether specified concrete, expanded or aliased indices should be ignored when throttled. only allowed when providing an index expression..
+func (f CatSegments) WithIgnoreThrottled(v bool) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.IgnoreThrottled = &v
+	}
+}
+
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed). only allowed when providing an index expression..
+func (f CatSegments) WithIgnoreUnavailable(v bool) func(*CatSegmentsRequest) {
+	return func(r *CatSegmentsRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 

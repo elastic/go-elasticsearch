@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strconv"
 	"strings"
@@ -28,7 +29,7 @@ import (
 )
 
 func newIndicesUnfreezeFunc(t Transport) IndicesUnfreeze {
-	return func(index string, o ...func(*IndicesUnfreezeRequest)) (*Response, error) {
+	return func(index []string, o ...func(*IndicesUnfreezeRequest)) (*Response, error) {
 		var r = IndicesUnfreezeRequest{Index: index}
 		for _, f := range o {
 			f(&r)
@@ -47,14 +48,14 @@ func newIndicesUnfreezeFunc(t Transport) IndicesUnfreeze {
 // IndicesUnfreeze - Unfreeze an index
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/unfreeze-index-api.html.
-type IndicesUnfreeze func(index string, o ...func(*IndicesUnfreezeRequest)) (*Response, error)
+type IndicesUnfreeze func(index []string, o ...func(*IndicesUnfreezeRequest)) (*Response, error)
 
 // IndicesUnfreezeRequest configures the Indices Unfreeze API request.
 type IndicesUnfreezeRequest struct {
-	Index string
+	Index []string
 
 	AllowNoIndices      *bool
-	ExpandWildcards     string
+	ExpandWildcards     []string
 	IgnoreUnavailable   *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
@@ -91,12 +92,16 @@ func (r IndicesUnfreezeRequest) Do(providedCtx context.Context, transport Transp
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_unfreeze"))
+	if len(r.Index) == 0 {
+		return nil, errors.New("index is required and cannot be nil or empty")
+	}
+
+	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_unfreeze"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString(strings.Join(r.Index, ","))
 	if instrument, ok := r.Instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
 	}
 	path.WriteString("/")
 	path.WriteString("_unfreeze")
@@ -107,8 +112,8 @@ func (r IndicesUnfreezeRequest) Do(providedCtx context.Context, transport Transp
 		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
 	}
 
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
 	}
 
 	if r.IgnoreUnavailable != nil {
@@ -213,7 +218,7 @@ func (f IndicesUnfreeze) WithAllowNoIndices(v bool) func(*IndicesUnfreezeRequest
 }
 
 // WithExpandWildcards - whether to expand wildcard expression to concrete indices that are open, closed or both..
-func (f IndicesUnfreeze) WithExpandWildcards(v string) func(*IndicesUnfreezeRequest) {
+func (f IndicesUnfreeze) WithExpandWildcards(v ...string) func(*IndicesUnfreezeRequest) {
 	return func(r *IndicesUnfreezeRequest) {
 		r.ExpandWildcards = v
 	}

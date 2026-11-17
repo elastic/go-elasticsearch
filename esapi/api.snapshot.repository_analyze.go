@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -59,7 +60,7 @@ type SnapshotRepositoryAnalyzeRequest struct {
 	EarlyReadNodeCount     *int
 	MaxBlobSize            string
 	MaxTotalDataSize       string
-	RareActionProbability  *int
+	RareActionProbability  interface{}
 	RarelyAbortWrites      *bool
 	ReadNodeCount          *int
 	RegisterOperationCount *int
@@ -136,7 +137,7 @@ func (r SnapshotRepositoryAnalyzeRequest) Do(providedCtx context.Context, transp
 	}
 
 	if r.RareActionProbability != nil {
-		params["rare_action_probability"] = strconv.FormatInt(int64(*r.RareActionProbability), 10)
+		params["rare_action_probability"] = fmt.Sprintf("%v", r.RareActionProbability)
 	}
 
 	if r.RarelyAbortWrites != nil {
@@ -280,9 +281,9 @@ func (f SnapshotRepositoryAnalyze) WithMaxTotalDataSize(v string) func(*Snapshot
 }
 
 // WithRareActionProbability - probability of taking a rare action such as an early read or an overwrite. defaults to 0.02..
-func (f SnapshotRepositoryAnalyze) WithRareActionProbability(v int) func(*SnapshotRepositoryAnalyzeRequest) {
+func (f SnapshotRepositoryAnalyze) WithRareActionProbability(v interface{}) func(*SnapshotRepositoryAnalyzeRequest) {
 	return func(r *SnapshotRepositoryAnalyzeRequest) {
-		r.RareActionProbability = &v
+		r.RareActionProbability = v
 	}
 }
 

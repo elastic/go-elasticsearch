@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -192,7 +192,7 @@ func (f ClusterPutSettings) WithContext(v context.Context) func(*ClusterPutSetti
 	}
 }
 
-// WithFlatSettings - return settings in flat format (default: false).
+// WithFlatSettings - return settings in flat format.
 func (f ClusterPutSettings) WithFlatSettings(v bool) func(*ClusterPutSettingsRequest) {
 	return func(r *ClusterPutSettingsRequest) {
 		r.FlatSettings = &v

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -258,7 +258,7 @@ func (f TextStructureFindFieldStructure) WithDocumentsToSample(v int) func(*Text
 	}
 }
 
-// WithEcsCompatibility - optional parameter to specify the compatibility mode with ecs grok patterns - may be either 'v1' or 'disabled'.
+// WithEcsCompatibility - the mode of compatibility with ecs compliant grok patterns.use this parameter to specify whether to use ecs grok patterns instead of legacy ones when the structure finder creates a grok pattern.this setting primarily has an impact when a whole message grok pattern such as `%{catalinalog}` matches the input.if the structure finder identifies a common structure but has no idea of the meaning then generic field names such as `path`, `ipaddress`, `field1`, and `field2` are used in the `grok_pattern` output.the intention in that situation is that a user who knows the meanings will rename the fields before using them..
 func (f TextStructureFindFieldStructure) WithEcsCompatibility(v string) func(*TextStructureFindFieldStructureRequest) {
 	return func(r *TextStructureFindFieldStructureRequest) {
 		r.EcsCompatibility = v

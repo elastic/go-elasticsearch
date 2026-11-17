@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
-	return func(inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error) {
-		var r = InferenceTextEmbeddingRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error) {
+		var r = InferenceTextEmbeddingRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,13 +47,15 @@ func newInferenceTextEmbeddingFunc(t Transport) InferenceTextEmbedding {
 // InferenceTextEmbedding perform text embedding inference on the service
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
-type InferenceTextEmbedding func(inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error)
+type InferenceTextEmbedding func(body io.Reader, inference_id string, o ...func(*InferenceTextEmbeddingRequest)) (*Response, error)
 
 // InferenceTextEmbeddingRequest configures the Inference Text Embedding API request.
 type InferenceTextEmbeddingRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceTextEmbeddingRequest) Do(providedCtx context.Context, transport
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -184,10 +191,10 @@ func (f InferenceTextEmbedding) WithContext(v context.Context) func(*InferenceTe
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceTextEmbedding) WithBody(v io.Reader) func(*InferenceTextEmbeddingRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceTextEmbedding) WithTimeout(v time.Duration) func(*InferenceTextEmbeddingRequest) {
 	return func(r *InferenceTextEmbeddingRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

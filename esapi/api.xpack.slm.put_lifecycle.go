@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
-	return func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
-		var r = SlmPutLifecycleRequest{PolicyID: policy_id}
+	return func(body io.Reader, policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error) {
+		var r = SlmPutLifecycleRequest{Body: body, PolicyID: policy_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newSlmPutLifecycleFunc(t Transport) SlmPutLifecycle {
 // SlmPutLifecycle - Create or update a policy
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/slm-api-put-policy.html.
-type SlmPutLifecycle func(policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error)
+type SlmPutLifecycle func(body io.Reader, policy_id string, o ...func(*SlmPutLifecycleRequest)) (*Response, error)
 
 // SlmPutLifecycleRequest configures the Slm Put Lifecycle API request.
 type SlmPutLifecycleRequest struct {
@@ -193,13 +193,6 @@ func (r SlmPutLifecycleRequest) Do(providedCtx context.Context, transport Transp
 func (f SlmPutLifecycle) WithContext(v context.Context) func(*SlmPutLifecycleRequest) {
 	return func(r *SlmPutLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The snapshot lifecycle policy definition to register.
-func (f SlmPutLifecycle) WithBody(v io.Reader) func(*SlmPutLifecycleRequest) {
-	return func(r *SlmPutLifecycleRequest) {
-		r.Body = v
 	}
 }
 

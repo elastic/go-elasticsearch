@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -253,7 +253,7 @@ func (f MLGetTrainedModels) WithFrom(v int) func(*MLGetTrainedModelsRequest) {
 	}
 }
 
-// WithInclude - a comma-separate list of fields to optionally include. valid options are 'definition' and 'total_feature_importance'. default is none..
+// WithInclude - a comma delimited string of optional fields to include in the responsebody..
 func (f MLGetTrainedModels) WithInclude(v string) func(*MLGetTrainedModelsRequest) {
 	return func(r *MLGetTrainedModelsRequest) {
 		r.Include = v

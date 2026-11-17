@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newStreamsStatusFunc(t Transport) StreamsStatus {
@@ -44,11 +45,15 @@ func newStreamsStatusFunc(t Transport) StreamsStatus {
 
 // StreamsStatus return the current status of the streams feature for each streams type
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/streams-status.html.
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch#TODO.
 type StreamsStatus func(o ...func(*StreamsStatusRequest)) (*Response, error)
 
 // StreamsStatusRequest configures the Streams Status API request.
 type StreamsStatusRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +90,10 @@ func (r StreamsStatusRequest) Do(providedCtx context.Context, transport Transpor
 	path.WriteString("/_streams/status")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +170,13 @@ func (r StreamsStatusRequest) Do(providedCtx context.Context, transport Transpor
 func (f StreamsStatus) WithContext(v context.Context) func(*StreamsStatusRequest) {
 	return func(r *StreamsStatusRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - period to wait for a response. if no response is received before the timeout expires, the request fails and returns an error..
+func (f StreamsStatus) WithMasterTimeout(v time.Duration) func(*StreamsStatusRequest) {
+	return func(r *StreamsStatusRequest) {
+		r.MasterTimeout = v
 	}
 }
 
