@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ssl/certificates/types.ts#L22-L57
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/ssl/certificates/types.ts#L22-L57
 type CertificateInformation struct {
 	// Alias If the path refers to a container file (a jks keystore, or a PKCS#12 file),
 	// it is the alias of the certificate. Otherwise, it is null.

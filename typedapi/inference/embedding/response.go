@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package embedding
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package embedding
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/embedding/EmbeddingResponse.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/inference/embedding/EmbeddingResponse.ts#L22-L25
 type Response struct {
 	Embeddings      []types.DenseEmbeddingResult     `json:"embeddings,omitempty"`
 	EmbeddingsBits  []types.DenseEmbeddingByteResult `json:"embeddings_bits,omitempty"`

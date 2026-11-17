@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 // Update data stream settings.
 //
@@ -744,13 +744,13 @@ func (r *PutDataStreamSettings) MaxRescoreWindow(maxrescorewindow int) *PutDataS
 }
 
 // API name: max_result_window
-func (r *PutDataStreamSettings) MaxResultWindow(maxresultwindow int) *PutDataStreamSettings {
+func (r *PutDataStreamSettings) MaxResultWindow(stringifiedinteger types.StringifiedintegerVariant) *PutDataStreamSettings {
 	// Initialize the request if it is not already initialized
 	if r.req == nil {
 		r.req = NewRequest()
 	}
 
-	r.req.MaxResultWindow = &maxresultwindow
+	r.req.MaxResultWindow = *stringifiedinteger.StringifiedintegerCaster()
 
 	return r
 }
@@ -919,6 +919,18 @@ func (r *PutDataStreamSettings) RefreshInterval(duration types.DurationVariant) 
 	}
 
 	r.req.RefreshInterval = *duration.DurationCaster()
+
+	return r
+}
+
+// API name: requests
+func (r *PutDataStreamSettings) Requests(requests types.RequestsVariant) *PutDataStreamSettings {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Requests = requests.RequestsCaster()
 
 	return r
 }

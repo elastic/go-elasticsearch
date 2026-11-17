@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GoogleAiStudioServiceSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/_types/CommonTypes.ts#L1636-L1652
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/inference/_types/CommonTypes.ts#L1639-L1655
 type GoogleAiStudioServiceSettings struct {
 	// ApiKey A valid API key of your Google Gemini account.
 	ApiKey string `json:"api_key"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package esdsl
 
@@ -70,12 +70,9 @@ func (s *_roleDescriptor) Description(description string) *_roleDescriptor {
 	return s
 }
 
-func (s *_roleDescriptor) Global(globals ...types.GlobalPrivilegeVariant) *_roleDescriptor {
+func (s *_roleDescriptor) Global(global types.GlobalPrivilegeVariant) *_roleDescriptor {
 
-	s.v.Global = make([]types.GlobalPrivilege, len(globals))
-	for i, v := range globals {
-		s.v.Global[i] = *v.GlobalPrivilegeCaster()
-	}
+	s.v.Global = global.GlobalPrivilegeCaster()
 
 	return s
 }

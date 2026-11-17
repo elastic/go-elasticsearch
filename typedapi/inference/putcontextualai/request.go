@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package putcontextualai
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putcontextualai
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/inference/put_contextualai/PutContextualAiRequest.ts#L30-L83
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/inference/put_contextualai/PutContextualAiRequest.ts#L30-L83
 type Request struct {
 	// Service The type of service supported for the specified task type. In this case,
 	// `contextualai`.

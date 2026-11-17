@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/analysis/token_filters.ts#L71-L82
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/_types/analysis/token_filters.ts#L71-L82
 type HyphenationDecompounderTokenFilter struct {
 	// HyphenationPatternsPath Path to an Apache FOP (Formatting Objects Processor) XML hyphenation pattern
 	// file. This path must be absolute or relative to the `config` location. Only

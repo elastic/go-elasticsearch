@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package esdsl
 
@@ -25,6 +25,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexoptions"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/onscripterror"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/subobjects"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/syntheticsourcekeepenum"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/termvectoroption"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/timeseriesmetrictype"
@@ -71,6 +72,20 @@ func (s *_dynamicProperty) EagerGlobalOrdinals(eagerglobalordinals bool) *_dynam
 func (s *_dynamicProperty) Enabled(enabled bool) *_dynamicProperty {
 
 	s.v.Enabled = &enabled
+
+	return s
+}
+
+func (s *_dynamicProperty) Fielddata(fielddata bool) *_dynamicProperty {
+
+	s.v.Fielddata = &fielddata
+
+	return s
+}
+
+func (s *_dynamicProperty) FielddataFrequencyFilter(fielddatafrequencyfilter types.FielddataFrequencyFilterVariant) *_dynamicProperty {
+
+	s.v.FielddataFrequencyFilter = fielddatafrequencyfilter.FielddataFrequencyFilterCaster()
 
 	return s
 }
@@ -178,9 +193,29 @@ func (s *_dynamicProperty) SearchQuoteAnalyzer(searchquoteanalyzer string) *_dyn
 	return s
 }
 
+func (s *_dynamicProperty) Similarity(similarity string) *_dynamicProperty {
+
+	s.v.Similarity = &similarity
+
+	return s
+}
+
+func (s *_dynamicProperty) Subobjects(subobjects subobjects.Subobjects) *_dynamicProperty {
+
+	s.v.Subobjects = &subobjects
+	return s
+}
+
 func (s *_dynamicProperty) TermVector(termvector termvectoroption.TermVectorOption) *_dynamicProperty {
 
 	s.v.TermVector = &termvector
+	return s
+}
+
+func (s *_dynamicProperty) TimeSeriesDimension(timeseriesdimension bool) *_dynamicProperty {
+
+	s.v.TimeSeriesDimension = &timeseriesdimension
+
 	return s
 }
 

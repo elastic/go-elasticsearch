@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package deleteservicetoken
 
 // Response holds the response body struct for the package deleteservicetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/delete_service_token/DeleteServiceTokenResponse.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/security/delete_service_token/DeleteServiceTokenResponse.ts#L20-L28
 type Response struct {
 	// Found If the service account token is successfully deleted, the request returns
 	// `{"found": true}`. Otherwise, the response will have status code 404 and

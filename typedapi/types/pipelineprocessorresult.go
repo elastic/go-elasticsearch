@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // PipelineProcessorResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ingest/_types/Simulation.ts#L59-L67
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/ingest/_types/Simulation.ts#L59-L67
 type PipelineProcessorResult struct {
 	Description   *string                                                          `json:"description,omitempty"`
 	Doc           *DocumentSimulation                                              `json:"doc,omitempty"`

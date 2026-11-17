@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package rankeval
 
@@ -29,12 +29,16 @@ import (
 
 // Request holds the request body struct for the package rankeval
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_global/rank_eval/RankEvalRequest.ts#L24-L93
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/_global/rank_eval/RankEvalRequest.ts#L24-L98
 type Request struct {
 	// Metric Definition of the evaluation metric to calculate.
 	Metric *types.RankEvalMetric `json:"metric,omitempty"`
 	// Requests A set of typical search requests, together with their provided ratings.
 	Requests []types.RankEvalRequestItem `json:"requests"`
+	// Templates Query templates that the rated requests can refer to by their `template_id`.
+	// This way, queries that differ only in their parameters don't have to be
+	// repeated in `requests`.
+	Templates []types.RankEvalTemplate `json:"templates,omitempty"`
 }
 
 // NewRequest returns a Request

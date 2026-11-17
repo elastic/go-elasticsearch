@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // PassthroughObjectProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/mapping/complex.ts#L53-L58
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/_types/mapping/complex.ts#L64-L69
 type PassthroughObjectProperty struct {
 	CopyTo      []string                       `json:"copy_to,omitempty"`
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`

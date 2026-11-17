@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -31,8 +31,10 @@ import (
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/get_token/types.ts#L60-L65
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/security/get_token/types.ts#L62-L75
 type AuthenticatedUser struct {
+	// ApiKey Present when the authenticated user is an API key.
+	ApiKey                 *AuthenticateApiKey     `json:"api_key,omitempty"`
 	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
 	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
 	AuthenticationType     string                  `json:"authentication_type"`
@@ -43,7 +45,10 @@ type AuthenticatedUser struct {
 	Metadata               Metadata                `json:"metadata"`
 	ProfileUid             *string                 `json:"profile_uid,omitempty"`
 	Roles                  []string                `json:"roles"`
-	Username               string                  `json:"username"`
+	// Token Present when the authenticated user is a service account, or authenticated
+	// with a token.
+	Token    *AuthenticateToken `json:"token,omitempty"`
+	Username string             `json:"username"`
 }
 
 func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
@@ -60,6 +65,11 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "api_key":
+			if err := dec.Decode(&s.ApiKey); err != nil {
+				return fmt.Errorf("%s | %w", "ApiKey", err)
+			}
 
 		case "authentication_provider":
 			if err := dec.Decode(&s.AuthenticationProvider); err != nil {
@@ -132,6 +142,11 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
 				return fmt.Errorf("%s | %w", "Roles", err)
+			}
+
+		case "token":
+			if err := dec.Decode(&s.Token); err != nil {
+				return fmt.Errorf("%s | %w", "Token", err)
 			}
 
 		case "username":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 // Get index information.
 //
@@ -375,7 +375,9 @@ func (r *Indices) Index(index string) *Indices {
 	return r
 }
 
-// ExpandWildcards The type of index that wildcard patterns can match.
+// ExpandWildcards The type of index that wildcard patterns can match. Note that `closed` also
+// matches non-hidden data streams, so their open backing indices are returned
+// as well. It does not restrict the response to closed indices only.
 // API name: expand_wildcards
 func (r *Indices) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Indices {
 	tmp := []string{}
