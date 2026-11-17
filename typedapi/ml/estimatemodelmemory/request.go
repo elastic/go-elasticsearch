@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package estimatemodelmemory
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package estimatemodelmemory
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L73
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L73
 type Request struct {
 	// AnalysisConfig For a list of the properties that you can specify in the `analysis_config`
 	// component of the body of this API.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/_types/Retriever.ts#L118-L143
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/_types/Retriever.ts#L130-L155
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -45,7 +45,7 @@ type KnnRetriever struct {
 	// Name_ Retriever name.
 	Name_ *string `json:"_name,omitempty"`
 	// NumCandidates Number of nearest neighbor candidates to consider per shard.
-	NumCandidates int `json:"num_candidates"`
+	NumCandidates *int `json:"num_candidates,omitempty"`
 	// QueryVector Query vector. Must have the same number of dimensions as the vector field you
 	// are searching against. You must provide a query_vector_builder or
 	// query_vector, but not both.
@@ -158,10 +158,10 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "NumCandidates", err)
 				}
-				s.NumCandidates = value
+				s.NumCandidates = &value
 			case float64:
 				f := int(v)
-				s.NumCandidates = f
+				s.NumCandidates = &f
 			}
 
 		case "query_vector":

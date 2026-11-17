@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package previewdatafeed
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package previewdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/ml/preview_datafeed/MlPreviewDatafeedRequest.ts#L26-L86
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/ml/preview_datafeed/MlPreviewDatafeedRequest.ts#L26-L86
 type Request struct {
 	// DatafeedConfig The datafeed definition to preview.
 	DatafeedConfig *types.DatafeedConfig `json:"datafeed_config,omitempty"`

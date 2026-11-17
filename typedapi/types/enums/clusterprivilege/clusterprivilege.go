@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 // Package clusterprivilege
 package clusterprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/security/_types/Privileges.ts#L43-L210
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/security/_types/Privileges.ts#L43-L214
 type ClusterPrivilege struct {
 	Name string
 }
@@ -32,6 +32,8 @@ var (
 	All = ClusterPrivilege{"all"}
 
 	Canceltask = ClusterPrivilege{"cancel_task"}
+
+	Cloneapikey = ClusterPrivilege{"clone_api_key"}
 
 	Createsnapshot = ClusterPrivilege{"create_snapshot"}
 
@@ -167,6 +169,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = All
 	case "cancel_task":
 		*c = Canceltask
+	case "clone_api_key":
+		*c = Cloneapikey
 	case "create_snapshot":
 		*c = Createsnapshot
 	case "cross_cluster_replication":

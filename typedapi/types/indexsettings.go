@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/_types/IndexSettings.ts#L70-L185
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/indices/_types/IndexSettings.ts#L71-L187
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -67,7 +67,7 @@ type IndexSettings struct {
 	MaxRefreshListeners     *int                  `json:"max_refresh_listeners,omitempty"`
 	MaxRegexLength          *int                  `json:"max_regex_length,omitempty"`
 	MaxRescoreWindow        *int                  `json:"max_rescore_window,omitempty"`
-	MaxResultWindow         *int                  `json:"max_result_window,omitempty"`
+	MaxResultWindow         Stringifiedinteger    `json:"max_result_window,omitempty"`
 	MaxScriptFields         *int                  `json:"max_script_fields,omitempty"`
 	MaxShingleDiff          *int                  `json:"max_shingle_diff,omitempty"`
 	MaxSlicesPerScroll      *int                  `json:"max_slices_per_scroll,omitempty"`
@@ -82,6 +82,7 @@ type IndexSettings struct {
 	Queries                 *Queries              `json:"queries,omitempty"`
 	QueryString             *SettingsQueryString  `json:"query_string,omitempty"`
 	RefreshInterval         Duration              `json:"refresh_interval,omitempty"`
+	Requests                *Requests             `json:"requests,omitempty"`
 	Routing                 *IndexRouting         `json:"routing,omitempty"`
 	RoutingPartitionSize    Stringifiedinteger    `json:"routing_partition_size,omitempty"`
 	RoutingPath             []string              `json:"routing_path,omitempty"`
@@ -346,19 +347,8 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_result_window":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "MaxResultWindow", err)
-				}
-				s.MaxResultWindow = &value
-			case float64:
-				f := int(v)
-				s.MaxResultWindow = &f
+			if err := dec.Decode(&s.MaxResultWindow); err != nil {
+				return fmt.Errorf("%s | %w", "MaxResultWindow", err)
 			}
 
 		case "max_script_fields":
@@ -512,6 +502,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "refresh_interval":
 			if err := dec.Decode(&s.RefreshInterval); err != nil {
 				return fmt.Errorf("%s | %w", "RefreshInterval", err)
+			}
+
+		case "requests":
+			if err := dec.Decode(&s.Requests); err != nil {
+				return fmt.Errorf("%s | %w", "Requests", err)
 			}
 
 		case "routing":

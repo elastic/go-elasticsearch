@@ -16,22 +16,79 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/aad9207f6cd8cc3a40f061c58915abd2348de414
+// https://github.com/elastic/elasticsearch-specification/tree/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/indexroutingallocationoptions"
 )
 
 // IndexRoutingAllocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/aad9207f6cd8cc3a40f061c58915abd2348de414/specification/indices/_types/IndexRouting.ts#L27-L32
+// https://github.com/elastic/elasticsearch-specification/blob/c20dd2ab2589479650a2e0bdfa8c21cd60a570fb/specification/indices/_types/IndexRouting.ts#L28-L39
 type IndexRoutingAllocation struct {
 	Disk            *IndexRoutingAllocationDisk                                  `json:"disk,omitempty"`
 	Enable          *indexroutingallocationoptions.IndexRoutingAllocationOptions `json:"enable,omitempty"`
 	Include         *IndexRoutingAllocationInclude                               `json:"include,omitempty"`
 	InitialRecovery *IndexRoutingAllocationInitialRecovery                       `json:"initial_recovery,omitempty"`
+	// Require Assign the index to a node whose attribute has all of the given values. Each
+	// key is a node attribute: one of the built-in attributes `_name`, `_host_ip`,
+	// `_publish_ip`, `_ip`, `_host`, `_id` and `_tier`, or a custom node attribute.
+	// Each value is a comma-separated string or an array of strings, and can use
+	// wildcards.
+	Require IndexRoutingAllocationRequire `json:"require,omitempty"`
+}
+
+func (s *IndexRoutingAllocation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "disk":
+			if err := dec.Decode(&s.Disk); err != nil {
+				return fmt.Errorf("%s | %w", "Disk", err)
+			}
+
+		case "enable":
+			if err := dec.Decode(&s.Enable); err != nil {
+				return fmt.Errorf("%s | %w", "Enable", err)
+			}
+
+		case "include":
+			if err := dec.Decode(&s.Include); err != nil {
+				return fmt.Errorf("%s | %w", "Include", err)
+			}
+
+		case "initial_recovery":
+			if err := dec.Decode(&s.InitialRecovery); err != nil {
+				return fmt.Errorf("%s | %w", "InitialRecovery", err)
+			}
+
+		case "require":
+			if err := dec.Decode(&s.Require); err != nil {
+				return fmt.Errorf("%s | %w", "Require", err)
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIndexRoutingAllocation returns a IndexRoutingAllocation.
