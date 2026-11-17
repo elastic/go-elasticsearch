@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newClosePointInTimeFunc(t Transport) ClosePointInTime {
-	return func(o ...func(*ClosePointInTimeRequest)) (*Response, error) {
-		var r = ClosePointInTimeRequest{}
+	return func(body io.Reader, o ...func(*ClosePointInTimeRequest)) (*Response, error) {
+		var r = ClosePointInTimeRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +46,7 @@ func newClosePointInTimeFunc(t Transport) ClosePointInTime {
 // ClosePointInTime - Close a point in time
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/point-in-time-api.html.
-type ClosePointInTime func(o ...func(*ClosePointInTimeRequest)) (*Response, error)
+type ClosePointInTime func(body io.Reader, o ...func(*ClosePointInTimeRequest)) (*Response, error)
 
 // ClosePointInTimeRequest configures the Close Point In Time API request.
 type ClosePointInTimeRequest struct {
@@ -171,13 +171,6 @@ func (r ClosePointInTimeRequest) Do(providedCtx context.Context, transport Trans
 func (f ClosePointInTime) WithContext(v context.Context) func(*ClosePointInTimeRequest) {
 	return func(r *ClosePointInTimeRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - a point-in-time id to close.
-func (f ClosePointInTime) WithBody(v io.Reader) func(*ClosePointInTimeRequest) {
-	return func(r *ClosePointInTimeRequest) {
-		r.Body = v
 	}
 }
 

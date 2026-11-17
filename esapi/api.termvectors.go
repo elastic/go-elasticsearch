@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -65,7 +65,7 @@ type TermvectorsRequest struct {
 	Realtime        *bool
 	Routing         string
 	TermStatistics  *bool
-	Version         *int
+	Version         *int64
 	VersionType     string
 
 	Pretty     bool
@@ -155,7 +155,7 @@ func (r TermvectorsRequest) Do(providedCtx context.Context, transport Transport)
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -325,7 +325,7 @@ func (f Termvectors) WithTermStatistics(v bool) func(*TermvectorsRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f Termvectors) WithVersion(v int) func(*TermvectorsRequest) {
+func (f Termvectors) WithVersion(v int64) func(*TermvectorsRequest) {
 	return func(r *TermvectorsRequest) {
 		r.Version = &v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAzureopenaiFunc(t Transport) InferencePutAzureopenai {
-	return func(azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error) {
-		var r = InferencePutAzureopenaiRequest{AzureopenaiInferenceID: azureopenai_inference_id, TaskType: task_type}
+	return func(body io.Reader, azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error) {
+		var r = InferencePutAzureopenaiRequest{Body: body, AzureopenaiInferenceID: azureopenai_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +47,7 @@ func newInferencePutAzureopenaiFunc(t Transport) InferencePutAzureopenai {
 // InferencePutAzureopenai create an Azure OpenAI inference endpoint
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-azure-openai.html.
-type InferencePutAzureopenai func(azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error)
+type InferencePutAzureopenai func(body io.Reader, azureopenai_inference_id string, task_type string, o ...func(*InferencePutAzureopenaiRequest)) (*Response, error)
 
 // InferencePutAzureopenaiRequest configures the Inference Put Azureopenai API request.
 type InferencePutAzureopenaiRequest struct {
@@ -54,6 +55,8 @@ type InferencePutAzureopenaiRequest struct {
 
 	AzureopenaiInferenceID string
 	TaskType               string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAzureopenaiRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutAzureopenai) WithContext(v context.Context) func(*InferenceP
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAzureopenai) WithBody(v io.Reader) func(*InferencePutAzureopenaiRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAzureopenai) WithTimeout(v time.Duration) func(*InferencePutAzureopenaiRequest) {
 	return func(r *InferencePutAzureopenaiRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

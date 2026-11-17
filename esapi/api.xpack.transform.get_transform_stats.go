@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -54,8 +54,9 @@ type TransformGetTransformStatsRequest struct {
 	TransformID string
 
 	AllowNoMatch *bool
-	From         *int
-	Size         *int
+	Basic        *bool
+	From         *int64
+	Size         *int64
 	Timeout      time.Duration
 
 	Pretty     bool
@@ -107,12 +108,16 @@ func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, trans
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
 	}
 
+	if r.Basic != nil {
+		params["basic"] = strconv.FormatBool(*r.Basic)
+	}
+
 	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+		params["from"] = strconv.FormatInt(*r.From, 10)
 	}
 
 	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+		params["size"] = strconv.FormatInt(*r.Size, 10)
 	}
 
 	if r.Timeout != 0 {
@@ -204,15 +209,22 @@ func (f TransformGetTransformStats) WithAllowNoMatch(v bool) func(*TransformGetT
 	}
 }
 
+// WithBasic - if true, the response includes ID, state, node, stats, health, and basic checkpointing information (last and next checkpoint numbers and the next checkpoint's position and progress). skips statistics that require heavy computations to calculate: operations_behind, changes_last_detected_at, last_search_time, and checkpoint timestamps..
+func (f TransformGetTransformStats) WithBasic(v bool) func(*TransformGetTransformStatsRequest) {
+	return func(r *TransformGetTransformStatsRequest) {
+		r.Basic = &v
+	}
+}
+
 // WithFrom - skips a number of transform stats, defaults to 0.
-func (f TransformGetTransformStats) WithFrom(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithFrom(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.From = &v
 	}
 }
 
 // WithSize - specifies a max number of transform stats to get, defaults to 100.
-func (f TransformGetTransformStats) WithSize(v int) func(*TransformGetTransformStatsRequest) {
+func (f TransformGetTransformStats) WithSize(v int64) func(*TransformGetTransformStatsRequest) {
 	return func(r *TransformGetTransformStatsRequest) {
 		r.Size = &v
 	}

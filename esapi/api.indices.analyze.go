@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
-	return func(o ...func(*IndicesAnalyzeRequest)) (*Response, error) {
-		var r = IndicesAnalyzeRequest{}
+	return func(body io.Reader, o ...func(*IndicesAnalyzeRequest)) (*Response, error) {
+		var r = IndicesAnalyzeRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +46,7 @@ func newIndicesAnalyzeFunc(t Transport) IndicesAnalyze {
 // IndicesAnalyze get tokens from text analysis
 //
 // See full documentation at https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-analyze.
-type IndicesAnalyze func(o ...func(*IndicesAnalyzeRequest)) (*Response, error)
+type IndicesAnalyze func(body io.Reader, o ...func(*IndicesAnalyzeRequest)) (*Response, error)
 
 // IndicesAnalyzeRequest configures the Indices Analyze API request.
 type IndicesAnalyzeRequest struct {
@@ -185,13 +185,6 @@ func (r IndicesAnalyzeRequest) Do(providedCtx context.Context, transport Transpo
 func (f IndicesAnalyze) WithContext(v context.Context) func(*IndicesAnalyzeRequest) {
 	return func(r *IndicesAnalyzeRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - Define analyzer/tokenizer parameters and the text on which the analysis should be performed.
-func (f IndicesAnalyze) WithBody(v io.Reader) func(*IndicesAnalyzeRequest) {
-	return func(r *IndicesAnalyzeRequest) {
-		r.Body = v
 	}
 }
 

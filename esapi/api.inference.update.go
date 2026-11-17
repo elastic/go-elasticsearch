@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceUpdateFunc(t Transport) InferenceUpdate {
-	return func(inference_id string, o ...func(*InferenceUpdateRequest)) (*Response, error) {
-		var r = InferenceUpdateRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceUpdateRequest)) (*Response, error) {
+		var r = InferenceUpdateRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +46,7 @@ func newInferenceUpdateFunc(t Transport) InferenceUpdate {
 // InferenceUpdate update an inference endpoint
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/update-inference-api.html.
-type InferenceUpdate func(inference_id string, o ...func(*InferenceUpdateRequest)) (*Response, error)
+type InferenceUpdate func(body io.Reader, inference_id string, o ...func(*InferenceUpdateRequest)) (*Response, error)
 
 // InferenceUpdateRequest configures the Inference Update API request.
 type InferenceUpdateRequest struct {
@@ -189,13 +189,6 @@ func (r InferenceUpdateRequest) Do(providedCtx context.Context, transport Transp
 func (f InferenceUpdate) WithContext(v context.Context) func(*InferenceUpdateRequest) {
 	return func(r *InferenceUpdateRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The inference endpoint's task and service settings.
-func (f InferenceUpdate) WithBody(v io.Reader) func(*InferenceUpdateRequest) {
-	return func(r *InferenceUpdateRequest) {
-		r.Body = v
 	}
 }
 

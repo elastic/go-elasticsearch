@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceCompletionFunc(t Transport) InferenceCompletion {
-	return func(inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error) {
-		var r = InferenceCompletionRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error) {
+		var r = InferenceCompletionRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,13 +47,15 @@ func newInferenceCompletionFunc(t Transport) InferenceCompletion {
 // InferenceCompletion perform completion inference on the service
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
-type InferenceCompletion func(inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error)
+type InferenceCompletion func(body io.Reader, inference_id string, o ...func(*InferenceCompletionRequest)) (*Response, error)
 
 // InferenceCompletionRequest configures the Inference Completion API request.
 type InferenceCompletionRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceCompletionRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -184,10 +191,10 @@ func (f InferenceCompletion) WithContext(v context.Context) func(*InferenceCompl
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceCompletion) WithBody(v io.Reader) func(*InferenceCompletionRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceCompletion) WithTimeout(v time.Duration) func(*InferenceCompletionRequest) {
 	return func(r *InferenceCompletionRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

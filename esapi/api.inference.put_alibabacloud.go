@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
-	return func(alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error) {
-		var r = InferencePutAlibabacloudRequest{AlibabacloudInferenceID: alibabacloud_inference_id, TaskType: task_type}
+	return func(body io.Reader, alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error) {
+		var r = InferencePutAlibabacloudRequest{Body: body, AlibabacloudInferenceID: alibabacloud_inference_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,7 +47,7 @@ func newInferencePutAlibabacloudFunc(t Transport) InferencePutAlibabacloud {
 // InferencePutAlibabacloud create an AlibabaCloud AI Search inference endpoint
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/infer-service-alibabacloud-ai-search.html.
-type InferencePutAlibabacloud func(alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error)
+type InferencePutAlibabacloud func(body io.Reader, alibabacloud_inference_id string, task_type string, o ...func(*InferencePutAlibabacloudRequest)) (*Response, error)
 
 // InferencePutAlibabacloudRequest configures the Inference Put Alibabacloud API request.
 type InferencePutAlibabacloudRequest struct {
@@ -54,6 +55,8 @@ type InferencePutAlibabacloudRequest struct {
 
 	AlibabacloudInferenceID string
 	TaskType                string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r InferencePutAlibabacloudRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,10 +195,10 @@ func (f InferencePutAlibabacloud) WithContext(v context.Context) func(*Inference
 	}
 }
 
-// WithBody - The inference endpoint's task and service settings.
-func (f InferencePutAlibabacloud) WithBody(v io.Reader) func(*InferencePutAlibabacloudRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference endpoint to be created..
+func (f InferencePutAlibabacloud) WithTimeout(v time.Duration) func(*InferencePutAlibabacloudRequest) {
 	return func(r *InferencePutAlibabacloudRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

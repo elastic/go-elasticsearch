@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
-	return func(inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error) {
-		var r = InferenceSparseEmbeddingRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error) {
+		var r = InferenceSparseEmbeddingRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,13 +47,15 @@ func newInferenceSparseEmbeddingFunc(t Transport) InferenceSparseEmbedding {
 // InferenceSparseEmbedding perform sparse embedding inference on the service
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/post-inference-api.html.
-type InferenceSparseEmbedding func(inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error)
+type InferenceSparseEmbedding func(body io.Reader, inference_id string, o ...func(*InferenceSparseEmbeddingRequest)) (*Response, error)
 
 // InferenceSparseEmbeddingRequest configures the Inference Sparse Embedding API request.
 type InferenceSparseEmbeddingRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r InferenceSparseEmbeddingRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -184,10 +191,10 @@ func (f InferenceSparseEmbedding) WithContext(v context.Context) func(*Inference
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceSparseEmbedding) WithBody(v io.Reader) func(*InferenceSparseEmbeddingRequest) {
+// WithTimeout - specifies the amount of time to wait for the inference request to complete..
+func (f InferenceSparseEmbedding) WithTimeout(v time.Duration) func(*InferenceSparseEmbeddingRequest) {
 	return func(r *InferenceSparseEmbeddingRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

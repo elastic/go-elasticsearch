@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -287,7 +287,7 @@ func (f MLStartTrainedModelDeployment) WithTimeout(v time.Duration) func(*MLStar
 	}
 }
 
-// WithWaitFor - the allocation status for which to wait.
+// WithWaitFor - specifies the allocation status to wait for before returning..
 func (f MLStartTrainedModelDeployment) WithWaitFor(v string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.WaitFor = v

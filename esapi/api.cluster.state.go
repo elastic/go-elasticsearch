@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -61,7 +61,7 @@ type ClusterStateRequest struct {
 	IgnoreUnavailable      *bool
 	Local                  *bool
 	MasterTimeout          time.Duration
-	WaitForMetadataVersion *int
+	WaitForMetadataVersion *int64
 	WaitForTimeout         time.Duration
 
 	Pretty     bool
@@ -143,7 +143,7 @@ func (r ClusterStateRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	if r.WaitForMetadataVersion != nil {
-		params["wait_for_metadata_version"] = strconv.FormatInt(int64(*r.WaitForMetadataVersion), 10)
+		params["wait_for_metadata_version"] = strconv.FormatInt(*r.WaitForMetadataVersion, 10)
 	}
 
 	if r.WaitForTimeout != 0 {
@@ -285,7 +285,7 @@ func (f ClusterState) WithMasterTimeout(v time.Duration) func(*ClusterStateReque
 }
 
 // WithWaitForMetadataVersion - wait for the metadata version to be equal or greater than the specified metadata version.
-func (f ClusterState) WithWaitForMetadataVersion(v int) func(*ClusterStateRequest) {
+func (f ClusterState) WithWaitForMetadataVersion(v int64) func(*ClusterStateRequest) {
 	return func(r *ClusterStateRequest) {
 		r.WaitForMetadataVersion = &v
 	}

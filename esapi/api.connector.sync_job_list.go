@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -221,7 +221,7 @@ func (f ConnectorSyncJobList) WithSize(v int) func(*ConnectorSyncJobListRequest)
 	}
 }
 
-// WithStatus - sync job status, which sync jobs are fetched for.
+// WithStatus - a sync job status to fetch connector sync jobs for.
 func (f ConnectorSyncJobList) WithStatus(v string) func(*ConnectorSyncJobListRequest) {
 	return func(r *ConnectorSyncJobListRequest) {
 		r.Status = v

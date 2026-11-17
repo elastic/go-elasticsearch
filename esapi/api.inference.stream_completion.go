@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -24,11 +24,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newInferenceStreamCompletionFunc(t Transport) InferenceStreamCompletion {
-	return func(inference_id string, o ...func(*InferenceStreamCompletionRequest)) (*Response, error) {
-		var r = InferenceStreamCompletionRequest{InferenceID: inference_id}
+	return func(body io.Reader, inference_id string, o ...func(*InferenceStreamCompletionRequest)) (*Response, error) {
+		var r = InferenceStreamCompletionRequest{Body: body, InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -46,13 +47,15 @@ func newInferenceStreamCompletionFunc(t Transport) InferenceStreamCompletion {
 // InferenceStreamCompletion perform streaming inference
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/stream-inference-api.html.
-type InferenceStreamCompletion func(inference_id string, o ...func(*InferenceStreamCompletionRequest)) (*Response, error)
+type InferenceStreamCompletion func(body io.Reader, inference_id string, o ...func(*InferenceStreamCompletionRequest)) (*Response, error)
 
 // InferenceStreamCompletionRequest configures the Inference Stream Completion API request.
 type InferenceStreamCompletionRequest struct {
 	Body io.Reader
 
 	InferenceID string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r InferenceStreamCompletionRequest) Do(providedCtx context.Context, transp
 	path.WriteString("_stream")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -186,10 +193,10 @@ func (f InferenceStreamCompletion) WithContext(v context.Context) func(*Inferenc
 	}
 }
 
-// WithBody - The inference payload.
-func (f InferenceStreamCompletion) WithBody(v io.Reader) func(*InferenceStreamCompletionRequest) {
+// WithTimeout - the amount of time to wait for the inference request to complete..
+func (f InferenceStreamCompletion) WithTimeout(v time.Duration) func(*InferenceStreamCompletionRequest) {
 	return func(r *InferenceStreamCompletionRequest) {
-		r.Body = v
+		r.Timeout = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -50,6 +50,8 @@ type IndicesDataStreamsStats func(o ...func(*IndicesDataStreamsStatsRequest)) (*
 // IndicesDataStreamsStatsRequest configures the Indices Data Streams Stats API request.
 type IndicesDataStreamsStatsRequest struct {
 	Name []string
+
+	ExpandWildcards []string
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +99,10 @@ func (r IndicesDataStreamsStatsRequest) Do(providedCtx context.Context, transpor
 	path.WriteString("_stats")
 
 	params = make(map[string]string)
+
+	if len(r.ExpandWildcards) > 0 {
+		params["expand_wildcards"] = strings.Join(r.ExpandWildcards, ",")
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -180,6 +186,13 @@ func (f IndicesDataStreamsStats) WithContext(v context.Context) func(*IndicesDat
 func (f IndicesDataStreamsStats) WithName(v ...string) func(*IndicesDataStreamsStatsRequest) {
 	return func(r *IndicesDataStreamsStatsRequest) {
 		r.Name = v
+	}
+}
+
+// WithExpandWildcards - whether to expand wildcard expressions to concrete data stream names that are open, closed or both..
+func (f IndicesDataStreamsStats) WithExpandWildcards(v ...string) func(*IndicesDataStreamsStatsRequest) {
+	return func(r *IndicesDataStreamsStatsRequest) {
+		r.ExpandWildcards = v
 	}
 }
 

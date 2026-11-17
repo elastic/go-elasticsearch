@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newMLGetOverallBucketsFunc(t Transport) MLGetOverallBuckets {
@@ -57,7 +58,7 @@ type MLGetOverallBucketsRequest struct {
 	JobID string
 
 	AllowNoMatch   *bool
-	BucketSpan     string
+	BucketSpan     time.Duration
 	End            string
 	ExcludeInterim *bool
 	OverallScore   interface{}
@@ -117,8 +118,8 @@ func (r MLGetOverallBucketsRequest) Do(providedCtx context.Context, transport Tr
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
 	}
 
-	if r.BucketSpan != "" {
-		params["bucket_span"] = r.BucketSpan
+	if r.BucketSpan != 0 {
+		params["bucket_span"] = formatDuration(r.BucketSpan)
 	}
 
 	if r.End != "" {
@@ -241,7 +242,7 @@ func (f MLGetOverallBuckets) WithAllowNoMatch(v bool) func(*MLGetOverallBucketsR
 }
 
 // WithBucketSpan - the span of the overall buckets. defaults to the longest job bucket_span.
-func (f MLGetOverallBuckets) WithBucketSpan(v string) func(*MLGetOverallBucketsRequest) {
+func (f MLGetOverallBuckets) WithBucketSpan(v time.Duration) func(*MLGetOverallBucketsRequest) {
 	return func(r *MLGetOverallBucketsRequest) {
 		r.BucketSpan = v
 	}

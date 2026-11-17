@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0 (d6dd041): DO NOT EDIT
+// Code generated from specification version 8.19.26 (fe0276c): DO NOT EDIT
 
 package esapi
 
@@ -159,7 +159,6 @@ type API struct {
 	InferenceTextEmbedding                        InferenceTextEmbedding
 	InferenceUpdate                               InferenceUpdate
 	Info                                          Info
-	KnnSearch                                     KnnSearch
 	LogstashDeletePipeline                        LogstashDeletePipeline
 	LogstashGetPipeline                           LogstashGetPipeline
 	LogstashPutPipeline                           LogstashPutPipeline
@@ -808,7 +807,6 @@ func New(t Transport) *API {
 		InferenceTextEmbedding:             newInferenceTextEmbeddingFunc(t),
 		InferenceUpdate:                    newInferenceUpdateFunc(t),
 		Info:                               newInfoFunc(t),
-		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
 		LogstashGetPipeline:                newLogstashGetPipelineFunc(t),
 		LogstashPutPipeline:                newLogstashPutPipelineFunc(t),

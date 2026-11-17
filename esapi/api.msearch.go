@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -63,7 +63,7 @@ type MsearchRequest struct {
 	IncludeNamedQueriesScore   *bool
 	MaxConcurrentSearches      *int
 	MaxConcurrentShardRequests *int
-	PreFilterShardSize         *int
+	PreFilterShardSize         *int64
 	RestTotalHitsAsInt         *bool
 	Routing                    []string
 	SearchType                 string
@@ -151,7 +151,7 @@ func (r MsearchRequest) Do(providedCtx context.Context, transport Transport) (*R
 	}
 
 	if r.PreFilterShardSize != nil {
-		params["pre_filter_shard_size"] = strconv.FormatInt(int64(*r.PreFilterShardSize), 10)
+		params["pre_filter_shard_size"] = strconv.FormatInt(*r.PreFilterShardSize, 10)
 	}
 
 	if r.RestTotalHitsAsInt != nil {
@@ -319,7 +319,7 @@ func (f Msearch) WithMaxConcurrentShardRequests(v int) func(*MsearchRequest) {
 }
 
 // WithPreFilterShardSize - a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. this filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint..
-func (f Msearch) WithPreFilterShardSize(v int) func(*MsearchRequest) {
+func (f Msearch) WithPreFilterShardSize(v int64) func(*MsearchRequest) {
 	return func(r *MsearchRequest) {
 		r.PreFilterShardSize = &v
 	}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -28,8 +28,8 @@ import (
 )
 
 func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
-	return func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error) {
-		var r = ILMPutLifecycleRequest{Policy: policy}
+	return func(body io.Reader, policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error) {
+		var r = ILMPutLifecycleRequest{Body: body, Policy: policy}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
 // ILMPutLifecycle - Create or update a lifecycle policy
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/8.19/ilm-put-lifecycle.html.
-type ILMPutLifecycle func(policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error)
+type ILMPutLifecycle func(body io.Reader, policy string, o ...func(*ILMPutLifecycleRequest)) (*Response, error)
 
 // ILMPutLifecycleRequest configures the ILM Put Lifecycle API request.
 type ILMPutLifecycleRequest struct {
@@ -193,13 +193,6 @@ func (r ILMPutLifecycleRequest) Do(providedCtx context.Context, transport Transp
 func (f ILMPutLifecycle) WithContext(v context.Context) func(*ILMPutLifecycleRequest) {
 	return func(r *ILMPutLifecycleRequest) {
 		r.ctx = v
-	}
-}
-
-// WithBody - The lifecycle policy definition to register.
-func (f ILMPutLifecycle) WithBody(v io.Reader) func(*ILMPutLifecycleRequest) {
-	return func(r *ILMPutLifecycleRequest) {
-		r.Body = v
 	}
 }
 

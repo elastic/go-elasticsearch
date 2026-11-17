@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -56,7 +56,7 @@ type MsearchTemplateRequest struct {
 	Body io.Reader
 
 	CcsMinimizeRoundtrips *bool
-	MaxConcurrentSearches *int
+	MaxConcurrentSearches *int64
 	RestTotalHitsAsInt    *bool
 	SearchType            string
 	TypedKeys             *bool
@@ -113,7 +113,7 @@ func (r MsearchTemplateRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if r.MaxConcurrentSearches != nil {
-		params["max_concurrent_searches"] = strconv.FormatInt(int64(*r.MaxConcurrentSearches), 10)
+		params["max_concurrent_searches"] = strconv.FormatInt(*r.MaxConcurrentSearches, 10)
 	}
 
 	if r.RestTotalHitsAsInt != nil {
@@ -228,7 +228,7 @@ func (f MsearchTemplate) WithCcsMinimizeRoundtrips(v bool) func(*MsearchTemplate
 }
 
 // WithMaxConcurrentSearches - controls the maximum number of concurrent searches the multi search api will execute.
-func (f MsearchTemplate) WithMaxConcurrentSearches(v int) func(*MsearchTemplateRequest) {
+func (f MsearchTemplate) WithMaxConcurrentSearches(v int64) func(*MsearchTemplateRequest) {
 	return func(r *MsearchTemplateRequest) {
 		r.MaxConcurrentSearches = &v
 	}

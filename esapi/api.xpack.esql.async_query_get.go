@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -204,7 +204,7 @@ func (f EsqlAsyncQueryGet) WithDropNullColumns(v bool) func(*EsqlAsyncQueryGetRe
 	}
 }
 
-// WithFormat - a short version of the accept header, e.g. json, yaml.
+// WithFormat - a short version of the accept header, for example `json` or `yaml`..
 func (f EsqlAsyncQueryGet) WithFormat(v string) func(*EsqlAsyncQueryGetRequest) {
 	return func(r *EsqlAsyncQueryGetRequest) {
 		r.Format = v

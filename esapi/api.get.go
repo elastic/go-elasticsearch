@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.19.0: DO NOT EDIT
+// Code generated from specification version 8.19.26: DO NOT EDIT
 
 package esapi
 
@@ -62,7 +62,7 @@ type GetRequest struct {
 	SourceExcludes       []string
 	SourceIncludes       []string
 	StoredFields         []string
-	Version              *int
+	Version              *int64
 	VersionType          string
 
 	Pretty     bool
@@ -150,7 +150,7 @@ func (r GetRequest) Do(providedCtx context.Context, transport Transport) (*Respo
 	}
 
 	if r.Version != nil {
-		params["version"] = strconv.FormatInt(int64(*r.Version), 10)
+		params["version"] = strconv.FormatInt(*r.Version, 10)
 	}
 
 	if r.VersionType != "" {
@@ -299,7 +299,7 @@ func (f Get) WithStoredFields(v ...string) func(*GetRequest) {
 }
 
 // WithVersion - explicit version number for concurrency control.
-func (f Get) WithVersion(v int) func(*GetRequest) {
+func (f Get) WithVersion(v int64) func(*GetRequest) {
 	return func(r *GetRequest) {
 		r.Version = &v
 	}
