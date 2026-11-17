@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 9.5.0 (8d4246a): DO NOT EDIT
+// Code generated from specification version 9.5.7 (44a96f7): DO NOT EDIT
 
 package esapi
 
