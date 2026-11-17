@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package hasprivilegesuserprofile
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package hasprivilegesuserprofile
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/security/has_privileges_user_profile/Response.ts#L23-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/security/has_privileges_user_profile/Response.ts#L23-L38
 type Response struct {
 	// Errors The subset of the requested profile IDs for which an error was encountered.
 	// It does not include the missing profile IDs or the profile IDs of the users

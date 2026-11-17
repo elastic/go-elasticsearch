@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
 import (
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
 )
 
@@ -36,6 +37,18 @@ func NewIndexOperation() *_indexOperation {
 
 	return &_indexOperation{v: types.NewIndexOperation()}
 
+}
+
+func (s *_indexOperation) OpType(optype optype.OpType) *_indexOperation {
+
+	s.v.OpType = &optype
+	return s
+}
+
+func (s *_indexOperation) DynamicTemplateParams(dynamictemplateparams map[string]map[string]string) *_indexOperation {
+
+	s.v.DynamicTemplateParams = dynamictemplateparams
+	return s
 }
 
 func (s *_indexOperation) DynamicTemplates(dynamictemplates map[string]string) *_indexOperation {
@@ -87,6 +100,13 @@ func (s *_indexOperation) Index_(indexname string) *_indexOperation {
 	return s
 }
 
+func (s *_indexOperation) ListExecutedPipelines(listexecutedpipelines bool) *_indexOperation {
+
+	s.v.ListExecutedPipelines = &listexecutedpipelines
+
+	return s
+}
+
 func (s *_indexOperation) Pipeline(pipeline string) *_indexOperation {
 
 	s.v.Pipeline = &pipeline
@@ -97,6 +117,13 @@ func (s *_indexOperation) Pipeline(pipeline string) *_indexOperation {
 func (s *_indexOperation) RequireAlias(requirealias bool) *_indexOperation {
 
 	s.v.RequireAlias = &requirealias
+
+	return s
+}
+
+func (s *_indexOperation) RequireDataStream(requiredatastream bool) *_indexOperation {
+
+	s.v.RequireDataStream = &requiredatastream
 
 	return s
 }

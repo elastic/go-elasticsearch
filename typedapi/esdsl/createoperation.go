@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -35,6 +35,12 @@ func NewCreateOperation() *_createOperation {
 
 	return &_createOperation{v: types.NewCreateOperation()}
 
+}
+
+func (s *_createOperation) DynamicTemplateParams(dynamictemplateparams map[string]map[string]string) *_createOperation {
+
+	s.v.DynamicTemplateParams = dynamictemplateparams
+	return s
 }
 
 func (s *_createOperation) DynamicTemplates(dynamictemplates map[string]string) *_createOperation {
@@ -86,6 +92,13 @@ func (s *_createOperation) Index_(indexname string) *_createOperation {
 	return s
 }
 
+func (s *_createOperation) ListExecutedPipelines(listexecutedpipelines bool) *_createOperation {
+
+	s.v.ListExecutedPipelines = &listexecutedpipelines
+
+	return s
+}
+
 func (s *_createOperation) Pipeline(pipeline string) *_createOperation {
 
 	s.v.Pipeline = &pipeline
@@ -96,6 +109,13 @@ func (s *_createOperation) Pipeline(pipeline string) *_createOperation {
 func (s *_createOperation) RequireAlias(requirealias bool) *_createOperation {
 
 	s.v.RequireAlias = &requirealias
+
+	return s
+}
+
+func (s *_createOperation) RequireDataStream(requiredatastream bool) *_createOperation {
+
+	s.v.RequireDataStream = &requiredatastream
 
 	return s
 }

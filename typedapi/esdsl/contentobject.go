@@ -16,62 +16,60 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
-import (
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/contenttype"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
+// This is provide all the types that are part of the union.
 type _contentObject struct {
-	v *types.ContentObject
+	v types.ContentObject
 }
 
-func NewContentObject(file types.FileContentVariant, imageurl types.ImageUrlVariant, text string, type_ contenttype.ContentType) *_contentObject {
-
-	tmp := &_contentObject{v: types.NewContentObject()}
-
-	tmp.File(file)
-
-	tmp.ImageUrl(imageurl)
-
-	tmp.Text(text)
-
-	tmp.Type(type_)
-
-	return tmp
-
+func NewContentObject() *_contentObject {
+	return &_contentObject{v: nil}
 }
 
-func (s *_contentObject) File(file types.FileContentVariant) *_contentObject {
+func (u *_contentObject) TextContent(textcontent types.TextContentVariant) *_contentObject {
 
-	s.v.File = *file.FileContentCaster()
+	u.v = textcontent.TextContentCaster()
 
-	return s
+	return u
 }
 
-func (s *_contentObject) ImageUrl(imageurl types.ImageUrlVariant) *_contentObject {
-
-	s.v.ImageUrl = *imageurl.ImageUrlCaster()
-
-	return s
+// Interface implementation for TextContent in ContentObject union
+func (u *_textContent) ContentObjectCaster() *types.ContentObject {
+	t := types.ContentObject(u.v)
+	return &t
 }
 
-func (s *_contentObject) Text(text string) *_contentObject {
+func (u *_contentObject) ImageUrlContent(imageurlcontent types.ImageUrlContentVariant) *_contentObject {
 
-	s.v.Text = text
+	u.v = imageurlcontent.ImageUrlContentCaster()
 
-	return s
+	return u
 }
 
-func (s *_contentObject) Type(type_ contenttype.ContentType) *_contentObject {
-
-	s.v.Type = type_
-	return s
+// Interface implementation for ImageUrlContent in ContentObject union
+func (u *_imageUrlContent) ContentObjectCaster() *types.ContentObject {
+	t := types.ContentObject(u.v)
+	return &t
 }
 
-func (s *_contentObject) ContentObjectCaster() *types.ContentObject {
-	return s.v
+func (u *_contentObject) FileContentPart(filecontentpart types.FileContentPartVariant) *_contentObject {
+
+	u.v = filecontentpart.FileContentPartCaster()
+
+	return u
+}
+
+// Interface implementation for FileContentPart in ContentObject union
+func (u *_fileContentPart) ContentObjectCaster() *types.ContentObject {
+	t := types.ContentObject(u.v)
+	return &t
+}
+
+func (u *_contentObject) ContentObjectCaster() *types.ContentObject {
+	return &u.v
 }

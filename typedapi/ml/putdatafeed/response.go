@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package putdatafeed
 
@@ -26,23 +26,24 @@ import (
 
 // Response holds the response body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ml/put_datafeed/MlPutDatafeedResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/ml/put_datafeed/MlPutDatafeedResponse.ts#L31-L50
 type Response struct {
-	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
-	Authorization          *types.DatafeedAuthorization  `json:"authorization,omitempty"`
-	ChunkingConfig         types.ChunkingConfig          `json:"chunking_config"`
-	DatafeedId             string                        `json:"datafeed_id"`
-	DelayedDataCheckConfig *types.DelayedDataCheckConfig `json:"delayed_data_check_config,omitempty"`
-	Frequency              types.Duration                `json:"frequency,omitempty"`
-	Indices                []string                      `json:"indices"`
-	IndicesOptions         *types.IndicesOptions         `json:"indices_options,omitempty"`
-	JobId                  string                        `json:"job_id"`
-	MaxEmptySearches       *int                          `json:"max_empty_searches,omitempty"`
-	Query                  types.Query                   `json:"query"`
-	QueryDelay             types.Duration                `json:"query_delay"`
-	RuntimeMappings        types.RuntimeFields           `json:"runtime_mappings,omitempty"`
-	ScriptFields           map[string]types.ScriptField  `json:"script_fields,omitempty"`
-	ScrollSize             int                           `json:"scroll_size"`
+	Aggregations                     map[string]types.Aggregations `json:"aggregations,omitempty"`
+	Authorization                    *types.DatafeedAuthorization  `json:"authorization,omitempty"`
+	ChunkingConfig                   types.ChunkingConfig          `json:"chunking_config"`
+	DatafeedId                       string                        `json:"datafeed_id"`
+	DelayedDataCheckConfig           *types.DelayedDataCheckConfig `json:"delayed_data_check_config,omitempty"`
+	Frequency                        types.Duration                `json:"frequency,omitempty"`
+	Indices                          []string                      `json:"indices"`
+	IndicesOptions                   *types.IndicesOptions         `json:"indices_options,omitempty"`
+	JobId                            string                        `json:"job_id"`
+	MaxConsecutiveExtractionFailures *int                          `json:"max_consecutive_extraction_failures,omitempty"`
+	MaxEmptySearches                 *int                          `json:"max_empty_searches,omitempty"`
+	Query                            types.Query                   `json:"query"`
+	QueryDelay                       types.Duration                `json:"query_delay"`
+	RuntimeMappings                  types.RuntimeFields           `json:"runtime_mappings,omitempty"`
+	ScriptFields                     map[string]types.ScriptField  `json:"script_fields,omitempty"`
+	ScrollSize                       int                           `json:"scroll_size"`
 }
 
 // NewResponse returns a Response

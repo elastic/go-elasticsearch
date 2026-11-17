@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package updatedatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L173
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L181
 type Request struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -66,6 +66,14 @@ type Request struct {
 	// IndicesOptions Specifies index expansion options that are used during search.
 	IndicesOptions *types.IndicesOptions `json:"indices_options,omitempty"`
 	JobId          *string               `json:"job_id,omitempty"`
+	// MaxConsecutiveExtractionFailures The maximum number of consecutive real-time data extraction failures the
+	// datafeed tolerates before it automatically stops itself, leaving the
+	// associated job open. The consecutive-failure counter resets on any cycle that
+	// extracts successfully, including empty-data cycles. If not set, the threshold
+	// defaults to roughly one day's worth of searches based on the datafeed
+	// `frequency` (floored at 1). Set to `-1` to disable auto-stop and retry
+	// indefinitely. Values of `0` or less than `-1` are rejected.
+	MaxConsecutiveExtractionFailures *int `json:"max_consecutive_extraction_failures,omitempty"`
 	// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
 	// training period), it automatically stops and closes the associated job after
 	// this many real-time searches return no documents. In other words, it stops
@@ -173,6 +181,22 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
 				return fmt.Errorf("%s | %w", "JobId", err)
+			}
+
+		case "max_consecutive_extraction_failures":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxConsecutiveExtractionFailures", err)
+				}
+				s.MaxConsecutiveExtractionFailures = &value
+			case float64:
+				f := int(v)
+				s.MaxConsecutiveExtractionFailures = &f
 			}
 
 		case "max_empty_searches":

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
-// Get cluster info.
+// Get cluster subsystem info.
 //
 // Returns basic information about the cluster.
 package info
@@ -78,7 +78,7 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Get cluster info.
+// Get cluster subsystem info.
 //
 // Returns basic information about the cluster.
 //

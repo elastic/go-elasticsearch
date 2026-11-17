@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -35,6 +35,13 @@ func NewTopMetricsValue() *_topMetricsValue {
 func (s *_topMetricsValue) Field(field string) *_topMetricsValue {
 
 	s.v.Field = field
+
+	return s
+}
+
+func (s *_topMetricsValue) Missing(missing types.MissingVariant) *_topMetricsValue {
+
+	s.v.Missing = *missing.MissingCaster()
 
 	return s
 }

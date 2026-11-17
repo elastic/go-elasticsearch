@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RenameProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ingest/_types/Processors.ts#L1442-L1458
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/ingest/_types/Processors.ts#L1459-L1481
 type RenameProcessor struct {
 	// Description Description of the processor. Useful for describing the purpose of the
 	// processor or its configuration.
@@ -47,6 +47,9 @@ type RenameProcessor struct {
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Override If `true`, the processor overwrites `target_field` if it already exists. If
+	// `false`, the processor fails when `target_field` already exists.
+	Override *bool `json:"override,omitempty"`
 	// Tag Identifier for the processor. Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
 	// TargetField The new name of the field. Supports template snippets.
@@ -121,6 +124,20 @@ func (s *RenameProcessor) UnmarshalJSON(data []byte) error {
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {
 				return fmt.Errorf("%s | %w", "OnFailure", err)
+			}
+
+		case "override":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Override", err)
+				}
+				s.Override = &value
+			case bool:
+				s.Override = &v
 			}
 
 		case "tag":

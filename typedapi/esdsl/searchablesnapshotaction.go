@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -43,9 +43,30 @@ func (s *_searchableSnapshotAction) ForceMergeIndex(forcemergeindex bool) *_sear
 	return s
 }
 
+func (s *_searchableSnapshotAction) ForceMergeOnClone(forcemergeonclone bool) *_searchableSnapshotAction {
+
+	s.v.ForceMergeOnClone = &forcemergeonclone
+
+	return s
+}
+
+func (s *_searchableSnapshotAction) ReplicateFor(duration types.DurationVariant) *_searchableSnapshotAction {
+
+	s.v.ReplicateFor = *duration.DurationCaster()
+
+	return s
+}
+
 func (s *_searchableSnapshotAction) SnapshotRepository(snapshotrepository string) *_searchableSnapshotAction {
 
 	s.v.SnapshotRepository = snapshotrepository
+
+	return s
+}
+
+func (s *_searchableSnapshotAction) TotalShardsPerNode(totalshardspernode int) *_searchableSnapshotAction {
+
+	s.v.TotalShardsPerNode = &totalshardspernode
 
 	return s
 }

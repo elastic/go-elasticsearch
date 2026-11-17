@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 // Evaluate ranked search results.
 //
@@ -448,5 +448,31 @@ func (r *RankEval) RequestsValues(requestsvalues []types.RankEvalRequestItem) *R
 		r.req = NewRequest()
 	}
 	r.req.Requests = requestsvalues
+	return r
+}
+
+// Query templates that the rated requests can refer to by their `template_id`.
+// This way, queries that differ only in their parameters don't have to be
+// repeated in `requests`.
+// API name: templates
+func (r *RankEval) Templates(templates ...types.RankEvalTemplateVariant) *RankEval {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range templates {
+
+		r.req.Templates = append(r.req.Templates, *v.RankEvalTemplateCaster())
+
+	}
+	return r
+}
+
+func (r *RankEval) TemplatesValues(templatesvalues []types.RankEvalTemplate) *RankEval {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Templates = templatesvalues
 	return r
 }

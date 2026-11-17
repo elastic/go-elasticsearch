@@ -16,14 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
-import (
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/versiontype"
-)
+import "github.com/elastic/go-elasticsearch/v9/typedapi/types"
 
 type _updateOperation struct {
 	v *types.UpdateOperation
@@ -37,6 +34,20 @@ func NewUpdateOperation() *_updateOperation {
 
 }
 
+func (s *_updateOperation) ListExecutedPipelines(listexecutedpipelines bool) *_updateOperation {
+
+	s.v.ListExecutedPipelines = &listexecutedpipelines
+
+	return s
+}
+
+func (s *_updateOperation) Pipeline(pipeline string) *_updateOperation {
+
+	s.v.Pipeline = &pipeline
+
+	return s
+}
+
 func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 
 	s.v.RequireAlias = &requirealias
@@ -47,6 +58,13 @@ func (s *_updateOperation) RequireAlias(requirealias bool) *_updateOperation {
 func (s *_updateOperation) RetryOnConflict(retryonconflict int) *_updateOperation {
 
 	s.v.RetryOnConflict = &retryonconflict
+
+	return s
+}
+
+func (s *_updateOperation) Source_(sourceconfig types.SourceConfigVariant) *_updateOperation {
+
+	s.v.Source_ = *sourceconfig.SourceConfigCaster()
 
 	return s
 }
@@ -83,19 +101,6 @@ func (s *_updateOperation) Routing(routing string) *_updateOperation {
 
 	s.v.Routing = &routing
 
-	return s
-}
-
-func (s *_updateOperation) Version(versionnumber int64) *_updateOperation {
-
-	s.v.Version = &versionnumber
-
-	return s
-}
-
-func (s *_updateOperation) VersionType(versiontype versiontype.VersionType) *_updateOperation {
-
-	s.v.VersionType = &versiontype
 	return s
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -239,9 +239,9 @@ func (s *_indexSettings) MaxRescoreWindow(maxrescorewindow int) *_indexSettings 
 	return s
 }
 
-func (s *_indexSettings) MaxResultWindow(maxresultwindow int) *_indexSettings {
+func (s *_indexSettings) MaxResultWindow(stringifiedinteger types.StringifiedintegerVariant) *_indexSettings {
 
-	s.v.MaxResultWindow = &maxresultwindow
+	s.v.MaxResultWindow = *stringifiedinteger.StringifiedintegerCaster()
 
 	return s
 }
@@ -340,6 +340,13 @@ func (s *_indexSettings) QueryString(querystring types.SettingsQueryStringVarian
 func (s *_indexSettings) RefreshInterval(duration types.DurationVariant) *_indexSettings {
 
 	s.v.RefreshInterval = *duration.DurationCaster()
+
+	return s
+}
+
+func (s *_indexSettings) Requests(requests types.RequestsVariant) *_indexSettings {
+
+	s.v.Requests = requests.RequestsCaster()
 
 	return s
 }

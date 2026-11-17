@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -31,10 +31,24 @@ import (
 
 // SearchableSnapshotAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/ilm/_types/Phase.ts#L131-L134
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/ilm/_types/Phase.ts#L131-L160
 type SearchableSnapshotAction struct {
-	ForceMergeIndex    *bool  `json:"force_merge_index,omitempty"`
-	SnapshotRepository string `json:"snapshot_repository"`
+	ForceMergeIndex *bool `json:"force_merge_index,omitempty"`
+	// ForceMergeOnClone If `true`, and the index has replicas, ILM first clones the index with zero
+	// replicas and force merges the clone, so that replicas are not merged
+	// redundantly. If `false`, the managed index is force merged directly. Not
+	// allowed when `force_merge_index` is `false`.
+	ForceMergeOnClone *bool `json:"force_merge_on_clone,omitempty"`
+	// ReplicateFor The period for which the mounted index keeps one replica before the replica
+	// is removed. By default, the index is mounted without replicas. Must be
+	// positive. Only the first `searchable_snapshot` action in a policy may set
+	// this. It must fit before the next phase starts: for example, if this phase
+	// has a `min_age` of 5d and the next phase has 12d, it can be at most 7d.
+	ReplicateFor       Duration `json:"replicate_for,omitempty"`
+	SnapshotRepository string   `json:"snapshot_repository"`
+	// TotalShardsPerNode The maximum number of shards, including primaries and replicas, that can be
+	// allocated to any single node for the mounted index. Must be at least 1.
+	TotalShardsPerNode *int `json:"total_shards_per_node,omitempty"`
 }
 
 func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
@@ -66,6 +80,25 @@ func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
 				s.ForceMergeIndex = &v
 			}
 
+		case "force_merge_on_clone":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ForceMergeOnClone", err)
+				}
+				s.ForceMergeOnClone = &value
+			case bool:
+				s.ForceMergeOnClone = &v
+			}
+
+		case "replicate_for":
+			if err := dec.Decode(&s.ReplicateFor); err != nil {
+				return fmt.Errorf("%s | %w", "ReplicateFor", err)
+			}
+
 		case "snapshot_repository":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -77,6 +110,22 @@ func (s *SearchableSnapshotAction) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.SnapshotRepository = o
+
+		case "total_shards_per_node":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalShardsPerNode", err)
+				}
+				s.TotalShardsPerNode = &value
+			case float64:
+				f := int(v)
+				s.TotalShardsPerNode = &f
+			}
 
 		}
 	}

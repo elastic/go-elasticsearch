@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // QueryRulesetMatchedRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/query_rules/test/QueryRulesetTestResponse.ts#L30-L39
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/query_rules/test/QueryRulesetTestResponse.ts#L30-L39
 type QueryRulesetMatchedRule struct {
 	// RuleId Rule unique identifier within that ruleset
 	RuleId string `json:"rule_id"`

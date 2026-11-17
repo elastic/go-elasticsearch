@@ -16,94 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/contenttype"
-)
-
-// An object style representation of a single portion of a conversation.
+// ContentObject holds the union for the following types:
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/inference/_types/CommonTypes.ts#L159-L180
-type ContentObject struct {
-	// File The file content. Only applicable for the `file` type
-	File FileContent `json:"file"`
-	// ImageUrl The image content. Only applicable for the `image_url` type
-	ImageUrl ImageUrl `json:"image_url"`
-	// Text The text content. Only applicable for the `text` type
-	Text string `json:"text"`
-	// Type The type of content. Must be one of `text`, `image_url` or `file`. Not all
-	// services/models support content types other than "text"
-	Type contenttype.ContentType `json:"type"`
-}
-
-func (s *ContentObject) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "file":
-			if err := dec.Decode(&s.File); err != nil {
-				return fmt.Errorf("%s | %w", "File", err)
-			}
-
-		case "image_url":
-			if err := dec.Decode(&s.ImageUrl); err != nil {
-				return fmt.Errorf("%s | %w", "ImageUrl", err)
-			}
-
-		case "text":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Text", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Text = o
-
-		case "type":
-			if err := dec.Decode(&s.Type); err != nil {
-				return fmt.Errorf("%s | %w", "Type", err)
-			}
-
-		}
-	}
-	return nil
-}
-
-// NewContentObject returns a ContentObject.
-func NewContentObject() *ContentObject {
-	r := &ContentObject{}
-
-	return r
-}
+//	TextContent
+//	ImageUrlContent
+//	FileContentPart
+//
+// One part of a chat message. The `type` field selects which property is
+// present. Not all services and models support content types other than `text`.
+//
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/inference/_types/CommonTypes.ts#L159-L165
+type ContentObject any
 
 type ContentObjectVariant interface {
 	ContentObjectCaster() *ContentObject
-}
-
-func (s *ContentObject) ContentObjectCaster() *ContentObject {
-	return s
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
-// Get snapshot information.
+// Get a compact list of snapshots.
 //
 // Get information about the snapshots stored in one or more repositories. A
 // snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:
@@ -83,7 +83,7 @@ func NewSnapshotsFunc(tp elastictransport.Interface) NewSnapshots {
 	}
 }
 
-// Get snapshot information.
+// Get a compact list of snapshots.
 //
 // Get information about the snapshots stored in one or more repositories. A
 // snapshot is a backup of an index or running Elasticsearch cluster. IMPORTANT:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 // Explain the lifecycle state.
 //
@@ -41,6 +41,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -329,6 +330,20 @@ func (r *ExplainLifecycle) OnlyErrors(onlyerrors bool) *ExplainLifecycle {
 // API name: only_managed
 func (r *ExplainLifecycle) OnlyManaged(onlymanaged bool) *ExplainLifecycle {
 	r.values.Set("only_managed", strconv.FormatBool(onlymanaged))
+
+	return r
+}
+
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as `open,hidden`.
+// API name: expand_wildcards
+func (r *ExplainLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ExplainLifecycle {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

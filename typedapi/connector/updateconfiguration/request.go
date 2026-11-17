@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package updateconfiguration
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package updateconfiguration
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9665eef0d78c41f20c4c83e69b7c8155efd58f24/specification/connector/update_configuration/ConnectorUpdateConfigurationRequest.ts#L25-L57
+// https://github.com/elastic/elasticsearch-specification/blob/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4/specification/connector/update_configuration/ConnectorUpdateConfigurationRequest.ts#L25-L57
 type Request struct {
 	Configuration types.ConnectorConfiguration `json:"configuration,omitempty"`
 	Values        map[string]json.RawMessage   `json:"values,omitempty"`

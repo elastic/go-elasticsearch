@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9665eef0d78c41f20c4c83e69b7c8155efd58f24
+// https://github.com/elastic/elasticsearch-specification/tree/1cdb0310e2ed76dea2491f2551fca3f9143b6dc4
 
 package esdsl
 
@@ -26,15 +26,19 @@ type _groupings struct {
 	v *types.Groupings
 }
 
-func NewGroupings() *_groupings {
+func NewGroupings(datehistogram types.DateHistogramGroupingVariant) *_groupings {
 
-	return &_groupings{v: types.NewGroupings()}
+	tmp := &_groupings{v: types.NewGroupings()}
+
+	tmp.DateHistogram(datehistogram)
+
+	return tmp
 
 }
 
 func (s *_groupings) DateHistogram(datehistogram types.DateHistogramGroupingVariant) *_groupings {
 
-	s.v.DateHistogram = datehistogram.DateHistogramGroupingCaster()
+	s.v.DateHistogram = *datehistogram.DateHistogramGroupingCaster()
 
 	return s
 }
