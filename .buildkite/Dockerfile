@@ -3,7 +3,7 @@
 # $ docker run -it --env ELASTICSEARCH_URL=http://es1:9200 --network elasticsearch --rm elastic/go-elasticsearch go run _examples/main.go
 #
 
-ARG  VERSION=1-alpine
+ARG  VERSION=1.26-alpine
 FROM golang:${VERSION}
 
 RUN apk add --no-cache --quiet make curl git jq unzip tree && \
