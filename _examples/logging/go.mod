@@ -1,8 +1,8 @@
 module github.com/elastic/go-elasticsearch/v9/_examples/logging
 
-go 1.25.0
+go 1.26.0
 
-toolchain go1.25.12
+toolchain go1.26.11
 
 replace github.com/elastic/go-elasticsearch/v9 => ../..
 
@@ -22,5 +22,5 @@ require (
 	go.opentelemetry.io/otel v1.43.0 // indirect
 	go.opentelemetry.io/otel/metric v1.43.0 // indirect
 	go.opentelemetry.io/otel/trace v1.43.0 // indirect
-	golang.org/x/sys v0.42.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 )
